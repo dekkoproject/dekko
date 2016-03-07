@@ -42,11 +42,7 @@ dekko_option(ENABLE_LOGGING "Enables logging" ON)
 if(NOT ZLIB_FOUND)
     dekko_find_package(ZLIB "" "" "" "" WITH_ZLIB)
 endif()
-#if(WITH_ZLIB)
-#    include_directories(${ZLIB_INCLUDE_DIR})
-#else()
-#    message(FATAL_ERROR " zlib required for IMAP COMPRESS. Check you have 'zlib' installed")
-#endif()
+
 
 set(QMF_INSTALL_ROOT "/home/dan/test-qmf-install")
 
@@ -71,9 +67,26 @@ endif()
 
 set(CMAKE_AUTOMOC True)
 
-feature_summary(FATAL_ON_MISSING_REQUIRED_PACKAGES DESCRIPTION "\n" WHAT ALL)
+if(CLICK_MODE)
+    if(NOT "${CMAKE_INSTALL_PREFIX}" STREQUAL "/")
+        set(CMAKE_INSTALL_PREFIX "/")
+    endif()
+    set(QT_IMPORTS_DIR lib/${ARCH_TRIPLET})
+    set(BIN_DIR ${QT_IMPORTS_DIR}/bin)
+    set(DATA_DIR ${CMAKE_INSTALL_PREFIX})
+    set(DESKTOP_DIR ${DATA_DIR})
+    set(ICON_DIR ${DATA_DIR})
+    set(SOUND_DIR ${DATA_DIR}sounds)
+else(CLICK_MODE)
+    include(GNUInstallDirs)
+    set(DEKKO_DESKTOP_ID "dekko.desktop")
+endif(CLICK_MODE)
+
 add_subdirectory(qmf)
 add_subdirectory(app)
 add_subdirectory(click)
 add_subdirectory(plugins)
 add_subdirectory(server)
+
+feature_summary(FATAL_ON_MISSING_REQUIRED_PACKAGES DESCRIPTION "\n" WHAT ALL)
+

@@ -17,3 +17,5 @@ set(libQMFSTORAGE_SOURCES
 add_library(qmfstoragemanager SHARED ${libQMFSTORAGE_SOURCES})
 qt5_use_modules(qmfstoragemanager Core)
 target_link_libraries(qmfstoragemanager qmfclient5)
+
+install(TARGETS qmfstoragemanager DESTINATION ${CONTENTMANAGERPLUGINS_DIR})

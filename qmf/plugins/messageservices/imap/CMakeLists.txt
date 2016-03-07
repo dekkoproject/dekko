@@ -14,7 +14,11 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/qmf/libraries/qmfmessageserver
 )
 
-include_directories(${ZLIB_INCLUDE_DIR})
+if(ZLIB_FOUND)
+    include_directories(${ZLIB_INCLUDE_DIR})
+else()
+    message(FATAL_ERROR " zlib required for IMAP COMPRESS. Check you have 'zlib' installed")
+endif()
 
 set(libIMAP_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/imapclient.cpp
@@ -33,3 +37,4 @@ add_library(imap SHARED ${libIMAP_SOURCES})
 qt5_use_modules(imap Core Network)
 target_link_libraries(imap ${ZLIB_LIBRARIES} qmfmessageserver5 qmfclient5)
 
+install(TARGETS imap DESTINATION ${MESSAGESERVICEPLUGINS_DIR})

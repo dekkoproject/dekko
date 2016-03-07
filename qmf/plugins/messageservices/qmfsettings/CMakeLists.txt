@@ -21,3 +21,5 @@ set(libQMFSETTINGS_SOURCES
 add_library(qmfsettings SHARED ${libQMFSETTINGS_SOURCES})
 qt5_use_modules(qmfsettings Core Network)
 target_link_libraries(qmfsettings qmfmessageserver5 qmfclient5)
+
+install(TARGETS qmfsettings DESTINATION ${MESSAGESERVICEPLUGINS_DIR})

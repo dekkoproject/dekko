@@ -30,3 +30,5 @@ set(MSGSERVER_SOURCES
 add_executable(messageserver5 ${MSGSERVER_SOURCES})
 qt5_use_modules(messageserver5 Core Gui)
 target_link_libraries(messageserver5 qmfmessageserver5 qmfclient5)
+
+install(TARGETS messageserver5 DESTINATION ${BIN_DIR})

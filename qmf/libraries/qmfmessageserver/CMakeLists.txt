@@ -29,3 +29,5 @@ set(msgServer_SOURCES
 add_library(qmfmessageserver5 SHARED ${msgServer_SOURCES})
 target_link_libraries(qmfmessageserver5 qmfclient5)
 qt5_use_modules(qmfmessageserver5 Core Network)
+
+install(TARGETS qmfmessageserver5 DESTINATION ${QT_IMPORTS_DIR})

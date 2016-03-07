@@ -24,3 +24,5 @@ set(libPOP_SOURCES
 add_library(pop SHARED ${libPOP_SOURCES})
 qt5_use_modules(pop Core Network)
 target_link_libraries(pop qmfmessageserver5 qmfclient5)
+
+install(TARGETS pop DESTINATION ${MESSAGESERVICEPLUGINS_DIR})

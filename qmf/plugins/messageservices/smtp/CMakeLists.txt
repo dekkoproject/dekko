@@ -49,3 +49,5 @@ set(libSMTP_SOURCES
 add_library(smtp SHARED ${libSMTP_SOURCES})
 qt5_use_modules(smtp Core Network Xml)
 target_link_libraries(smtp qmfclient5 qmfmessageserver5 accounts-qt5 signon-qt5)
+
+install(TARGETS smtp DESTINATION ${MESSAGESERVICEPLUGINS_DIR})

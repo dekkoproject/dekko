@@ -113,3 +113,4 @@ endif()
 target_link_libraries(qmfclient5 accounts-qt5 signon-qt5)
 qt5_use_modules(qmfclient5 Core Sql Network Gui)
 
+install(TARGETS qmfclient5 DESTINATION ${QT_IMPORTS_DIR})
