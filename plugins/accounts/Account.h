@@ -10,7 +10,7 @@
 class Account : public QObject
 {
     Q_OBJECT
-
+    // TODO: add last synchronized properties to this as well as the other account properties
     Q_PROPERTY(int id READ id WRITE setId NOTIFY accountChanged)
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY accountChanged)
     Q_PROPERTY(QStringList messageSources READ messageSources NOTIFY accountChanged)
