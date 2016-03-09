@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service id="e-mail">
+  <type>e-mail</type>
+  <name>Email account</name>
+  <!-- TODO: needs proper icon -->
+  <icon>/usr/share/icons/suru/actions/scalable/email.svg</icon>
+  <provider>e-mail</provider>
+  <translations>account-plugins</translations>
+  <template>
+    <group name="auth">
+      <setting name="method">sasl</setting>
+      <!-- Default to LOGIN -->
+      <setting name="mechanism">LOGIN</setting>
+    </group>
+    <group name="imap">
+      <group name="server">
+        <setting name="hostname" type="s">imap.example.com</setting>
+        <setting name="port" type="i">0</setting>
+      </group>
+      <group name="encryption">
+      <!--
+          useSSL has priority over useStartTls so if both are true then
+          SSL/TLS connection is preferred.
+          STARTTLS should be used if useStartTLS is true and useSSL is false
+
+          If both are false an unencrypted cleartext connection should be used, YUCK!
+      -->
+        <setting name="useStartTLS" type="b">false</setting>
+        <setting name="useSSL" type="b">false</setting>
+      </group>
+      <group name="authentication">
+        <setting name="shouldAuthenticate" type="b">false</setting>
+        <group name="sasl">
+          <!-- Defines the sasl mechanism used by the accounts sasl plugin, allowed values are
+             ANONYMOUS
+             CRAM-MD5
+             DIGEST-MD5
+             EXTERNAL
+             GSSAPI
+             KERBEROS_V4
+             LOGIN
+             NTLM
+             OTP
+             PLAIN
+             SRP
+
+            or AUTOMATIC which a client should determine the most secure
+            authentication mechanism based on the servers CAPABILITY response
+          -->
+          <setting name="mechanism" type="s">AUTOMATIC</setting>
+        </group>
+      </group>
+      <group name="certificates">
+        <!--
+            Self signed certs are common for self hosted servers and should receive
+            special treatment over other untrusted certificates.
+        -->
+        <setting name="acceptSelfSigned" type="b">false</setting>
+        <setting name="acceptUntrusted" type="b">false</setting>
+        <setting name="currentPubKey" type="s"></setting>
+      </group>
+    </group>
+    <group name="smtp">
+      <!-- This CredentialsId setting is the ID of the smtp credentials in the Credentials db -->
+      <setting name="CredentialsId" type="i">0</setting>
+      <group name="server">
+        <setting name="hostname" type="s">smtp.example.com</setting>
+        <setting name="port" type="i">0</setting>
+      </group>
+      <group name="encryption">
+        <setting name="useStartTLS" type="b">false</setting>
+        <setting name="useSSL" type="b">false</setting>
+      </group>
+      <group name="authentication">
+        <setting name="shouldAuthenticate" type="b">false</setting>
+        <group name="sasl">
+          <setting name="mechanism" type="s">AUTOMATIC</setting>
+        </group>
+      </group>
+      <group name="certificates">
+        <setting name="acceptSelfSigned" type="b">false</setting>
+        <setting name="acceptUntrusted" type="b">false</setting>
+      </group>
+    </group>
+  </template>
+</service>

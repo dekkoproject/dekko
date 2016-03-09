@@ -1,3 +1,4 @@
+# Modified version of TrojitaOption.cmake
 include(FeatureSummary)
 
 # dekko_string_option(option description default depends force [options...])

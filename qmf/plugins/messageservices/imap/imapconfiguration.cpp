@@ -174,7 +174,6 @@ int ImapConfiguration::timeTillLogout() const
 void ImapConfiguration::setTimeTillLogout(int milliseconds)
 {
     Q_ASSERT(milliseconds >= 0);
-
     setValue("timeTillLogout", QString::number(milliseconds));
 }
 
