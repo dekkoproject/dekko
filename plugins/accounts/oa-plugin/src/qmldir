@@ -1,0 +1,2 @@
+module accounts.plugin.Email
+plugin EmailPluginLib

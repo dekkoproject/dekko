@@ -55,11 +55,39 @@ void Account::setName(const QString &name)
     }
 }
 
+bool Account::save()
+{
+    bool result;
+    m_account->setStatus(QMailAccount::UserEditable, true);
+    m_account->setStatus(QMailAccount::UserRemovable, true);
+    m_account->setStatus(QMailAccount::MessageSource, true);
+    m_account->setStatus(QMailAccount::CanRetrieve, true);
+    m_account->setStatus(QMailAccount::MessageSink, true);
+    m_account->setStatus(QMailAccount::CanTransmit, true);
+    m_account->setStatus(QMailAccount::Enabled, true);
+    m_account->setStatus(QMailAccount::CanCreateFolders, true);
+    m_account->setFromAddress(QMailAddress(m_outgoing->email()));
+    if (m_account->id().isValid()) {
+        qDebug() << "[Account]" << __func__ << "Updating account settings for: " << m_account->id();
+        result = QMailStore::instance()->updateAccount(m_account, m_accountConfig);
+    } else {
+        qDebug() << "[Account]" << __func__ << "Creating new account";
+        result = QMailStore::instance()->addAccount(m_account, m_accountConfig);
+    }
+    if (result) {
+        qDebug() << "[Account]" << __func__ << "Success";
+    } else {
+        qDebug() << "[Account]" << __func__ << "Oops that didn't work,' something bad happened";
+    }
+    return result;
+}
+
 void Account::initialize()
 {
     QStringList accountServices = m_accountConfig->services();
     // Need to check the qmfstoragemanager is an available service
     if (!accountServices.contains(qmfStorage)) {
+        qDebug() << "[Account]" << __func__ << "qmfstoragemanager not in services, adding it now";
         m_accountConfig->addServiceConfiguration(qmfStorage);
         QMailServiceConfiguration qmfStorageConfig(m_accountConfig, qmfStorage);
         qmfStorageConfig.setType(QMailServiceConfiguration::Storage);
@@ -67,7 +95,8 @@ void Account::initialize()
         qmfStorageConfig.setValue(QStringLiteral("basePath"), QStringLiteral(""));
     }
     if (!accountServices.contains(QStringLiteral("smtp"))) {
-            m_accountConfig->addServiceConfiguration(smtpServiceType);
+        qDebug() << "[Account]" << __func__ << "smtp not in services, adding now";
+        m_accountConfig->addServiceConfiguration(smtpServiceType);
     }
     QString recvType;
     if (accountServices.contains(imapServiceType)) {

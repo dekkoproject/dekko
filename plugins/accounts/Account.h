@@ -101,6 +101,11 @@ public slots:
      * emits EmptyName on error
      */
     void setName(const QString &name);
+    /** @short Save account settings
+     *
+     * Updates or creates a new account if it doesn't already exist
+     */
+    bool save();
 
 private:
     QMailAccount *m_account;
