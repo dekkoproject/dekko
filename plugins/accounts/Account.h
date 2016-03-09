@@ -85,6 +85,13 @@ public:
     Q_INVOKABLE void setSpecialUseFolder(SpecialUseFolder folder, const quint64 &folderId);
 
     static const QString imapServiceType, popServiceType, qmfStorage, smtpServiceType;
+    /** @short used by Accounts.h to indicate the account has been updates
+     *
+     * This is triggered as a result of QMailStore::accountUpdated
+     */
+    void emitAccountChanged() {
+        emit accountChanged(id());
+    }
 
 signals:
     void accountChanged(const int &id);
