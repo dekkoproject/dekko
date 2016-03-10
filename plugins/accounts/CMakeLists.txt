@@ -19,6 +19,7 @@ set(AccountsPlugin_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/Account.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/AccountConfiguration.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Accounts.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/AccountValidator.cpp
 )
 
 add_library(accounts MODULE ${AccountsPlugin_SRCS})

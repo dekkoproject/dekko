@@ -28,8 +28,8 @@ public:
     ~Account() {
         delete m_account;
         delete m_accountConfig;
-        delete m_incoming;
-        delete m_outgoing;
+        m_incoming->deleteLater();
+        m_outgoing->deleteLater();
     }
 
     /** @short Maps to QMailFolder::StandardFolder */
@@ -50,6 +50,7 @@ public:
 
     /** @short The account's id */
     int id() const { return m_account->id().toULongLong(); }
+    QMailAccountId accountId() const { return m_account->id(); }
 
     /** @short The accounts name/description
      *
