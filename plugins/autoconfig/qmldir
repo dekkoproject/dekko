@@ -1,0 +1,2 @@
+module Dekko.AutoConfig
+plugin autoconfig
