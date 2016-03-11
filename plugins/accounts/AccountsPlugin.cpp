@@ -1,7 +1,7 @@
 #include "AccountsPlugin.h"
 #include <QtQml/QtQml>
 #include <QtQml/QQmlContext>
-#include "Account.h"
+#include "Accounts.h"
 #include "AccountConfiguration.h"
 
 void AccountsPlugin::registerTypes(const char *uri)
@@ -13,6 +13,7 @@ void AccountsPlugin::registerTypes(const char *uri)
       qmlRegisterType<ImapAccountConfiguration>(uri, 1, 0, "ImapAccountConfig");
       qmlRegisterType<SmtpAccountConfiguration>(uri, 1, 0, "SmtpAccountConfig");
       qmlRegisterType<PopAccountConfiguration>(uri, 1, 0, "PopAccountConfig");
+      qmlRegisterType<Accounts>(uri, 1, 0, "Accounts");
 }
 
 void AccountsPlugin::initializeEngine(QQmlEngine *engine, const char *uri)

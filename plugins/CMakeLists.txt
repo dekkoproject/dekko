@@ -1,4 +1,5 @@
 add_subdirectory(shared)
 add_subdirectory(accounts)
+add_subdirectory(autoconfig)
 add_subdirectory(contacts)
 add_subdirectory(mail)
