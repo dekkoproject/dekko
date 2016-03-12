@@ -1,2 +1,2 @@
 module Dekko.Accounts
-plugin accounts
+plugin accountsplugin

@@ -32,8 +32,10 @@ bool Dekko::setup()
     }
     m_view = new QQuickView();
     m_view->setResizeMode(QQuickView::SizeRootObjectToView);
-    m_view->setWidth(300);
-    m_view->setHeight(500);
+    m_view->setMinimumHeight(300);
+    m_view->setMinimumWidth(300);
+    m_view->setWidth(350);
+    m_view->setHeight(550);
     m_view->setTitle("Dekko");
     m_view->setSource(QUrl(QStringLiteral("qrc:/qml/main.qml")));
     m_view->show();

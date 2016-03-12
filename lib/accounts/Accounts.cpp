@@ -56,7 +56,14 @@ void Accounts::setFilter(Accounts::Filters filter)
 
 void Accounts::accountsAdded(const QMailAccountIdList &ids)
 {
-    QMailAccountKey passKey = QMailAccountKey::status(maskForFilter(filter())) & QMailAccountKey::id(ids);
+    QMailAccountKey passKey;
+    if (filter() != Enabled)
+        // We need to ensure we only show enabled accounts
+        // This means we can do filters like CanReceive | Enabled
+        passKey = QMailAccountKey::status(maskForFilter(filter()) | QMailAccount::Enabled) & QMailAccountKey::id(ids);
+    else
+        passKey = QMailAccountKey::status(maskForFilter(filter())) & QMailAccountKey::id(ids);
+
     QMailAccountIdList results = QMailStore::instance()->queryAccounts(passKey);
     if(results.isEmpty())
         return;

@@ -1,5 +1,3 @@
-add_subdirectory(backend)
-
 find_package(Qt5Core 5.4 REQUIRED)
 find_package(Qt5Quick 5.4 REQUIRED)
 find_package(Qt5Qml 5.4 REQUIRED)
