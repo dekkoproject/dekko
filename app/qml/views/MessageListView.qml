@@ -1,6 +1,7 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Dekko.Accounts 1.0
+import Dekko.Mail 1.0
 import "../components"
 
 DekkoPage {
@@ -24,6 +25,11 @@ DekkoPage {
         filter: Accounts.CanReceive
     }
 
+    MessageFilterCollection {
+        id: standardFolders
+        filter: MessageFilterCollection.StandardFolders
+    }
+
     NavigationDrawer {
         id: navDrawer
         animate: true
@@ -35,6 +41,21 @@ DekkoPage {
         anchors {
             left: parent.left
             top: pageHeader.bottom
+        }
+        inboxModel: standardFolders.children
+        inboxDelegate: ListItem {
+            height: iLayout.implicitHeight
+            ListItemLayout {
+                id: iLayout
+                title.text: qtObject.displayName + " (" + qtObject.unreadCount + "/" + qtObject.totalCount + ")"
+                Icon {
+                    height: units.gu(2.5)
+                    width: height
+                    name: "inbox"
+                    SlotsLayout.position: SlotsLayout.Leading
+                }
+
+            }
         }
         accountsModel: accounts.model
         accountsDelegate: ListItem {

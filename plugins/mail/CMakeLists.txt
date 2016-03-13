@@ -18,7 +18,7 @@ set(MailPlugin_SRCS
 add_library(mailplugin MODULE ${MailPlugin_SRCS})
 
 qt5_use_modules(mailplugin Core Quick)
-target_link_libraries(mailplugin qmfclient5 qmfmessageserver5 dekkohelpers)
+target_link_libraries(mailplugin qmfclient5 qmfmessageserver5 dekkohelpers mail)
 
 set(MAIL_PLUGIN_DIR ${QT_IMPORTS_DIR}/Dekko/Mail)
 

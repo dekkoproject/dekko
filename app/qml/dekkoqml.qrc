@@ -1,12 +1,12 @@
 <RCC>
     <qresource prefix="/qml">
         <file>main.qml</file>
-        <file>components/KeyboardRectangle.qml</file>
         <file>utils/PopupQueue.qml</file>
         <file>utils/QueuedApplicationAlertManager.qml</file>
         <file>utils/ViewState.qml</file>
         <file>utils/QtCoreAPI.js</file>
         <file>views/MessageListView.qml</file>
+        <file>components/KeyboardRectangle.qml</file>
         <file>components/DekkoPage.qml</file>
         <file>components/HeaderButton.qml</file>
         <file>components/DekkoHeader.qml</file>

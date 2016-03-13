@@ -13,6 +13,8 @@ include_directories(
 set(libMail_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/Folder.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/FolderList.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/MessageFilterCollection.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/MessageSet.cpp
 )
 
 add_library(mail SHARED ${libMail_SRCS})

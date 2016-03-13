@@ -1,2 +1,2 @@
 module Dekko.Mail
-plugin mail
+plugin mailplugin
