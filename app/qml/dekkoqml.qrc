@@ -14,5 +14,11 @@
         <file>components/ActionDrawer.qml</file>
         <file>components/HorizontalGradiant.qml</file>
         <file>components/NavigationDrawer.qml</file>
+        <file>delegates/NavMenuStandardFolderDelegate.qml</file>
+        <file>components/TabBar.qml</file>
+        <file>models/NavMenuAccountSettingsModel.qml</file>
+        <file>models/NavMenuContactsModel.qml</file>
+        <file>models/NavMenuDekkoVisualModel.qml</file>
+        <file>models/NavMenuModel.qml</file>
     </qresource>
 </RCC>

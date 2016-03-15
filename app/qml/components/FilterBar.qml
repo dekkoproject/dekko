@@ -64,7 +64,7 @@ Item {
             Label {
                 id: label
                 text: modelData
-                color: row.currentIndex === model.index ? UbuntuColors.orange : UbuntuColors.ash
+                color: row.currentIndex === model.index ? UbuntuColors.blue : UbuntuColors.ash
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.top: parent.top
                 anchors.topMargin: units.gu(0.2)
@@ -73,7 +73,7 @@ Item {
                 renderType: Text.NativeRendering
             }
             Rectangle {
-                color: row.currentIndex === model.index ? UbuntuColors.orange : UbuntuColors.ash
+                color: row.currentIndex === model.index ? UbuntuColors.blue : UbuntuColors.lightGrey
                 height: units.dp(2)
                 width: parent.width
                 anchors.bottom: parent.bottom

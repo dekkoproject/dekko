@@ -1,4 +1,5 @@
 #include "MessageSet.h"
+#include <QDebug>
 #include <qmailstore.h>
 
 MessageSet::MessageSet(QObject *parent) : QObject(parent), m_children(0)
@@ -6,6 +7,10 @@ MessageSet::MessageSet(QObject *parent) : QObject(parent), m_children(0)
     m_children = new QQmlObjectListModel<MessageSet>(this);
     connect(m_children, &QQmlObjectListModel<MessageSet>::countChanged,
             this, &MessageSet::descendentsCountChanged);
+    connect(QMailStore::instance(),
+            SIGNAL(folderContentsModified(const QMailFolderIdList&)),
+            this,
+            SIGNAL(countChanged()));
 }
 
 QVariant MessageSet::descendentsKey() const
@@ -73,21 +78,98 @@ void StandardFolderSet::setType(StandardFolderSet::FolderType type)
     emit standardFolderChanged();
 }
 
+void StandardFolderSet::trackAccountChanges()
+{
+    connect(QMailStore::instance(), &QMailStore::accountsAdded, this, &StandardFolderSet::accountsAdded);
+    connect(QMailStore::instance(), &QMailStore::accountsRemoved, this, &StandardFolderSet::accountsRemove);
+    connect(QMailStore::instance(), &QMailStore::accountsUpdated, this, &StandardFolderSet::accountsChanged);
+}
+
+void StandardFolderSet::accountsAdded(const QMailAccountIdList &idList)
+{
+    if (queryEnabledAccounts().isEmpty()) {
+        return;
+    }
+    Q_FOREACH(auto &id, idList) {
+        if (!m_inboxList.contains(id)) {
+            auto set = new StandardFolderSet();
+            set->setType(SpecialUseInboxFolder);
+            set->initNoDecendents(QMailAccount(id).name(), createAccountDescendentKey(id, QMailFolder::InboxFolder));
+            m_children->append(set);
+            m_inboxList.append(id);
+        } else {
+            qDebug() << "[StandardFolderSet]" << __func__ << "Account with same id already a descendent";
+        }
+    }
+}
+
+void StandardFolderSet::accountsRemove(const QMailAccountIdList &idList)
+{
+    Q_FOREACH(auto id, idList) {
+        int index = m_inboxList.indexOf(id);
+        if (index == -1) {
+            continue;
+        }
+        m_children->remove(index);
+        m_inboxList.removeAt(index);
+    }
+}
+
+void StandardFolderSet::accountsChanged(const QMailAccountIdList &idList)
+{
+    auto enabledIds = queryEnabledAccounts();
+
+    Q_FOREACH(auto &id, idList) {
+        if (!enabledIds.contains(id)) {
+            int index = m_inboxList.indexOf(id);
+            if (index == -1)
+                continue;
+            m_children->remove(index);
+            m_inboxList.removeAt(index);
+        }
+    }
+
+    Q_FOREACH(auto &enabledId, enabledIds) {
+        int index = m_inboxList.indexOf(enabledId);
+        if (index == -1) {
+            auto set = new StandardFolderSet();
+            set->setType(SpecialUseInboxFolder);
+            set->initNoDecendents(QMailAccount(enabledId).name(), createAccountDescendentKey(enabledId, QMailFolder::InboxFolder));
+            m_children->append(set);
+            m_inboxList.append(enabledId);
+        }
+    }
+}
+
 void StandardFolderSet::appendInboxDescendents()
 {
-    QMailMessageKey excludeRemovedKey = QMailMessageKey::status(QMailMessage::Removed,  QMailDataComparator::Excludes);
-    auto idList = QMailStore::instance()->queryAccounts(QMailAccountKey::status(QMailAccount::Enabled | QMailAccount::MessageSource) ,QMailAccountSortKey());
-    Q_FOREACH(const QMailAccountId &id, idList) {
-        QMailAccount account(id);
-        QMailFolderId folderId = account.standardFolder(QMailFolder::InboxFolder);
-        QMailFolderKey inboxKey = QMailFolderKey::id(folderId, QMailDataComparator::Equal);
-        QMailMessageKey msgKey = QMailMessageKey::parentFolderId(inboxKey) & excludeRemovedKey;
-//        Q_UNUSED(msgKey);
+    Q_FOREACH(const QMailAccountId &id, queryEnabledAccounts()) {
         auto set = new StandardFolderSet();
         set->setType(SpecialUseInboxFolder);
-        set->initNoDecendents(account.name(), msgKey);
+        set->initNoDecendents(QMailAccount(id).name(), createAccountDescendentKey(id, QMailFolder::InboxFolder));
         m_children->append(set);
+        m_inboxList.append(id);
     }
+}
+
+QMailMessageKey StandardFolderSet::createAccountDescendentKey(const QMailAccountId &id, const QMailFolder::StandardFolder &folderType)
+{
+    QMailAccount account(id);
+    QMailFolderId folderId = account.standardFolder(folderType);
+    QMailFolderKey inboxKey = QMailFolderKey::id(folderId, QMailDataComparator::Equal);
+    QMailMessageKey excludeRemovedKey = QMailMessageKey::status(QMailMessage::Removed,  QMailDataComparator::Excludes);
+    QMailMessageKey msgKey = QMailMessageKey::parentFolderId(inboxKey) & excludeRemovedKey;
+    if (msgKey.isEmpty()) {
+        return QMailMessageKey::nonMatchingKey();
+    }
+    return msgKey;
+}
+
+QMailAccountIdList StandardFolderSet::queryEnabledAccounts()
+{
+    return QMailStore::instance()->queryAccounts(QMailAccountKey::messageType(QMailMessage::Email)
+                                                 & QMailAccountKey::status(QMailAccount::Enabled),
+                                                 QMailAccountSortKey::name());
 }
 
 void StandardFolderSet::init(const QString &displayName, const QMailMessageKey &messageKey)
@@ -101,8 +183,11 @@ void StandardFolderSet::init(const QString &displayName, const QMailMessageKey &
     case StandardFolder:
         break;
     case SpecialUseInboxFolder:
+    {
         appendInboxDescendents();
+        trackAccountChanges();
         break;
+    }
     case SpecialUseDraftsFolder:
     case SpecialUseJunkFolder:
     case SpecialUseOutboxFolder:

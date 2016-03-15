@@ -3,6 +3,8 @@ import Ubuntu.Components 1.3
 import Dekko.Accounts 1.0
 import Dekko.Mail 1.0
 import "../components"
+import "../delegates"
+import "../models"
 
 DekkoPage {
     id: msgListPage
@@ -16,6 +18,32 @@ DekkoPage {
         id: drawerAction
         iconName: "navigation-menu"
         onTriggered: navDrawer.opened ? navDrawer.close() : navDrawer.open()
+    }
+
+    MessageList {
+        id: msgList
+        sortOrder: Qt.DescendingOrder
+    }
+
+    ListView {
+        anchors {
+            left: parent.left
+            top: pageHeader.bottom
+            right: parent.right
+            bottom: parent.bottom
+        }
+        clip: true
+
+        model: msgList.model
+        delegate: ListItem {
+            height: dlayout.implicitHeight
+            ListItemLayout {
+                id: dlayout
+                title.text: model.from.name
+                subtitle.text: model.subject
+                summary.text: model.preview
+            }
+        }
     }
 
     Accounts {
@@ -32,45 +60,21 @@ DekkoPage {
 
     NavigationDrawer {
         id: navDrawer
+        signal msgKeySelected(var key)
+        onMsgKeySelected: msgList.messageKey = key
         animate: true
-        // Take up 90% height and 80% width
-        maxHeight: (parent.height - header.height) / 10 * 9
-        width: parent.width / 10 * 8
+        width: units.gu(35)
+        state: "fixed"
         // make sure this overlays the page contents
         z: 1
         anchors {
             left: parent.left
             top: pageHeader.bottom
+            bottom: parent.bottom
         }
-        inboxModel: standardFolders.children
-        inboxDelegate: ListItem {
-            height: iLayout.implicitHeight
-            ListItemLayout {
-                id: iLayout
-                title.text: qtObject.displayName + " (" + qtObject.unreadCount + "/" + qtObject.totalCount + ")"
-                Icon {
-                    height: units.gu(2.5)
-                    width: height
-                    name: "inbox"
-                    SlotsLayout.position: SlotsLayout.Leading
-                }
-
-            }
-        }
-        accountsModel: accounts.model
-        accountsDelegate: ListItem {
-            height: dLayout.implicitHeight
-            ListItemLayout {
-                id: dLayout
-                title.text: qtObject.name
-                Icon {
-                    height: units.gu(2.5)
-                    width: height
-                    name: "contact"
-                    SlotsLayout.position: SlotsLayout.Leading
-                }
-            }
-        }
+        panelModel: NavMenuModel{}
     }
+
+
 }
 

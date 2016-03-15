@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QmlObjectListModel.h>
 #include <qmailmessagekey.h>
+#include <qmailfolder.h>
 
 class MessageSet : public QObject
 {
@@ -71,10 +72,21 @@ signals:
 public slots:
     void setType(FolderType type);
 
+private slots:
+    // initiate tracking of account changes. THis is particluarly
+    // useful for the SpecialUseInboxFolder set where we have decendent
+    // Inbox account folders. We want to make sure we add/remove/update on all changes
+    void trackAccountChanges();
+    void accountsAdded(const QMailAccountIdList &idList);
+    void accountsRemove(const QMailAccountIdList &idList);
+    void accountsChanged(const QMailAccountIdList &idList);
+
 private:
     FolderType m_type;
-
+    QMailAccountIdList m_inboxList;
     void appendInboxDescendents();
+    QMailMessageKey createAccountDescendentKey(const QMailAccountId &id, const QMailFolder::StandardFolder &folderType);
+    QMailAccountIdList queryEnabledAccounts();
 };
 
 #endif // MESSAGESET_H

@@ -141,7 +141,7 @@ void Accounts::reset()
 
 void Accounts::init()
 {
-    auto idList = QMailStore::instance()->queryAccounts(QMailAccountKey::status(maskForFilter(filter())) ,QMailAccountSortKey());
+    auto idList = QMailStore::instance()->queryAccounts(QMailAccountKey::status(maskForFilter(filter())) ,QMailAccountSortKey::name());
     Q_FOREACH(const QMailAccountId &id, idList) {
         int index = m_idList.indexOf(id);
         if (index == -1) {

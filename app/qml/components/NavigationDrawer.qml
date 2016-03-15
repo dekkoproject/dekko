@@ -18,26 +18,31 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.ListItems 1.0 as ListItem
+import "../components" as Comps
 
 Panel {
     id: accountsDrawer
-    property alias accountsModel: accountsList.model
-    property alias inboxModel: inboxList.model
-    property alias accountsDelegate: accountsList.delegate
-    property alias inboxDelegate: inboxList.delegate
+//    property alias accountsModel: accountsList.model
+//    property alias inboxModel: inboxList.model
+//    property alias accountsDelegate: accountsList.delegate
+//    property alias inboxDelegate: inboxList.delegate
+    property alias panelModel: topListView.model
+    property alias topListViewHandle: topListView
     property Action openSettingsAction
     property Action openAddressbookAction
 
     property int maxHeight
 
-    height: col.height < maxHeight ? col.height : maxHeight
-
     visible: opened || animating
     align: Qt.AlignLeading
-    state: "overlay"
+    state: "fixed"
     states: [
         State {
             name: "overlay"
+            PropertyChanges {
+                target: accountsDrawer
+                height: col.height < maxHeight ? col.height : maxHeight
+            }
         },
         // These two will come in to the equation when we hit tablet/desktop modes
         // As this panel will most likely be always on the left side of
@@ -54,7 +59,7 @@ Panel {
             name: "fixed"
             PropertyChanges {
                 target: accountsDrawer
-                width: units.gu(25)
+                width: units.gu(30)
                 height: parent.height
             }
         }
@@ -99,84 +104,105 @@ Panel {
         }
     }
 
-    ScrollView {
-        anchors.fill: parent
-        Flickable {
-            id: flicker
-            anchors.fill: parent
-            clip: true
-            contentHeight: col.height + units.gu(5)
-            interactive: col.height > parent.height
-            Column {
-                id: col
-                anchors {left: parent.left; right: parent.right; top: parent.top}
-                // TODO: get combined inbox working here
-                //            ListItem.Standard { text: "Combined Inbox" }
-                Repeater {
-                    id: inboxList
-                }
-                Rectangle {
-                    anchors {
-                        left: parent.left
-                        right: parent.right
-                    }
-                    height: sectionLabel.height
-                    color: Qt.darker("#ffffff")
-                    Label {
-                        id: sectionLabel
-                        anchors {
-                            left: parent.left
-                            leftMargin: units.gu(2)
-                            right: parent.right
-                            rightMargin: units.gu(2)
-                        }
-                        text: qsTr("Accounts")
-                        color: Style.common.text
-                        height: units.gu(4)
-                        fontSize: "medium"
-                        font.weight: Font.DemiBold
-                        verticalAlignment: Text.AlignVCenter
-
-                    }
-                }
-                Repeater {
-                    id: accountsList
-                }
-//                AccountsDrawerDelegate {
-//                    text: qsTr("Add account")
-//                    iconName: "add"
-//                    onClicked: {
-//                        accountsDrawer.close()
-//                        rootPageStack.push(Qt.resolvedUrl("../SetupWizard/SetupWizard.qml"))
-//                        dekko.setupWizardRunning = true;
-//                    }
-//                }
-//                AccountsDrawerDelegate {
-//                    text: qsTr("Email settings")
-//                    iconName: "settings"
-//                    onClicked: {
-//                        accountsDrawer.close()
-//                        openSettingsAction.trigger()
-//                    }
-//                }
-//                AccountsDrawerDelegate {
-//                    text: qsTr("Addressbook")
-//                    iconName: "contact-group"
-//                    onClicked: {
-//                        accountsDrawer.close()
-//                        openAddressbookAction.trigger()
-//                    }
-//                }
-//                AccountsDrawerDelegate {
-//                    visible: GlobalSettings.developer.developerModeEnabled
-//                    text: "Dev settings"
-//                    iconName: "security-alert"
-//                    onClicked: {
-//                        accountsDrawer.close()
-//                        internalStack.push(Qt.resolvedUrl("../DeveloperMode/DeveloperSettings.qml"))
-//                    }
-//                }
-            }
+    ListView {
+        id: topListView
+        clip: true
+        anchors {
+            left: parent.left
+            top: parent.top
+            right: parent.right
+            bottom: tabBar.top
         }
+        interactive: false
+        orientation: ListView.Horizontal
+        snapMode: ListView.SnapOneItem
+        currentIndex: tabBar.currentIndex
+        highlightMoveDuration: 100
+    }
+
+    Comps.TabBar {
+        id: tabBar
+        width: parent.width
+        anchors.bottom: parent.bottom
+        iconNameModel: ["email", "contact-group", "settings", "like"]
     }
 }
+
+
+//        Flickable {
+//            id: flicker
+//            anchors.fill: parent
+//            clip: true
+//            contentHeight: col.height + units.gu(5)
+//            interactive: col.height > parent.height
+//            Column {
+//                id: col
+//                anchors {left: parent.left; right: parent.right; top: parent.top}
+//                // TODO: get combined inbox working here
+//                //            ListItem.Standard { text: "Combined Inbox" }
+//                Repeater {
+//                    id: inboxList
+//                }
+//                Rectangle {
+//                    anchors {
+//                        left: parent.left
+//                        right: parent.right
+//                    }
+//                    height: sectionLabel.height
+//                    color: Qt.darker("#ffffff")
+//                    Label {
+//                        id: sectionLabel
+//                        anchors {
+//                            left: parent.left
+//                            leftMargin: units.gu(2)
+//                            right: parent.right
+//                            rightMargin: units.gu(2)
+//                        }
+//                        text: qsTr("Accounts")
+//                        color: Style.common.text
+//                        height: units.gu(4)
+//                        fontSize: "medium"
+//                        font.weight: Font.DemiBold
+//                        verticalAlignment: Text.AlignVCenter
+
+//                    }
+//                }
+//                Repeater {
+//                    id: accountsList
+//                }
+////                AccountsDrawerDelegate {
+////                    text: qsTr("Add account")
+////                    iconName: "add"
+////                    onClicked: {
+////                        accountsDrawer.close()
+////                        rootPageStack.push(Qt.resolvedUrl("../SetupWizard/SetupWizard.qml"))
+////                        dekko.setupWizardRunning = true;
+////                    }
+////                }
+////                AccountsDrawerDelegate {
+////                    text: qsTr("Email settings")
+////                    iconName: "settings"
+////                    onClicked: {
+////                        accountsDrawer.close()
+////                        openSettingsAction.trigger()
+////                    }
+////                }
+////                AccountsDrawerDelegate {
+////                    text: qsTr("Addressbook")
+////                    iconName: "contact-group"
+////                    onClicked: {
+////                        accountsDrawer.close()
+////                        openAddressbookAction.trigger()
+////                    }
+////                }
+////                AccountsDrawerDelegate {
+////                    visible: GlobalSettings.developer.developerModeEnabled
+////                    text: "Dev settings"
+////                    iconName: "security-alert"
+////                    onClicked: {
+////                        accountsDrawer.close()
+////                        internalStack.push(Qt.resolvedUrl("../DeveloperMode/DeveloperSettings.qml"))
+////                    }
+////                }
+//            }
+//        }
