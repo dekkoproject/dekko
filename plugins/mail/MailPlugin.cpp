@@ -2,6 +2,7 @@
 
 #include <QtQml/QtQml>
 #include <QtQml/QQmlContext>
+#include "Client.h"
 #include "FolderList.h"
 #include "Folder.h"
 #include "MessageFilterCollection.h"
@@ -20,6 +21,7 @@ void MailPlugin::registerTypes(const char *uri)
     qmlRegisterType<Message>(uri, 1, 0, "Message");
     qmlRegisterUncreatableType<MessageSet>(uri, 1, 0, "MessageSet", "Cannot create MessageSet from QML, c++ only chap!");
     qmlRegisterUncreatableType<StandardFolderSet>(uri, 1, 0, "StandardFolderSet", "Cannot create MessageSet from QML, c++ only chap!");
+    qmlRegisterSingletonType<Client>(uri, 1, 0, "Client", Client::factory);
 }
 
 void MailPlugin::initializeEngine(QQmlEngine *engine, const char *uri)

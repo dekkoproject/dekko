@@ -24,6 +24,7 @@ class MinimalMessage : public QObject
     Q_PROPERTY(bool isImportant READ isFlagged NOTIFY minMessageChanged)
     Q_PROPERTY(QDateTime date READ date NOTIFY minMessageChanged)
     Q_PROPERTY(QString prettyDate READ prettyDate NOTIFY minMessageChanged)
+    Q_PROPERTY(Qt::CheckState checked READ checked WRITE setChecked NOTIFY checkedChanged)
 
 public:
     explicit MinimalMessage(QObject *parent = 0);
@@ -36,19 +37,26 @@ public:
     bool isFlagged() const;
     QDateTime date() const;
     QString prettyDate();
+    Qt::CheckState checked() const;
+
 signals:
     void minMessageChanged();
+    void checkedChanged();
 
 public slots:
     void setMessageId(const quint64 &id);
     void setMessageId(const QMailMessageId &id);
     void emitMinMessageChanged() { emit minMessageChanged(); }
+    void selectionEnded() { setChecked(Qt::Unchecked); }
+    void selectionStarted() { setChecked(Qt::Unchecked); }
+    void setChecked(const Qt::CheckState &checked);
 
 protected:
     QMailMessageId m_id;
 
 private:
     MailAddress *m_from;
+    Qt::CheckState m_checked;
 };
 
 class Message : public MinimalMessage // Extend on what we already have above

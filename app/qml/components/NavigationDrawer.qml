@@ -22,16 +22,22 @@ import "../components" as Comps
 
 Panel {
     id: accountsDrawer
-//    property alias accountsModel: accountsList.model
-//    property alias inboxModel: inboxList.model
-//    property alias accountsDelegate: accountsList.delegate
-//    property alias inboxDelegate: inboxList.delegate
+
     property alias panelModel: topListView.model
     property alias topListViewHandle: topListView
-    property Action openSettingsAction
-    property Action openAddressbookAction
 
     property int maxHeight
+
+    function delayClose() {
+        delayCloseTimer.start()
+    }
+
+    Timer {
+        id: delayCloseTimer
+        interval: 300
+        repeat: false
+        onTriggered: accountsDrawer.close()
+    }
 
     visible: opened || animating
     align: Qt.AlignLeading
@@ -127,82 +133,3 @@ Panel {
         iconNameModel: ["email", "contact-group", "settings", "like"]
     }
 }
-
-
-//        Flickable {
-//            id: flicker
-//            anchors.fill: parent
-//            clip: true
-//            contentHeight: col.height + units.gu(5)
-//            interactive: col.height > parent.height
-//            Column {
-//                id: col
-//                anchors {left: parent.left; right: parent.right; top: parent.top}
-//                // TODO: get combined inbox working here
-//                //            ListItem.Standard { text: "Combined Inbox" }
-//                Repeater {
-//                    id: inboxList
-//                }
-//                Rectangle {
-//                    anchors {
-//                        left: parent.left
-//                        right: parent.right
-//                    }
-//                    height: sectionLabel.height
-//                    color: Qt.darker("#ffffff")
-//                    Label {
-//                        id: sectionLabel
-//                        anchors {
-//                            left: parent.left
-//                            leftMargin: units.gu(2)
-//                            right: parent.right
-//                            rightMargin: units.gu(2)
-//                        }
-//                        text: qsTr("Accounts")
-//                        color: Style.common.text
-//                        height: units.gu(4)
-//                        fontSize: "medium"
-//                        font.weight: Font.DemiBold
-//                        verticalAlignment: Text.AlignVCenter
-
-//                    }
-//                }
-//                Repeater {
-//                    id: accountsList
-//                }
-////                AccountsDrawerDelegate {
-////                    text: qsTr("Add account")
-////                    iconName: "add"
-////                    onClicked: {
-////                        accountsDrawer.close()
-////                        rootPageStack.push(Qt.resolvedUrl("../SetupWizard/SetupWizard.qml"))
-////                        dekko.setupWizardRunning = true;
-////                    }
-////                }
-////                AccountsDrawerDelegate {
-////                    text: qsTr("Email settings")
-////                    iconName: "settings"
-////                    onClicked: {
-////                        accountsDrawer.close()
-////                        openSettingsAction.trigger()
-////                    }
-////                }
-////                AccountsDrawerDelegate {
-////                    text: qsTr("Addressbook")
-////                    iconName: "contact-group"
-////                    onClicked: {
-////                        accountsDrawer.close()
-////                        openAddressbookAction.trigger()
-////                    }
-////                }
-////                AccountsDrawerDelegate {
-////                    visible: GlobalSettings.developer.developerModeEnabled
-////                    text: "Dev settings"
-////                    iconName: "security-alert"
-////                    onClicked: {
-////                        accountsDrawer.close()
-////                        internalStack.push(Qt.resolvedUrl("../DeveloperMode/DeveloperSettings.qml"))
-////                    }
-////                }
-//            }
-//        }

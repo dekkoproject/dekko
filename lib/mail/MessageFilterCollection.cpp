@@ -1,8 +1,9 @@
 #include "MessageFilterCollection.h"
 #include "qmailstore.h"
+#include <QTimer>
 
 MessageFilterCollection::MessageFilterCollection(QObject *parent) : QObject(parent), m_children(0),
-    m_filter(None)
+    m_filter(None), m_firstRun(true)
 {
     m_children = new QQmlObjectListModel<MessageSet>(this);
 }
@@ -14,7 +15,12 @@ void MessageFilterCollection::setFilter(MessageFilterCollection::Filter filter)
 
     m_filter = filter;
     emit filterChanged(filter);
-    reset();
+    if (m_firstRun) {
+        QTimer::singleShot(350, this, SLOT(reset()));
+        m_firstRun = false;
+    } else {
+        reset();
+    }
 }
 
 void MessageFilterCollection::reset()

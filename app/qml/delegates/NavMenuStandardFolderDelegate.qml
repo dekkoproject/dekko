@@ -5,10 +5,13 @@ ListItem {
     id: li
 
     property var folder
+    signal subFolderClicked(string name, var key)
 
     expansion.expanded: false
     expansion.height: layout.height + col.height
     height: layout.implicitHeight
+
+
     ListItemLayout {
         id: layout
         title.text: folder.displayName
@@ -39,7 +42,6 @@ ListItem {
         }
 
         Item {
-//            visible: folder.hasDescendents
             visible: model.index === 0
             height: units.gu(3)
             width: units.gu(4)
@@ -77,6 +79,7 @@ ListItem {
                 id: delegate
                 divider.visible: false
                 height: dlayout.height
+                onClicked: li.subFolderClicked(model.qtObject.displayName, model.qtObject.messageKey)
                 ListItemLayout {
                     id: dlayout
                     height: units.gu(5)

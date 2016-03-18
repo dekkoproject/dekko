@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <QDebug>
 #include <qmailstore.h>
+#include <qmaildisconnected.h>
 
 MessageList::MessageList(QObject *parent) : QObject(parent),
     m_model(0), m_initialized(false)
@@ -25,6 +26,16 @@ Qt::SortOrder MessageList::sortOrder() const
     return m_sortOrder;
 }
 
+int MessageList::totalCount()
+{
+    return QMailStore::instance()->countMessages(m_msgKey);
+}
+
+bool MessageList::canLoadMore()
+{
+    return m_limit < totalCount();
+}
+
 int MessageList::indexOf(const quint64 &id)
 {
     return indexOf(QMailMessageId(id));
@@ -38,6 +49,13 @@ int MessageList::indexOf(const QMailMessageId &id)
     }
 
     return -1;
+}
+
+void MessageList::loadMore()
+{
+    if (canLoadMore()) {
+        setLimit(m_limit + INCREMENT_VALUE);
+    }
 }
 
 void MessageList::setLimit(int limit)
@@ -67,6 +85,12 @@ void MessageList::setLimit(int limit)
 
 void MessageList::setKey(const QVariant &key)
 {
+    if (key.value<QMailMessageKey>() == m_msgKey) {
+        return;
+    }
+    //reset model limit
+    m_limit = INCREMENT_VALUE;
+
     if (key.canConvert<QMailMessageKey>()) {
         m_msgKey = key.value<QMailMessageKey>();
         emit messageKeyChanged();
@@ -84,7 +108,44 @@ void MessageList::setSortOrder(const Qt::SortOrder &order)
     }
     m_sortOrder = order;
     m_sortKey = QMailMessageSortKey::timeStamp(m_sortOrder);
+    reset();
     emit sortOrderChanged();
+}
+
+void MessageList::startSelection()
+{
+    m_selectionMode = true;
+    emit isInSelectionModeChanged();
+    emit selectionStarted();
+}
+
+void MessageList::endSelection()
+{
+    m_selectionMode = false;
+    emit isInSelectionModeChanged();
+    emit selectionEnded();
+}
+
+void MessageList::applySelectionAction(const Actions action, const ReadFlag flag, const int &folderId)
+{
+    Q_UNUSED(folderId);
+    switch (action) {
+    case NoopAction:
+        return;
+    case FlagAction:
+    case MoveAction:
+        break;
+    case DeleteAction:
+        break;
+    case ReadUnreadAction:
+        markMessagesRead(checkedIds(), flag);
+        break;
+    }
+}
+
+void MessageList::markMessageRead(const int &msgId, const MessageList::ReadFlag &flag)
+{
+    markMessagesRead(QMailMessageIdList() << QMailMessageId(msgId), flag);
 }
 
 void MessageList::handleNewMessages(const QMailMessageIdList &newList)
@@ -216,6 +277,8 @@ void MessageList::insertMessageAt(const int &index, const QMailMessageId &id)
 {
     MinimalMessage *msg = new MinimalMessage();
     msg->setMessageId(id);
+    connect(this, &MessageList::selectionStarted, msg, &MinimalMessage::selectionStarted);
+    connect(this, &MessageList::selectionEnded, msg, &MinimalMessage::selectionEnded);
     m_model->insert(index, msg);
     // update indexes
     m_idList.insert(index, id);
@@ -225,6 +288,7 @@ void MessageList::insertMessageAt(const int &index, const QMailMessageId &id)
     for ( ; it != end; ++it) {
         m_indexMap[*it] += 1;
     }
+    emit totalCountChanged();
 }
 
 void MessageList::removeMessageAt(const int &index)
@@ -239,6 +303,7 @@ void MessageList::removeMessageAt(const int &index)
     for ( ; it != end; ++it) {
         m_indexMap[*it] -= 1;
     }
+    emit totalCountChanged();
 }
 
 void MessageList::addNewMessages(const QMailMessageIdList &idList)
@@ -316,6 +381,50 @@ void MessageList::removeMessages(const QMailMessageIdList &idList)
         int index = removeIndices.at(i - 1);
         removeMessageAt(index);
     }
+}
+
+void MessageList::markMessagesRead(const QMailMessageIdList &idList, const MessageList::ReadFlag &flag)
+{
+    bool anyUnread(false);
+    // Marking any unread messages as read always wins this action so check that first
+    // we need to have all selected messages as the same read status to apply the ReadFlag
+    QMailMessageIdList unreadList;
+    foreach (auto &id, idList) {
+        if (!(QMailMessageMetaData(id).status() & QMailMessageMetaData::Read)) {
+            anyUnread = true;
+            unreadList.append(id);
+            break;
+        }
+    }
+    quint64 setMask(0);
+    quint64 unsetMask(0);
+    if (anyUnread) {
+        setMask = QMailMessage::Read;
+    } else {
+        switch(flag) {
+        case FlagRead:
+            setMask = QMailMessage::Read;
+            break;
+        case FlagUnread:
+            unsetMask = QMailMessage::Read;
+            break;
+        }
+    }
+    QMailDisconnected::flagMessages(unreadList, setMask, unsetMask, QStringLiteral("Updating message flags"));
+}
+
+QMailMessageIdList MessageList::checkedIds()
+{
+    if (!m_selectionMode) {
+        return QMailMessageIdList();
+    }
+    QMailMessageIdList checkedMsgs;
+    foreach(MinimalMessage *m,m_model->toList()) {
+        if (m->checked() == Qt::Checked) {
+            checkedMsgs.append(QMailMessageId(m->messageId()));
+        }
+    }
+    return checkedMsgs;
 }
 
 void MessageList::init()

@@ -1,7 +1,7 @@
 #include "Message.h"
 
 MinimalMessage::MinimalMessage(QObject *parent) : QObject(parent),
-    m_from(0)
+    m_from(0), m_checked(Qt::Unchecked)
 {
 }
 
@@ -57,6 +57,11 @@ QString MinimalMessage::prettyDate()
     }
 }
 
+Qt::CheckState MinimalMessage::checked() const
+{
+    return m_checked;
+}
+
 void MinimalMessage::setMessageId(const quint64 &id)
 {
     setMessageId(QMailMessageId(id));
@@ -69,10 +74,20 @@ void MinimalMessage::setMessageId(const QMailMessageId &id)
         return;
     }
     QMailMessage msg(m_id);
+//    qDebug() << "MSG ID: " << messageId();
     m_from = new MailAddress(this);
     m_from->setAddress(msg.from());
 
     emit minMessageChanged();
+}
+
+void MinimalMessage::setChecked(const Qt::CheckState &checked)
+{
+    if (checked == m_checked) {
+        return;
+    }
+    m_checked = checked;
+    emit checkedChanged();
 }
 
 

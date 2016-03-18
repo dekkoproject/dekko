@@ -20,5 +20,13 @@
         <file>models/NavMenuContactsModel.qml</file>
         <file>models/NavMenuDekkoVisualModel.qml</file>
         <file>models/NavMenuModel.qml</file>
+        <file>components/FlipableSelectionAvatar.qml</file>
+        <file>delegates/MessageListDelegate.qml</file>
+        <file>popovers/MessageListActionPopover.qml</file>
+        <file>components/CachedImage.qml</file>
+        <file>components/UbuntuShapeGravatar.qml</file>
+        <file>components/ListItemWithActions.qml</file>
+        <file>components/ListItemWithActionsCheckBox.qml</file>
+        <file>utils/UiUtils.js</file>
     </qresource>
 </RCC>

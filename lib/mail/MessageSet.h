@@ -22,7 +22,7 @@ public:
     virtual void init(const QString &displayName, const QMailMessageKey &messageKey) = 0;
     QObject *children() { return m_children; }
     QVariant messageKey() const { return m_key; }
-    QVariant descendentsKey() const;
+    virtual QVariant descendentsKey() = 0;
     QString displayName() const { return m_name; }
     bool hasDecendents() const { return !m_children->isEmpty(); }
     int unreadCount();
@@ -64,6 +64,7 @@ public:
     };
     virtual void init(const QString &displayName, const QMailMessageKey &messageKey);
     void initNoDecendents(const QString &displayName, const QMailMessageKey &messageKey);
+    virtual QVariant descendentsKey() override;
     FolderType type() const { return m_type; }
 
 signals:

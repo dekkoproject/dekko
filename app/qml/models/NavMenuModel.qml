@@ -28,7 +28,19 @@ VisualItemModel {
                         delegate: NavMenuStandardFolderDelegate {
                             id: folderDelegate
                             folder: qtObject
-                            onClicked: navDrawer.msgKeySelected(qtObject.messageKey)
+                            onClicked: {
+                                if (model.index === 0) {
+                                    navDrawer.msgKeySelected(folder.displayName, folder.descendentsKey)
+                                } else {
+                                    navDrawer.msgKeySelected(folder.displayName, folder.messageKey)
+                                }
+                            }
+                            onSubFolderClicked: navDrawer.msgKeySelected(name, key)
+                            Component.onCompleted: {
+                                if (model.index === 0) {
+                                    navDrawer.msgKeySelected(folder.displayName, folder.descendentsKey)
+                                }
+                            }
                         }
                     }
                     ListItem {

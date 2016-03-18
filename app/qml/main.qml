@@ -24,7 +24,7 @@ import Ubuntu.Content 1.0
 import "./components"
 import "./utils"
 
-MainView {
+Item {
     id: dekko
 
     //-----------------------------------
@@ -59,6 +59,7 @@ MainView {
     // PRIVATE PROPERTIES & FUNCTIONS
     //--------------------------------
     property alias viewState: view
+
     ViewState {
         id: view
         anchors.fill: parent
@@ -70,10 +71,18 @@ MainView {
 //        accountsManager: dekko.accountsManager
     }
 
-    AdaptivePageLayout {
-        id: layout
-        anchors.fill: parent
-        primaryPageSource: "qrc:/qml/views/MessageListView.qml"
+    Item {
+        anchors {
+            left: parent.left
+            top: parent.top
+            right: parent.right
+            bottom: kbdRect.top
+        }
+        PageStack {
+            id: rootPageStack
+            // TODO: swap out for mainstage
+            Component.onCompleted: push("qrc:/qml/views/MessageListView.qml")
+        }
     }
 
     KeyboardRectangle {

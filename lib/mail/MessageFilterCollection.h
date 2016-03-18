@@ -44,6 +44,7 @@ protected:
 private:
     QQmlObjectListModel<MessageSet> *m_children;
     Filter m_filter;
+    bool m_firstRun;
 };
 
 #endif // MESSAGEFILTERCOLLECTION_H

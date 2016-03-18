@@ -13,6 +13,12 @@ Dekko::Dekko(int &argc, char **argv) : QGuiApplication(argc, argv), m_server(0),
 {
     setOrganizationName(QStringLiteral("dekkoproject"));
     setApplicationName(QStringLiteral("dekko"));
+    // Uncomment to dump out the resource files
+    // Useful to be able to check a resource has been included
+//    QDirIterator it(":", QDirIterator::Subdirectories);
+//    while (it.hasNext()) {
+//        qDebug() << it.next();
+//    }
 }
 
 bool Dekko::setup()
