@@ -1,4 +1,5 @@
 #include "Message.h"
+#include <qmailfolder.h>
 
 MinimalMessage::MinimalMessage(QObject *parent) : QObject(parent),
     m_from(0), m_checked(Qt::Unchecked)
@@ -33,6 +34,16 @@ bool MinimalMessage::isRead() const
 bool MinimalMessage::isFlagged() const
 {
     return (QMailMessageMetaData(m_id).status() & QMailMessageMetaData::Important);
+}
+
+bool MinimalMessage::canBeRestored() const
+{
+    return QMailMessage(m_id).restoreFolderId().isValid();
+}
+
+QString MinimalMessage::previousFolderName() const
+{
+    return QMailFolder(QMailMessage(m_id).restoreFolderId()).displayName();
 }
 
 QDateTime MinimalMessage::date() const

@@ -1,0 +1,119 @@
+#! /bin/sh
+
+set -e
+
+BUILD_DIR=${BUILD_DIR:=../__build}
+SRC_DIR=${PWD##*/}
+UITK=${UITK:=ubuntu-ui-toolkit}
+echo $SRC_DIR
+for i in "$@"
+do
+case $i in
+    --with-uitk)
+    WITH_UITK=true
+    shift 
+    ;;
+    --setup)
+    SETUP=true
+    shift 
+    ;;
+    --tests)
+    RUN_TESTS=true
+    shift 
+    ;;
+    --clean)
+    CLEAN=true
+    shift 
+    ;;
+    *)
+            
+    ;;
+esac
+done
+echo "CLEAN     = ${CLEAN}"
+echo "WITH UITK = ${WITH_UITK}"
+echo "SETUP     = ${SETUP}"
+echo "TESTS     = ${RUN_TESTS}"
+
+if [ "$CLEAN" = true ]; then
+  rm -rf ${BUILD_DIR}
+  exit 0
+fi
+
+## Create build dir if it doesn't exist
+if [ ! -d "$BUILD_DIR" ]; then
+  mkdir ${BUILD_DIR}
+fi
+
+# enter it
+cd ${BUILD_DIR}
+
+if [ "$WITH_UITK" = true ]; then
+# build uitk if we havn't already
+  if [ ! -d "uitk" ]; then
+    bzr branch lp:${UITK} uitk
+    sudo apt-get build-dep ubuntu-ui-toolkit liblttng-ust-dev  -y
+  fi
+  cd uitk
+  #bzr pull
+  QT_SELECT=qt5 qmake 
+  make -j4
+  sudo make install
+  cd ..
+
+fi
+
+if [ "$SETUP" = true ]; then
+  sudo apt-get install -y \
+    qtpim5-dev \
+    ubuntu-sdk-libs \
+    qml-module-qtcontacts \
+    qttools5-dev-tools \
+    libconnectivity-qt1-dev \
+    libaccounts-qt5-dev \
+    libgsettings-qt-dev \
+    qtdeclarative5-private-dev \
+    qtscript5-private-dev \
+    qml-module-qtquick-privatewidgets \
+    qtbase5-private-dev \
+    qtbase5-dev \
+    qtbase5-dbg \
+    qtbase5-dev-tools-dbg \
+    qtbase5-dbg \
+    qtbase5-dev-tools \
+    intltool \
+    libunity-dev \
+    libmessaging-menu-dev \
+    libnotify-dev \
+    qml-module-qtqml-statemachine \
+    xvfb \
+    bzr \
+    cmake \
+    libqt5svg5-dev \
+    --no-install-recommends
+  exit 0
+fi
+
+if [ "$RUN_TESTS" = true ]; then
+    cmake -DCLICK_MODE=off -DWITH_TESTS=on ../${SRC_DIR}
+else
+    cmake -DCLICK_MODE=off -DWITH_TESTS=off ../${SRC_DIR}
+fi
+    
+make -j4
+if [ "$WITH_UITK" = true ]; then
+  cd uitk
+  ./export_modules_dir.sh
+  export QML2_IMPORT_PATH=./uitk/qml
+  cd ..
+fi
+
+if [ "$RUN_TESTS" = true ]; then
+    echo "RUNNING TESTS"
+    make test
+else
+    ./dekko
+fi
+
+
+

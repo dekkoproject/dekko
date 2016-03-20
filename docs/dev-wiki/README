@@ -1,0 +1,10 @@
+This wiki uses MDWiki http://dynalon.github.io/mdwiki/#!index.md
+
+To run & view the wiki on your desktop you can uses pythons SimpleHTTPServer
+
+$ cd dev-wiki
+$ python -m SimpleHTTPServer
+
+Then open your browser to localhost:8000 or 127.0.0.1:8000
+
+This wiki is hosted on wiki.dekkoproject.org and will get updated when ever changes get merged into Dekko's master branch.

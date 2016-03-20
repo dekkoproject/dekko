@@ -36,3 +36,8 @@ void Client::deleteMessages(const QMailMessageIdList &idList)
     m_service->deleteMessages(idList);
 }
 
+void Client::restoreMessage(const int &msgId)
+{
+    m_service->restoreMessage(QMailMessageId(msgId));
+}
+

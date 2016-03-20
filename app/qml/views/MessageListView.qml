@@ -25,12 +25,50 @@ DekkoPage {
         sortOrder: Qt.DescendingOrder
     }
 
+    ListItem {
+        id: undoNotification
+        expansion.height: units.gu(6)
+        expansion.expanded: Client.service.hasUndoableAction
+        divider.visible: Client.service.hasUndoableAction
+        height: 0
+        anchors {
+            left: parent.left
+            top: pageHeader.bottom
+            right: parent.right
+        }
+
+        Label {
+            anchors {
+                left: parent.left
+                leftMargin: units.gu(2)
+                verticalCenter: parent.verticalCenter
+            }
+            visible: Client.service.hasUndoableAction
+            text: Client.service.undoableActionDescription
+        }
+
+        Button {
+            height: units.gu(4)
+            width: units.gu(8)
+            anchors {
+                right: parent.right
+                rightMargin: units.gu(2)
+                verticalCenter: parent.verticalCenter
+            }
+            color: UbuntuColors.green
+            action: Action {
+                text: "Undo"
+                onTriggered: Client.service.undoActions()
+            }
+        }
+    }
+
 
     ListView {
         id: listView
         anchors {
             left: parent.left
-            top: pageHeader.bottom
+            top: undoNotification.bottom
             right: parent.right
             bottom: parent.bottom
         }
@@ -67,15 +105,24 @@ DekkoPage {
             // in one go and reuse it throughout.
             msg: model.qtObject
 
+
             leftSideAction: Action {
                 iconName: "delete"
                 onTriggered: {
                     Client.deleteMessage(msgListDelegate.msg.messageId)
                 }
             }
+
+            onItemClicked: {
+                if (mouse.button === Qt.RightButton) {
+                    rightClickActions.trigger()
+                    return;
+                }
+            }
         }
 
         footer: msgList.canLoadMore ? footerComponent : null
+
 
         Component {
             id: footerComponent

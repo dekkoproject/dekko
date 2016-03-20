@@ -21,6 +21,7 @@ import Ubuntu.Components.Popups 1.1
 import QtGraphicalEffects 1.0
 import Dekko.Components 1.0
 import "../components"
+import "../popovers"
 
 ListItemWithActions {
     id: normalMessageItemDelegate
@@ -214,22 +215,12 @@ ListItemWithActions {
 //                                         ]
 //                                     })
 //    }
-//    property Action rightClickActions: Action {
-//        id: rightClick
-//        onTriggered: PopupUtils.open(Qt.resolvedUrl("./MessageListActionPopover.qml"),
-//                                     delegate,
-//                                     {
-//                                         mboxName: messageListPage.mailBox,
-//                                         uid: model.messageUid,
-//                                         actions: [
-//                                             deleteAction,
-//                                             flagAction,
-//                                             markReadAction,
-//                                             replyAction,
-//                                             replyAllAction,
-//                                             forwardAction,
-//                                             moveAction
-//                                         ]
-//                                     })
-//    }
+    property Action rightClickActions: Action {
+        id: rightClick
+        onTriggered: PopupUtils.open(Qt.resolvedUrl("../popovers/MessageListActionPopover.qml"),
+                                     msgListDelegate,
+                                     {
+                                         msg: normalMessageItemDelegate.msg
+                                     })
+    }
 }

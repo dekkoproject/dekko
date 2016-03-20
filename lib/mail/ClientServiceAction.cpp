@@ -1,6 +1,7 @@
 #include "ClientServiceAction.h"
 #include <qmaildisconnected.h>
 #include <qmailmessage.h>
+#include <qmailaccount.h>
 #include <QDebug>
 
 
@@ -35,4 +36,18 @@ QMailAccountIdList DeleteMessagesAction::accountIds()
         }
     }
     return accounts;
+}
+
+ExportUpdatesAction::ExportUpdatesAction(QObject *parent, QMailRetrievalAction *action, const QMailAccountId &id) :
+    ClientServiceAction(parent), m_accountId(id), m_action(action)
+{
+    m_actionType = ActionType::Silent;
+    m_serviceActionType = ServiceAction::ExportAction;
+    m_description = tr("Syncing changes for %1 account").arg(QMailAccount(m_accountId).name());
+}
+
+void ExportUpdatesAction::process()
+{
+    qDebug() << "Exporting updates for account: " << QMailAccount(m_accountId).name();
+    m_action->exportUpdates(m_accountId);
 }

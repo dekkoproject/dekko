@@ -16,7 +16,7 @@ public:
 
     enum ActionType {
         Silent, /** @short Queued and be processed in the near future; */
-        Undoable, /** @short Triggered immediately but can be undone */
+        Undoable, /** @short Triggered immediately but can be undone within 5 seconds */
         Immediate /** @short Triggered immediately cannot be undone */
     };
 
@@ -76,6 +76,17 @@ public:
     void process();
     int itemCount();
     QMailAccountIdList accountIds();
+};
+
+class ExportUpdatesAction : public ClientServiceAction
+{
+    Q_OBJECT
+    QMailAccountId m_accountId;
+    QPointer<QMailRetrievalAction> m_action;
+public:
+    ExportUpdatesAction(QObject *parent, QMailRetrievalAction *action, const QMailAccountId &id);
+    void process();
+    QMailAccountId accountId() { return m_accountId; }
 };
 
 //class MoveMessagesAction : public UndoableAction

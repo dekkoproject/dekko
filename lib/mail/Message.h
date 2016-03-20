@@ -22,6 +22,8 @@ class MinimalMessage : public QObject
     Q_PROPERTY(bool hasAttachments READ hasAttachments NOTIFY minMessageChanged)
     Q_PROPERTY(bool isRead READ isRead NOTIFY minMessageChanged)
     Q_PROPERTY(bool isImportant READ isFlagged NOTIFY minMessageChanged)
+    Q_PROPERTY(bool canBeRestored READ canBeRestored NOTIFY minMessageChanged)
+    Q_PROPERTY(QString previousFolderName READ previousFolderName NOTIFY minMessageChanged)
     Q_PROPERTY(QDateTime date READ date NOTIFY minMessageChanged)
     Q_PROPERTY(QString prettyDate READ prettyDate NOTIFY minMessageChanged)
     Q_PROPERTY(Qt::CheckState checked READ checked WRITE setChecked NOTIFY checkedChanged)
@@ -35,6 +37,8 @@ public:
     bool hasAttachments() const;
     bool isRead() const;
     bool isFlagged() const;
+    bool canBeRestored() const;
+    QString previousFolderName() const;
     QDateTime date() const;
     QString prettyDate();
     Qt::CheckState checked() const;

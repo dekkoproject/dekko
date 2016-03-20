@@ -19,6 +19,7 @@ public:
 
     Q_INVOKABLE void deleteMessage(const int &msgId);
     void deleteMessages(const QMailMessageIdList &idList);
+    Q_INVOKABLE void restoreMessage(const int &msgId);
 
 signals:
     void serviceChanged();
