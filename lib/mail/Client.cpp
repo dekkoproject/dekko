@@ -41,3 +41,23 @@ void Client::restoreMessage(const int &msgId)
     m_service->restoreMessage(QMailMessageId(msgId));
 }
 
+void Client::markMessageImportant(const int &msgId, const bool important)
+{
+    markMessagesImportant(QMailMessageIdList() << QMailMessageId(msgId), important);
+}
+
+void Client::markMessageRead(const int &msgId, const bool read)
+{
+    markMessagesRead(QMailMessageIdList() << QMailMessageId(msgId), read);
+}
+
+void Client::markMessagesImportant(const QMailMessageIdList &idList, const bool important)
+{
+    m_service->markMessagesImportant(idList, important);
+}
+
+void Client::markMessagesRead(const QMailMessageIdList &idList, const bool read)
+{
+    m_service->markMessagesRead(idList, read);
+}
+

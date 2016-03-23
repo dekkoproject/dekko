@@ -25,6 +25,7 @@ AbstractButton {
     property alias iconColor: icon.color
     property bool showText: false
     property int verticalCenterOffset: 0
+    property int iconSize: units.gu(2)
     
     width: showText ? description.width : units.gu(5)
     height: width
@@ -40,7 +41,7 @@ AbstractButton {
         anchors.centerIn: parent
 //        smooth: true
         anchors.verticalCenterOffset: button.verticalCenterOffset
-        width: units.gu(2)
+        width: iconSize
         height: width
 //        color: Style.header.icons
         name: action && action.iconName ? action.iconName : ""

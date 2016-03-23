@@ -18,7 +18,8 @@ import QtQuick 2.2
 import Ubuntu.Components 1.3
 
 CheckBox {
-    width: implicitWidth
+    width: units.gu(2.5)
+    height: width
     property bool isMultiSelect: true
     checked: isMultiSelect ? root.selected : false
     // disable item mouse area to avoid conflicts with parent mouse area

@@ -67,6 +67,8 @@ public slots: // virtual methods API for QML
     virtual QObject * getFirst (void) const = 0;
     virtual QObject * getLast (void) const = 0;
     virtual QVariantList toVarArray (void) const = 0;
+    virtual void enqueue(QObject *item) = 0;
+    virtual void dequeue() = 0;
 
 protected slots: // internal callback
     virtual void onItemPropertyChanged (void) = 0;
@@ -285,6 +287,29 @@ public: // C++ API
             updateCounter ();
         }
     }
+
+    void enqueue(ItemType *item) {
+        // we don't allow insertion into 0 if
+        // the models not empty
+        if (isEmpty()) {
+            insert(0, item);
+            return;
+        }
+        int idx = 0;
+        foreach(ItemType *other, toList()) {
+            if (idx == 0 && !isEmpty()) {
+                continue;
+            }
+            if (item < other) {
+                insert(indexOf(other), item);
+                return;
+            }
+            ++idx;
+        }
+        // failsafe
+        append(item); // :-(
+    }
+
     ItemType * first (void) const {
         return m_items.first ();
     }
@@ -331,6 +356,12 @@ public: // QML slots implementation
     }
     QVariantList toVarArray (void) const {
         return qListToVariant<ItemType *> (m_items);
+    }
+    void enqueue(QObject *item) {
+        return enqueue(qobject_cast<ItemType *>(item));
+    }
+    void dequeue() {
+        remove(0);
     }
 
 protected: // internal stuff

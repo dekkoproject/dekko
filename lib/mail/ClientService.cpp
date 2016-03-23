@@ -13,6 +13,9 @@ ClientService::ClientService(QObject *parent) : QObject(parent),
     connect(m_undoQueue, &QQmlObjectListModel<ClientServiceAction>::countChanged,
             this, &ClientService::undoableCountChanged);
     m_serviceQueue = new QQmlObjectListModel<ClientServiceAction>(this);
+    m_serviceWatcher = new ClientServiceWatcher(this);
+    m_serviceWatcher->setWatchQueue(m_serviceQueue);
+    connect(m_serviceWatcher, &ClientServiceWatcher::processNext, this, &ClientService::processNextAction);
     emit queueChanged();
 }
 
@@ -52,6 +55,7 @@ void ClientService::deleteMessages(const QMailMessageIdList &ids)
     if (ids.isEmpty()) {
         return;
     }
+    qDebug() << "Deleting " << ids.count() << "messages";
     // these are undoable so add to the undo queue once processed
     DeleteMessagesAction *action = new DeleteMessagesAction(this, ids);
     action->process();
@@ -66,34 +70,26 @@ void ClientService::restoreMessage(const QMailMessageId &id)
     }
 }
 
-void ClientService::exportMailStoreUpdate()
+void ClientService::markMessagesImportant(const QMailMessageIdList &msgIds, const bool important)
 {
-    QMailAccountIdList accounts;
-    foreach(ClientServiceAction *action, m_undoQueue->toList()) {
-        Q_FOREACH(const QMailAccountId &id, qobject_cast<UndoableAction *>(action)->accountIds()) {
-            if (!accounts.contains(id)) {
-                accounts.append(id);
-            }
-        }
+    if (msgIds.isEmpty()) {
+        return;
     }
-    foreach(const QMailAccountId &id, accounts) {
-        exportMailStoreUpdate(id);
-    }
-    m_undoQueue->clear();
+    FlagsAction *flagAction = new FlagsAction(this, msgIds, FlagsAction::FlagStarred, important ? FlagsAction::Apply : FlagsAction::Remove);
+    flagAction->process();
+    exportMailStoreUpdate(flagAction->accountIds());
+    flagAction->deleteLater();
 }
-void ClientService::exportMailStoreUpdate(const QMailAccountId &id)
-{
-    if (id.isValid()) {
-        if (!m_exportAction) {
-            m_exportAction = new QMailRetrievalAction(this);
-            connectServiceAction(m_exportAction);
-        }
-        m_serviceQueue->append(new ExportUpdatesAction(0, m_exportAction, id));
 
-        if (!m_exportAction->isRunning()) {
-            processNextServiceAction();
-        }
+void ClientService::markMessagesRead(const QMailMessageIdList &msgIds, const bool read)
+{
+    if (msgIds.isEmpty()) {
+        return;
     }
+    FlagsAction *flagAction = new FlagsAction(this, msgIds, FlagsAction::FlagRead, read ? FlagsAction::Apply : FlagsAction::Remove);
+    flagAction->process();
+    exportMailStoreUpdate(flagAction->accountIds());
+    flagAction->deleteLater();
 }
 
 void ClientService::undoableCountChanged()
@@ -122,59 +118,25 @@ void ClientService::rollBackMailStoreUpdates(const QMailAccountIdList &accounts)
     }
 }
 
-void ClientService::activityChanged(QMailServiceAction::Activity activity)
-{
-    if (QMailServiceAction *action = qobject_cast<QMailServiceAction*>(sender())) {
-        if (activity == QMailServiceAction::Successful) {
-            /*if (action == m_transmitAction) {
-                transmitCompleted();
-            } else if (action == m_retrievalAction) {
-                retrievalCompleted();
-            } else if (action->metaObject()->className() == QString("QMailStorageAction")) {
-                storageActionCompleted();
-                action->deleteLater();
-            } else */
-            if (action == m_exportAction) {
-                qDebug() << "Export action successful";
-                m_serviceQueue->remove(0); // finished successfully
-//                clearStatusText();
-                processNextServiceAction();
-            }
-        } else if (activity == QMailServiceAction::Failed) {
-//            const QMailServiceAction::Status status(action->status());
-            if (action == m_exportAction) {
-                qDebug() << "Export action failed";
-            }
-//            if (action->metaObject()->className() == QString("QMailStorageAction")) {
-//                storageActionFailure(status.accountId, status.text);
-//                action->deleteLater();
-//            } else if (action == m_exportAction) {
-//                rollBackUpdates(status.accountId);
-//            } else {
-//                transferFailure(status.accountId, status.text, status.errorCode);
-//            }
-        }
-    }
-}
-
-void ClientService::connectServiceAction(QMailServiceAction *action)
-{
-//    connect(action, SIGNAL(connectivityChanged(QMailServiceAction::Connectivity)), this, SLOT(connectivityChanged(QMailServiceAction::Connectivity)));
-    connect(action, SIGNAL(activityChanged(QMailServiceAction::Activity)), this, SLOT(activityChanged(QMailServiceAction::Activity)));
-//    connect(action, SIGNAL(statusChanged(QMailServiceAction::Status)), this, SLOT(statusChanged(QMailServiceAction::Status)));
-//    connect(action, SIGNAL(progressChanged(uint, uint)), this, SLOT(progressChanged(uint, uint)));
-}
 
 void ClientService::undoActions()
 {
     m_undoTimer->stop();
     if (!m_undoQueue->isEmpty()) {
         // get list of accountids to rollback updates on
+        // first get the total number of enabled accounts.
+        int size = QMailStore::instance()->queryAccounts(QMailAccountKey::messageType(QMailMessage::Email)
+                                                  & QMailAccountKey::status(QMailAccount::Enabled),
+                                                  QMailAccountSortKey::name()).count();
+
         QMailAccountIdList accounts;
         foreach(ClientServiceAction *action, m_undoQueue->toList()) {
             Q_FOREACH(const QMailAccountId &id, qobject_cast<UndoableAction *>(action)->accountIds()) {
                 if (!accounts.contains(id)) {
                     accounts.append(id);
+                    if (accounts.count() == size) {
+                        break; // early
+                    }
                 }
             }
         }
@@ -183,16 +145,87 @@ void ClientService::undoActions()
     }
 }
 
-void ClientService::processNextServiceAction()
+void ClientService::exportMailStoreUpdate()
 {
-    if (m_serviceQueue->isEmpty()) {
-        m_exportAction->deleteLater();
-        m_exportAction = 0;
-        return;
+    QMailAccountIdList accounts;
+    foreach(ClientServiceAction *action, m_undoQueue->toList()) {
+        Q_FOREACH(const QMailAccountId &id, qobject_cast<UndoableAction *>(action)->accountIds()) {
+            if (!accounts.contains(id)) {
+                accounts.append(id);
+            }
+        }
     }
+    exportMailStoreUpdate(accounts);
+    m_undoQueue->clear();
+}
 
-    if (!m_exportAction->isRunning()) {
-        m_serviceQueue->at(0)->process();
+void ClientService::exportMailStoreUpdate(const QMailAccountIdList &ids)
+{
+    foreach(const QMailAccountId &id, ids) {
+        exportMailStoreUpdate(id);
     }
 }
 
+void ClientService::exportMailStoreUpdate(const QMailAccountId &id)
+{
+    if (id.isValid()) {
+        qDebug() << "Valid account id: " << id.toULongLong();
+        if (!exportQueuedForAccountId(id)) {
+            enqueue(new ExportUpdatesAction(this, id));
+        }
+    }
+}
+
+void ClientService::enqueue(ClientServiceAction *action)
+{
+    const bool queueWasEmpty = m_serviceQueue->isEmpty();
+    qDebug() << "Enqueuing action";
+    m_serviceQueue->enqueue(action);
+    if (queueWasEmpty) {
+        qDebug() << "Queue was empty processing next action";
+        processNextServiceAction();
+    }
+}
+
+bool ClientService::exportQueuedForAccountId(const QMailAccountId &id)
+{
+    bool queued = false;
+    Q_FOREACH(ClientServiceAction *action, m_serviceQueue->toList()) {
+        if (action->metaObject()->className() == QStringLiteral("ExportUpdatesAction")) {
+            ExportUpdatesAction *exportAction = static_cast<ExportUpdatesAction *>(action);
+            if (exportAction->accountId() == id) {
+                if (action == m_serviceQueue->first()) {
+                    if (m_serviceQueue->first()->isRunning()) {
+                        qDebug() << "Action queued but currently running, so queue another";
+                        queued = false; // already running so we need to queue another
+                        continue;
+                    }
+                }
+                qDebug() << "Action already queued for "<< id;
+                queued = true; // already queued;
+            }
+        }
+    }
+    return queued;
+}
+
+void ClientService::processNextAction()
+{
+    QTimer::singleShot(0, this, SLOT(processNextServiceAction()));
+}
+
+void ClientService::processNextServiceAction()
+{
+    if (m_serviceQueue->isEmpty()) {
+        qDebug() << "Action queue empty nothing to do :-)";
+        return;
+    }
+    qDebug() << "Processing next service action;";
+    qDebug() << "Queue size is: " << m_serviceQueue->size();
+    if (!m_serviceQueue->first()->isRunning()) {
+        connect(m_serviceQueue->first(), &ClientServiceAction::activityChanged, m_serviceWatcher, &ClientServiceWatcher::activityChanged);
+        m_serviceQueue->first()->process();
+    } else {
+        qDebug() << "Action already running, cannot start another until it's done.";
+    }
+}

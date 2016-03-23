@@ -5,6 +5,7 @@ Page {
     id: dekkoPage
 
     property alias pageHeader: h
+    property alias selectedIndex: h.selectedIndex
 
     signal searchActivated(string searchString)
     signal searchCanceled()

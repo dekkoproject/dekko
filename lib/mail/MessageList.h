@@ -1,4 +1,4 @@
-#ifndef MESSAGELIST_H
+﻿#ifndef MESSAGELIST_H
 #define MESSAGELIST_H
 
 #include <QObject>
@@ -22,30 +22,36 @@ class MessageList : public QObject
     Q_PROPERTY(QVariant messageKey READ key WRITE setKey NOTIFY messageKeyChanged)
     /** @short Sort order on DateTime */
     Q_PROPERTY(Qt::SortOrder sortOrder READ sortOrder WRITE setSortOrder NOTIFY sortOrderChanged)
+    /** @short Filter applied to mailstore query */
+    Q_PROPERTY(FilterKey filter READ filterKey WRITE setFilterKey NOTIFY filterKeyChanged)
     /** @short Total count - this is the total available message count and not this models count as we have a limit */
     Q_PROPERTY(int totalCount READ totalCount NOTIFY totalCountChanged)
     Q_PROPERTY(bool canLoadMore READ canLoadMore NOTIFY totalCountChanged)
+    Q_PROPERTY(int currentSelectedIndex READ currentSelectedIndex WRITE setCurrentSelectedIndex NOTIFY currentSelectedIndexChanged)
 //    /** @short unread count for this messagekey */
 //    Q_PROPERTY(int unreadCount READ unreadCount NOTIFY unreadCountChanged)
     Q_PROPERTY(bool isInSelectionMode READ isInSelectionMode NOTIFY isInSelectionModeChanged)
 
-    Q_ENUMS(Actions)
-    Q_ENUMS(ReadFlag)
+//    // Selectionmode icon properties
+    Q_PROPERTY(bool canSelectAll READ canSelectAll NOTIFY selectionIndexesChanged)
+    Q_PROPERTY(bool canMarkSelectionRead READ canMarkSelectionAsRead NOTIFY selectionIndexesChanged)
+    Q_PROPERTY(bool canMarkSelectionImportant READ canMarkSelectionImportant NOTIFY selectionIndexesChanged)
+
+    Q_ENUMS(FilterKey)
 
 public:
     explicit MessageList(QObject *parent = 0);
 
-    enum ReadFlag {
-        FlagRead,
-        FlagUnread
-    };
-
-    enum Actions {
-        NoopAction, /** @short No operation applied */
-        FlagAction, /** @short applies the \Flagged keyword */
-        MoveAction, /** @short exactly what it says on the tin */
-        DeleteAction, /** @short ditto */
-        ReadUnreadAction /** @short applies the read unread flag */
+    enum FilterKey {
+        All,
+        Unread,
+        Important,
+        Replied,
+        Forwarded,
+        Attachments,
+        HighPriority,
+        Calendar,
+        Todo
     };
 
     QObject *model() const { return m_model; }
@@ -56,10 +62,17 @@ public:
     int totalCount();
     bool canLoadMore();
     bool isInSelectionMode() const { return m_selectionMode; }
+    bool canSelectAll();
+    bool canMarkSelectionAsRead();
+    bool canMarkSelectionImportant();
 
     Q_INVOKABLE int indexOf(const quint64 &id);
     int indexOf(const QMailMessageId &id);
     Q_INVOKABLE void loadMore();
+
+    int currentSelectedIndex() const;
+
+    FilterKey filterKey() const;
 
 signals:
     void totalCountChanged();
@@ -70,19 +83,37 @@ signals:
     void isInSelectionModeChanged();
     void selectionStarted();
     void selectionEnded();
+    void selectionIndexesChanged();
+
+    void currentSelectedIndexChanged();
+
+    void filterKeyChanged(FilterKey filter);
 
 public slots:
     void setLimit(int limit);
     void setKey(const QVariant &key);
     void setSortOrder(const Qt::SortOrder &order);
-    void startSelection();
-    void endSelection();
-    /** @short Applies the predefined actions to the multi selected items
 
-        folderId will only be evaluated for MoveAction
-    */
-    void applySelectionAction(const Actions action, const ReadFlag flag = FlagRead, const int &folderId = -1);
-    void markMessageRead(const int &msgId, const ReadFlag &flag);
+    // Multiselect options
+    /** @short Enter selection mode */
+    void startSelection();
+    /** @short Exit selection mode */
+    void endSelection();
+    /** @short Select all messages in model */
+    void selectAll();
+    /** @short Unselects all messages in model */
+    void unselectAll();
+    /** @short Set checked value at index */
+    void setChecked(const int &index, const Qt::CheckState &checkState);
+    void markSelectedMessagesImportant();
+    void markSelectedMessagesRead();
+    void deleteSelectedMessages();
+//    void moveSelectedMessages()
+//    void copySelectedMessages()
+
+    void setCurrentSelectedIndex(int currentSelectedIndex);
+
+    void setFilterKey(FilterKey filter);
 
 private slots:
     void handleNewMessages(const QMailMessageIdList &newList);
@@ -95,13 +126,14 @@ private: // functions
     void addNewMessages(const QMailMessageIdList &idList);
     void sortAndAppendNewMessages(const QMailMessageIdList &idsToAppend, const QMailMessageIdList &newIdsList);
     void removeMessages(const QMailMessageIdList &idList);
-    void markMessagesRead(const QMailMessageIdList &idList, const ReadFlag &flag);
     QMailMessageIdList checkedIds();
     void init();
     void reset();
 
 private: //members
     typedef QMap<QMailMessageId, int> MessageIndexMap;
+
+    QMailMessageKey messageListKey();
 
     QQmlObjectListModel<MinimalMessage> *m_model;
     QMailMessageIdList m_idList; // List if id's in our model.
@@ -112,7 +144,8 @@ private: //members
     Qt::SortOrder m_sortOrder;
     bool m_initialized;
     bool m_selectionMode;
-
+    int m_currentIndex;
+    FilterKey m_filter;
 };
 
 #endif // MESSAGELIST_H

@@ -6,7 +6,7 @@ Paths::Paths(QObject *parent) : QObject(parent)
 
 }
 
-QString Paths::iconUrl(const Paths::ActionIcon icon)
+QString Paths::iconUrl(const Paths::ActionIcon icon, bool prefix)
 {
     QString iconName;
     switch(icon) {
@@ -99,7 +99,11 @@ QString Paths::iconUrl(const Paths::ActionIcon icon)
     };
 
     if (!iconName.isEmpty()) {
-        return QStringLiteral(":/actions/%1").arg(iconName);
+        if (prefix)
+            return QStringLiteral(":/actions/%1").arg(iconName);
+        else
+            return QStringLiteral("/actions/%1").arg(iconName);
+
     } else {
         qDebug() << "Unknown icon";
         return QString();
@@ -108,7 +112,7 @@ QString Paths::iconUrl(const Paths::ActionIcon icon)
 
 QUrl Paths::actionIconUrl(const Paths::ActionIcon icon)
 {
-    return Paths::iconUrl(icon);
+    return QStringLiteral("qrc://%1").arg(Paths::iconUrl(icon, false));
 }
 
 QString Paths::cachePath() const

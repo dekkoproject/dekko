@@ -2,6 +2,7 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Dekko.Accounts 1.0
 import Dekko.Mail 1.0
+import Dekko.Components 1.0
 import "../components"
 import "../delegates"
 import "../models"
@@ -12,7 +13,85 @@ DekkoPage {
     pageHeader.title: "Inbox"
     pageHeader.enableSearching: true
     pageHeader.backAction: drawerAction
-    pageHeader.filterSections: ["All", "Unread", "Starred", "Tagged", "Deleted"]
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // NOTE: DO NOT CHANGE THESE WITHOUT UPDATING THE FILTER SWITCH BELOW!!!!
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    readonly property var defaultFilters: [qsTr("All"), qsTr("Unread"), qsTr("Starred"), qsTr("Replied"), qsTr("Forwarded"), qsTr("Attachments"), qsTr("Calendar")]
+    pageHeader.filterSections: defaultFilters
+    onSelectedIndexChanged: {
+        switch (selectedIndex) {
+        case 0: // All
+            msgList.filter = MessageList.All;
+            break;
+        case 1: // Unread
+            msgList.filter = MessageList.Unread;
+            break;
+        case 2: // Starred
+            msgList.filter = MessageList.Important;
+            break;
+        case 3: // Replied
+            msgList.filter = MessageList.Replied;
+            break;
+        case 4: // Forwarded
+            msgList.filter = MessageList.Forwarded;
+            break;
+        case 5: // Attachments
+            msgList.filter = MessageList.Attachments;
+            break;
+        case 6: // Calendar
+            msgList.filter = MessageList.Calendar;
+            break;
+        }
+    }
+
+    pageHeader.multiSelectActionList: [selectAllAction, flagSelectedAction, markSelectedAction, deleteSelectedAction]
+    onMultiSelectCanceled: msgList.endSelection()
+
+
+    function reset() {
+        listView.currentIndex = -1
+        listView.positionViewAtBeginning()
+        selectedIndex = 0
+    }
+
+    Action {
+        id: selectAllAction
+        iconSource: !msgList.canSelectAll ? Paths.actionIconUrl(Paths.NoneSelectedIcon) :
+                                            Paths.actionIconUrl(Paths.SelectIcon)
+        text: msgList.canSelectAll ? qsTr("Unselect all") : qsTr("Select all")
+        onTriggered: {
+            if (msgList.canSelectAll) {
+                msgList.selectAll();
+            } else {
+                msgList.unselectAll();
+            }
+        }
+    }
+
+    Action {
+        id: flagSelectedAction
+        iconSource: msgList.canMarkSelectionImportant ? Paths.actionIconUrl(Paths.StarredIcon) :
+                                                        Paths.actionIconUrl(Paths.UnStarredIcon)
+        text: msgList.canMarkSelectionImportant ? qsTr("Star") : qsTr("Remove star")
+        onTriggered: {
+            msgList.markSelectedMessagesImportant()
+        }
+    }
+
+    Action {
+        id: deleteSelectedAction
+        iconSource: Paths.actionIconUrl(Paths.DeleteIcon)
+        text: qsTr("Delete")
+        onTriggered: msgList.deleteSelectedMessages()
+    }
+
+    Action {
+        id: markSelectedAction
+        text: msgList.canMarkSelectionRead ? qsTr("Mark as un-read") : qsTr("Mark as read")
+        iconSource: !msgList.canMarkSelectionRead ? Paths.actionIconUrl(Paths.MailUnreadIcon) :
+                                                    Paths.actionIconUrl(Paths.MailReadIcon)
+        onTriggered: msgList.markSelectedMessagesRead()
+    }
 
     Action {
         id: drawerAction
@@ -23,6 +102,7 @@ DekkoPage {
     MessageList {
         id: msgList
         sortOrder: Qt.DescendingOrder
+        currentSelectedIndex: listView.currentIndex
     }
 
     ListItem {
@@ -66,6 +146,7 @@ DekkoPage {
 
     ListView {
         id: listView
+        property int selectionIndex: 0
         anchors {
             left: parent.left
             top: undoNotification.bottom
@@ -73,6 +154,7 @@ DekkoPage {
             bottom: parent.bottom
         }
         clip: true
+        currentIndex: -1
         add: Transition {
             NumberAnimation { property: "opacity"; from: 0; to: 1.0; duration: 300 }
             NumberAnimation { property: "scale"; easing.type: Easing.InOutSine; from: 0.4; to: 1.0; duration: 300 }
@@ -93,6 +175,12 @@ DekkoPage {
             }
         }
 
+        highlight: Rectangle {
+            color: Qt.rgba(0, 0, 0, 0.05)
+        }
+        highlightFollowsCurrentItem: true
+        highlightMoveDuration: 200
+
         model: msgList.model
         delegate: MessageListDelegate{
             id: msgListDelegate
@@ -105,7 +193,6 @@ DekkoPage {
             // in one go and reuse it throughout.
             msg: model.qtObject
 
-
             leftSideAction: Action {
                 iconName: "delete"
                 onTriggered: {
@@ -113,16 +200,35 @@ DekkoPage {
                 }
             }
 
+            rightSideActions: [flagAction, readAction, moveAction, contextAction]
+
             onItemClicked: {
+                if (msgList.isInSelectionMode) {
+                    if (msg.checked) {
+                        msgList.setChecked(model.index, Qt.Unchecked)
+                    } else {
+                        msgList.setChecked(model.index, Qt.Checked)
+                    }
+                    return;
+                }
+
                 if (mouse.button === Qt.RightButton) {
                     rightClickActions.trigger()
                     return;
                 }
+                listView.currentIndex = model.index
+            }
+            onItemPressAndHold: {
+                if (!msgList.isInSelectionMode) {
+                    listView.selectionIndex = model.index
+                    msgList.startSelection()
+                    msgList.setChecked(model.index, Qt.Checked);
+                    msgListPage.startMultiSelect()
+                }
             }
         }
 
-        footer: msgList.canLoadMore ? footerComponent : null
-
+        footer: msgList.model.count && msgList.canLoadMore ? footerComponent : null
 
         Component {
             id: footerComponent
@@ -152,7 +258,7 @@ DekkoPage {
         id: navDrawer
         signal msgKeySelected(string title, var key)
         onMsgKeySelected: {
-            listView.positionViewAtBeginning()
+            msgListPage.reset()
             pageHeader.title = title
             msgList.messageKey = key
             delayClose()

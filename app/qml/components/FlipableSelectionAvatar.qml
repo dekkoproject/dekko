@@ -55,7 +55,7 @@ Flipable {
         anchors.fill: parent
         ListItemWithActionsCheckBox {
             anchors.centerIn: parent
-            checked: false
+            checked: msg && msg.checked
         }
     }
 
@@ -66,7 +66,7 @@ Flipable {
         axis.x: 0; axis.y: 1; axis.z: 0
     }
 
-    state: /*root.isInSelectionMode ? "back" :*/ "front"
+    state: msgList.isInSelectionMode ? "back" : "front"
 
     states: [
         State {
@@ -85,10 +85,10 @@ Flipable {
             PauseAnimation {
                 duration: {
                     var result;
-                    if (model.index > messagesListView.selectionIndex) {
-                        result = model.index - messagesListView.selectionIndex
-                    } else if ( model.index < messagesListView.selectionIndex) {
-                        result = messagesListView.selectionIndex - model.index
+                    if (model.index > listView.selectionIndex) {
+                        result = model.index - listView.selectionIndex
+                    } else if ( model.index < listView.selectionIndex) {
+                        result = listView.selectionIndex - model.index
                     }
                     if (result > 0 && result <= 20) {
                         return result * 100

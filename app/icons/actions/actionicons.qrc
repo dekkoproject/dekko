@@ -34,5 +34,6 @@
         <file>view-fullscreen.svg</file>
         <file>note.svg</file>
         <file>non-starred.svg</file>
+        <file>delete.svg</file>
     </qresource>
 </RCC>

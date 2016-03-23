@@ -4,7 +4,6 @@
 #include <qmailaccount.h>
 #include <QDebug>
 
-
 DeleteMessagesAction::DeleteMessagesAction(QObject *parent, const QMailMessageIdList &msgIds):
     UndoableAction(parent), m_ids(msgIds)
 {
@@ -38,8 +37,8 @@ QMailAccountIdList DeleteMessagesAction::accountIds()
     return accounts;
 }
 
-ExportUpdatesAction::ExportUpdatesAction(QObject *parent, QMailRetrievalAction *action, const QMailAccountId &id) :
-    ClientServiceAction(parent), m_accountId(id), m_action(action)
+ExportUpdatesAction::ExportUpdatesAction(QObject *parent, const QMailAccountId &id) :
+    ClientServiceAction(parent), m_accountId(id)
 {
     m_actionType = ActionType::Silent;
     m_serviceActionType = ServiceAction::ExportAction;
@@ -49,5 +48,95 @@ ExportUpdatesAction::ExportUpdatesAction(QObject *parent, QMailRetrievalAction *
 void ExportUpdatesAction::process()
 {
     qDebug() << "Exporting updates for account: " << QMailAccount(m_accountId).name();
-    m_action->exportUpdates(m_accountId);
+    createRetrievalAction()->exportUpdates(m_accountId);
 }
+
+FlagsAction::FlagsAction(QObject *parent, const QMailMessageIdList &msgs,
+                         const FlagsAction::FlagType &flag, const FlagsAction::State &state) :
+    ClientServiceAction(parent), m_idList(msgs), m_flag(flag), m_state(state) {
+
+    m_actionType = ActionType::Immediate;
+    m_serviceActionType = ServiceAction::FlagAction;
+    QString count = QString::number(m_idList.count());
+    QString flagAction;
+    switch (m_flag) {
+    case FlagStarred:
+    {
+        switch (m_state) {
+        case State::Apply:
+            flagAction = tr("important");
+            break;
+        case State::Remove:
+            flagAction = tr("not important");
+            break;
+        }
+        break;
+    }
+    case FlagRead:
+    {
+        switch (m_state) {
+        case State::Apply:
+            flagAction = tr("read");
+            break;
+        case State::Remove:
+            flagAction = tr("unread");
+            break;
+        }
+        break;
+    }
+    }
+    m_description = tr("Marking %1 messages %2").arg(count, flagAction);
+}
+
+void FlagsAction::process()
+{
+    if (m_idList.isEmpty()) {
+        return;
+    }
+    quint64 applyMask = 0;
+    quint64 removeMask = 0;
+
+    switch (m_flag) {
+    case FlagStarred:
+    {
+        switch (m_state) {
+        case State::Apply:
+            applyMask = QMailMessage::Important;
+            break;
+        case State::Remove:
+            removeMask = QMailMessage::Important;
+            break;
+        }
+        break;
+    }
+    case FlagRead:
+    {
+        switch (m_state) {
+        case State::Apply:
+            applyMask = QMailMessage::Read;
+            break;
+        case State::Remove:
+            removeMask = QMailMessage::Read;
+            break;
+        }
+        break;
+    }
+    }
+    QMailDisconnected::flagMessages(m_idList, applyMask, removeMask, m_description);
+}
+
+QMailAccountIdList FlagsAction::accountIds()
+{
+    QMailAccountIdList accounts;
+    Q_FOREACH(auto &id, m_idList) {
+        QMailAccountId accountId = QMailMessageMetaData(id).parentAccountId();
+        if (!accounts.contains(accountId)) {
+            accounts.append(accountId);
+        }
+    }
+    return accounts;
+}
+
+
+
+

@@ -3,9 +3,10 @@
 #include <QDebug>
 #include <qmailstore.h>
 #include <qmaildisconnected.h>
+#include "Client.h"
 
 MessageList::MessageList(QObject *parent) : QObject(parent),
-    m_model(0), m_initialized(false)
+    m_model(0), m_initialized(false), m_currentIndex(-1), m_filter(FilterKey::All)
 {
     m_model = new QQmlObjectListModel<MinimalMessage>(this);
     m_msgKey = QMailMessageKey::nonMatchingKey();
@@ -28,12 +29,50 @@ Qt::SortOrder MessageList::sortOrder() const
 
 int MessageList::totalCount()
 {
-    return QMailStore::instance()->countMessages(m_msgKey);
+    return QMailStore::instance()->countMessages(messageListKey());
 }
 
 bool MessageList::canLoadMore()
 {
     return m_limit < totalCount();
+}
+
+bool MessageList::canSelectAll()
+{
+    bool shouldSelectAll = false;
+    foreach (auto msg, m_model->toList()) {
+        if (msg->checked() == Qt::Unchecked) {
+            shouldSelectAll = true;
+            break;
+        }
+    }
+    return shouldSelectAll;
+}
+
+bool MessageList::canMarkSelectionAsRead()
+{
+    bool canMarkRead = false;
+    foreach (auto &id, checkedIds()) {
+        bool isRead = (QMailMessageMetaData(id).status() & QMailMessageMetaData::Read);
+        if (!isRead) {
+            canMarkRead = true;
+            break; // No need to keep looping. one seals the deal
+        }
+    }
+    return canMarkRead;
+}
+
+bool MessageList::canMarkSelectionImportant()
+{
+    bool canMarkFlagged = false;
+    foreach (auto &id, checkedIds()) {
+        bool isImportant = (QMailMessageMetaData(id).status() & QMailMessageMetaData::Important);
+        if (!isImportant) {
+            canMarkFlagged = true;
+            break; // No need to keep looping. one seals the deal
+        }
+    }
+    return canMarkFlagged;
 }
 
 int MessageList::indexOf(const quint64 &id)
@@ -58,6 +97,16 @@ void MessageList::loadMore()
     }
 }
 
+int MessageList::currentSelectedIndex() const
+{
+    return m_currentIndex;
+}
+
+MessageList::FilterKey MessageList::filterKey() const
+{
+    return m_filter;
+}
+
 void MessageList::setLimit(int limit)
 {
     if (m_limit == limit)
@@ -71,7 +120,7 @@ void MessageList::setLimit(int limit)
     } else {
         m_limit = limit;
         QMailMessageIdList idsToAppend;
-        QMailMessageIdList newIdsList(QMailStore::instance()->queryMessages(m_msgKey, m_sortKey, m_limit));
+        QMailMessageIdList newIdsList(QMailStore::instance()->queryMessages(messageListKey(), m_sortKey, m_limit));
 
         foreach (const QMailMessageId &id, newIdsList) {
             if (!m_idList.contains(id)) {
@@ -126,26 +175,67 @@ void MessageList::endSelection()
     emit selectionEnded();
 }
 
-void MessageList::applySelectionAction(const Actions action, const ReadFlag flag, const int &folderId)
+void MessageList::selectAll()
 {
-    Q_UNUSED(folderId);
-    switch (action) {
-    case NoopAction:
-        return;
-    case FlagAction:
-    case MoveAction:
-        break;
-    case DeleteAction:
-        break;
-    case ReadUnreadAction:
-        markMessagesRead(checkedIds(), flag);
-        break;
+    foreach(auto msg, m_model->toList()) {
+        msg->setProperty("checked", Qt::Checked);
+    }
+    emit selectionIndexesChanged();
+}
+
+void MessageList::unselectAll()
+{
+    foreach(auto msg, m_model->toList()) {
+        msg->setProperty("checked", Qt::Unchecked);
+    }
+    emit selectionIndexesChanged();
+}
+
+void MessageList::setChecked(const int &index, const Qt::CheckState &checkState)
+{
+    if (index < m_model->count()) {
+        m_model->at(index)->setProperty("checked", checkState);
+        emit selectionIndexesChanged();
     }
 }
 
-void MessageList::markMessageRead(const int &msgId, const MessageList::ReadFlag &flag)
+void MessageList::markSelectedMessagesImportant()
 {
-    markMessagesRead(QMailMessageIdList() << QMailMessageId(msgId), flag);
+    Client::instance()->markMessagesImportant(checkedIds(), canMarkSelectionImportant());
+    unselectAll();
+}
+
+void MessageList::markSelectedMessagesRead()
+{
+    Client::instance()->markMessagesRead(checkedIds(), canMarkSelectionAsRead());
+    unselectAll();
+}
+
+void MessageList::deleteSelectedMessages()
+{
+    Client::instance()->deleteMessages(checkedIds());
+    unselectAll();
+}
+
+void MessageList::setCurrentSelectedIndex(int currentSelectedIndex)
+{
+    if (m_currentIndex == currentSelectedIndex)
+        return;
+
+    m_currentIndex = currentSelectedIndex;
+    emit currentSelectedIndexChanged();
+}
+
+void MessageList::setFilterKey(MessageList::FilterKey filter)
+{
+    if (m_filter == filter)
+        return;
+
+    m_filter = filter;
+    if (m_initialized) {
+        reset();
+    }
+    emit filterKeyChanged(filter);
 }
 
 void MessageList::handleNewMessages(const QMailMessageIdList &newList)
@@ -186,7 +276,7 @@ void MessageList::handleUpdatedMessages(const QMailMessageIdList &updatedList)
 
     // Find the updated positions for our messages
     QMailMessageKey idKey(QMailMessageKey::id((m_idList.toSet() + updatedList.toSet()).toList()));
-    QMailMessageIdList newIds(QMailStore::instance()->queryMessages(m_msgKey & idKey, m_sortKey, m_limit));
+    QMailMessageIdList newIds(QMailStore::instance()->queryMessages(messageListKey() & idKey, m_sortKey, m_limit));
     QMap<QMailMessageId, int> newPositions;
 
     int index = 0;
@@ -260,7 +350,6 @@ void MessageList::handleUpdatedMessages(const QMailMessageIdList &updatedList)
         }
         insertMessageAt(index, indexId[index]);
     }
-
     // Check if we passed the model limit, if so remove exceeding messages
     if (m_limit && m_idList.count() > m_limit) {
         QMailMessageIdList idsToRemove = m_idList.mid(m_limit);
@@ -314,7 +403,7 @@ void MessageList::addNewMessages(const QMailMessageIdList &idList)
     // when this event was recorded and when we're processing the signal.
 
     QMailMessageKey idKey(QMailMessageKey::id(m_idList + idList));
-    const QMailMessageIdList newIdsList(QMailStore::instance()->queryMessages(m_msgKey & idKey, m_sortKey, m_limit));
+    const QMailMessageIdList newIdsList(QMailStore::instance()->queryMessages(messageListKey() & idKey, m_sortKey, m_limit));
 
     sortAndAppendNewMessages(idList, newIdsList);
 }
@@ -377,40 +466,10 @@ void MessageList::removeMessages(const QMailMessageIdList &idList)
     // Sort the indices to yield ascending order (they must be deleted in descending order!)
     std::sort(removeIndices.begin(), removeIndices.end());
 
-    for (int i = removeIndices.count(); i > 0; --i) {
+    for (int i = removeIndices.count() - 1 ; i > 0; --i) {
         int index = removeIndices.at(i - 1);
         removeMessageAt(index);
     }
-}
-
-void MessageList::markMessagesRead(const QMailMessageIdList &idList, const MessageList::ReadFlag &flag)
-{
-    bool anyUnread(false);
-    // Marking any unread messages as read always wins this action so check that first
-    // we need to have all selected messages as the same read status to apply the ReadFlag
-    QMailMessageIdList unreadList;
-    foreach (auto &id, idList) {
-        if (!(QMailMessageMetaData(id).status() & QMailMessageMetaData::Read)) {
-            anyUnread = true;
-            unreadList.append(id);
-            break;
-        }
-    }
-    quint64 setMask(0);
-    quint64 unsetMask(0);
-    if (anyUnread) {
-        setMask = QMailMessage::Read;
-    } else {
-        switch(flag) {
-        case FlagRead:
-            setMask = QMailMessage::Read;
-            break;
-        case FlagUnread:
-            unsetMask = QMailMessage::Read;
-            break;
-        }
-    }
-    QMailDisconnected::flagMessages(unreadList, setMask, unsetMask, QStringLiteral("Updating message flags"));
 }
 
 QMailMessageIdList MessageList::checkedIds()
@@ -435,7 +494,7 @@ void MessageList::init()
         m_indexMap.clear();
 
         int index = 0;
-        QMailMessageIdList tmpList = QMailStore::instance()->queryMessages(m_msgKey, m_sortKey, m_limit);
+        QMailMessageIdList tmpList = QMailStore::instance()->queryMessages(messageListKey(), m_sortKey, m_limit);
         Q_FOREACH(auto &id, tmpList) {
             insertMessageAt(index, id);
             ++index;
@@ -449,5 +508,39 @@ void MessageList::reset()
     m_initialized = false;
     m_limit = 50;
     init();
+}
+
+QMailMessageKey MessageList::messageListKey()
+{
+    QMailMessageKey key;
+    switch (m_filter) {
+    case FilterKey::All:
+        return m_msgKey;
+    case FilterKey::Important:
+        key = QMailMessageKey::status(QMailMessage::Important, QMailDataComparator::Includes);
+        break;
+    case FilterKey::Unread:
+        key = QMailMessageKey::status((QMailMessage::Read | QMailMessage::ReadElsewhere), QMailDataComparator::Excludes);
+        break;
+    case FilterKey::Replied:
+        key = QMailMessageKey::status((QMailMessage::Replied | QMailMessage::RepliedAll), QMailDataComparator::Includes);
+        break;
+    case FilterKey::Forwarded:
+        key = QMailMessageKey::status(QMailMessage::Forwarded, QMailDataComparator::Includes);
+        break;
+    case FilterKey::Attachments:
+        key = QMailMessageKey::status(QMailMessage::HasAttachments, QMailDataComparator::Includes);
+        break;
+    case FilterKey::HighPriority:
+        key = QMailMessageKey::status(QMailMessage::HighPriority, QMailDataComparator::Includes);
+        break;
+    case FilterKey::Calendar:
+        key = QMailMessageKey::status(QMailMessage::CalendarInvitation, QMailDataComparator::Includes);
+        break;
+    case FilterKey::Todo:
+        key = QMailMessageKey::status(QMailMessage::Todo, QMailDataComparator::Includes);
+        break;
+    }
+    return m_msgKey & key;
 }
 

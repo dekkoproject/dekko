@@ -50,8 +50,8 @@ public:
         ViewFullScreenIcon
     };
 
-    static QString iconUrl(const ActionIcon icon);
-
+    static QString iconUrl(const ActionIcon icon, bool prefix = true);
+    // QML use only as it prepends qrc:/// to the icon url instead of :/
     Q_INVOKABLE QUrl actionIconUrl(const ActionIcon icon);
 
     QString cachePath() const;

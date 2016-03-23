@@ -19,6 +19,7 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.1
 import QtGraphicalEffects 1.0
+import Dekko.Mail 1.0
 import Dekko.Components 1.0
 import "../components"
 import "../popovers"
@@ -30,6 +31,32 @@ ListItemWithActions {
     // PROPERTIES
     //---------------------------------
     property var msg
+
+    property Action flagAction: Action {
+        id: flagAction
+        text: msg && msg.isImportant ? qsTr("Un-mark flagged") : qsTr("Mark flagged")
+        iconSource: msg && msg.isImportant ? Paths.actionIconUrl(Paths.UnStarredIcon) : Paths.actionIconUrl(Paths.StarredIcon)
+
+        onTriggered: Client.markMessageImportant(msg.messageId, !msg.isImportant)
+    }
+
+    property Action readAction: Action {
+        id: markReadAction
+        text: msg && msg.isRead ? qsTr("Mark as un-read") : qsTr("Mark as read")
+        iconSource: msg && msg.isRead ? Paths.actionIconUrl(Paths.MailUnreadIcon) : Paths.actionIconUrl(Paths.MailReadIcon)
+        onTriggered: Client.markMessageRead(msg.messageId, !msg.isRead);
+    }
+
+    property Action moveAction: Action {
+        text: qsTr("Move message")
+        iconSource: Paths.actionIconUrl(Paths.InboxIcon)
+    }
+
+    property Action contextAction: Action {
+        text: qsTr("Context menu")
+        iconName: "contextual-menu"
+    }
+
     //---------------------------------
     // SIGNALS
     //---------------------------------
@@ -116,10 +143,10 @@ ListItemWithActions {
                 }
                 name: msg && msg.isImportant ? Icons.StarredIcon : Icons.UnStarredIcon
                 color: msg && msg.isImportant ? "#f0e442" : "#888888"
-//                MouseArea {
-//                    anchors.fill: parent
-//                    onClicked: flagAction.trigger()
-//                }
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: Client.markMessageImportant(msg.messageId, !msg.isImportant)
+                }
             }
 
             CachedImage {

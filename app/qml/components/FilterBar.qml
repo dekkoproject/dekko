@@ -33,7 +33,7 @@ Item {
     Rectangle {
         id: background
         anchors.fill: parent
-        color: Style.header.background
+        color: "#ffffff"
     }
 
 //    Connections {
@@ -56,6 +56,7 @@ Item {
         snapMode: ListView.SnapToItem
         orientation: ListView.Horizontal
         layoutDirection: ListView.LeftToRight
+        cacheBuffer: units.gu(500)
         currentIndex: 0
         model: filterSections
         delegate: AbstractButton {

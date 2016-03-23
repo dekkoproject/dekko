@@ -160,9 +160,9 @@ Item {
         Row {
             property alias button: inner_button
             anchors.fill: parent
-            anchors.leftMargin: backAction ? 0 : units.gu(2)
+//            anchors.leftMargin: backAction ? 0 : units.gu(2)
             anchors.rightMargin: units.gu(2)
-            spacing: units.gu(3)
+            spacing: units.gu(2)
             HeaderButton {
                 id: inner_button
                 anchors {
@@ -182,6 +182,7 @@ Item {
                 model: multiSelectActionList
                 delegate: HeaderButton {
 //                    verticalCenterOffset: -units.gu(0.5)
+                    iconSize: units.gu(2.2)
                     action: modelData
                     anchors {
                         top: parent.top
