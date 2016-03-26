@@ -17,7 +17,7 @@ dekko-master:
       
 dekko-feature-branch:
   script:
-    - if [ ! -d "build" ]; then mkdir __build; fi
+    - if [ ! -d "build" ]; then mkdir build; fi
     - cd build
     - cmake -DCMAKE_BUILD_TYPE=Debug ../
     - make
