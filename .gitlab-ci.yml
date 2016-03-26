@@ -14,3 +14,18 @@ dekko-master:
   artifacts:
     paths:
       - __build/test
+      
+dekko-feature-branch:
+  script:
+    - if [ ! -d "build" ]; then mkdir __build; fi
+    - cd build
+    - cmake -DCMAKE_BUILD_TYPE=Debug ../
+    - make
+    - make DESTDIR=./test install
+    
+  cache:
+    paths:
+      - build
+  artifacts:
+    paths:
+      - build/test
