@@ -4,20 +4,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
-- zh-CN and zh-TW translations from @tianshuo.
-- de translation from @mpbzh.
+- QMF client & server libraries
+- Dekko.Accounts qml plugin
+- Dekko.Mail qml plugin
 
-## [0.3.0] - 2015-12-03
-### Added
-- RU translation from @aishek.
-- pt-BR translation from @tallesl.
-- es-ES translation from @ZeliosAriex.
-
-## [0.2.0] - 2015-10-06
 ### Changed
-- Remove exclusionary mentions of "open source" since this project can benefit
-both "open" and "closed" source projects equally.
+- Source directory restructured
 
-## [0.1.0] - 2015-10-06
-### Added
-- Answer "Should you ever rewrite a change log?".
+### Removed
+- 3rdParty Trojita library. Farewell old friend. You shall be missed!!
