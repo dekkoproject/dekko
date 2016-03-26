@@ -1,3 +1,5 @@
+image: dpniel/dekko-docker-sdk:latest
+
 dekko-master:
   script:
     - if [ ! -d "__build" ]; then mkdir __build; fi
@@ -20,15 +22,12 @@ dekko-feature-branch:
     - if [ ! -d "build" ]; then mkdir build; fi
     - cd build
     - cmake -DCMAKE_BUILD_TYPE=Debug ../
-    - make
+    - make -j4
     - make DESTDIR=./test install
   only:
     - branches@dpniel/Dekko
   except:
     - master@dpniel/Dekko
-  cache:
-    paths:
-      - build
   artifacts:
     paths:
       - build/test
