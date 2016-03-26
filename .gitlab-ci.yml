@@ -4,3 +4,8 @@ job1:
     - cmake -DCMAKE_BUILD_TYPE=Release ../
     - make -j2
     - cd .. && rm -rf __build
+    - make DESTDIR=./test install
+    
+  artifacts:
+    paths:
+      - __build/test
