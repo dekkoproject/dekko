@@ -1,4 +1,4 @@
-job1:
+dekko-master:
   script:
     - if [ ! -d "__build" ]; then mkdir __build; fi
     - cd __build
@@ -6,6 +6,11 @@ job1:
     - make -j2
     - make DESTDIR=./test install
     
+  cache:
+    paths:
+      - __build
+  only:
+    - master
   artifacts:
     paths:
       - __build/test
