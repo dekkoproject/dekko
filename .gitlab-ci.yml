@@ -21,7 +21,7 @@ dekko-feature-branch:
     - if [ ! -d "build" ]; then mkdir build; fi
     - cd build
     - cmake -DCMAKE_BUILD_TYPE=Debug ../
-    - make
+    - make -j4
     - make DESTDIR=./test install
   only:
     - branches@dpniel/Dekko
