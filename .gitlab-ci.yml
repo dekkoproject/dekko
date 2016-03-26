@@ -27,9 +27,6 @@ dekko-feature-branch:
     - branches@dpniel/Dekko
   except:
     - master@dpniel/Dekko
-  cache:
-    paths:
-      - build
   artifacts:
     paths:
       - build/test
