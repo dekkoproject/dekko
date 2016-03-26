@@ -1,0 +1,6 @@
+job1:
+  script:
+    - mkdir __build && cd __build
+    - cmake -DCMAKE_BUILD_TYPE=Release ../
+    - make -j2
+    - cd .. && rm -rf __build
