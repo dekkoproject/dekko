@@ -16,7 +16,7 @@ dekko-master:
       - __build/test
       
 dekko-feature-branch:
-  image: phablet/ubuntu-sdk:vivid
+  image: dpniel/dekko-docker-sdk:latest
   script:
     - if [ ! -d "build" ]; then mkdir build; fi
     - cd build
