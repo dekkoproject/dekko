@@ -4,12 +4,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
-- QMF client & server libraries
-- Dekko.Accounts qml plugin
-- Dekko.Mail qml plugin
+- QMF client & server libraries: @dpniel
+- Dekko.Accounts qml plugin: @dpniel
+- Dekko.Mail qml plugin: @dpniel
 
 ### Changed
-- Source directory restructured
+- Source directory restructured: @dpniel
 
 ### Removed
-- 3rdParty Trojita library. Farewell old friend. You shall be missed!!
+- 3rdParty Trojita library. Farewell old friend. You shall be missed!!: @dpniel
