@@ -22,6 +22,11 @@ int MessageList::limit() const
     return m_limit;
 }
 
+QVariant MessageList::key() const
+{
+    return m_msgKey;
+}
+
 Qt::SortOrder MessageList::sortOrder() const
 {
     return m_sortOrder;

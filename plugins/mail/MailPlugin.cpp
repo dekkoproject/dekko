@@ -8,6 +8,7 @@
 #include "MessageFilterCollection.h"
 #include "MessageSet.h"
 #include "MessageList.h"
+#include "MailboxSearch.h"
 
 void MailPlugin::registerTypes(const char *uri)
 {
@@ -19,6 +20,7 @@ void MailPlugin::registerTypes(const char *uri)
     qmlRegisterType<MessageList>(uri, 1, 0, "MessageList");
     qmlRegisterType<MinimalMessage>(uri, 1, 0, "MinimalMessage");
     qmlRegisterType<Message>(uri, 1, 0, "Message");
+    qmlRegisterType<MailboxSearch>(uri, 1, 0, "MailboxSearch");
     qmlRegisterUncreatableType<MessageSet>(uri, 1, 0, "MessageSet", "Cannot create MessageSet from QML, c++ only chap!");
     qmlRegisterUncreatableType<StandardFolderSet>(uri, 1, 0, "StandardFolderSet", "Cannot create MessageSet from QML, c++ only chap!");
     qmlRegisterSingletonType<Client>(uri, 1, 0, "Client", Client::factory);

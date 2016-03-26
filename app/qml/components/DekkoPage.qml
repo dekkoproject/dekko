@@ -6,6 +6,7 @@ Page {
 
     property alias pageHeader: h
     property alias selectedIndex: h.selectedIndex
+    property alias isSearchMode: h.isSearchMode
 
     signal searchActivated(string searchString)
     signal searchCanceled()

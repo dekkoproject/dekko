@@ -27,6 +27,7 @@ class MinimalMessage : public QObject
     Q_PROPERTY(QDateTime date READ date NOTIFY minMessageChanged)
     Q_PROPERTY(QString prettyDate READ prettyDate NOTIFY minMessageChanged)
     Q_PROPERTY(Qt::CheckState checked READ checked WRITE setChecked NOTIFY checkedChanged)
+    Q_PROPERTY(QVariant senderMsgKey READ senderMsgKey NOTIFY minMessageChanged)
 
 public:
     explicit MinimalMessage(QObject *parent = 0);
@@ -42,6 +43,7 @@ public:
     QDateTime date() const;
     QString prettyDate();
     Qt::CheckState checked() const;
+    QVariant senderMsgKey() const;
 
 signals:
     void minMessageChanged();

@@ -31,11 +31,13 @@ ListItemWithActions {
     // PROPERTIES
     //---------------------------------
     property var msg
+    property alias avatarVisible: inner_name.visible
 
     property Action flagAction: Action {
         id: flagAction
         text: msg && msg.isImportant ? qsTr("Un-mark flagged") : qsTr("Mark flagged")
-        iconSource: msg && msg.isImportant ? Paths.actionIconUrl(Paths.UnStarredIcon) : Paths.actionIconUrl(Paths.StarredIcon)
+        iconSource: msg && msg.isImportant ? Paths.actionIconUrl(Paths.UnStarredIcon) :
+                                             Paths.actionIconUrl(Paths.StarredIcon)
 
         onTriggered: Client.markMessageImportant(msg.messageId, !msg.isImportant)
     }
@@ -43,7 +45,8 @@ ListItemWithActions {
     property Action readAction: Action {
         id: markReadAction
         text: msg && msg.isRead ? qsTr("Mark as un-read") : qsTr("Mark as read")
-        iconSource: msg && msg.isRead ? Paths.actionIconUrl(Paths.MailUnreadIcon) : Paths.actionIconUrl(Paths.MailReadIcon)
+        iconSource: msg && msg.isRead ? Paths.actionIconUrl(Paths.MailUnreadIcon) :
+                                        Paths.actionIconUrl(Paths.MailReadIcon)
         onTriggered: Client.markMessageRead(msg.messageId, !msg.isRead);
     }
 
@@ -108,6 +111,7 @@ ListItemWithActions {
         FlipableSelectionAvatar {
             id: inner_name
             msg: normalMessageItemDelegate.msg
+            visible: true
             height: units.gu(6)
             width: height
             SlotsLayout.position: SlotsLayout.Leading

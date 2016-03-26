@@ -24,9 +24,13 @@ import Ubuntu.Content 1.0
 import "./components"
 import "./utils"
 
+// The MainView doesn't provide us any benefit here
+// the only thing we are interested in is the anchorToKeyboard stuff
+// This Item contains a nested Item container that contains the main stage which
+// get's anchored to the KeyboardRectangle component to provide
+// the same functionality as the MainView anchorToKbd prop
 Item {
     id: dekko
-
     //-----------------------------------
     // SIGNALS
     //-----------------------------------
@@ -83,6 +87,7 @@ Item {
             // TODO: swap out for mainstage
             Component.onCompleted: push("qrc:/qml/views/MessageListView.qml")
         }
+
     }
 
     KeyboardRectangle {

@@ -882,7 +882,7 @@ int QMail::maximumConcurrentServiceActions()
 */
 int QMail::maximumConcurrentServiceActionsPerProcess()
 {
-    return 1;
+    return 2;
 }
 
 /*

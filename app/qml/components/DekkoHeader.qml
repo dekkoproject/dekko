@@ -219,11 +219,31 @@ Item {
                 }
             }
             TextField {
+                id: sf
                 onAccepted: {searchActivated(text); focus = false}
+                onTextChanged: {
+                    if (text) {
+                        if (searchTimer.running) {
+                            searchTimer.restart()
+                        } else {
+                            searchTimer.start()
+                        }
+                    } else {
+                        searchTimer.stop()
+                    }
+                }
+
                 placeholderText: qsTr("Enter search...")
                 Layout.fillWidth: true
                 inputMethodHints: Qt.ImhNoPredictiveText
                 Component.onCompleted: forceActiveFocus()
+
+                Timer {
+                    id: searchTimer
+                    interval: 500
+                    repeat: false
+                    onTriggered: searchActivated(sf.text)
+                }
             }
         }
     }

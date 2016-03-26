@@ -49,6 +49,23 @@ Flipable {
             anchors.fill: parent
             visible: status === Image.Ready
         }
+
+        MouseArea {
+            anchors.fill: parent
+            visible: flipable.state === "front"
+            onClicked: {
+                if (flipable.state === "front") {
+                    rootPageStack.push("qrc:///qml/views/ContactFilterView.qml",
+                                       {
+                                           title: msg.from.name,
+                                           email: msg.from.address,
+                                           initials: msg.from.initials,
+                                           filterKey: msg.senderMsgKey
+                                       }
+                                       )
+                }
+            }
+        }
     }
 
     back: Item {

@@ -17,8 +17,19 @@ DekkoPage {
     // NOTE: DO NOT CHANGE THESE WITHOUT UPDATING THE FILTER SWITCH BELOW!!!!
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     readonly property var defaultFilters: [qsTr("All"), qsTr("Unread"), qsTr("Starred"), qsTr("Replied"), qsTr("Forwarded"), qsTr("Attachments"), qsTr("Calendar")]
-    pageHeader.filterSections: defaultFilters
+    readonly property var searchFilters: [qsTr("Local")/*, qsTr("Remote")*/] // TODO: Figure out why Remote is flaking. Stick with local search for now;
+    pageHeader.filterSections: isSearchMode ? searchFilters : defaultFilters
     onSelectedIndexChanged: {
+
+        if (isSearchMode) {
+            if (selectedIndex === 0) {
+                mboxSearch.location = MailboxSearch.Local
+            } else {
+                mboxSearch.location = MailboxSearch.Remote
+            }
+            return;
+        }
+
         switch (selectedIndex) {
         case 0: // All
             msgList.filter = MessageList.All;
@@ -46,7 +57,9 @@ DekkoPage {
 
     pageHeader.multiSelectActionList: [selectAllAction, flagSelectedAction, markSelectedAction, deleteSelectedAction]
     onMultiSelectCanceled: msgList.endSelection()
-
+    onIsSearchModeChanged: reset()
+    onSearchActivated: mboxSearch.search(searchString)
+    onSearchCanceled: mboxSearch.cancelSearch()
 
     function reset() {
         listView.currentIndex = -1
@@ -105,6 +118,15 @@ DekkoPage {
         currentSelectedIndex: listView.currentIndex
     }
 
+    MailboxSearch {
+        id: mboxSearch
+        messageKey: msgList.messageKey
+        location: MailboxSearch.Local
+        limit: 50
+        sortBy: MailboxSearch.TimeStamp
+        sortOrder: Qt.DescendingOrder
+    }
+
     ListItem {
         id: undoNotification
         expansion.height: units.gu(6)
@@ -143,6 +165,11 @@ DekkoPage {
         }
     }
 
+    // TODO: move to a singleton
+    Animations {
+        id: animations
+    }
+
 
     ListView {
         id: listView
@@ -155,25 +182,10 @@ DekkoPage {
         }
         clip: true
         currentIndex: -1
-        add: Transition {
-            NumberAnimation { property: "opacity"; from: 0; to: 1.0; duration: 300 }
-            NumberAnimation { property: "scale"; easing.type: Easing.InOutSine; from: 0.4; to: 1.0; duration: 300 }
-        }
-
-        addDisplaced: Transition {
-            NumberAnimation { properties: "y"; duration: 400; easing.type: Easing.InBack }
-        }
-
-        remove: Transition {
-            NumberAnimation { property: "opacity"; from: 1.0; to: 0; duration: 100 }
-        }
-
-        removeDisplaced: Transition {
-            SequentialAnimation {
-                PauseAnimation { duration: 300 }
-                NumberAnimation { properties: "x,y"; duration: 400; easing.type: Easing.OutBack }
-            }
-        }
+        add: animations.listViewAddTransition
+        addDisplaced: animations.listViewAddDisplacedTransition
+        remove: animations.listViewRemoveTransition
+        removeDisplaced: animations.listViewRemoveDisplacedTransition
 
         highlight: Rectangle {
             color: Qt.rgba(0, 0, 0, 0.05)
@@ -181,7 +193,7 @@ DekkoPage {
         highlightFollowsCurrentItem: true
         highlightMoveDuration: 200
 
-        model: msgList.model
+        model: isSearchMode ? mboxSearch.results : msgList.model
         delegate: MessageListDelegate{
             id: msgListDelegate
             anchors {
@@ -219,6 +231,10 @@ DekkoPage {
                 listView.currentIndex = model.index
             }
             onItemPressAndHold: {
+                // TODO: get multiselect working on search results.
+                if (isSearchMode) {
+                    return;
+                }
                 if (!msgList.isInSelectionMode) {
                     listView.selectionIndex = model.index
                     msgList.startSelection()
@@ -228,7 +244,7 @@ DekkoPage {
             }
         }
 
-        footer: msgList.model.count && msgList.canLoadMore ? footerComponent : null
+        footer: (!isSearchMode && msgList.model.count && msgList.canLoadMore) ? footerComponent : null
 
         Component {
             id: footerComponent

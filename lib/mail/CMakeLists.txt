@@ -21,6 +21,8 @@ set(libMail_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/Client.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ClientService.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ClientServiceAction.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/MailboxSearch.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/SearchService.cpp
 )
 
 add_library(mail SHARED ${libMail_SRCS})

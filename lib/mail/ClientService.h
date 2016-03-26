@@ -12,7 +12,7 @@
 class ClientServiceWatcher;
 /** @short ClientService is responsible for all message related actions
  *
- * Created actions are placed in priority based queues and their lidetime is managed by this component.
+ * Created actions are placed in priority based queues and their lifetime is managed by this component.
  *
  * There shouldn't be any need to directly use this class but rather the exposed methods of Client singleton.
  *
@@ -98,21 +98,12 @@ public slots:
     void activityChanged(QMailServiceAction::Activity activity){
         if (QMailServiceAction *action = m_queue->first()->action()) {
             if (activity == QMailServiceAction::Successful) {
-                /*if (action == m_transmitAction) {
-                    transmitCompleted();
-                } else if (action == m_retrievalAction) {
-                    retrievalCompleted();
-                } else if (action->metaObject()->className() == QString("QMailStorageAction")) {
-                    storageActionCompleted();
-                    action->deleteLater();
-                } else */
                 if (action->metaObject()->className() == QStringLiteral("QMailRetrievalAction")) {
                     if (m_queue->first()->serviceActionType() == ClientServiceAction::ExportAction) {
                         m_queue->dequeue();
                         qDebug() << "Export action complete";
                     }
                     emit processNext();
-//                    processNextAction();
                 }
             } else if (activity == QMailServiceAction::Failed) {
                 const QMailServiceAction::Status status(action->status());
@@ -122,19 +113,9 @@ public slots:
                         // because this is a silent action. i.e the changes can be exported in a future
                         // export it's not critical to interrupt the UI right now. Let's just dequeue the job
                         m_queue->dequeue();
-//                        processNextAction();
                         emit processNext();
                     }
                 }
-                //
-                //            if (action->metaObject()->className() == QString("QMailStorageAction")) {
-                //                storageActionFailure(status.accountId, status.text);
-                //                action->deleteLater();
-                //            } else if (action == m_exportAction) {
-                //                rollBackUpdates(status.accountId);
-                //            } else {
-                //                transferFailure(status.accountId, status.text, status.errorCode);
-                //            }
             }
         } else {
             qDebug() << "Not sure what this is here :-(";

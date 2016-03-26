@@ -28,5 +28,8 @@
         <file>components/ListItemWithActions.qml</file>
         <file>components/ListItemWithActionsCheckBox.qml</file>
         <file>utils/UiUtils.js</file>
+        <file>views/ContactFilterView.qml</file>
+        <file>components/Avatar.qml</file>
+        <file>components/Animations.qml</file>
     </qresource>
 </RCC>

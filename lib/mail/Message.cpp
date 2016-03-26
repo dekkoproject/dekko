@@ -1,5 +1,6 @@
 #include "Message.h"
 #include <qmailfolder.h>
+#include <qmailmessagekey.h>
 
 MinimalMessage::MinimalMessage(QObject *parent) : QObject(parent),
     m_from(0), m_checked(Qt::Unchecked)
@@ -71,6 +72,13 @@ QString MinimalMessage::prettyDate()
 Qt::CheckState MinimalMessage::checked() const
 {
     return m_checked;
+}
+
+/** @short returns a messagekey suitable for showing a filtered list of messages from this sender */
+QVariant MinimalMessage::senderMsgKey() const
+{
+    QMailMessageKey excludeKey = QMailMessageKey::status((QMailMessage::Removed | QMailMessage::Trash), QMailDataComparator::Excludes);
+    return QMailMessageKey::sender(m_from->address(), QMailDataComparator::Includes) & excludeKey;
 }
 
 void MinimalMessage::setMessageId(const quint64 &id)

@@ -102,6 +102,18 @@ void ImageHelper::setGravatarUrl(const QUrl &gravurl)
             return;
         }
     }
+    if (m_gravatarEmail.contains(QStringLiteral("plus.google.com"))) {
+        if (m_property.isValid() && m_property.isWritable()) {
+            m_property.write(QUrl::fromLocalFile(QStringLiteral(":/provider/Google_plus.png")));
+            return;
+        }
+    }
+    if (m_gravatarEmail.contains(QStringLiteral("calendar-notification@google.com"))) {
+        if (m_property.isValid() && m_property.isWritable()) {
+            m_property.write(QUrl::fromLocalFile(QStringLiteral(":/provider/Google_Calendar.png")));
+            return;
+        }
+    }
     QString avatarCache(s_cachePath % "/" % m_gravatarEmail % QString::number(m_size) % ".png");
     if (QFile::exists(avatarCache)) {
         if (m_property.isValid() && m_property.isWritable()) {
