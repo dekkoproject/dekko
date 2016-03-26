@@ -77,7 +77,7 @@ signals:
     void searchBodyChanged(bool searchBody);
     void searchQueryChanged(QString searchQuery);
     void globalSearchChanged(bool globalSearch);
-    void statusChanged(SearchService::Status status, const QString &msg);
+    void statusChanged(int status, const QString &msg);
 
 public slots:
     /** @short Alternative option to trigger a search */

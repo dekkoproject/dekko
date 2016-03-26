@@ -59,7 +59,10 @@ DekkoPage {
     onMultiSelectCanceled: msgList.endSelection()
     onIsSearchModeChanged: reset()
     onSearchActivated: mboxSearch.search(searchString)
-    onSearchCanceled: mboxSearch.cancelSearch()
+    onSearchCanceled: {
+        pageHeader.searchInProgress = false;
+        mboxSearch.cancelSearch()
+    }
 
     function reset() {
         listView.currentIndex = -1
@@ -125,6 +128,13 @@ DekkoPage {
         limit: 50
         sortBy: MailboxSearch.TimeStamp
         sortOrder: Qt.DescendingOrder
+        onStatusChanged: {
+            if (status === SearchService.InProgress) {
+                pageHeader.searchInProgress = true
+            } else {
+                pageHeader.searchInProgress = false
+            }
+        }
     }
 
     ListItem {

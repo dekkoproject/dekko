@@ -45,6 +45,7 @@ Item {
     // And the primaryAction if also set get's place either in secondaryAction or the action drawer if there
     // are already multiple secondaryAction set.
     property bool enableSearching: false
+    property bool searchInProgress: false
     // Setting the pageFlickable will make the child flickable take all available space below
     // the header. For our usecase we aren't going to have a flickable that uses on a partial area
     // of the screen so there is no need to configure it to do so here.
@@ -243,6 +244,22 @@ Item {
                     interval: 500
                     repeat: false
                     onTriggered: searchActivated(sf.text)
+                }
+            }
+            Item {
+                anchors {
+                    top: parent.top
+                    bottom: parent.bottom
+                }
+                width: units.gu(4)
+                visible: dekkoHeader.searchInProgress
+                ActivityIndicator {
+                    anchors {
+                        right: parent.right
+                        verticalCenter: parent.verticalCenter
+                    }
+                    running: dekkoHeader.searchInProgress
+                    visible: running
                 }
             }
         }

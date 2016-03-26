@@ -88,6 +88,7 @@ void SearchService::searchActivityChanged(QMailServiceAction::Activity activity)
     case QMailServiceAction::Pending:
     {
         qDebug() << "Search Pending -" << m_searchAction->status().text;
+        emit statusChanged(InProgress);
         break;
     }
     }

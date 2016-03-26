@@ -38,6 +38,7 @@ struct SearchQuery {
 class SearchService : public QObject
 {
     Q_OBJECT
+    Q_ENUMS(Status)
 public:
     explicit SearchService(QObject *parent = 0);
 

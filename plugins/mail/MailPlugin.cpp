@@ -23,6 +23,7 @@ void MailPlugin::registerTypes(const char *uri)
     qmlRegisterType<MailboxSearch>(uri, 1, 0, "MailboxSearch");
     qmlRegisterUncreatableType<MessageSet>(uri, 1, 0, "MessageSet", "Cannot create MessageSet from QML, c++ only chap!");
     qmlRegisterUncreatableType<StandardFolderSet>(uri, 1, 0, "StandardFolderSet", "Cannot create MessageSet from QML, c++ only chap!");
+    qmlRegisterUncreatableType<SearchService>(uri, 1, 0, "SearchService", "Cannot create SearchService from QML, c++ only chap!");
     qmlRegisterSingletonType<Client>(uri, 1, 0, "Client", Client::factory);
 }
 
