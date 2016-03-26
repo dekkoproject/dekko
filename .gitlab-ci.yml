@@ -1,13 +1,31 @@
-image: dpniel/dekko-docker-sdk:latest
-
-dekko-master:
+dekko-master:amd64:
+  image: dpniel/dekko-docker-sdk:latest
   script:
     - if [ ! -d "__build" ]; then mkdir __build; fi
     - cd __build
     - cmake -DCMAKE_BUILD_TYPE=Release ../
     - make -j2
     - make DESTDIR=./test install
-    
+  cache:
+    paths:
+      - __build
+  only:
+    - master
+  artifacts:
+    paths:
+      - __build/test
+      
+dekko-master:armhf:
+  tags:
+    - armhf
+    - pi
+    - click
+  script:
+    - if [ ! -d "__build" ]; then mkdir __build; fi
+    - cd __build
+    - cmake -DCMAKE_BUILD_TYPE=Release ../
+    - make -j2
+    - make DESTDIR=./test install
   cache:
     paths:
       - __build
@@ -18,6 +36,7 @@ dekko-master:
       - __build/test
       
 dekko-feature-branch:
+  image: dpniel/dekko-docker-sdk:latest
   script:
     - if [ ! -d "build" ]; then mkdir build; fi
     - cd build
