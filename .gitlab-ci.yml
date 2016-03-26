@@ -22,7 +22,10 @@ dekko-feature-branch:
     - cmake -DCMAKE_BUILD_TYPE=Debug ../
     - make
     - make DESTDIR=./test install
-    
+  only:
+    - branches@dpniel/Dekko
+  except:
+    - master@dpniel/Dekko
   cache:
     paths:
       - build
