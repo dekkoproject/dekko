@@ -1,5 +1,7 @@
 dekko-master:amd64:
   image: dpniel/dekko-docker-sdk:latest
+  tags:
+    - scaleway
   script:
     - if [ ! -d "__build" ]; then mkdir __build; fi
     - cd __build
@@ -35,8 +37,20 @@ dekko-master:armhf:
     paths:
       - __build/test
       
+upload-wiki:
+  tags:
+    - armhf
+    - pi
+    - click
+  script:
+    - sshpass -p $SSH_PASS scp -r ./docs/dev-wiki $DEKKOPROJECT_SSH_USERNAME:/www/dev
+  only:
+    - master
+      
 dekko-feature-branch:
   image: dpniel/dekko-docker-sdk:latest
+  tags:
+    - scaleway
   script:
     - if [ ! -d "build" ]; then mkdir build; fi
     - cd build
