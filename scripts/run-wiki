@@ -2,12 +2,12 @@
 
 set -e
 
-DEV_WIKI_DIR=${DEV_WIKI_DIR:=./docs/dev-wiki}
+DEV_WIKI_DIR=${DEV_WIKI_DIR:=./docs/dev}
 HELP_WIKI_DIR=${HELP_WIKI_DIR:=./docs/help-wiki}
 SRC_DIR=${PWD##*/}
 
 if [ "$SRC_DIR" = "scripts" ]; then
-    DEV_WIKI_DIR=../docs/dev-wiki
+    DEV_WIKI_DIR=../docs/dev
     HELP_WIKI_DIR=../docs/help-wiki
 fi
 
