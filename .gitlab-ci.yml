@@ -43,7 +43,7 @@ upload-wiki:
     - pi
     - click
   script:
-    - sshpass -p "${SSH_PASS}" scp -r ./docs/dev-wiki $DEKKOPROJECT_SSH_USERNAME:/www/dev
+    - sshpass -e scp -r $PWD/docs/dev-wiki dekkoproject.org:ssh.dekkoproject.org:/www/dev
   only:
     - master
       
