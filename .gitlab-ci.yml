@@ -1,5 +1,7 @@
 dekko-master:amd64:
   image: dpniel/dekko-docker-sdk:latest
+  tags:
+    - scaleway
   script:
     - if [ ! -d "__build" ]; then mkdir __build; fi
     - cd __build
@@ -47,6 +49,8 @@ upload-wiki:
       
 dekko-feature-branch:
   image: dpniel/dekko-docker-sdk:latest
+  tags:
+    - scaleway
   script:
     - if [ ! -d "build" ]; then mkdir build; fi
     - cd build
