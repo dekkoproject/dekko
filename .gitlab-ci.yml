@@ -35,6 +35,16 @@ dekko-master:armhf:
     paths:
       - __build/test
       
+upload-wiki:
+  tags:
+    - armhf
+    - pi
+    - click
+  script:
+    - sshpass -p $SSH_PASS scp -r ./docs/dev-wiki $DEKKOPROJECT_SSH_USERNAME:/www/dev
+  only:
+    - master
+      
 dekko-feature-branch:
   image: dpniel/dekko-docker-sdk:latest
   script:
