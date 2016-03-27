@@ -43,7 +43,7 @@ upload-wiki:
     - pi
     - click
   script:
-    - sshpass -e scp -oStrictHostKeyChecking=no -vr $PWD/docs/dev-wiki dekkoproject.org:ssh.dekkoproject.org:/www
+    - sshpass -e scp -oStrictHostKeyChecking=no -vr $PWD/docs/dev-wiki dekkoproject.org@ssh.dekkoproject.org:/www
   only:
     - master
       
