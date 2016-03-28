@@ -6,7 +6,7 @@
 #include "Client.h"
 
 MessageList::MessageList(QObject *parent) : QObject(parent),
-    m_model(0), m_initialized(false), m_currentIndex(-1), m_filter(FilterKey::All)
+    m_model(0), m_initialized(false), m_selectionMode(false), m_currentIndex(-1), m_filter(FilterKey::All)
 {
     m_model = new QQmlObjectListModel<MinimalMessage>(this);
     m_msgKey = QMailMessageKey::nonMatchingKey();
