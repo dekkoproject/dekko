@@ -21,6 +21,7 @@ import Ubuntu.Components.Popups 1.0
 import Ubuntu.Components.ListItems 1.0 as ListItems
 import Ubuntu.PushNotifications 0.1
 import Ubuntu.Content 1.0
+import Dekko.Controls 1.0
 import "./components"
 import "./utils"
 
@@ -84,10 +85,8 @@ Item {
         }
         PageStack {
             id: rootPageStack
-            // TODO: swap out for mainstage
-            Component.onCompleted: push("qrc:/qml/views/MessageListView.qml")
+            Component.onCompleted: push("qrc:/qml/stages/MainStage.qml")
         }
-
     }
 
     KeyboardRectangle {

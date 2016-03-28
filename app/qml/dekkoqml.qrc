@@ -31,5 +31,12 @@
         <file>views/ContactFilterView.qml</file>
         <file>components/Avatar.qml</file>
         <file>components/Animations.qml</file>
+        <file>stages/AddressBookStage.qml</file>
+        <file>stages/MainStage.qml</file>
+        <file>stages/SettingsStage.qml</file>
+        <file>stages/StageArea.qml</file>
+        <file>stages/StageAreaDivider.qml</file>
+        <file>views/NavMenuPage.qml</file>
+        <file>views/NothingSelectedPage.qml</file>
     </qresource>
 </RCC>

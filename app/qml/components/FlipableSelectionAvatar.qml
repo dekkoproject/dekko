@@ -55,12 +55,13 @@ Flipable {
             visible: flipable.state === "front"
             onClicked: {
                 if (flipable.state === "front") {
-                    rootPageStack.push("qrc:///qml/views/ContactFilterView.qml",
+                    internalStack.push({item: "qrc:///qml/views/ContactFilterView.qml", properties:
                                        {
                                            title: msg.from.name,
                                            email: msg.from.address,
                                            initials: msg.from.initials,
                                            filterKey: msg.senderMsgKey
+                                       }
                                        }
                                        )
                 }

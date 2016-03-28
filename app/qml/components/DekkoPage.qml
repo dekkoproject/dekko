@@ -1,12 +1,13 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 
-Page {
+Item {
     id: dekkoPage
 
     property alias pageHeader: h
     property alias selectedIndex: h.selectedIndex
     property alias isSearchMode: h.isSearchMode
+    property alias extendHeader: h.extend
 
     signal searchActivated(string searchString)
     signal searchCanceled()
@@ -14,11 +15,6 @@ Page {
 
     function startMultiSelect() {
         h.startMultiSelect()
-    }
-
-    // We don't want the sdk one. I just don't like it. And it always has quirky behaviour :-/
-    header: PageHeader {
-        visible: false
     }
 
     DekkoHeader {

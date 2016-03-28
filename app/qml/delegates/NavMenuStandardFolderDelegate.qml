@@ -1,5 +1,8 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
+import Dekko.Mail 1.0
+import Dekko.Components 1.0
+import "../components"
 
 ListItem {
     id: li
@@ -9,18 +12,43 @@ ListItem {
 
     expansion.expanded: false
     expansion.height: layout.height + col.height
-    height: layout.implicitHeight
+    height: layout.height
+    divider.visible: false
 
+    function getIconForFolderType(f) {
+        switch (f.folderType) {
+        case StandardFolderSet.StandardFolder:
+            return Icons.FolderIcon
+        case StandardFolderSet.SpecialUseInboxFolder:
+            if (f.hasDescendents) {
+                return Icons.CombineInboxIcon
+            } else {
+                return Icons.InboxIcon
+            }
+        case StandardFolderSet.SpecialUseOutboxFolder:
+            return Icons.InboxIcon
+        case StandardFolderSet.SpecialUseDraftsFolder:
+            return Icons.DraftIcon
+        case StandardFolderSet.SpecialUseSentFolder:
+            return Icons.SendIcon;
+        case StandardFolderSet.SpecialUseTrashFolder:
+            return Icons.DeleteIcon
+        case StandardFolderSet.SpecialUseJunkFolder:
+            return Icons.JunkIcon
+        }
+    }
 
     ListItemLayout {
         id: layout
         title.text: folder.displayName
-        height: units.gu(7)
+        height: units.gu(6)
 
-        Icon {
+        CachedImage {
+            id: attachmentImg
             height: units.gu(3)
             width: height
-            name: "inbox"
+            name: getIconForFolderType(folder)
+            color: UbuntuColors.ash
             SlotsLayout.position: SlotsLayout.Leading
         }
 
@@ -84,10 +112,12 @@ ListItem {
                     id: dlayout
                     height: units.gu(5)
                     title.text: qtObject.displayName
-                    Icon {
-                        height: units.gu(2.5)
+
+                    CachedImage {
+                        height: units.gu(2.6)
                         width: height
-                        name: "inbox"
+                        name: Icons.InboxIcon
+                        color: UbuntuColors.ash
                         SlotsLayout.position: SlotsLayout.Leading
                     }
 
