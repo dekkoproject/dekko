@@ -17,17 +17,17 @@ Item {
         // Phone/tablet (portrait)
         State {
             name: "small"
-            when: convergenceEnabled ? width <= gu90 : true
+            when: width <= gu90
         },
         // tablet (landscape)
         State {
             name: "medium"
-            when: width > gu90 && width <= gu140 && convergenceEnabled
+            when: width > gu90 && width <= gu140
         },
         // Laptop/Desktop size screen
         State {
             name: "large"
-            when: width > gu140 && convergenceEnabled
+            when: width > gu140
         }
     ]
 }
