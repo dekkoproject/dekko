@@ -184,6 +184,15 @@ DekkoPage {
     ListView {
         id: listView
         property int selectionIndex: 0
+
+
+        Component {
+            id: highlightBar
+            Rectangle {
+                color: Qt.rgba(0, 0, 0, 0.05)
+            }
+        }
+
         anchors {
             left: parent.left
             top: undoNotification.bottom
@@ -197,9 +206,7 @@ DekkoPage {
         remove: animations.listViewRemoveTransition
         removeDisplaced: animations.listViewRemoveDisplacedTransition
 
-        highlight: Rectangle {
-            color: Qt.rgba(0, 0, 0, 0.05)
-        }
+        highlight: !dekko.viewState.isSmallFF ? highlightBar : null
         highlightFollowsCurrentItem: true
         highlightMoveDuration: 200
 
