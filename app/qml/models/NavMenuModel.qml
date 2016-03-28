@@ -6,10 +6,12 @@ VisualItemModel {
 
     id: navModel
 
+    property bool panelIsParent: true
+
 
     Item {
         width: navDrawer.width
-        height: navDrawer.topListViewHandle.height
+        height: panelIsParent ? navDrawer.topListViewHandle.height : navDrawer.height
 
         ScrollView {
             anchors.fill: parent
@@ -70,9 +72,11 @@ VisualItemModel {
                         id: accountsList
                         model: accounts.model
                         delegate: ListItem {
-                            height: dLayout.implicitHeight
+                            height: dLayout.height
+                            divider.visible: false
                             ListItemLayout {
                                 id: dLayout
+                                height: units.gu(6)
                                 title.text: qtObject.name
                                 Icon {
                                     height: units.gu(2.5)
@@ -90,7 +94,7 @@ VisualItemModel {
 
     Item {
         width: navDrawer.width
-        height: navDrawer.topListViewHandle.height
+        height: panelIsParent ? navDrawer.topListViewHandle.height : navDrawer.height
 
         ScrollView {
             anchors.fill: parent
@@ -102,7 +106,7 @@ VisualItemModel {
     }
     Item {
         width: navDrawer.width
-        height: navDrawer.topListViewHandle.height
+        height: panelIsParent ? navDrawer.topListViewHandle.height : navDrawer.height
 
         ScrollView {
             anchors.fill: parent
@@ -114,7 +118,7 @@ VisualItemModel {
     }
     Item {
         width: navDrawer.width
-        height: navDrawer.topListViewHandle.height
+        height: panelIsParent ? navDrawer.topListViewHandle.height : navDrawer.height
 
         ScrollView {
             anchors.fill: parent

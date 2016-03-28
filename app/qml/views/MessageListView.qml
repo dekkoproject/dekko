@@ -12,7 +12,7 @@ DekkoPage {
 
     pageHeader.title: "Inbox"
     pageHeader.enableSearching: true
-    pageHeader.backAction: drawerAction
+    pageHeader.backAction: !dekko.viewState.isLargeFF ? drawerAction : null
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     // NOTE: DO NOT CHANGE THESE WITHOUT UPDATING THE FILTER SWITCH BELOW!!!!
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -62,6 +62,12 @@ DekkoPage {
     onSearchCanceled: {
         pageHeader.searchInProgress = false;
         mboxSearch.cancelSearch()
+    }
+
+    function openFolder(title, key) {
+        msgListPage.reset()
+        pageHeader.title = title
+        msgList.messageKey = key
     }
 
     function reset() {
@@ -180,97 +186,100 @@ DekkoPage {
         id: animations
     }
 
-
-    ListView {
-        id: listView
-        property int selectionIndex: 0
-
-
-        Component {
-            id: highlightBar
-            Rectangle {
-                color: Qt.rgba(0, 0, 0, 0.05)
-            }
-        }
-
+    ScrollView {
         anchors {
             left: parent.left
             top: undoNotification.bottom
             right: parent.right
             bottom: parent.bottom
         }
-        clip: true
-        currentIndex: -1
-        add: animations.listViewAddTransition
-        addDisplaced: animations.listViewAddDisplacedTransition
-        remove: animations.listViewRemoveTransition
-        removeDisplaced: animations.listViewRemoveDisplacedTransition
 
-        highlight: !dekko.viewState.isSmallFF ? highlightBar : null
-        highlightFollowsCurrentItem: true
-        highlightMoveDuration: 200
+        ListView {
+            id: listView
+            property int selectionIndex: 0
 
-        model: isSearchMode ? mboxSearch.results : msgList.model
-        delegate: MessageListDelegate{
-            id: msgListDelegate
-            anchors {
-                left: parent.left
-                right: parent.right
-            }
-            // This prevents making excessive calls to data()
-            // We just take the actual MinimalMessage object
-            // in one go and reuse it throughout.
-            msg: model.qtObject
 
-            leftSideAction: Action {
-                iconName: "delete"
-                onTriggered: {
-                    Client.deleteMessage(msgListDelegate.msg.messageId)
+            Component {
+                id: highlightBar
+                Rectangle {
+                    color: Qt.rgba(0, 0, 0, 0.05)
                 }
             }
 
-            rightSideActions: [flagAction, readAction, moveAction, contextAction]
+            anchors.fill: parent
+            clip: true
+            currentIndex: -1
+            add: animations.listViewAddTransition
+            addDisplaced: animations.listViewAddDisplacedTransition
+            remove: animations.listViewRemoveTransition
+            removeDisplaced: animations.listViewRemoveDisplacedTransition
 
-            onItemClicked: {
-                if (msgList.isInSelectionMode) {
-                    if (msg.checked) {
-                        msgList.setChecked(model.index, Qt.Unchecked)
-                    } else {
-                        msgList.setChecked(model.index, Qt.Checked)
+            highlight: !dekko.viewState.isSmallFF ? highlightBar : null
+            highlightFollowsCurrentItem: true
+            highlightMoveDuration: 200
+
+            model: isSearchMode ? mboxSearch.results : msgList.model
+            delegate: MessageListDelegate{
+                id: msgListDelegate
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                }
+                // This prevents making excessive calls to data()
+                // We just take the actual MinimalMessage object
+                // in one go and reuse it throughout.
+                msg: model.qtObject
+
+                leftSideAction: Action {
+                    iconName: "delete"
+                    onTriggered: {
+                        Client.deleteMessage(msgListDelegate.msg.messageId)
                     }
-                    return;
                 }
 
-                if (mouse.button === Qt.RightButton) {
-                    rightClickActions.trigger()
-                    return;
+                rightSideActions: [flagAction, readAction, moveAction, contextAction]
+
+                onItemClicked: {
+                    if (msgList.isInSelectionMode) {
+                        if (msg.checked) {
+                            msgList.setChecked(model.index, Qt.Unchecked)
+                        } else {
+                            msgList.setChecked(model.index, Qt.Checked)
+                        }
+                        return;
+                    }
+
+                    if (mouse.button === Qt.RightButton) {
+                        rightClickActions.trigger()
+                        return;
+                    }
+                    listView.currentIndex = model.index
                 }
-                listView.currentIndex = model.index
+                onItemPressAndHold: {
+                    // TODO: get multiselect working on search results.
+                    if (isSearchMode) {
+                        return;
+                    }
+                    if (!msgList.isInSelectionMode) {
+                        listView.selectionIndex = model.index
+                        msgList.startSelection()
+                        msgList.setChecked(model.index, Qt.Checked);
+                        msgListPage.startMultiSelect()
+                    }
+                }
             }
-            onItemPressAndHold: {
-                // TODO: get multiselect working on search results.
-                if (isSearchMode) {
-                    return;
-                }
-                if (!msgList.isInSelectionMode) {
-                    listView.selectionIndex = model.index
-                    msgList.startSelection()
-                    msgList.setChecked(model.index, Qt.Checked);
-                    msgListPage.startMultiSelect()
-                }
-            }
-        }
 
-        footer: (!isSearchMode && msgList.model.count && msgList.canLoadMore) ? footerComponent : null
+            footer: (!isSearchMode && msgList.model.count && msgList.canLoadMore) ? footerComponent : null
 
-        Component {
-            id: footerComponent
-            ListItem {
-                Label {
-                    anchors.centerIn: parent
-                    text: qsTr("Load more messages ...")
+            Component {
+                id: footerComponent
+                ListItem {
+                    Label {
+                        anchors.centerIn: parent
+                        text: qsTr("Load more messages ...")
+                    }
+                    onClicked: msgList.loadMore()
                 }
-                onClicked: msgList.loadMore()
             }
         }
     }

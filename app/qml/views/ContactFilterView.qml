@@ -17,8 +17,9 @@ DekkoPage {
     pageHeader.title: title
     pageHeader.backAction: Action {
         iconName: "back"
-        onTriggered: rootPageStack.pop()
+        onTriggered: internalStack.pop()
     }
+    extendHeader: !dekko.viewState.isSmallFF
 
     MessageList {
         id: msgList
