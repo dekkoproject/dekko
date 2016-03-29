@@ -57,9 +57,35 @@ void Folder::setFolderType(const Folder::FolderType type)
     }
 }
 
-QString Folder::name() const
+QString Folder::name()
 {
-    return m_folder.id().isValid() ? m_folder.displayName() : QString();
+    if (!m_folder.id().isValid()) {
+        return QString();
+    }
+    if (m_folder.id() == QMailFolder::LocalStorageFolderId
+            || m_type == SpecialUseInboxFolder /* Just to get the lowercased string */
+            ) {
+    switch (m_type) {
+    case StandardFolder:
+        return m_folder.displayName();
+    case SpecialUseDraftsFolder:
+        return tr("Drafts");
+    case SpecialUseInboxFolder:
+        return tr("Inbox");
+    case SpecialUseJunkFolder:
+        return tr("Spam");
+    case SpecialUseOutboxFolder:
+        return tr("Outbox");
+    case SpecialUseSentFolder:
+        return tr("Sent");
+    case SpecialUseTrashFolder:
+        return tr("Trash");
+    default:
+        return m_folder.displayName();
+    }
+    } else {
+        return m_folder.displayName();
+    }
 }
 
 int Folder::unreadCount()
@@ -128,6 +154,37 @@ int Folder::nestingDepth()
     }
 }
 
+Folder::FolderType Folder::folderTypeFromId(const QMailFolderId &id)
+{
+    QMailFolder folder(id);
+    if (!folder.parentAccountId().isValid() || id == QMailFolder::LocalStorageFolderId) {
+        // Local folder
+        return StandardFolder;
+    }
+    QMailAccount account(folder.parentAccountId());
+
+    if (account.standardFolders().values().contains(id)) {
+        QMailFolder::StandardFolder standardFolder = account.standardFolders().key(id);
+        switch (standardFolder) {
+        case QMailFolder::InboxFolder:
+            return SpecialUseInboxFolder;
+        case QMailFolder::OutboxFolder:
+            return SpecialUseOutboxFolder;
+        case QMailFolder::DraftsFolder:
+            return SpecialUseDraftsFolder;
+        case QMailFolder::SentFolder:
+            return SpecialUseSentFolder;
+        case QMailFolder::TrashFolder:
+            return SpecialUseTrashFolder;
+        case QMailFolder::JunkFolder:
+            return SpecialUseJunkFolder;
+        default:
+            return StandardFolder;
+        }
+    }
+    return StandardFolder;
+}
+
 void Folder::setFolderId(const int &id)
 {
     QMailFolderId folderId(id);
@@ -135,6 +192,13 @@ void Folder::setFolderId(const int &id)
         m_folder.setId(folderId);
         emit folderChanged();
     }
+}
+
+void Folder::setIsFavourite(const bool &favourite)
+{
+    m_folder.setStatus(QMailFolder::Favourite, favourite);
+    QMailStore::instance()->updateFolder(&m_folder);
+    emit folderChanged();
 }
 
 void Folder::handleContentsModified(const QMailFolderIdList &idList)

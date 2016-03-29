@@ -7,6 +7,7 @@ VisualItemModel {
     id: navModel
 
     property bool panelIsParent: true
+    signal openFolder(string accountName, var accountId)
 
 
     Item {
@@ -74,6 +75,7 @@ VisualItemModel {
                         delegate: ListItem {
                             height: dLayout.height
                             divider.visible: false
+                            onClicked: openFolder(qtObject.name, qtObject.id)
                             ListItemLayout {
                                 id: dLayout
                                 height: units.gu(6)
@@ -84,6 +86,7 @@ VisualItemModel {
                                     name: "contact"
                                     SlotsLayout.position: SlotsLayout.Leading
                                 }
+                                ProgressionSlot{}
                             }
                         }
                     }

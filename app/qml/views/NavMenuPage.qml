@@ -37,6 +37,9 @@ Comps.DekkoPage {
         }
         model: NavMenuModel{
             panelIsParent: false
+            onOpenFolder: {
+                mailView.openAccountFolder(accountName, accountId)
+            }
         }
         interactive: false
         orientation: ListView.Horizontal

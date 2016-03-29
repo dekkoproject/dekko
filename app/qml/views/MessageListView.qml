@@ -315,7 +315,12 @@ DekkoPage {
             top: pageHeader.bottom
             bottom: parent.bottom
         }
-        panelModel: NavMenuModel{}
+        panelModel: NavMenuModel{
+            onOpenFolder: {
+                mailView.openAccountFolder(accountName, accountId)
+                navDrawer.delayClose()
+            }
+        }
     }
 }
 
