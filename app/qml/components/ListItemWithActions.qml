@@ -32,6 +32,7 @@ Item {
     property color selectedColor: "#E6E6E6"
     property bool selected: false
     property bool selectionMode: false
+    property bool showActionHighlight: true
     property alias showDivider: divider.visible
     property alias internalAnchors: mainContents.anchors
     default property alias contents: mainContents.children
@@ -244,7 +245,7 @@ Item {
                        }
                        // Both this and the action icon should match the header color when active
                        color: "#DD4814"
-                       visible: root.activeAction === modelData
+                       visible: root.activeAction === modelData && root.showActionHighlight
                        onVisibleChanged: {
                            if (visible) {
                                clickEffect.start()

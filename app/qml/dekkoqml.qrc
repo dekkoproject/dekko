@@ -38,5 +38,7 @@
         <file>stages/StageAreaDivider.qml</file>
         <file>views/NavMenuPage.qml</file>
         <file>views/NothingSelectedPage.qml</file>
+        <file>views/FolderListView.qml</file>
+        <file>delegates/FolderListDelegate.qml</file>
     </qresource>
 </RCC>

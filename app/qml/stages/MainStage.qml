@@ -17,6 +17,14 @@ Item {
         msgListStage.openFolder(folderName, folderKey)
     }
 
+    function openAccountFolder(name, acId) {
+        if (dekko.viewState.isLargeFF) {
+            navMenuStage.push("qrc:/qml/views/FolderListView.qml", {pageTitle: name, accountId: acId})
+        } else {
+            msgListStage.push("qrc:/qml/views/FolderListView.qml", {pageTitle: name, accountId: acId})
+        }
+    }
+
     Item {
         id: container
         anchors.fill: parent

@@ -21,7 +21,7 @@ class Folder : public QObject
     Q_PROPERTY(bool canRename READ canRename NOTIFY folderChanged)
     Q_PROPERTY(bool canDelete READ canDelete NOTIFY folderChanged)
     Q_PROPERTY(bool isReadOnly READ readOnly NOTIFY folderChanged)
-    Q_PROPERTY(bool isFavourite READ isFavourite NOTIFY folderChanged)
+    Q_PROPERTY(bool isFavourite READ isFavourite WRITE setIsFavourite NOTIFY folderChanged)
     Q_PROPERTY(int nestingDepth READ nestingDepth NOTIFY folderChanged)
     Q_ENUMS(FolderType)
 
@@ -49,7 +49,7 @@ public:
     void setMessageKey(const QMailMessageKey &key);
     FolderType type() const;
     void setFolderType(const FolderType type);
-    QString name() const;
+    QString name();
     int unreadCount();
     int totalCount() const;
     bool syncEnabled() const;
@@ -70,12 +70,15 @@ public:
         emit countChanged();
     }
 
+    static FolderType folderTypeFromId(const QMailFolderId &id);
+
 signals:
     void folderChanged();
     void countChanged();
 
 public slots:
     void setFolderId(const int &id);
+    void setIsFavourite(const bool &favourite);
     void handleContentsModified(const QMailFolderIdList &idList);
 
 private:
