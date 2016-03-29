@@ -78,6 +78,9 @@ QString Paths::iconUrl(const Paths::ActionIcon icon, bool prefix)
     case NoneSelectedIcon:
         iconName = QStringLiteral("select-none.svg");
         break;
+    case SearchIcon:
+        iconName = QStringLiteral("search.svg");
+        break;
     case SelectIcon:
         iconName = QStringLiteral("select.svg");
         break;

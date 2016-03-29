@@ -1,6 +1,8 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
+import Dekko.Components 1.0
 import "../utils/UiUtils.js" as UiUtils
+import "../components"
 
 Flipable {
     id: flipable
@@ -17,6 +19,7 @@ Flipable {
                 anchors.centerIn: parent
                 aspect: UbuntuShape.Flat
                 backgroundColor: msg ? UiUtils.getIconColor(msg.from.name) : "transparent"
+                opacity: ma.containsMouse ? 0.8 : 1.0
 
                 Label {
                     id: initialsLabel
@@ -48,9 +51,12 @@ Flipable {
             clip: true
             anchors.fill: parent
             visible: status === Image.Ready
+            opacity: ma.containsMouse ? 0.8 : 1.0
         }
 
         MouseArea {
+            id: ma
+            hoverEnabled: true
             anchors.fill: parent
             visible: flipable.state === "front"
             onClicked: {
@@ -65,6 +71,23 @@ Flipable {
                                        }
                                        )
                 }
+            }
+        }
+
+        UbuntuShape {
+            id: avatarCircle
+            anchors.fill: parent
+            anchors.centerIn: parent
+            aspect: UbuntuShape.Flat
+            backgroundColor: UbuntuColors.slate
+            opacity: 0.8
+            visible: ma.containsMouse
+            CachedImage {
+                width: parent.width - units.gu(2)
+                height: width
+                anchors.centerIn: parent
+                name: Icons.SearchIcon
+                color: "#ffffff"
             }
         }
     }
