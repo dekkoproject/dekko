@@ -42,6 +42,7 @@ public:
         UnStarredIcon,
         NoteIcon,
         NoneSelectedIcon,
+        SearchIcon,
         SelectIcon,
         SendIcon,
         SentIcon,

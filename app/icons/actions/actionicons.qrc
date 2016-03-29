@@ -36,5 +36,6 @@
         <file>non-starred.svg</file>
         <file>delete.svg</file>
         <file>inbox-all.svg</file>
+        <file>search.svg</file>
     </qresource>
 </RCC>
