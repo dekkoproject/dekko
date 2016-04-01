@@ -103,6 +103,25 @@ void ClientService::markMessagesTodo(const QMailMessageIdList &msgIds, const boo
     flagAction->deleteLater();
 }
 
+void ClientService::markMessagesDone(const QMailMessageIdList &msgIds, const bool done)
+{
+    if (msgIds.isEmpty()) {
+        return;
+    }
+    QMailMessageIdList todosToRemove;
+    Q_FOREACH(auto &id, msgIds) {
+        QMailMessage msg(id);
+        msg.setCustomField("task-done", QString::number(done ? 1 : 0));
+        if ((msg.status() & QMailMessage::Todo)) {
+            todosToRemove << id;
+        }
+        QMailStore::instance()->updateMessage(&msg);
+    }
+    if (!todosToRemove.isEmpty()) {
+        markMessagesTodo(todosToRemove, !done);
+    }
+}
+
 void ClientService::undoableCountChanged()
 {
     emit undoCountChanged();

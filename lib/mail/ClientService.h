@@ -41,6 +41,7 @@ public:
     void markMessagesImportant(const QMailMessageIdList &msgIds, const bool important);
     void markMessagesRead(const QMailMessageIdList &msgIds, const bool read);
     void markMessagesTodo(const QMailMessageIdList &msgIds, const bool todo);
+    void markMessagesDone(const QMailMessageIdList &msgIds, const bool done);
 
 signals:
     void undoCountChanged();

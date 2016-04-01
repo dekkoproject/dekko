@@ -108,6 +108,10 @@ Popover {
                 }
             }
             onClicked: {
+                // remove done flag if re-marking as todo
+                if (msg.isDone) {
+                    Client.markMessageDone(msg.messageId, false)
+                }
                 Client.markMessageTodo(msg.messageId, !msg.isTodo)
                 PopupUtils.close(actionPopover)
             }
@@ -132,7 +136,8 @@ Popover {
                 }
             }
             onClicked: {
-                dekko.showNotice("Mark as Done not implemented yet. Fix it before release!!!!")
+                // markMessageDone will remove the Todo flag if it is set
+                Client.markMessageDone(msg.messageId, !msg.isDone)
                 PopupUtils.close(actionPopover)
             }
         }
