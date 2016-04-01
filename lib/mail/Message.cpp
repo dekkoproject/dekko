@@ -48,6 +48,15 @@ bool MinimalMessage::canBeRestored() const
     return QMailMessage(m_id).restoreFolderId().isValid();
 }
 
+bool MinimalMessage::isDone() const
+{
+    QString done = QMailMessage(m_id).customField("task-done");
+    if (done.isEmpty()) {
+        return false;
+    }
+    return done.toInt() != 0;
+}
+
 QString MinimalMessage::previousFolderName() const
 {
     return QMailFolder(QMailMessage(m_id).restoreFolderId()).displayName();

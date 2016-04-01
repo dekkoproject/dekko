@@ -71,6 +71,7 @@ ListItem {
 
         UbuntuShape {
             id: shape
+            // TODO: We should probably display total count for To-Do smart folder
             visible: folder.unreadCount > 0
             aspect: UbuntuShape.Flat
             color: UbuntuColors.green
