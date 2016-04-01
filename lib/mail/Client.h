@@ -23,11 +23,13 @@ public:
     Q_INVOKABLE void restoreMessage(const int &msgId);
     Q_INVOKABLE void markMessageImportant(const int &msgId, const bool important);
     Q_INVOKABLE void markMessageRead(const int &msgId, const bool read);
+    Q_INVOKABLE void markMessageTodo(const int &msgId, const bool todo);
 
     // C++ Extras API
     void deleteMessages(const QMailMessageIdList &idList);
     void markMessagesImportant(const QMailMessageIdList &idList, const bool important);
     void markMessagesRead(const QMailMessageIdList &idList, const bool read);
+    void markMessagesTodo(const QMailMessageIdList &idList, const bool todo);
 
 signals:
     void serviceChanged();

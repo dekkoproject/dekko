@@ -5,7 +5,7 @@
 #include <QmlObjectListModel.h>
 #include "MessageSet.h"
 
-// This component create a list of message sets based on some predefined filters
+// This component create a list of message sets based on some predefined criteria
 class MessageFilterCollection : public QObject
 {
     Q_OBJECT
@@ -21,7 +21,10 @@ public:
         // Creates a list of merged standard folders
         // The StandardFolderSet has a childAccounts list model that can be used to select
         // a specific account inbox.
-        StandardFolders
+        StandardFolders,
+        // Creates a list of smart folders.
+        // Defaults are Todo, Done, Today and Custom smart folders
+        SmartFolders
     };
 
     QObject *children() { return m_children; }
@@ -29,7 +32,6 @@ public:
     Filter filter() const { return m_filter; }
 
 signals:
-
     void filterChanged(Filter filter);
     void childrenChanged();
 
@@ -40,6 +42,7 @@ public slots:
 
 protected:
     void createStandardFolderCollection();
+    void createSmartFolderCollection();
 
 private:
     QQmlObjectListModel<MessageSet> *m_children;

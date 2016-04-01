@@ -51,6 +51,11 @@ void Client::markMessageRead(const int &msgId, const bool read)
     markMessagesRead(QMailMessageIdList() << QMailMessageId(msgId), read);
 }
 
+void Client::markMessageTodo(const int &msgId, const bool todo)
+{
+    markMessagesTodo(QMailMessageIdList() << QMailMessageId(msgId), todo);
+}
+
 void Client::markMessagesImportant(const QMailMessageIdList &idList, const bool important)
 {
     m_service->markMessagesImportant(idList, important);
@@ -59,5 +64,10 @@ void Client::markMessagesImportant(const QMailMessageIdList &idList, const bool 
 void Client::markMessagesRead(const QMailMessageIdList &idList, const bool read)
 {
     m_service->markMessagesRead(idList, read);
+}
+
+void Client::markMessagesTodo(const QMailMessageIdList &idList, const bool todo)
+{
+    m_service->markMessagesTodo(idList, todo);
 }
 

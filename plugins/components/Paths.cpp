@@ -99,6 +99,24 @@ QString Paths::iconUrl(const Paths::ActionIcon icon, bool prefix)
     case ViewFullScreenIcon:
         iconName = QStringLiteral("view-fullscreen.svg");
         break;
+    case CalendarTodayIcon:
+        iconName = QStringLiteral("calendar-today.svg");
+        break;
+    case FilterIcon:
+        iconName = QStringLiteral("filters.svg");
+        break;
+    case TimerIcon:
+        iconName = QStringLiteral("timer.svg");
+        break;
+    case ViewListSymbolic:
+        iconName = QStringLiteral("view-list-symbolic.svg");
+        break;
+    case TickIcon:
+        iconName = QStringLiteral("tick.svg");
+        break;
+    case UndoIcon:
+        iconName = QStringLiteral("undo.svg");
+        break;
     };
 
     if (!iconName.isEmpty()) {

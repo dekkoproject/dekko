@@ -223,3 +223,30 @@ QVariant StandardFolderSet::descendentsKey()
     QMailMessageKey messageKey =  QMailMessageKey::parentFolderId(inboxKey) & excludeRemovedKey;
     return messageKey;
 }
+
+SmartFolderSet::SmartFolderSet(QObject *parent) : MessageSet(parent),
+    m_type(SmartTodoFolder)
+{
+}
+
+void SmartFolderSet::init(const QString &displayName, const QMailMessageKey &messageKey)
+{
+    m_name = displayName;
+    m_key = messageKey;
+    emit displayNameChanged();
+    emit messageKeyChanged();
+}
+
+SmartFolderSet::SmartFolderType SmartFolderSet::type() const
+{
+    return m_type;
+}
+
+void SmartFolderSet::setType(SmartFolderSet::SmartFolderType type)
+{
+    if (m_type == type)
+        return;
+
+    m_type = type;
+    emit typeChanged(type);
+}

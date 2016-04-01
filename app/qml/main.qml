@@ -76,6 +76,14 @@ Item {
 //        accountsManager: dekko.accountsManager
     }
 
+    function showNotice(notice) {
+        popupQueue.queue("qrc:/qml/popovers/NoticePopup.qml", dekko, {title: "Notice", text: notice})
+    }
+
+    PopupQueue {
+        id: popupQueue
+    }
+
     Item {
         anchors {
             left: parent.left

@@ -132,7 +132,8 @@ public:
 
     enum FlagType {
         FlagStarred,
-        FlagRead
+        FlagRead,
+        FlagTodo
     };
     enum State {
         Apply,

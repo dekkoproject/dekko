@@ -48,7 +48,13 @@ public:
         SentIcon,
         StarredIcon,
         TagsIcon,
-        ViewFullScreenIcon
+        ViewFullScreenIcon,
+        CalendarTodayIcon,
+        FilterIcon,
+        TimerIcon,
+        ViewListSymbolic,
+        TickIcon,
+        UndoIcon
     };
 
     static QString iconUrl(const ActionIcon icon, bool prefix = true);

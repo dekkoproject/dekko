@@ -84,6 +84,17 @@ FlagsAction::FlagsAction(QObject *parent, const QMailMessageIdList &msgs,
         }
         break;
     }
+    case FlagTodo:
+    {
+        switch (m_state) {
+        case State::Apply:
+            flagAction = tr("as todo");
+            break;
+        case State::Remove:
+            flagAction = tr("no loger todo");
+            break;
+        }
+    }
     }
     m_description = tr("Marking %1 messages %2").arg(count, flagAction);
 }
@@ -117,6 +128,18 @@ void FlagsAction::process()
             break;
         case State::Remove:
             removeMask = QMailMessage::Read;
+            break;
+        }
+        break;
+    }
+    case FlagTodo:
+    {
+        switch (m_state) {
+        case State::Apply:
+            applyMask = QMailMessage::Todo;
+            break;
+        case State::Remove:
+            removeMask = QMailMessage::Todo;
             break;
         }
         break;

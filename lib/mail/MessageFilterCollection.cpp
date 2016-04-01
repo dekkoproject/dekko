@@ -1,6 +1,7 @@
 #include "MessageFilterCollection.h"
 #include "qmailstore.h"
 #include <QTimer>
+#include <QDateTime>
 
 MessageFilterCollection::MessageFilterCollection(QObject *parent) : QObject(parent), m_children(0),
     m_filter(None), m_firstRun(true)
@@ -34,6 +35,11 @@ void MessageFilterCollection::reset()
     case StandardFolders:
     {
         createStandardFolderCollection();
+        return;
+    }
+    case SmartFolders:
+    {
+        createSmartFolderCollection();
         return;
     }
     }
@@ -91,5 +97,32 @@ void MessageFilterCollection::createStandardFolderCollection()
     trash->setType(StandardFolderSet::SpecialUseTrashFolder);
     trash->initNoDecendents(tr("Trash"), trashKey);
     m_children->append(trash);
+}
+
+void MessageFilterCollection::createSmartFolderCollection()
+{
+    QMailMessageKey todayKey;
+    todayKey &= QMailMessageKey(QMailMessageKey::receptionTimeStamp(QDateTime(QDate::currentDate()), QMailDataComparator::GreaterThanEqual));
+    todayKey &= QMailMessageKey(QMailMessageKey::status(QMailMessage::Removed, QMailDataComparator::Excludes));
+    SmartFolderSet *todaySet = new SmartFolderSet();
+    todaySet->setType(SmartFolderSet::SmartTodayFolder);
+    todaySet->init(tr("Today, %1").arg(QDateTime::currentDateTime().toString("ddd d")), todayKey);
+    m_children->append(todaySet);
+
+    QMailMessageKey todoKey;
+    todoKey &= QMailMessageKey(QMailMessageKey::status(QMailMessage::Todo, QMailDataComparator::Includes));
+    todoKey &= QMailMessageKey(QMailMessageKey::status(QMailMessage::Removed, QMailDataComparator::Excludes));
+    SmartFolderSet *todoSet = new SmartFolderSet();
+    todoSet->setType(SmartFolderSet::SmartTodoFolder);
+    todoSet->init(tr("To-do"), todoKey);
+    m_children->append(todoSet);
+
+    QMailMessageKey doneKey;
+    doneKey &= QMailMessageKey(QMailMessageKey::customField(QStringLiteral("task-done"), QStringLiteral("1"), QMailDataComparator::Includes));
+    doneKey &= QMailMessageKey(QMailMessageKey::status(QMailMessage::Removed, QMailDataComparator::Excludes));
+    SmartFolderSet *doneSet = new SmartFolderSet();
+    doneSet->setType(SmartFolderSet::SmartDoneFolder);
+    doneSet->init(tr("Done"), doneKey);
+    m_children->append(doneSet);
 }
 

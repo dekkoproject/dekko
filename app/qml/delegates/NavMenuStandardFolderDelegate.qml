@@ -9,6 +9,8 @@ ListItem {
 
     property var folder
     signal subFolderClicked(string name, var key)
+    property bool supportsDescendents: false
+    property bool smartFolder: false
 
     expansion.expanded: false
     expansion.height: layout.height + col.height
@@ -16,25 +18,40 @@ ListItem {
     divider.visible: false
 
     function getIconForFolderType(f) {
-        switch (f.folderType) {
-        case StandardFolderSet.StandardFolder:
-            return Icons.FolderIcon
-        case StandardFolderSet.SpecialUseInboxFolder:
-            if (f.hasDescendents) {
-                return Icons.CombineInboxIcon
-            } else {
-                return Icons.InboxIcon
+        if (smartFolder) {
+            switch (f.type) {
+            case SmartFolderSet.SmartTodayFolder:
+                return Icons.CalendarTodayIcon;
+            case SmartFolderSet.SmartTodoFolder:
+                return Icons.ViewListSymbolic;
+            case SmartFolderSet.SmartDoneFolder:
+                return Icons.SelectIcon;
+            case SmartFolderSet.SmartCustomFolder:
+                return Icons.FilterIcon;
+            default:
+                return Icons.FilterIcon;
             }
-        case StandardFolderSet.SpecialUseOutboxFolder:
-            return Icons.InboxIcon
-        case StandardFolderSet.SpecialUseDraftsFolder:
-            return Icons.DraftIcon
-        case StandardFolderSet.SpecialUseSentFolder:
-            return Icons.SendIcon;
-        case StandardFolderSet.SpecialUseTrashFolder:
-            return Icons.DeleteIcon
-        case StandardFolderSet.SpecialUseJunkFolder:
-            return Icons.JunkIcon
+        } else {
+            switch (f.folderType) {
+            case StandardFolderSet.StandardFolder:
+                return Icons.FolderIcon
+            case StandardFolderSet.SpecialUseInboxFolder:
+                if (f.hasDescendents) {
+                    return Icons.CombineInboxIcon
+                } else {
+                    return Icons.InboxIcon
+                }
+            case StandardFolderSet.SpecialUseOutboxFolder:
+                return Icons.InboxIcon
+            case StandardFolderSet.SpecialUseDraftsFolder:
+                return Icons.DraftIcon
+            case StandardFolderSet.SpecialUseSentFolder:
+                return Icons.SendIcon;
+            case StandardFolderSet.SpecialUseTrashFolder:
+                return Icons.DeleteIcon
+            case StandardFolderSet.SpecialUseJunkFolder:
+                return Icons.JunkIcon
+            }
         }
     }
 
@@ -70,7 +87,7 @@ ListItem {
         }
 
         Item {
-            visible: model.index === 0
+            visible: model.index === 0 && supportsDescendents
             height: units.gu(3)
             width: units.gu(4)
             Rectangle {

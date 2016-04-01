@@ -90,4 +90,31 @@ private:
     QMailAccountIdList queryEnabledAccounts();
 };
 
+class SmartFolderSet : public MessageSet
+{
+    Q_OBJECT
+    Q_PROPERTY(SmartFolderType type READ type WRITE setType NOTIFY typeChanged)
+    Q_ENUMS(SmartFolderType)
+
+public:
+    explicit SmartFolderSet(QObject *parent =0);
+
+    enum SmartFolderType {
+        SmartTodoFolder,
+        SmartDoneFolder,
+        SmartTodayFolder,
+        SmartCustomFolder
+    };
+    virtual void init(const QString &displayName, const QMailMessageKey &messageKey);
+    virtual QVariant descendentsKey() { return QVariant(); } // We don't do descendents yet
+    SmartFolderType type() const;
+public slots:
+    void setType(SmartFolderType type);
+signals:
+    void typeChanged(SmartFolderType type);
+
+private:
+    SmartFolderType m_type;
+};
+
 #endif // MESSAGESET_H

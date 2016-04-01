@@ -296,6 +296,11 @@ DekkoPage {
         filter: MessageFilterCollection.StandardFolders
     }
 
+    MessageFilterCollection {
+        id: smartFolders
+        filter: MessageFilterCollection.SmartFolders
+    }
+
     NavigationDrawer {
         id: navDrawer
         signal msgKeySelected(string title, var key)

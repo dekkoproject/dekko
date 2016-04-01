@@ -25,27 +25,85 @@ VisualItemModel {
                 Column {
                     id: col
                     anchors {left: parent.left; right: parent.right; top: parent.top}
-                    Repeater {
-                        id: inboxList
-                        model: standardFolders.children
-                        delegate: NavMenuStandardFolderDelegate {
-                            id: folderDelegate
-                            folder: qtObject
-                            onClicked: {
-                                if (model.index === 0) {
-                                    navDrawer.msgKeySelected(folder.displayName, folder.descendentsKey)
-                                } else {
-                                    navDrawer.msgKeySelected(folder.displayName, folder.messageKey)
+                    Column {
+                        anchors {
+                            left: parent.left
+                            right: parent.right
+                        }
+                        Repeater {
+                            id: inboxList
+                            model: standardFolders.children
+                            delegate: NavMenuStandardFolderDelegate {
+                                id: folderDelegate
+                                folder: qtObject
+                                supportsDescendents: true
+                                onClicked: {
+                                    if (model.index === 0) {
+                                        navDrawer.msgKeySelected(folder.displayName, folder.descendentsKey)
+                                    } else {
+                                        navDrawer.msgKeySelected(folder.displayName, folder.messageKey)
+                                    }
                                 }
-                            }
-                            onSubFolderClicked: navDrawer.msgKeySelected(name, key)
-                            Component.onCompleted: {
-                                if (model.index === 0) {
-                                    navDrawer.msgKeySelected(folder.displayName, folder.descendentsKey)
+                                onSubFolderClicked: navDrawer.msgKeySelected(name, key)
+                                Component.onCompleted: {
+                                    if (model.index === 0) {
+                                        navDrawer.msgKeySelected(folder.displayName, folder.descendentsKey)
+                                    }
                                 }
                             }
                         }
                     }
+
+                    ListItem {
+                        anchors {
+                            left: parent.left
+                            right: parent.right
+                        }
+                        height: sLabel.height
+                        color: "#ffffff"
+                        Label {
+                            id: sLabel
+                            anchors {
+                                left: parent.left
+                                leftMargin: units.gu(2)
+                                right: parent.right
+                                rightMargin: units.gu(2)
+                            }
+                            text: qsTr("Smart folders")
+                            height: units.gu(4)
+                            fontSize: "medium"
+                            font.weight: Font.DemiBold
+                            verticalAlignment: Text.AlignVCenter
+
+                        }
+                        Icon {
+                            height: units.gu(2)
+                            width: height
+                            anchors {
+                                right: parent.right
+                                verticalCenter: parent.verticalCenter
+                                rightMargin: units.gu(2.5)
+                            }
+                            name: "add"
+                        }
+                    }
+                    Column {
+                        anchors {
+                            left: parent.left
+                            right: parent.right
+                        }
+                        Repeater {
+                            id: smartFolderList
+                            model: smartFolders.children
+                            delegate: NavMenuStandardFolderDelegate {
+                                id: smartFolderDelegate
+                                folder: qtObject
+                                smartFolder: true
+                                onClicked: navDrawer.msgKeySelected(folder.displayName, folder.messageKey)
+                            }
+                        }
+                    }
+
                     ListItem {
                         anchors {
                             left: parent.left

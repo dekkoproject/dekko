@@ -37,5 +37,11 @@
         <file>delete.svg</file>
         <file>inbox-all.svg</file>
         <file>search.svg</file>
+        <file>calendar-today.svg</file>
+        <file>filters.svg</file>
+        <file>timer.svg</file>
+        <file>view-list-symbolic.svg</file>
+        <file>tick.svg</file>
+        <file>undo.svg</file>
     </qresource>
 </RCC>

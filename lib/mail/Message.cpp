@@ -1,6 +1,7 @@
 #include "Message.h"
 #include <qmailfolder.h>
 #include <qmailmessagekey.h>
+#include <qmailstore.h>
 
 MinimalMessage::MinimalMessage(QObject *parent) : QObject(parent),
     m_from(0), m_checked(Qt::Unchecked)
@@ -35,6 +36,11 @@ bool MinimalMessage::isRead() const
 bool MinimalMessage::isFlagged() const
 {
     return (QMailMessageMetaData(m_id).status() & QMailMessageMetaData::Important);
+}
+
+bool MinimalMessage::isTodo() const
+{
+    return (QMailMessageMetaData(m_id).status() & QMailMessageMetaData::Todo);
 }
 
 bool MinimalMessage::canBeRestored() const
@@ -107,6 +113,14 @@ void MinimalMessage::setChecked(const Qt::CheckState &checked)
     }
     m_checked = checked;
     emit checkedChanged();
+}
+
+void MinimalMessage::setIsTodo(const bool todo)
+{
+    QMailMessageMetaData mmd(m_id);
+    mmd.setStatus(QMailMessageMetaData::Todo, todo);
+    QMailStore::instance()->updateMessage(&mmd);
+    emit minMessageChanged();
 }
 
 

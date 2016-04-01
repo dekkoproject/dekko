@@ -22,6 +22,10 @@ Comps.DekkoPage {
         id: standardFolders
         filter: MessageFilterCollection.StandardFolders
     }
+    MessageFilterCollection {
+        id: smartFolders
+        filter: MessageFilterCollection.SmartFolders
+    }
     ListView {
         id: navDrawer
         signal msgKeySelected(string title, var key)

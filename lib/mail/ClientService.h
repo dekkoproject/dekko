@@ -40,6 +40,7 @@ public:
     void restoreMessage(const QMailMessageId &id);
     void markMessagesImportant(const QMailMessageIdList &msgIds, const bool important);
     void markMessagesRead(const QMailMessageIdList &msgIds, const bool read);
+    void markMessagesTodo(const QMailMessageIdList &msgIds, const bool todo);
 
 signals:
     void undoCountChanged();

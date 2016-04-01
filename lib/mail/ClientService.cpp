@@ -92,6 +92,17 @@ void ClientService::markMessagesRead(const QMailMessageIdList &msgIds, const boo
     flagAction->deleteLater();
 }
 
+void ClientService::markMessagesTodo(const QMailMessageIdList &msgIds, const bool todo)
+{
+    if (msgIds.isEmpty()) {
+        return;
+    }
+    FlagsAction *flagAction = new FlagsAction(this, msgIds, FlagsAction::FlagTodo, todo ? FlagsAction::Apply : FlagsAction::Remove);
+    flagAction->process();
+    exportMailStoreUpdate(flagAction->accountIds());
+    flagAction->deleteLater();
+}
+
 void ClientService::undoableCountChanged()
 {
     emit undoCountChanged();
