@@ -4,6 +4,8 @@ set(UBUNTU_PROJECT_TYPE "ClickApp" CACHE INTERNAL "Let Qtc know were a click app
 set(UBUNTU_MANIFEST_PATH "click/manifest.json" CACHE INTERNAL "Tells QtCreator location and name of the manifest file")
 
 cmake_minimum_required(VERSION 2.8.9)
+
+cmake_policy(SET CMP0028 OLD)
 if(POLICY CMP0043)
     cmake_policy(SET CMP0043 OLD)
 endif()
