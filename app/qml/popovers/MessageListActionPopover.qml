@@ -11,268 +11,131 @@ Popover {
 
     Column {
         id: containerLayout
+
         anchors {
             left: parent.left
             top: parent.top
             right: parent.right
         }
-        ListItem {
-            height: mrl.height
-            divider.visible: false
-            color: UbuntuColors.porcelain
-            ListItemLayout {
-                id: mrl
-                height: units.gu(5)
-                title.text: msg && msg.isRead ? qsTr("Mark as unread") : qsTr("Mark as read")
 
-                CachedImage {
-                    name: msg && msg.isRead ? Icons.MailUnreadIcon : Icons.MailReadIcon
-                    height: units.gu(3)
-                    width: height
-                    color: UbuntuColors.ash
-                    SlotsLayout.position: SlotsLayout.Leading
+        ContextGroup {
+            contextActions: [
+                ContextAction {
+                    description: msg && msg.isRead ? qsTr("Mark as unread") : qsTr("Mark as read")
+                    actionIcon: msg && msg.isRead ? Icons.MailUnreadIcon : Icons.MailReadIcon
+                    onTriggered: {
+                        Client.markMessageRead(msg.messageId, !msg.isRead);
+                        PopupUtils.close(actionPopover)
+                    }
+                },
+                ContextAction {
+                    description: msg && msg.isImportant ? qsTr("Mark as not important") : qsTr("Mark as important")
+                    actionIcon: msg && msg.isImportant ? Icons.UnStarredIcon : Icons.StarredIcon
+                    onTriggered: {
+                        Client.markMessageImportant(msg.messageId, !msg.isImportant)
+                        PopupUtils.close(actionPopover)
+                    }
+                },
+                ContextAction {
+                    description: qsTr("Mark as spam")
+                    actionIcon: Icons.JunkIcon
+                    onTriggered: {
+                        dekko.showNotice("Mark as spam not implemented yet. Fix it before release!!!!")
+                        PopupUtils.close(actionPopover)
+                    }
                 }
-            }
-            onClicked: {
-                Client.markMessageRead(msg.messageId, !msg.isRead);
-                PopupUtils.close(actionPopover)
-            }
+            ]
         }
-        ListItem {
-            height: mil.height
-            divider.visible: false
-            color: UbuntuColors.porcelain
-            ListItemLayout {
-                id: mil
-                height: units.gu(5)
-                title.text: msg && msg.isImportant ? qsTr("Mark as not important") : qsTr("Mark as important")
 
-                CachedImage {
-                    name: msg && msg.isImportant ? Icons.UnStarredIcon : Icons.StarredIcon
-                    height: units.gu(3)
-                    width: height
-                    color: UbuntuColors.ash
-                    SlotsLayout.position: SlotsLayout.Leading
-                }
-            }
-            onClicked: {
-                Client.markMessageImportant(msg.messageId, !msg.isImportant)
-                PopupUtils.close(actionPopover)
-            }
-        }
-        ListItem {
-            height: msl.height
-            divider.visible: true
-            color: UbuntuColors.porcelain
-            ListItemLayout {
-                id: msl
-                height: units.gu(5)
-                title.text: qsTr("Mark as spam")
-
-                CachedImage {
-                    name: Icons.JunkIcon
-                    height: units.gu(3)
-                    width: height
-                    color: UbuntuColors.ash
-                    SlotsLayout.position: SlotsLayout.Leading
-                }
-            }
-            onClicked: {
-                dekko.showNotice("Mark as spam not implemented yet. Fix it before release!!!!")
-                PopupUtils.close(actionPopover)
-            }
-        }
-        ListItem {
-            height: tdl.height
-            divider.visible: !done.visible
-            color: UbuntuColors.porcelain
-            ListItemLayout {
-                id: tdl
-                height: units.gu(5)
-                title.text: qsTr("To-do")
-
-                CachedImage {
-                    name: Icons.ViewListSymbolic
-                    height: units.gu(3)
-                    width: height
-                    color: UbuntuColors.ash
-                    SlotsLayout.position: SlotsLayout.Leading
-                }
-
-                CachedImage {
-                    name: Icons.TickIcon
-                    height: units.gu(3)
-                    width: height
+        ContextGroup {
+            contextActions: [
+                ContextAction {
+                    description: qsTr("To-do")
+                    actionIcon: Icons.ViewListSymbolic
+                    selectedIcon: Icons.TickIcon
+                    selectedIconColor: UbuntuColors.green
+                    selected: msg && msg.isTodo
+                    onTriggered: {
+                        // remove done flag if re-marking as todo
+                        if (msg.isDone) {
+                            Client.markMessageDone(msg.messageId, false)
+                        }
+                        Client.markMessageTodo(msg.messageId, !msg.isTodo)
+                        PopupUtils.close(actionPopover)
+                    }
+                },
+                ContextAction {
                     visible: msg && msg.isTodo
-                    color: UbuntuColors.green
+                    description: qsTr("Done")
+                    actionIcon: Icons.SelectIcon
+                    onTriggered: {
+                        // markMessageDone will remove the Todo flag if it is set
+                        Client.markMessageDone(msg.messageId, !msg.isDone)
+                        PopupUtils.close(actionPopover)
+                    }
                 }
-            }
-            onClicked: {
-                // remove done flag if re-marking as todo
-                if (msg.isDone) {
-                    Client.markMessageDone(msg.messageId, false)
-                }
-                Client.markMessageTodo(msg.messageId, !msg.isTodo)
-                PopupUtils.close(actionPopover)
-            }
+            ]
         }
-        ListItem {
-            id: done
-            height: doneLayout.height
-            divider.visible: true
-            visible: msg && msg.isTodo
-            color: UbuntuColors.porcelain
-            ListItemLayout {
-                id: doneLayout
-                height: units.gu(5)
-                title.text: qsTr("Done")
 
-                CachedImage {
-                    name: Icons.SelectIcon
-                    height: units.gu(3)
-                    width: height
-                    color: UbuntuColors.ash
-                    SlotsLayout.position: SlotsLayout.Leading
+        ContextGroup {
+            contextActions: [
+                ContextAction {
+                    description: qsTr("Reply")
+                    actionIcon: Icons.MailRepliedIcon
+                    onTriggered: {
+                        dekko.showNotice("not implemented yet. Fix it before release!!!!")
+                        PopupUtils.close(actionPopover)
+                    }
+                },
+
+                ContextAction {
+                    description: qsTr("Reply all")
+                    actionIcon: Icons.MailRepliedAllIcon
+                    onTriggered: {
+                        dekko.showNotice("not implemented yet. Fix it before release!!!!")
+                        PopupUtils.close(actionPopover)
+                    }
+                },
+                ContextAction {
+                    description: qsTr("Forward")
+                    actionIcon: Icons.MailForwardedIcon
+                    onTriggered: {
+                        dekko.showNotice("Not implemented yet. Fix it before release!!!!")
+                        PopupUtils.close(actionPopover)
+                    }
                 }
-            }
-            onClicked: {
-                // markMessageDone will remove the Todo flag if it is set
-                Client.markMessageDone(msg.messageId, !msg.isDone)
-                PopupUtils.close(actionPopover)
-            }
+            ]
         }
-        ListItem {
-            height: rplyl.height
-            divider.visible: false
-            color: UbuntuColors.porcelain
-            ListItemLayout {
-                id: rplyl
-                height: units.gu(5)
-                title.text: qsTr("Reply")
 
-                CachedImage {
-                    name: Icons.MailRepliedIcon
-                    height: units.gu(3)
-                    width: height
-                    color: UbuntuColors.ash
-                    SlotsLayout.position: SlotsLayout.Leading
-                }
-            }
-            onClicked: {
-                dekko.showNotice("Reply not implemented yet. Fix it before release!!!!")
-                PopupUtils.close(actionPopover)
-            }
-        }
-        ListItem {
-            height: ral.height
-            divider.visible: false
-            color: UbuntuColors.porcelain
-            ListItemLayout {
-                id: ral
-                height: units.gu(5)
-                title.text: qsTr("Reply all")
+        ContextGroup {
+            divider.visible: false // last group so we don't need divider
+            contextActions: [
+                ContextAction {
+                    description: qsTr("Move")
+                    actionIcon: Icons.InboxIcon
+                    onTriggered: {
+                        dekko.showNotice("not implemented yet. Fix it before release!!!!")
+                        PopupUtils.close(actionPopover)
+                    }
+                },
 
-                CachedImage {
-                    name: Icons.MailRepliedAllIcon
-                    height: units.gu(3)
-                    width: height
-                    color: UbuntuColors.ash
-                    SlotsLayout.position: SlotsLayout.Leading
+                ContextAction {
+                    description: qsTr("Restore to %1").arg(msg.previousFolderName)
+                    actionIcon: Icons.UndoIcon
+                    onTriggered: {
+                        Client.restoreMessage(msg.messageId)
+                        PopupUtils.close(actionPopover)
+                    }
+                },
+                ContextAction {
+                    description: qsTr("Delete")
+                    actionIcon: Icons.DeleteIcon
+                    onTriggered: {
+                        Client.deleteMessage(msg.messageId)
+                        PopupUtils.close(actionPopover)
+                    }
                 }
-            }
-            onClicked: {
-                dekko.showNotice("Reply all not implemented yet. Fix it before release!!!!")
-                PopupUtils.close(actionPopover)
-            }
-        }
-        ListItem {
-            height: fwdl.height
-            divider.visible: true
-            color: UbuntuColors.porcelain
-            ListItemLayout {
-                id: fwdl
-                height: units.gu(5)
-                title.text: qsTr("Forward")
-
-                CachedImage {
-                    name: Icons.MailForwardedIcon
-                    height: units.gu(3)
-                    width: height
-                    color: UbuntuColors.ash
-                    SlotsLayout.position: SlotsLayout.Leading
-                }
-            }
-            onClicked: {
-                dekko.showNotice("Froward not implemented yet. Fix it before release!!!!")
-                PopupUtils.close(actionPopover)
-            }
-        }
-        ListItem {
-            height: ml.height
-            divider.visible: false
-            color: UbuntuColors.porcelain
-            ListItemLayout {
-                id: ml
-                height: units.gu(5)
-                title.text: qsTr("Move")
-
-                CachedImage {
-                    name: Icons.InboxIcon
-                    height: units.gu(3)
-                    width: height
-                    color: UbuntuColors.ash
-                    SlotsLayout.position: SlotsLayout.Leading
-                }
-            }
-            onClicked: {
-                dekko.showNotice("Move not implemented yet. Fix it before release!!!!")
-                PopupUtils.close(actionPopover)
-            }
-        }
-        ListItem {
-            height: rl.height
-            divider.visible: false
-            visible: msg && msg.canBeRestored
-            color: UbuntuColors.porcelain
-            ListItemLayout {
-                id: rl
-                height: units.gu(5)
-                title.text: qsTr("Restore to %1").arg(msg.previousFolderName)
-
-                CachedImage {
-                    name: Icons.UndoIcon
-                    height: units.gu(3)
-                    width: height
-                    color: UbuntuColors.ash
-                    SlotsLayout.position: SlotsLayout.Leading
-                }
-            }
-            onClicked: {
-                Client.restoreMessage(msg.messageId)
-                PopupUtils.close(actionPopover)
-            }
-        }
-        ListItem {
-            height: dl.height
-            divider.visible: false
-            color: UbuntuColors.porcelain
-            ListItemLayout {
-                id: dl
-                height: units.gu(5)
-                title.text: qsTr("Delete")
-
-                CachedImage {
-                    name: Icons.DeleteIcon
-                    height: units.gu(3)
-                    width: height
-                    color: UbuntuColors.ash
-                    SlotsLayout.position: SlotsLayout.Leading
-                }
-            }
-            onClicked: {
-                Client.deleteMessage(msg.messageId)
-                PopupUtils.close(actionPopover)
-            }
+            ]
         }
     }
 }

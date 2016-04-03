@@ -41,5 +41,8 @@
         <file>views/FolderListView.qml</file>
         <file>delegates/FolderListDelegate.qml</file>
         <file>popovers/NoticePopup.qml</file>
+        <file>components/ContextGroup.qml</file>
+        <file>delegates/ContextDelegate.qml</file>
+        <file>components/ContextAction.qml</file>
     </qresource>
 </RCC>
