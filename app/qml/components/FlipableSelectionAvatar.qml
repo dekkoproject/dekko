@@ -72,16 +72,33 @@ Flipable {
                                        )
                 }
             }
+            // For some weird reason we can't just bing
+            // avatarCircle to containsMouse. As during
+            // pushing and popping another page to the stack
+            // can cause multiple avatars with the search overaly visible.
+            // It's mighty weird!!!
+            // So instead we just manually show/hide when mouse enters/exits
+            // Not ideal but it enforces the overlay is only visible when we want
+            onEntered: {
+                if (containsMouse) {
+                    avatarSearchOverlay.visible = true
+                }
+            }
+            onExited: {
+                if (!containsMouse) {
+                    avatarSearchOverlay.visible = false
+                }
+            }
         }
 
         UbuntuShape {
-            id: avatarCircle
+            id: avatarSearchOverlay
             anchors.fill: parent
             anchors.centerIn: parent
             aspect: UbuntuShape.Flat
             backgroundColor: UbuntuColors.slate
             opacity: 0.8
-            visible: ma.containsMouse
+            visible: false
             CachedImage {
                 width: parent.width - units.gu(2)
                 height: width
