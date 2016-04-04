@@ -237,7 +237,7 @@ DekkoPage {
                     }
                 }
 
-                rightSideActions: [flagAction, readAction, moveAction, contextAction]
+                rightSideActions: [flagAction, readAction, contextAction]
 
                 onItemClicked: {
                     if (msgList.isInSelectionMode) {
