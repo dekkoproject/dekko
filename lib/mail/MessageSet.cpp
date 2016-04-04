@@ -225,7 +225,7 @@ QVariant StandardFolderSet::descendentsKey()
 }
 
 SmartFolderSet::SmartFolderSet(QObject *parent) : MessageSet(parent),
-    m_type(SmartTodoFolder)
+    m_type(SmartTodoFolder), m_timer(0)
 {
 }
 
@@ -235,6 +235,15 @@ void SmartFolderSet::init(const QString &displayName, const QMailMessageKey &mes
     m_key = messageKey;
     emit displayNameChanged();
     emit messageKeyChanged();
+
+    if (m_type == SmartTodayFolder) {
+        if (!m_timer) {
+            m_timer = new QTimer(this);
+            m_timer->setInterval(10000);
+            connect(m_timer, &QTimer::timeout, this, &SmartFolderSet::updateDescription);
+            m_timer->start();
+        }
+    }
 }
 
 SmartFolderSet::SmartFolderType SmartFolderSet::type() const
@@ -249,4 +258,10 @@ void SmartFolderSet::setType(SmartFolderSet::SmartFolderType type)
 
     m_type = type;
     emit typeChanged(type);
+}
+
+void SmartFolderSet::updateDescription()
+{
+    m_name = tr("Today, %1").arg(QDateTime::currentDateTime().toString("ddd d"));
+    emit displayNameChanged();
 }

@@ -5,6 +5,7 @@
 #include <QmlObjectListModel.h>
 #include <qmailmessagekey.h>
 #include <qmailfolder.h>
+#include <QTimer>
 
 class MessageSet : public QObject
 {
@@ -43,6 +44,7 @@ protected:
     QQmlObjectListModel<MessageSet> *m_children;
     QMailMessageKey m_key;
 };
+
 
 class StandardFolderSet : public MessageSet
 {
@@ -113,8 +115,12 @@ public slots:
 signals:
     void typeChanged(SmartFolderType type);
 
+private slots:
+    void updateDescription();
+
 private:
     SmartFolderType m_type;
+    QTimer *m_timer; // Used to update SmartTodayFolder description
 };
 
 #endif // MESSAGESET_H
