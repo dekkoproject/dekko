@@ -123,7 +123,7 @@ Panel {
         orientation: ListView.Horizontal
         snapMode: ListView.SnapOneItem
         currentIndex: tabBar.currentIndex
-        highlightMoveDuration: 100
+        highlightMoveDuration: 275
     }
 
     Comps.TabBar {
