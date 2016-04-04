@@ -51,7 +51,7 @@ void MessageFilterCollection::createStandardFolderCollection()
     QMailMessageKey inboxKey;
     StandardFolderSet *inbox = new StandardFolderSet(); // model will take ownership
     inbox->setType(StandardFolderSet::SpecialUseInboxFolder);
-    inbox->init(tr("Inbox"), inboxKey);
+    inbox->init(tr("All inboxes"), inboxKey);
     m_children->append(inbox);
 
     // Drafts
