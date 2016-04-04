@@ -14,7 +14,7 @@
 #include <QFuture>
 #include <QFutureWatcher>
 #include "Helpers.h"
-#include "Paths.h"
+#include <Paths.h>
 
 
 class SvgToPngWorker;

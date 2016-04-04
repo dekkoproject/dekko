@@ -1,0 +1,2 @@
+module Dekko.Settings
+plugin settingsplugin

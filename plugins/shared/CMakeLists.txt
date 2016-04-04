@@ -7,6 +7,7 @@ include_directories(
 
 set(SharedLib_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/QmlObjectListModel.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Paths.cpp
 )
 
 add_library(dekkohelpers SHARED ${SharedLib_SRCS})

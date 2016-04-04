@@ -69,6 +69,7 @@ public:
     static QString standardConfigLocation();
     static QString cacheLocationForFile(const QString & fileName);
     static QString configLocationForFile(const QString & fileName);
+    static bool checkForStaleLockFile(QLockFile **lockFile, QString &filePath, QString &errorMessage);
 
     static QObject *factory(QQmlEngine *engine, QJSEngine *scriptEngine);
 

@@ -1,6 +1,8 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
+import Dekko.Settings 1.0
 import "../delegates"
+import "../components"
 
 VisualItemModel {
 
@@ -53,48 +55,19 @@ VisualItemModel {
                             }
                         }
                     }
-
-                    ListItem {
+                    Item {
                         anchors {
                             left: parent.left
                             right: parent.right
                         }
-                        height: sLabel.height
-                        color: "#ffffff"
-                        Label {
-                            id: sLabel
-                            anchors {
-                                left: parent.left
-                                leftMargin: units.gu(2)
-                                right: parent.right
-                                rightMargin: units.gu(2)
-                            }
-                            text: qsTr("Smart folders")
-                            height: units.gu(4)
-                            fontSize: "medium"
-                            font.weight: Font.DemiBold
-                            verticalAlignment: Text.AlignVCenter
-
-                        }
-                        Icon {
-                            height: units.gu(2)
-                            width: height
-                            anchors {
-                                right: parent.right
-                                verticalCenter: parent.verticalCenter
-                                rightMargin: units.gu(2.5)
-                            }
-                            name: "add"
-                        }
-                    }
-                    Column {
-                        anchors {
-                            left: parent.left
-                            right: parent.right
-                        }
-                        Repeater {
-                            id: smartFolderList
+                        height: smf.height
+                        NavigationGroup {
+                            id: smf
+                            title: qsTr("Smart folders")
+                            visible: navSettings.data.smartfolders.show
                             model: smartFolders.children
+                            expansion.expanded: navSettings.data.smartfolders.expanded
+                            onExpandClicked: navSettings.set(NavigationSettings.SmartFoldersExpanded, !navSettings.data.smartfolders.expanded)
                             delegate: NavMenuStandardFolderDelegate {
                                 id: smartFolderDelegate
                                 folder: qtObject
@@ -104,47 +77,35 @@ VisualItemModel {
                         }
                     }
 
-                    ListItem {
+                    Item {
                         anchors {
                             left: parent.left
                             right: parent.right
                         }
-                        height: sectionLabel.height
-                        color: "#ffffff"
-                        Label {
-                            id: sectionLabel
-                            anchors {
-                                left: parent.left
-                                leftMargin: units.gu(2)
-                                right: parent.right
-                                rightMargin: units.gu(2)
-                            }
-                            text: qsTr("Accounts")
-                            height: units.gu(4)
-                            fontSize: "medium"
-                            font.weight: Font.DemiBold
-                            verticalAlignment: Text.AlignVCenter
-
-                        }
-                    }
-                    Repeater {
-                        id: accountsList
-                        model: accounts.model
-                        delegate: ListItem {
-                            height: dLayout.height
-                            divider.visible: false
-                            onClicked: openFolder(qtObject.name, qtObject.id)
-                            ListItemLayout {
-                                id: dLayout
-                                height: units.gu(6)
-                                title.text: qtObject.name
-                                Icon {
-                                    height: units.gu(2.5)
-                                    width: height
-                                    name: "contact"
-                                    SlotsLayout.position: SlotsLayout.Leading
+                        height: acg.height
+                        NavigationGroup {
+                            id: acg
+                            title: qsTr("Accounts")
+                            visible: navSettings.data.accounts.show
+                            model: accounts.model
+                            expansion.expanded: navSettings.data.accounts.expanded
+                            onExpandClicked: navSettings.set(NavigationSettings.AccountsExpanded, !navSettings.data.accounts.expanded)
+                            delegate: ListItem {
+                                height: dLayout.height
+                                divider.visible: false
+                                onClicked: openFolder(qtObject.name, qtObject.id)
+                                ListItemLayout {
+                                    id: dLayout
+                                    height: units.gu(6)
+                                    title.text: qtObject.name
+                                    Icon {
+                                        height: units.gu(2.5)
+                                        width: height
+                                        name: "contact"
+                                        SlotsLayout.position: SlotsLayout.Leading
+                                    }
+                                    ProgressionSlot{}
                                 }
-                                ProgressionSlot{}
                             }
                         }
                     }

@@ -22,6 +22,7 @@ import Ubuntu.Components.ListItems 1.0 as ListItems
 import Ubuntu.PushNotifications 0.1
 import Ubuntu.Content 1.0
 import Dekko.Controls 1.0
+import Dekko.Settings 1.0
 import "./components"
 import "./utils"
 

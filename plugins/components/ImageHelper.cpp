@@ -15,7 +15,7 @@
 #include <QQmlNetworkAccessManagerFactory>
 #include <QFuture>
 #include <QtQuick>
-#include "Paths.h"
+#include <Paths.h>
 
 
 QString ImageHelper::s_basePath;

@@ -3,6 +3,7 @@ import Ubuntu.Components 1.3
 import Dekko.Accounts 1.0
 import Dekko.Mail 1.0
 import Dekko.Components 1.0
+import Dekko.Settings 1.0
 import "../components"
 import "../delegates"
 import "../models"
@@ -299,6 +300,10 @@ DekkoPage {
     MessageFilterCollection {
         id: smartFolders
         filter: MessageFilterCollection.SmartFolders
+    }
+
+    NavigationSettings {
+        id: navSettings
     }
 
     NavigationDrawer {

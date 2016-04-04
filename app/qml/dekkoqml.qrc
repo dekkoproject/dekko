@@ -44,5 +44,6 @@
         <file>components/ContextGroup.qml</file>
         <file>delegates/ContextDelegate.qml</file>
         <file>components/ContextAction.qml</file>
+        <file>components/NavigationGroup.qml</file>
     </qresource>
 </RCC>

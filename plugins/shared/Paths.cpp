@@ -1,5 +1,6 @@
 #include "Paths.h"
 #include <QCoreApplication>
+#include <QLockFile>
 
 Paths::Paths(QObject *parent) : QObject(parent)
 {
@@ -176,6 +177,40 @@ QString Paths::cacheLocationForFile(const QString &fileName)
 QString Paths::configLocationForFile(const QString &fileName)
 {
     return Paths::standardConfigLocation().append(QStringLiteral("/%1").arg(fileName));
+}
+
+bool Paths::checkForStaleLockFile(QLockFile **lockFile, QString &filePath, QString &errorMessage)
+{
+    QDir dir(Paths::standardConfigLocation());
+    if (!dir.exists() && !dir.mkpath(QStringLiteral("."))) {
+        errorMessage = QStringLiteral("Cannot create directory: %1").arg(dir.path());
+        return false;
+    }
+
+    // Reset to config directory for consistency; avoid depending on this behavior for paths
+    if (QDir::setCurrent(dir.absolutePath()) && dir.isRelative()) {
+        dir.setPath(QStringLiteral("."));
+    }
+    QLockFile *lock = new QLockFile(filePath);
+    *lockFile = lock;
+    lock->setStaleLockTime(0);
+    if (!lock->tryLock()) {
+        if (lock->error() == QLockFile::LockFailedError) {
+            // This happens if a stale lock file exists and another process uses that PID.
+            // Try removing the stale file, which will fail if a real process is holding a
+            // file-level lock. A false error is more problematic than not locking properly
+            // on corner-case systems.
+            if (!lock->removeStaleLockFile() || !lock->tryLock()) {
+                errorMessage = QStringLiteral("Configuration file is already in use");
+                return false;
+            } else
+                qDebug() << "Removed stale lock file";
+        } else {
+            errorMessage = QStringLiteral("Cannot write configuration file (failed to acquire lock)");
+            return false;
+        }
+    }
+    return true;
 }
 
 QObject *Paths::factory(QQmlEngine *engine, QJSEngine *scriptEngine)

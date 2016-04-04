@@ -2,6 +2,7 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Dekko.Mail 1.0
 import Dekko.Accounts 1.0
+import Dekko.Settings 1.0
 import "../components" as Comps
 import "../models"
 
@@ -26,6 +27,10 @@ Comps.DekkoPage {
         id: smartFolders
         filter: MessageFilterCollection.SmartFolders
     }
+    NavigationSettings {
+        id: navSettings
+    }
+
     ListView {
         id: navDrawer
         signal msgKeySelected(string title, var key)

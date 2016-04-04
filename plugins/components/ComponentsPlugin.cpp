@@ -3,7 +3,7 @@
 #include <QtQml/QtQml>
 #include <QtQml/QQmlContext>
 #include "ImageHelper.h"
-#include "Paths.h"
+#include <Paths.h>
 
 void ComponentsPlugin::registerTypes(const char *uri)
 {
