@@ -12,7 +12,7 @@ DekkoPage {
 
     pageHeader.title: "Inbox"
     pageHeader.enableSearching: true
-    pageHeader.backAction: !dekko.viewState.isLargeFF ? drawerAction : null
+    pageHeader.backAction: !dekko.viewState.isLargeFF || msgList.isInSelectionMode ? drawerAction : null
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     // NOTE: DO NOT CHANGE THESE WITHOUT UPDATING THE FILTER SWITCH BELOW!!!!
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
