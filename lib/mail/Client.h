@@ -33,8 +33,17 @@ public:
     void markMessagesTodo(const QMailMessageIdList &idList, const bool todo);
     void markMessagesDone(const QMailMessageIdList &idList, const bool done);
 
+    // C++ fetch api
+    void downloadMessagePart(const QMailMessagePart *msgPart);
+    void downloadMessage(const QMailMessageId &msgId);
+    void downloadMessages(const QMailMessageIdList &idList);
+
 signals:
     void serviceChanged();
+    void messagePartNowAvailable(const quint64 &msgId, const QString &partLocation);
+    void messagePartFetchFailed(const quint64 &msgId, const QString &partLocation);
+    void messagesNowAvailable(const QMailMessageIdList &idList);
+    void messageFetchFailed(const QMailMessageIdList &ids);
 
 public slots:
 

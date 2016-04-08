@@ -8,8 +8,10 @@ Item {
     function openMessage(msgId) {
         if (dekko.viewState.isSmallFF) {
             // leftStage push msgview
+            msgListStage.push("qrc:/qml/views/MessagePage.qml", {msgId: msgId})
         } else {
             // rightStage push/replace msgview
+            msgViewStage.push("qrc:/qml/views/MessagePage.qml", {msgId: msgId})
         }
     }
 

@@ -9,7 +9,8 @@
 #include <QQuickView>
 #include <QQmlEngine>
 
-Dekko::Dekko(int &argc, char **argv) : QGuiApplication(argc, argv), m_server(0), m_view(0)
+Dekko::Dekko(int &argc, char **argv) :
+    QGuiApplication(argc, argv), m_server(0), m_view(0)
 {
     setOrganizationName(QStringLiteral("dekkoproject"));
     setApplicationName(QStringLiteral("dekko"));
@@ -37,6 +38,7 @@ bool Dekko::setup()
         qDebug() << "[Dekko]" << "Message server already running, using that";
     }
     m_view = new QQuickView();
+    m_view->engine()->setNetworkAccessManagerFactory(&m_partqnam);
     m_view->setResizeMode(QQuickView::SizeRootObjectToView);
     m_view->setMinimumHeight(300);
     m_view->setMinimumWidth(300);

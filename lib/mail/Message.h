@@ -6,6 +6,9 @@
 #include <qmailmessage.h>
 #include <QmlObjectListModel.h>
 #include "MailAddress.h"
+#include <QtConcurrent/QtConcurrent>
+#include <QFuture>
+#include <QFutureWatcher>
 
 /** @short MinimalMessage provides just the required info for display in the message list
 
@@ -76,19 +79,39 @@ class Message : public MinimalMessage // Extend on what we already have above
     Q_PROPERTY(QObject *to READ to NOTIFY messageChanged)
     Q_PROPERTY(QObject *cc READ cc NOTIFY messageChanged)
     Q_PROPERTY(QObject *bcc READ bcc NOTIFY messageChanged)
+    Q_PROPERTY(QUrl body READ body NOTIFY bodyChanged)
+    Q_PROPERTY(bool preferPlainText READ preferPlainText WRITE setPreferPlainText NOTIFY plainTextChanged)
 public:
     explicit Message(QObject *parent = 0);
     QObject *to() const { return m_to; }
     QObject *cc() const { return m_cc; }
     QObject *bcc() const { return m_bcc; }
 
+    QUrl body() const;
+    static QUrl findInterestingBodyPart(const QMailMessageId &id, const bool preferPlainText);
+
+    bool preferPlainText() const;
+
+public slots:
+    void setPreferPlainText(const bool preferPlainText);
+
 signals:
     void messageChanged();
+
+    void bodyChanged();
+
+
+    void plainTextChanged();
+
+private slots:
+    void initMessage();
 
 private:
     QQmlObjectListModel<MailAddress> *m_to;
     QQmlObjectListModel<MailAddress> *m_cc;
     QQmlObjectListModel<MailAddress> *m_bcc;
+    QUrl m_body;
+    bool m_preferPlainText;
 };
 
 #endif // MESSAGE_H

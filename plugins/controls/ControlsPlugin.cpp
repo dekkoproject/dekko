@@ -6,7 +6,7 @@
 
 void ControlsPlugin::registerTypes(const char *uri)
 {
-    Q_ASSERT(uri == QLatin1String("Dekko.Components"));
+    Q_ASSERT(uri == QLatin1String("Dekko.Controls"));
     // @uri Dekko.Controls
 //    qmlRegisterType<ImageHelper>(uri, 1, 0, "ImageHelper");
     qmlRegisterUncreatableType<QQuickStack>(uri, 1, 0, "Stack", "Cannot be created in QML.");

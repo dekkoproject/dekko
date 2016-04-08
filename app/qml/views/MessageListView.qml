@@ -254,6 +254,7 @@ DekkoPage {
                         rightClickActions.trigger()
                         return;
                     }
+                    mailView.openMessage(msgListDelegate.msg.messageId)
                     listView.currentIndex = model.index
                 }
                 onItemPressAndHold: {

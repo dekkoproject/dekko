@@ -7,6 +7,7 @@
 #include <QProcess>
 #include <QtQuick/QQuickView>
 #include <QQmlApplicationEngine>
+#include <MsgPartQNAMFactory.h>
 
 class Dekko : public QGuiApplication
 {
@@ -30,6 +31,7 @@ private slots:
 private:
     QProcess *m_server;
     QQuickView *m_view;
+    MsgPartQNAMFactory m_partqnam;
 };
 
 #endif // DEKKO_H

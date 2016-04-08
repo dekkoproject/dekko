@@ -42,11 +42,17 @@ public:
     void markMessagesRead(const QMailMessageIdList &msgIds, const bool read);
     void markMessagesTodo(const QMailMessageIdList &msgIds, const bool todo);
     void markMessagesDone(const QMailMessageIdList &msgIds, const bool done);
+    void downloadMessagePart(const QMailMessagePart *part);
+    void downloadMessages(const QMailMessageIdList &msgIds);
 
 signals:
     void undoCountChanged();
     void updatesRolledBack();
     void queueChanged();
+    void messagePartFetched(const quint64 &message, const QString &location);
+    void messagePartFetchFailed(const quint64 &message, const QString &location);
+    void messagesFetched(const QMailMessageIdList &ids);
+    void messageFetchFailed(const QMailMessageIdList &ids);
 
 public slots:
     void undoActions();
@@ -95,16 +101,29 @@ public:
 
 signals:
     void processNext();
+    void messagePartFetched(const quint64 &message, const QString &location);
+    void messagePartFetchFailed(const quint64 &message, const QString &location);
+    void messagesFetched(const QMailMessageIdList &ids);
+    void messageFetchFailed(const QMailMessageIdList &ids);
 
 public slots:
     void activityChanged(QMailServiceAction::Activity activity){
         if (QMailServiceAction *action = m_queue->first()->action()) {
             if (activity == QMailServiceAction::Successful) {
+                qDebug() << "Service action successful";
                 if (action->metaObject()->className() == QStringLiteral("QMailRetrievalAction")) {
                     if (m_queue->first()->serviceActionType() == ClientServiceAction::ExportAction) {
-                        m_queue->dequeue();
                         qDebug() << "Export action complete";
+                    } else if (m_queue->first()->serviceActionType() == ClientServiceAction::RetrievePartAction) {
+                        qDebug() << "FetchPart successful";
+                        ClientServiceAction *clientAction = m_queue->at(0);
+                        emit messagePartFetched(clientAction->messageId(), clientAction->location());
+                    } else if (m_queue->first()->serviceActionType() == ClientServiceAction::RetrieveAction) {
+//                        qDebug() << "Fetch messages successful";
+                        ClientServiceAction *clientAction = m_queue->at(0);
+                        emit messagesFetched(clientAction->messageIds());
                     }
+                    m_queue->dequeue();
                     emit processNext();
                 }
             } else if (activity == QMailServiceAction::Failed) {
@@ -114,9 +133,15 @@ public slots:
                         qDebug() << "Export action failed " << status.accountId << "Reason: " << status.text;
                         // because this is a silent action. i.e the changes can be exported in a future
                         // export it's not critical to interrupt the UI right now. Let's just dequeue the job
-                        m_queue->dequeue();
-                        emit processNext();
+                    } else if (m_queue->first()->serviceActionType() == ClientServiceAction::RetrievePartAction) {
+                        ClientServiceAction *fetch = m_queue->at(0);
+                        emit messagePartFetchFailed(fetch->messageId(), fetch->location());
+                    } else if (m_queue->first()->serviceActionType() == ClientServiceAction::RetrieveAction) {
+                        ClientServiceAction *clientAction = m_queue->at(0);
+                        emit messageFetchFailed(clientAction->messageIds());
                     }
+                    m_queue->dequeue();
+                    emit processNext();
                 }
             }
         } else {

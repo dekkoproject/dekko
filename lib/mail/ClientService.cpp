@@ -16,6 +16,10 @@ ClientService::ClientService(QObject *parent) : QObject(parent),
     m_serviceWatcher = new ClientServiceWatcher(this);
     m_serviceWatcher->setWatchQueue(m_serviceQueue);
     connect(m_serviceWatcher, &ClientServiceWatcher::processNext, this, &ClientService::processNextAction);
+    connect(m_serviceWatcher, &ClientServiceWatcher::messagePartFetched, this, &ClientService::messagePartFetched);
+    connect(m_serviceWatcher, &ClientServiceWatcher::messagePartFetchFailed, this, &ClientService::messagePartFetchFailed);
+    connect(m_serviceWatcher, &ClientServiceWatcher::messagesFetched, this, &ClientService::messagesFetched);
+    connect(m_serviceWatcher, &ClientServiceWatcher::messageFetchFailed, this, &ClientService::messageFetchFailed);
     emit queueChanged();
 }
 
@@ -120,6 +124,22 @@ void ClientService::markMessagesDone(const QMailMessageIdList &msgIds, const boo
     if (!todosToRemove.isEmpty()) {
         markMessagesTodo(todosToRemove, !done);
     }
+}
+
+void ClientService::downloadMessagePart(const QMailMessagePart *part)
+{
+    if (!part->location().isValid(true)) {
+        return;
+    }
+    enqueue(new FetchMessagePartAction(this, part));
+}
+
+void ClientService::downloadMessages(const QMailMessageIdList &msgIds)
+{
+    if (msgIds.isEmpty()) {
+        return;
+    }
+
 }
 
 void ClientService::undoableCountChanged()

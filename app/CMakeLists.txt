@@ -22,6 +22,7 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/qmf/libraries/qmfclient
     ${CMAKE_SOURCE_DIR}/qmf/libraries/qmfclient/support
     ${CMAKE_SOURCE_DIR}/qmf/libraries/qmfmessageserver
+    ${CMAKE_SOURCE_DIR}/lib/network
 )
 
 set(DEKKO_SOURCES
@@ -29,10 +30,14 @@ set(DEKKO_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Dekko.cpp
 )
 
-qt5_add_resources(DEKKO_RESOURCES ${DEKKO_QML_RESOURCE} ${DEKKO_ICON_RESOURCE} ${DEKKO_PROVIDERS_RESOURCE})
+qt5_add_resources(DEKKO_RESOURCES
+    ${DEKKO_QML_RESOURCE}
+    ${DEKKO_ICON_RESOURCE}
+    ${DEKKO_PROVIDERS_RESOURCE}
+)
 
 add_executable(dekko ${DEKKO_SOURCES} ${DEKKO_RESOURCES})
 qt5_use_modules(dekko Gui Core Quick Qml)
-target_link_libraries(dekko qmfclient5 qmfmessageserver5)
+target_link_libraries(dekko qmfclient5 qmfmessageserver5 network)
 
 install(TARGETS dekko DESTINATION ${BIN_DIR})

@@ -107,6 +107,7 @@ public:
         SmartTodayFolder,
         SmartCustomFolder
     };
+
     virtual void init(const QString &displayName, const QMailMessageKey &messageKey);
     virtual QVariant descendentsKey() { return QVariant(); } // We don't do descendents yet
     SmartFolderType type() const;

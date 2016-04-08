@@ -127,7 +127,6 @@ static void findChangedRecursive(ChangedList &list, const QStringList &objPath, 
 
 bool SettingsFileBase::write(const QStringList &path, const QJsonValue &value)
 {
-    qDebug() << "[SettingsFileBase] write: " << path << value;
     typedef QVarLengthArray<QPair<QString,QJsonObject> > ObjectArray;
     ObjectArray stack;
     QJsonValue current = m_jsonObject;

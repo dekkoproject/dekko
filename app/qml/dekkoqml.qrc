@@ -45,5 +45,14 @@
         <file>delegates/ContextDelegate.qml</file>
         <file>components/ContextAction.qml</file>
         <file>components/NavigationGroup.qml</file>
+        <file>views/MessagePage.qml</file>
+        <file>webview/userscripts/add_cid_query.js</file>
+        <file>webview/userscripts/contact-message.js</file>
+        <file>webview/userscripts/fake_script.js</file>
+        <file>webview/userscripts/font_user_script.js</file>
+        <file>webview/userscripts/hide_overflow.js</file>
+        <file>webview/userscripts/viewport_shim.js</file>
+        <file>webview/userscripts/zoom.js</file>
+        <file>webview/DekkoWebView.qml</file>
     </qresource>
 </RCC>

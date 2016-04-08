@@ -160,6 +160,31 @@ QMailAccountIdList FlagsAction::accountIds()
     return accounts;
 }
 
+FetchMessagePartAction::FetchMessagePartAction(QObject *parent, const QMailMessagePart *part):
+    ClientServiceAction(parent), m_part(part)
+{
+    m_actionType = ActionType::Immediate;
+    m_serviceActionType = ServiceAction::RetrievePartAction;
+    m_description = QStringLiteral("Fetching message part: %1").arg(part->location().toString(true));
+}
 
+void FetchMessagePartAction::process()
+{
+//    qDebug() << m_description;
+    m_id = m_part->location().containingMessageId().toULongLong();
+    m_location = m_part->location().toString(true);
+    createRetrievalAction()->retrieveMessagePart(m_part->location());
+}
 
+FetchMessagesAction::FetchMessagesAction(QObject *parent, const QMailMessageIdList &list):
+    ClientServiceAction(parent), m_list(list)
+{
+    m_actionType = ActionType::Immediate;
+    m_serviceActionType = ServiceAction::RetrieveAction;
+    m_description = QStringLiteral("Fetching %1 messages").arg(m_list.size());
+}
 
+void FetchMessagesAction::process()
+{
+    createRetrievalAction()->retrieveMessages(m_list, QMailRetrievalAction::RetrievalSpecification::Content);
+}

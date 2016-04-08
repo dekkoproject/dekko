@@ -61,10 +61,10 @@ VisualItemModel {
                             right: parent.right
                         }
                         height: smf.height
+                        visible: navSettings.data.smartfolders.show
                         NavigationGroup {
                             id: smf
                             title: qsTr("Smart folders")
-                            visible: navSettings.data.smartfolders.show
                             model: smartFolders.children
                             expansion.expanded: navSettings.data.smartfolders.expanded
                             onExpandClicked: navSettings.set(NavigationSettings.SmartFoldersExpanded, !navSettings.data.smartfolders.expanded)
@@ -83,10 +83,10 @@ VisualItemModel {
                             right: parent.right
                         }
                         height: acg.height
+                        visible: navSettings.data.accounts.show
                         NavigationGroup {
                             id: acg
                             title: qsTr("Accounts")
-                            visible: navSettings.data.accounts.show
                             model: accounts.model
                             expansion.expanded: navSettings.data.accounts.expanded
                             onExpandClicked: navSettings.set(NavigationSettings.AccountsExpanded, !navSettings.data.accounts.expanded)

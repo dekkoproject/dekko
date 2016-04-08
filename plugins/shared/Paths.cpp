@@ -137,6 +137,25 @@ QUrl Paths::actionIconUrl(const Paths::ActionIcon icon)
     return QStringLiteral("qrc://%1").arg(Paths::iconUrl(icon, false));
 }
 
+QString Paths::userscript(const Paths::UserScript script)
+{
+    switch (script) {
+    case CidQueryScript:
+        return findUserScript(QStringLiteral("add_cid_query.js"));
+    case FakeScript:
+        return findUserScript(QStringLiteral("fake_script.js"));
+    case FontScript:
+        return findUserScript(QStringLiteral("font_user_script.js"));
+    case OverFlowScript:
+        return findUserScript(QStringLiteral("hide_overflow.js"));
+    case ViewportScript:
+        return findUserScript(QStringLiteral("viewport_shim.js"));
+    case ZoomScript:
+        return findUserScript(QStringLiteral("zoom.js"));
+    }
+    return QString();
+}
+
 QString Paths::cachePath() const
 {
     return Paths::standardCacheLocation();
@@ -220,3 +239,24 @@ QObject *Paths::factory(QQmlEngine *engine, QJSEngine *scriptEngine)
     return paths;
 }
 
+
+QString Paths::findUserScript(const QString &scriptName)
+{
+    QString script;
+    if (script.isEmpty()) {
+        QString desktopFile = QDir(QCoreApplication::applicationDirPath()).absoluteFilePath(QStringLiteral("../../../dekko.desktop"));
+        if (QFile::exists(desktopFile)) {
+            // we are a click so lets tidy up our manifest path and find qmlfile
+            QDir clickRoot = QFileInfo(desktopFile).absoluteDir();
+            QString myPath = clickRoot.absolutePath() + QLatin1String("/userscripts/") + scriptName;
+            if (QFile::exists(myPath)) {
+                script = myPath;
+            }
+        }
+    }
+    // sanity check
+    if (script.isEmpty()) {
+        qFatal("Userscript: %s does not exist at any of the standard paths!", qPrintable(scriptName));
+    }
+    return QStringLiteral("file://%1").arg(script);
+}

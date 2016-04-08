@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QPointer>
 #include <qmailserviceaction.h>
+#include <qmailmessage.h>
 #include <QUuid>
 
 class ClientServiceAction : public QObject
@@ -28,6 +29,7 @@ public:
         DeleteAction,
         FlagAction,
         RetrieveAction,
+        RetrievePartAction,
         SearchAction,
         SendAction,
         StandardFoldersAction,
@@ -43,6 +45,20 @@ public:
     QString description() const { return m_description; }
     bool isRunning() const { return m_serviceAction ? m_serviceAction->isRunning() : false; }
     QByteArray uid() const { return m_uid; }
+    virtual QString location() {
+        // Not implemented here
+        Q_ASSERT(false);
+        return QString();
+    }
+    virtual quint64 messageId() {
+        // Not implemented here
+        Q_ASSERT(false);
+        return 0;
+    }
+    virtual QMailMessageIdList messageIds() {
+        Q_ASSERT(false);
+        return QMailMessageIdList();
+    }
 
     // Used by PriorityQueue
     const bool operator < (const ClientServiceAction *r) const {
@@ -150,6 +166,33 @@ private:
     QMailMessageIdList m_idList;
     FlagType m_flag;
     State m_state;
+};
+
+class FetchMessagePartAction : public ClientServiceAction
+{
+    Q_OBJECT
+public:
+    FetchMessagePartAction(QObject *parent, const QMailMessagePart *part);
+    void process();
+public slots:
+    QString location() { return m_location; }
+    quint64 messageId() { return m_id; }
+private:
+    const QMailMessagePart *m_part;
+    quint64 m_id;
+    QString m_location;
+};
+
+class FetchMessagesAction : public ClientServiceAction
+{
+    Q_OBJECT
+public:
+    FetchMessagesAction(QObject *parent, const QMailMessageIdList &list);
+    void process();
+public slots:
+    QMailMessageIdList messageIds() { return m_list; }
+private:
+    QMailMessageIdList m_list;
 };
 
 //class MoveMessagesAction : public UndoableAction

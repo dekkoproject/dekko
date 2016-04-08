@@ -134,7 +134,91 @@ void MinimalMessage::setIsTodo(const bool todo)
 
 
 Message::Message(QObject *parent) : MinimalMessage(parent),
-    m_to(0), m_cc(0), m_bcc(0)
+    m_to(0), m_cc(0), m_bcc(0), m_preferPlainText(false)
 {
+    connect(this, &Message::minMessageChanged, this, &Message::initMessage);
+}
 
+QUrl Message::body() const
+{
+    return m_body;
+}
+
+QUrl Message::findInterestingBodyPart(const QMailMessageId &id, const bool preferPlainText)
+{
+    if (!id.isValid()) {
+        return QUrl();
+    }
+    QMailMessage msg(id);
+    bool isPlainText = false;
+    QString msgIdString = QString::number(id.toULongLong());
+    QString location;
+    QUrl url;
+
+    qDebug() << __func__ << "Part count: " << msg.partCount();
+    if (msg.multipartType() == QMailMessage::MultipartNone) {
+        qDebug() << __func__ << "MultipartNone";
+        isPlainText = (msg.body().contentType().content() == QByteArrayLiteral("text/plain"));
+        url.setScheme(QStringLiteral("dekko-msg"));
+    } else {
+        qDebug() << msg.body().data();
+        QMailMessagePart *part = 0;
+        if (!preferPlainText && msg.hasHtmlBody()) {
+            QMailMessagePartContainer *html = msg.findHtmlContainer();
+            if (html) {
+                qDebug() << __func__ << "Html container found";
+                part = static_cast<QMailMessagePart *>(html);
+            }
+        }
+        if (!part || preferPlainText) {
+            QMailMessagePartContainer *ptext = msg.findPlainTextContainer();
+            if (ptext) {
+                qDebug() << __func__ << "Plain text part found";
+                part = static_cast<QMailMessagePart *>(ptext);
+                isPlainText = true;
+            }
+        }
+        if (!part) {
+            qDebug() << __func__ << "Unable to find a displayable message part :-/";
+            return QUrl();
+        }
+        location = part->location().toString(true);
+        url.setScheme(QStringLiteral("dekko-part"));
+    }
+    url.setHost(QStringLiteral("msg"));
+    QUrlQuery query;
+    query.addQueryItem(QStringLiteral("messageId"), msgIdString);
+    if (isPlainText) {
+        query.addQueryItem(QStringLiteral("requestFormatting"), QStringLiteral("true"));
+    }
+    if (!location.isEmpty()) {
+        query.addQueryItem(QStringLiteral("location"), location);
+    }
+    url.setQuery(query);
+    qDebug() << url;
+    return url;
+}
+
+bool Message::preferPlainText() const
+{
+    return m_preferPlainText;
+}
+
+void Message::setPreferPlainText(const bool preferPlainText)
+{
+    if (m_preferPlainText == preferPlainText)
+        return;
+
+    m_preferPlainText = preferPlainText;
+    emit plainTextChanged();
+}
+
+void Message::initMessage()
+{
+    QUrl url = Message::findInterestingBodyPart(m_id, m_preferPlainText);
+    if (url.isValid()) {
+        qDebug() << "Url is valid: " << url;
+        m_body = url;
+        emit bodyChanged();
+    }
 }

@@ -14,6 +14,7 @@ class Paths : public QObject
     Q_PROPERTY(QString configPath READ configPath CONSTANT)
 
     Q_ENUMS(ActionIcon)
+    Q_ENUMS(UserScript)
 
 public:
     explicit Paths(QObject *parent = 0);
@@ -57,9 +58,19 @@ public:
         UndoIcon
     };
 
+    enum UserScript {
+        CidQueryScript,
+        FakeScript,
+        FontScript,
+        OverFlowScript,
+        ViewportScript,
+        ZoomScript
+    };
+
     static QString iconUrl(const ActionIcon icon, bool prefix = true);
     // QML use only as it prepends qrc:/// to the icon url instead of :/
     Q_INVOKABLE QUrl actionIconUrl(const ActionIcon icon);
+    Q_INVOKABLE QString userscript(const UserScript script);
 
     QString cachePath() const;
     QString configPath() const;
@@ -76,6 +87,9 @@ public:
 signals:
 
 public slots:
+
+private:
+    QString findUserScript(const QString &scriptName);
 };
 
 #endif // PATHS_H

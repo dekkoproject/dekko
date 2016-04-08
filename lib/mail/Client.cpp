@@ -23,6 +23,10 @@ Client::Client(QObject *parent) : QObject(parent),
 {
     m_service = new ClientService(this);
     emit serviceChanged();
+    connect(m_service, &ClientService::messagePartFetched, this, &Client::messagePartNowAvailable);
+    connect(m_service, &ClientService::messagePartFetchFailed, this, &Client::messagePartFetchFailed);
+    connect(m_service, &ClientService::messagesFetched, this, &Client::messagesNowAvailable);
+    connect(m_service, &ClientService::messageFetchFailed, this, &Client::messageFetchFailed);
 }
 
 void Client::deleteMessage(const int &msgId)
@@ -81,3 +85,19 @@ void Client::markMessagesDone(const QMailMessageIdList &idList, const bool done)
     m_service->markMessagesDone(idList, done);
 }
 
+void Client::downloadMessagePart(const QMailMessagePart *msgPart)
+{
+    qDebug() << "[Client]" << "Downloading message part" << msgPart->location().toString(true);
+    m_service->downloadMessagePart(msgPart);
+}
+
+
+void Client::downloadMessage(const QMailMessageId &msgId)
+{
+    downloadMessages(QMailMessageIdList() << msgId);
+}
+
+void Client::downloadMessages(const QMailMessageIdList &idList)
+{
+
+}
