@@ -139,7 +139,7 @@ void ClientService::downloadMessages(const QMailMessageIdList &msgIds)
     if (msgIds.isEmpty()) {
         return;
     }
-
+    enqueue(new FetchMessagesAction(this, msgIds));
 }
 
 void ClientService::undoableCountChanged()
