@@ -405,22 +405,25 @@ QString Formatting::singleLinePlainTextToHtml(QString line)
 {
     line = line.toHtmlEscaped();
 
-    auto htmlifyLink = [](QString line, const QString &link) {
+    auto htmlifyLink = [](QString &line, const QString &link) {
+//        qDebug() << "Link: " << link;
         QString urlreplace(QStringLiteral("<a href=%1>%1</a>").arg(link));
         line.replace(link, urlreplace);
     };
 
-    auto htmlifyEmail = [](QString line, const QString &mail) {
+    auto htmlifyEmail = [](QString &line, const QString &mail) {
+//        qDebug() << "Mailto: " << mail;
         QString urlreplace(QStringLiteral("<a href=\"mailto:%1\">%1</a>").arg(mail));
         line.replace(mail, urlreplace);
     };
 
-    auto htmlifySpecials = [](QString line, const QString &value, const QString &tag) {
+    auto htmlifySpecials = [](QString &line, const QString &value, const QString &tag) {
+//        qDebug() << "Specials: " << value << tag;
         QString urlreplace(QStringLiteral("<%1>%2</%1>").arg(tag, value));
         line.replace(value, urlreplace);
     };
 
-    auto regexToStringList = [](QString line, const QString &regex) -> QStringList {
+    auto regexToStringList = [](QString &line, const QString &regex) -> QStringList {
         QRegularExpression rx(regex);
         QRegularExpressionMatchIterator it = rx.globalMatch(line);
         QStringList result;
