@@ -1,5 +1,6 @@
 #include "MsgReply.h"
 #include <QTimer>
+#include <Formatting.h>
 
 
 MsgReply::MsgReply(MsgPartQNAM *parent, QMailMessageId &msgId):
@@ -71,6 +72,7 @@ void MsgReply::messageReady()
     QMailMessageContentType ct = m_msg.body().contentType();
     if (m_format) {
         //do formatting
+        data = Formatting::markupPlainTextToHtml(m_msg.body().data()).toUtf8();
         setHeader(QNetworkRequest::ContentTypeHeader, QString("text/html")); // Can't add charset :-(
     } else {
 //        if (!ct.charset().isEmpty()) {
