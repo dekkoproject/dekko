@@ -100,6 +100,9 @@ Item {
 
     KeyboardRectangle {
         id: kbdRect
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
     }
 
 //    Connections {

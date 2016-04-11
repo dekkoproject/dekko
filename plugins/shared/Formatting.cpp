@@ -492,19 +492,10 @@ QString Formatting::markupPlainTextToHtml(const QString &text)
             "span.shortquote > blockquote > label {display: none}"
         );
 
-//        QFontInfo monospaceInfo(systemMonospaceFont());
-//        QString fontSpecification(QStringLiteral("pre{"));
-//        if (monospaceInfo.italic())
-//            fontSpecification += QLatin1String("font-style: italic; ");
-//        if (monospaceInfo.bold())
-//            fontSpecification += QLatin1String("font-weight: bold; ");
-//        fontSpecification += QStringLiteral("font-size: %1px; font-family: \"%2\", monospace }").arg(
-//                    QString::number(monospaceInfo.pixelSize()), monospaceInfo.family());
 
         QPalette palette = QGuiApplication::palette();
         QString textColors = QString::fromUtf8("body { color: #5D5D5D; font-family: Ubuntu !important; font-size: 1.1rem; weight: light }"
-                                               "a:link { color: %1 } a:visited { color: %2 } a:hover { color: %1 }").arg(
-                    palette.link().color().name(), palette.linkVisited().color().name());
+                                               "a:link { color: #19b6ee } a:visited { color: #19b6ee } a:hover { color: #19b6ee }");
         // looks like there's no special color for hovered links in Qt
 
         // build stylesheet and html header
@@ -531,7 +522,6 @@ QString Formatting::markupPlainTextToHtml(const QString &text)
                            "--></style></head><body><pre dir=\"auto\">");
         static QString htmlFooter(QStringLiteral("\n</pre></body></html>"));
 
-        // We cannot rely on the QWebFrame's toPlainText because of https://bugs.kde.org/show_bug.cgi?id=321160
         QString markup = Formatting::plainTextToHtml(text);
         // and finally set the marked up page.
         return htmlHeader + markup + htmlFooter;

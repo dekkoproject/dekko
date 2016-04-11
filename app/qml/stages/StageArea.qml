@@ -13,9 +13,14 @@ Item {
     property Component baseComponent: null
     property alias stackCount: internalStack.depth
     property alias currentItem: internalStack.currentItem
+    property bool immediatePush: false
     // Function to push a page onto the stack
     function push(component, props) {
-        internalStack.push({item: component, properties: props})
+        if (immediatePush) {
+            internalStack.push({item: component, immediate: true, properties: props})
+        } else {
+            internalStack.push({item: component, properties: props})
+        }
     }
     function pop() {
         internalStack.pop()

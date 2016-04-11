@@ -58,6 +58,9 @@ QString Paths::iconUrl(const Paths::ActionIcon icon, bool prefix)
     case MailRepliedAllIcon:
         iconName = QStringLiteral("mail-replied.svg");
         break;
+    case MailReplyAllIcon:
+        iconName = QStringLiteral("mail-reply-all.svg");
+        break;
     case MailReplyIcon:
         iconName = QStringLiteral("mail-reply.svg");
         break;

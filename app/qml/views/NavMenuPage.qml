@@ -10,6 +10,8 @@ Comps.DekkoPage {
     id: menuPage
 
     pageHeader.title: qsTr("Mail")
+    pageHeader.composeButtonEnabled: tabBar.currentIndex === 0 && dekko.viewState.isLargeFF
+//    pageHeader.showDivider: false
     extendHeader: true
 
     Accounts {

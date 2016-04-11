@@ -31,6 +31,7 @@ class MinimalMessage : public QObject
     Q_PROPERTY(QString previousFolderName READ previousFolderName NOTIFY minMessageChanged)
     Q_PROPERTY(QDateTime date READ date NOTIFY minMessageChanged)
     Q_PROPERTY(QString prettyDate READ prettyDate NOTIFY minMessageChanged)
+    Q_PROPERTY(QString prettyLongDate READ prettyLongDate NOTIFY minMessageChanged)
     Q_PROPERTY(Qt::CheckState checked READ checked WRITE setChecked NOTIFY checkedChanged)
     Q_PROPERTY(QVariant senderMsgKey READ senderMsgKey NOTIFY minMessageChanged)
 
@@ -49,6 +50,7 @@ public:
     QString previousFolderName() const;
     QDateTime date() const;
     QString prettyDate();
+    QString prettyLongDate();
     Qt::CheckState checked() const;
     QVariant senderMsgKey() const;
 
@@ -97,14 +99,13 @@ public slots:
 
 signals:
     void messageChanged();
-
     void bodyChanged();
-
 
     void plainTextChanged();
 
 private slots:
     void initMessage();
+    void handleUpdatedMessages(const QMailMessageIdList &list);
 
 private:
     QQmlObjectListModel<MailAddress> *m_to;

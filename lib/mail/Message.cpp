@@ -84,6 +84,12 @@ QString MinimalMessage::prettyDate()
     }
 }
 
+QString MinimalMessage::prettyLongDate()
+{
+    QDateTime t = date();
+    return QStringLiteral("%1, %2").arg(t.toString(tr("dddd dd")), t.toString(tr("hh:mm")));
+}
+
 Qt::CheckState MinimalMessage::checked() const
 {
     return m_checked;
@@ -137,6 +143,10 @@ Message::Message(QObject *parent) : MinimalMessage(parent),
     m_to(0), m_cc(0), m_bcc(0), m_preferPlainText(false)
 {
     connect(this, &Message::minMessageChanged, this, &Message::initMessage);
+    connect(QMailStore::instance(), SIGNAL(messagesUpdated(QMailMessageIdList)), this, SLOT(handleUpdatedMessages(QMailMessageIdList)));
+    m_to = new QQmlObjectListModel<MailAddress>(this);
+    m_cc = new QQmlObjectListModel<MailAddress>(this);
+    m_bcc = new QQmlObjectListModel<MailAddress>(this);
 }
 
 QUrl Message::body() const
@@ -155,25 +165,24 @@ QUrl Message::findInterestingBodyPart(const QMailMessageId &id, const bool prefe
     QString location;
     QUrl url;
 
-    qDebug() << __func__ << "Part count: " << msg.partCount();
+//    qDebug() << __func__ << "Part count: " << msg.partCount();
     if (msg.multipartType() == QMailMessage::MultipartNone) {
-        qDebug() << __func__ << "MultipartNone";
+//        qDebug() << __func__ << "MultipartNone";
         isPlainText = (msg.body().contentType().content() == QByteArrayLiteral("text/plain"));
         url.setScheme(QStringLiteral("dekko-msg"));
     } else {
-        qDebug() << msg.body().data();
         QMailMessagePart *part = 0;
         if (!preferPlainText && msg.hasHtmlBody()) {
             QMailMessagePartContainer *html = msg.findHtmlContainer();
             if (html) {
-                qDebug() << __func__ << "Html container found";
+//                qDebug() << __func__ << "Html container found";
                 part = static_cast<QMailMessagePart *>(html);
             }
         }
         if (!part || preferPlainText) {
             QMailMessagePartContainer *ptext = msg.findPlainTextContainer();
             if (ptext) {
-                qDebug() << __func__ << "Plain text part found";
+//                qDebug() << __func__ << "Plain text part found";
                 part = static_cast<QMailMessagePart *>(ptext);
                 isPlainText = true;
             }
@@ -217,8 +226,29 @@ void Message::initMessage()
 {
     QUrl url = Message::findInterestingBodyPart(m_id, m_preferPlainText);
     if (url.isValid()) {
-        qDebug() << "Url is valid: " << url;
+//        qDebug() << "Url is valid: " << url;
         m_body = url;
         emit bodyChanged();
+    }
+
+    auto appendAddresses = [](QQmlObjectListModel<MailAddress> *model, const QMailAddressList &addresses) {
+        Q_FOREACH(auto address, addresses) {
+            model->append(new MailAddress(0, address));
+        }
+    };
+    QMailMessage msg(m_id);
+    appendAddresses(m_to, msg.to());
+    appendAddresses(m_cc, msg.cc());
+    appendAddresses(m_bcc, msg.bcc());
+
+    emit messageChanged();
+}
+
+void Message::handleUpdatedMessages(const QMailMessageIdList &list)
+{
+    if (list.contains(m_id)) {
+        // Something changed so signal changes
+        emit minMessageChanged();
+        emit messageChanged();
     }
 }

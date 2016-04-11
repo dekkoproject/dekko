@@ -54,5 +54,8 @@
         <file>webview/userscripts/viewport_shim.js</file>
         <file>webview/userscripts/zoom.js</file>
         <file>webview/DekkoWebView.qml</file>
+        <file>views/messageview/MessageHeader.qml</file>
+        <file>popovers/RecipientPopover.qml</file>
+        <file>popovers/MessageDetailsPopover.qml</file>
     </qresource>
 </RCC>

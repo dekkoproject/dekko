@@ -38,7 +38,7 @@ ListItem {
             anchors {
                 right: parent.right
                 verticalCenter: parent.verticalCenter
-                rightMargin: units.gu(2)
+                rightMargin: units.gu(1.5)
             }
             name: group.expansion.expanded ? "view-collapse" : "view-expand"
         }

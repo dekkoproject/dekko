@@ -115,7 +115,7 @@ WebView {
             property string cidQuery: "?messageId=%1".arg(messageUid)
 
             function setQuery() {
-                console.log("CID QUERY IS: ", cidQuery)
+//                console.log("CID QUERY IS: ", cidQuery)
                 sendMessage({query: cidQuery})
             }
 

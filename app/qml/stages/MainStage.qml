@@ -100,6 +100,7 @@ Item {
             StageArea {
                 id: msgViewStage
                 anchors.fill: parent
+                immediatePush: true
                 baseUrl: "qrc:/qml/views/NothingSelectedPage.qml"
             }
         }

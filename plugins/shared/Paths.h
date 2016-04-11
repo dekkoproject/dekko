@@ -37,6 +37,7 @@ public:
         MailRepliedIcon,
         MailRepliedAllIcon,
         MailReplyIcon,
+        MailReplyAllIcon,
         MailUnreadIcon,
         NavigationMenuIcon,
         NewContactIcon,
