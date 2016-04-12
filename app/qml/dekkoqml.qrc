@@ -57,5 +57,9 @@
         <file>views/messageview/MessageHeader.qml</file>
         <file>popovers/RecipientPopover.qml</file>
         <file>popovers/MessageDetailsPopover.qml</file>
+        <file>views/messageview/DetailItem.qml</file>
+        <file>views/messageview/DetailList.qml</file>
+        <file>views/messageview/RecipientInfo.qml</file>
+        <file>views/messageview/RecipientFlow.qml</file>
     </qresource>
 </RCC>

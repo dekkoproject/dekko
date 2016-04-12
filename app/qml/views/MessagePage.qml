@@ -26,29 +26,13 @@ DekkoPage {
             anchors {
                 topMargin: units.gu(1)
             }
-            AbstractButton {
-                id: backBtn
-                height: parent.height
-                width: dekko.viewState.isSmallFF ? units.gu(4) : 0
-                Icon {
-                    height: units.gu(2)
-                    width: units.gu(2)
-                    visible: dekko.viewState.isSmallFF
-                    name: "back"
-                    anchors {
-                        horizontalCenter: parent.horizontalCenter
-                        top: parent.top
-                        topMargin: units.gu(1.2)
-                    }
-                }
-                onClicked: internalStack.pop()
-            }
+
 
             Item {
                 height: parent.height
                 anchors {
-                    left: backBtn.right
-                    right: delBtn.left
+                    left: parent.left
+                    right: parent.right
                 }
                 Row {
                     height: parent.height
@@ -57,6 +41,25 @@ DekkoPage {
                         right: starIcon.left
                     }
                     spacing: dekko.viewState.isSmallFF ? 0 : units.gu(1)
+
+                    AbstractButton {
+                        id: backBtn
+                        height: parent.height
+                        width: dekko.viewState.isSmallFF ? units.gu(4) : 0
+                        Icon {
+                            height: units.gu(2)
+                            width: units.gu(2)
+                            visible: dekko.viewState.isSmallFF
+                            name: "back"
+                            anchors {
+                                horizontalCenter: parent.horizontalCenter
+                                top: parent.top
+                                topMargin: units.gu(1.5)
+                            }
+                        }
+                        onClicked: internalStack.pop()
+                    }
+
                     AbstractButton {
                         height: parent.height
                         width: units.gu(4)
@@ -93,6 +96,7 @@ DekkoPage {
                             height: units.gu(2.5)
                             width: units.gu(2.5)
                             name: Icons.JunkIcon
+                            color: message.isJunk ? UbuntuColors.red : UbuntuColors.ash
                             anchors {
                                 horizontalCenter: parent.horizontalCenter
                                 top: parent.top
@@ -131,6 +135,22 @@ DekkoPage {
                     }
                     layoutDirection: Qt.RightToLeft
                     spacing: dekko.viewState.isSmallFF ? 0 : units.gu(1)
+
+                    AbstractButton {
+                        id: delBtn
+                        height: parent.height
+                        width: units.gu(4)
+                        CachedImage {
+                            height: units.gu(2.5)
+                            width: units.gu(2.5)
+                            name: Icons.ContextMenuIcon
+                            anchors {
+                                horizontalCenter: parent.horizontalCenter
+                                top: parent.top
+                                topMargin: units.gu(1.2)
+                            }
+                        }
+                    }
 
                     AbstractButton {
                         height: parent.height
@@ -173,25 +193,6 @@ DekkoPage {
                                 topMargin: units.gu(1.2)
                             }
                         }
-                    }
-                }
-            }
-
-            AbstractButton {
-                id: delBtn
-                height: parent.height
-                width: units.gu(4)
-                anchors {
-                    right: parent.right
-                }
-                CachedImage {
-                    height: units.gu(2.5)
-                    width: units.gu(2.5)
-                    name: Icons.ContextMenuIcon
-                    anchors {
-                        horizontalCenter: parent.horizontalCenter
-                        top: parent.top
-                        topMargin: units.gu(1.2)
                     }
                 }
             }

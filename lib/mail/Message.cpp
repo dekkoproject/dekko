@@ -57,6 +57,11 @@ bool MinimalMessage::isDone() const
     return done.toInt() != 0;
 }
 
+bool MinimalMessage::isJunk() const
+{
+    return (QMailMessageMetaData(m_id).status() & QMailMessageMetaData::Junk);
+}
+
 QString MinimalMessage::previousFolderName() const
 {
     return QMailFolder(QMailMessage(m_id).restoreFolderId()).displayName();
