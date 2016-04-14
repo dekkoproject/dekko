@@ -3,9 +3,8 @@ import Ubuntu.Components 1.3
 import com.canonical.Oxide 1.9 as Oxide
 import Dekko.Mail 1.0
 import Dekko.Components 1.0
-import "../components"
-import "../webview"
-import "./messageview"
+import "../../components"
+import "../../webview"
 
 DekkoPage {
 

@@ -11,6 +11,7 @@ set(libSettings_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/SettingsFileBase.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/SettingsObjectBase.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/NavigationSettings.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/GlobalSettings.cpp
 )
 
 add_library(settings SHARED ${libSettings_SRCS})

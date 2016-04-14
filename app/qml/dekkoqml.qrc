@@ -45,7 +45,6 @@
         <file>delegates/ContextDelegate.qml</file>
         <file>components/ContextAction.qml</file>
         <file>components/NavigationGroup.qml</file>
-        <file>views/MessagePage.qml</file>
         <file>webview/userscripts/add_cid_query.js</file>
         <file>webview/userscripts/contact-message.js</file>
         <file>webview/userscripts/fake_script.js</file>
@@ -61,5 +60,8 @@
         <file>views/messageview/DetailList.qml</file>
         <file>views/messageview/RecipientInfo.qml</file>
         <file>views/messageview/RecipientFlow.qml</file>
+        <file>views/messageview/CleanMessagePage.qml</file>
+        <file>views/messageview/DefaultMessagePage.qml</file>
+        <file>views/messageview/DefaultMessagePageHeader.qml</file>
     </qresource>
 </RCC>

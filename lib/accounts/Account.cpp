@@ -87,7 +87,7 @@ void Account::initialize()
     QStringList accountServices = m_accountConfig->services();
     // Need to check the qmfstoragemanager is an available service
     if (!accountServices.contains(qmfStorage)) {
-        qDebug() << "[Account]" << __func__ << "qmfstoragemanager not in services, adding it now";
+//        qDebug() << "[Account]" << __func__ << "qmfstoragemanager not in services, adding it now";
         m_accountConfig->addServiceConfiguration(qmfStorage);
         QMailServiceConfiguration qmfStorageConfig(m_accountConfig, qmfStorage);
         qmfStorageConfig.setType(QMailServiceConfiguration::Storage);
@@ -95,7 +95,7 @@ void Account::initialize()
         qmfStorageConfig.setValue(QStringLiteral("basePath"), QStringLiteral(""));
     }
     if (!accountServices.contains(QStringLiteral("smtp"))) {
-        qDebug() << "[Account]" << __func__ << "smtp not in services, adding now";
+//        qDebug() << "[Account]" << __func__ << "smtp not in services, adding now";
         m_accountConfig->addServiceConfiguration(smtpServiceType);
     }
     QString recvType;
@@ -110,8 +110,10 @@ void Account::initialize()
     }
 
     if (recvType == imapServiceType) {
+//        qDebug() << "Create new imap configuration";
         m_incoming = new ImapAccountConfiguration(this, m_accountConfig, recvType);
     } else {
+//        qDebug() << "Create new pop configuration";
         m_incoming = new PopAccountConfiguration(this, m_accountConfig, recvType);
     }
     m_outgoing = new SmtpAccountConfiguration(this, m_accountConfig, smtpServiceType);

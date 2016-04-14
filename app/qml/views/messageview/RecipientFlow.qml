@@ -1,5 +1,6 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
+import Ubuntu.Components.Popups 1.3
 import Dekko.Mail 1.0
 import "../../components"
 
@@ -26,7 +27,6 @@ ListItem {
                 topMargin: units.gu(2)
                 leftMargin: units.gu(1)
             }
-            font.weight: Font.DemiBold
         }
     }
 
@@ -81,7 +81,8 @@ ListItem {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        detailStack.push({item: "qrc:/qml/views/messageview/RecipientInfo.qml", properties: {address: model.qtObject}})
+                        PopupUtils.open("qrc:/qml/popovers/RecipientPopover.qml", delegate, {address: model.qtObject})
+//                        detailStack.push({item: "qrc:/qml/views/messageview/RecipientInfo.qml", properties: {address: model.qtObject}})
                     }
                 }
             }

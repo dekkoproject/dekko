@@ -57,6 +57,7 @@ public:
     QVariant senderMsgKey() const;
 
 signals:
+    void internalMessageChanged();
     void minMessageChanged();
     void checkedChanged();
 
@@ -84,12 +85,16 @@ class Message : public MinimalMessage // Extend on what we already have above
     Q_PROPERTY(QObject *cc READ cc NOTIFY messageChanged)
     Q_PROPERTY(QObject *bcc READ bcc NOTIFY messageChanged)
     Q_PROPERTY(QUrl body READ body NOTIFY bodyChanged)
+    // THis property converts the to model into a readable string
+    // e.g "to Dan, Bob, you, ubuntu-phone, ubuntu...."
+    Q_PROPERTY(QString toRecipientsString READ toRecipientsString NOTIFY messageChanged)
     Q_PROPERTY(bool preferPlainText READ preferPlainText WRITE setPreferPlainText NOTIFY plainTextChanged)
 public:
     explicit Message(QObject *parent = 0);
     QObject *to() const { return m_to; }
     QObject *cc() const { return m_cc; }
     QObject *bcc() const { return m_bcc; }
+    QString toRecipientsString();
 
     QUrl body() const;
     static QUrl findInterestingBodyPart(const QMailMessageId &id, const bool preferPlainText);

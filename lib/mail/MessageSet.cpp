@@ -13,16 +13,6 @@ MessageSet::MessageSet(QObject *parent) : QObject(parent), m_children(0)
             SIGNAL(countChanged()));
 }
 
-//QVariant MessageSet::descendentsKey()
-//{
-//    QMailMessageKey key;
-//    foreach(MessageSet *set, m_children->toList()) {
-//        key |= set->messageKey().value<QMailMessageKey>();
-//        key |= set->descendentsKey().value<QMailMessageKey>();
-//    }
-//    return key;
-//}
-
 int MessageSet::unreadCount()
 {
 

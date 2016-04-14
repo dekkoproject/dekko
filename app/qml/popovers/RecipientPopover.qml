@@ -63,6 +63,20 @@ Popover {
 //            onClicked: info.remove()
 //        }
         ListItem {
+            height: clipboard.implicitHeight
+            color: UbuntuColors.porcelain
+            ListItemLayout {
+                id: clipboard
+                title.text: qsTr("Copy to clipboard")
+                title.elide: Text.ElideRight
+                title.wrapMode: Text.NoWrap
+            }
+            onClicked: {
+                dekko.showNotice("Not implemented yet. Fix it before release!!!!")
+                PopupUtils.close(info)
+            }
+        }
+        ListItem {
             height: addContactLayout.implicitHeight
             ListItemLayout {
                 id: addContactLayout
@@ -71,6 +85,20 @@ Popover {
                 title.wrapMode: Text.NoWrap
             }
             color: UbuntuColors.porcelain
+            onClicked: {
+                dekko.showNotice("Not implemented yet. Fix it before release!!!!")
+                PopupUtils.close(info)
+            }
+        }
+        ListItem {
+            height: send.implicitHeight
+            color: UbuntuColors.porcelain
+            ListItemLayout {
+                id: send
+                title.text: qsTr("Send message")
+                title.elide: Text.ElideRight
+                title.wrapMode: Text.NoWrap
+            }
             onClicked: {
                 dekko.showNotice("Not implemented yet. Fix it before release!!!!")
                 PopupUtils.close(info)

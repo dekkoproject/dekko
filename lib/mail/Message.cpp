@@ -2,6 +2,7 @@
 #include <qmailfolder.h>
 #include <qmailmessagekey.h>
 #include <qmailstore.h>
+#include <Account.h>
 
 MinimalMessage::MinimalMessage(QObject *parent) : QObject(parent),
     m_from(0), m_checked(Qt::Unchecked)
@@ -124,6 +125,7 @@ void MinimalMessage::setMessageId(const QMailMessageId &id)
     m_from->setAddress(msg.from());
 
     emit minMessageChanged();
+    emit internalMessageChanged();
 }
 
 void MinimalMessage::setChecked(const Qt::CheckState &checked)
@@ -147,11 +149,53 @@ void MinimalMessage::setIsTodo(const bool todo)
 Message::Message(QObject *parent) : MinimalMessage(parent),
     m_to(0), m_cc(0), m_bcc(0), m_preferPlainText(false)
 {
-    connect(this, &Message::minMessageChanged, this, &Message::initMessage);
+    connect(this, &Message::internalMessageChanged, this, &Message::initMessage);
     connect(QMailStore::instance(), SIGNAL(messagesUpdated(QMailMessageIdList)), this, SLOT(handleUpdatedMessages(QMailMessageIdList)));
     m_to = new QQmlObjectListModel<MailAddress>(this);
     m_cc = new QQmlObjectListModel<MailAddress>(this);
     m_bcc = new QQmlObjectListModel<MailAddress>(this);
+}
+
+QString Message::toRecipientsString()
+{
+    QMailAccountId accId(QMailMessage(m_id).parentAccountId());
+    Account *account = new Account(this);
+    account->setId(accId.toULongLong());
+    AccountConfiguration *config = static_cast<AccountConfiguration *>(account->incoming());
+
+    auto listContainsMe = [](AccountConfiguration *config, const QStringList &recips) -> int {
+        int idx = -1;
+        for (int i = 0; i < recips.size(); ++i) {
+            QString recip = recips.at(i);
+            if (config->name() == recip || config->email() == recip) {
+                qDebug() << "FOUND! at " << i;
+                return i;
+            }
+        }
+        return idx;
+    };
+
+    if (!config) {
+        qDebug() << "Failed to create account configuration";
+        return QString("Failed");
+    }
+    QStringList addr; // list of addresses to compare
+    // create our list of TO recipients addresses
+    Q_FOREACH(auto a, m_to->toList()) {
+        addr.append(a->address());
+    }
+    int myIndex = listContainsMe(config, addr);
+    // we actually want the name here
+    addr.clear();
+    Q_FOREACH(auto n, m_to->toList()) {
+        addr.append(n->name());
+    }
+    // Now move "Me" to the start
+    if (myIndex != -1) {
+        addr.move(myIndex, 0);
+        addr.replace(0, tr("you"));
+    }
+    return tr("to %1").arg(addr.join(", "));
 }
 
 QUrl Message::body() const
@@ -229,6 +273,10 @@ void Message::setPreferPlainText(const bool preferPlainText)
 
 void Message::initMessage()
 {
+    qDebug() << "INIT MESSAGE CALLED";
+    if (m_body.isValid()) {
+        return;
+    }
     QUrl url = Message::findInterestingBodyPart(m_id, m_preferPlainText);
     if (url.isValid()) {
 //        qDebug() << "Url is valid: " << url;

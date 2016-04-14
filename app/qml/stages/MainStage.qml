@@ -1,17 +1,30 @@
 import QtQuick 2.4
+import Dekko.Settings 1.0
 
 Item {
     id: mailView
 
     anchors.fill: parent
 
+    GlobalSettings {
+        id: globalSettings
+
+        function messageViewStyle() {
+            if (data.messageview.style === "default") {
+                return "qrc:/qml/views/messageview/DefaultMessagePage.qml"
+            } else if (data.messageview.style === "clean") {
+                return "qrc:/qml/views/messageview/CleanMessagePage.qml"
+            }
+        }
+    }
+
     function openMessage(msgId) {
         if (dekko.viewState.isSmallFF) {
             // leftStage push msgview
-            msgListStage.push("qrc:/qml/views/MessagePage.qml", {msgId: msgId})
+            msgListStage.push(globalSettings.messageViewStyle(), {msgId: msgId})
         } else {
             // rightStage push/replace msgview
-            msgViewStage.push("qrc:/qml/views/MessagePage.qml", {msgId: msgId})
+            msgViewStage.push(globalSettings.messageViewStyle(), {msgId: msgId})
         }
     }
 

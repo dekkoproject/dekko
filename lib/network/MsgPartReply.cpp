@@ -142,8 +142,7 @@ void MsgPartReply::messageReady()
     } else if (ct.type().toLower() == "image") {
         data = part->body().data(QMailMessageBody::Decoded).trimmed();
     }
-    //    qDebug() << "ContentType: " << ct.content();
-    //    qDebug() << "Charset: " << ct.charset();
+
     if (m_format) {
         data = Formatting::markupPlainTextToHtml(data).toUtf8();
         setHeader(QNetworkRequest::ContentTypeHeader, QString("text/html")); // can't set charset=utf-8 :-(
