@@ -121,6 +121,15 @@ QString Paths::iconUrl(const Paths::ActionIcon icon, bool prefix)
     case UndoIcon:
         iconName = QStringLiteral("undo.svg");
         break;
+    case CopyIcon:
+        iconName = QStringLiteral("edit-copy.svg");
+        break;
+    case CutIcon:
+        iconName = QStringLiteral("edit-cut.svg");
+        break;
+    case PasteIcon:
+        iconName = QStringLiteral("edit-paste.svg");
+        break;
     };
 
     if (!iconName.isEmpty()) {

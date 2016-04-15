@@ -168,7 +168,6 @@ QString Message::toRecipientsString()
         for (int i = 0; i < recips.size(); ++i) {
             QString recip = recips.at(i);
             if (config->name() == recip || config->email() == recip) {
-                qDebug() << "FOUND! at " << i;
                 return i;
             }
         }
@@ -193,6 +192,8 @@ QString Message::toRecipientsString()
     // Now move "Me" to the start
     if (myIndex != -1) {
         addr.move(myIndex, 0);
+        // and rename to "you" so that is is displayed
+        // like "to you, Bob, Phil..."
         addr.replace(0, tr("you"));
     }
     return tr("to %1").arg(addr.join(", "));
@@ -273,13 +274,11 @@ void Message::setPreferPlainText(const bool preferPlainText)
 
 void Message::initMessage()
 {
-    qDebug() << "INIT MESSAGE CALLED";
     if (m_body.isValid()) {
         return;
     }
     QUrl url = Message::findInterestingBodyPart(m_id, m_preferPlainText);
     if (url.isValid()) {
-//        qDebug() << "Url is valid: " << url;
         m_body = url;
         emit bodyChanged();
     }

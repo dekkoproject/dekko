@@ -56,7 +56,10 @@ public:
         TimerIcon,
         ViewListSymbolic,
         TickIcon,
-        UndoIcon
+        UndoIcon,
+        CopyIcon,
+        CutIcon,
+        PasteIcon
     };
 
     enum UserScript {

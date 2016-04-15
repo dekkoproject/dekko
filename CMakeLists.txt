@@ -41,6 +41,7 @@ else()
     set(CMAKE_CXX_FLAGS "-Wall -Wsign-compare ${CMAKE_CXX_FLAGS}")
 endif()
 
+message(STATUS "CXXFLAGS ARE ${CMAKE_CXX_FLAGS}")
 include(DekkoConfigOption)
 dekko_option(CLICK_MODE "Installs to a contained location. From which a click package can be created" ON)
 dekko_option(UPDATE_TRANSLATIONS "Updates Dekko's pot file during build" OFF)

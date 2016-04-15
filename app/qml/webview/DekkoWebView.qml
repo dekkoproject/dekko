@@ -18,26 +18,26 @@
 import QtQuick 2.4
 import QtFeedback 5.0
 import Ubuntu.Components 1.3
-import Ubuntu.Components.Popups 1.0
-import com.canonical.Oxide 1.9
+import Ubuntu.Components.Popups 1.3
+import com.canonical.Oxide 1.12 as Oxide
 import Dekko.Components 1.0
+import "../components"
+import "./actions"
 
-WebView {
+Oxide.WebView {
     id: webview
 
     property bool interestingIsHtml: true
     property bool fullScreen: false
     property int messageUid
 
-    readonly property string defaultContext: "dekko://"
-
     function setCidQuery(uid) {
         messageUid = uid
-        networkDelegate.setQuery()
+        ctxt.setQuery()
     }
 
     function setBodyUrl(body) {
-        networkDelegate.setQuery()
+        ctxt.setQuery()
         webview.url = body
     }
 
@@ -65,69 +65,98 @@ WebView {
         sanSerifFontFamily: "Ubuntu"
     }
 
-    context: WebContext {
-//        devtoolsEnabled: true
-//        devtoolsPort: 9232
-        // These are our internal schemes. For the html parts inside
-        // the sandboxed iframe we will be able to set the src attribute to our
-        // dekko-msg(part)://msg/0/1 scheme and it will fetch that part :-) no need to wait on
-        // manual fetching here \o/
-        allowedExtraUrlSchemes: ["dekko-msg", "dekko-part", "cid"]
-        popupBlockerEnabled: true
-        userScripts: [
-//            UserScript {
-//                context: "dekko://"
-//                url: Qt.resolvedUrl("./userscripts/contact-message.js")
-//                matchAllFrames: true
-//            },
-            UserScript {
-                context: defaultContext
-                url: Paths.userscript(Paths.FontScript)
-                matchAllFrames: true
-            },
-            UserScript {
-                context: defaultContext
-                url: Paths.userscript(Paths.ViewportScript)
-                matchAllFrames: true
-            },
-            UserScript {
-                context: defaultContext
-                url: Paths.userscript(Paths.ZoomScript)
-                matchAllFrames: true
-            }/*,
-            UserScript {
-                context: "dekko://"
-                url: fullScreen ? Qt.resolvedUrl("./userscripts/fake_script.js") : Qt.resolvedUrl("./userscripts/hide_overflow.js")
-                matchAllFrames: true
-            }*/
-        ]
-        networkRequestDelegate: WebContextDelegateWorker {
-            id: networkDelegate
-            /* Because we are potentially in a thread view, we may have multiple instances of oxide
-               so we need to modify any of our internal cid:* schemes to figure out which message the url belongs
-               to. This get's done on the redirectUrl as we can't modify the initial url directly.
+    context: DekkoWebContext {
+        id: ctxt
+        messageUid: webview.messageUid
+    }
 
-               THe custom QNAM will return a ForbiddenReply which will trigger the redirection with our correctly
-               formatted url query
+    Item {
+        id: contextualRectangle
+        visible: false
+        readonly property real locationBarOffset: webview.locationBarController.height + webview.locationBarController.offset
+        x: internal.ctxtModel ? internal.ctxtModel.position.x : 0
+        y: internal.ctxtModel ? internal.ctxtModel.position.y + locationBarOffset : 0
+    }
 
-               see: userscripts/add_cid_query.js
-             */
-            property string cidQuery: "?messageId=%1".arg(messageUid)
+    contextMenu: Popover {
+        id: actionPopover
+        z: 5 // Prevent being rendered below the message header
+        property var msg
+        caller: contextualRectangle
 
-            function setQuery() {
-//                console.log("CID QUERY IS: ", cidQuery)
-                sendMessage({query: cidQuery})
+        Column {
+            id: containerLayout
+
+            anchors {
+                left: parent.left
+                top: parent.top
+                right: parent.right
             }
 
-            source: Paths.userscript(Paths.CidQueryScript)
-            onMessage: {
-//                console.log("NetworkRequest url: ", message.url)
-//                console.log("NetworkRequest query: ", message.query)
+            ContextGroup {
+                contextActions: [
+                    ContextAction {
+                        description: qsTr("Open in browser")
+                        actionIcon: Icons.PasteIcon
+                    },
+                    ContextAction {
+                        description: qsTr("Copy link")
+                        actionIcon: Icons.CopyIcon
+                        visible: internal.ctxtModel && internal.ctxtModel.linkUrl.toString()
+                        onTriggered: Clipboard.push(["text/plain", internal.ctxtModel.linkUrl.toString()])
+                    },
+                    ContextAction {
+                        description: qsTr("Share link")
+                        actionIcon: Icons.ShareIcon
+                    }
+
+                ]
             }
-            Component.onCompleted: {
-                setQuery()
+
+            ContextGroup {
+                contextActions: [
+                    ContextAction {
+                        description: qsTr("Reply")
+                        actionIcon: Icons.PasteIcon
+                    },
+                    ContextAction {
+                        description: qsTr("Reply all")
+                        actionIcon: Icons.CopyIcon
+                        visible: internal.ctxtModel && internal.ctxtModel.linkUrl.toString()
+                        onTriggered: Clipboard.push(["text/plain", internal.ctxtModel.linkUrl.toString()])
+                    },
+                    ContextAction {
+                        description: qsTr("Forward")
+                        actionIcon: Icons.ShareIcon
+                    }
+
+                ]
+            }
+            ContextGroup {
+                contextActions: [
+                    ContextAction {
+                        description: qsTr("View source")
+                        actionIcon: Icons.PasteIcon
+                    }
+                ]
             }
         }
+        // Override default implementation to prevent context menu from stealing
+        // active focus when shown (https://launchpad.net/bugs/1526884).
+        function show() {
+            visible = true
+            __foreground.show()
+        }
+
+        Component.onCompleted: {
+            internal.ctxtModel = model
+            show()
+        }
+    }
+
+    QtObject {
+        id: internal
+        property QtObject ctxtModel: null
     }
 
     onNavigationRequested: {

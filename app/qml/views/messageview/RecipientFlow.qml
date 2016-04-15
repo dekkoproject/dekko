@@ -82,7 +82,6 @@ ListItem {
                     anchors.fill: parent
                     onClicked: {
                         PopupUtils.open("qrc:/qml/popovers/RecipientPopover.qml", delegate, {address: model.qtObject})
-//                        detailStack.push({item: "qrc:/qml/views/messageview/RecipientInfo.qml", properties: {address: model.qtObject}})
                     }
                 }
             }

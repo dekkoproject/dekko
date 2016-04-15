@@ -43,5 +43,8 @@
         <file>view-list-symbolic.svg</file>
         <file>tick.svg</file>
         <file>undo.svg</file>
+        <file>edit-copy.svg</file>
+        <file>edit-cut.svg</file>
+        <file>edit-paste.svg</file>
     </qresource>
 </RCC>

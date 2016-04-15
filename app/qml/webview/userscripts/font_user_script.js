@@ -5,7 +5,7 @@
 // ==/UserScript==
 
 var plainTextStyle = 'body { font: 1.1rem "Ubuntu"; color: #5D5D5D; line-height: 1.33; margin.left: 16px; margin.right: 16px; }a:link { color: #19b6ee } a:visited { color: #19b6ee } a:hover { color: #19b6ee }';
-var htmlStyle = 'body { font: 0.9rem "Ubuntu"; font-weight: 100; color: #5D5D5D; line-height: 1.33; margin.left: 16px; margin.right: 16px;if }a:link { color: #19b6ee } a:visited { color: #19b6ee } a:hover { color: #19b6ee }';
+var htmlStyle = 'body { font: 0.9rem "Ubuntu"; font-weight: 100; color: #5D5D5D; line-height: 1.33; margin.left: 16px; margin.right: 16px; }a:link { color: #19b6ee } a:visited { color: #19b6ee } a:hover { color: #19b6ee }';
 var ubuntuFontShim = '@font-face { font-family: "Ubuntu"; font-style: normal; font-weight: 300; src: local("Ubuntu Light"), local("Ubuntu-Light"), url(../fonts/ubuntu-light.woff) format("woff"); }'
 
 function appendStyle(cssStyle) {
