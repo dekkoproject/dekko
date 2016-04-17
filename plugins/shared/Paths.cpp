@@ -130,6 +130,12 @@ QString Paths::iconUrl(const Paths::ActionIcon icon, bool prefix)
     case PasteIcon:
         iconName = QStringLiteral("edit-paste.svg");
         break;
+    case ShareIcon:
+        iconName = QStringLiteral("share.svg");
+        break;
+    case BrowserIcon:
+        iconName = QStringLiteral("webbrowser-app-symbolic.svg");
+        break;
     };
 
     if (!iconName.isEmpty()) {

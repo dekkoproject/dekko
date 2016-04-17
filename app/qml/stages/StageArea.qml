@@ -22,6 +22,15 @@ Item {
             internalStack.push({item: component, properties: props})
         }
     }
+
+    function replaceTopItem(component, props) {
+        if (immediatePush) {
+            internalStack.push({item: component, immediate: true, replace: true, properties: props})
+        } else {
+            internalStack.push({item: component, replace: true, properties: props})
+        }
+    }
+
     function pop() {
         internalStack.pop()
     }

@@ -22,6 +22,7 @@ DekkoPage {
     pageHeader.showDivider: false
 
     property alias msgId: message.messageId
+
     Message {
         id: message
         onBodyChanged: {
@@ -31,12 +32,23 @@ DekkoPage {
         }
     }
 
+    ContentBlockedNotice {
+        id: contentBlockedItem
+        contentBlocked: webview.contentBlocked
+        anchors {
+            left: parent.left
+            top: msgPgHeader.bottom
+            right: parent.right
+        }
+        onAllowClicked: webview.allowBlockedContent()
+    }
+
     Item {
         clip: true
         anchors {
             left: parent.left
             right: parent.right
-            top: msgPgHeader.bottom
+            top: contentBlockedItem.bottom
             bottom: parent.bottom
         }
 

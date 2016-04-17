@@ -27,8 +27,15 @@ Oxide.WebContext {
 
     property int messageUid
     readonly property string defaultContext: "dekko://"
+    property bool remoteContentAllowed: false
+
+    signal remoteContentBlocked()
 
     function setQuery() { networkDelegate.setQuery() }
+
+    function setRemoteAllowedForThisMessage(allowed) {
+        networkDelegate.setBlockRemoteResources(!allowed)
+    }
 
     userAgent: _ua.defaultUA
     /* These are our supported custom url schemes
@@ -47,6 +54,7 @@ Oxide.WebContext {
     allowedExtraUrlSchemes: ["dekko-msg", "dekko-part", "cid"]
     // No popups allowed
     popupBlockerEnabled: true
+    doNotTrackEnabled: true
     userScripts: [
         Oxide.UserScript {
             context: defaultContext
@@ -79,13 +87,28 @@ Oxide.WebContext {
 
         function setQuery() {
             //                console.log("CID QUERY IS: ", cidQuery)
-            sendMessage({query: cidQuery})
+            sendMessage({type: "QUERY", value: cidQuery })
+            setBlockRemoteResources(!remoteContentAllowed)
+        }
+
+        function setBlockRemoteResources(block) {
+            sendMessage({type: "REMOTE_ACCESS", value: block})
         }
 
         source: Paths.userscript(Paths.CidQueryScript)
         onMessage: {
-            //                console.log("NetworkRequest url: ", message.url)
-            //                console.log("NetworkRequest query: ", message.query)
+            switch (message.type) {
+            case "DEBUG":
+                console.log("DEBUG: Url is: ", message.url);
+                break;
+            case "QUERY":
+                console.log("Message query: ", message.value)
+                break;
+            case "REMOTE_ACCESS":
+//                console.log("Remote resource blocked!", message.url)
+                ctxt.remoteContentBlocked()
+                break;
+            }
         }
         Component.onCompleted: {
             setQuery()

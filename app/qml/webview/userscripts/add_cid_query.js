@@ -1,8 +1,24 @@
 var query = "";
+var blockRemoteResources = true;
+
+// MessageTypes
+var debugType = "DEBUG";
+var queryMsg = "QUERY";
+var remoteMsg = "REMOTE_ACCESS";
+
+function returnMessage(msgType, url, msgVal) {
+    oxide.sendMessage({type: msgType, url: url, value: msgVal});
+}
 
 oxide.onMessage = function(msg) {
-    oxide.sendMessage({query: msg.query })
-    query = msg.query;
+    switch(msg.type) {
+    case "QUERY":
+        query = msg.value;
+        break;
+    case "REMOTE_ACCESS":
+        blockRemoteResources = msg.value;
+        break;
+    }
 };
 
 exports.onBeforeURLRequest = function(event) {
@@ -13,5 +29,12 @@ exports.onBeforeURLRequest = function(event) {
         }
     }
     // For debugging only.
-    oxide.sendMessage({ url: event.url});
+//    returnMessage(debugType, event.url, "");
+
+    if (urlString.indexOf("http") === 0) {
+        if (blockRemoteResources) {
+            event.cancelRequest();
+            returnMessage(remoteMsg, event.url, true);
+        }
+    }
 };

@@ -38,7 +38,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CXX11_COMPILER_FLAGS}")
 if (CMAKE_BUILD_TYPE MATCHES DEBUG)
     set(CMAKE_CXX_FLAGS "-O2 -g -Wall -Wsign-compare ${CMAKE_CXX_FLAGS}")
 else()
-    set(CMAKE_CXX_FLAGS "-Wall -Wsign-compare ${CMAKE_CXX_FLAGS}")
+    set(CMAKE_CXX_FLAGS "-O2 -Wall -Wsign-compare ${CMAKE_CXX_FLAGS} -s")
 endif()
 
 message(STATUS "CXXFLAGS ARE ${CMAKE_CXX_FLAGS}")

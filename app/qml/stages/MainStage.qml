@@ -19,12 +19,16 @@ Item {
     }
 
     function openMessage(msgId) {
+        var style = globalSettings.messageViewStyle()
         if (dekko.viewState.isSmallFF) {
             // leftStage push msgview
-            msgListStage.push(globalSettings.messageViewStyle(), {msgId: msgId})
+            msgListStage.push(style, {msgId: msgId})
         } else {
-            // rightStage push/replace msgview
-            msgViewStage.push(globalSettings.messageViewStyle(), {msgId: msgId})
+            if (msgViewStage.stackCount > 1) {
+                msgViewStage.replaceTopItem(style, {msgId: msgId})
+            } else {
+                msgViewStage.push(style, {msgId: msgId})
+            }
         }
     }
 

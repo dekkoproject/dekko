@@ -69,5 +69,7 @@
         <file>webview/actions/OpenInBrowser.qml</file>
         <file>webview/actions/SelectAll.qml</file>
         <file>webview/actions/Share.qml</file>
+        <file>popovers/MessageViewContextMenu.qml</file>
+        <file>webview/ContentBlockedNotice.qml</file>
     </qresource>
 </RCC>

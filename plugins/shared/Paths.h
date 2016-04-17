@@ -59,7 +59,9 @@ public:
         UndoIcon,
         CopyIcon,
         CutIcon,
-        PasteIcon
+        PasteIcon,
+        ShareIcon,
+        BrowserIcon
     };
 
     enum UserScript {

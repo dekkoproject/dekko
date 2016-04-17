@@ -21,15 +21,16 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import com.canonical.Oxide 1.12 as Oxide
 import Dekko.Components 1.0
+import Dekko.Settings 1.0
 import "../components"
 import "./actions"
 
 Oxide.WebView {
     id: webview
 
-    property bool interestingIsHtml: true
     property bool fullScreen: false
     property int messageUid
+    readonly property alias contentBlocked: internal.remoteContentBlockRunning
 
     function setCidQuery(uid) {
         messageUid = uid
@@ -47,7 +48,18 @@ Oxide.WebView {
         webview.rootFrame.sendMessageNoReply(defaultContext, "ZOOM_LEVEL", level);
     }
 
+    function allowBlockedContent() {
+        internal.remoteContentBlockRunning = false
+        ctxt.setRemoteAllowedForThisMessage(true)
+        reload()
+    }
+
+    GlobalSettings{
+        id: globalSettings
+    }
+
     // LOCK IT DOWN!!
+    incognito: true
     preferences {
         // We should NEVER allow javascript to run in
         // a message body. See https://miki.it/blog/2013/9/24/mailboxapp-javascript-execution/ for
@@ -55,12 +67,15 @@ Oxide.WebView {
         javascriptEnabled: false
         javascriptCanAccessClipboard: false
         allowUniversalAccessFromFileUrls: false
-        loadsImagesAutomatically: true
+//        loadsImagesAutomatically: globalSettings.get(GlobalSettings.AutoLoadImages)
         allowScriptsToCloseWindows: false
-        appCacheEnabled: true
+        appCacheEnabled: false
         localStorageEnabled: false
+        hyperlinkAuditingEnabled: false
+        canDisplayInsecureContent: false
+        canRunInsecureContent: false
         defaultEncoding: "UTF-8"
-        fixedFontFamily: "Ubuntu"
+        fixedFontFamily: globalSettings.data && globalSettings.data.messageview.useMonospaceFont ? "Ubuntu Monospace" : "Ubuntu"
         serifFontFamily: "Ubuntu"
         sanSerifFontFamily: "Ubuntu"
     }
@@ -68,95 +83,23 @@ Oxide.WebView {
     context: DekkoWebContext {
         id: ctxt
         messageUid: webview.messageUid
-    }
-
-    Item {
-        id: contextualRectangle
-        visible: false
-        readonly property real locationBarOffset: webview.locationBarController.height + webview.locationBarController.offset
-        x: internal.ctxtModel ? internal.ctxtModel.position.x : 0
-        y: internal.ctxtModel ? internal.ctxtModel.position.y + locationBarOffset : 0
-    }
-
-    contextMenu: Popover {
-        id: actionPopover
-        z: 5 // Prevent being rendered below the message header
-        property var msg
-        caller: contextualRectangle
-
-        Column {
-            id: containerLayout
-
-            anchors {
-                left: parent.left
-                top: parent.top
-                right: parent.right
-            }
-
-            ContextGroup {
-                contextActions: [
-                    ContextAction {
-                        description: qsTr("Open in browser")
-                        actionIcon: Icons.PasteIcon
-                    },
-                    ContextAction {
-                        description: qsTr("Copy link")
-                        actionIcon: Icons.CopyIcon
-                        visible: internal.ctxtModel && internal.ctxtModel.linkUrl.toString()
-                        onTriggered: Clipboard.push(["text/plain", internal.ctxtModel.linkUrl.toString()])
-                    },
-                    ContextAction {
-                        description: qsTr("Share link")
-                        actionIcon: Icons.ShareIcon
-                    }
-
-                ]
-            }
-
-            ContextGroup {
-                contextActions: [
-                    ContextAction {
-                        description: qsTr("Reply")
-                        actionIcon: Icons.PasteIcon
-                    },
-                    ContextAction {
-                        description: qsTr("Reply all")
-                        actionIcon: Icons.CopyIcon
-                        visible: internal.ctxtModel && internal.ctxtModel.linkUrl.toString()
-                        onTriggered: Clipboard.push(["text/plain", internal.ctxtModel.linkUrl.toString()])
-                    },
-                    ContextAction {
-                        description: qsTr("Forward")
-                        actionIcon: Icons.ShareIcon
-                    }
-
-                ]
-            }
-            ContextGroup {
-                contextActions: [
-                    ContextAction {
-                        description: qsTr("View source")
-                        actionIcon: Icons.PasteIcon
-                    }
-                ]
+        remoteContentAllowed: globalSettings.get(GlobalSettings.AllowRemoteContent)
+        onRemoteContentBlocked: {
+            if (!internal.remoteContentBlockRunning) {
+                internal.remoteContentBlockRunning = true
             }
         }
-        // Override default implementation to prevent context menu from stealing
-        // active focus when shown (https://launchpad.net/bugs/1526884).
-        function show() {
-            visible = true
-            __foreground.show()
-        }
+    }
 
+    // Binding the contxt popover directly to this causes
+    // it to get rendered below message header.
+    // So instead just use this item to grab the model context property
+    // And popup the dialog outside of this binding.
+    contextMenu: Item {
         Component.onCompleted: {
             internal.ctxtModel = model
-            show()
+            PopupUtils.open("qrc:/qml/popovers/MessageViewContextMenu.qml", contextualRectangle, {ctxtModel: internal.ctxtModel})
         }
-    }
-
-    QtObject {
-        id: internal
-        property QtObject ctxtModel: null
     }
 
     onNavigationRequested: {
@@ -169,6 +112,21 @@ Oxide.WebView {
     onJavaScriptConsoleMessage: {
         var msg = "[Dekko Web View] [JS] (%1:%2) %3".arg(sourceId).arg(lineNumber).arg(message)
         console.log(msg)
+    }
+
+    Item {
+        id: contextualRectangle
+        visible: false
+        readonly property real locationBarOffset: webview.locationBarController.height + webview.locationBarController.offset
+        x: internal.ctxtModel ? internal.ctxtModel.position.x : 0
+        y: internal.ctxtModel ? internal.ctxtModel.position.y + locationBarOffset : 0
+        z: 50
+    }
+
+    QtObject {
+        id: internal
+        property QtObject ctxtModel: null
+        property bool remoteContentBlockRunning: false
     }
 
     HapticsEffect {
@@ -184,13 +142,13 @@ Oxide.WebView {
     Component {
         id: linkClickedDialog
         Item {}
-//        ConfirmationDialog {
-//            id: linkDialog
-//            property string externalLink
-//            title: qsTr("Open in browser?")
-//            text: qsTr("Confirm to open %1 in web browser").arg(externalLink.substring(0, 30))
-//            onConfirmClicked: Qt.openUrlExternally(externalLink)
-//        }
+        //        ConfirmationDialog {
+        //            id: linkDialog
+        //            property string externalLink
+        //            title: qsTr("Open in browser?")
+        //            text: qsTr("Confirm to open %1 in web browser").arg(externalLink.substring(0, 30))
+        //            onConfirmClicked: Qt.openUrlExternally(externalLink)
+        //        }
     }
 }
 

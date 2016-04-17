@@ -9,7 +9,8 @@
 
 struct GlobalSettingsKeys {
     static const QString defaultsCreated;
-    static const QString messageViewStyle;
+    static const QString messageViewStyle, messageViewMonospaceFont;
+    static const QString allowRemoteContent;
 };
 
 class GlobalSettings : public SettingsObjectBase
@@ -20,7 +21,9 @@ public:
     explicit GlobalSettings(QObject *parent = 0);
     enum Keys {
         DefaultsCreated = 0,
-        MessageViewStyle
+        MessageViewStyle,
+        MessageViewMonospaceFont,
+        AllowRemoteContent
     };
 
     QString keyValue(Keys key);
