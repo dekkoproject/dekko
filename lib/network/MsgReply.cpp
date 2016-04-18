@@ -82,11 +82,7 @@ void MsgReply::messageReady()
 //        }
         setHeader(QNetworkRequest::ContentTypeHeader, ct.content());
     }
-
-    buffer.close();
     formattedBufferContent = new QByteArray(data.data());
-    buffer.setBuffer(formattedBufferContent);
-    buffer.open(QBuffer::ReadOnly);
     setFinished(true);
     QTimer::singleShot( 0, this, SIGNAL(readyRead()) );
     QTimer::singleShot( 0, this, SIGNAL(finished()) );

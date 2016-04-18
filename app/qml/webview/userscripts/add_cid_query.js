@@ -34,7 +34,7 @@ exports.onBeforeURLRequest = function(event) {
 //    returnMessage(debugType, event.url, "");
     var urlString = event.url.toString();
     if (isAllowedScheme(urlString)) {
-        if (testScheme("cid:")) {
+        if (testScheme("cid:", urlString)) {
             if (urlString.indexOf(query) === -1) {
                 event.redirectUrl = event.url + query;
             }

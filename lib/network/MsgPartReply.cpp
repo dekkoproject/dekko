@@ -154,11 +154,7 @@ void MsgPartReply::messageReady()
         //        }
         setHeader(QNetworkRequest::ContentTypeHeader, ct.content());
     }
-    buffer.close();
     formattedBufferContent = new QByteArray(data);
-    buffer.setBuffer(formattedBufferContent);
-    //    qDebug() << "Bytes available: " << buffer.bytesAvailable();
-    buffer.open(QBuffer::ReadOnly);
     setFinished(true);
     QTimer::singleShot( 0, this, SIGNAL(readyRead()) );
     QTimer::singleShot( 0, this, SIGNAL(finished()) );
