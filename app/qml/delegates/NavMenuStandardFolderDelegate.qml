@@ -105,7 +105,7 @@ ListItem {
                 name: li.expansion.expanded ? "up" : "down"
             }
             SlotsLayout.position: SlotsLayout.Last
-            MouseArea {
+            AbstractButton {
                 anchors.fill: parent
                 onClicked: li.expansion.expanded = !li.expansion.expanded
             }
@@ -142,14 +142,13 @@ ListItem {
                         id: dshape
                         visible: qtObject.unreadCount > 0
                         aspect: UbuntuShape.Flat
-                        color: UbuntuColors.green
+                        color: UbuntuColors.porcelain
                         height: units.gu(2.2)
                         width: dcountLable.width < height ? height : dcountLable.width + units.gu(1)
                         Label {
                             id: dcountLable
                             anchors.margins: units.gu(0.5)
                             anchors.centerIn: parent
-                            color: "#ffffff"
                             text: qtObject.unreadCount
                             fontSize: "small"
                         }

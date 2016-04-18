@@ -64,12 +64,8 @@
         <file>views/messageview/DefaultMessagePage.qml</file>
         <file>views/messageview/DefaultMessagePageHeader.qml</file>
         <file>webview/DekkoWebContext.qml</file>
-        <file>webview/actions/CopyImage.qml</file>
-        <file>webview/actions/CopyLink.qml</file>
-        <file>webview/actions/OpenInBrowser.qml</file>
-        <file>webview/actions/SelectAll.qml</file>
-        <file>webview/actions/Share.qml</file>
         <file>popovers/MessageViewContextMenu.qml</file>
         <file>webview/ContentBlockedNotice.qml</file>
+        <file>dialogs/ConfirmationDialog.qml</file>
     </qresource>
 </RCC>

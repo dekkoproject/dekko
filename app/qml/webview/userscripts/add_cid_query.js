@@ -6,6 +6,14 @@ var debugType = "DEBUG";
 var queryMsg = "QUERY";
 var remoteMsg = "REMOTE_ACCESS";
 
+function testScheme(scheme, url) {
+    return url.indexOf(scheme) === 0;
+}
+
+function isAllowedScheme(url) {
+    return testScheme("cid:", url) || testScheme("dekko-part:", url) || testScheme("dekko-msg:", url);
+}
+
 function returnMessage(msgType, url, msgVal) {
     oxide.sendMessage({type: msgType, url: url, value: msgVal});
 }
@@ -22,16 +30,16 @@ oxide.onMessage = function(msg) {
 };
 
 exports.onBeforeURLRequest = function(event) {
-    var urlString = event.url.toString();
-    if (urlString.indexOf("cid:") === 0) {
-        if (urlString.indexOf(query) === -1) {
-            event.redirectUrl = event.url + query;
-        }
-    }
     // For debugging only.
 //    returnMessage(debugType, event.url, "");
-
-    if (urlString.indexOf("http") === 0) {
+    var urlString = event.url.toString();
+    if (isAllowedScheme(urlString)) {
+        if (testScheme("cid:")) {
+            if (urlString.indexOf(query) === -1) {
+                event.redirectUrl = event.url + query;
+            }
+        }
+    } else {
         if (blockRemoteResources) {
             event.cancelRequest();
             returnMessage(remoteMsg, event.url, true);

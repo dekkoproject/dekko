@@ -8,7 +8,7 @@
 #include "SettingsObjectBase.h"
 
 struct NavigationKeys {
-    static const QString defaultsCreated;
+    static const QString defaultsCreated, unifiedInboxExpanded;
     static const QString favourites, favouriteExpanded, showFavourites;
     static const QString smarFolders, showSmartFolders, smartFoldersExpanded;
     static const QString accounts, showAccounts, accountsExpanded;
@@ -23,6 +23,7 @@ public:
 
     enum Keys {
         DefaultsCreated = 0,
+        UnifiedInboxExpanded,
         Favourites,
         FavouritesExpanded,
         FavouritesVisible,

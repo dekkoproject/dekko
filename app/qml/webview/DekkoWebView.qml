@@ -23,7 +23,7 @@ import com.canonical.Oxide 1.12 as Oxide
 import Dekko.Components 1.0
 import Dekko.Settings 1.0
 import "../components"
-import "./actions"
+import "../dialogs"
 
 Oxide.WebView {
     id: webview
@@ -59,7 +59,7 @@ Oxide.WebView {
     }
 
     // LOCK IT DOWN!!
-    incognito: true
+//    incognito: true can't set his as it disables userscripts.
     preferences {
         // We should NEVER allow javascript to run in
         // a message body. See https://miki.it/blog/2013/9/24/mailboxapp-javascript-execution/ for
@@ -72,8 +72,6 @@ Oxide.WebView {
         appCacheEnabled: false
         localStorageEnabled: false
         hyperlinkAuditingEnabled: false
-        canDisplayInsecureContent: false
-        canRunInsecureContent: false
         defaultEncoding: "UTF-8"
         fixedFontFamily: globalSettings.data && globalSettings.data.messageview.useMonospaceFont ? "Ubuntu Monospace" : "Ubuntu"
         serifFontFamily: "Ubuntu"
@@ -141,14 +139,13 @@ Oxide.WebView {
 
     Component {
         id: linkClickedDialog
-        Item {}
-        //        ConfirmationDialog {
-        //            id: linkDialog
-        //            property string externalLink
-        //            title: qsTr("Open in browser?")
-        //            text: qsTr("Confirm to open %1 in web browser").arg(externalLink.substring(0, 30))
-        //            onConfirmClicked: Qt.openUrlExternally(externalLink)
-        //        }
+        ConfirmationDialog {
+            id: linkDialog
+            property string externalLink
+            title: qsTr("Open in browser?")
+            text: qsTr("Confirm to open %1 in web browser").arg(externalLink.substring(0, 30))
+            onConfirmClicked: Qt.openUrlExternally(externalLink)
+        }
     }
 }
 

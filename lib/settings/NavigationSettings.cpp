@@ -4,6 +4,7 @@
 #include "SettingsFileBase.h"
 
 const QString NavigationKeys::defaultsCreated = QStringLiteral("defaults_created");
+const QString NavigationKeys::unifiedInboxExpanded = QStringLiteral("unifiedinbox.expanded");
 const QString NavigationKeys::favourites = QStringLiteral("favourites");
 const QString NavigationKeys::favouriteExpanded = QStringLiteral("favourites.expanded");
 const QString NavigationKeys::showFavourites = QStringLiteral("favourites.show");
@@ -42,6 +43,8 @@ QString NavigationSettings::keyValue(NavigationSettings::Keys key)
     switch(key) {
     case DefaultsCreated:
         return NavigationKeys::defaultsCreated;
+    case UnifiedInboxExpanded:
+        return NavigationKeys::unifiedInboxExpanded;
     case Favourites:
         return NavigationKeys::favourites;
     case FavouritesExpanded:
@@ -79,6 +82,7 @@ void NavigationSettings::createDefaultsIfNotExist()
     if (read(keyValue(DefaultsCreated)).toBool()) {
         return;
     }
+    write(keyValue(UnifiedInboxExpanded), false);
     write(keyValue(FavouritesVisible), false);
     write(keyValue(FavouritesExpanded), false);
     write(keyValue(SmartFoldersVisible), true);

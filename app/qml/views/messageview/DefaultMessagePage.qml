@@ -58,7 +58,6 @@ DekkoPage {
                 fill: parent
                 leftMargin: !dekko.viewState.isSmallFF ? units.gu(1) : 0
             }
-            url: "about:blank"
             locationBarController.mode: Oxide.LocationBarController.ModeAuto
             locationBarController.height: h.height
         }
