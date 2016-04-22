@@ -2,7 +2,6 @@
 #include <QTimer>
 #include <Formatting.h>
 
-
 MsgReply::MsgReply(MsgPartQNAM *parent, QMailMessageId &msgId):
     QNetworkReply(parent), formattedBufferContent(0), m_id(msgId), m_msg(msgId), m_format(false)
 {

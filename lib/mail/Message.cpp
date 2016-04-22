@@ -147,13 +147,14 @@ void MinimalMessage::setIsTodo(const bool todo)
 
 
 Message::Message(QObject *parent) : MinimalMessage(parent),
-    m_to(0), m_cc(0), m_bcc(0), m_preferPlainText(false)
+    m_to(0), m_cc(0), m_bcc(0), m_attachments(0), m_preferPlainText(false)
 {
     connect(this, &Message::internalMessageChanged, this, &Message::initMessage);
     connect(QMailStore::instance(), SIGNAL(messagesUpdated(QMailMessageIdList)), this, SLOT(handleUpdatedMessages(QMailMessageIdList)));
     m_to = new QQmlObjectListModel<MailAddress>(this);
     m_cc = new QQmlObjectListModel<MailAddress>(this);
     m_bcc = new QQmlObjectListModel<MailAddress>(this);
+    m_attachments = new Attachments(this);
 }
 
 QString Message::toRecipientsString()
@@ -254,7 +255,7 @@ QUrl Message::findInterestingBodyPart(const QMailMessageId &id, const bool prefe
         query.addQueryItem(QStringLiteral("location"), location);
     }
     url.setQuery(query);
-    qDebug() << url;
+//    qDebug() << url;
     return url;
 }
 
@@ -292,7 +293,7 @@ void Message::initMessage()
     appendAddresses(m_to, msg.to());
     appendAddresses(m_cc, msg.cc());
     appendAddresses(m_bcc, msg.bcc());
-
+    m_attachments->setMessageId(m_id);
     emit messageChanged();
 }
 

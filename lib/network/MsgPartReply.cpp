@@ -85,13 +85,13 @@ void MsgPartReply::close()
 
 qint64 MsgPartReply::bytesAvailable() const
 {
-    //    qDebug() << "[MsgPartReply]" << __func__ << buffer.bytesAvailable();
+    qDebug() << "[MsgPartReply]" << __func__ << buffer.bytesAvailable();
     return buffer.bytesAvailable() + QNetworkReply::bytesAvailable();
 }
 
 qint64 MsgPartReply::readData(char *data, qint64 maxlen)
 {
-    //    qDebug() << "[MsgPartReply]" << __func__ << "Reading data. MaxLen: " << maxlen;
+    qDebug() << "[MsgPartReply]" << __func__ << "Reading data. MaxLen: " << maxlen;
     return buffer.read(data, maxlen);
 }
 
@@ -109,9 +109,10 @@ void MsgPartReply::handleMsgPartAvailable(const quint64 &id, const QString &loca
     QMailMessageId receivedId(id);
     if (receivedId.toULongLong() != m_part->partPtr()->location().containingMessageId().toULongLong()
             || location != m_part->partPtr()->location().toString(true)) {
-//        qDebug() << "[MsgPartReply]" << __func__ << "Part not available... waiting";
+        qDebug() << "[MsgPartReply]" << __func__ << "Part not available... waiting";
         return;
     }
+    qDebug() << "[MsgPartReply]" << __func__ << "Part now available...";
     // refresh the pointer;
     delete m_part;
     m_part = 0;
@@ -124,7 +125,7 @@ void MsgPartReply::handlePartFetchFailed(const quint64 &id, const QString &locat
     QMailMessageId receivedId(id);
     if (receivedId.toULongLong() != m_part->partPtr()->location().containingMessageId().toULongLong()
             || location != m_part->partPtr()->location().toString(true)) {
-//        qDebug() << "[MsgPartReply]" << __func__ << "Part not available... waiting";
+        qDebug() << "[MsgPartReply]" << __func__ << "Part not available... waiting";
         return;
     }
     failed(QStringLiteral("Failed fetching part: %1").arg(location));

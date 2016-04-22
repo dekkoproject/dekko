@@ -9,6 +9,7 @@
 #include <QtConcurrent/QtConcurrent>
 #include <QFuture>
 #include <QFutureWatcher>
+#include "Attachments.h"
 
 /** @short MinimalMessage provides just the required info for display in the message list
 
@@ -89,11 +90,13 @@ class Message : public MinimalMessage // Extend on what we already have above
     // e.g "to Dan, Bob, you, ubuntu-phone, ubuntu...."
     Q_PROPERTY(QString toRecipientsString READ toRecipientsString NOTIFY messageChanged)
     Q_PROPERTY(bool preferPlainText READ preferPlainText WRITE setPreferPlainText NOTIFY plainTextChanged)
+    Q_PROPERTY(QObject *attachments READ attachments NOTIFY messageChanged)
 public:
     explicit Message(QObject *parent = 0);
     QObject *to() const { return m_to; }
     QObject *cc() const { return m_cc; }
     QObject *bcc() const { return m_bcc; }
+    QObject *attachments() const { return m_attachments; }
     QString toRecipientsString();
 
     QUrl body() const;
@@ -118,6 +121,7 @@ private:
     QQmlObjectListModel<MailAddress> *m_to;
     QQmlObjectListModel<MailAddress> *m_cc;
     QQmlObjectListModel<MailAddress> *m_bcc;
+    Attachments *m_attachments;
     QUrl m_body;
     bool m_preferPlainText;
 };

@@ -67,5 +67,6 @@
         <file>popovers/MessageViewContextMenu.qml</file>
         <file>webview/ContentBlockedNotice.qml</file>
         <file>dialogs/ConfirmationDialog.qml</file>
+        <file>components/AttachmentPanel.qml</file>
     </qresource>
 </RCC>

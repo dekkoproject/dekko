@@ -19,7 +19,8 @@ const QString Formatting::Regex::email = QStringLiteral("((?:[a-zA-Z0-9_\\.!#$%'
 const QString Formatting::Regex::bold = QStringLiteral("((^|[\\s\\(\\[\\{])\\*((?!\\*)\\S+)\\*($|[\\s\\),;.\\]\\}]))");
 const QString Formatting::Regex::italic = QStringLiteral("((^|[\\s\\(\\[\\{])/((?!/)\\S+)/($|[\\s\\),;.\\]\\}]))");
 const QString Formatting::Regex::underline = QStringLiteral("((^|[\\s\\(\\[\\{])_((?!_)\\S+)_($|[\\s\\),;.\\]\\}]))");
-const QString Formatting::Regex::signatureSeperator = QStringLiteral("(-- |_{45,})(\\r)?");
+// We want this to be an exact match so we have to stick the regex between anchoring expression ^(regex)$
+const QString Formatting::Regex::signatureSeperator = QStringLiteral("^(-- |_{45,})(\\r)?$");
 const QString Formatting::Regex::quotePlain = QStringLiteral("^( >|>)+");
 const QString Formatting::Regex::quoteFlowed = QStringLiteral("^>+");
 
@@ -66,7 +67,7 @@ static void firstPass(std::vector<TextInfo> &buffer, QStringList &lines, bool &s
             continue;
         }
 
-        if (sig.match(line).hasMatch()) {
+        if (sig.match(line, 0).hasMatch()) {
             buffer.emplace_back(SIGNATURE_SPERATOR, lineWithoutTrailingCr(line));
             sigSeen = true;
             continue;

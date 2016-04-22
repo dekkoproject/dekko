@@ -190,7 +190,6 @@ ListItem {
                     color: UbuntuColors.blue
                     text: qsTr("Details")
                     fontSize: "small"
-                    // :/qml/popovers/MessageDetailsPopover.qml
                     MouseArea {
                         anchors.fill: parent
                         onClicked: PopupUtils.open("qrc:/qml/popovers/MessageDetailsPopover.qml", d, {message: msg})

@@ -17,8 +17,7 @@
 */
 import QtQuick 2.4
 import Ubuntu.Components 1.3
-import Ubuntu.Components.Popups 1.0
-import Ubuntu.Components.ListItems 1.0 as ListItems
+import Ubuntu.Components.Popups 1.3
 import Ubuntu.PushNotifications 0.1
 import Ubuntu.Content 1.0
 import Dekko.Controls 1.0
@@ -55,7 +54,9 @@ Item {
     //--------------------------------
     // FUNCTIONS
     //--------------------------------
-
+    function showNotice(notice) {
+        popupQueue.queue("qrc:/qml/popovers/NoticePopup.qml", dekko, {title: "Notice", text: notice})
+    }
 
     //--------------------------------
     // ACTIONS
@@ -75,10 +76,6 @@ Item {
     QueuedApplicationAlertManager {
         id: alertQueue
 //        accountsManager: dekko.accountsManager
-    }
-
-    function showNotice(notice) {
-        popupQueue.queue("qrc:/qml/popovers/NoticePopup.qml", dekko, {title: "Notice", text: notice})
     }
 
     PopupQueue {

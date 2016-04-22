@@ -39,6 +39,7 @@ bool Dekko::setup()
     }
     m_view = new QQuickView();
     m_view->engine()->setNetworkAccessManagerFactory(&m_partqnam);
+    m_view->engine()->rootContext()->setContextProperty(QStringLiteral("ctxt_MsgPartFactory"), &m_partqnam);
     m_view->setResizeMode(QQuickView::SizeRootObjectToView);
     m_view->setMinimumHeight(300);
     m_view->setMinimumWidth(300);

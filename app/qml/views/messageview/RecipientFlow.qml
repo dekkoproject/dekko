@@ -5,7 +5,7 @@ import Dekko.Mail 1.0
 import "../../components"
 
 ListItem {
-    property var message
+    property var msg
     property alias model: repeater.model
     property alias title: tl.text
     property int minHeight: units.gu(5)

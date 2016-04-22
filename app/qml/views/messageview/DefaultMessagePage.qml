@@ -44,12 +44,13 @@ DekkoPage {
     }
 
     Item {
+        id: container
         clip: true
         anchors {
             left: parent.left
             right: parent.right
             top: contentBlockedItem.bottom
-            bottom: parent.bottom
+            bottom: hiddenMargin.top
         }
 
         DekkoWebView {
@@ -170,18 +171,36 @@ DekkoPage {
 
                     RecipientFlow {
                         title: qsTr("To:")
-                        message: dl.message
                         model: message.to
                     }
                     RecipientFlow {
                         visible: message.cc.count
                         title: qsTr("Cc:")
-                        message: dl.message
                         model: message.cc
                     }
                 }
             }
         }
+    }
+    Item {
+        id: hiddenMargin
+        anchors {
+            left: parent.left
+            bottom: parent.bottom
+            right: parent.right
+        }
+        height: attachmentPanel.visible ? units.gu(6) : 0
+    }
+
+    AttachmentPanel {
+        id: attachmentPanel
+        attachments: message.attachments
+        anchors {
+            left: parent.left
+            bottom: parent.bottom
+            right: parent.right
+        }
+        maxHeight: container.height - units.gu(2)
     }
 }
 

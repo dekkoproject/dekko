@@ -79,7 +79,7 @@ ListItemWithActions {
             id: shape
             visible: folder.unreadCount > 0
             aspect: UbuntuShape.Flat
-            color: UbuntuColors.green
+            color: UbuntuColors.porcelain
             height: units.gu(2.2)
             width: countLable.width < height ? height : countLable.width + units.gu(1)
             Label {
@@ -87,7 +87,6 @@ ListItemWithActions {
                 anchors.margins: units.gu(0.5)
                 anchors.centerIn: parent
                 fontSize: "small"
-                color: "#ffffff"
                 text: folder.unreadCount
             }
         }
