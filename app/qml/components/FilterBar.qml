@@ -70,7 +70,6 @@ Item {
                 anchors.top: parent.top
                 anchors.topMargin: units.gu(0.2)
                 fontSize: "small"
-//                font.weight: Style.common.fontWeight
                 renderType: Text.NativeRendering
             }
             Rectangle {

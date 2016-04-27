@@ -1,6 +1,7 @@
 #include "Client.h"
 #include <QDebug>
 #include <QPointer>
+#include <qmailstore.h>
 
 static QPointer<Client> s_client;
 Client *Client::instance()
@@ -27,6 +28,11 @@ Client::Client(QObject *parent) : QObject(parent),
     connect(m_service, &ClientService::messagePartFetchFailed, this, &Client::messagePartFetchFailed);
     connect(m_service, &ClientService::messagesFetched, this, &Client::messagesNowAvailable);
     connect(m_service, &ClientService::messageFetchFailed, this, &Client::messageFetchFailed);
+}
+
+bool Client::hasConfiguredAccounts()
+{
+    return QMailStore::instance()->countAccounts() > 0;
 }
 
 void Client::deleteMessage(const int &msgId)

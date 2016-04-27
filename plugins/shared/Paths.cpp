@@ -16,6 +16,9 @@ QString Paths::iconUrl(const Paths::ActionIcon icon, bool prefix)
     case AttachmentIcon:
         iconName = QStringLiteral("attachment.svg");
         break;
+    case AccountIcon:
+        iconName = QStringLiteral("account.svg");
+        break;
     case ContextMenuIcon:
         iconName = QStringLiteral("contextual-menu.svg");
         break;
@@ -248,6 +251,56 @@ bool Paths::checkForStaleLockFile(QLockFile **lockFile, QString &filePath, QStri
         }
     }
     return true;
+}
+
+QString Paths::findProviderFile()
+{
+    QString configFile;
+    // TODO: make this configurable
+    const QString filePath = QStringLiteral("configuration/serviceProviders.conf");
+//    QStringList paths = QStandardPaths::standardLocations(QStandardPaths::DataLocation);
+//    paths.prepend(QDir::currentPath());
+//    paths.prepend(QCoreApplication::applicationDirPath());
+//    Q_FOREACH (const QString &path, paths) {
+//        QString myPath = path + QLatin1Char('/') + filePath;
+//        if (QFile::exists(myPath)) {
+//            configFile = myPath;
+//            break;
+//        }
+//    }
+    if (configFile.isEmpty()) {
+        QString desktopFile = QDir(QCoreApplication::applicationDirPath()).absoluteFilePath(QStringLiteral("../../../dekko.desktop"));
+        if (QFile::exists(desktopFile)) {
+            QDir clickRoot = QFileInfo(desktopFile).absoluteDir();
+            QString myPath = clickRoot.absolutePath() + QLatin1Char('/') + filePath;
+            if (QFile::exists(myPath)) {
+                configFile = myPath;
+            }
+        }
+    }
+    if (!configFile.isEmpty()) {
+        qDebug() << "Config file found";
+        return configFile;
+    }
+    qDebug() <<" Config file not found";
+    return QString();
+}
+
+QString Paths::providerIconForDomain(const QString &domain)
+{
+    QString icon;
+    if (domain == QStringLiteral("gmail.com")) {
+        icon = QStringLiteral("online-account-google.svg");
+    } else if (domain == QStringLiteral("outlook.com")) {
+        icon = QStringLiteral("online-account-outlook.svg");
+    } else if (domain == QStringLiteral("yahoo.com")) {
+        icon = QStringLiteral("online-account-yahoo.svg");
+    } else if (domain == QStringLiteral("me.com")) {
+        icon = QStringLiteral("online-account.svg");
+    } else {
+        icon = QStringLiteral("dekko-app-symbolic.svg");
+    }
+    return QStringLiteral("qrc:/provider/%1").arg(icon);
 }
 
 QObject *Paths::factory(QQmlEngine *engine, QJSEngine *scriptEngine)

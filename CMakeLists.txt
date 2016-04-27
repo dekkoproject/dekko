@@ -127,3 +127,11 @@ add_subdirectory(server)
 
 feature_summary(FATAL_ON_MISSING_REQUIRED_PACKAGES DESCRIPTION "\n" WHAT ALL)
 
+file(GLOB_RECURSE DEKKO_GLOBAL_QML_FILES
+    RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
+    *.qml *.js qmldir
+    icons/*svg
+)
+
+add_custom_target(DekkoGlobalQml ALL SOURCES ${DEKKO_GLOBAL_QML_FILES})
+

@@ -16,6 +16,7 @@ VisualItemModel {
             }
             ProgressionSlot{}
         }
+        onClicked: rootPageStack.push("qrc:/qml/setupwizard/SetupWizard.qml")
     }
     ListItem {
         height: displaySettingsLayout.implicitHeight

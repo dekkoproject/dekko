@@ -115,7 +115,7 @@ public slots:
      */
     bool save();
 
-private:
+protected:
     QMailAccount *m_account;
     QMailAccountConfiguration *m_accountConfig;
     AccountConfiguration *m_incoming;
@@ -123,6 +123,16 @@ private:
 
     void initialize();
 
+};
+
+class NewAccount : public Account
+{
+    Q_OBJECT
+    AccountConfiguration::ServiceType m_type;
+public:
+    explicit NewAccount(QObject *parent = 0);
+
+    Q_INVOKABLE void setSourceType(const int &srcType);
 };
 
 #endif // ACCOUNT_H

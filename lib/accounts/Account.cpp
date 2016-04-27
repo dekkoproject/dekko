@@ -110,12 +110,52 @@ void Account::initialize()
     }
 
     if (recvType == imapServiceType) {
-//        qDebug() << "Create new imap configuration";
         m_incoming = new ImapAccountConfiguration(this, m_accountConfig, recvType);
     } else {
-//        qDebug() << "Create new pop configuration";
         m_incoming = new PopAccountConfiguration(this, m_accountConfig, recvType);
     }
     m_outgoing = new SmtpAccountConfiguration(this, m_accountConfig, smtpServiceType);
 }
 
+
+NewAccount::NewAccount(QObject *parent) : Account(parent)
+{
+}
+
+void NewAccount::setSourceType(const int &srcType)
+{
+    m_type = (AccountConfiguration::ServiceType)srcType;
+    delete m_accountConfig;
+    m_accountConfig = 0;
+    m_accountConfig = new QMailAccountConfiguration();
+    m_account->setStatus(QMailAccount::UserEditable, true);
+    m_account->setStatus(QMailAccount::UserRemovable, true);
+    QStringList accountServices = m_accountConfig->services();
+    if (!accountServices.contains(qmfStorage)) {
+        m_accountConfig->addServiceConfiguration(qmfStorage);
+        QMailServiceConfiguration qmfStorageConfig(m_accountConfig, qmfStorage);
+        qmfStorageConfig.setType(QMailServiceConfiguration::Storage);
+        qmfStorageConfig.setVersion(101);
+        qmfStorageConfig.setValue(QStringLiteral("basePath"), QStringLiteral(""));
+    }
+    if (m_type == AccountConfiguration::IMAP) {
+        qDebug() << "Create new imap configuration";
+        if (!accountServices.contains(imapServiceType)) {
+            qDebug() << "Adding IMAP service configuration";
+            m_accountConfig->addServiceConfiguration(imapServiceType);
+        }
+        m_incoming = new ImapAccountConfiguration(this, m_accountConfig, imapServiceType);
+    } else if (m_type == AccountConfiguration::POP3) {
+        qDebug() << "Create new pop configuration";
+        if (!accountServices.contains(popServiceType)) {
+            qDebug() << "Adding pop service configuration";
+            m_accountConfig->addServiceConfiguration(popServiceType);
+        }
+        m_incoming = new PopAccountConfiguration(this, m_accountConfig, popServiceType);
+    }
+    if (!accountServices.contains(QStringLiteral("smtp"))) {
+        qDebug() << "[Account]" << __func__ << "smtp not in services, adding now";
+        m_accountConfig->addServiceConfiguration(smtpServiceType);
+    }
+    m_outgoing = new SmtpAccountConfiguration(this, m_accountConfig, smtpServiceType);
+}

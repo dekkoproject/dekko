@@ -17,12 +17,13 @@ include_directories(
 
 set(AccountsPlugin_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/AccountsPlugin.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/PresetProviderModel.cpp
 )
 
 add_library(accountsplugin MODULE ${AccountsPlugin_SRCS})
 
 qt5_use_modules(accountsplugin Core Quick)
-target_link_libraries(accountsplugin accounts)
+target_link_libraries(accountsplugin accounts dekkohelpers)
 
 set(ACCOUNTS_PLUGIN_DIR ${QT_IMPORTS_DIR}/Dekko/Accounts)
 

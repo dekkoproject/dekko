@@ -9,7 +9,6 @@ function addMethod (object, method) {
                            });
 }
 
-
 function at (idx) {
     return (this [idx]);
 }

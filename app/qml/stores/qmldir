@@ -1,0 +1,2 @@
+singleton TestStore 1.0 TestStore.qml
+singleton AccountSetup 1.0 AccountSetup.qml

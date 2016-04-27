@@ -17,12 +17,9 @@
 */
 import QtQuick 2.4
 import Ubuntu.Components 1.3
-import Ubuntu.Components.Popups 1.3
-import Ubuntu.PushNotifications 0.1
-import Ubuntu.Content 1.0
-import Dekko.Controls 1.0
-import Dekko.Settings 1.0
+import "./actions"
 import "./components"
+import "./dialogs"
 import "./utils"
 
 // The MainView doesn't provide us any benefit here
@@ -32,54 +29,16 @@ import "./utils"
 // the same functionality as the MainView anchorToKbd prop
 Item {
     id: dekko
-    //-----------------------------------
-    // SIGNALS
-    //-----------------------------------
 
-    //----------------------------------
-    // SLOTS
-    //----------------------------------
-
-    //----------------------------------
-    // OBJECT PROPERTIES
-    //----------------------------------
     objectName: "dekko" // object name for functional testing
-    //    applicationName: "dekko.dekkoproject"
-    //    automaticOrientation: false
-    //    anchorToKeyboard: true // ensure page doesn't end up behind the OSK
-    // Random values to simulate a phone sized window on desktop
-    // THis get's overriden on device
     width: units.gu(120); height: units.gu(80)
 
-    //--------------------------------
-    // FUNCTIONS
-    //--------------------------------
-    function showNotice(notice) {
-        popupQueue.queue("qrc:/qml/popovers/NoticePopup.qml", dekko, {title: "Notice", text: notice})
-    }
-
-    //--------------------------------
-    // ACTIONS
-    //--------------------------------
-
-    //--------------------------------
-    // PRIVATE PROPERTIES & FUNCTIONS
-    //--------------------------------
     property alias viewState: view
 
     ViewState {
         id: view
         anchors.fill: parent
-        onStateChanged: console.log("[ViewState::stateChanged] [STATUS] view state is now: ", state)
-    }
-
-    QueuedApplicationAlertManager {
-        id: alertQueue
-//        accountsManager: dekko.accountsManager
-    }
-
-    PopupQueue {
-        id: popupQueue
+        onStateChanged: DekkoActions.logStatus("ViewState::stateChanged", state)
     }
 
     Item {
@@ -100,6 +59,12 @@ Item {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
+    }
+
+    QtObject {
+        id: d
+        property DialogQueue dlgQueue: DialogQueue {}
+        property Logger logger: Logger {}
     }
 
 //    Connections {

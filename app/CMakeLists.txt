@@ -45,3 +45,7 @@ install(
     DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/qml/webview/userscripts
     DESTINATION ${DATA_DIR}
 )
+install(
+    DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/configuration
+    DESTINATION ${DATA_DIR}
+)

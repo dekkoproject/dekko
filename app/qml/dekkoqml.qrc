@@ -68,5 +68,23 @@
         <file>webview/ContentBlockedNotice.qml</file>
         <file>dialogs/ConfirmationDialog.qml</file>
         <file>components/AttachmentPanel.qml</file>
+        <file>setupwizard/SetupWizard.qml</file>
+        <file>setupwizard/components/NoAccountsUI.qml</file>
+        <file>setupwizard/states/NoAccountState.qml</file>
+        <file>setupwizard/components/NewAccountsUI.qml</file>
+        <file>setupwizard/states/NewAccountState.qml</file>
+        <file>actions/ActionTypes.qml</file>
+        <file>actions/DekkoActions.qml</file>
+        <file>stores/TestStore.qml</file>
+        <file>actions/qmldir</file>
+        <file>stores/qmldir</file>
+        <file>stores/AccountSetup.qml</file>
+        <file>components/Logger.qml</file>
+        <file>setupwizard/states/UserInputState.qml</file>
+        <file>setupwizard/components/UserInputUI.qml</file>
+        <file>components/TitledTextField.qml</file>
+        <file>setupwizard/components/WizardStepper.qml</file>
+        <file>dialogs/DialogQueue.qml</file>
+        <file>dialogs/DialogBase.qml</file>
     </qresource>
 </RCC>

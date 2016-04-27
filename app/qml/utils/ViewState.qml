@@ -12,6 +12,8 @@ Item {
     readonly property bool isSmallFF: state === "small"
     readonly property bool isMediumFF: state === "medium"
     readonly property bool isLargeFF: state === "large"
+    // This is possibly a bit dumb but it should do the job :-/
+    readonly property bool isLandscape: height < width
 
     states: [
         // Phone/tablet (portrait)

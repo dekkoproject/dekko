@@ -17,7 +17,7 @@
 */
 import QtQuick 2.4
 import Ubuntu.Components 1.3
-import Ubuntu.Components.Popups 1.0
+import Ubuntu.Components.Popups 1.3
 
 // NOTE when queuing a popup make sure to add the parent and properties, even if the properties is empty {}
 // USAGE: popupQueue.queue("PopupPath", root, {})
@@ -38,7 +38,12 @@ QtObject {
     property Timer __timer: Timer {
         id: timer
         interval: 20
+        repeat: false
         onTriggered: {
+            if (!__popups.length) {
+                return;
+            }
+            console.log("Popup queue triggered")
             if (!__popupOnScreen && __popups.length) {
                 __showNextPopup(__popups.shift(), __parents.shift(), __properties.shift());
             } else {

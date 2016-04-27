@@ -31,6 +31,13 @@ Panel {
     function delayClose() {
         delayCloseTimer.start()
     }
+    // Don't let the event propogate to the page below
+    MouseArea {
+        anchors.fill: parent
+        acceptedButtons: Qt.LeftButton | Qt.RightButton
+        onClicked: mouse.accepted = true
+        onWheel: wheel.accepted = true
+    }
 
     Timer {
         id: delayCloseTimer

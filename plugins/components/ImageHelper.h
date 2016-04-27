@@ -13,7 +13,7 @@
 #include <QNetworkReply>
 #include <QFuture>
 #include <QFutureWatcher>
-#include "Helpers.h"
+#include <Helpers.h>
 #include <Paths.h>
 
 

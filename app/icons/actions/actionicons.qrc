@@ -48,5 +48,6 @@
         <file>edit-paste.svg</file>
         <file>share.svg</file>
         <file>webbrowser-app-symbolic.svg</file>
+        <file>account.svg</file>
     </qresource>
 </RCC>

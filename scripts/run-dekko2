@@ -1,0 +1,19 @@
+#! /bin/bash
+
+set -e
+
+cmake -G Ninja -DCMAKE_BUILD_TYPE=Debug ../dekko2/
+ninja -j3
+export DESTDIR=./test
+ninja -j3 install
+
+export PATH=$PWD/test/lib/x86_64-linux-gnu/bin:$PATH
+export LD_LIBRARY_PATH=$PWD/test/lib/x86_64-linux-gnu
+export QML2_IMPORT_PATH=$PWD/test/lib/x86_64-linux-gnu
+export QMF_PLUGINS=$PWD/test/lib/x86_64-linux-gnu/qmf/plugins5
+
+echo "PATH: $PATH"
+echo "LD_LIBRARY_PATH: $LD_LIBRARY_PATH"
+echo "QMF_PLUGINS: $QMF_PLUGINS"
+
+./test/lib/x86_64-linux-gnu/bin/dekko

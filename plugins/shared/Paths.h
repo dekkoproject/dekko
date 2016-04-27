@@ -21,6 +21,7 @@ public:
 
     enum ActionIcon {
         NoIcon,
+        AccountIcon,
         AttachmentIcon,
         ContextMenuIcon,
         DeleteIcon,
@@ -87,6 +88,8 @@ public:
     static QString cacheLocationForFile(const QString & fileName);
     static QString configLocationForFile(const QString & fileName);
     static bool checkForStaleLockFile(QLockFile **lockFile, QString &filePath, QString &errorMessage);
+    static QString findProviderFile();
+    static QString providerIconForDomain(const QString &domain);
 
     static QObject *factory(QQmlEngine *engine, QJSEngine *scriptEngine);
 

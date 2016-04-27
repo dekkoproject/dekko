@@ -1,13 +1,19 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
+import "../actions"
 
-Dialog {
+DialogBase {
     id: confirmationDialog
-    z: 100
 
-    property Action confirmAction
-    property Action cancelAction
+    property Action confirmAction: Action {
+        onTriggered: DekkoActions.confirmationDialogConfirmed(id)
+    }
+
+    property Action cancelAction: Action {
+        onTriggered: DekkoActions.confirmationDialogCancelled(id)
+    }
+    property string id: "default"
     property alias confirmButtonText: confirmButton.text
     property alias cancelButtonText: cancelButton.text
     property alias confirmButton: confirmButton

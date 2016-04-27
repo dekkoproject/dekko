@@ -10,6 +10,7 @@ class Client : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QObject *service READ service NOTIFY serviceChanged)
+    Q_PROPERTY(bool hasConfiguredAccounts READ hasConfiguredAccounts CONSTANT)
 
 public:
     static Client *instance();
@@ -17,6 +18,7 @@ public:
     explicit Client(QObject *parent = 0);
 
     QObject *service() const { return m_service; }
+    bool hasConfiguredAccounts();
 
     // QML API
     Q_INVOKABLE void deleteMessage(const int &msgId);
