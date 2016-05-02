@@ -119,7 +119,7 @@ else(CLICK_MODE)
 endif(CLICK_MODE)
 
 # Make available to all sub dirs
-set(SUPER_MACRO_INCLUDES ${CMAKE_CURRENT_SOURCE_DIR}/plugins/3rdParty/SuperMacros)
+set(SUPER_MACRO_INCLUDES ${CMAKE_CURRENT_SOURCE_DIR}/lib/3rdParty/SuperMacros)
 
 add_subdirectory(qmf)
 add_subdirectory(lib)
