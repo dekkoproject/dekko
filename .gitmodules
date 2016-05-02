@@ -1,0 +1,3 @@
+[submodule "plugins/3rdParty/SuperMacros"]
+	path = plugins/3rdParty/SuperMacros
+	url = http://dekko.ddns.net/dpniel/SuperMacros.git
