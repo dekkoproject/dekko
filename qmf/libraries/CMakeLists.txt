@@ -1,2 +1,0 @@
-add_subdirectory(qmfclient)
-add_subdirectory(qmfmessageserver)
