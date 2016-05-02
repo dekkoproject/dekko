@@ -4,3 +4,6 @@
 [submodule "lib/3rdParty/SuperMacros"]
 	path = lib/3rdParty/SuperMacros
 	url = http://code.dekkoproject.org/dekko-dev/super-macros.git
+[submodule "qmf"]
+	path = qmf
+	url = http://code.dekkoproject.org/dekko-dev/messagingframework.git
