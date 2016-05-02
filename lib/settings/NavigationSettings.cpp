@@ -30,6 +30,7 @@ NavigationSettings::NavigationSettings(QObject *parent): SettingsObjectBase(pare
         }
         navSettingsFile = new SettingsFileBase();
         navSettingsFile->setPath(Paths::configLocationForFile("navigation.json"));
+        m_lock = new QScopedPointer<QLockFile>(lock);
     }
     setFilePath(navSettingsFile.data());
     if (m_file) {

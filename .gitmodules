@@ -1,3 +1,6 @@
 [submodule "plugins/3rdParty/SuperMacros"]
 	path = plugins/3rdParty/SuperMacros
 	url = http://dekko.ddns.net/dpniel/SuperMacros.git
+[submodule "plugins/3rdParty/quick-flux"]
+	path = plugins/3rdParty/quick-flux
+	url = http://code.dekkoproject.org/dekko-dev/quick-flux.git

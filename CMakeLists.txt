@@ -118,6 +118,9 @@ else(CLICK_MODE)
     set(DEKKO_DESKTOP_ID "dekko.desktop")
 endif(CLICK_MODE)
 
+# Make available to all sub dirs
+set(SUPER_MACRO_INCLUDES ${CMAKE_CURRENT_SOURCE_DIR}/plugins/3rdParty/SuperMacros)
+
 add_subdirectory(qmf)
 add_subdirectory(lib)
 add_subdirectory(app)

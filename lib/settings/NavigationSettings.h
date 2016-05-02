@@ -42,7 +42,7 @@ public:
 private:
     void createDefaultsIfNotExist();
 
-    QScopedPointer<QLockFile> m_lock;
+    QScopedPointer<QLockFile> *m_lock;
 
 };
 
