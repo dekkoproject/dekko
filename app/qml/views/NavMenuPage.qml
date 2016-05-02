@@ -3,8 +3,8 @@ import Ubuntu.Components 1.3
 import Dekko.Mail 1.0
 import Dekko.Accounts 1.0
 import Dekko.Settings 1.0
-import "../components" as Comps
-import "../models"
+import "./components" as Comps
+import "./models"
 
 Comps.DekkoPage {
     id: menuPage

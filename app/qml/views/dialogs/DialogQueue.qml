@@ -1,6 +1,6 @@
 import QtQuick 2.4
 import QuickFlux 1.0
-import "../actions"
+import "../../actions"
 import "../utils"
 
 AppListener {
@@ -11,7 +11,7 @@ AppListener {
     Filter {
         type: ActionTypes.showError
         onDispatched: {
-            popupQueue.queue("qrc:/qml/popovers/NoticePopup.qml", dekko, {title: qsTr("Error"), text: message.error})
+            popupQueue.queue("qrc:/qml/views/popovers/NoticePopup.qml", dekko, {title: qsTr("Error"), text: message.error})
         }
     }
 
@@ -25,7 +25,7 @@ AppListener {
     Filter {
         type: ActionTypes.showConfirmationDialog
         onDispatched: {
-            popupQueue.queue("qrc:/qml/dialogs/ConfirmationDialog.qml", dekko, {id: message.id, title: message.title, text: message.text})
+            popupQueue.queue("qrc:/qml/views/dialogs/ConfirmationDialog.qml", dekko, {id: message.id, title: message.title, text: message.text})
         }
     }
 }

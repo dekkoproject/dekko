@@ -1,7 +1,7 @@
 import QtQuick 2.4
 import QtQml.StateMachine 1.0 as DSM
-import "../../actions"
-import "../../stores"
+import "../../../actions"
+import "../../../stores"
 
 DSM.State {
     id: noAccountsState
@@ -14,7 +14,7 @@ DSM.State {
         DekkoActions.logStatus("NoAccountState::onEntered", "No accounts state entered");
         if (stack.currentItem === null) {
             DekkoActions.logStatus("NoAccountState::onEntered", "Pushing NoAccountsUI");
-            DekkoActions.wizardNavigateTo("qrc:/qml/setupwizard/components/NoAccountsUI.qml", {})
+            DekkoActions.wizardNavigateTo("qrc:/qml/views/setupwizard/components/NoAccountsUI.qml", {})
         }
     }
 

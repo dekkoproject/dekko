@@ -4,7 +4,7 @@ import Ubuntu.Components.Popups 1.3
 import Dekko.Mail 1.0
 import Dekko.Controls 1.0
 import "../components"
-import "../views/messageview"
+import "../messageview"
 
 Popover {
     id: info

@@ -4,8 +4,8 @@ import Dekko.Accounts 1.0
 import Dekko.Components 1.0
 import QuickFlux 1.0
 import "../../components"
-import "../../actions"
-import "../../stores"
+import "../../../actions"
+import "../../../stores"
 
 DekkoPage {
     id: newAccountUI

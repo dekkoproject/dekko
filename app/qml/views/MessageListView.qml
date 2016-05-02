@@ -4,9 +4,9 @@ import Dekko.Accounts 1.0
 import Dekko.Mail 1.0
 import Dekko.Components 1.0
 import Dekko.Settings 1.0
-import "../components"
-import "../delegates"
-import "../models"
+import "./components"
+import "./delegates"
+import "./models"
 
 DekkoPage {
     id: msgListPage

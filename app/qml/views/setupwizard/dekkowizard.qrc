@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/qml/views/setupwizard">
+        <file>SetupWizard.qml</file>
+        <file>components/NewAccountsUI.qml</file>
+        <file>components/NoAccountsUI.qml</file>
+        <file>components/UserInputUI.qml</file>
+        <file>components/WizardStepper.qml</file>
+        <file>states/NewAccountState.qml</file>
+        <file>states/NoAccountState.qml</file>
+        <file>states/UserInputState.qml</file>
+    </qresource>
+</RCC>

@@ -4,8 +4,8 @@ import Dekko.Controls 1.0
 import Dekko.Mail 1.0
 import QuickFlux 1.0
 import "./states"
-import "../stores"
-import "../actions"
+import "../../stores"
+import "../../actions"
 
 Item {
     id: wizard

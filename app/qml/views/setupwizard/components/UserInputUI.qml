@@ -2,8 +2,8 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import QuickFlux 1.0
 import "../../components"
-import "../../stores"
-import "../../actions"
+import "../../../actions"
+import "../../../stores"
 
 DekkoPage {
     objectName: "userInputUI"

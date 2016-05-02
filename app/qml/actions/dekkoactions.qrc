@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/qml/actions">
+        <file>qmldir</file>
+        <file>DekkoActions.qml</file>
+        <file>ActionTypes.qml</file>
+    </qresource>
+</RCC>

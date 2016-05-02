@@ -4,7 +4,7 @@ import QuickFlux 1.0
 import Dekko.Accounts 1.0
 import Dekko.AutoConfig 1.0
 import "../actions"
-import "../utils/QtCoreAPI.js" as QtCoreAPI
+import "../views/utils/QtCoreAPI.js" as QtCoreAPI
 
 AppListener {
     id: accountSetup

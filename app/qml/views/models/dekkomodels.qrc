@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/qml/views/models">
+        <file>NavMenuAccountSettingsModel.qml</file>
+        <file>NavMenuContactsModel.qml</file>
+        <file>NavMenuDekkoVisualModel.qml</file>
+        <file>NavMenuModel.qml</file>
+    </qresource>
+</RCC>

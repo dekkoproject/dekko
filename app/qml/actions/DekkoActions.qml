@@ -21,35 +21,35 @@ import "./"
 */
 ActionCreator {
 
-    //=========================================================================//
-    // Logging helpers                                                         //
-    // These are handled in components/Logger.qml                              //
-    //=========================================================================//
+    //=========================================================================\\
+    // Logging helpers                                                         \\
+    // These are handled in components/Logger.qml                              \\
+    //=========================================================================\\
     signal logInfo(string location, string message)
     signal logStatus(string location, string message)
     signal logWarning(string location, string message)
     signal logError(string location, string message)
 
-    //=========================================================================//
-    // Dialog queue API                                                        //
-    // All dialogs get pushed onto a queue as we may hit                       //
-    // more than one error at any point and the dialogs                        //
-    // end up being stacked on top of each other                               //
-    // This api queues custom or predefined Dialogs                            //
-    // that get displayed one at a time. See PopupQueue.qml and DialogQueue.qml//
-    // for how this works                                                      //
-    // Note: all dialogs must inherit from DialogBase.qml                      //
-    //=========================================================================//
+    //=========================================================================\\
+    // Dialog queue API                                                        \\
+    // All dialogs get pushed onto a queue as we may hit                       \\
+    // more than one error at any point and the dialogs                        \\
+    // end up being stacked on top of each other                               \\
+    // This api queues custom or predefined Dialogs                            \\
+    // that get displayed one at a time. See PopupQueue.qml and DialogQueue.qml\\
+    // for how this works                                                      \\
+    // Note: all dialogs must inherit from DialogBase.qml                      \\
+    //=========================================================================\\
     signal showError(string error)
     signal queueDialog(var dlg, var properties)
     signal showConfirmationDialog(string id, string title, string text)
     signal confirmationDialogConfirmed(string id)
     signal confirmationDialogCancelled(string id)
 
-    //==========================================================================//
-    // Setup Wizard API                                                         //
-    // The main logic & state info for this api lives in stores/AccountSetup.qml//
-    //==========================================================================//
+    //==========================================================================\\
+    // Setup Wizard API                                                         \\
+    // The main logic & state info for this api lives in stores/AccountSetup.qml\\
+    //==========================================================================\\
     signal setNewAccountType(string description, int type)
     // Pass object in format of { "name": "", "email": "", "password": ""}
     signal setUserDetails(var details)

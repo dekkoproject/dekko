@@ -9,7 +9,19 @@ file(GLOB_RECURSE DEKKO_QML_FILES
     icons/*svg
 )
 
-set(DEKKO_QML_RESOURCE ${CMAKE_CURRENT_SOURCE_DIR}/qml/dekkoqml.qrc)
+set(DEKKO_QML_RESOURCE
+    ${CMAKE_CURRENT_SOURCE_DIR}/qml/dekkoqml.qrc
+    ${CMAKE_CURRENT_SOURCE_DIR}/qml/actions/dekkoactions.qrc
+    ${CMAKE_CURRENT_SOURCE_DIR}/qml/views/components/dekkocomponents.qrc
+    ${CMAKE_CURRENT_SOURCE_DIR}/qml/views/delegates/dekkodelegates.qrc
+    ${CMAKE_CURRENT_SOURCE_DIR}/qml/views/dialogs/dekkodialogs.qrc
+    ${CMAKE_CURRENT_SOURCE_DIR}/qml/views/models/dekkomodels.qrc
+    ${CMAKE_CURRENT_SOURCE_DIR}/qml/views/popovers/dekkopopups.qrc
+    ${CMAKE_CURRENT_SOURCE_DIR}/qml/views/setupwizard/dekkowizard.qrc
+    ${CMAKE_CURRENT_SOURCE_DIR}/qml/views/stages/dekkostages.qrc
+    ${CMAKE_CURRENT_SOURCE_DIR}/qml/views/utils/dekkoutils.qrc
+    ${CMAKE_CURRENT_SOURCE_DIR}/qml/views/webview/dekkoweb.qrc
+)
 set(DEKKO_ICON_RESOURCE ${CMAKE_CURRENT_SOURCE_DIR}/icons/actions/actionicons.qrc)
 set(DEKKO_PROVIDERS_RESOURCE ${CMAKE_CURRENT_SOURCE_DIR}/icons/providers/providericons.qrc)
 
@@ -42,7 +54,7 @@ target_link_libraries(dekko qmfclient5 qmfmessageserver5 network)
 
 install(TARGETS dekko DESTINATION ${BIN_DIR})
 install(
-    DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/qml/webview/userscripts
+    DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/qml/views/webview/userscripts
     DESTINATION ${DATA_DIR}
 )
 install(

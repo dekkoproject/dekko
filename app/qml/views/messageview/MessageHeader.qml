@@ -3,8 +3,8 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import Dekko.Components 1.0
 import Dekko.Settings 1.0
-import "../../components"
-import "../../utils/UiUtils.js" as UiUtils
+import "../components"
+import "../utils/UiUtils.js" as UiUtils
 
 ListItem {
     id: h

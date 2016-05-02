@@ -18,9 +18,9 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import "./actions"
-import "./components"
-import "./dialogs"
-import "./utils"
+import "./views/components"
+import "./views/dialogs"
+import "./views/utils"
 
 // The MainView doesn't provide us any benefit here
 // the only thing we are interested in is the anchorToKeyboard stuff
@@ -50,7 +50,7 @@ Item {
         }
         PageStack {
             id: rootPageStack
-            Component.onCompleted: push("qrc:/qml/stages/MainStage.qml")
+            Component.onCompleted: push("qrc:/qml/views/stages/MainStage.qml")
         }
     }
 

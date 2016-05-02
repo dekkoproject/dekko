@@ -1,61 +1,12 @@
 <RCC>
     <qresource prefix="/qml">
         <file>main.qml</file>
-        <file>utils/PopupQueue.qml</file>
-        <file>utils/QueuedApplicationAlertManager.qml</file>
-        <file>utils/ViewState.qml</file>
-        <file>utils/QtCoreAPI.js</file>
         <file>views/MessageListView.qml</file>
-        <file>components/KeyboardRectangle.qml</file>
-        <file>components/DekkoPage.qml</file>
-        <file>components/HeaderButton.qml</file>
-        <file>components/DekkoHeader.qml</file>
-        <file>components/FilterBar.qml</file>
-        <file>components/ActionDrawer.qml</file>
-        <file>components/HorizontalGradiant.qml</file>
-        <file>components/NavigationDrawer.qml</file>
-        <file>delegates/NavMenuStandardFolderDelegate.qml</file>
-        <file>components/TabBar.qml</file>
-        <file>models/NavMenuAccountSettingsModel.qml</file>
-        <file>models/NavMenuContactsModel.qml</file>
-        <file>models/NavMenuDekkoVisualModel.qml</file>
-        <file>models/NavMenuModel.qml</file>
-        <file>components/FlipableSelectionAvatar.qml</file>
-        <file>delegates/MessageListDelegate.qml</file>
-        <file>popovers/MessageListActionPopover.qml</file>
-        <file>components/CachedImage.qml</file>
-        <file>components/UbuntuShapeGravatar.qml</file>
-        <file>components/ListItemWithActions.qml</file>
-        <file>components/ListItemWithActionsCheckBox.qml</file>
-        <file>utils/UiUtils.js</file>
         <file>views/ContactFilterView.qml</file>
-        <file>components/Avatar.qml</file>
-        <file>components/Animations.qml</file>
-        <file>stages/AddressBookStage.qml</file>
-        <file>stages/MainStage.qml</file>
-        <file>stages/SettingsStage.qml</file>
-        <file>stages/StageArea.qml</file>
-        <file>stages/StageAreaDivider.qml</file>
         <file>views/NavMenuPage.qml</file>
         <file>views/NothingSelectedPage.qml</file>
         <file>views/FolderListView.qml</file>
-        <file>delegates/FolderListDelegate.qml</file>
-        <file>popovers/NoticePopup.qml</file>
-        <file>components/ContextGroup.qml</file>
-        <file>delegates/ContextDelegate.qml</file>
-        <file>components/ContextAction.qml</file>
-        <file>components/NavigationGroup.qml</file>
-        <file>webview/userscripts/add_cid_query.js</file>
-        <file>webview/userscripts/contact-message.js</file>
-        <file>webview/userscripts/fake_script.js</file>
-        <file>webview/userscripts/font_user_script.js</file>
-        <file>webview/userscripts/hide_overflow.js</file>
-        <file>webview/userscripts/viewport_shim.js</file>
-        <file>webview/userscripts/zoom.js</file>
-        <file>webview/DekkoWebView.qml</file>
         <file>views/messageview/MessageHeader.qml</file>
-        <file>popovers/RecipientPopover.qml</file>
-        <file>popovers/MessageDetailsPopover.qml</file>
         <file>views/messageview/DetailItem.qml</file>
         <file>views/messageview/DetailList.qml</file>
         <file>views/messageview/RecipientInfo.qml</file>
@@ -63,28 +14,7 @@
         <file>views/messageview/CleanMessagePage.qml</file>
         <file>views/messageview/DefaultMessagePage.qml</file>
         <file>views/messageview/DefaultMessagePageHeader.qml</file>
-        <file>webview/DekkoWebContext.qml</file>
-        <file>popovers/MessageViewContextMenu.qml</file>
-        <file>webview/ContentBlockedNotice.qml</file>
-        <file>dialogs/ConfirmationDialog.qml</file>
-        <file>components/AttachmentPanel.qml</file>
-        <file>setupwizard/SetupWizard.qml</file>
-        <file>setupwizard/components/NoAccountsUI.qml</file>
-        <file>setupwizard/states/NoAccountState.qml</file>
-        <file>setupwizard/components/NewAccountsUI.qml</file>
-        <file>setupwizard/states/NewAccountState.qml</file>
-        <file>actions/ActionTypes.qml</file>
-        <file>actions/DekkoActions.qml</file>
-        <file>stores/TestStore.qml</file>
-        <file>actions/qmldir</file>
         <file>stores/qmldir</file>
         <file>stores/AccountSetup.qml</file>
-        <file>components/Logger.qml</file>
-        <file>setupwizard/states/UserInputState.qml</file>
-        <file>setupwizard/components/UserInputUI.qml</file>
-        <file>components/TitledTextField.qml</file>
-        <file>setupwizard/components/WizardStepper.qml</file>
-        <file>dialogs/DialogQueue.qml</file>
-        <file>dialogs/DialogBase.qml</file>
     </qresource>
 </RCC>

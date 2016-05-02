@@ -1,7 +1,6 @@
 import QtQuick 2.4
 import QtQuick.Window 2.2
 import Ubuntu.Components 1.3
-import "../setupwizard"
 
 VisualItemModel {
     ListItem {
@@ -18,7 +17,7 @@ VisualItemModel {
             }
             ProgressionSlot{}
         }
-        onClicked: rootPageStack.push("qrc:/qml/setupwizard/SetupWizard.qml")
+        onClicked: rootPageStack.push("qrc:/qml/views/setupwizard/SetupWizard.qml")
     }
     ListItem {
         height: displaySettingsLayout.implicitHeight
@@ -33,21 +32,6 @@ VisualItemModel {
                 SlotsLayout.position: SlotsLayout.Leading
             }
             ProgressionSlot{}
-        }
-        onClicked: {
-            var w = window.createObject(dekko)
-            w.show()
-        }
-        Component {
-            id: window
-            Window {
-                height: units.gu(70)
-                width: units.gu(50)
-                title: "New account"
-                SetupWizard {
-                    anchors.fill: parent
-                }
-            }
         }
     }
     ListItem {

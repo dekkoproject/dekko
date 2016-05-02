@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/qml/views/popovers">
+        <file>MessageListActionPopover.qml</file>
+        <file>MessageViewContextMenu.qml</file>
+        <file>NoticePopup.qml</file>
+        <file>RecipientPopover.qml</file>
+        <file>MessageDetailsPopover.qml</file>
+    </qresource>
+</RCC>

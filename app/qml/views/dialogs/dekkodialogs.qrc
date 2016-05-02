@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/qml/views/dialogs">
+        <file>ConfirmationDialog.qml</file>
+        <file>DialogBase.qml</file>
+        <file>DialogQueue.qml</file>
+    </qresource>
+</RCC>
