@@ -74,7 +74,7 @@ DetailItem {
                 title.wrapMode: Text.NoWrap
             }
             onClicked: {
-                dekko.showNotice("Not implemented yet. Fix it before release!!!!")
+                PopupActions.showNotice("Not implemented yet. Fix it before release!!!!")
                 PopupUtils.close(info)
             }
         }
@@ -88,7 +88,7 @@ DetailItem {
                 title.wrapMode: Text.NoWrap
             }
             onClicked: {
-                dekko.showNotice("Not implemented yet. Fix it before release!!!!")
+                PopupActions.showNotice("Not implemented yet. Fix it before release!!!!")
                 PopupUtils.close(info)
             }
         }
@@ -103,7 +103,7 @@ DetailItem {
                 title.wrapMode: Text.NoWrap
             }
             onClicked: {
-                dekko.showNotice("Not implemented yet. Fix it before release!!!!")
+                PopupActions.showNotice("Not implemented yet. Fix it before release!!!!")
                 PopupUtils.close(info)
             }
         }

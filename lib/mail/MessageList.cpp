@@ -39,7 +39,11 @@ int MessageList::totalCount()
 
 bool MessageList::canLoadMore()
 {
-    return m_limit < totalCount();
+    if (m_model->isEmpty()) {
+        return false;
+    } else {
+        return m_limit < totalCount();
+    }
 }
 
 bool MessageList::canSelectAll()
@@ -365,6 +369,7 @@ void MessageList::handleUpdatedMessages(const QMailMessageIdList &updatedList)
     foreach (int index, updateIndices) {
         m_model->at(index)->emitMinMessageChanged();
     }
+    emit canPossiblyLoadMore();
 }
 
 void MessageList::insertMessageAt(const int &index, const QMailMessageId &id)
@@ -456,6 +461,7 @@ void MessageList::sortAndAppendNewMessages(const QMailMessageIdList &idsToAppend
         QMailMessageIdList idsToRemove = m_idList.mid(m_limit);
         removeMessages(idsToRemove);
     }
+    emit canPossiblyLoadMore();
 }
 
 void MessageList::removeMessages(const QMailMessageIdList &idList)
@@ -505,6 +511,7 @@ void MessageList::init()
             ++index;
         }
         m_initialized = true;
+        emit canPossiblyLoadMore();
     }
 }
 

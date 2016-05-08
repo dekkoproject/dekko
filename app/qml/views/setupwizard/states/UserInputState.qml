@@ -1,6 +1,7 @@
 import QtQuick 2.4
 import QtQml.StateMachine 1.0 as DSM
-import "../../../actions"
+import "../../../actions/logging"
+import "../../../actions/wizard"
 import "../../../stores"
 
 DSM.State {
@@ -10,10 +11,10 @@ DSM.State {
     property alias nextTargetState: nextTargetState.targetState
 
     onEntered: {
-        DekkoActions.logStatus("UserInputState::onEntered", "User details input state entered");
+        Log.logStatus("UserInputState::onEntered", "User details input state entered");
         if (stack.currentItem.objectName !== "userInputUI") {
-            DekkoActions.logStatus("NoAccountState::onEntered", "Pushing UserInputUI");
-            DekkoActions.wizardNavigateTo("qrc:/qml/views/setupwizard/components/UserInputUI.qml", {})
+            Log.logStatus("NoAccountState::onEntered", "Pushing UserInputUI");
+            WizardActions.wizardNavigateTo("qrc:/qml/views/setupwizard/components/UserInputUI.qml", {})
         }
     }
 

@@ -4,6 +4,9 @@ import Ubuntu.Components 1.3
 import Dekko.Components 1.0
 import Dekko.Mail 1.0
 import "../components"
+import "../../actions/views"
+import "../../actions/messaging"
+import "../../constants"
 
 Item {
     id: header
@@ -23,7 +26,7 @@ Item {
         id: inner_button
         anchors {
             top: parent.top
-            topMargin: units.gu(1)
+            topMargin: Style.smallSpacing
             left: parent.left
         }
         visible: showBack
@@ -31,7 +34,8 @@ Item {
         action: Action {
             iconName: "back"
             onTriggered: {
-                internalStack.pop()
+                // Back button is only shown in the message list stack
+                ViewActions.popStageArea(ViewKeys.messageListStack)
             }
         }
     }
@@ -40,11 +44,11 @@ Item {
         id: fromLabel
         anchors {
             left: inner_button.right
-            leftMargin: showBack ? 0 : units.gu(2)
+            leftMargin: showBack ? 0 : Style.defaultSpacing
             top: parent.top
-            topMargin: units.gu(2)
+            topMargin: Style.defaultSpacing
             right: starButton.left
-            rightMargin: units.gu(1)
+            rightMargin: Style.smallSpacing
         }
         clip: true
         text: msg.subject
@@ -57,9 +61,9 @@ Item {
         anchors {
             left: fromLabel.left
             top: fromLabel.bottom
-            topMargin: units.gu(1)
+            topMargin: Style.smallSpacing
             right: starButton.left
-            rightMargin: units.gu(1)
+            rightMargin: Style.smallSpacing
         }
 
         Label {
@@ -78,13 +82,13 @@ Item {
         anchors {
             right: deleteButton.left
             top: parent.top
-            topMargin: units.gu(1)
+            topMargin: Style.smallSpacing
         }
         iconSize: units.gu(2.25)
         iconColor: msg.isImportant ? "#f0e442" : "#888888"
         action: Action {
             iconSource: msg.isImportant ? Paths.actionIconUrl(Icons.StarredIcon) : Paths.actionIconUrl(Icons.UnStarredIcon)
-            onTriggered: Client.markMessageImportant(msg.messageId, !msg.isImportant)
+            onTriggered: MessageActions.markMessageImportant(msg.messageId, !msg.isImportant)
         }
     }
 
@@ -92,29 +96,27 @@ Item {
         id: deleteButton
         anchors {
             right: parent.right
-            rightMargin: units.gu(1)
+            rightMargin: Style.smallSpacing
             top: parent.top
-            topMargin: units.gu(1)
+            topMargin: Style.smallSpacing
         }
         iconSize: units.gu(2.25)
         action: Action {
             iconName: "delete"
             shortcut: "Delete"
             onTriggered: {
-                Client.deleteMessage(msg.messageId)
+                MessageActions.deleteMessage(msg.messageId)
             }
         }
     }
 
-    Rectangle {
+    Line {
         id: btmMargin
         anchors {
             left: parent.left
             right: parent.right
             bottom: header.bottom
         }
-        color: Qt.rgba(0,0,0,0.075)
-        height: units.gu(0.075)
         visible: true
     }
 }

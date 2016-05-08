@@ -4,6 +4,8 @@ import Ubuntu.Components.Popups 1.3
 import Dekko.Components 1.0
 import Dekko.Settings 1.0
 import "../components"
+import "../../actions/popups"
+import "../../constants"
 import "../utils/UiUtils.js" as UiUtils
 
 ListItem {
@@ -11,7 +13,7 @@ ListItem {
     property var msg
     property bool detailsVisible: false
     width: parent.width
-    height: gs.isCleanLayout ? cleanLayout.height + units.gu(1) : defaultLayout.height
+    height: gs.isCleanLayout ? cleanLayout.height + Style.smallSpacing : defaultLayout.height
     divider.visible: false
 
     signal showDetails()
@@ -52,11 +54,11 @@ ListItem {
         Item {
             id: inner_infoCol
 
-            property int iconsVerticalSpacing: units.gu(1)
-            property int iconsHorizontalSpacing: units.gu(2)
+            property int iconsVerticalSpacing: Style.smallSpacing
+            property int iconsHorizontalSpacing: Style.defaultSpacing
 
-            height: inner_timeLabel.height + units.gu(1) + ctxt.height
-            width: Math.max(inner_timeLabel.width, ctxt.width + rply.width + units.gu(1))
+            height: inner_timeLabel.height + Style.smallSpacing + ctxt.height
+            width: Math.max(inner_timeLabel.width, ctxt.width + rply.width + Style.smallSpacing)
             SlotsLayout.overrideVerticalPositioning: true
 
             Label {
@@ -70,7 +72,7 @@ ListItem {
 
             CachedImage {
                 id: ctxt
-                height: units.gu(2.5)
+                height: Style.defaultIconSize
                 width: height
                 anchors {
                     right: parent.right
@@ -81,13 +83,13 @@ ListItem {
                 color: UbuntuColors.ash
                 AbstractButton {
                     anchors.fill: parent
-                    onClicked: dekko.showNotice("Not implemented yet. Fix it before release!!!!")
+                    onClicked: PopupActions.showNotice("Not implemented yet. Fix it before release!!!!")
                 }
             }
 
             CachedImage {
                 id: rply
-                height: units.gu(2.5)
+                height: Style.defaultIconSize
                 width: visible ? height : 0
                 anchors {
                     right: ctxt.left
@@ -99,7 +101,7 @@ ListItem {
                 color: UbuntuColors.ash
                 AbstractButton {
                     anchors.fill: parent
-                    onClicked: dekko.showNotice("Not implemented yet. Fix it before release!!!!")
+                    onClicked: PopupActions.showNotice("Not implemented yet. Fix it before release!!!!")
                 }
             }
         }
@@ -155,7 +157,7 @@ ListItem {
                     top: parent.top
                     horizontalCenter: parent.horizontalCenter
                 }
-                width: r.width + d.width + div.width + units.gu(2)
+                width: r.width + d.width + div.width + Style.defaultSpacing
                 Label {
                     id: r
                     anchors {
@@ -167,7 +169,7 @@ ListItem {
                     fontSize: "small"
                     MouseArea {
                         anchors.fill: parent
-                        onClicked: PopupUtils.open("qrc:/qml/popovers/RecipientPopover.qml", r, {address: msg.from})
+                        onClicked: PopupUtils.open("qrc:/qml/views/popovers/RecipientPopover.qml", r, {address: msg.from})
                     }
                 }
                 Label {
@@ -175,7 +177,7 @@ ListItem {
                     text: "|"
                     anchors {
                         left: r.right
-                        leftMargin: units.gu(1)
+                        leftMargin: Style.smallSpacing
                         top: parent.top
                     }
                     fontSize: "small"
@@ -185,14 +187,14 @@ ListItem {
                     anchors {
                         top: parent.top
                         left: div.right
-                        leftMargin: units.gu(1)
+                        leftMargin: Style.smallSpacing
                     }
                     color: UbuntuColors.blue
                     text: qsTr("Details")
                     fontSize: "small"
                     MouseArea {
                         anchors.fill: parent
-                        onClicked: PopupUtils.open("qrc:/qml/popovers/MessageDetailsPopover.qml", d, {message: msg})
+                        onClicked: PopupUtils.open("qrc:/qml/views/popovers/MessageDetailsPopover.qml", d, {message: msg})
                     }
                 }
             }

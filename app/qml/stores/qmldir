@@ -1,1 +1,1 @@
-singleton AccountSetup 1.0 AccountSetup.qml
+singleton ViewStore 1.0 ViewStore.qml

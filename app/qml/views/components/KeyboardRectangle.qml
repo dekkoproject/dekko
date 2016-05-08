@@ -29,11 +29,11 @@ Item {
     states: [
         State {
             name: "hidden"
-            when: keyboardRect.height == 0
+            when: keyboardRect.height === 0
         },
         State {
             name: "shown"
-            when: keyboardRect.height == Qt.inputMethod.keyboardRectangle.height
+            when: keyboardRect.height === Qt.inputMethod.keyboardRectangle.height
         }
     ]
 

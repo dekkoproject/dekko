@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/qml/stores">
+        <file>qmldir</file>
+        <file>ViewStore.qml</file>
+        <file>mail/qmldir</file>
+        <file>mail/MailStore.qml</file>
+        <file>mail/MailboxStore.qml</file>
+        <file>accounts/AccountSetup.qml</file>
+        <file>accounts/AccountStore.qml</file>
+        <file>accounts/qmldir</file>
+        <file>mail/MailStoreActions.qml</file>
+        <file>mail/BaseMessagingStore.qml</file>
+    </qresource>
+</RCC>

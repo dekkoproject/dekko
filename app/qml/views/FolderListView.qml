@@ -4,6 +4,8 @@ import Dekko.Mail 1.0
 import Dekko.Components 1.0
 import "./components"
 import "./delegates"
+import "../actions/views"
+import "../actions/messaging"
 
 DekkoPage {
 
@@ -13,7 +15,7 @@ DekkoPage {
     pageHeader.title: pageTitle
     pageHeader.backAction: Action {
         iconName: "back"
-        onTriggered: internalStack.pop()
+        onTriggered: ViewActions.popStageArea(dekko.viewState.isLargeFF ? ViewKeys.navigationStack : ViewKeys.messageListStack)
     }
     extendHeader: !dekko.viewState.isSmallFF
 
@@ -34,7 +36,7 @@ DekkoPage {
             model: folderList.model
             delegate: FolderListDelegate {
                 folder: model.qtObject
-                onItemClicked: mailView.openFolder(folder.name, folder.messageKey)
+                onItemClicked: MessageActions.openFolder(folder.name, folder.messageKey)
             }
         }
     }

@@ -3,14 +3,15 @@ import Ubuntu.Components 1.3
 import Dekko.Settings 1.0
 import "../delegates"
 import "../components"
+import "../../stores/mail"
+import "../../stores/accounts"
+import "../../actions/messaging"
 
 VisualItemModel {
 
     id: navModel
 
     property bool panelIsParent: true
-    signal openFolder(string accountName, var accountId)
-
 
     Item {
         width: navDrawer.width
@@ -34,22 +35,22 @@ VisualItemModel {
                         }
                         Repeater {
                             id: inboxList
-                            model: standardFolders.children
+                            model: MailboxStore.standardFoldersModel
                             delegate: NavMenuStandardFolderDelegate {
                                 id: folderDelegate
                                 folder: qtObject
                                 supportsDescendents: true
                                 onClicked: {
                                     if (model.index === 0) {
-                                        navDrawer.msgKeySelected(folder.displayName, folder.descendentsKey)
+                                        MessageActions.openFolder(folder.displayName, folder.descendentsKey)
                                     } else {
-                                        navDrawer.msgKeySelected(folder.displayName, folder.messageKey)
+                                        MessageActions.openFolder(folder.displayName, folder.messageKey)
                                     }
                                 }
-                                onSubFolderClicked: navDrawer.msgKeySelected(name, key)
+                                onSubFolderClicked: MessageActions.openFolder(name, key)
                                 Component.onCompleted: {
                                     if (model.index === 0) {
-                                        navDrawer.msgKeySelected(folder.displayName, folder.descendentsKey)
+                                        MessageActions.openFolder(folder.displayName, folder.descendentsKey)
                                     }
                                 }
                             }
@@ -65,14 +66,14 @@ VisualItemModel {
                         NavigationGroup {
                             id: smf
                             title: qsTr("Smart folders")
-                            model: smartFolders.children
+                            model: MailboxStore.smartFoldersModel
                             expansion.expanded: navSettings.data.smartfolders.expanded
                             onExpandClicked: navSettings.set(NavigationSettings.SmartFoldersExpanded, !navSettings.data.smartfolders.expanded)
                             delegate: NavMenuStandardFolderDelegate {
                                 id: smartFolderDelegate
                                 folder: qtObject
                                 smartFolder: true
-                                onClicked: navDrawer.msgKeySelected(folder.displayName, folder.messageKey)
+                                onClicked: MessageActions.openFolder(folder.displayName, folder.messageKey)
                             }
                         }
                     }
@@ -87,13 +88,13 @@ VisualItemModel {
                         NavigationGroup {
                             id: acg
                             title: qsTr("Accounts")
-                            model: accounts.model
+                            model: AccountStore.receiveAccountsModel
                             expansion.expanded: navSettings.data.accounts.expanded
                             onExpandClicked: navSettings.set(NavigationSettings.AccountsExpanded, !navSettings.data.accounts.expanded)
                             delegate: ListItem {
                                 height: dLayout.height
                                 divider.visible: false
-                                onClicked: openFolder(qtObject.name, qtObject.id)
+                                onClicked: MessageActions.openAccountFolder(qtObject.name, qtObject.id)
                                 ListItemLayout {
                                     id: dLayout
                                     height: units.gu(6)

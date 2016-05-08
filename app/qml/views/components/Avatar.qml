@@ -1,6 +1,7 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import "../utils/UiUtils.js" as UiUtils
+import "../../constants"
 
 Item {
     id: avatar
@@ -36,7 +37,7 @@ Item {
                 id: contactIcon
                 name: "contact"
                 anchors.centerIn: parent
-                height: parent.height - units.gu(2)
+                height: parent.height - Style.defaultSpacing
                 width: height
                 color: "white"
                 visible: !initialsLabel.text

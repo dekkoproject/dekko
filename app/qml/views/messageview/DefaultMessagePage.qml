@@ -163,7 +163,7 @@ DekkoPage {
                             MouseArea {
                                 anchors.fill: parent
                                 onClicked: {
-                                    PopupUtils.open("qrc:/qml/popovers/RecipientPopover.qml", delegate, {address: message.from})
+                                    PopupUtils.open("qrc:/qml/views/popovers/RecipientPopover.qml", delegate, {address: message.from})
                                 }
                             }
                         }

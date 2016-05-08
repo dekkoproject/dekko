@@ -17,16 +17,14 @@
 */
 import QtQuick 2.4
 import Ubuntu.Components 1.3
-import "./actions"
+import "./actions/views"
+import "./actions/logging"
 import "./views/components"
 import "./views/dialogs"
 import "./views/utils"
+import "./views/stages"
+import "./stores" 1.0
 
-// The MainView doesn't provide us any benefit here
-// the only thing we are interested in is the anchorToKeyboard stuff
-// This Item contains a nested Item container that contains the main stage which
-// get's anchored to the KeyboardRectangle component to provide
-// the same functionality as the MainView anchorToKbd prop
 Item {
     id: dekko
 
@@ -38,7 +36,10 @@ Item {
     ViewState {
         id: view
         anchors.fill: parent
-        onStateChanged: DekkoActions.logStatus("ViewState::stateChanged", state)
+        onStateChanged: {
+            ViewStore.formFactor = state
+            Log.logStatus("ViewState::stateChanged", state)
+        }
     }
 
     Item {
@@ -48,9 +49,11 @@ Item {
             right: parent.right
             bottom: kbdRect.top
         }
-        PageStack {
+        StageStack {
             id: rootPageStack
-            Component.onCompleted: push("qrc:/qml/views/stages/MainStage.qml")
+            Component.onCompleted: {
+                ViewActions.stageStackReady()
+            }
         }
     }
 
@@ -66,6 +69,7 @@ Item {
         property DialogQueue dlgQueue: DialogQueue {}
         property Logger logger: Logger {}
     }
+}
 
 //    Connections {
 //        target: ContentHub
@@ -136,7 +140,7 @@ Item {
 //    }
 
 
-}
+//}
 
 //-----------------------------------
 // PROPERTIES

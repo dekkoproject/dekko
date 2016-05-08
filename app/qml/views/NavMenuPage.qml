@@ -5,40 +5,22 @@ import Dekko.Accounts 1.0
 import Dekko.Settings 1.0
 import "./components" as Comps
 import "./models"
+import "../actions"
+import "../actions/messaging"
 
 Comps.DekkoPage {
     id: menuPage
 
     pageHeader.title: qsTr("Mail")
     pageHeader.composeButtonEnabled: tabBar.currentIndex === 0 && dekko.viewState.isLargeFF
-//    pageHeader.showDivider: false
     extendHeader: true
 
-    Accounts {
-        id: accounts
-        // Here we only want the accounts that can receive messages
-        // i.e pop/imap
-        filter: Accounts.CanReceive
-    }
-
-    MessageFilterCollection {
-        id: standardFolders
-        filter: MessageFilterCollection.StandardFolders
-    }
-    MessageFilterCollection {
-        id: smartFolders
-        filter: MessageFilterCollection.SmartFolders
-    }
     NavigationSettings {
         id: navSettings
     }
 
     ListView {
         id: navDrawer
-        signal msgKeySelected(string title, var key)
-        onMsgKeySelected: {
-            mailView.openFolder(title, key)
-        }
         clip: true
         anchors {
             left: parent.left
@@ -48,15 +30,12 @@ Comps.DekkoPage {
         }
         model: NavMenuModel{
             panelIsParent: false
-            onOpenFolder: {
-                mailView.openAccountFolder(accountName, accountId)
-            }
         }
         interactive: false
         orientation: ListView.Horizontal
         snapMode: ListView.SnapOneItem
         currentIndex: tabBar.currentIndex
-        highlightMoveDuration: 275
+        highlightMoveDuration: 275 // seems about right :-D
     }
 
     Comps.TabBar {
@@ -82,16 +61,5 @@ Comps.DekkoPage {
             }
         }
     }
-
-//    ListView {
-//        id: navDrawer
-//        anchors {
-//            left: parent.left
-//            top: pageHeader.bottom
-//            right: parent.right
-//            bottom: parent.bottom
-//        }
-
-//    }
 }
 

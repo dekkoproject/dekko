@@ -43,7 +43,7 @@ Popover {
                     description: qsTr("Share link")
                     actionIcon: Icons.ShareIcon
                     onTriggered: {
-                        dekko.showNotice("not implemented yet. Fix it before release!!!!")
+                        PopupActions.showNotice("not implemented yet. Fix it before release!!!!")
                         PopupUtils.close(actionPopover)
                     }
                 }
@@ -57,7 +57,7 @@ Popover {
                     description: qsTr("Reply")
                     actionIcon: Icons.MailRepliedIcon
                     onTriggered: {
-                        dekko.showNotice("not implemented yet. Fix it before release!!!!")
+                        PopupActions.showNotice("not implemented yet. Fix it before release!!!!")
                         PopupUtils.close(actionPopover)
                     }
                 },
@@ -66,7 +66,7 @@ Popover {
                     description: qsTr("Reply all")
                     actionIcon: Icons.MailRepliedAllIcon
                     onTriggered: {
-                        dekko.showNotice("not implemented yet. Fix it before release!!!!")
+                        PopupActions.showNotice("not implemented yet. Fix it before release!!!!")
                         PopupUtils.close(actionPopover)
                     }
                 },
@@ -74,7 +74,7 @@ Popover {
                     description: qsTr("Forward")
                     actionIcon: Icons.MailForwardedIcon
                     onTriggered: {
-                        dekko.showNotice("Not implemented yet. Fix it before release!!!!")
+                        PopupActions.showNotice("Not implemented yet. Fix it before release!!!!")
                         PopupUtils.close(actionPopover)
                     }
                 }
@@ -86,7 +86,7 @@ Popover {
                     description: qsTr("View source")
                     actionIcon: Icons.NoteIcon
                     onTriggered: {
-                        dekko.showNotice("not implemented yet. Fix it before release!!!!")
+                        PopupActions.showNotice("not implemented yet. Fix it before release!!!!")
                         PopupUtils.close(actionPopover)
                     }
                 }

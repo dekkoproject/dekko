@@ -2,7 +2,9 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import QuickFlux 1.0
 import "../../components"
-import "../../../actions"
+import "../../../actions/logging"
+import "../../../actions/wizard"
+import "../../../actions/popups"
 import "../../../stores"
 
 DekkoPage {
@@ -58,11 +60,11 @@ DekkoPage {
                     }
                     previousAction: Action {
                         text: qsTr("Cancel")
-                        onTriggered: DekkoActions.wizardStepBack()
+                        onTriggered: WizardActions.wizardStepBack()
                     }
                     nextAction: Action {
                         text: qsTr("Next")
-                        onTriggered: DekkoActions.validateUserDetails()
+                        onTriggered: WizardActions.validateUserDetails()
                     }
                 }
             }
@@ -71,7 +73,7 @@ DekkoPage {
 
     AppScript {
         property var userDetails
-        runWhen: ActionTypes.validateUserDetails
+        runWhen: WizardKeys.validateUserDetails
         script: {
             userDetails = {
                 "name": name.text,
@@ -79,43 +81,43 @@ DekkoPage {
                 "password": password.text
             };
 
-            DekkoActions.validateUser(userDetails)
+            WizardActions.validateUser(userDetails)
             // It passed \o/. Now commit the details to the account object
             // and signal to go to the next stop
-            once(ActionTypes.userDetailsValid, function() {
+            once(WizardKeys.userDetailsValid, function() {
 
-                DekkoActions.logInfo("UserInputUI", "User details valid")
-                DekkoActions.setUserDetails(userDetails)
+                Log.logInfo("UserInputUI", "User details valid")
+                WizardActions.setUserDetails(userDetails)
                 name.requiredField = false
                 email.requiredField = false
-                DekkoActions.wizardStepForward()
+                WizardActions.wizardStepForward()
 
             })
             // Somethings not right. Show the invalid fields.
-            once(ActionTypes.userDetailsInvalid, function(message) {
+            once(WizardKeys.userDetailsInvalid, function(message) {
 
-                DekkoActions.logInfo("UserInputUI::userDetailsInvalid", "User details invalid")
+                Log.logInfo("UserInputUI::userDetailsInvalid", "User details invalid")
                 name.requiredField = message.result.indexOf("name") > -1
                 email.requiredField = message.result.indexOf("email") > -1
 
             })
 
-            once(ActionTypes.noPasswordSet, function() {
+            once(WizardKeys.noPasswordSet, function() {
 
-                DekkoActions.logWarning("UserInputUI::noPasswordSet", "No password set, :-/ asking user if this is what they want")
-                DekkoActions.showConfirmationDialog("userinputpwd", qsTr("Password empty"), qsTr("Would you like to continue?"))
+                Log.logWarning("UserInputUI::noPasswordSet", "No password set, :-/ asking user if this is what they want")
+                PopupActions.showConfirmationDialog("userinputpwd", qsTr("Password empty"), qsTr("Would you like to continue?"))
 
-            }).then(ActionTypes.confirmationDialogConfirmed,function(message) {
+            }).then(PopupKeys.confirmationDialogConfirmed,function(message) {
                 if (message.id !== "userinputpwd") {
                     return;
                 }
-                DekkoActions.logInfo("UserInputUI::confirmationDialogConfirmed", "Seems they do! Setting validation to allow empty password")
-                DekkoActions.setNoPasswordAllowed()
-                DekkoActions.validateUserDetails()
+                Log.logInfo("UserInputUI::confirmationDialogConfirmed", "Seems they do! Setting validation to allow empty password")
+                WizardActions.setNoPasswordAllowed()
+                WizardActions.validateUserDetails()
             })
             // Disconnect all callbacks if the user steps back or forward
-            once(ActionTypes.wizardStepBack, exit.bind(this, 0))
-            once(ActionTypes.wizardStepForward, exit.bind(this, 0))
+            once(WizardKeys.wizardStepBack, exit.bind(this, 0))
+            once(WizardKeys.wizardStepForward, exit.bind(this, 0))
         }
     }
 }

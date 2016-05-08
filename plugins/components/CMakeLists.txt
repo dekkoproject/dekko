@@ -10,6 +10,10 @@ include_directories(
 set(AccountsPlugin_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/ComponentsPlugin.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ImageHelper.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/StretchColumn.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/StretchRow.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Stretcher.h
+
 )
 
 add_library(componentsplugin MODULE ${AccountsPlugin_SRCS})

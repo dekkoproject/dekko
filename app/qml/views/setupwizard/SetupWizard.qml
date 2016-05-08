@@ -4,8 +4,9 @@ import Dekko.Controls 1.0
 import Dekko.Mail 1.0
 import QuickFlux 1.0
 import "./states"
-import "../../stores"
-import "../../actions"
+import "../../stores/accounts"
+import "../../actions/logging"
+import "../../actions/wizard"
 
 Item {
     id: wizard
@@ -18,20 +19,20 @@ Item {
     }
 
     AppListener {
-        filter: ActionTypes.wizardNavigateTo
+        filter: WizardKeys.wizardNavigateTo
         onDispatched: {
             stack.push({item: message.view, properties: message.properties});
         }
     }
 
     AppListener {
-        filter: ActionTypes.wizardStepBack
+        filter: WizardKeys.wizardStepBack
         onDispatched: {
             // The navigate back action
             // will trigger the "quit" state when only 1 page left on the stack so no need
             // to pop anything here.
             if (stack.depth > 1) {
-                DekkoActions.logInfo("SetupWizard::wizardStepBack", "Going back to previous step")
+                Log.logInfo("SetupWizard::wizardStepBack", "Going back to previous step")
                 stack.pop()
             }
             AccountSetup.goBack()

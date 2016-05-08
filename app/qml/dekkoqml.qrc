@@ -14,7 +14,5 @@
         <file>views/messageview/CleanMessagePage.qml</file>
         <file>views/messageview/DefaultMessagePage.qml</file>
         <file>views/messageview/DefaultMessagePageHeader.qml</file>
-        <file>stores/qmldir</file>
-        <file>stores/AccountSetup.qml</file>
     </qresource>
 </RCC>

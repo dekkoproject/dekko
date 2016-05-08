@@ -4,6 +4,8 @@ import Ubuntu.Components.Popups 1.3
 import Dekko.Mail 1.0
 import Dekko.Components 1.0
 import "../components"
+import "../../actions/messaging"
+import "../../actions/popups"
 
 Popover {
     id: actionPopover
@@ -24,7 +26,7 @@ Popover {
                     description: msg && msg.isRead ? qsTr("Mark as unread") : qsTr("Mark as read")
                     actionIcon: msg && msg.isRead ? Icons.MailUnreadIcon : Icons.MailReadIcon
                     onTriggered: {
-                        Client.markMessageRead(msg.messageId, !msg.isRead);
+                        MessageActions.markMessageRead(msg.messageId, !msg.isRead)
                         PopupUtils.close(actionPopover)
                     }
                 },
@@ -32,7 +34,7 @@ Popover {
                     description: msg && msg.isImportant ? qsTr("Mark as not important") : qsTr("Mark as important")
                     actionIcon: msg && msg.isImportant ? Icons.UnStarredIcon : Icons.StarredIcon
                     onTriggered: {
-                        Client.markMessageImportant(msg.messageId, !msg.isImportant)
+                        MessageActions.markMessageImportant(msg.messageId, !msg.isImportant)
                         PopupUtils.close(actionPopover)
                     }
                 },
@@ -40,7 +42,7 @@ Popover {
                     description: qsTr("Mark as spam")
                     actionIcon: Icons.JunkIcon
                     onTriggered: {
-                        dekko.showNotice("Mark as spam not implemented yet. Fix it before release!!!!")
+                        PopupActions.showNotice("Mark as spam not implemented yet. Fix it before release!!!!")
                         PopupUtils.close(actionPopover)
                     }
                 }
@@ -58,9 +60,9 @@ Popover {
                     onTriggered: {
                         // remove done flag if re-marking as todo
                         if (msg.isDone) {
-                            Client.markMessageDone(msg.messageId, false)
+                            MessageActions.markMessageAsDone(msg.messageId, false)
                         }
-                        Client.markMessageTodo(msg.messageId, !msg.isTodo)
+                        MessageActions.markMessageAsTodo(msg.messageId, !msg.isTodo)
                         PopupUtils.close(actionPopover)
                     }
                 },
@@ -70,7 +72,7 @@ Popover {
                     actionIcon: Icons.SelectIcon
                     onTriggered: {
                         // markMessageDone will remove the Todo flag if it is set
-                        Client.markMessageDone(msg.messageId, !msg.isDone)
+                        MessageActions.markMessageAsDone(msg.messageId, !msg.isDone)
                         PopupUtils.close(actionPopover)
                     }
                 }
@@ -83,7 +85,7 @@ Popover {
                     description: qsTr("Reply")
                     actionIcon: Icons.MailRepliedIcon
                     onTriggered: {
-                        dekko.showNotice("not implemented yet. Fix it before release!!!!")
+                        PopupActions.showNotice("not implemented yet. Fix it before release!!!!")
                         PopupUtils.close(actionPopover)
                     }
                 },
@@ -92,7 +94,7 @@ Popover {
                     description: qsTr("Reply all")
                     actionIcon: Icons.MailRepliedAllIcon
                     onTriggered: {
-                        dekko.showNotice("not implemented yet. Fix it before release!!!!")
+                        PopupActions.showNotice("not implemented yet. Fix it before release!!!!")
                         PopupUtils.close(actionPopover)
                     }
                 },
@@ -100,7 +102,7 @@ Popover {
                     description: qsTr("Forward")
                     actionIcon: Icons.MailForwardedIcon
                     onTriggered: {
-                        dekko.showNotice("Not implemented yet. Fix it before release!!!!")
+                        PopupActions.showNotice("Not implemented yet. Fix it before release!!!!")
                         PopupUtils.close(actionPopover)
                     }
                 }
@@ -114,16 +116,17 @@ Popover {
                     description: qsTr("Move")
                     actionIcon: Icons.InboxIcon
                     onTriggered: {
-                        dekko.showNotice("not implemented yet. Fix it before release!!!!")
+                        PopupActions.showNotice("not implemented yet. Fix it before release!!!!")
                         PopupUtils.close(actionPopover)
                     }
                 },
 
                 ContextAction {
-                    description: qsTr("Restore to %1").arg(msg.previousFolderName)
+                    description: msg ? qsTr("Restore to %1").arg(msg.previousFolderName) : ""
                     actionIcon: Icons.UndoIcon
+                    visible: msg && msg.canBeRestored
                     onTriggered: {
-                        Client.restoreMessage(msg.messageId)
+                        MessageActions.restoreMessage(msg.messageId)
                         PopupUtils.close(actionPopover)
                     }
                 },
@@ -131,7 +134,7 @@ Popover {
                     description: qsTr("Delete")
                     actionIcon: Icons.DeleteIcon
                     onTriggered: {
-                        Client.deleteMessage(msg.messageId)
+                        MessageActions.deleteMessage(msg.messageId)
                         PopupUtils.close(actionPopover)
                     }
                 }

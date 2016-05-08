@@ -1,7 +1,7 @@
+pragma Singleton
 import QtQuick 2.4
 
 QtObject {
-
 
     property Transition listViewAddTransition: Transition {
         NumberAnimation { property: "opacity"; from: 0; to: 1.0; duration: 300 }

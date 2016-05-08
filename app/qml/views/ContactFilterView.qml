@@ -4,6 +4,9 @@ import Dekko.Mail 1.0
 import Dekko.Components 1.0
 import "./components"
 import "./delegates"
+import "../actions/views"
+import "../actions/messaging"
+import "../constants"
 
 DekkoPage {
     id: contactFilterView
@@ -17,7 +20,7 @@ DekkoPage {
     pageHeader.title: title
     pageHeader.backAction: Action {
         iconName: "back"
-        onTriggered: internalStack.pop()
+        onTriggered: ViewActions.popStageArea(ViewKeys.messageListStack)
     }
     extendHeader: !dekko.viewState.isSmallFF
 
@@ -35,7 +38,7 @@ DekkoPage {
             right: parent.right
         }
 
-        height: c.height + units.gu(2)
+        height: c.height + Style.defaultSpacing
 
         Column {
             id: c
@@ -44,7 +47,7 @@ DekkoPage {
                 top: parent.top
                 right: parent.right
             }
-            spacing: units.gu(1)
+            spacing: Style.smallSpacing
 
             Item {
                 anchors {
@@ -90,29 +93,25 @@ DekkoPage {
                 Button {
                     id: addEditButton
                     text: qsTr("Add contact")
-                    width: parent.width / 2 - units.gu(4)
+                    width: parent.width / 2 - Style.largeSpacing
                     anchors {
                         left: parent.left
-                        leftMargin: units.gu(2)
+                        leftMargin: Style.defaultSpacing
                     }
                     color: UbuntuColors.green
                 }
                 Button {
                     id: sendButton
                     text: qsTr("Send message")
-                    width: parent.width / 2 - units.gu(1)
+                    width: parent.width / 2 - Style.smallSpacing
                     anchors {
                         right: parent.right
-                        rightMargin: units.gu(2)
+                        rightMargin: Style.defaultSpacing
                     }
                     color: UbuntuColors.green
                 }
             }
         }
-    }
-
-    Animations {
-        id: animations
     }
 
     ScrollView {
@@ -126,10 +125,10 @@ DekkoPage {
         ListView {
             anchors.fill: parent
             clip: true
-            add: animations.listViewAddTransition
-            addDisplaced: animations.listViewAddDisplacedTransition
-            remove: animations.listViewRemoveTransition
-            removeDisplaced: animations.listViewRemoveDisplacedTransition
+            add: DekkoAnimation.listViewAddTransition
+            addDisplaced: DekkoAnimation.listViewAddDisplacedTransition
+            remove: DekkoAnimation.listViewRemoveTransition
+            removeDisplaced: DekkoAnimation.listViewRemoveDisplacedTransition
             model: msgList.model
             delegate: MessageListDelegate {
                 id: msgListDelegate
@@ -142,10 +141,11 @@ DekkoPage {
                 leftSideAction: Action {
                     iconName: "delete"
                     onTriggered: {
-                        Client.deleteMessage(msgListDelegate.msg.messageId)
+                        MessageActions.deleteMessage(msgListDelegate.msg.messageId)
                     }
                 }
                 rightSideActions: [flagAction, readAction, moveAction, contextAction]
+                onItemClicked: MessageActions.openMessage(msgListDelegate.msg.messageId)
             }
 
             Component.onCompleted: positionViewAtBeginning()

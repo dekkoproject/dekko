@@ -79,9 +79,6 @@ Item {
         top: parent.top
         right: parent.right
     }
-    // Yes it's an insanely large number but let's
-    // Just make sure nothing comes up in front of it for now
-//    z: 1
     visible: true
     height: units.gu(7) + filterColumn.height + btmMargin.height + extendHeight
     state: "default"
@@ -365,7 +362,7 @@ Item {
     }
 
 
-    Rectangle {
+    Line {
         id: btmMargin
         anchors {
             left: parent.left
@@ -373,8 +370,6 @@ Item {
             top: filterColumn.bottom
             topMargin: extend ? extendHeight : 0
         }
-        color: Qt.rgba(0,0,0,0.075)
-        height: dividerHeight
         visible: showDivider
     }
 

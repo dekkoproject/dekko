@@ -1,30 +1,30 @@
 import QtQuick 2.4
 import QuickFlux 1.0
-import "../../actions"
+import "../../actions/logging"
 
 AppListener {
     id: logListener
 
     Filter {
-        type: ActionTypes.logInfo
+        type: LogKeys.logInfo
         onDispatched: {
             logMessage(message.location, "INFO", message.message)
         }
     }
     Filter {
-        type: ActionTypes.logError
+        type: LogKeys.logError
         onDispatched: {
             logMessage(message.location, "ERROR", message.message)
         }
     }
     Filter {
-        type: ActionTypes.logStatus
+        type: LogKeys.logStatus
         onDispatched: {
             logMessage(message.location, "STATUS", message.message)
         }
     }
     Filter {
-        type: ActionTypes.logWarning
+        type: LogKeys.logWarning
         onDispatched: {
             logMessage(message.location, "WARNING", message.message)
         }

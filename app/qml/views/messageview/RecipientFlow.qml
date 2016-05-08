@@ -81,7 +81,7 @@ ListItem {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        PopupUtils.open("qrc:/qml/popovers/RecipientPopover.qml", delegate, {address: model.qtObject})
+                        PopupUtils.open("qrc:/qml/views/popovers/RecipientPopover.qml", delegate, {address: model.qtObject})
                     }
                 }
             }

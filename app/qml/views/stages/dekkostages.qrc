@@ -5,5 +5,8 @@
         <file>SettingsStage.qml</file>
         <file>StageArea.qml</file>
         <file>StageAreaDivider.qml</file>
+        <file>StageStack.qml</file>
+        <file>BaseStage.qml</file>
+        <file>MailStage.qml</file>
     </qresource>
 </RCC>

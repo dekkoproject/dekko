@@ -72,7 +72,7 @@ Popover {
                 title.wrapMode: Text.NoWrap
             }
             onClicked: {
-                dekko.showNotice("Not implemented yet. Fix it before release!!!!")
+                PopupActions.showNotice("Not implemented yet. Fix it before release!!!!")
                 PopupUtils.close(info)
             }
         }
@@ -86,7 +86,7 @@ Popover {
             }
             color: UbuntuColors.porcelain
             onClicked: {
-                dekko.showNotice("Not implemented yet. Fix it before release!!!!")
+                PopupActions.showNotice("Not implemented yet. Fix it before release!!!!")
                 PopupUtils.close(info)
             }
         }
@@ -100,7 +100,7 @@ Popover {
                 title.wrapMode: Text.NoWrap
             }
             onClicked: {
-                dekko.showNotice("Not implemented yet. Fix it before release!!!!")
+                PopupActions.showNotice("Not implemented yet. Fix it before release!!!!")
                 PopupUtils.close(info)
             }
         }

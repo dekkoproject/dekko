@@ -3,20 +3,6 @@ import QtQuick 2.4
 import QuickFlux 1.0
 
 KeyTable {
-
-    //logging helpers
-    property string logInfo
-    property string logStatus
-    property string logWarning
-    property string logError
-
-    // dialog queue api
-    property string showError
-    property string queueDialog
-    property string showConfirmationDialog
-    property string confirmationDialogConfirmed
-    property string confirmationDialogCancelled
-
     // SetupWizard api
     property string wizardStepBack
     property string wizardStepForward
@@ -32,5 +18,4 @@ KeyTable {
     property string setNoPasswordAllowed
     property string setUserDetails
     property string setServerDetails
-
 }

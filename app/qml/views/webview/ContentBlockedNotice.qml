@@ -12,6 +12,7 @@ Item {
     ListItem {
         anchors.fill: parent
         divider.visible: notice.contentBlocked
+        color: UbuntuColors.porcelain
         Label {
             anchors {
                 left: parent.left

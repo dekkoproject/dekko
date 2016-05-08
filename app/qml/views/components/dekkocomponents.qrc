@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/qml/views/components">
         <file>ActionDrawer.qml</file>
-        <file>Animations.qml</file>
         <file>AttachmentPanel.qml</file>
         <file>Avatar.qml</file>
         <file>CachedImage.qml</file>
@@ -22,5 +21,7 @@
         <file>TabBar.qml</file>
         <file>TitledTextField.qml</file>
         <file>UbuntuShapeGravatar.qml</file>
+        <file>PanelContainer.qml</file>
+        <file>Line.qml</file>
     </qresource>
 </RCC>

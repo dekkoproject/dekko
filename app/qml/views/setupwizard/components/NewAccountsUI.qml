@@ -4,8 +4,9 @@ import Dekko.Accounts 1.0
 import Dekko.Components 1.0
 import QuickFlux 1.0
 import "../../components"
-import "../../../actions"
 import "../../../stores"
+import "../../../actions/logging"
+import "../../../actions/wizard"
 
 DekkoPage {
     id: newAccountUI
@@ -16,16 +17,13 @@ DekkoPage {
     pageHeader.backAction: Action {
         iconName: "back"
         onTriggered: {
-            DekkoActions.wizardStepBack()
+            WizardActions.wizardStepBack()
         }
     }
 
     PresetProviderModel {
         id: providers
     }
-
-    property bool setShowCompleted: TestStore.showCompletedTasks
-    onSetShowCompletedChanged: console.log("We got the dispatched event")
 
     ScrollView {
         anchors {
@@ -56,24 +54,24 @@ DekkoPage {
                 onClicked: {
                     switch(provider.type) {
                     case Provider.PRESET:
-                        DekkoActions.logInfo("NewAccountsUI::providerClicked", "PRESET clicked");
-                        DekkoActions.setNewAccountType(provider.description, AccountConfig.IMAP)
-                        DekkoActions.wizardSetAccountPreset(provider)
+                        Log.logInfo("NewAccountsUI::providerClicked", "PRESET clicked");
+                        WizardActions.setNewAccountType(provider.description, AccountConfig.IMAP)
+                        WizardActions.wizardSetAccountPreset(provider)
                         break;
                     case Provider.IMAP:
-                        DekkoActions.logInfo("NewAccountsUI::providerClicked", "IMAP clicked");
-                        DekkoActions.setNewAccountType(provider.description, AccountConfig.IMAP)
+                        Log.logInfo("NewAccountsUI::providerClicked", "IMAP clicked");
+                        WizardActions.setNewAccountType(provider.description, AccountConfig.IMAP)
                         break;
                     case Provider.POP3:
-                        DekkoActions.logInfo("NewAccountsUI::providerClicked", "POP3 clicked");
-                        DekkoActions.setNewAccountType(provider.description, AccountConfig.POP3)
+                        Log.logInfo("NewAccountsUI::providerClicked", "POP3 clicked");
+                        WizardActions.setNewAccountType(provider.description, AccountConfig.POP3)
                         break;
                     case Provider.SMTP:
-                        DekkoActions.logInfo("NewAccountsUI::providerClicked", "SMTP clicked");
-                        DekkoActions.setNewAccountType(provider.description, AccountConfig.SMTP)
+                        Log.logInfo("NewAccountsUI::providerClicked", "SMTP clicked");
+                        WizardActions.setNewAccountType(provider.description, AccountConfig.SMTP)
                         break;
                     }
-                    DekkoActions.wizardStepForward()
+                    WizardActions.wizardStepForward()
                 }
             }
         }

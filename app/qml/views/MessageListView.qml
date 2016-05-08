@@ -4,25 +4,24 @@ import Dekko.Accounts 1.0
 import Dekko.Mail 1.0
 import Dekko.Components 1.0
 import Dekko.Settings 1.0
+import QuickFlux 1.0
 import "./components"
 import "./delegates"
 import "./models"
+import "../actions"
+import "../actions/messaging"
+import "../stores/mail" 1.0
+import "../constants"
 
 DekkoPage {
     id: msgListPage
 
-    pageHeader.title: "Inbox"
+    pageHeader.title: MailStore.folderTitle
     pageHeader.enableSearching: true
     pageHeader.composeButtonEnabled: !dekko.viewState.isLargeFF
-    pageHeader.backAction: !dekko.viewState.isLargeFF || msgList.isInSelectionMode ? drawerAction : null
-    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    // NOTE: DO NOT CHANGE THESE WITHOUT UPDATING THE FILTER SWITCH BELOW!!!!
-    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    readonly property var defaultFilters: [qsTr("All"), qsTr("Unread"), qsTr("Starred"), qsTr("Replied"), qsTr("Forwarded"), qsTr("Attachments"), qsTr("Calendar")]
-    readonly property var searchFilters: [qsTr("Local")/*, qsTr("Remote")*/] // TODO: Figure out why Remote is flaking. Stick with local search for now;
-    pageHeader.filterSections: isSearchMode ? searchFilters : defaultFilters
+    pageHeader.backAction: !dekko.viewState.isLargeFF || MailStore.isInSelectionMode ? navDrawer.action : null
+    pageHeader.filterSections: isSearchMode ? MailStore.searchFilters : MailStore.defaultFilters
     onSelectedIndexChanged: {
-
         if (isSearchMode) {
             if (selectedIndex === 0) {
                 mboxSearch.location = MailboxSearch.Local
@@ -31,107 +30,51 @@ DekkoPage {
             }
             return;
         }
-
+        var filter = MessageList.All;
         switch (selectedIndex) {
         case 0: // All
-            msgList.filter = MessageList.All;
+            filter = MessageList.All;
             break;
         case 1: // Unread
-            msgList.filter = MessageList.Unread;
+            filter = MessageList.Unread;
             break;
         case 2: // Starred
-            msgList.filter = MessageList.Important;
+            filter = MessageList.Important;
             break;
         case 3: // Replied
-            msgList.filter = MessageList.Replied;
+            filter = MessageList.Replied;
             break;
         case 4: // Forwarded
-            msgList.filter = MessageList.Forwarded;
+            filter = MessageList.Forwarded;
             break;
         case 5: // Attachments
-            msgList.filter = MessageList.Attachments;
+            filter = MessageList.Attachments;
             break;
         case 6: // Calendar
-            msgList.filter = MessageList.Calendar;
+            filter = MessageList.Calendar;
             break;
         }
+        MessageActions.setMessageListFilter(filter)
     }
 
-    pageHeader.multiSelectActionList: [selectAllAction, flagSelectedAction, markSelectedAction, deleteSelectedAction]
-    onMultiSelectCanceled: msgList.endSelection()
-    onIsSearchModeChanged: reset()
+    pageHeader.multiSelectActionList: [
+        MailStore.actions.selectAll,
+        MailStore.actions.flagSelected,
+        MailStore.actions.markSelectedReadUnread,
+        MailStore.actions.deleteSelected
+    ]
+
+    onMultiSelectCanceled: MessageActions.endMultiSelection()
+    onIsSearchModeChanged: MessageActions.resetMessageList()
     onSearchActivated: mboxSearch.search(searchString)
     onSearchCanceled: {
         pageHeader.searchInProgress = false;
         mboxSearch.cancelSearch()
     }
 
-    function openFolder(title, key) {
-        msgListPage.reset()
-        pageHeader.title = title
-        msgList.messageKey = key
-    }
-
-    function reset() {
-        listView.currentIndex = -1
-        listView.positionViewAtBeginning()
-        selectedIndex = 0
-    }
-
-    Action {
-        id: selectAllAction
-        iconSource: !msgList.canSelectAll ? Paths.actionIconUrl(Paths.NoneSelectedIcon) :
-                                            Paths.actionIconUrl(Paths.SelectIcon)
-        text: msgList.canSelectAll ? qsTr("Unselect all") : qsTr("Select all")
-        onTriggered: {
-            if (msgList.canSelectAll) {
-                msgList.selectAll();
-            } else {
-                msgList.unselectAll();
-            }
-        }
-    }
-
-    Action {
-        id: flagSelectedAction
-        iconSource: msgList.canMarkSelectionImportant ? Paths.actionIconUrl(Paths.StarredIcon) :
-                                                        Paths.actionIconUrl(Paths.UnStarredIcon)
-        text: msgList.canMarkSelectionImportant ? qsTr("Star") : qsTr("Remove star")
-        onTriggered: {
-            msgList.markSelectedMessagesImportant()
-        }
-    }
-
-    Action {
-        id: deleteSelectedAction
-        iconSource: Paths.actionIconUrl(Paths.DeleteIcon)
-        text: qsTr("Delete")
-        onTriggered: msgList.deleteSelectedMessages()
-    }
-
-    Action {
-        id: markSelectedAction
-        text: msgList.canMarkSelectionRead ? qsTr("Mark as un-read") : qsTr("Mark as read")
-        iconSource: !msgList.canMarkSelectionRead ? Paths.actionIconUrl(Paths.MailUnreadIcon) :
-                                                    Paths.actionIconUrl(Paths.MailReadIcon)
-        onTriggered: msgList.markSelectedMessagesRead()
-    }
-
-    Action {
-        id: drawerAction
-        iconName: "navigation-menu"
-        onTriggered: navDrawer.opened ? navDrawer.close() : navDrawer.open()
-    }
-
-    MessageList {
-        id: msgList
-        sortOrder: Qt.DescendingOrder
-        currentSelectedIndex: listView.currentIndex
-    }
-
     MailboxSearch {
         id: mboxSearch
-        messageKey: msgList.messageKey
+        messageKey: MailStore.msgListKey
         location: MailboxSearch.Local
         limit: 50
         sortBy: MailboxSearch.TimeStamp
@@ -148,44 +91,40 @@ DekkoPage {
     ListItem {
         id: undoNotification
         expansion.height: units.gu(6)
-        expansion.expanded: Client.service.hasUndoableAction
-        divider.visible: Client.service.hasUndoableAction
+        expansion.expanded: MailStore.hasUndoableActions
+        divider.visible: MailStore.hasUndoableActions
         height: 0
         anchors {
             left: parent.left
             top: pageHeader.bottom
             right: parent.right
         }
+        color: UbuntuColors.porcelain
 
         Label {
             anchors {
                 left: parent.left
-                leftMargin: units.gu(2)
+                leftMargin: Style.defaultSpacing
                 verticalCenter: parent.verticalCenter
             }
-            visible: Client.service.hasUndoableAction
-            text: Client.service.undoableActionDescription
+            visible: MailStore.hasUndoableActions
+            text: MailStore.undoableActionDescription
         }
 
         Button {
-            height: units.gu(4)
-            width: units.gu(8)
+            height: Style.largeSpacing
+            width: Style.largeSpacing * 2
             anchors {
                 right: parent.right
-                rightMargin: units.gu(2)
+                rightMargin: Style.defaultSpacing
                 verticalCenter: parent.verticalCenter
             }
             color: UbuntuColors.green
             action: Action {
                 text: "Undo"
-                onTriggered: Client.service.undoActions()
+                onTriggered: MessageActions.undoRecentActions()
             }
         }
-    }
-
-    // TODO: move to a singleton
-    Animations {
-        id: animations
     }
 
     ScrollView {
@@ -200,27 +139,19 @@ DekkoPage {
             id: listView
             property int selectionIndex: 0
 
-
-            Component {
-                id: highlightBar
-                Rectangle {
-                    color: Qt.rgba(0, 0, 0, 0.05)
-                }
-            }
-
             anchors.fill: parent
             clip: true
             currentIndex: -1
-            add: animations.listViewAddTransition
-            addDisplaced: animations.listViewAddDisplacedTransition
-            remove: animations.listViewRemoveTransition
-            removeDisplaced: animations.listViewRemoveDisplacedTransition
+            add: DekkoAnimation.listViewAddTransition
+            addDisplaced: DekkoAnimation.listViewAddDisplacedTransition
+            remove: DekkoAnimation.listViewRemoveTransition
+            removeDisplaced: DekkoAnimation.listViewRemoveDisplacedTransition
 
-            highlight: !dekko.viewState.isSmallFF ? highlightBar : null
+            highlight: !dekko.viewState.isSmallFF ? Style.highlightBar : null
             highlightFollowsCurrentItem: true
             highlightMoveDuration: 200
 
-            model: isSearchMode ? mboxSearch.results : msgList.model
+            model: isSearchMode ? mboxSearch.results : MailStore.msgListModel
             delegate: MessageListDelegate{
                 id: msgListDelegate
                 anchors {
@@ -235,18 +166,18 @@ DekkoPage {
                 leftSideAction: Action {
                     iconName: "delete"
                     onTriggered: {
-                        Client.deleteMessage(msgListDelegate.msg.messageId)
+                        MessageActions.deleteMessage(msgListDelegate.msg.messageId)
                     }
                 }
 
                 rightSideActions: [flagAction, readAction, contextAction]
 
                 onItemClicked: {
-                    if (msgList.isInSelectionMode) {
+                    if (MailStore.isInSelectionMode) {
                         if (msg.checked) {
-                            msgList.setChecked(model.index, Qt.Unchecked)
+                            MessageActions.setMessageCheck(model.index, Qt.Unchecked)
                         } else {
-                            msgList.setChecked(model.index, Qt.Checked)
+                            MessageActions.setMessageCheck(model.index, Qt.Checked)
                         }
                         return;
                     }
@@ -255,7 +186,7 @@ DekkoPage {
                         rightClickActions.trigger()
                         return;
                     }
-                    mailView.openMessage(msgListDelegate.msg.messageId)
+                    MessageActions.openMessage(msgListDelegate.msg.messageId)
                     listView.currentIndex = model.index
                 }
                 onItemPressAndHold: {
@@ -263,16 +194,19 @@ DekkoPage {
                     if (isSearchMode) {
                         return;
                     }
-                    if (!msgList.isInSelectionMode) {
+                    if (!MailStore.isInSelectionMode) {
                         listView.selectionIndex = model.index
-                        msgList.startSelection()
-                        msgList.setChecked(model.index, Qt.Checked);
+                        MessageActions.startMultiSelection()
+                        MessageActions.setMessageCheck(model.index, Qt.Checked)
                         msgListPage.startMultiSelect()
                     }
                 }
             }
-
-            footer: (!isSearchMode && msgList.model.count && msgList.canLoadMore) ? footerComponent : null
+            // canLoadMore will always be false when the list is empty so there
+            // isn't any need to add a binding on count/totalCount as that signal
+            // emits *very* often and really bogs down the UI. canPossiblyLoadMore will
+            // only get emitted after all the insertions/removals have completed for a query.
+            footer: (!isSearchMode && MailStore.canLoadMore) ? footerComponent : null
 
             Component {
                 id: footerComponent
@@ -281,27 +215,16 @@ DekkoPage {
                         anchors.centerIn: parent
                         text: qsTr("Load more messages ...")
                     }
-                    onClicked: msgList.loadMore()
+                    onClicked: MessageActions.showMoreMessages()
                 }
             }
         }
     }
 
-    Accounts {
-        id: accounts
-        // Here we only want the accounts that can receive messages
-        // i.e pop/imap
-        filter: Accounts.CanReceive
-    }
-
-    MessageFilterCollection {
-        id: standardFolders
-        filter: MessageFilterCollection.StandardFolders
-    }
-
-    MessageFilterCollection {
-        id: smartFolders
-        filter: MessageFilterCollection.SmartFolders
+    Binding {
+        target: MailStore.msgListModel;
+        property: "currentSelectedIndex";
+        value: listView.currentIndex
     }
 
     NavigationSettings {
@@ -310,15 +233,8 @@ DekkoPage {
 
     NavigationDrawer {
         id: navDrawer
-        signal msgKeySelected(string title, var key)
-        onMsgKeySelected: {
-            msgListPage.reset()
-            pageHeader.title = title
-            msgList.messageKey = key
-            delayClose()
-        }
         animate: true
-        width: units.gu(35)
+        width: Style.defaultPanelWidth
         state: "fixed"
         // make sure this overlays the page contents
         z: 1
@@ -327,10 +243,24 @@ DekkoPage {
             top: pageHeader.bottom
             bottom: parent.bottom
         }
-        panelModel: NavMenuModel{
-            onOpenFolder: {
-                mailView.openAccountFolder(accountName, accountId)
-                navDrawer.delayClose()
+        panelModel: NavMenuModel{}
+    }
+
+    AppListener {
+        Filter {
+            type: MessageKeys.resetMessageList
+            onDispatched: {
+                listView.currentIndex = -1
+                listView.positionViewAtBeginning()
+                selectedIndex = 0
+            }
+        }
+        Filter {
+            type: MessageKeys.openFolder
+            onDispatched: {
+                if (navDrawer.opened) {
+                    navDrawer.delayClose()
+                }
             }
         }
     }

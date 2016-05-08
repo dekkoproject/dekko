@@ -3,6 +3,8 @@ import Ubuntu.Components 1.3
 import Dekko.Components 1.0
 import "../utils/UiUtils.js" as UiUtils
 import "../components"
+import "../../actions/views"
+import "../../stores/mail"
 
 Flipable {
     id: flipable
@@ -61,18 +63,17 @@ Flipable {
             visible: flipable.state === "front"
             onClicked: {
                 if (flipable.state === "front") {
-                    internalStack.push({item: "qrc:///qml/views/ContactFilterView.qml", properties:
-                                       {
-                                           title: msg.from.name,
-                                           email: msg.from.address,
-                                           initials: msg.from.initials,
-                                           filterKey: msg.senderMsgKey
-                                       }
-                                       }
-                                       )
+                    ViewActions.pushToStageArea(ViewKeys.messageListStack, "qrc:///qml/views/ContactFilterView.qml",
+                                                {
+                                                    title: msg.from.name,
+                                                    email: msg.from.address,
+                                                    initials: msg.from.initials,
+                                                    filterKey: msg.senderMsgKey
+                                                }
+                                                )
                 }
             }
-            // For some weird reason we can't just bing
+            // For some weird reason we can't just bind
             // avatarCircle to containsMouse. As during
             // pushing and popping another page to the stack
             // can cause multiple avatars with the search overaly visible.
@@ -124,7 +125,7 @@ Flipable {
         axis.x: 0; axis.y: 1; axis.z: 0
     }
 
-    state: msgList.isInSelectionMode ? "back" : "front"
+    state: MailStore.isInSelectionMode ? "back" : "front"
 
     states: [
         State {

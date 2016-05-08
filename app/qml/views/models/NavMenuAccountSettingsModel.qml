@@ -1,6 +1,7 @@
 import QtQuick 2.4
 import QtQuick.Window 2.2
 import Ubuntu.Components 1.3
+import "../../actions/views"
 
 VisualItemModel {
     ListItem {
@@ -17,7 +18,7 @@ VisualItemModel {
             }
             ProgressionSlot{}
         }
-        onClicked: rootPageStack.push("qrc:/qml/views/setupwizard/SetupWizard.qml")
+        onClicked: ViewActions.runSetupWizard()
     }
     ListItem {
         height: displaySettingsLayout.implicitHeight

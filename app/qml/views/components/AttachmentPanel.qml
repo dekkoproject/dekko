@@ -1,6 +1,7 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Dekko.Components 1.0
+import "../../constants"
 
 Rectangle {
     id: attachmentPanel
@@ -20,14 +21,12 @@ Rectangle {
         onClicked: mouse.accepted = true
         onWheel: wheel.accepted = true
     }
-    Rectangle {
+    Line {
         anchors {
             left: parent.left
             right: parent.right
             top: parent.top
         }
-        height: units.dp(1)
-        color: UbuntuColors.lightGrey
     }
 
     ListItem {
@@ -43,11 +42,11 @@ Rectangle {
         CachedImage {
             id: ai
             name: Icons.AttachmentIcon
-            height: units.gu(2.5)
+            height: Style.defaultIconSize
             width: height
             anchors {
                 left: parent.left
-                leftMargin: units.gu(2)
+                leftMargin: Style.defaultSpacing
                 verticalCenter: parent.verticalCenter
             }
         }
@@ -56,7 +55,7 @@ Rectangle {
             id: l
             anchors {
                 left: ai.right
-                leftMargin: units.gu(1)
+                leftMargin: Style.smallSpacing
                 verticalCenter: parent.verticalCenter
             }
             text: qsTr("Attachments")
@@ -66,14 +65,14 @@ Rectangle {
             id: shape
             anchors {
                 left: l.right
-                leftMargin: units.gu(1)
+                leftMargin: Style.smallSpacing
                 verticalCenter: parent.verticalCenter
             }
 
             aspect: UbuntuShape.Flat
             color: UbuntuColors.porcelain
             height: units.gu(2.2)
-            width: countLable.width < height ? height : countLable.width + units.gu(1)
+            width: countLable.width < height ? height : countLable.width + Style.smallSpacing
             Label {
                 id: countLable
                 anchors.margins: units.gu(0.5)
@@ -88,12 +87,12 @@ Rectangle {
             name: "up"
             anchors {
                 right: parent.right
-                rightMargin: units.gu(2)
+                rightMargin: Style.defaultSpacing
                 verticalCenter: parent.verticalCenter
             }
             color: UbuntuColors.ash
-            rotation: attachmentsPanel.expanded ? 180 : 0
-            height: units.gu(2); width: height
+            rotation: attachmentPanel.expanded ? 180 : 0
+            height: Style.defaultSpacing; width: height
             state: attachmentPanel.expanded ? "rotated" : "normal"
             states: [
                 State {
@@ -162,7 +161,7 @@ Rectangle {
                             Icon {
                                 name: attachment.mimeTypeIcon
                                 color: "#888888"
-                                height: units.gu(4); width: height
+                                height: Style.largeSpacing; width: height
                                 SlotsLayout.position: SlotsLayout.Leading
                             }
                             ActivityIndicator {
@@ -171,12 +170,12 @@ Rectangle {
                             }
 
                             CachedImage {
-                                height: units.gu(2)
+                                height: Style.defaultSpacing
                                 width: height
                                 name: Icons.ContextMenuIcon
                                 AbstractButton {
                                     anchors.fill: parent
-                                    onClicked: dekko.showNotice("Not implemented. Fix before release")
+                                    onClicked: PopupActions.showNotice("Not implemented. Fix before release")
                                 }
                             }
                         }

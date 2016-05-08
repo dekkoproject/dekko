@@ -3,8 +3,9 @@ import QtQuick 2.4
 import QuickFlux 1.0
 import Dekko.Accounts 1.0
 import Dekko.AutoConfig 1.0
-import "../actions"
-import "../views/utils/QtCoreAPI.js" as QtCoreAPI
+import "../../actions/wizard"
+import "../../actions/logging"
+import "../../views/utils/QtCoreAPI.js" as QtCoreAPI
 
 AppListener {
     id: accountSetup
@@ -32,7 +33,7 @@ AppListener {
     }
 
     Filter {
-        type: ActionTypes.setNewAccountType
+        type: WizardKeys.setNewAccountType
         onDispatched: {
             d.accountDescripion = message.description
             var type = message.type
@@ -51,7 +52,7 @@ AppListener {
         }
     }
     Filter {
-        type: ActionTypes.setUserDetails
+        type: WizardKeys.setUserDetails
         onDispatched: {
             var details = message.details
             // Name is username for imap/pop
@@ -62,13 +63,13 @@ AppListener {
             account.outgoing.email = details.email
             account.outgoing.username = details.email
             account.outgoing.password = details.password
-            DekkoActions.logInfo("AccountSetup::setUserDetails: ", "name: %1, email: %2".arg(details.name).arg(details.email))
+            Log.logInfo("AccountSetup::setUserDetails: ", "name: %1, email: %2".arg(details.name).arg(details.email))
             accountSetup.userDetailsSet()
         }
     }
 
     Filter {
-        type: ActionTypes.validateUser
+        type: WizardKeys.validateUser
         onDispatched: {
             var user = message.user
             var valid = true
@@ -83,26 +84,26 @@ AppListener {
             }
             if (!valid) {
                 //we want to signal this first as the user may want an empty password field
-                DekkoActions.userDetailsInvalid(invalidField)
+                WizardActions.userDetailsInvalid(invalidField)
             } else if (!d.allowEmptyPassword && user.password.isEmpty()) {
             // if the password is empty and the user hasn't confirmed it then
             // We have to prompt for them to allow it.
-                DekkoActions.noPasswordSet()
+                WizardActions.noPasswordSet()
             } else {
-                DekkoActions.userDetailsValid()
+                WizardActions.userDetailsValid()
             }
         }
     }
 
     Filter {
-        type: ActionTypes.setNoPasswordAllowed
+        type: WizardKeys.setNoPasswordAllowed
         onDispatched: {
             d.allowEmptyPassword = true
         }
     }
 
     Filter {
-        type: ActionTypes.wizardStepBack
+        type: WizardKeys.wizardStepBack
         onDispatched: {
             // We don't actually want to do anything here
             // as we need to be sure the wizardStepBack listener on the StackView
@@ -111,17 +112,17 @@ AppListener {
         }
     }
     Filter {
-        type: ActionTypes.wizardStepForward
+        type: WizardKeys.wizardStepForward
         onDispatched: {
             accountSetup.goNext()
         }
     }
 
     Filter {
-        type: ActionTypes.wizardResetAccount
+        type: WizardKeys.wizardResetAccount
         onDispatched: {
             // TODO: reset account
-            DekkoActions.logError("AccountSetup::resetAccount", "FIXME: implement account reset")
+            Log.logError("AccountSetup::resetAccount", "FIXME: implement account reset")
             d.isPresetAccount = false
             d.isImapAccount = false
             d.isPopAccount = false
@@ -131,14 +132,14 @@ AppListener {
     }
 
     Filter {
-        type: ActionTypes.wizardSetAccountPreset
+        type: WizardKeys.wizardSetAccountPreset
         onDispatched: {
             var cfg = message.config
             if (cfg.type !== Provider.PRESET) {
-                DekkoActions.logError("AccountSetup::wizardSetPreset", "Passed config not of type Provider.PRESET. Aborting...")
+                Log.logError("AccountSetup::wizardSetPreset", "Passed config not of type Provider.PRESET. Aborting...")
                 return
             }
-            DekkoActions.logInfo("AccountSetup::wizardSetPreset", "ImapHost: %1, Port: %2".arg(cfg.imapHost).arg(cfg.imapPort))
+            Log.logInfo("AccountSetup::wizardSetPreset", "ImapHost: %1, Port: %2".arg(cfg.imapHost).arg(cfg.imapPort))
             account.incoming.server = cfg.imapHost
             account.incoming.port = cfg.imapPort
             account.incoming.encryption = d.getPresetEncryptionMethod(cfg.imapStartTLS, cfg.imapUseSSL)
@@ -151,7 +152,7 @@ AppListener {
         }
     }
     // We don't expose any utility functions or properties, as developers
-    // should use the DekkoActions api for dispatching actions.
+    // should dispatch actions via the actions api's.
     QtObject {
         id: d
         property bool isImapAccount: false

@@ -26,6 +26,12 @@ Panel {
     property alias panelModel: topListView.model
     property alias topListViewHandle: topListView
 
+    property Action action: Action {
+        id: drawerAction
+        iconName: "navigation-menu"
+        onTriggered: accountsDrawer.opened ? accountsDrawer.close() : accountsDrawer.open()
+    }
+
     property int maxHeight
 
     function delayClose() {
@@ -81,19 +87,7 @@ Panel {
         anchors.fill: parent
         color: "#ffffff"
     }
-    Rectangle {
-        id: btmshadow
-        anchors {
-            left: parent.left
-            right: parent.right
-            top: parent.bottom
-        }
-        height: units.gu(0.8)
-        gradient: Gradient {
-            GradientStop { position: 0.0; color: Qt.rgba(0, 0, 0, 0.1) }
-            GradientStop { position: 1.0; color: "transparent" }
-        }
-    }
+
     InverseMouseArea {
         anchors.fill: parent
         acceptedButtons: Qt.LeftButton
@@ -106,8 +100,7 @@ Panel {
         id: sideShadow
         anchors {
             left: parent.right
-            bottom: btmshadow.bottom
-            bottomMargin: units.gu(0.3)
+            bottom: parent.bottom
             top: parent.top
         }
         width: units.gu(0.8)

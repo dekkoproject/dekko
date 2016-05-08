@@ -26,7 +26,7 @@ class MessageList : public QObject
     Q_PROPERTY(FilterKey filter READ filterKey WRITE setFilterKey NOTIFY filterKeyChanged)
     /** @short Total count - this is the total available message count and not this models count as we have a limit */
     Q_PROPERTY(int totalCount READ totalCount NOTIFY totalCountChanged)
-    Q_PROPERTY(bool canLoadMore READ canLoadMore NOTIFY totalCountChanged)
+    Q_PROPERTY(bool canLoadMore READ canLoadMore NOTIFY canPossiblyLoadMore)
     Q_PROPERTY(int currentSelectedIndex READ currentSelectedIndex WRITE setCurrentSelectedIndex NOTIFY currentSelectedIndexChanged)
 //    /** @short unread count for this messagekey */
 //    Q_PROPERTY(int unreadCount READ unreadCount NOTIFY unreadCountChanged)
@@ -76,6 +76,7 @@ public:
 
 signals:
     void totalCountChanged();
+    void canPossiblyLoadMore();
     void modelChanged();
     void limitChanged(int limit);
     void messageKeyChanged();

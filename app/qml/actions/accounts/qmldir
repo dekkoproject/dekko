@@ -1,0 +1,2 @@
+singleton AccountKeys 1.0 AccountKeys.qml
+singleton AccountActions 1.0 AccountActions.qml

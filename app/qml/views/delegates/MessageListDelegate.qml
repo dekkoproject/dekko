@@ -23,6 +23,7 @@ import Dekko.Mail 1.0
 import Dekko.Components 1.0
 import "../components"
 import "../popovers"
+import "../../actions/messaging"
 
 ListItemWithActions {
     id: normalMessageItemDelegate
@@ -39,7 +40,7 @@ ListItemWithActions {
         iconSource: msg && msg.isImportant ? Paths.actionIconUrl(Paths.UnStarredIcon) :
                                              Paths.actionIconUrl(Paths.StarredIcon)
 
-        onTriggered: Client.markMessageImportant(msg.messageId, !msg.isImportant)
+        onTriggered: MessageActions.markMessageImportant(msg.messageId, !msg.isImportant)
     }
 
     property Action readAction: Action {
@@ -60,15 +61,14 @@ ListItemWithActions {
         iconName: "contextual-menu"
     }
 
-    //---------------------------------
-    // SIGNALS
-    //---------------------------------
-    signal markMessageDeleted()
-    signal markMessageFlagged()
-
-    //---------------------------------
-    // FUNCTIONS
-    //---------------------------------
+    property Action rightClickActions: Action {
+        id: rightClick
+        onTriggered: PopupUtils.open(Qt.resolvedUrl("../popovers/MessageListActionPopover.qml"),
+                                     msgListDelegate,
+                                     {
+                                         msg: normalMessageItemDelegate.msg
+                                     })
+    }
 
     //---------------------------------
     // OBJECT PROPERTIES
@@ -82,13 +82,6 @@ ListItemWithActions {
     //---------------------------------
     ListItemLayout {
         id: main
-        property alias infoCol: inner_infoCol
-        property alias fromLabel: main.title
-        //property alias avatar: inner_avatar
-        property alias previewTextLabel: main.summary
-        property alias subjectLabel: main.subtitle
-        property alias timeLabel: inner_timeLabel
-
         title.text: msg ? msg.from.name : ""
         title.font.bold: msg && !msg.isRead
         title.fontSize: "x-small"
@@ -149,7 +142,7 @@ ListItemWithActions {
                 color: msg && msg.isImportant ? "#f0e442" : "#888888"
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: Client.markMessageImportant(msg.messageId, !msg.isImportant)
+                    onClicked: MessageActions.markMessageImportant(msg.messageId, !msg.isImportant)
                 }
             }
 
@@ -168,90 +161,5 @@ ListItemWithActions {
                 color: UbuntuColors.ash
             }
         }
-    }
-
-//    property Action deleteAction: Action {
-//        id: deleteAction
-//        iconName: "delete"
-//        text: qsTr("Delete");
-//        onTriggered: {
-//            delegate.markMessageDeleted()
-//        }
-//    }
-//    property Action flagAction: Action {
-//        id: flagAction
-//        text: model.isMarkedFlagged ? qsTr("Un-mark flagged") : qsTr("Mark flagged")
-//        iconName: model.isMarkedFlagged ? "non-starred" : "starred"
-
-//        onTriggered: mailboxUtils.markMessageAsFlagged(mailboxUtils.deproxifiedIndex(root.model.modelIndex(model.index)),
-//                                                       !model.isMarkedFlagged)
-//    }
-//    property Action readAction: Action {
-//        id: markReadAction
-//        text: model.isMarkedRead ? qsTr("Mark as un-read") : qsTr("Mark as read")
-//        iconSource: model.isMarkedRead ? "qrc:///actions/mail-unread.svg" : "qrc:///actions/mail-read.svg"
-
-//        onTriggered:mailboxUtils.markMessageAsRead(
-//                        mailboxUtils.deproxifiedIndex(
-//                            root.model.modelIndex(
-//                                (model.index))),
-//                        !isMarkedRead);
-//    }
-
-//    property Action replyAction: Action {
-//        id: reply
-//        text: qsTr("Reply")
-//        onTriggered: {
-//            mainStage.replyToMessagePart(ReplyMode.REPLY_PRIVATE, mailboxUtils.deproxifiedIndex(root.model.modelIndex(model.index)))
-//        }
-//    }
-//    property Action replyAllAction: Action {
-//        id: replyAll
-//        text: qsTr("Reply all")
-//        onTriggered: {
-//            mainStage.replyToMessagePart(ReplyMode.REPLY_ALL, mailboxUtils.deproxifiedIndex(root.model.modelIndex(model.index)))
-//        }
-//    }
-
-//    property Action forwardAction: Action {
-//        id: forward
-//        text: qsTr("Forward")
-//        onTriggered: {
-//            mainStage.replyToMessagePart(ReplyMode.REPLY_FORWARD, mailboxUtils.deproxifiedIndex(root.model.modelIndex(model.index)))
-//        }
-//    }
-//    property Action moveAction: Action {
-//        id: moveMessageAction
-//        text: qsTr("Move message to...")
-//        onTriggered: {
-//            // Rather annoyingly we can't call the *actual" action here as the caller get's destroyed
-//            // after this is called so the MoveActionDialog turns unresponsive as a result of this.
-//            console.log("[MoveMessageAction] [STATUS] Triggered")
-//            root.moveMessage(model.messageUid)
-//        }
-//    }
-//    property Action extrasAction: Action {
-//        id: extras
-//        iconName: "add"
-//        onTriggered: PopupUtils.open(Qt.resolvedUrl("./MessageListActionPopover.qml"),
-//                                     delegate,
-//                                     {
-//                                         mboxName: messageListPage.mailBox,
-//                                         uid: model.messageUid,
-//                                         actions: [
-//                                             replyAction,
-//                                             replyAllAction,
-//                                             forwardAction,
-//                                             moveAction
-//                                         ]
-//                                     })
-//    }
-    property Action rightClickActions: Action {
-        id: rightClick
-        onTriggered: PopupUtils.open(Qt.resolvedUrl("../popovers/MessageListActionPopover.qml"),
-                                     msgListDelegate,
-                                     {
-                                         msg: normalMessageItemDelegate.msg
-                                     })
     }
 }
