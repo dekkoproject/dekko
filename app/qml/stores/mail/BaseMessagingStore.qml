@@ -5,9 +5,7 @@ import "../../actions/messaging"
 
 AppListener {
     id: baseStore
-
     property bool hasUndoableActions: Client.service.hasUndoableAction
     property string undoableActionDescription: Client.service.undoableActionDescription
-
 }
 
