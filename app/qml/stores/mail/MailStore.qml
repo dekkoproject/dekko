@@ -20,6 +20,7 @@ BaseMessagingStore {
     property alias canLoadMore: msgList.canLoadMore
     property alias msgListKey: msgList.messageKey
     property alias msgListModel: msgList.model
+    property alias currentSelectedIndex: msgList.currentSelectedIndex
 
     property alias folderTitle: d.currentFolderName
 

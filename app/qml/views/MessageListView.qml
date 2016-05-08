@@ -222,7 +222,7 @@ DekkoPage {
     }
 
     Binding {
-        target: MailStore.msgListModel;
+        target: MailStore;
         property: "currentSelectedIndex";
         value: listView.currentIndex
     }
