@@ -11,6 +11,9 @@ QtObject {
     // Used by line component.
     readonly property int lineSize: units.dp(1)
     readonly property color lineColor: UbuntuColors.lightGrey
+    readonly property color selectedHighlight: UbuntuColors.blue
+    readonly property color windowColor: "#FFFFFF"
+    property color colorDumb : "#FF00FF"; // magenta
 
     readonly property int defaultIconSize: units.gu(2.5)
     readonly property int largeIconSize: units.gu(3.5)
@@ -18,8 +21,29 @@ QtObject {
 
     readonly property int defaultPanelWidth: units.gu(35)
 
-    property Rectangle highlightBar: Rectangle {
-        color: Qt.rgba(0, 0, 0, 0.05)
+    property Component highlightBar: Component {
+        Rectangle {
+            color: Qt.rgba(0, 0, 0, 0.05)
+        }
+    }
+
+    property Item _garbage_ : Item { }
+    property Component templateGradientShaded : Component {
+        Gradient {
+            id: autogradient;
+
+            property color baseColorTop    : colorDumb;
+            property color baseColorBottom : colorDumb;
+
+            GradientStop { color: autogradient.baseColorTop;    position: 0.0; }
+            GradientStop { color: autogradient.baseColorBottom; position: 1.0; }
+        }
+    }
+    function gradientShaded (baseColorTop, baseColorBottom) {
+        return templateGradientShaded.createObject (_garbage_, {
+                                                        "baseColorTop"    : (baseColorTop    || selectedHighlight),
+                                                        "baseColorBottom" : (baseColorBottom || windowColor),
+                                                    });
     }
 }
 

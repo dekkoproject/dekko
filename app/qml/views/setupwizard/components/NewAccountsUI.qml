@@ -4,7 +4,7 @@ import Dekko.Accounts 1.0
 import Dekko.Components 1.0
 import QuickFlux 1.0
 import "../../components"
-import "../../../stores"
+import "../../../stores/accounts"
 import "../../../actions/logging"
 import "../../../actions/wizard"
 

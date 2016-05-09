@@ -2,7 +2,7 @@ import QtQuick 2.4
 import QtQml.StateMachine 1.0 as DSM
 import "../../../actions/logging"
 import "../../../actions/wizard"
-import "../../../stores"
+import "../../../stores/accounts"
 
 DSM.State {
     id: userInputState
@@ -26,6 +26,7 @@ DSM.State {
         id: nextTargetState
         signal: AccountSetup.goNext
     }
+
     DSM.SignalTransition {
         id: finishedTransition
         signal: AccountSetup.goBack

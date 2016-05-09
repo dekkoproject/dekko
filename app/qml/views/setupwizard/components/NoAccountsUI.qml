@@ -3,7 +3,7 @@ import QtGraphicalEffects 1.0
 import Ubuntu.Components 1.3
 import Dekko.Components 1.0
 import "../../components"
-import "../../../stores"
+import "../../../stores/accounts"
 
 DekkoPage {
     id: noAccounts

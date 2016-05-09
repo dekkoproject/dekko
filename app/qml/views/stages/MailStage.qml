@@ -68,10 +68,6 @@ BaseStage {
                 anchors.fill: parent
                 baseUrl: "qrc:/qml/views/MessageListView.qml"
                 function rewind() {
-//                    while (stackCount !== 1) {
-//                        Log.logInfo("MailStage::openFolder", "Popping page")
-//                        ViewActions.popStageArea(ViewKeys.messageListStack)
-//                    }
                     if (stackCount > 1) {
                         while (stackCount !== 1) {
                             pop()
@@ -131,14 +127,10 @@ BaseStage {
             type: MessageKeys.rewindMessageListStack
             onDispatched: {
                 // Listen for a new folder opening and pop the stack
-                // until wee get to the msglist. MailStore is also listening on this and will take
+                // until we get to the msglist. MailStore is also listening on this and will take
                 // care of actually opening the folder.
                 Log.logInfo("MailStage::openFolder", "Checking stack count")
                 msgListStage.rewind()
-//                if (msgListStage.stackCount > 1) {
-//                    Log.logInfo("MailStage::openFolder", "Popping the stack to show msg list")
-//                    msgListStage.rewind()
-//                }
             }
         }
 

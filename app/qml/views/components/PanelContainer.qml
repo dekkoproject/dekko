@@ -2,7 +2,6 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import "../../constants"
 
-// Panel container has multiple uses. It can be used as:
 Item {
     id: panel
     width: implicitWidth;
@@ -72,13 +71,22 @@ Item {
         property int originalSize : 0;
         property point originalPos : Qt.point(0,0);
 
-        //        Rectangle {
-        //            id: grip;
-        //            gradient: (handle.pressed
-        //                       ? Style.gradientShaded (Style.colorHighlight, Style.colorNone)
-        //                       : Style.gradientShaded (Style.colorClickable, Style.colorNone));
-        //            anchors.centerIn: parent;
-        //        }
+        HorizontalGradiant {
+            id: sideShadow
+            visible: grabber.pressed
+            anchors {
+                right: parent.right
+            }
+            rightToLeft: true
+            height: parent.height
+            z: 1
+            opacity: 0.7
+            width: units.gu(0.5)
+            gradient: Gradient {
+                GradientStop { position: 0.0; color: UbuntuColors.blue }
+                GradientStop { position: 1.0; color: "transparent" }
+            }
+        }
     }
 
     Line {
@@ -111,7 +119,7 @@ Item {
             }
             PropertyChanges {
                 target: grabber;
-                width: Style.defaultSpacing;
+                width: units.gu(0.5);
                 cursorShape: Qt.SizeHorCursor;
             }
             AnchorChanges {
@@ -138,7 +146,7 @@ Item {
             }
             PropertyChanges {
                 target: grabber;
-                width: Style.defaultSpacing;
+                width: units.gu(0.5);
                 cursorShape: Qt.SizeHorCursor;
             }
             AnchorChanges {
@@ -165,7 +173,7 @@ Item {
             }
             PropertyChanges {
                 target: grabber;
-                height: Style.defaultSpacing;
+                height: units.gu(0.5);
                 cursorShape: Qt.SizeVerCursor;
             }
             AnchorChanges {
@@ -192,7 +200,7 @@ Item {
             }
             PropertyChanges {
                 target: grabber;
-                height: Style.defaultSpacing;
+                height: units.gu(0.5);
                 cursorShape: Qt.SizeVerCursor;
             }
             AnchorChanges {

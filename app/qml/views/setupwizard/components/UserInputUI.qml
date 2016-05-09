@@ -5,7 +5,7 @@ import "../../components"
 import "../../../actions/logging"
 import "../../../actions/wizard"
 import "../../../actions/popups"
-import "../../../stores"
+import "../../../stores/accounts"
 
 DekkoPage {
     objectName: "userInputUI"
