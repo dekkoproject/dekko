@@ -1,0 +1,2 @@
+singleton ComposerKeys 1.0 ComposerKeys.qml
+singleton ComposerActions 1.0 ComposerActions.qml

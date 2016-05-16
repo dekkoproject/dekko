@@ -1,12 +1,14 @@
 import QtQuick 2.4
+import QtQuick.Window 2.2
 import Ubuntu.Components 1.3
+import Dekko.Components 1.0
 import "../../constants"
 
 Item {
     id: panel
     width: implicitWidth;
     height: implicitHeight;
-//    visible: !detached;
+    //    visible: !detached;
     implicitWidth: (!d.shouldStretch ? size : -1);
     implicitHeight: (!d.shouldStretch ? size : -1);
     // Which edge should have the resizable mouse area etc
@@ -25,6 +27,7 @@ Item {
     property bool stretchOnSmallFF: false
     readonly property bool expanded: !d.collapsed
     default property alias content: internal.data
+    property alias container: internal
 
     Item {
         id: container;
@@ -94,6 +97,37 @@ Item {
         visible: grabber.visible
     }
 
+    function detach () {
+        if (d.subWindow === null) {
+            var rootItem = Introspector.window (panel);
+            var abspos = rootItem.contentItem.mapFromItem (panel, 0 , 0);
+            d.subWindow = compoWindow.createObject(Introspector.window (panel), {
+                                                       "x" : (abspos.x + rootItem.x),
+                                                       "y" : (abspos.y + rootItem.y),
+                                                   });
+            panel.parent = d.subWindow.contentItem;
+        }
+    }
+
+    function attach () {
+        if (d.subWindow !== null) {
+            panel.parent = internal;
+            d.subWindow.destroy ();
+        }
+    }
+    Component {
+        id: compoWindow;
+
+        Window {
+//            color: rect.color;
+            title: "Dev Stuff"
+            width: internal.width;
+            height: internal.height;
+            visible: true;
+            onClosing: { attach (); }
+        }
+    }
+
     QtObject {
         id: d
         property bool collapsed: false
@@ -102,6 +136,7 @@ Item {
         readonly property bool dockedRight: activeEdge === Item.Left
         readonly property bool dockedBottom: activeEdge === Item.Top
         readonly property bool dockedTop: activeEdge === Item.Bottom
+        property Window subWindow : null
     }
 
     states: [

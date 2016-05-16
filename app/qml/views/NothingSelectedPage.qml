@@ -3,11 +3,18 @@ import Ubuntu.Components 1.3
 import Dekko.Components 1.0
 import "./components"
 import "../constants"
+import "./composer"
 
 DekkoPage {
     id: nowtSelected
 
     extendHeader: true
+
+    bottomEdgeConfig: BottomEdgeComposer {
+        hintVisible: false // we don't need a hint in this view
+        enabled: true
+        canActionTrigger: dekko.viewState.isMediumFF
+    }
 
 
     CachedImage {

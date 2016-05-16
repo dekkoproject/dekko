@@ -24,5 +24,8 @@
         <file>wizard/qmldir</file>
         <file>wizard/WizardActions.qml</file>
         <file>wizard/WizardKeys.qml</file>
+        <file>composer/ComposerActions.qml</file>
+        <file>composer/ComposerKeys.qml</file>
+        <file>composer/qmldir</file>
     </qresource>
 </RCC>

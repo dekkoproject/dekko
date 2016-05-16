@@ -10,6 +10,7 @@
 class ClientServiceAction : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QString description READ description CONSTANT)
 public:
     explicit ClientServiceAction(QObject *parent = 0) : QObject(parent)
     {

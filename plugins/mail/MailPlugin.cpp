@@ -9,6 +9,8 @@
 #include "MessageSet.h"
 #include "MessageList.h"
 #include "MailboxSearch.h"
+#include "qmlenums.h"
+#include "SenderIdentities.h"
 
 void MailPlugin::registerTypes(const char *uri)
 {
@@ -21,11 +23,13 @@ void MailPlugin::registerTypes(const char *uri)
     qmlRegisterType<MinimalMessage>(uri, 1, 0, "MinimalMessage");
     qmlRegisterType<Message>(uri, 1, 0, "Message");
     qmlRegisterType<MailboxSearch>(uri, 1, 0, "MailboxSearch");
+    qmlRegisterType<SenderIdentities>(uri, 1, 0, "SenderIdentities");
     qmlRegisterUncreatableType<MessageSet>(uri, 1, 0, "MessageSet", "Cannot create MessageSet from QML, c++ only chap!");
     qmlRegisterUncreatableType<StandardFolderSet>(uri, 1, 0, "StandardFolderSet", "Cannot create MessageSet from QML, c++ only chap!");
     qmlRegisterUncreatableType<SmartFolderSet>(uri, 1, 0, "SmartFolderSet", "Cannot create SmartFolderSet from QML, c++ only chap!");
     qmlRegisterUncreatableType<SearchService>(uri, 1, 0, "SearchService", "Cannot create SearchService from QML, c++ only chap!");
     qmlRegisterSingletonType<Client>(uri, 1, 0, "Client", Client::factory);
+    qmlRegisterUncreatableType<RecipientType>(uri, 1, 0, "RecipientType", "Cannot create an instance in QML");
 }
 
 void MailPlugin::initializeEngine(QQmlEngine *engine, const char *uri)

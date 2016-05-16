@@ -36,20 +36,11 @@ Item {
         color: "#ffffff"
     }
 
-//    Connections {
-//        target: dekko.accountsManager
-//        onCurrentAccountChanged: {
-//            row.currentIndex = 0
-//            row.positionViewAtIndex(0, ListView.Visible )
-//        }
-//    }
-
     ListView {
         id: row
         anchors {
             fill: parent
             leftMargin: units.gu(2)
-//            rightMargin: units.gu(2)
         }
         highlightFollowsCurrentItem: true
         clip: true
@@ -60,8 +51,17 @@ Item {
         currentIndex: 0
         model: filterSections
         delegate: AbstractButton {
+            id: d
             width: label.implicitWidth + units.gu(3.5)
             height: parent.height
+            Rectangle {
+                anchors {
+                    fill: parent
+                }
+                color: UbuntuColors.silk
+                visible: d.pressed
+            }
+
             Label {
                 id: label
                 text: modelData

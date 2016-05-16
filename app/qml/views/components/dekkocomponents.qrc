@@ -23,5 +23,9 @@
         <file>UbuntuShapeGravatar.qml</file>
         <file>PanelContainer.qml</file>
         <file>Line.qml</file>
+        <file>PageContent.qml</file>
+        <file>BottomEdgeConfiguration.qml</file>
+        <file>DrawerConfiguration.qml</file>
+        <file>TitledHeaderButton.qml</file>
     </qresource>
 </RCC>

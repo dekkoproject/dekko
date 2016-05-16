@@ -32,7 +32,6 @@ signals:
     void addrDataChanged();
 
 public slots:
-
     void setAddress(const QMailAddress &address);
 
 private:

@@ -73,6 +73,9 @@ public:
     /** @short Is this account enabled and can be used */
     bool enabled() const { return m_account->status() & QMailAccount::Enabled; }
 
+    /** @short Is this account the preferred sending account **/
+    bool isPreferredSender() const { return m_account->status() & QMailAccount::PreferredSender; }
+
     /** @short Get QMailFolderId for SpecialUseFolder */
     Q_INVOKABLE quint64 specialUseFolder(SpecialUseFolder folder)
     {

@@ -21,6 +21,8 @@ QtObject {
 
     readonly property int defaultPanelWidth: units.gu(35)
 
+    readonly property color devPanelBackground: "#212121"
+
     property Component highlightBar: Component {
         Rectangle {
             color: Qt.rgba(0, 0, 0, 0.05)

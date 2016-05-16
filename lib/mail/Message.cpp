@@ -216,9 +216,7 @@ QUrl Message::findInterestingBodyPart(const QMailMessageId &id, const bool prefe
     QString location;
     QUrl url;
 
-//    qDebug() << __func__ << "Part count: " << msg.partCount();
     if (msg.multipartType() == QMailMessage::MultipartNone) {
-//        qDebug() << __func__ << "MultipartNone";
         isPlainText = (msg.body().contentType().content() == QByteArrayLiteral("text/plain"));
         url.setScheme(QStringLiteral("dekko-msg"));
     } else {
@@ -226,14 +224,12 @@ QUrl Message::findInterestingBodyPart(const QMailMessageId &id, const bool prefe
         if (!preferPlainText && msg.hasHtmlBody()) {
             QMailMessagePartContainer *html = msg.findHtmlContainer();
             if (html) {
-//                qDebug() << __func__ << "Html container found";
                 part = static_cast<QMailMessagePart *>(html);
             }
         }
         if (!part || preferPlainText) {
             QMailMessagePartContainer *ptext = msg.findPlainTextContainer();
             if (ptext) {
-//                qDebug() << __func__ << "Plain text part found";
                 part = static_cast<QMailMessagePart *>(ptext);
                 isPlainText = true;
             }

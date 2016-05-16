@@ -14,12 +14,14 @@ KeyTable {
     // messagelistview
     property string openNavDrawer
     property string closeNavDrawer
+    property string toggleNavDrawer
     property string expandNavPanel
     property string collapseNavPanel
 
     property string positionMessageListAtStart
     property string openMessageComposer
     property string closeMessageComposer
+    property string replyToOpenMessage
     property string detachComposer
     property string attachComposer
 
@@ -30,6 +32,10 @@ KeyTable {
     property string replaceTopStageAreaItem
     property string popStageArea
     property string clearStageArea
+
+    // Compose panel API
+    property string openComposer
+    property string setComposePanelSource
     // These are not actions as such but keys for the stagearea's
     // They are used to determine which StackView we are pushing a page to
     // via pushToStage(stackID, ....)

@@ -5,6 +5,7 @@ find_package(Qt5Svg 5.4 REQUIRED)
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_SOURCE_DIR}/plugins/shared
+    ${SUPER_MACRO_INCLUDES}
 )
 
 set(AccountsPlugin_SRCS
@@ -13,7 +14,8 @@ set(AccountsPlugin_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/StretchColumn.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/StretchRow.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Stretcher.h
-
+    ${CMAKE_CURRENT_SOURCE_DIR}/LogRecorder.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Introspector.cpp
 )
 
 add_library(componentsplugin MODULE ${AccountsPlugin_SRCS})

@@ -8,8 +8,9 @@ Item {
     readonly property real gu40: units.gu(40)
     readonly property real gu50: units.gu(50)
     readonly property real gu90: units.gu(90)
-    readonly property real gu130: units.gu(130) // gu90 + gu40
-    readonly property real gu140: units.gu(140) // gu90 + gu50
+    // These 2 aren't the exact values but 5gu less as it looks a little better
+    readonly property real gu130: units.gu(125) // gu90 + gu40
+    readonly property real gu140: units.gu(135) // gu90 + gu50
     readonly property bool isSmallFF: state === "small"
     readonly property bool isMediumFF: state === "medium"
     readonly property bool isLargeFF: state === "large"

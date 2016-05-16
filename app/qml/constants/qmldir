@@ -1,2 +1,3 @@
 singleton Style 1.0 Style.qml
 singleton DekkoAnimation 1.0 DekkoAnimation.qml
+singleton MailUtils 1.0 MailUtils.qml

@@ -6,6 +6,8 @@
 #include "StretchColumn.h"
 #include "StretchRow.h"
 #include "Stretcher.h"
+#include "LogRecorder.h"
+#include "Introspector.h"
 #include <Paths.h>
 
 void ComponentsPlugin::registerTypes(const char *uri)
@@ -18,6 +20,8 @@ void ComponentsPlugin::registerTypes(const char *uri)
     qmlRegisterType<Stretcher>(uri, 1, 0, "Stretcher");
     qmlRegisterUncreatableType<Paths>(uri, 1, 0, "Icons", "Cannot be created in QML. THis is just for access the Icons enums");
     qmlRegisterSingletonType<Paths>(uri, 1, 0, "Paths", Paths::factory);
+    qmlRegisterSingletonType<LogRecorder>(uri, 1, 0, "LogRecorder", LogRecorder::factory);
+    qmlRegisterSingletonType<Introspector>(uri, 1, 0, "Introspector", Introspector::qmlSingletonProvider);
 }
 
 void ComponentsPlugin::initializeEngine(QQmlEngine *engine, const char *uri)

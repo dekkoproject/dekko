@@ -13,7 +13,7 @@ Item {
 
     property var msg
 
-    height: dekko.viewState.isSmallFF ? units.gu(7) : units.gu(10.075)
+    height: dekko.viewState.isSmallFF ? units.gu(6) : units.gu(9.075)
     anchors {
         left: parent.left
         right: parent.right
@@ -26,11 +26,12 @@ Item {
         id: inner_button
         anchors {
             top: parent.top
-            topMargin: Style.smallSpacing
             left: parent.left
         }
         visible: showBack
-        width: showBack ? units.gu(5) : 0
+
+        height: units.gu(6)
+        width: showBack ? units.gu(4.5) : 0
         action: Action {
             iconName: "back"
             onTriggered: {
@@ -46,7 +47,7 @@ Item {
             left: inner_button.right
             leftMargin: showBack ? 0 : Style.defaultSpacing
             top: parent.top
-            topMargin: Style.defaultSpacing
+            topMargin: units.gu(1.5)
             right: starButton.left
             rightMargin: Style.smallSpacing
         }
@@ -82,8 +83,9 @@ Item {
         anchors {
             right: deleteButton.left
             top: parent.top
-            topMargin: Style.smallSpacing
         }
+        height: units.gu(6)
+        width: units.gu(4.5)
         iconSize: units.gu(2.25)
         iconColor: msg.isImportant ? "#f0e442" : "#888888"
         action: Action {
@@ -98,8 +100,9 @@ Item {
             right: parent.right
             rightMargin: Style.smallSpacing
             top: parent.top
-            topMargin: Style.smallSpacing
         }
+        height: units.gu(6)
+        width: units.gu(4.5)
         iconSize: units.gu(2.25)
         action: Action {
             iconName: "delete"

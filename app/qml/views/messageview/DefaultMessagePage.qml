@@ -4,10 +4,17 @@ import Ubuntu.Components.Popups 1.3
 import com.canonical.Oxide 1.9 as Oxide
 import Dekko.Mail 1.0
 import Dekko.Components 1.0
+import "../../actions/messaging"
+import "../../actions/views"
 import "../components"
 import "../webview"
+import "../composer"
 
 DekkoPage {
+
+    // Hide the default header
+    pageHeader.showDivider: false
+    pageHeader.visible: false
 
     DefaultMessagePageHeader {
         id: msgPgHeader
@@ -18,18 +25,32 @@ DekkoPage {
         }
         msg: message
     }
-    // Hide the default header
-    pageHeader.showDivider: false
 
     property alias msgId: message.messageId
+
+    bottomEdgeConfig: BottomEdgeComposer {
+        hintVisible: false // we don't need a hint in this view
+        enabled: !dekko.viewState.isLargeFF
+        canActionTrigger: !dekko.viewState.isLargeFF
+        activationKey: ViewKeys.replyToOpenMessage
+    }
 
     Message {
         id: message
         onBodyChanged: {
-            //            console.log("MainPartUrl: ", body)
             webview.setCidQuery(message.messageId)
             webview.setBodyUrl(body)
+            if (!message.isRead) {
+                markReadTimer.start()
+            }
         }
+    }
+
+    Timer {
+        id: markReadTimer
+        interval: 250
+        repeat: false
+        onTriggered: MessageActions.markMessageRead(message.messageId, true)
     }
 
     ContentBlockedNotice {

@@ -8,6 +8,7 @@
 #include <QtQuick/QQuickView>
 #include <QQmlApplicationEngine>
 #include <MsgPartQNAMFactory.h>
+#include <QCommandLineParser>
 
 class Dekko : public QGuiApplication
 {
@@ -32,6 +33,8 @@ private:
     QProcess *m_server;
     QQuickView *m_view;
     MsgPartQNAMFactory m_partqnam;
+    bool devMode;
+    QCommandLineParser parser;
 };
 
 #endif // DEKKO_H

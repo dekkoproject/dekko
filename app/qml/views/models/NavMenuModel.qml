@@ -12,11 +12,14 @@ VisualItemModel {
     id: navModel
 
     property bool panelIsParent: true
+    readonly property bool showGroups: MailboxStore.standardFoldersModel.count &&
+                              MailboxStore.smartFoldersModel.count &&
+                              AccountStore.receiveAccountsModel.count
 
     Item {
         width: navDrawer.width
         height: panelIsParent ? navDrawer.topListViewHandle.height : navDrawer.height
-
+        visible: showGroups
         ScrollView {
             anchors.fill: parent
             Flickable {
@@ -49,7 +52,7 @@ VisualItemModel {
                                 }
                                 onSubFolderClicked: MessageActions.openFolder(name, key)
                                 Component.onCompleted: {
-                                    if (model.index === 0) {
+                                    if (model.index === 0 && !panelIsParent) {
                                         MessageActions.openFolder(folder.displayName, folder.descendentsKey)
                                     }
                                 }
@@ -87,7 +90,7 @@ VisualItemModel {
                         visible: navSettings.data.accounts.show
                         NavigationGroup {
                             id: acg
-                            title: qsTr("Accounts")
+                            title: qsTr("Folders")
                             model: AccountStore.receiveAccountsModel
                             expansion.expanded: navSettings.data.accounts.expanded
                             onExpandClicked: navSettings.set(NavigationSettings.AccountsExpanded, !navSettings.data.accounts.expanded)

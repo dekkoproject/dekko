@@ -2,6 +2,31 @@
 
 set -e
 
+for i in "$@"
+do
+case $i in
+    --devmode)
+    DEV_MODE=true
+    shift 
+    ;;
+    --gdb)
+    GDB_RUN=true
+    shift 
+    ;;
+    --clean)
+    CLEAN=true
+    shift 
+    ;;
+    *)   
+    ;;
+esac
+done
+
+if [ "$CLEAN" = true ]; then
+  ninja clean
+  exit 0
+fi
+
 cmake -G Ninja -DCMAKE_BUILD_TYPE=Debug ../dekko2/
 ninja -j3
 export DESTDIR=./test
@@ -16,4 +41,16 @@ echo "PATH: $PATH"
 echo "LD_LIBRARY_PATH: $LD_LIBRARY_PATH"
 echo "QMF_PLUGINS: $QMF_PLUGINS"
 
-./test/lib/x86_64-linux-gnu/bin/dekko
+if [ "$GDB_RUN" = true ]; then
+  gdb ./test/lib/x86_64-linux-gnu/bin/dekko
+  exit 0
+fi
+
+if [ "$DEV_MODE" = true ]; then
+  ./test/lib/x86_64-linux-gnu/bin/dekko -d $@
+else
+  ./test/lib/x86_64-linux-gnu/bin/dekko $@
+fi
+
+
+

@@ -4,5 +4,6 @@
         <file>Style.qml</file>
         <file>qmldir</file>
         <file>DekkoAnimation.qml</file>
+        <file>MailUtils.qml</file>
     </qresource>
 </RCC>

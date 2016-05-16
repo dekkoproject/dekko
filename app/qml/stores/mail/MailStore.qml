@@ -95,6 +95,7 @@ BaseMessagingStore {
         type: MessageKeys.undoRecentActions
         onDispatched: {
             if (hasUndoableActions) {
+                Log.logInfo("MailStore::undoRecentActions", "Undoing actions from the last 5 seconds")
                 Client.service.undoActions()
             }
         }
@@ -103,6 +104,7 @@ BaseMessagingStore {
     Filter {
         type: MessageKeys.setMessageListFilter
         onDispatched: {
+            Log.logInfo("MailStore::setMessageListFilter", "Setting message list filter with index: " + message.filter)
             msgList.filter = message.filter
         }
     }
@@ -110,6 +112,7 @@ BaseMessagingStore {
     Filter {
         type: MessageKeys.setMessageCheck
         onDispatched: {
+            Log.logInfo("MailStore::setMessageCheck", "Setting %1 as checked: %2".arg(message.msgIndex).arg(message.checked))
             msgList.setChecked(message.msgIndex, message.checked)
         }
     }
@@ -117,7 +120,7 @@ BaseMessagingStore {
     Filter {
         type: MessageKeys.startMultiSelection
         onDispatched: {
-            Log.logInfo("MailStore::startMultiSelection", "Started")
+            Log.logStatus("MailStore::startMultiSelection", "Started")
             msgList.startSelection()
         }
     }
@@ -125,14 +128,17 @@ BaseMessagingStore {
     Filter {
         type: MessageKeys.endMultiSelection
         onDispatched: {
-            Log.logInfo("MailStore::endMultiSelection", "Ended")
+            Log.logStatus("MailStore::endMultiSelection", "Ended")
             msgList.endSelection()
         }
     }
 
     Filter {
         type: MessageKeys.selectAllMessages
-        onDispatched: msgList.selectAll()
+        onDispatched: {
+            Log.logInfo("MailStore::selectAllMessages", "Selecting all messages")
+            msgList.selectAll()
+        }
     }
 
     Filter {
@@ -148,11 +154,17 @@ BaseMessagingStore {
     // Delete message by ID
     Filter {
         type: MessageKeys.deleteMessage
-        onDispatched: Client.deleteMessage(message.msgId)
+        onDispatched: {
+            Log.logInfo("MailStore::deleteMessage", "Deleting message %1".arg(message.msgId))
+            Client.deleteMessage(message.msgId)
+        }
     }
     Filter {
         type: MessageKeys.markMessageRead
-        onDispatched: Client.markMessageRead(message.msgId, message.read)
+        onDispatched: {
+            Log.logInfo("MailStore::markMessageRead", "Marking message %1 as %2".arg(message.msgId).arg((message.read ? "read":"unread")))
+            Client.markMessageRead(message.msgId, message.read)
+        }
     }
     Filter {
         type: MessageKeys.markMessageImportant

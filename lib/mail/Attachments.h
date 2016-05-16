@@ -35,6 +35,7 @@ class Attachment : public QObject
     Q_PROPERTY(QString mimeType READ mimeType NOTIFY attachmentChanged)
     Q_PROPERTY(QString url READ url NOTIFY urlChanged)
     Q_PROPERTY(QString size READ size NOTIFY attachmentChanged)
+    Q_PROPERTY(int sizeInBytes READ sizeInBytes CONSTANT)
     Q_PROPERTY(bool contentAvailable READ contentAvailable NOTIFY attachmentChanged)
     Q_PROPERTY(QString location READ location NOTIFY attachmentChanged)
     Q_PROPERTY(Type type READ type NOTIFY attachmentChanged)
@@ -57,6 +58,7 @@ public:
     QString displayName();
     QString mimeType() const;
     QString size();
+    int sizeInBytes() const;
     Type type() const;
     bool contentAvailable() const;
     QString location() const;

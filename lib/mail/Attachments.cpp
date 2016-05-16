@@ -66,6 +66,11 @@ QString Attachment::size()
     return sizeToReadableString(m_part.contentDisposition().size());
 }
 
+int Attachment::sizeInBytes() const
+{
+    return m_part.contentDisposition().size();
+}
+
 Attachment::Type Attachment::type() const
 {
     return m_type;

@@ -16,6 +16,7 @@ ListItem {
             left: parent.left
             right: parent.right
         }
+        visible: model.count
         height: sLabel.height
         Label {
             id: sLabel

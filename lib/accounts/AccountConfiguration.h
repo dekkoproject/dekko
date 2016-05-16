@@ -174,6 +174,7 @@ class SmtpAccountConfiguration : public AccountConfiguration
     Q_OBJECT
     Q_PROPERTY(SaslMechanism saslMechanism READ saslMechanism WRITE setSaslMechanism NOTIFY saslChanged)
     Q_PROPERTY(QString username READ username WRITE setUsername NOTIFY usernameChanged)
+    Q_PROPERTY(QString initials READ initials CONSTANT)
     Q_PROPERTY(bool authFromCaps READ authFromCaps WRITE setAuthFromCaps NOTIFY authFromCapsChanged)
 
 public:
@@ -184,6 +185,7 @@ public:
     SaslMechanism saslMechanism() const;
     QString username() const;
     bool authFromCaps() const;
+    QString initials();
 
 signals:
     void saslChanged();

@@ -18,6 +18,7 @@
 import QtQuick 2.4
 import QtQuick.Layouts 1.1
 import Ubuntu.Components 1.3
+import Dekko.Components 1.0
 
 Item {
     id: dekkoHeader
@@ -80,7 +81,7 @@ Item {
         right: parent.right
     }
     visible: true
-    height: units.gu(7) + filterColumn.height + btmMargin.height + extendHeight
+    height: visible ? units.gu(6) + filterColumn.height + btmMargin.height + extendHeight : 0
     state: "default"
     states: [
         State {
@@ -105,7 +106,7 @@ Item {
             }
             PropertyChanges {
                 target: dekkoHeader
-                height: units.gu(7) + filterColumn.height
+                height: units.gu(6) + filterColumn.height
             }
         },
         State {
@@ -149,7 +150,7 @@ Item {
             top: parent.top
             right: parent.right
         }
-        height: units.gu(7)
+        height: units.gu(6)
         color: "#ffffff"
     }
 
@@ -264,7 +265,7 @@ Item {
 
     Component {
         id: defaultHeadState
-        RowLayout {
+        StretchRow {
             property alias button: inner_button
             height: parent ? parent.height : undefined
             anchors {
@@ -279,29 +280,33 @@ Item {
                     top: parent.top
                     bottom: parent.bottom
                 }
+                implicitWidth: units.gu(4)
                 visible: backAction
                 action: backAction ? backAction : null
             }
-            Label {
-                text: dekkoHeader.title
-                anchors.verticalCenter: parent.verticalCenter
-////                font: FontUtils.sizeToPixels(26)
-//                property string fontSz: "medium"
-//                property int baseFntUnits: units.dp(18)
-//                font.pixelSize: FontUtils.modularScale(fontSz) * units.dp(baseFntUnits)
-                fontSize: "large"
-//                color: Style.header.title
-                elide: Text.ElideRight
-                clip: true
-                textFormat: Qt.RichText
-                Layout.fillWidth: true
+
+            Stretcher {
+                height: parent.height
+                Label {
+                    text: dekkoHeader.title
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.left: parent.left
+                    fontSize: "large"
+                    elide: Text.ElideRight
+                    clip: true
+                    textFormat: Qt.RichText
+                    Layout.fillWidth: true
+                }
             }
+
+
             HeaderButton {
                 id: compose_button
                 anchors {
                     top: parent.top
                     bottom: parent.bottom
                 }
+                implicitWidth: units.gu(4)
                 visible: !dekko.viewState.isSmallFF && composeButtonEnabled
                 action: Action {
                     iconName: "list-add"
@@ -314,6 +319,7 @@ Item {
                     top: parent.top
                     bottom: parent.bottom
                 }
+                implicitWidth: units.gu(4)
                 visible: action ? action.visible : false
                 action: enableSearching ? searchAction : primaryAction
             }
@@ -325,20 +331,6 @@ Item {
                 }
                 visible: secondaryActions[0] ? secondaryActions[0].visible : false
                 action: secondaryActions.length > 1 ? drawerAction : secondaryActions.length === 1 ? secondaryActions[0] : null
-            }
-            HeaderButton {
-                id: imapLogButton
-                anchors {
-                    top: parent.top
-                    bottom: parent.bottom
-                }
-                visible: /*GlobalSettings.developer.enableImapModelLogging && GlobalSettings.developer.developerModeEnabled*/false
-                action: Action {
-                    iconName: "note"
-                    onTriggered: {
-                        imapLogDrawer.opened ? imapLogDrawer.close() : imapLogDrawer.open()
-                    }
-                }
             }
         }
     }

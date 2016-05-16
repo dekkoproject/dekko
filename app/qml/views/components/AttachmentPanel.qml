@@ -2,6 +2,7 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Dekko.Components 1.0
 import "../../constants"
+import "../../actions/logging"
 
 Rectangle {
     id: attachmentPanel
@@ -145,6 +146,7 @@ Rectangle {
                             }
                         }
                         onClicked: {
+                            Log.logInfo("AttachmentPanel::openAttachment", "Attachment octet size is: %1".arg(model.qtObject.sizeInBytes))
                             // This really is a crude hack
                             // the attachments object can't directly
                             // access the custom qnam factory. So we pass

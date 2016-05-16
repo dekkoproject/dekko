@@ -16,9 +16,12 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 import QtQuick 2.4
+import QuickFlux 1.0
 import Ubuntu.Components 1.3
 import Ubuntu.Components.ListItems 1.0 as ListItem
 import "../components" as Comps
+import "../../actions/views"
+import "../../actions/messaging"
 
 Panel {
     id: accountsDrawer
@@ -37,6 +40,22 @@ Panel {
     function delayClose() {
         delayCloseTimer.start()
     }
+
+    AppListener {
+        Filter {
+            type: ViewKeys.toggleNavDrawer
+            onDispatched: accountsDrawer.opened ? accountsDrawer.close() : accountsDrawer.open()
+        }
+        Filter {
+            type: MessageKeys.openFolder
+            onDispatched: {
+                if (accountsDrawer.opened) {
+                    accountsDrawer.delayClose()
+                }
+            }
+        }
+    }
+
     // Don't let the event propogate to the page below
     MouseArea {
         anchors.fill: parent

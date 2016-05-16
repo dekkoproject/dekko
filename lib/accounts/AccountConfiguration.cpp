@@ -1,5 +1,5 @@
 #include "AccountConfiguration.h"
-
+#include <QStringList>
 
 //TODO: Move to seperate file??
 const QString AccountKeys::name = QStringLiteral("username");
@@ -358,6 +358,28 @@ QString SmtpAccountConfiguration::username() const
 bool SmtpAccountConfiguration::authFromCaps() const
 {
     return m_service->value(AccountKeys::authFromCaps, QStringLiteral("0")).toInt() != 0;
+}
+
+QString SmtpAccountConfiguration::initials()
+{
+    QString name = this->name();
+    if (name.isEmpty() || !name.at(0).isLetter()) {
+        // Name is empty so return first character of address. :-/
+        return QString(email().at(0).toUpper());
+    }
+    // Intitials string
+    QString initials;
+    // Now break up the name, we have to set the encoding here as QT_NO_CAST_FROM/TO_ASCII is set
+    QStringList parts = name.split(QStringLiteral(" "));
+    if (parts.first().at(0).isLetter()) {
+        initials += parts.first().at(0).toUpper();
+    }
+    if (parts.size() > 1) {
+        if (parts.last().at(0).isLetter()) {
+            initials += parts.last().at(0).toUpper();
+        }
+    }
+    return initials;
 }
 
 void SmtpAccountConfiguration::setSaslMechanism(AccountConfiguration::SaslMechanism sasl)

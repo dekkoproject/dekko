@@ -23,20 +23,20 @@ DekkoPage {
         id: folderList
     }
 
-    ScrollView {
-        anchors {
-            left: parent.left
-            right: parent.right
-            top: pageHeader.bottom
-            bottom: parent.bottom
-        }
-        ListView {
-            anchors.fill: parent
-            clip: true
-            model: folderList.model
-            delegate: FolderListDelegate {
-                folder: model.qtObject
-                onItemClicked: MessageActions.openFolder(folder.name, folder.messageKey)
+    PageContent {
+
+        ScrollView {
+            anchors {
+                fill: parent
+            }
+            ListView {
+                anchors.fill: parent
+                clip: true
+                model: folderList.model
+                delegate: FolderListDelegate {
+                    folder: model.qtObject
+                    onItemClicked: MessageActions.openFolder(folder.name, folder.messageKey)
+                }
             }
         }
     }

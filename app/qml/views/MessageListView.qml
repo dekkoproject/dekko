@@ -8,10 +8,11 @@ import QuickFlux 1.0
 import "./components"
 import "./delegates"
 import "./models"
-import "../actions"
+import "../actions/views"
 import "../actions/messaging"
 import "../stores/mail" 1.0
 import "../constants"
+import "./composer"
 
 DekkoPage {
     id: msgListPage
@@ -19,7 +20,7 @@ DekkoPage {
     pageHeader.title: MailStore.folderTitle
     pageHeader.enableSearching: true
     pageHeader.composeButtonEnabled: !dekko.viewState.isLargeFF
-    pageHeader.backAction: !dekko.viewState.isLargeFF || MailStore.isInSelectionMode ? navDrawer.action : null
+    pageHeader.backAction: !dekko.viewState.isLargeFF || MailStore.isInSelectionMode ? drawerAction : null
     pageHeader.filterSections: isSearchMode ? MailStore.searchFilters : MailStore.defaultFilters
     onSelectedIndexChanged: {
         if (isSearchMode) {
@@ -72,6 +73,27 @@ DekkoPage {
         mboxSearch.cancelSearch()
     }
 
+    bottomEdgeConfig: BottomEdgeComposer {
+        //        hintText: "Hello world"
+        hintVisible: true
+        iconSource: Paths.actionIconUrl(Icons.MailUnreadIcon)
+        activationKey: ViewKeys.openMessageComposer
+        canActionTrigger: false
+        enabled: dekko.viewState.isSmallFF
+        flickable: listView
+    }
+
+    drawerConfig: DrawerConfiguration {
+        visible: true
+        enabled: !dekko.viewState.isLargeFF
+    }
+
+    Action {
+        id: drawerAction
+        iconName: "navigation-menu"
+        onTriggered: ViewActions.toggleNavDrawer()
+    }
+
     MailboxSearch {
         id: mboxSearch
         messageKey: MailStore.msgListKey
@@ -88,134 +110,138 @@ DekkoPage {
         }
     }
 
-    ListItem {
-        id: undoNotification
-        expansion.height: units.gu(6)
-        expansion.expanded: MailStore.hasUndoableActions
-        divider.visible: MailStore.hasUndoableActions
-        height: 0
-        anchors {
-            left: parent.left
-            top: pageHeader.bottom
-            right: parent.right
-        }
-        color: UbuntuColors.porcelain
+    PageContent {
+        id: cont
 
-        Label {
+        ListItem {
+            id: undoNotification
+            expansion.height: units.gu(6)
+            expansion.expanded: MailStore.hasUndoableActions
+            divider.visible: MailStore.hasUndoableActions
+            height: 0
             anchors {
                 left: parent.left
-                leftMargin: Style.defaultSpacing
-                verticalCenter: parent.verticalCenter
-            }
-            visible: MailStore.hasUndoableActions
-            text: MailStore.undoableActionDescription
-        }
-
-        Button {
-            height: Style.largeSpacing
-            width: Style.largeSpacing * 2
-            anchors {
+                top: parent.top
                 right: parent.right
-                rightMargin: Style.defaultSpacing
-                verticalCenter: parent.verticalCenter
             }
-            color: UbuntuColors.green
-            action: Action {
-                text: "Undo"
-                onTriggered: MessageActions.undoRecentActions()
-            }
-        }
-    }
+            color: UbuntuColors.porcelain
 
-    ScrollView {
-        anchors {
-            left: parent.left
-            top: undoNotification.bottom
-            right: parent.right
-            bottom: parent.bottom
-        }
-
-        ListView {
-            id: listView
-            property int selectionIndex: 0
-
-            anchors.fill: parent
-            clip: true
-            currentIndex: -1
-            add: DekkoAnimation.listViewAddTransition
-            addDisplaced: DekkoAnimation.listViewAddDisplacedTransition
-            remove: DekkoAnimation.listViewRemoveTransition
-            removeDisplaced: DekkoAnimation.listViewRemoveDisplacedTransition
-
-            highlight: !dekko.viewState.isSmallFF ? Style.highlightBar : null
-            highlightFollowsCurrentItem: true
-            highlightMoveDuration: 200
-
-            model: isSearchMode ? mboxSearch.results : MailStore.msgListModel
-            delegate: MessageListDelegate{
-                id: msgListDelegate
+            Label {
                 anchors {
                     left: parent.left
+                    leftMargin: Style.defaultSpacing
+                    verticalCenter: parent.verticalCenter
+                }
+                visible: MailStore.hasUndoableActions
+                text: MailStore.undoableActionDescription
+            }
+
+            Button {
+                height: Style.largeSpacing
+                width: Style.largeSpacing * 2
+                anchors {
                     right: parent.right
+                    rightMargin: Style.defaultSpacing
+                    verticalCenter: parent.verticalCenter
                 }
-                // This prevents making excessive calls to data()
-                // We just take the actual MinimalMessage object
-                // in one go and reuse it throughout.
-                msg: model.qtObject
-
-                leftSideAction: Action {
-                    iconName: "delete"
-                    onTriggered: {
-                        MessageActions.deleteMessage(msgListDelegate.msg.messageId)
-                    }
-                }
-
-                rightSideActions: [flagAction, readAction, contextAction]
-
-                onItemClicked: {
-                    if (MailStore.isInSelectionMode) {
-                        if (msg.checked) {
-                            MessageActions.setMessageCheck(model.index, Qt.Unchecked)
-                        } else {
-                            MessageActions.setMessageCheck(model.index, Qt.Checked)
-                        }
-                        return;
-                    }
-
-                    if (mouse.button === Qt.RightButton) {
-                        rightClickActions.trigger()
-                        return;
-                    }
-                    MessageActions.openMessage(msgListDelegate.msg.messageId)
-                    listView.currentIndex = model.index
-                }
-                onItemPressAndHold: {
-                    // TODO: get multiselect working on search results.
-                    if (isSearchMode) {
-                        return;
-                    }
-                    if (!MailStore.isInSelectionMode) {
-                        listView.selectionIndex = model.index
-                        MessageActions.startMultiSelection()
-                        MessageActions.setMessageCheck(model.index, Qt.Checked)
-                        msgListPage.startMultiSelect()
-                    }
+                color: UbuntuColors.green
+                action: Action {
+                    text: "Undo"
+                    onTriggered: MessageActions.undoRecentActions()
                 }
             }
-            // canLoadMore will always be false when the list is empty so there
-            // isn't any need to add a binding on count/totalCount as that signal
-            // emits *very* often and really bogs down the UI. canPossiblyLoadMore will
-            // only get emitted after all the insertions/removals have completed for a query.
-            footer: (!isSearchMode && MailStore.canLoadMore) ? footerComponent : null
+        }
 
-            Component {
-                id: footerComponent
-                ListItem {
-                    Label {
-                        anchors.centerIn: parent
-                        text: qsTr("Load more messages ...")
+        ScrollView {
+            anchors {
+                left: parent.left
+                top: undoNotification.bottom
+                right: parent.right
+                bottom: parent.bottom
+            }
+
+            ListView {
+                id: listView
+                property int selectionIndex: 0
+
+                anchors.fill: parent
+                clip: true
+                currentIndex: -1
+                add: DekkoAnimation.listViewAddTransition
+                addDisplaced: DekkoAnimation.listViewAddDisplacedTransition
+                remove: DekkoAnimation.listViewRemoveTransition
+                removeDisplaced: DekkoAnimation.listViewRemoveDisplacedTransition
+
+                highlight: !dekko.viewState.isSmallFF ? Style.highlightBar : null
+                highlightFollowsCurrentItem: true
+                highlightMoveDuration: 200
+
+                model: isSearchMode ? mboxSearch.results : MailStore.msgListModel
+                delegate: MessageListDelegate{
+                    id: msgListDelegate
+                    anchors {
+                        left: parent.left
+                        right: parent.right
                     }
-                    onClicked: MessageActions.showMoreMessages()
+                    // This prevents making excessive calls to data()
+                    // We just take the actual MinimalMessage object
+                    // in one go and reuse it throughout.
+                    msg: model.qtObject
+
+                    leftSideAction: Action {
+                        iconName: "delete"
+                        onTriggered: {
+                            MessageActions.deleteMessage(msgListDelegate.msg.messageId)
+                        }
+                    }
+
+                    rightSideActions: [flagAction, readAction, contextAction]
+
+                    onItemClicked: {
+                        if (MailStore.isInSelectionMode) {
+                            if (msg.checked) {
+                                MessageActions.setMessageCheck(model.index, Qt.Unchecked)
+                            } else {
+                                MessageActions.setMessageCheck(model.index, Qt.Checked)
+                            }
+                            return;
+                        }
+
+                        if (mouse.button === Qt.RightButton) {
+                            rightClickActions.trigger()
+                            return;
+                        }
+                        MessageActions.openMessage(msgListDelegate.msg.messageId)
+                        listView.currentIndex = model.index
+                    }
+                    onItemPressAndHold: {
+                        // TODO: get multiselect working on search results.
+                        if (isSearchMode) {
+                            return;
+                        }
+                        if (!MailStore.isInSelectionMode) {
+                            listView.selectionIndex = model.index
+                            MessageActions.startMultiSelection()
+                            MessageActions.setMessageCheck(model.index, Qt.Checked)
+                            msgListPage.startMultiSelect()
+                        }
+                    }
+                }
+                // canLoadMore will always be false when the list is empty so there
+                // isn't any need to add a binding on count/totalCount as that signal
+                // emits *very* often and really bogs down the UI. canPossiblyLoadMore will
+                // only get emitted after all the insertions/removals have completed for a query.
+                footer: (!isSearchMode && MailStore.canLoadMore) ? footerComponent : null
+
+                Component {
+                    id: footerComponent
+                    ListItem {
+                        Label {
+                            anchors.centerIn: parent
+                            text: qsTr("Load more messages ...")
+                        }
+                        onClicked: MessageActions.showMoreMessages()
+                    }
                 }
             }
         }
@@ -227,25 +253,6 @@ DekkoPage {
         value: listView.currentIndex
     }
 
-    NavigationSettings {
-        id: navSettings
-    }
-
-    NavigationDrawer {
-        id: navDrawer
-        animate: true
-        width: Style.defaultPanelWidth
-        state: "fixed"
-        // make sure this overlays the page contents
-        z: 1
-        anchors {
-            left: parent.left
-            top: pageHeader.bottom
-            bottom: parent.bottom
-        }
-        panelModel: NavMenuModel{}
-    }
-
     AppListener {
         Filter {
             type: MessageKeys.resetMessageList
@@ -255,14 +262,7 @@ DekkoPage {
                 selectedIndex = 0
             }
         }
-        Filter {
-            type: MessageKeys.openFolder
-            onDispatched: {
-                if (navDrawer.opened) {
-                    navDrawer.delayClose()
-                }
-            }
-        }
+
     }
 }
 

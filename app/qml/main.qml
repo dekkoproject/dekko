@@ -16,58 +16,19 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 import QtQuick 2.4
-import Ubuntu.Components 1.3
-import "./actions/views"
-import "./actions/logging"
 import "./views/components"
 import "./views/dialogs"
-import "./views/utils"
-import "./views/stages"
-import "./stores" 1.0
 
-Item {
-    id: dekko
+Dekko {
+    anchors.fill: parent
 
-    objectName: "dekko" // object name for functional testing
-    width: units.gu(120); height: units.gu(80)
-
-    property alias viewState: view
-
-    ViewState {
-        id: view
-        anchors.fill: parent
-        onStateChanged: {
-            ViewStore.formFactor = state
-            Log.logStatus("ViewState::stateChanged", state)
-        }
-    }
-
-    Item {
-        anchors {
-            left: parent.left
-            top: parent.top
-            right: parent.right
-            bottom: kbdRect.top
-        }
-        StageStack {
-            id: rootPageStack
-            Component.onCompleted: {
-                ViewActions.stageStackReady()
-            }
-        }
-    }
-
-    KeyboardRectangle {
-        id: kbdRect
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
-    }
-
+    // Add these components to the resources list
     QtObject {
         id: d
         property DialogQueue dlgQueue: DialogQueue {}
-        property Logger logger: Logger {}
+        property Logger logger: Logger {
+            devLoggingEnabled: devModeEnabled
+        }
     }
 }
 
@@ -141,118 +102,3 @@ Item {
 
 
 //}
-
-//-----------------------------------
-// PROPERTIES
-//-----------------------------------
-// This property holds the currently selected account
-// and should be used throughout all other views
-// e.g For a listview set the model to dekko.currentAccount.imapModel
-//    property alias currentAccount: accountsManager.currentAccount
-//    property bool msgListPushed: false
-
-//    property var mailboxListPage;
-//    // So we can access it further into the rootPageStack
-//    property alias accountsManager: accountsManager
-
-//    property bool networkAvailable: dekko.currentAccount.imapModel.isNetworkAvailable
-//    property var submissionManager;
-
-//    property var addressbookModel: addressbookModelsLoader.item.addressbookModel
-//    property var addressbookModelFiltered: addressbookModelsLoader.item.addressbookModelFiltered
-//    property var recentContactModel: addressbookModelsLoader.item.recentContactModel
-//    property var recentContactModelFiltered: addressbookModelsLoader.item.recentContactModelFiltered
-//    property var combinedFlattenContactFilterModel: addressbookModelsLoader.item.combinedFlattenContactFilterModel
-//    property var flattenContactModel: addressbookModelsLoader.item.flattenContactModel
-//    property var flattenRecentContactModel: addressbookModelsLoader.item.flattenRecentContactModel
-//    property var combinedFlattenContactModel: addressbookModelsLoader.item.combinedFlattenContactModel
-//    property var imapLogDrawer: imapLogDrawerLoader.item
-//    property alias viewState: view
-//    property bool setupWizardRunning: false
-//    Rectangle {
-//        anchors.fill: parent
-//        color: Style.common.background
-//    }
-//    AccountsManager {
-//        id: accountsManager
-//        onImapError: {
-//            console.log("[AccountsManager::onAlertReceived] [ERROR] IMAP error with message: ", error.error)
-//            alertQueue.showImapError(error)
-//        }
-//        // FIXME: we are to display a non invasive inline status for this that doesn't prevent app
-//        // interaction
-//        // see: https://docs.google.com/a/canonical.com/presentation/d/1woHjO8K4iqyVZZlfQ4BXL0DhYbwkEmZ7wvcUhYzHDRk/edit#slide=id.g183c60488_08 for example
-//        //        onNetworkError: alertQueue.showNetworkError(error)
-//        onAlertReceived: {
-//            console.log("[AccountsManager::onAlertReceived] [ALERT] IMAP alert recieved with message: ", message.message)
-//            console.debug()
-//            alertQueue.showImapAlert(message)
-//        }
-//        onAuthRequested: {
-//            console.log("[AccountsManager::onAuthRequested] [STATUS] authentication requested, queuing password job")
-//            alertQueue.authenticateRequested = true
-//            passwordManager.requestPassword(account.accountId, PasswordManager.IMAP)
-//        }
-//        //        onConnectionStateChanged: console.log("STATE CHANGED")
-//        onAuthAttemptFailed: {
-//            console.log("[AccountsManager::onAuthAttemptFailed] [ERROR] Authentication Failed! :-( ")
-//            console.log("[AccountsManager::onAuthAttemptFailed] [ERROR] Account: ", account.accountId)
-//            console.log("[AccountsManager::onAuthAttemptFailed] [ERROR] AuthError: ", account.authError)
-//            alertQueue.authAttemptFailed(account)
-//        }
-//        onCheckSslPolicy: {
-//            console.log("CHECK SSL INFO CALLED")
-//            alertQueue.showSslInfo(sslInfo)
-//        }
-//        onError: console.log("[AccountsManager::error] [ERROR] ", msg)
-//        onCurrentAccountChanged: {
-//            if (currentAccount !== null) {
-//                console.log("Current Account Changed \o/ The id is: " + currentAccount.accountId)
-//            } else {
-//                console.log("[WARNING] Unloaded current account.... the next account that opens a connection \
-//                            is going to steal the msglistview. Be sure this is what you want!!")
-//            }
-//        }
-//        onNoAccountsConfigured: {
-//            console.log("[AccountsManager::onNoAccountsConfigured] Running setup wizard.")
-//            rootPageStack.push(Qt.resolvedUrl("./SetupWizard/SetupWizard.qml"), {hasAccounts: false})
-//            setupWizardRunning = true;
-//        }
-
-//        onNewOnlineAccountCreated: {
-//            console.log("[AccountsManager::onNewOnlineAccountCreated] NotImplementedYet")
-//        }
-//        onNewOnlineAccountEnabled: {
-//            console.log("[AccountsManager::onNewOnlineAccountEnabled] Checking if SetupWizard is already running")
-//            if (!setupWizardRunning) {
-//                console.log("[AccountsManager::onNewOnlineAccountEnabled] SetupWizard not running. Launching now...")
-//                rootPageStack.push(Qt.resolvedUrl("./SetupWizard/SetupWizard.qml"), {accountType: NewAccountType.ONLINE_ACCOUNT, oaId: id})
-//                setupWizardRunning = true;
-//            } else if (setupWizardRunning && count === 0) {
-//                console.log("[AccountsManager::onNewOnlineAccountEnabled] SetupWizard is alread running, reloading to NewAccountType::ONLINE_ACCOUNT state")
-//                rootPageStack.pop()
-//                rootPageStack.push(Qt.resolvedUrl("./SetupWizard/SetupWizard.qml"), {accountType: NewAccountType.ONLINE_ACCOUNT, oaId: id})
-//            }
-//        }
-
-//        Component.onCompleted: {
-//            console.log("[AccountsManager::onCompleted] Opening accounts")
-//            accountsManager.run()
-//            console.log("[AccountsManager::onCompleted] Setting accounts manager on QNAM factory")
-//            msgPartNetAccessManagerFactory.setAccountsManager(accountsManager)
-//        }
-//    }
-//    Loader {
-//        id: addressbookModelsLoader
-//        asynchronous: true
-//        source: Qt.resolvedUrl("./Contact/AddressbookModels.qml")
-//    }
-//    Loader {
-//        id: imapLogDrawerLoader
-//        width: parent.width
-//        anchors.bottom: parent.bottom
-////        height: parent.height
-//        asynchronous: true
-//        source: Qt.resolvedUrl("./DeveloperMode/ImapLogDrawer.qml")
-//        active: GlobalSettings.developer.enableImapModelLogging && GlobalSettings.developer.developerModeEnabled
-//    }

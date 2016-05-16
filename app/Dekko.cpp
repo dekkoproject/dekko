@@ -8,9 +8,14 @@
 #include <QQmlContext>
 #include <QQuickView>
 #include <QQmlEngine>
+#include <QCommandLineOption>
+
+#define SMALL_FF_WIDTH 350
+#define MEDIUM_FF_WDTH 800
+#define LARGE_FF_WIDTH 1100
 
 Dekko::Dekko(int &argc, char **argv) :
-    QGuiApplication(argc, argv), m_server(0), m_view(0)
+    QGuiApplication(argc, argv), m_server(0), m_view(0), devMode(false)
 {
     setOrganizationName(QStringLiteral("dekkoproject"));
     setApplicationName(QStringLiteral("dekko"));
@@ -20,6 +25,13 @@ Dekko::Dekko(int &argc, char **argv) :
 //    while (it.hasNext()) {
 //        qDebug() << it.next();
 //    }
+    parser.setApplicationDescription("Dekko email client");
+    parser.addHelpOption();
+    parser.addOption({"d", "Enable dev mode"});
+    parser.addOption({"small", "Open in small form factor state"});
+    parser.addOption({"medium", "Open in medium form factor state"});
+    parser.addOption({"large", "Open in large form factor state"});
+    parser.process(*this);
 }
 
 bool Dekko::setup()
@@ -42,10 +54,21 @@ bool Dekko::setup()
     m_view->setResizeMode(QQuickView::SizeRootObjectToView);
     m_view->setMinimumHeight(300);
     m_view->setMinimumWidth(300);
-    m_view->setWidth(350);
+    if (parser.isSet(QStringLiteral("small"))) {
+        m_view->setWidth(SMALL_FF_WIDTH);
+    } else if (parser.isSet(QStringLiteral("medium"))) {
+        m_view->setWidth(MEDIUM_FF_WDTH);
+    } else {
+        m_view->setWidth(LARGE_FF_WIDTH);
+    }
     m_view->setHeight(550);
     m_view->setTitle("Dekko");
     m_view->setSource(QUrl(QStringLiteral("qrc:/qml/main.qml")));
+
+    devMode = parser.isSet("d");
+    m_view->engine()->rootContext()->setContextProperty("ctxt_window", m_view);
+    m_view->engine()->rootContext()->setContextProperty("devModeEnabled", QVariant(devMode));
+
     m_view->show();
     return true;
 }

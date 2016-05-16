@@ -4,5 +4,7 @@
         <file>ViewState.qml</file>
         <file>PopupQueue.qml</file>
         <file>QtCoreAPI.js</file>
+        <file>DevPanel.qml</file>
+        <file>DevWindow.qml</file>
     </qresource>
 </RCC>

@@ -30,20 +30,24 @@ AbstractButton {
     width: showText ? description.width : units.gu(5)
     height: width
     
-    Rectangle {
-        anchors.fill: parent
-        color: Qt.rgba(1.0, 1.0, 1.0, 0.3)
+    UbuntuShape {
+        anchors {
+            fill: parent
+            topMargin: units.gu(1)
+            bottomMargin: units.gu(1)
+        }
+        aspect: UbuntuShape.Flat
+        radius: "small"
+        color: UbuntuColors.silk
         visible: button.pressed
     }
     
     Icon {
         id: icon
         anchors.centerIn: parent
-//        smooth: true
         anchors.verticalCenterOffset: button.verticalCenterOffset
         width: iconSize
         height: width
-//        color: Style.header.icons
         name: action && action.iconName ? action.iconName : ""
         source: action && action.iconSource ? action.iconSource : ""
         opacity: action ? (action.enabled ? 1.0 : 0.5) : 1.0
@@ -56,8 +60,6 @@ AbstractButton {
         }
         text: action ? action.text : ""
         fontSize: "small"
-//        color: Style.header.textSelected
-//        font.weight: Style.common.fontWeight
         visible: showText
         horizontalAlignment: Text.AlignHCenter
         elide: Text.ElideRight

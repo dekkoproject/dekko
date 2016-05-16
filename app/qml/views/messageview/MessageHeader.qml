@@ -5,6 +5,7 @@ import Dekko.Components 1.0
 import Dekko.Settings 1.0
 import "../components"
 import "../../actions/popups"
+import "../../actions/views"
 import "../../constants"
 import "../utils/UiUtils.js" as UiUtils
 
@@ -27,7 +28,11 @@ ListItem {
         id: defaultLayout
         visible: !gs.isCleanLayout
         title.text: msg.from.name
+        title.elide: Text.ElideRight
+        title.wrapMode: Text.NoWrap
         subtitle.text: msg.toRecipientsString
+        subtitle.elide: Text.ElideRight
+        subtitle.wrapMode: Text.NoWrap
         summary.text: detailsVisible ? qsTr("Hide details") : qsTr("View details")
         summary.color: UbuntuColors.blue
         // Hack to reparent the mousearea to the summary label.
@@ -58,7 +63,7 @@ ListItem {
             property int iconsHorizontalSpacing: Style.defaultSpacing
 
             height: inner_timeLabel.height + Style.smallSpacing + ctxt.height
-            width: Math.max(inner_timeLabel.width, ctxt.width + rply.width + Style.smallSpacing)
+            width: Math.max(inner_timeLabel.width, (ctxt.width + rply.width) - units.gu(3))
             SlotsLayout.overrideVerticalPositioning: true
 
             Label {
@@ -70,38 +75,38 @@ ListItem {
                 fontSize: "small"
             }
 
-            CachedImage {
+            HeaderButton {
                 id: ctxt
-                height: Style.defaultIconSize
-                width: height
                 anchors {
                     right: parent.right
-                    top: inner_timeLabel.bottom
+                    rightMargin: -units.gu(1.5)
+                    top: inner_timeLabel.top
                     topMargin: parent.iconsVerticalSpacing
                 }
-                name: Icons.ContextMenuIcon
-                color: UbuntuColors.ash
-                AbstractButton {
-                    anchors.fill: parent
-                    onClicked: PopupActions.showNotice("Not implemented yet. Fix it before release!!!!")
+                height: units.gu(6)
+                width: units.gu(4.5)
+                iconSize: units.gu(2.25)
+                iconColor: UbuntuColors.ash
+                action: Action {
+                    iconSource: Paths.actionIconUrl(Icons.ContextMenuIcon)
+                    onTriggered: PopupActions.showNotice("Not implemented yet. Fix it before release!!!!")
                 }
             }
-
-            CachedImage {
+            HeaderButton {
                 id: rply
-                height: Style.defaultIconSize
-                width: visible ? height : 0
                 anchors {
                     right: ctxt.left
-                    rightMargin: parent.iconsHorizontalSpacing
-                    top: inner_timeLabel.bottom
+                    rightMargin: -units.gu(0.5)
+                    top: inner_timeLabel.top
                     topMargin: parent.iconsVerticalSpacing
                 }
-                name: Icons.MailReplyIcon
-                color: UbuntuColors.ash
-                AbstractButton {
-                    anchors.fill: parent
-                    onClicked: PopupActions.showNotice("Not implemented yet. Fix it before release!!!!")
+                height: units.gu(6)
+                width: units.gu(4.5)
+                iconSize: units.gu(2.25)
+                iconColor: UbuntuColors.ash
+                action: Action {
+                    iconSource: Paths.actionIconUrl(Icons.MailReplyIcon)
+                    onTriggered: ViewActions.replyToOpenMessage()
                 }
             }
         }
