@@ -1,11 +1,16 @@
 import QtQuick 2.4
+import QuickFlux 1.0
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import Dekko.Components 1.0
 import Dekko.Mail 1.0
 import "../../actions/composer"
+import "../../actions/logging"
+import "../../actions/popups"
+import "../../stores/composer"
 import "../../constants"
 import "../components"
+import "../delegates"
 
 FocusScope {
     id: field
@@ -50,15 +55,17 @@ FocusScope {
                     left: parent.left
                     leftMargin: Style.smallSpacing
                     top: parent.top
-                    topMargin: Style.smallSpacing
+                    topMargin: ComposerStore.recipients.to.count ? (Style.smallSpacing / 2) : Style.smallSpacing
                     right: parent.right
                 }
                 spacing: Style.smallSpacing / 2
                 // Display the already added recipients
                 Repeater {
                     id: repeater
-//                    model: 10
+                    model: ComposerStore.recipients.to
                     delegate: RecipientDelegate {
+                        composeMode: true
+                        type: recipientType
                     }
                 }
                 Item {
@@ -81,15 +88,18 @@ FocusScope {
                         Keys.onReturnPressed: {
                             event.accepted = true
                             console.log("RETURN PRESSED")
+                            ComposerActions.addRecipientIfValid(recipientType, input.text)
                         }
                         Keys.onEnterPressed: {
                             event.accepted = true
                             console.log("ENTER PRESSED")
+                            ComposerActions.addRecipientIfValid(recipientType, input.text)
                         }
                         // We also support completion tokens. and is triggered
                         // when an address ends with ';' or ','
                         onCompletionTokenSeen: {
                             console.log("COMPLETION TOKEN SEEN")
+                            ComposerActions.addRecipientIfValid(recipientType, input.text)
                         }
                     }
                 }
@@ -125,6 +135,29 @@ FocusScope {
             left: parent.left
             bottom: parent.bottom
             right: parent.right
+        }
+    }
+
+    AppScript {
+        runWhen: ComposerKeys.addRecipientIfValid
+        script: {
+            if (message.type === recipientType) {
+                ComposerActions.validateAddress(message.type, message.address)
+            } else {
+                exit.bind(this, 0)
+                return;
+            }
+            once(ComposerKeys.validAddress, function(message) {
+                Log.logInfo("RecipientField::validAddress", "Address is valid, adding to recipients")
+                ComposerActions.addRecipientFromAddress(message.type, message.address)
+                input.text = ""
+            })
+            // Somethings not right. Show the invalid fields.
+            once(ComposerKeys.invalidAddress, function(message) {
+                Log.logInfo("RecipientField::invalidAddress", "Address invalid: %1".arg(message.address))
+                input.cursorPosition = input.length
+                PopupActions.showError("Invalid email address: %1".arg(message.address))
+            })
         }
     }
 }

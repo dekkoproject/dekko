@@ -16,6 +16,35 @@ ActionCreator {
     // type: RecipientType enum value of To, Cc, Bcc
     // This is used by the contact picker to add to the correct model
     signal addRecipientFromContacts(int type)
+    signal validateAddress(int type, string address)
+    signal invalidAddress(int type, string address)
+    signal validAddress(int type, string address)
 
+    signal addRecipientIfValid(int type, string address)
+
+    /* Add a recipient by email address
+
+       type: RecipientType enum value
+       address: valid email address
+    */
+    signal addRecipientFromAddress(int type, string address)
+
+    /* Add a recipient by name & email address
+
+       type: RecipientType enum value
+       name: Recipients name
+       address: valid email address
+
+       This is useful when adding from a contacts list. The added recipient
+       will be in the format "User name <user@email.com>"
+    */
+    signal addRecipientFromNameAddress(int type, string name, string address)
+
+    signal removeRecipient(int type, int index)
+
+    /* Set which identity the MessageBuilder should use
+
+       idx: index of the identity in SenderIdentities model
+    */
     signal setIdentity(int idx)
 }

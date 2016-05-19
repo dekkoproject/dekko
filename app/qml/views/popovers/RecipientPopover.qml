@@ -3,10 +3,16 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import Dekko.Mail 1.0
 import "../components"
+import "../../actions/popups"
+import "../../actions/composer"
 
 Popover {
     id: info
     property var address
+
+    property bool composeMode: false
+    property int type: -1
+    property int index: -1
 
     Column {
         anchors {
@@ -91,6 +97,7 @@ Popover {
             }
         }
         ListItem {
+            visible: !composeMode
             height: send.implicitHeight
             color: UbuntuColors.porcelain
             ListItemLayout {
@@ -101,6 +108,21 @@ Popover {
             }
             onClicked: {
                 PopupActions.showNotice("Not implemented yet. Fix it before release!!!!")
+                PopupUtils.close(info)
+            }
+        }
+        ListItem {
+            visible: composeMode
+            height: remove.implicitHeight
+            color: UbuntuColors.porcelain
+            ListItemLayout {
+                id: remove
+                title.text: qsTr("Remove")
+                title.elide: Text.ElideRight
+                title.wrapMode: Text.NoWrap
+            }
+            onClicked: {
+                ComposerActions.removeRecipient(type, index)
                 PopupUtils.close(info)
             }
         }

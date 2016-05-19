@@ -2,15 +2,16 @@
 
 #include <QtQml/QtQml>
 #include <QtQml/QQmlContext>
-#include "Client.h"
-#include "FolderList.h"
-#include "Folder.h"
-#include "MessageFilterCollection.h"
-#include "MessageSet.h"
-#include "MessageList.h"
-#include "MailboxSearch.h"
+#include <Client.h>
+#include <FolderList.h>
+#include <Folder.h>
+#include <MessageFilterCollection.h>
+#include <MessageSet.h>
+#include <MessageList.h>
+#include <MailboxSearch.h>
+#include <SenderIdentities.h>
+#include <MessageBuilder.h>
 #include "qmlenums.h"
-#include "SenderIdentities.h"
 
 void MailPlugin::registerTypes(const char *uri)
 {
@@ -24,6 +25,8 @@ void MailPlugin::registerTypes(const char *uri)
     qmlRegisterType<Message>(uri, 1, 0, "Message");
     qmlRegisterType<MailboxSearch>(uri, 1, 0, "MailboxSearch");
     qmlRegisterType<SenderIdentities>(uri, 1, 0, "SenderIdentities");
+    qmlRegisterType<MessageBuilder>(uri, 1, 0, "MessageBuilder");
+
     qmlRegisterUncreatableType<MessageSet>(uri, 1, 0, "MessageSet", "Cannot create MessageSet from QML, c++ only chap!");
     qmlRegisterUncreatableType<StandardFolderSet>(uri, 1, 0, "StandardFolderSet", "Cannot create MessageSet from QML, c++ only chap!");
     qmlRegisterUncreatableType<SmartFolderSet>(uri, 1, 0, "SmartFolderSet", "Cannot create SmartFolderSet from QML, c++ only chap!");

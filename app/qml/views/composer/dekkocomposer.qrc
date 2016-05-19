@@ -3,7 +3,6 @@
         <file>ComposePanelPopup.qml</file>
         <file>MessageComposer.qml</file>
         <file>RecipientField.qml</file>
-        <file>RecipientDelegate.qml</file>
         <file>RecipientInput.qml</file>
         <file>BottomEdgeComposer.qml</file>
         <file>RecipientInputContextMenu.qml</file>

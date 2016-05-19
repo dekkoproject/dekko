@@ -20,6 +20,7 @@ import "./views/components"
 import "./views/dialogs"
 
 Dekko {
+    id: dekko
     anchors.fill: parent
 
     // Add these components to the resources list

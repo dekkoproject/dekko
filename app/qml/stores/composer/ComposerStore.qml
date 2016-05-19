@@ -2,6 +2,7 @@ pragma Singleton
 import QtQuick 2.4
 import QuickFlux 1.0
 import Dekko.Accounts 1.0
+import Dekko.AutoConfig 1.0
 import Dekko.Mail 1.0
 import "../../actions/composer"
 import "../../actions/logging"
@@ -10,11 +11,12 @@ AppListener {
 
     readonly property bool showCC: d.ccVisible
     readonly property bool showBCC: d.bccVisible
+    readonly property bool hasValidIdentity: d.identitiesValid
+    readonly property QtObject identity: priv_identity
+    readonly property QtObject recipients: priv_recipients
 
-    readonly property bool hasValidIdentity: identities.selectedIndex >= 0
     property alias identitiesModel: identities.accountsModel
     property alias identityIndex: identities.selectedIndex
-    readonly property QtObject identity: priv_identity
 
     Accounts {
         id: accounts
@@ -26,11 +28,91 @@ AppListener {
         accountsModel: accounts.model
     }
 
+    MessageBuilder {
+        id: builder
+    }
+
     QtObject {
         id: priv_identity
         readonly property string name: hasValidIdentity ? identities.selectedAccount.outgoing.name : ""
         readonly property string initials: hasValidIdentity ? identities.selectedAccount.outgoing.initials : ""
         readonly property string email: hasValidIdentity ? identities.selectedAccount.outgoing.email : ""
+    }
+
+    QtObject {
+        id: priv_recipients
+        property alias to: builder.to
+        property alias cc: builder.cc
+        property alias bcc: builder.bcc
+    }
+
+    QtObject {
+        id: d
+        property bool ccVisible: false
+        property bool bccVisible: false
+        property bool identitiesValid: identities.selectedIndex >= 0
+    }
+
+    Filter {
+        type: ComposerKeys.validateAddress
+        onDispatched: {
+            if (EmailValidator.validate(message.address)) {
+                ComposerActions.validAddress(message.type, message.address)
+            } else {
+                ComposerActions.invalidAddress(message.type, message.address)
+            }
+        }
+    }
+
+    Filter {
+        type: ComposerKeys.addRecipientFromAddress
+        onDispatched: {
+            switch(message.type) {
+            case RecipientType.To:
+                builder.addRecipient(MessageBuilder.To, message.address)
+                break;
+            case RecipientType.Cc:
+                builder.addRecipient(MessageBuilder.Cc, message.address)
+                break;
+            case RecipientType.Bcc:
+                builder.addRecipient(MessageBuilder.Bcc, message.address)
+                break;
+            }
+        }
+    }
+
+    Filter {
+        type: ComposerKeys.addRecipientFromNameAddress
+        onDispatched: {
+            switch(message.type) {
+            case RecipientType.To:
+                builder.addRecipient(MessageBuilder.To, message.name, message.address)
+                break;
+            case RecipientType.Cc:
+                builder.addRecipient(MessageBuilder.Cc, message.name, message.address)
+                break;
+            case RecipientType.Bcc:
+                builder.addRecipient(MessageBuilder.Bcc, message.name, message.address)
+                break;
+            }
+        }
+    }
+
+    Filter {
+        type: ComposerKeys.removeRecipient
+        onDispatched: {
+            switch(message.type) {
+            case RecipientType.To:
+                builder.removeRecipient(MessageBuilder.To, message.index)
+                break;
+            case RecipientType.Cc:
+                builder.removeRecipient(MessageBuilder.Cc, message.index)
+                break;
+            case RecipientType.Bcc:
+                builder.removeRecipient(MessageBuilder.Bcc, message.index)
+                break;
+            }
+        }
     }
 
     Filter {
@@ -64,6 +146,7 @@ AppListener {
             d.ccVisible = false
             d.bccVisible = false
             identities.reset()
+            builder.reset()
         }
     }
 
@@ -116,12 +199,6 @@ AppListener {
         onDispatched: {
             Log.logWarning("ComposerStore::addRecipientFromContacts", "Not implemented yet")
         }
-    }
-
-    QtObject {
-        id: d
-        property bool ccVisible: false
-        property bool bccVisible: false
     }
 }
 

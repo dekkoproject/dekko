@@ -29,6 +29,11 @@ FocusScope {
                         left: parent.left
                         right: parent.right
                     }
+                    // TODO: On height changes of the fields of this column
+                    // we need to make sure the input field remains visible above the OSK.
+                    // Some kind of "makeMeVisible" function similar to how we do it for the MessageField
+                    // Probably needs to be positioned based on the bottom of the field as thats
+                    // where the input actually is.
                     SenderIdentityField {
                         anchors {
                             left: parent.left

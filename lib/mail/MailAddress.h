@@ -19,6 +19,8 @@ class MailAddress : public QObject
 public:
     explicit MailAddress(QObject *parent = 0);
     MailAddress(QObject *parent, const QMailAddress &address);
+    MailAddress(QObject *parent, const QString &name, const QString &address);
+    MailAddress(QObject *parent, const QString &address);
 
     QString name() const;
     QString address() const;

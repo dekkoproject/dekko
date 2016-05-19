@@ -24,6 +24,7 @@ TextArea {
             if (currentText.endsWith(specials[i])) {
                 text = currentText.substring(0, text.length - 1)
                 input.completionTokenSeen()
+                cursorPosition = length
                 break;
             }
         }

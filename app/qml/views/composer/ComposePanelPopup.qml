@@ -29,7 +29,7 @@ PopupBase {
             topMargin: shouldCenter ? undefined : (addTopMargin ? units.gu(6) : units.gu(2))
             verticalCenter: shouldCenter ? parent.verticalCenter : undefined
         }
-        color: "#FFFFFF"
+        color: UbuntuColors.porcelain
         clip: true
 
         StretchColumn {
@@ -40,7 +40,7 @@ PopupBase {
                     right: parent.right
                     left: parent.left
                 }
-                height: units.gu(5)
+                height: units.gu(6)
                 implicitHeight: height
 
                 StretchRow {
@@ -49,7 +49,8 @@ PopupBase {
                     anchors.rightMargin: units.gu(1)
                     spacing: units.gu(0.5)
                     TitledHeaderButton {
-                        height: parent.height
+                        height: units.gu(5)
+                        anchors.verticalCenter: parent.verticalCenter
                         iconName: Icons.DeleteIcon
                         action: Action {
                             text: qsTr("Discard")
@@ -60,7 +61,8 @@ PopupBase {
                         }
                     }
                     TitledHeaderButton {
-                        height: parent.height
+                        height: units.gu(5)
+                        anchors.verticalCenter: parent.verticalCenter
                         iconName: Icons.DraftIcon
                         action: Action {
                             text: qsTr("Save draft")
@@ -74,7 +76,8 @@ PopupBase {
                     Stretcher {}
 
                     TitledHeaderButton {
-                        height: parent.height
+                        height: units.gu(5)
+                        anchors.verticalCenter: parent.verticalCenter
                         iconName: Icons.SendIcon
                         action: Action {
                             text: qsTr("Send")
@@ -97,6 +100,11 @@ PopupBase {
 
             Stretcher {
                 id: content
+                Rectangle {
+                    anchors.fill: parent
+                    color: "#FFFFFF"
+                }
+
                 MessageComposer {
                     anchors.fill: parent
                 }
@@ -107,6 +115,15 @@ PopupBase {
                 width: parent.width
                 implicitWidth: width
                 implicitHeight: height
+                Label {
+                    anchors {
+                        left: parent.left
+                        leftMargin: units.gu(2)
+                        verticalCenter: parent.verticalCenter
+                    }
+                    fontSize: "small"
+                    text: "TODO: background status' like \"Saving draft....\""
+                }
             }
         }
     }

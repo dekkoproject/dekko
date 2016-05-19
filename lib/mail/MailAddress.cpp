@@ -12,6 +12,17 @@ MailAddress::MailAddress(QObject *parent, const QMailAddress &address): QObject(
     emit addrDataChanged();
 }
 
+MailAddress::MailAddress(QObject *parent, const QString &name, const QString &address): QObject(parent),
+    m_address(QMailAddress(name, address))
+{
+    emit addrDataChanged();
+}
+
+MailAddress::MailAddress(QObject *parent, const QString &address) : QObject(parent),
+    m_address(QMailAddress(address))
+{
+}
+
 QString MailAddress::name() const
 {
     return m_address.name();

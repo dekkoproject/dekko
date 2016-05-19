@@ -13,7 +13,14 @@ KeyTable {
     property string addAttachment
     property string removeAttachment
 
+    property string validateAddress
+    property string invalidAddress
+    property string validAddress
+    property string addRecipientIfValid
     property string addRecipientFromContacts
+    property string addRecipientFromAddress
+    property string addRecipientFromNameAddress
+    property string removeRecipient
 
     property string setIdentity
 

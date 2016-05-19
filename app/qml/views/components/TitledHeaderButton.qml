@@ -16,7 +16,7 @@ AbstractButton {
             bottomMargin: units.gu(0.5)
             fill: parent
         }
-        aspect: UbuntuShape.Flat
+        aspect: UbuntuShape.DropShadow
 //        visible: button.pressed
         color: button.pressed ? UbuntuColors.silk : UbuntuColors.porcelain
     }

@@ -4,5 +4,6 @@
         <file>FolderListDelegate.qml</file>
         <file>MessageListDelegate.qml</file>
         <file>NavMenuStandardFolderDelegate.qml</file>
+        <file>RecipientDelegate.qml</file>
     </qresource>
 </RCC>
