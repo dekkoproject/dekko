@@ -20,7 +20,7 @@ import QtQuick.Layouts 1.1
 import Ubuntu.Components 1.3
 import Dekko.Components 1.0
 
-Item {
+PixelPerfectItem {
     id: dekkoHeader
     property string title
     property Action backAction

@@ -8,6 +8,7 @@
 #include "Stretcher.h"
 #include "LogRecorder.h"
 #include "Introspector.h"
+#include "PixelPerfectItem.h"
 #include <Paths.h>
 
 void ComponentsPlugin::registerTypes(const char *uri)
@@ -18,6 +19,7 @@ void ComponentsPlugin::registerTypes(const char *uri)
     qmlRegisterType<StretchColumn>(uri, 1, 0, "StretchColumn");
     qmlRegisterType<StretchRow>(uri, 1, 0, "StretchRow");
     qmlRegisterType<Stretcher>(uri, 1, 0, "Stretcher");
+    qmlRegisterType<PixelPerfectItem>(uri, 1, 0, "PixelPerfectItem");
     qmlRegisterUncreatableType<Paths>(uri, 1, 0, "Icons", "Cannot be created in QML. THis is just for access the Icons enums");
     qmlRegisterSingletonType<Paths>(uri, 1, 0, "Paths", Paths::factory);
     qmlRegisterSingletonType<LogRecorder>(uri, 1, 0, "LogRecorder", LogRecorder::factory);

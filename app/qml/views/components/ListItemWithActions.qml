@@ -18,8 +18,9 @@ import QtQuick 2.4
 import QtFeedback 5.0
 import Ubuntu.Components 1.3
 import Ubuntu.Components.ListItems 1.0 as ListItem
+import Dekko.Components 1.0
 
-Item {
+PixelPerfectItem {
     id: root
 
     property Action leftSideAction: null
@@ -193,7 +194,7 @@ Item {
         }
     }
 
-    Item {
+    PixelPerfectItem {
        id: rightActionsView
 
        anchors {
@@ -217,7 +218,7 @@ Item {
                id: rightActionsRepeater
 
                model: _showActions ? _visibleRightSideActions : []
-               Item {
+               PixelPerfectItem {
                    id: actItem
                    property alias image: img
 
@@ -257,7 +258,7 @@ Item {
        }
     }
 
-    Item {
+    PixelPerfectItem {
         id: main
         objectName: "mainItem"
 
@@ -284,7 +285,7 @@ Item {
             }
         }
 
-        Item {
+        PixelPerfectItem {
             id: mainContents
             anchors.fill: parent
         }

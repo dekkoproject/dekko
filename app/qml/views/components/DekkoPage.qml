@@ -27,6 +27,7 @@ Item {
     function startMultiSelect() {
         h.startMultiSelect()
     }
+    clip: true
 
     DekkoHeader {
         id: h
@@ -41,7 +42,7 @@ Item {
         onComposeNewMessage: ViewActions.openMessageComposer()
     }
 
-    Item {
+    PixelPerfectItem {
         id: mainContent
         anchors {
             left: parent.left

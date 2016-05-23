@@ -6,6 +6,7 @@ import Dekko.AutoConfig 1.0
 import Dekko.Mail 1.0
 import "../../actions/composer"
 import "../../actions/logging"
+import "../accounts"
 
 AppListener {
 
@@ -17,15 +18,11 @@ AppListener {
 
     property alias identitiesModel: identities.accountsModel
     property alias identityIndex: identities.selectedIndex
-
-    Accounts {
-        id: accounts
-        filter: Accounts.CanSend
-    }
+    property alias subjectDocument: builder.subject
 
     SenderIdentities {
         id: identities
-        accountsModel: accounts.model
+        accountsModel: AccountStore.sendAccountsModel
     }
 
     MessageBuilder {

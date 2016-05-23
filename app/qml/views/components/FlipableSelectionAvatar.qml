@@ -10,7 +10,7 @@ Flipable {
     id: flipable
     property var msg
 
-    front: Item {
+    front: PixelPerfectItem {
         id: inner_avatar
         anchors.fill: parent
         Component {
@@ -110,7 +110,7 @@ Flipable {
         }
     }
 
-    back: Item {
+    back: PixelPerfectItem {
         anchors.fill: parent
         ListItemWithActionsCheckBox {
             anchors.centerIn: parent

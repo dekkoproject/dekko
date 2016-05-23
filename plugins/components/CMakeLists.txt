@@ -16,6 +16,7 @@ set(AccountsPlugin_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/Stretcher.h
     ${CMAKE_CURRENT_SOURCE_DIR}/LogRecorder.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Introspector.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/PixelPerfectItem.cpp
 )
 
 add_library(componentsplugin MODULE ${AccountsPlugin_SRCS})

@@ -1,6 +1,7 @@
-import QtQuick 2.0
+import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
+import Dekko.Components 1.0
 import "../components"
 
 DetailItem {
@@ -32,35 +33,38 @@ DetailItem {
 
         ListItem {
             height: layout.height
-            ListItemLayout {
-                id: layout
-                title.text: address ? address.name : model.email
-                title.elide: Text.ElideRight
-                title.wrapMode: Text.NoWrap
-                subtitle.text: {
-                    if (address.name) {
-                        if (address.name !== address.address)
-                            return address.address
-                        else
-                            return ""
-                    }/* else if (model.isInContacts) {
+            PixelPerfectItem {
+                anchors.fill: parent
+                ListItemLayout {
+                    id: layout
+                    title.text: address ? address.name : model.email
+                    title.elide: Text.ElideRight
+                    title.wrapMode: Text.NoWrap
+                    subtitle.text: {
+                        if (address.name) {
+                            if (address.name !== address.address)
+                                return address.address
+                            else
+                                return ""
+                        }/* else if (model.isInContacts) {
                         return model.contactInfo.organization
                     } else {
                         return ""
                     }*/
-                }
-//                summary.text: address.name && model.isInContacts ? model.contactInfo.organization : ""
-                subtitle.elide: Text.ElideRight
-                subtitle.wrapMode: Text.NoWrap
+                    }
+                    //                summary.text: address.name && model.isInContacts ? model.contactInfo.organization : ""
+                    subtitle.elide: Text.ElideRight
+                    subtitle.wrapMode: Text.NoWrap
 
-                Avatar {
-                    id: avatar
-                    name: address.name
-                    initials: address.initials
-                    email: address.address
-                    validContact: true
-                    fontSize: "large"
-                    SlotsLayout.position: SlotsLayout.Leading
+                    Avatar {
+                        id: avatar
+                        name: address.name
+                        initials: address.initials
+                        email: address.address
+                        validContact: true
+                        fontSize: "large"
+                        SlotsLayout.position: SlotsLayout.Leading
+                    }
                 }
             }
         }

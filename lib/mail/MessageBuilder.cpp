@@ -8,6 +8,11 @@ MessageBuilder::MessageBuilder(QObject *parent) : QObject(parent)
     emit modelsChanged();
 }
 
+QQuickTextDocument *MessageBuilder::subject() const
+{
+    return m_subject;
+}
+
 void MessageBuilder::addRecipient(const MessageBuilder::RecipientModels which, const QString &emailAddress)
 {
     if (emailAddress.isEmpty()) {
@@ -74,5 +79,14 @@ void MessageBuilder::reset()
     m_to->clear();
     m_bcc->clear();
     m_cc->clear();
+}
+
+void MessageBuilder::setSubject(QQuickTextDocument *subject)
+{
+    if (m_subject == subject)
+        return;
+
+    m_subject = subject;
+    emit subjectChanged(subject);
 }
 

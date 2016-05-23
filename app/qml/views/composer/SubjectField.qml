@@ -4,6 +4,7 @@ import Ubuntu.Components.Themes.Ambiance 1.3
 import Dekko.Components 1.0
 import "../components"
 import "../../constants"
+import "../../stores/composer"
 
 FocusScope {
 
@@ -11,14 +12,15 @@ FocusScope {
     readonly property alias text: input.text
     property alias textDocument: input.textDocument
 
-    height: input.lineCount > 1 ? input.height + Style.smallSpacing : defaultHeight
     anchors {
         left: parent.left
         right: parent.right
     }
+
+    clip: true
+    height: input.lineCount > 1 ? input.height + Style.smallSpacing : defaultHeight
     implicitHeight: height
     implicitWidth: width
-    clip: true
 
     StretchRow {
         anchors {
@@ -27,6 +29,7 @@ FocusScope {
             rightMargin: Style.defaultSpacing
         }
         spacing: Style.smallSpacing
+
         Label {
             anchors {
                 left: parent.left
@@ -35,6 +38,7 @@ FocusScope {
             }
             text: qsTr("Subject:")
         }
+
         Stretcher {
             height: input.height
             implicitHeight: height
@@ -56,6 +60,12 @@ FocusScope {
                     frameSpacing: 0
                     background: Item {}
                 }
+            }
+
+            Binding {
+                target: ComposerStore
+                property: "subjectDocument"
+                value: input.textDocument
             }
         }
     }
