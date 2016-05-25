@@ -7,7 +7,6 @@ AbstractButton {
     implicitWidth: width
     implicitHeight: height
     width: icon.width + label.width + units.gu(3)
-    property alias iconName: icon.name
     property alias iconColor: icon.color
 
     UbuntuShape {
@@ -31,6 +30,7 @@ AbstractButton {
         }
         height: units.gu(2.25)
         width: height
+        name: action.iconName
     }
 
     Label {

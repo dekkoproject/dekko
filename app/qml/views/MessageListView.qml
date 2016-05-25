@@ -81,6 +81,7 @@ DekkoPage {
         canActionTrigger: false
         enabled: dekko.viewState.isSmallFF
         flickable: listView
+        listenerEnabled: enabled
     }
 
     drawerConfig: DrawerConfiguration {

@@ -2,7 +2,7 @@
 #include <qmailaccount.h>
 
 SenderIdentities::SenderIdentities(QObject *parent) : QObject(parent), m_selectedIndex(-1),
-    m_accountsModel(0)
+    m_accountsModel(Q_NULLPTR)
 {
 }
 
@@ -22,6 +22,15 @@ QObject *SenderIdentities::selectedAccount() const
 QObject *SenderIdentities::accountsModel() const
 {
     return m_accountsModel;
+}
+
+bool SenderIdentities::isEmpty()
+{
+    bool result = true;
+    if (m_accountsModel != Q_NULLPTR) {
+        result = m_accountsModel->isEmpty();
+    }
+    return result;
 }
 
 void SenderIdentities::setSelectedIndex(int selectedIndex)

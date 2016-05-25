@@ -12,5 +12,6 @@
         <file>mail/BaseMessagingStore.qml</file>
         <file>composer/qmldir</file>
         <file>composer/ComposerStore.qml</file>
+        <file>composer/ComposerStoreActions.qml</file>
     </qresource>
 </RCC>

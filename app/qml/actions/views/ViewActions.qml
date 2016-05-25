@@ -37,5 +37,6 @@ ActionCreator {
 
     signal openComposer()
     signal setComposePanelSource(var source, var properties)
+    signal closeComposer()
 
 }

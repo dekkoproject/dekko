@@ -2,7 +2,10 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import Dekko.Components 1.0
+import QuickFlux 1.0
 import "../../actions/composer"
+import "../../actions/views"
+import "../../stores/composer"
 import "../components"
 
 PopupBase {
@@ -51,26 +54,12 @@ PopupBase {
                     TitledHeaderButton {
                         height: units.gu(5)
                         anchors.verticalCenter: parent.verticalCenter
-                        iconName: Icons.DeleteIcon
-                        action: Action {
-                            text: qsTr("Discard")
-                            onTriggered: {
-                                ComposerActions.discardMessage()
-                                PopupUtils.close(base)
-                            }
-                        }
+                        action: ComposerStore.actions.discardMessageAction
                     }
                     TitledHeaderButton {
                         height: units.gu(5)
                         anchors.verticalCenter: parent.verticalCenter
-                        iconName: Icons.DraftIcon
-                        action: Action {
-                            text: qsTr("Save draft")
-                            onTriggered: {
-                                ComposerActions.saveDraft()
-                                PopupUtils.close(base)
-                            }
-                        }
+                        action: ComposerStore.actions.saveDraftAction
                     }
 
                     Stretcher {}
@@ -78,14 +67,7 @@ PopupBase {
                     TitledHeaderButton {
                         height: units.gu(5)
                         anchors.verticalCenter: parent.verticalCenter
-                        iconName: Icons.SendIcon
-                        action: Action {
-                            text: qsTr("Send")
-                            onTriggered: {
-                                ComposerActions.sendMessage()
-                                PopupUtils.close(base)
-                            }
-                        }
+                        action: ComposerStore.actions.sendAction
                     }
                 }
 
@@ -125,6 +107,13 @@ PopupBase {
                     text: "TODO: background status' like \"Saving draft....\""
                 }
             }
+        }
+    }
+    AppScript {
+        runWhen: ViewKeys.closeComposer
+        script: {
+            PopupUtils.close(base)
+            exit.bind(this, 0)
         }
     }
 }

@@ -318,7 +318,7 @@ void MessageList::handleUpdatedMessages(const QMailMessageIdList &updatedList)
 
                 // See if this item is still sorted correctly with respect to its neighbours
                 if (newIndex >= m_idList.count()) {
-                    qWarning() << "QMailMessageListModelPrivate::updateMessage index out of bounds" << newIndex << m_idList.count();
+                    qWarning() << "MessageList::handleUpdatedMessages index out of bounds" << newIndex << m_idList.count();
                 } else if (newIndex > 0) {
                     if (newIds.indexOf(m_idList.at(newIndex - 1)) > newIndex) {
                         reinsert = true;

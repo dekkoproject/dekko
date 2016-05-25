@@ -18,6 +18,7 @@ public:
     int selectedIndex() const;
     QObject *selectedAccount() const;
     QObject *accountsModel() const;
+    bool isEmpty();
 
 signals:
     void selectedIndexChanged();

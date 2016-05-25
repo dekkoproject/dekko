@@ -107,3 +107,8 @@ void Client::downloadMessages(const QMailMessageIdList &idList)
 {
 
 }
+
+void Client::sendMessage(const QMailMessage &msg)
+{
+    m_service->sendMessage(msg);
+}

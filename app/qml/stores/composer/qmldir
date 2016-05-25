@@ -1,1 +1,2 @@
 singleton ComposerStore 1.0 ComposerStore.qml
+internal ComposerStoreActions ComposerStoreActions.qml

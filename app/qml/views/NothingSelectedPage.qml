@@ -12,10 +12,10 @@ DekkoPage {
 
     bottomEdgeConfig: BottomEdgeComposer {
         hintVisible: false // we don't need a hint in this view
-        enabled: true
+        enabled: dekko.viewState.isMediumFF && (internalStack.depth === 1)
         canActionTrigger: dekko.viewState.isMediumFF
+        listenerEnabled: enabled
     }
-
 
     CachedImage {
         id: image

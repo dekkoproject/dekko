@@ -40,6 +40,13 @@ public:
     void downloadMessage(const QMailMessageId &msgId);
     void downloadMessages(const QMailMessageIdList &idList);
 
+    // C++ Store api
+//    void addMessages(const QMailMessageList &msgList);
+//    void updateMessages(const QMailMessageList &msgList);
+
+    // C++ Submission api
+    void sendMessage(const QMailMessage &msg);
+
 signals:
     void serviceChanged();
     void messagePartNowAvailable(const quint64 &msgId, const QString &partLocation);

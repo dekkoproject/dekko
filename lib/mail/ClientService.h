@@ -44,6 +44,7 @@ public:
     void markMessagesDone(const QMailMessageIdList &msgIds, const bool done);
     void downloadMessagePart(const QMailMessagePart *part);
     void downloadMessages(const QMailMessageIdList &msgIds);
+    void sendMessage(const QMailMessage &msg);
 
 signals:
     void undoCountChanged();
@@ -57,7 +58,6 @@ signals:
 public slots:
     void undoActions();
 
-
 private slots:
     void processNextAction();
     /** @short Process the next action in the action queue */
@@ -69,11 +69,11 @@ private slots:
 
     void undoableCountChanged();
     void rollBackMailStoreUpdates(const QMailAccountIdList &accounts);
+    void sendAnyQueuedMail();
 
 private:
     void connectServiceAction(QMailServiceAction* action);
     void enqueue(ClientServiceAction *action);
-
     bool exportQueuedForAccountId(const QMailAccountId &id);
 
 private:
@@ -105,6 +105,7 @@ signals:
     void messagePartFetchFailed(const quint64 &message, const QString &location);
     void messagesFetched(const QMailMessageIdList &ids);
     void messageFetchFailed(const QMailMessageIdList &ids);
+    void checkSendMailQueue();
 
 public slots:
     void activityChanged(QMailServiceAction::Activity activity){
@@ -125,7 +126,22 @@ public slots:
                     }
                     m_queue->dequeue();
                     emit processNext();
+                } else if (action->metaObject()->className() == QStringLiteral("QMailStorageAction")) {
+                    if (m_queue->first()->serviceActionType() == ClientServiceAction::OutboxAction) {
+                        qDebug() << "Message stored in outbox";
+                        emit checkSendMailQueue();
+                    }
+                    m_queue->dequeue();
+                    emit processNext();
+
+                } else if (action->metaObject()->className() == QStringLiteral("QMailTransmitAction")) {
+                    if (m_queue->first()->serviceActionType() == ClientServiceAction::SendAction) {
+                        qDebug() << "Success sending pending messages";
+                    }
+                    m_queue->dequeue();
+                    emit processNext();
                 }
+
             } else if (activity == QMailServiceAction::Failed) {
                 const QMailServiceAction::Status status(action->status());
                 if (action->metaObject()->className() == QStringLiteral("QMailRetrievalAction")) {
@@ -139,6 +155,19 @@ public slots:
                     } else if (m_queue->first()->serviceActionType() == ClientServiceAction::RetrieveAction) {
                         ClientServiceAction *clientAction = m_queue->at(0);
                         emit messageFetchFailed(clientAction->messageIds());
+                    }
+                    m_queue->dequeue();
+                    emit processNext();
+                } else if (action->metaObject()->className() == QStringLiteral("QMailStorageAction")) {
+                    if (m_queue->first()->serviceActionType() == ClientServiceAction::OutboxAction) {
+                        qDebug() << "Failed while storing message in outbox: " <<  action->status().text;
+                        emit checkSendMailQueue();
+                    }
+                    m_queue->dequeue();
+                    emit processNext();
+                } else if (action->metaObject()->className() == QStringLiteral("QMailTransmitAction")) {
+                    if (m_queue->first()->serviceActionType() == ClientServiceAction::SendAction) {
+                        qDebug() << "Failed sending pending messages: " << action->status().text;
                     }
                     m_queue->dequeue();
                     emit processNext();

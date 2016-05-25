@@ -88,6 +88,8 @@ public:
      */
     Q_INVOKABLE void setSpecialUseFolder(SpecialUseFolder folder, const quint64 &folderId);
 
+    QMailAccount *qMailAccount() const { return m_account; }
+
     static const QString imapServiceType, popServiceType, qmfStorage, smtpServiceType;
     /** @short used by Accounts.h to indicate the account has been updates
      *

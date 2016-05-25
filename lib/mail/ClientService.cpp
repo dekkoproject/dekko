@@ -20,6 +20,7 @@ ClientService::ClientService(QObject *parent) : QObject(parent),
     connect(m_serviceWatcher, &ClientServiceWatcher::messagePartFetchFailed, this, &ClientService::messagePartFetchFailed);
     connect(m_serviceWatcher, &ClientServiceWatcher::messagesFetched, this, &ClientService::messagesFetched);
     connect(m_serviceWatcher, &ClientServiceWatcher::messageFetchFailed, this, &ClientService::messageFetchFailed);
+    connect(m_serviceWatcher, &ClientServiceWatcher::checkSendMailQueue, this, &ClientService::sendAnyQueuedMail);
     emit queueChanged();
 }
 
@@ -142,6 +143,13 @@ void ClientService::downloadMessages(const QMailMessageIdList &msgIds)
     enqueue(new FetchMessagesAction(this, msgIds));
 }
 
+void ClientService::sendMessage(const QMailMessage &msg)
+{
+    // place it in outbox local storage. The service will pick up it's been stored
+    // and trigger the transmit action.
+    enqueue(new OutboxAction(this, msg));
+}
+
 void ClientService::undoableCountChanged()
 {
     emit undoCountChanged();
@@ -165,6 +173,15 @@ void ClientService::rollBackMailStoreUpdates(const QMailAccountIdList &accounts)
             QMailDisconnected::rollBackUpdates(id);
         }
         emit updatesRolledBack();
+    }
+}
+
+void ClientService::sendAnyQueuedMail()
+{
+    QMailMessageKey outboxFilter(QMailMessageKey::status(QMailMessage::Outbox) & ~QMailMessageKey::status(QMailMessage::Trash));
+    foreach (const QMailMessageMetaData &metaData, QMailStore::instance()->messagesMetaData(
+                 outboxFilter, QMailMessageKey::ParentAccountId, QMailStore::ReturnDistinct)) {
+        enqueue(new SendPendingMessagesAction(this, metaData.parentAccountId()));
     }
 }
 

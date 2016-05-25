@@ -6,6 +6,7 @@ import Dekko.AutoConfig 1.0
 import Dekko.Mail 1.0
 import "../../actions/composer"
 import "../../actions/logging"
+import "../../actions/views"
 import "../accounts"
 
 AppListener {
@@ -16,9 +17,14 @@ AppListener {
     readonly property QtObject identity: priv_identity
     readonly property QtObject recipients: priv_recipients
 
+    property ComposerStoreActions actions: ComposerStoreActions{}
+
     property alias identitiesModel: identities.accountsModel
     property alias identityIndex: identities.selectedIndex
+    // bind the subject fields text document to messagebuilder
     property alias subjectDocument: builder.subject
+    // bind the body fields text document to messagebuilder
+    property alias bodyDocument: builder.body
 
     SenderIdentities {
         id: identities
@@ -27,6 +33,25 @@ AppListener {
 
     MessageBuilder {
         id: builder
+        identities: identities
+    }
+
+    SubmissionManager {
+        id: submissionManager
+        builder: builder
+        onError: {
+            switch(error) {
+                case SubmissionManager.NoBuilder:
+                Log.logError("ComposerStore::SubmissionManager::NoBuilder", "No message builder set. Cannot compose without one")
+                break
+                case SubmissionManager.InvalidMessage:
+                Log.logError("ComposerStore::SubmissionManager::InvalidMessage", "Invalid message, missing 'To' recipients or Subject")
+                break
+                case SubmissionManager.NoIdentities:
+                Log.logError("ComposerStore::SubmissionManager::NoIdentities", "No identities available for MessageBuilder. Cannot proceed...")
+                break
+            }
+        }
     }
 
     QtObject {
@@ -65,13 +90,13 @@ AppListener {
         type: ComposerKeys.addRecipientFromAddress
         onDispatched: {
             switch(message.type) {
-            case RecipientType.To:
+                case RecipientType.To:
                 builder.addRecipient(MessageBuilder.To, message.address)
                 break;
-            case RecipientType.Cc:
+                case RecipientType.Cc:
                 builder.addRecipient(MessageBuilder.Cc, message.address)
                 break;
-            case RecipientType.Bcc:
+                case RecipientType.Bcc:
                 builder.addRecipient(MessageBuilder.Bcc, message.address)
                 break;
             }
@@ -82,13 +107,13 @@ AppListener {
         type: ComposerKeys.addRecipientFromNameAddress
         onDispatched: {
             switch(message.type) {
-            case RecipientType.To:
+                case RecipientType.To:
                 builder.addRecipient(MessageBuilder.To, message.name, message.address)
                 break;
-            case RecipientType.Cc:
+                case RecipientType.Cc:
                 builder.addRecipient(MessageBuilder.Cc, message.name, message.address)
                 break;
-            case RecipientType.Bcc:
+                case RecipientType.Bcc:
                 builder.addRecipient(MessageBuilder.Bcc, message.name, message.address)
                 break;
             }
@@ -99,13 +124,13 @@ AppListener {
         type: ComposerKeys.removeRecipient
         onDispatched: {
             switch(message.type) {
-            case RecipientType.To:
+                case RecipientType.To:
                 builder.removeRecipient(MessageBuilder.To, message.index)
                 break;
-            case RecipientType.Cc:
+                case RecipientType.Cc:
                 builder.removeRecipient(MessageBuilder.Cc, message.index)
                 break;
-            case RecipientType.Bcc:
+                case RecipientType.Bcc:
                 builder.removeRecipient(MessageBuilder.Bcc, message.index)
                 break;
             }
@@ -133,6 +158,8 @@ AppListener {
         onDispatched: {
             Log.logInfo("ComposerStore::discardMessage", "Discarding message")
             ComposerActions.resetComposer()
+            // We can just call close now as we don't need to wait on anything with resetComposer
+            ViewActions.closeComposer()
         }
     }
 
@@ -166,14 +193,18 @@ AppListener {
     Filter {
         type: ComposerKeys.sendMessage
         onDispatched: {
-            Log.logWarning("ComposerStore::sendMessage", "Not implemented yet")
+            Log.logInfo("ComposerStore::sendMessage", "Sending message...")
+            submissionManager.send()
+            ViewActions.closeComposer() // TODO: Call after successful enqueue
         }
     }
 
     Filter {
         type: ComposerKeys.saveDraft
         onDispatched: {
-            Log.logWarning("ComposerStore::saveDraft", "Not implemented yet")
+            Log.logInfo("ComposerStore::saveDraft", "Saving draft...")
+            submissionManager.saveDraft()
+            ViewActions.closeComposer() // TODO: Call after successful enqueue
         }
     }
 

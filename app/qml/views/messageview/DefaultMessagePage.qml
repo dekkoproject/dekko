@@ -30,9 +30,10 @@ DekkoPage {
 
     bottomEdgeConfig: BottomEdgeComposer {
         hintVisible: false // we don't need a hint in this view
-        enabled: !dekko.viewState.isLargeFF
+        enabled: !dekko.viewState.isLargeFF && internalStack.depth > 1
         canActionTrigger: !dekko.viewState.isLargeFF
         activationKey: ViewKeys.replyToOpenMessage
+        listenerEnabled: enabled
     }
 
     Message {

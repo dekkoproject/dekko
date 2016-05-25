@@ -30,6 +30,8 @@ public:
     bool isNull() const;
     bool isContact() const;
 
+    QMailAddress qMailAddress() const { return m_address; }
+
 signals:
     void addrDataChanged();
 

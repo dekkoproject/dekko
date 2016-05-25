@@ -82,41 +82,7 @@ PixelPerfectItem {
     }
     visible: true
     height: visible ? units.gu(6) + filterColumn.height + btmMargin.height + extendHeight : 0
-    state: "default"
-    states: [
-        State {
-            name: "default"
-            PropertyChanges {
-                target: loader
-                sourceComponent: defaultHeadState
-            }
-        },
-        State {
-            name: "search"
-            PropertyChanges {
-                target: loader
-                sourceComponent: searchComponent
-            }
-        },
-        State {
-            name: "multi-select"
-            PropertyChanges {
-                target: loader
-                sourceComponent: multiSelectComponent
-            }
-            PropertyChanges {
-                target: dekkoHeader
-                height: units.gu(6) + filterColumn.height
-            }
-        },
-        State {
-            name: "custom"
-            PropertyChanges {
-                target: loader
-                sourceComponent: customComponent
-            }
-        }
-    ]
+
 
     Action {
         id: drawerAction
@@ -386,4 +352,40 @@ PixelPerfectItem {
         }
         actions: secondaryActions.length > 1 ? secondaryActions : []
     }
+
+    state: "default"
+    states: [
+        State {
+            name: "default"
+            PropertyChanges {
+                target: loader
+                sourceComponent: defaultHeadState
+            }
+        },
+        State {
+            name: "search"
+            PropertyChanges {
+                target: loader
+                sourceComponent: searchComponent
+            }
+        },
+        State {
+            name: "multi-select"
+            PropertyChanges {
+                target: loader
+                sourceComponent: multiSelectComponent
+            }
+            PropertyChanges {
+                target: dekkoHeader
+                height: units.gu(6) + filterColumn.height
+            }
+        },
+        State {
+            name: "custom"
+            PropertyChanges {
+                target: loader
+                sourceComponent: customComponent
+            }
+        }
+    ]
 }

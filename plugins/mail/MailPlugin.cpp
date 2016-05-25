@@ -11,6 +11,7 @@
 #include <MailboxSearch.h>
 #include <SenderIdentities.h>
 #include <MessageBuilder.h>
+#include <SubmissionManager.h>
 #include "qmlenums.h"
 
 void MailPlugin::registerTypes(const char *uri)
@@ -26,6 +27,7 @@ void MailPlugin::registerTypes(const char *uri)
     qmlRegisterType<MailboxSearch>(uri, 1, 0, "MailboxSearch");
     qmlRegisterType<SenderIdentities>(uri, 1, 0, "SenderIdentities");
     qmlRegisterType<MessageBuilder>(uri, 1, 0, "MessageBuilder");
+    qmlRegisterType<SubmissionManager>(uri, 1, 0, "SubmissionManager");
 
     qmlRegisterUncreatableType<MessageSet>(uri, 1, 0, "MessageSet", "Cannot create MessageSet from QML, c++ only chap!");
     qmlRegisterUncreatableType<StandardFolderSet>(uri, 1, 0, "StandardFolderSet", "Cannot create MessageSet from QML, c++ only chap!");

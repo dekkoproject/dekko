@@ -27,6 +27,7 @@ set(libMail_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/Attachments.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/SenderIdentities.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/MessageBuilder.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/SubmissionManager.cpp
 )
 
 add_library(mail SHARED ${libMail_SRCS})

@@ -3,6 +3,7 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.Themes.Ambiance 1.3
 import "../../actions/logging"
 import "../../constants"
+import "../../stores/composer"
 
 FocusScope {
     id: root
@@ -51,6 +52,13 @@ FocusScope {
             }
         }
     }
+
+    Binding {
+        target: ComposerStore
+        property: "bodyDocument"
+        value: textArea.textDocument
+    }
+
     // This timer is used to position the view after
     // active focus has been gained so that the cursor doesn't get stuck down behind the keyboard
     Timer {

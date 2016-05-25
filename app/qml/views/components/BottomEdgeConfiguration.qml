@@ -10,6 +10,6 @@ QtObject {
     property string activationKey: ""
     property Component sourceComponent: null
     property Flickable flickable: null
-
+    property bool listenerEnabled: true
 }
 

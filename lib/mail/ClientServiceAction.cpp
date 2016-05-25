@@ -188,3 +188,33 @@ void FetchMessagesAction::process()
 {
     createRetrievalAction()->retrieveMessages(m_list, QMailRetrievalAction::RetrievalSpecification::Content);
 }
+
+OutboxAction::OutboxAction(QObject *parent, const QMailMessage &msg) : ClientServiceAction(parent), m_msg(msg)
+{
+    m_actionType = ActionType::Immediate;
+    m_serviceActionType = ServiceAction::OutboxAction;
+    m_description = QStringLiteral("Storing message in outbox");
+}
+
+void OutboxAction::process()
+{
+    m_msg.setStatus(QMailMessage::Outbox, true);
+    if (m_msg.id().isValid()) {
+        createStorageAction()->updateMessages(QMailMessageList() << m_msg);
+    } else {
+        createStorageAction()->addMessages(QMailMessageList() << m_msg);
+    }
+}
+
+SendPendingMessagesAction::SendPendingMessagesAction(QObject *parent, const QMailAccountId &id) :
+    ClientServiceAction(parent), m_id(id)
+{
+    m_actionType = ActionType::Silent;
+    m_serviceActionType = ServiceAction::SendAction;
+    m_description = QStringLiteral("Sending pending messages for account: %1").arg(m_id.toULongLong());
+}
+
+void SendPendingMessagesAction::process()
+{
+    createTransmitAction()->transmitMessages(m_id);
+}

@@ -36,7 +36,8 @@ public:
         StandardFoldersAction,
         StorageAction,
         TransmitAction,
-        ExportAction
+        ExportAction,
+        OutboxAction
     };
 
     virtual void process() = 0;
@@ -194,6 +195,33 @@ public slots:
     QMailMessageIdList messageIds() { return m_list; }
 private:
     QMailMessageIdList m_list;
+};
+
+class OutboxAction : public ClientServiceAction
+{
+    Q_OBJECT
+public:
+    OutboxAction(QObject *parent, const QMailMessage &msg);
+
+    // ClientServiceAction interface
+public:
+    void process();
+private:
+    QMailMessage m_msg;
+};
+
+class SendPendingMessagesAction : public ClientServiceAction
+{
+    Q_OBJECT
+public:
+    SendPendingMessagesAction(QObject *parent, const QMailAccountId &id);
+
+    QMailAccountId accountId() const { return m_id; }
+private:
+    QMailAccountId m_id;
+    // ClientServiceAction interface
+public:
+    void process();
 };
 
 //class MoveMessagesAction : public UndoableAction

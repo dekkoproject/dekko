@@ -69,7 +69,7 @@ Item {
                 visible: bottomEdgeConfig.enabled
                 hint.iconSource: bottomEdgeConfig.iconSource
 //                hint.flickable: bottomEdgeConfig.enabled ? bottomEdgeConfig.flickable : null
-                contentComponent: bottomEdgeConfig.sourceComponent
+                contentComponent: bottomEdgeConfig !== null ? bottomEdgeConfig.sourceComponent : null
                 Component.onCompleted: QuickUtils.mouseAttached = true
 
                 AppListener {

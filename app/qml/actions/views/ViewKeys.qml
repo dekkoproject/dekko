@@ -36,6 +36,7 @@ KeyTable {
     // Compose panel API
     property string openComposer
     property string setComposePanelSource
+    property string closeComposer
     // These are not actions as such but keys for the stagearea's
     // They are used to determine which StackView we are pushing a page to
     // via pushToStage(stackID, ....)
