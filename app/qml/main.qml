@@ -18,10 +18,16 @@
 import QtQuick 2.4
 import "./views/components"
 import "./views/dialogs"
+import "./views/toasts"
 
 Dekko {
     id: dekko
     anchors.fill: parent
+
+//    SimpleToast {
+//        text: "simple toast"
+//        displayTime: 10000
+//    }
 
     // Add these components to the resources list
     QtObject {
@@ -30,6 +36,7 @@ Dekko {
         property Logger logger: Logger {
             devLoggingEnabled: devModeEnabled
         }
+        property ToastListener toaster: ToastListener{}
     }
 }
 

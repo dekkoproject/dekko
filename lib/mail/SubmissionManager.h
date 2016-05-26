@@ -39,13 +39,14 @@ public:
 signals:
     void builderChanged();
     void error(const Error &error);
-
+    void messageQueued();
 
 public slots:
     void setBuilder(QObject * builder);
     void send();
     void saveDraft();
 //    void respond(const ResponseType &type);
+    void messageSent(const QMailMessageIdList &ids);
 
 protected:
     bool hasBuilder();

@@ -43,6 +43,7 @@ FocusScope {
 
                     RecipientField {
                         recipientType: RecipientType.To
+                        recipientModel: ComposerStore.recipients.to
                         anchors {
                             left: parent.left
                             right: parent.right
@@ -51,6 +52,7 @@ FocusScope {
                     RecipientField {
                         visible: ComposerStore.showCC
                         recipientType: RecipientType.Cc
+                        recipientModel: ComposerStore.recipients.cc
                         anchors {
                             left: parent.left
                             right: parent.right
@@ -59,6 +61,7 @@ FocusScope {
                     RecipientField {
                         visible: ComposerStore.showBCC
                         recipientType: RecipientType.Bcc
+                        recipientModel: ComposerStore.recipients.bcc
                         anchors {
                             left: parent.left
                             right: parent.right

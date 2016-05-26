@@ -13,5 +13,7 @@
         <file>Google_plus.png</file>
         <file>Google_Calendar.png</file>
         <file>dekko-app-symbolic.svg</file>
+        <file>ubuntu-sdk-build-bot.svg</file>
+        <file>ubuntu-sdk-build-bot.png</file>
     </qresource>
 </RCC>

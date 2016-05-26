@@ -54,6 +54,8 @@ signals:
     void messagePartFetchFailed(const quint64 &message, const QString &location);
     void messagesFetched(const QMailMessageIdList &ids);
     void messageFetchFailed(const QMailMessageIdList &ids);
+    void messagesSent(const QMailMessageIdList &ids);
+    void messageSendingFailed(const QMailMessageIdList &ids, QMailServiceAction::Status::ErrorCode error);
 
 public slots:
     void undoActions();
@@ -106,6 +108,8 @@ signals:
     void messagesFetched(const QMailMessageIdList &ids);
     void messageFetchFailed(const QMailMessageIdList &ids);
     void checkSendMailQueue();
+    void messagesSent();
+    void messageSendingFailed();
 
 public slots:
     void activityChanged(QMailServiceAction::Activity activity){
@@ -137,6 +141,7 @@ public slots:
                 } else if (action->metaObject()->className() == QStringLiteral("QMailTransmitAction")) {
                     if (m_queue->first()->serviceActionType() == ClientServiceAction::SendAction) {
                         qDebug() << "Success sending pending messages";
+                        emit messagesSent();
                     }
                     m_queue->dequeue();
                     emit processNext();
@@ -168,6 +173,7 @@ public slots:
                 } else if (action->metaObject()->className() == QStringLiteral("QMailTransmitAction")) {
                     if (m_queue->first()->serviceActionType() == ClientServiceAction::SendAction) {
                         qDebug() << "Failed sending pending messages: " << action->status().text;
+                        emit messageSendingFailed();
                     }
                     m_queue->dequeue();
                     emit processNext();

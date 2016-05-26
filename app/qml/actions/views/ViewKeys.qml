@@ -44,4 +44,8 @@ KeyTable {
     property string navigationStack
     property string messageListStack
     property string messageViewStack
+
+    property string orderSimpleToast
+    property string orderSubtitledToast
+    property string orderComplexToast
 }

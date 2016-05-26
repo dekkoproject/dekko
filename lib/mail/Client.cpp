@@ -28,6 +28,8 @@ Client::Client(QObject *parent) : QObject(parent),
     connect(m_service, &ClientService::messagePartFetchFailed, this, &Client::messagePartFetchFailed);
     connect(m_service, &ClientService::messagesFetched, this, &Client::messagesNowAvailable);
     connect(m_service, &ClientService::messageFetchFailed, this, &Client::messageFetchFailed);
+    connect(m_service, &ClientService::messagesSent, this, &Client::messagesSent);
+    connect(m_service, &ClientService::messageSendingFailed, this, &Client::messageSendingFailed);
 }
 
 bool Client::hasConfiguredAccounts()

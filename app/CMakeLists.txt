@@ -24,6 +24,7 @@ set(DEKKO_QML_RESOURCE
     ${CMAKE_CURRENT_SOURCE_DIR}/qml/views/utils/dekkoutils.qrc
     ${CMAKE_CURRENT_SOURCE_DIR}/qml/views/webview/dekkoweb.qrc
     ${CMAKE_CURRENT_SOURCE_DIR}/qml/views/composer/dekkocomposer.qrc
+    ${CMAKE_CURRENT_SOURCE_DIR}/qml/views/toasts/dekkotoasts.qrc
 )
 set(DEKKO_ICON_RESOURCE ${CMAKE_CURRENT_SOURCE_DIR}/icons/actions/actionicons.qrc)
 set(DEKKO_PROVIDERS_RESOURCE ${CMAKE_CURRENT_SOURCE_DIR}/icons/providers/providericons.qrc)

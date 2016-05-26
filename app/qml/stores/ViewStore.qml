@@ -28,5 +28,11 @@ AppListener {
             ViewActions.pushStage("qrc:/qml/views/setupwizard/SetupWizard.qml", {})
         }
     }
+
+    Connections {
+        target: Client
+        onMessagesSent: ViewActions.orderSimpleToast(qsTr("Message sent"))
+        onMessageSendingFailed: ViewActions.orderSimpleToast(qsTr("Message sending failed"))
+    }
 }
 

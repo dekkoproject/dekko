@@ -109,9 +109,10 @@ PopupBase {
             }
         }
     }
-    AppScript {
-        runWhen: ViewKeys.closeComposer
-        script: {
+    AppListener {
+        enabled: dekko.viewState.isLargeFF
+        filter: ViewKeys.closeComposer
+        onDispatched: {
             PopupUtils.close(base)
             exit.bind(this, 0)
         }

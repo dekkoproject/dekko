@@ -96,6 +96,8 @@ void ImageHelper::setGravatarUrl(const QUrl &gravurl)
     }
     m_gravatarUrl = gravurl;
     m_alreadySeen = true;
+    // TODO: THis isn't really scalable but we only have a few atm. Once we have some more it probably makes
+    // sense to move these to a qsettings file and query groups.
     if (m_gravatarEmail.contains(QStringLiteral("launchpad.net"))) {
         if (m_property.isValid() && m_property.isWritable()) {
             m_property.write(QUrl::fromLocalFile(QStringLiteral(":/provider/lp_logo.png")));
@@ -111,6 +113,12 @@ void ImageHelper::setGravatarUrl(const QUrl &gravurl)
     if (m_gravatarEmail.contains(QStringLiteral("calendar-notification@google.com"))) {
         if (m_property.isValid() && m_property.isWritable()) {
             m_property.write(QUrl::fromLocalFile(QStringLiteral(":/provider/Google_Calendar.png")));
+            return;
+        }
+    }
+    if (m_gravatarEmail.contains(QStringLiteral("ubuntu-sdk-build-bot"))) {
+        if (m_property.isValid() && m_property.isWritable()) {
+            m_property.write(QUrl::fromLocalFile(QStringLiteral(":/provider/ubuntu-sdk-build-bot.png")));
             return;
         }
     }

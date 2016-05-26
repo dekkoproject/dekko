@@ -36,6 +36,13 @@ BottomEdgeConfiguration {
                 }
             }
         }
+        AppListener {
+            enabled: !dekko.viewState.isLargeFF
+            filter: ViewKeys.closeComposer
+            onDispatched: {
+                bottomEdge.collapse()
+            }
+        }
     }
 }
 

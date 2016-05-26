@@ -203,9 +203,8 @@ class OutboxAction : public ClientServiceAction
 public:
     OutboxAction(QObject *parent, const QMailMessage &msg);
 
-    // ClientServiceAction interface
-public:
     void process();
+
 private:
     QMailMessage m_msg;
 };
@@ -217,11 +216,13 @@ public:
     SendPendingMessagesAction(QObject *parent, const QMailAccountId &id);
 
     QMailAccountId accountId() const { return m_id; }
+    void process();
+
+signals:
+    void messagesSent(const QMailMessageIdList &ids);
+    void messageSendingFailed(const QMailMessageIdList &ids, QMailServiceAction::Status::ErrorCode error);
 private:
     QMailAccountId m_id;
-    // ClientServiceAction interface
-public:
-    void process();
 };
 
 //class MoveMessagesAction : public UndoableAction

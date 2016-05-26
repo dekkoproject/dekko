@@ -18,6 +18,7 @@ FocusScope {
     property int recipientType: RecipientType.To
     property alias text: input.text
     property alias textDocument: input.textDocument
+    property alias recipientModel: repeater.model
 
     height: main.height
 
@@ -55,14 +56,13 @@ FocusScope {
                     left: parent.left
                     leftMargin: Style.smallSpacing
                     top: parent.top
-                    topMargin: ComposerStore.recipients.to.count ? (Style.smallSpacing / 2) : Style.smallSpacing
+                    topMargin: recipientModel.count ? (Style.smallSpacing / 2) : Style.smallSpacing
                     right: parent.right
                 }
                 spacing: Style.smallSpacing / 2
                 // Display the already added recipients
                 Repeater {
                     id: repeater
-                    model: ComposerStore.recipients.to
                     delegate: RecipientDelegate {
                         composeMode: true
                         type: recipientType

@@ -53,6 +53,8 @@ signals:
     void messagePartFetchFailed(const quint64 &msgId, const QString &partLocation);
     void messagesNowAvailable(const QMailMessageIdList &idList);
     void messageFetchFailed(const QMailMessageIdList &ids);
+    void messagesSent(const QMailMessageIdList &ids);
+    void messageSendingFailed(const QMailMessageIdList &ids, QMailServiceAction::Status::ErrorCode error);
 
 public slots:
 

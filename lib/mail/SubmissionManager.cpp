@@ -4,6 +4,7 @@
 SubmissionManager::SubmissionManager(QObject *parent) : QObject(parent),
     m_builder(Q_NULLPTR)
 {
+    connect(Client::instance(), &Client::messagesSent, this, &SubmissionManager::messageSent);
 }
 
 QObject *SubmissionManager::builder() const
@@ -41,7 +42,7 @@ void SubmissionManager::send()
     // over to the Client service which will manage the storage and submission at the
     // most appropriate time.
     QMailMessage msg = m_builder->message();
-    qDebug() << msg.toRfc2822(QMailMessage::TransmissionFormat);
+//    qDebug() << msg.toRfc2822(QMailMessage::TransmissionFormat);
     QMailAccount account(msg.parentAccountId());
     if ((account.status() & QMailAccount::CanReferenceExternalData) &&
             (account.status() & QMailAccount::CanTransmitViaReference) &&
@@ -50,6 +51,7 @@ void SubmissionManager::send()
         msg.setStatus(QMailMessage::TransmitFromExternal, true);
     }
     Client::instance()->sendMessage(msg);
+    emit messageQueued();
 }
 
 void SubmissionManager::saveDraft()
@@ -57,6 +59,11 @@ void SubmissionManager::saveDraft()
     if (!hasBuilder() || !hasIdentities()) {
         return;
     }
+}
+
+void SubmissionManager::messageSent(const QMailMessageIdList &ids)
+{
+    qDebug() << ids.count() << "messages sent";
 }
 
 bool SubmissionManager::hasBuilder()

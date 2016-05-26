@@ -155,7 +155,7 @@ void ClientService::undoableCountChanged()
     emit undoCountChanged();
     if (m_undoQueue->isEmpty()) {
         m_undoTimer->stop();
-        return; // 19772
+        return;
     } else if (m_undoTimer->isActive()) {
         // restart the timer
         m_undoTimer->stop();
@@ -181,7 +181,10 @@ void ClientService::sendAnyQueuedMail()
     QMailMessageKey outboxFilter(QMailMessageKey::status(QMailMessage::Outbox) & ~QMailMessageKey::status(QMailMessage::Trash));
     foreach (const QMailMessageMetaData &metaData, QMailStore::instance()->messagesMetaData(
                  outboxFilter, QMailMessageKey::ParentAccountId, QMailStore::ReturnDistinct)) {
-        enqueue(new SendPendingMessagesAction(this, metaData.parentAccountId()));
+        SendPendingMessagesAction *action = new SendPendingMessagesAction(this, metaData.parentAccountId());
+        connect(action, &SendPendingMessagesAction::messagesSent, this, &ClientService::messagesSent);
+        connect(action, &SendPendingMessagesAction::messageSendingFailed, this, &ClientService::messageSendingFailed);
+        enqueue(action);
     }
 }
 

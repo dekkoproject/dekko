@@ -24,16 +24,13 @@ QQuickTextDocument *MessageBuilder::body() const
 QMailMessage MessageBuilder::message()
 {
     QMailMessage mail;
-    QString plainTextBody = m_body->textDocument()->toPlainText();
-    QMailMessageContentType type(QByteArrayLiteral("text/plain; charset=UTF-8"));
     // TODO:
     // http://code.qt.io/cgit/qt-labs/messagingframework.git/tree/examples/qtmail/emailcomposer.cpp#n752
 
-    // TODO: Do we want to always encode as QuotedPrintable it's efficient for ASCII text but becomes inefficient
-    // for non-ascii chars i.e QChar::unicode() > 127. SHould we iterate over all chars and decide based on that as QString
-    // doesn't provide an isAscii??
-    mail.setBody(QMailMessageBody::fromData(plainTextBody, type, QMailMessageBody::QuotedPrintable));
-    mail.setMessageType(QMailMessage::Email);
+    Account *sender = static_cast<Account *>(m_identities->selectedAccount());
+    mail.setParentAccountId(sender->accountId());
+    mail.setDate(QMailTimeStamp::currentDateTime());
+    mail.setFrom(sender->qMailAccount()->fromAddress());
 
     auto createAddressList = [](const QQmlObjectListModel<MailAddress> *model) -> QList<QMailAddress> {
         QList<QMailAddress> addrList;
@@ -42,14 +39,24 @@ QMailMessage MessageBuilder::message()
         }
         return addrList;
     };
-    Account *sender = static_cast<Account *>(m_identities->selectedAccount());
-    mail.setParentAccountId(sender->accountId());
-    mail.setDate(QMailTimeStamp::currentDateTime());
-    mail.setFrom(sender->qMailAccount()->fromAddress());
+
     mail.setTo(createAddressList(m_to));
-    mail.setCc(createAddressList(m_cc));
-    mail.setBcc(createAddressList(m_bcc));
+    if (!m_cc->isEmpty()) {
+        mail.setCc(createAddressList(m_cc));
+    }
+    if (!m_bcc->isEmpty()) {
+        mail.setBcc(createAddressList(m_bcc));
+    }
     mail.setSubject(m_subject->textDocument()->toPlainText());
+
+    QString plainTextBody = m_body->textDocument()->toPlainText();
+    QMailMessageContentType type(QByteArrayLiteral("text/plain; charset=UTF-8"));
+    // TODO: Do we want to always encode as QuotedPrintable it's efficient for ASCII text but becomes inefficient
+    // for non-ascii chars i.e QChar::unicode() > 127. SHould we iterate over all chars and decide based on that as QString
+    // doesn't provide an isAscii??
+    mail.setBody(QMailMessageBody::fromData(plainTextBody, type, QMailMessageBody::QuotedPrintable));
+    mail.setMessageType(QMailMessage::Email);
+
     mail.setSize(mail.indicativeSize() * 1024);
     mail.setStatus(QMailMessage::HasAttachments, false);
 
@@ -140,6 +147,12 @@ void MessageBuilder::reset()
     m_to->clear();
     m_bcc->clear();
     m_cc->clear();
+    if (m_subject != Q_NULLPTR) {
+        m_subject->textDocument()->clear();
+    }
+    if (m_body != Q_NULLPTR) {
+        m_body->textDocument()->clear();
+    }
 }
 
 void MessageBuilder::setSubject(QQuickTextDocument *subject)

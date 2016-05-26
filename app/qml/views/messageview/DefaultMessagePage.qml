@@ -49,7 +49,7 @@ DekkoPage {
 
     Timer {
         id: markReadTimer
-        interval: 250
+        interval: 1000
         repeat: false
         onTriggered: MessageActions.markMessageRead(message.messageId, true)
     }

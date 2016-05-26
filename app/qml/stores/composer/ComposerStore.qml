@@ -41,16 +41,20 @@ AppListener {
         builder: builder
         onError: {
             switch(error) {
-                case SubmissionManager.NoBuilder:
+            case SubmissionManager.NoBuilder:
                 Log.logError("ComposerStore::SubmissionManager::NoBuilder", "No message builder set. Cannot compose without one")
                 break
-                case SubmissionManager.InvalidMessage:
+            case SubmissionManager.InvalidMessage:
                 Log.logError("ComposerStore::SubmissionManager::InvalidMessage", "Invalid message, missing 'To' recipients or Subject")
                 break
-                case SubmissionManager.NoIdentities:
+            case SubmissionManager.NoIdentities:
                 Log.logError("ComposerStore::SubmissionManager::NoIdentities", "No identities available for MessageBuilder. Cannot proceed...")
                 break
             }
+        }
+        onMessageQueued: {
+            Log.logInfo("ComposerStore::SubmissionManager::messageQueued", "Message queued resetting composer")
+            d.delayDiscard.start()
         }
     }
 
@@ -73,6 +77,10 @@ AppListener {
         property bool ccVisible: false
         property bool bccVisible: false
         property bool identitiesValid: identities.selectedIndex >= 0
+        property Timer delayDiscard: Timer {
+            interval: 250
+            onTriggered: ComposerActions.discardMessage()
+        }
     }
 
     Filter {
@@ -195,7 +203,6 @@ AppListener {
         onDispatched: {
             Log.logInfo("ComposerStore::sendMessage", "Sending message...")
             submissionManager.send()
-            ViewActions.closeComposer() // TODO: Call after successful enqueue
         }
     }
 

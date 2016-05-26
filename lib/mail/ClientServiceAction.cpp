@@ -216,5 +216,8 @@ SendPendingMessagesAction::SendPendingMessagesAction(QObject *parent, const QMai
 
 void SendPendingMessagesAction::process()
 {
-    createTransmitAction()->transmitMessages(m_id);
+    QMailTransmitAction *ta = createTransmitAction();
+    connect(ta, &QMailTransmitAction::messagesTransmitted, this, &SendPendingMessagesAction::messagesSent);
+    connect(ta, &QMailTransmitAction::messagesFailedTransmission, this, &SendPendingMessagesAction::messageSendingFailed);
+    ta->transmitMessages(m_id);
 }
