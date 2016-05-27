@@ -2,6 +2,7 @@
 #define SUBMISSIONMANAGER_H
 
 #include <QObject>
+#include <QTimer>
 #include <qmailaccount.h>
 #include <qmailmessage.h>
 #include "Client.h"
@@ -40,20 +41,28 @@ signals:
     void builderChanged();
     void error(const Error &error);
     void messageQueued();
+    void savingDraftSilently();
+    void draftSavedSilently();
+    void draftSaved();
 
 public slots:
     void setBuilder(QObject * builder);
     void send();
-    void saveDraft();
+    void saveDraft(const bool userTriggered = false);
 //    void respond(const ResponseType &type);
     void messageSent(const QMailMessageIdList &ids);
+    void reset();
 
 protected:
     bool hasBuilder();
     bool hasIdentities();
 
+private slots:
+    void maybeStartSaveTimer();
+
 private:
     MessageBuilder *m_builder;
+    QTimer m_timer;
 };
 
 #endif // SUBMISSIONMANAGER_H

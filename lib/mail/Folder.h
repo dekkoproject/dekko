@@ -71,6 +71,7 @@ public:
     }
 
     static FolderType folderTypeFromId(const QMailFolderId &id);
+    static QMailFolder::StandardFolder folderFromType(const FolderType &type);
 
 signals:
     void folderChanged();

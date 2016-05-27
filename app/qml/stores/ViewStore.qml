@@ -31,7 +31,13 @@ AppListener {
 
     Connections {
         target: Client
-        onMessagesSent: ViewActions.orderSimpleToast(qsTr("Message sent"))
+        onMessagesSent: {
+            if (ids.length > 1) {
+                ViewActions.orderSimpleToast(qsTr("Messages sent"))
+            } else {
+                ViewActions.orderSimpleToast(qsTr("Message sent"))
+            }
+        }
         onMessageSendingFailed: ViewActions.orderSimpleToast(qsTr("Message sending failed"))
     }
 }

@@ -13,6 +13,7 @@ AppListener {
 
     readonly property bool showCC: d.ccVisible
     readonly property bool showBCC: d.bccVisible
+    readonly property bool sendInProgress: d.sendInProgress
     readonly property bool hasValidIdentity: d.identitiesValid
     readonly property QtObject identity: priv_identity
     readonly property QtObject recipients: priv_recipients
@@ -55,6 +56,11 @@ AppListener {
         onMessageQueued: {
             Log.logInfo("ComposerStore::SubmissionManager::messageQueued", "Message queued resetting composer")
             d.delayDiscard.start()
+            d.sendInProgress = false
+        }
+        onDraftSaved: {
+            Log.logInfo("ComposerStore::SubmissionManager::draftSaved", "Draft message was saved");
+            ViewActions.orderSimpleToast(qsTr("Draft saved."))
         }
     }
 
@@ -74,12 +80,17 @@ AppListener {
 
     QtObject {
         id: d
+        property bool sendInProgress: false
         property bool ccVisible: false
         property bool bccVisible: false
         property bool identitiesValid: identities.selectedIndex >= 0
         property Timer delayDiscard: Timer {
-            interval: 250
+            interval: 10
             onTriggered: ComposerActions.discardMessage()
+        }
+        property Timer sendTimer: Timer {
+            interval: 50
+            onTriggered: submissionManager.send()
         }
     }
 
@@ -178,7 +189,7 @@ AppListener {
             d.ccVisible = false
             d.bccVisible = false
             identities.reset()
-            builder.reset()
+            submissionManager.reset()
         }
     }
 
@@ -202,7 +213,8 @@ AppListener {
         type: ComposerKeys.sendMessage
         onDispatched: {
             Log.logInfo("ComposerStore::sendMessage", "Sending message...")
-            submissionManager.send()
+            d.sendInProgress = true
+            d.sendTimer.start()
         }
     }
 
@@ -210,8 +222,8 @@ AppListener {
         type: ComposerKeys.saveDraft
         onDispatched: {
             Log.logInfo("ComposerStore::saveDraft", "Saving draft...")
-            submissionManager.saveDraft()
-            ViewActions.closeComposer() // TODO: Call after successful enqueue
+            submissionManager.saveDraft(true)
+            ComposerActions.discardMessage()
         }
     }
 

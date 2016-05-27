@@ -73,6 +73,11 @@ void Client::markMessageDone(const int &msgId, const bool done)
     markMessagesDone(QMailMessageIdList() << QMailMessageId(msgId), done);
 }
 
+void Client::moveToStandardFolder(const int &msgId, const int &standardFolder)
+{
+    moveToStandardFolder(QMailMessageIdList() << QMailMessageId(msgId), (Folder::FolderType)standardFolder);
+}
+
 void Client::markMessagesImportant(const QMailMessageIdList &idList, const bool important)
 {
     m_service->markMessagesImportant(idList, important);
@@ -99,7 +104,6 @@ void Client::downloadMessagePart(const QMailMessagePart *msgPart)
     m_service->downloadMessagePart(msgPart);
 }
 
-
 void Client::downloadMessage(const QMailMessageId &msgId)
 {
     downloadMessages(QMailMessageIdList() << msgId);
@@ -108,6 +112,21 @@ void Client::downloadMessage(const QMailMessageId &msgId)
 void Client::downloadMessages(const QMailMessageIdList &idList)
 {
 
+}
+
+bool Client::addMessage(QMailMessage *msg)
+{
+    return QMailStore::instance()->addMessage(msg);
+}
+
+void Client::removeMessage(const QMailMessageId &id, const QMailStore::MessageRemovalOption &option)
+{
+    QMailStore::instance()->removeMessage(id, option);
+}
+
+void Client::moveToStandardFolder(const QMailMessageIdList &msgIds, const Folder::FolderType &folder)
+{
+    m_service->moveToStandardFolder(msgIds, folder);
 }
 
 void Client::sendMessage(const QMailMessage &msg)

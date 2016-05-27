@@ -5,6 +5,8 @@
 #include <QQmlEngine>
 #include <QJSEngine>
 #include "ClientService.h"
+#include <qmailstore.h>
+#include "Folder.h"
 
 class Client : public QObject
 {
@@ -27,6 +29,7 @@ public:
     Q_INVOKABLE void markMessageRead(const int &msgId, const bool read);
     Q_INVOKABLE void markMessageTodo(const int &msgId, const bool todo);
     Q_INVOKABLE void markMessageDone(const int &msgId, const bool done);
+    Q_INVOKABLE void moveToStandardFolder(const int &msgId, const int &standardFolder); // standardFolder is a Folder::FolderType
 
     // C++ Extras API
     void deleteMessages(const QMailMessageIdList &idList);
@@ -41,6 +44,9 @@ public:
     void downloadMessages(const QMailMessageIdList &idList);
 
     // C++ Store api
+    bool addMessage(QMailMessage *msg);
+    void removeMessage(const QMailMessageId &id, const QMailStore::MessageRemovalOption &option);
+    void moveToStandardFolder(const QMailMessageIdList &msgIds, const Folder::FolderType &folder);
 //    void addMessages(const QMailMessageList &msgList);
 //    void updateMessages(const QMailMessageList &msgList);
 

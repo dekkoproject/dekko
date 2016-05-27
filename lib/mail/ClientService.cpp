@@ -150,6 +150,31 @@ void ClientService::sendMessage(const QMailMessage &msg)
     enqueue(new OutboxAction(this, msg));
 }
 
+void ClientService::moveToStandardFolder(const QMailMessageIdList &msgIds, const Folder::FolderType &folder)
+{
+    QMailDisconnected::moveToStandardFolder(msgIds, Folder::folderFromType(folder));
+    // if msgIds are being mvoed to drafts then flag them accordingly
+    if (folder == Folder::SpecialUseDraftsFolder) {
+        QMailDisconnected::flagMessages(msgIds, QMailMessage::Draft, 0, "Flagging message as draft");
+    }
+
+    int size = QMailStore::instance()->queryAccounts(QMailAccountKey::messageType(QMailMessage::Email)
+                                              & QMailAccountKey::status(QMailAccount::Enabled),
+                                              QMailAccountSortKey::name()).count();
+    QMailAccountIdList accounts;
+    foreach(ClientServiceAction *action, m_undoQueue->toList()) {
+        Q_FOREACH(const QMailAccountId &id, qobject_cast<UndoableAction *>(action)->accountIds()) {
+            if (!accounts.contains(id)) {
+                accounts.append(id);
+                if (accounts.count() == size) {
+                    break; // early
+                }
+            }
+        }
+    }
+    exportMailStoreUpdate(accounts);
+}
+
 void ClientService::undoableCountChanged()
 {
     emit undoCountChanged();

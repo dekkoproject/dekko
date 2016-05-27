@@ -185,6 +185,34 @@ Folder::FolderType Folder::folderTypeFromId(const QMailFolderId &id)
     return StandardFolder;
 }
 
+QMailFolder::StandardFolder Folder::folderFromType(const Folder::FolderType &type)
+{
+    QMailFolder::StandardFolder sf = QMailFolder::InboxFolder;
+    switch (type) {
+    case Folder::StandardFolder:
+        break;
+    case Folder::SpecialUseInboxFolder:
+        sf = QMailFolder::InboxFolder;
+        break;
+    case Folder::SpecialUseOutboxFolder:
+        sf = QMailFolder::OutboxFolder;
+        break;
+    case Folder::SpecialUseDraftsFolder:
+        sf = QMailFolder::DraftsFolder;
+        break;
+    case Folder::SpecialUseSentFolder:
+        sf = QMailFolder::SentFolder;
+        break;
+    case Folder::SpecialUseTrashFolder:
+        sf = QMailFolder::TrashFolder;
+        break;
+    case Folder::SpecialUseJunkFolder:
+        sf = QMailFolder::JunkFolder;
+        break;
+    }
+    return sf;
+}
+
 void Folder::setFolderId(const int &id)
 {
     QMailFolderId folderId(id);

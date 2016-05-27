@@ -8,6 +8,7 @@
 #include <PriorityQueue.h>
 #include <qmailserviceaction.h>
 #include "ClientServiceAction.h"
+#include "Folder.h"
 
 class ClientServiceWatcher;
 /** @short ClientService is responsible for all message related actions
@@ -45,6 +46,7 @@ public:
     void downloadMessagePart(const QMailMessagePart *part);
     void downloadMessages(const QMailMessageIdList &msgIds);
     void sendMessage(const QMailMessage &msg);
+    void moveToStandardFolder(const QMailMessageIdList &msgIds, const Folder::FolderType &folder);
 
 signals:
     void undoCountChanged();

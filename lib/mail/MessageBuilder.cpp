@@ -27,6 +27,10 @@ QMailMessage MessageBuilder::message()
     // TODO:
     // http://code.qt.io/cgit/qt-labs/messagingframework.git/tree/examples/qtmail/emailcomposer.cpp#n752
 
+    if (m_lastDraftId.isValid()) {
+        mail.setId(m_lastDraftId);
+    }
+
     Account *sender = static_cast<Account *>(m_identities->selectedAccount());
     mail.setParentAccountId(sender->accountId());
     mail.setDate(QMailTimeStamp::currentDateTime());
@@ -81,6 +85,13 @@ QObject *MessageBuilder::identities() const
     return m_identities;
 }
 
+void MessageBuilder::setLastDraftId(const QMailMessageId &id)
+{
+    if (id.isValid()) {
+        m_lastDraftId = id;
+    }
+}
+
 void MessageBuilder::addRecipient(const MessageBuilder::RecipientModels which, const QString &emailAddress)
 {
     if (emailAddress.isEmpty()) {
@@ -97,6 +108,7 @@ void MessageBuilder::addRecipient(const MessageBuilder::RecipientModels which, c
         m_bcc->append(new MailAddress(Q_NULLPTR, emailAddress));
         break;
     }
+    emit maybeStartSaveTimer();
 }
 
 void MessageBuilder::addRecipient(const MessageBuilder::RecipientModels which, const QString &name, const QString &address)
@@ -122,6 +134,7 @@ void MessageBuilder::addRecipient(const MessageBuilder::RecipientModels which, c
         m_bcc->append(new MailAddress(Q_NULLPTR, name, address));
         break;
     }
+    emit maybeStartSaveTimer();
 }
 
 void MessageBuilder::removeRecipient(const MessageBuilder::RecipientModels which, const int &index)
@@ -144,6 +157,7 @@ void MessageBuilder::removeRecipient(const MessageBuilder::RecipientModels which
 
 void MessageBuilder::reset()
 {
+    m_lastDraftId = QMailMessageId();
     m_to->clear();
     m_bcc->clear();
     m_cc->clear();

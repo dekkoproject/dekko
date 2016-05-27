@@ -34,12 +34,15 @@ public:
     bool hasRecipients() { return !m_to->isEmpty(); }
     bool hasIdentities() { return !m_identities->isEmpty(); }
     QObject *identities() const;
+    QMailMessageId lastDraftId() const {return m_lastDraftId;}
+    void setLastDraftId(const QMailMessageId &id);
 
 signals:
     void modelsChanged();
     void subjectChanged(QQuickTextDocument *subject);
     void bodyChanged(QQuickTextDocument *body);
     void identitiesChanged();
+    void maybeStartSaveTimer();
 
 public slots:
     void addRecipient(const RecipientModels which, const QString &emailAddress);
@@ -60,6 +63,7 @@ private:
     QQuickTextDocument *m_body;
     SenderIdentities *m_identities;
     quint64 m_sourceStatus;
+    QMailMessageId m_lastDraftId;
 };
 
 #endif // MESSAGEBUILDER_H
