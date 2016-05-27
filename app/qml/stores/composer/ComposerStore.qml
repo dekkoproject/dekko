@@ -189,7 +189,7 @@ AppListener {
             d.ccVisible = false
             d.bccVisible = false
             identities.reset()
-            submissionManager.reset()
+            submissionManager.discard()
         }
     }
 

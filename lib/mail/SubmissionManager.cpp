@@ -42,7 +42,7 @@ void SubmissionManager::send()
         return;
     }
     m_timer.stop();
-    // So we first save it as the final draft and then use that draft message as the one to send
+    // So we first save it as the *final* draft and then use that draft message as the one to send
     saveDraft(false);
     // Ok so this function doesn't actually send anything. All we
     // are actually doing is grabbing the constructed message, checking if we can reference
@@ -50,7 +50,7 @@ void SubmissionManager::send()
     // over to the Client service which will manage the storage and submission at the
     // most appropriate time.
     QMailMessage msg(m_builder->lastDraftId());
-    qDebug() << msg.toRfc2822(QMailMessage::TransmissionFormat);
+//    qDebug() << msg.toRfc2822(QMailMessage::TransmissionFormat);
     QMailAccount account(msg.parentAccountId());
     if ((account.status() & QMailAccount::CanReferenceExternalData) &&
             (account.status() & QMailAccount::CanTransmitViaReference) &&
@@ -108,8 +108,21 @@ void SubmissionManager::messageSent(const QMailMessageIdList &ids)
 
 void SubmissionManager::reset()
 {
-    m_timer.stop();
+    if (m_timer.isActive()) {
+        m_timer.stop();
+    }
     m_builder->reset();
+}
+
+void SubmissionManager::discard()
+{
+    m_timer.stop();
+    QMailMessageId lastId = m_builder->lastDraftId();
+    if (lastId.isValid()) {
+        Client::instance()->removeMessage(lastId, QMailStore::CreateRemovalRecord);
+    }
+    reset();
+    emit messageDiscarded();
 }
 
 bool SubmissionManager::hasBuilder()

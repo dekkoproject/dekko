@@ -44,6 +44,7 @@ signals:
     void savingDraftSilently();
     void draftSavedSilently();
     void draftSaved();
+    void messageDiscarded();
 
 public slots:
     void setBuilder(QObject * builder);
@@ -52,6 +53,7 @@ public slots:
 //    void respond(const ResponseType &type);
     void messageSent(const QMailMessageIdList &ids);
     void reset();
+    void discard();
 
 protected:
     bool hasBuilder();

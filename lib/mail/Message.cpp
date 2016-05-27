@@ -16,7 +16,7 @@ MailAddress* MinimalMessage::from() const
 
 QString MinimalMessage::subject() const
 {
-    return QMailMessage(m_id).subject();
+    return QMailMessage(m_id).subject().simplified();
 }
 
 QString MinimalMessage::preview() const
