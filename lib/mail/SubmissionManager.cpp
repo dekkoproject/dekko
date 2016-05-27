@@ -148,8 +148,9 @@ bool SubmissionManager::hasIdentities()
 void SubmissionManager::maybeStartSaveTimer()
 {
     if (m_builder->hasRecipients()) {
-        QTimer::singleShot(10000, this, [=](){ saveDraft(false); } );
-//        saveDraft(false);
+        // trigger a save 3 seconds from now as to not cause that nasty block
+        // when the models are updating
+        QTimer::singleShot(3000, this, [=](){ saveDraft(false); } );
         m_timer.start();
     }
 }
