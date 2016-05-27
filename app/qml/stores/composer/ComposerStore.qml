@@ -202,6 +202,8 @@ AppListener {
                     ComposerActions.discardMessageConfirmed()
                 }
             })
+            // If for some wild reason the composer get's reset while the confirmation
+            // dialog is up just cancel all bindings.
             once(ComposerKeys.resetComposer, exit.bind(this, 0))
         }
     }
