@@ -24,7 +24,7 @@ MsgPartReply::MsgPartReply(MsgPartQNAM *parent, const QMailMessageId &id, const 
 MsgPartReply::MsgPartReply(MsgPartQNAM *parent, const QMailMessageId &id,
                            const QString &location, const bool plaintext,
                            const bool requiresFormatting) :
-    QNetworkReply(parent), formattedBufferContent(0),
+    QNetworkReply(parent), formattedBufferContent(0), secondBuffer(Q_NULLPTR),
     m_msgId(id), m_location(location), m_ptext(plaintext), m_format(requiresFormatting),
     m_part(0)
 {
@@ -156,6 +156,10 @@ void MsgPartReply::messageReady()
         setHeader(QNetworkRequest::ContentTypeHeader, ct.content());
     }
     formattedBufferContent = new QByteArray(data);
+    buffer.close();
+    secondBuffer = new QByteArray(data);
+    buffer.setBuffer(secondBuffer);
+    buffer.open(QIODevice::ReadOnly);
     setFinished(true);
     QTimer::singleShot( 0, this, SIGNAL(readyRead()) );
     QTimer::singleShot( 0, this, SIGNAL(finished()) );

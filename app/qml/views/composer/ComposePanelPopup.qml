@@ -114,7 +114,6 @@ PopupBase {
         filter: ViewKeys.closeComposer
         onDispatched: {
             PopupUtils.close(base)
-            exit.bind(this, 0)
         }
     }
 }

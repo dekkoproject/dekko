@@ -88,6 +88,7 @@ private:
     };
 
     QByteArray *formattedBufferContent;
+    QByteArray *secondBuffer;
     mutable QBuffer buffer;
     QMailMessageId m_msgId;
     QString m_location;

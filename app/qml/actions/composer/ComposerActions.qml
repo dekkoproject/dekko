@@ -42,6 +42,8 @@ ActionCreator {
 
     signal removeRecipient(int type, int index)
 
+    signal discardMessageConfirmed()
+
     /* Set which identity the MessageBuilder should use
 
        idx: index of the identity in SenderIdentities model

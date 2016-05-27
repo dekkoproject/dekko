@@ -10,6 +10,7 @@ KeyTable {
     property string sendMessage
     property string saveDraft
     property string discardMessage
+    property string discardMessageConfirmed
     property string addAttachment
     property string removeAttachment
 

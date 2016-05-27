@@ -17,6 +17,7 @@ class MessageBuilder : public QObject
     Q_PROPERTY(QQuickTextDocument *subject READ subject WRITE setSubject NOTIFY subjectChanged)
     Q_PROPERTY(QQuickTextDocument *body READ body WRITE setBody NOTIFY bodyChanged)
     Q_PROPERTY(QObject *identities READ identities WRITE setIdentities NOTIFY identitiesChanged)
+    Q_PROPERTY(bool hasDraft READ hasDraft CONSTANT)
     Q_ENUMS(RecipientModels)
 public:
     explicit MessageBuilder(QObject *parent = Q_NULLPTR);
@@ -36,6 +37,8 @@ public:
     QObject *identities() const;
     QMailMessageId lastDraftId() const {return m_lastDraftId;}
     void setLastDraftId(const QMailMessageId &id);
+
+    bool hasDraft() { return m_lastDraftId.isValid(); }
 
 signals:
     void modelsChanged();
