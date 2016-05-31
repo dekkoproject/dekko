@@ -16,6 +16,7 @@ Item {
     property alias stackCount: internalStack.depth
     property alias currentItem: internalStack.currentItem
     property bool immediatePush: false
+    property alias delegate: internalStack.delegate
 
     property string stageID: ""
 
@@ -48,8 +49,9 @@ Item {
             type: ViewKeys.replaceTopStageAreaItem
             onDispatched: {
                 if (message.stageID === stageID) {
+//                    internalStack.pop()
                     if (immediatePush) {
-                        internalStack.push({item: message.page, immediate: true, replace: true, properties: message.properties})
+                        internalStack.push({item: message.page, replace: true, immediate: true, properties: message.properties})
                     } else {
                         internalStack.push({item: message.page, replace: true, properties: message.properties})
                     }

@@ -51,6 +51,9 @@ public slots:
     void addRecipient(const RecipientModels which, const QString &emailAddress);
     void addRecipient(const RecipientModels which, const QString &name, const QString &address);
     void removeRecipient(const RecipientModels which, const int &index);
+//    void addAttachment(const QString &file);
+//    void addAttachments(const QStringList &files);
+
     void reset();
 
     void setSubject(QQuickTextDocument *subject);

@@ -7,3 +7,6 @@
 [submodule "qmf"]
 	path = qmf
 	url = http://code.dekkoproject.org/dekko-dev/messagingframework.git
+[submodule "lib/3rdParty/async-tasks"]
+	path = lib/3rdParty/async-tasks
+	url = http://code.dekkoproject.org/dekko-dev/async-tasks.git

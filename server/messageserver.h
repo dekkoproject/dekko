@@ -93,6 +93,7 @@ private slots:
     void acknowledgeNewMessages(const QMailMessageTypeList&);
 
     void cleanupTemporaryMessages();
+    void notifyNewMessages(const QMailMessageIdList &ids);
 
 private:
     int newMessageCount(QMailMessage::MessageType type) const;

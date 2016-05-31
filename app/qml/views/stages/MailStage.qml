@@ -85,15 +85,23 @@ BaseStage {
                 id: msgViewStage
                 stageID: ViewKeys.messageViewStack
                 anchors.fill: parent
-                immediatePush: true
+                immediatePush: false
                 baseUrl: "qrc:/qml/views/NothingSelectedPage.qml"
+                delegate: DekkoAnimation.customStackViewDelegate1
+                AppListener {
+                    filter: MessageKeys.openFolder
+                    onDispatched: {
+                        if (msgViewStage.stackCount > 1) {
+                            msgViewStage.pop()
+                        }
+                    }
+                }
             }
         }
     }
 
     GlobalSettings {
         id: globalSettings
-
         function messageViewStyle() {
             if (data.messageview.style === "default") {
                 return "qrc:/qml/views/messageview/DefaultMessagePage.qml"

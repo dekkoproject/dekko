@@ -34,6 +34,7 @@ private:
     QQuickView *m_view;
     MsgPartQNAMFactory m_partqnam;
     bool devMode;
+    bool m_verboseLogging;
     QCommandLineParser parser;
 };
 

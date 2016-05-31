@@ -363,7 +363,8 @@ PixelPerfectItem {
             bottom: parent.bottom
             right: parent.right
             left: parent.left
-            leftMargin: mouseArea.drag.active ? units.gu(4) : 0
+            leftMargin: mouseArea.drag.active ? units.gu(4) : units.gu(1.5)
+            rightMargin: units.gu(1.5)
         }
         drag {
             target: locked ? null : main

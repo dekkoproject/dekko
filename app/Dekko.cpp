@@ -15,7 +15,7 @@
 #define LARGE_FF_WIDTH 1100
 
 Dekko::Dekko(int &argc, char **argv) :
-    QGuiApplication(argc, argv), m_server(0), m_view(0), devMode(false)
+    QGuiApplication(argc, argv), m_server(0), m_view(0), devMode(false), m_verboseLogging(false)
 {
     setOrganizationName(QStringLiteral("dekkoproject"));
     setApplicationName(QStringLiteral("dekko"));
@@ -28,6 +28,7 @@ Dekko::Dekko(int &argc, char **argv) :
     parser.setApplicationDescription("Dekko email client");
     parser.addHelpOption();
     parser.addOption({"d", "Enable dev mode"});
+    parser.addOption({"v", "Verbose logging"});
     parser.addOption({"small", "Open in small form factor state"});
     parser.addOption({"medium", "Open in medium form factor state"});
     parser.addOption({"large", "Open in large form factor state"});
@@ -63,12 +64,14 @@ bool Dekko::setup()
     }
     m_view->setHeight(550);
     m_view->setTitle("Dekko");
-    m_view->setSource(QUrl(QStringLiteral("qrc:/qml/main.qml")));
 
     devMode = parser.isSet("d");
     m_view->engine()->rootContext()->setContextProperty("ctxt_window", m_view);
     m_view->engine()->rootContext()->setContextProperty("devModeEnabled", QVariant(devMode));
+    m_verboseLogging = (parser.isSet("v") || QFile::exists(QStringLiteral("/tmp/dekko-debug")));
+    m_view->engine()->rootContext()->setContextProperty("verboseLogging", QVariant(m_verboseLogging));
 
+    m_view->setSource(QUrl(QStringLiteral("qrc:/qml/main.qml")));
     m_view->show();
     return true;
 }

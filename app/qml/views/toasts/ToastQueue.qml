@@ -36,9 +36,9 @@ QtObject {
             // do we have more rounds to toast?
             if (!__toastPoppedUp && __rounds.length) {
                 __serveToast(__consumer.shift(), __rounds.shift(), __condiments.shift())
-            } else {
+            }/* else {
                 toaster.start()
-            }
+            }*/
         }
     }
 

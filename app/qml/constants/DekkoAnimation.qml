@@ -1,5 +1,6 @@
 pragma Singleton
 import QtQuick 2.4
+import Dekko.Controls 1.0
 
 QtObject {
 
@@ -22,5 +23,57 @@ QtObject {
             NumberAnimation { properties: "x,y"; duration: 400; easing.type: Easing.OutBack }
         }
     }
+    // This animation fades and slides in from the bottom for a push and slides out to the right for pop
+    property StackViewDelegate customStackViewDelegate1: StackViewDelegate {
+        function transitionFinished(properties)
+        {
+            properties.exitItem.opacity = 1
+        }
+
+        pushTransition: StackViewTransition {
+            PropertyAnimation {
+                target: enterItem
+                property: "y"
+                from: target.height / 2
+                to: 0
+                duration: 400
+                easing.type: Easing.OutCubic
+            }
+            PropertyAnimation {
+                target: enterItem
+                property: "opacity"
+                from: 0
+                to: 1
+                duration: 400
+            }
+            PropertyAnimation {
+                target: exitItem
+                property: "opacity"
+                from: 1
+                to: 0
+            }
+        }
+        popTransition: StackViewTransition {
+            PropertyAnimation {
+                target: enterItem
+                property: "x"
+                from: -target.width
+                to: 0
+                duration: 400
+                easing.type: Easing.OutCubic
+            }
+            PropertyAnimation {
+                target: exitItem
+                property: "x"
+                from: 0
+                to: target.width
+                duration: 400
+                easing.type: Easing.OutCubic
+            }
+        }
+        replaceTransition: pushTransition
+    }
+
+
 }
 

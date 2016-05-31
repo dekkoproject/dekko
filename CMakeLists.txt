@@ -120,6 +120,7 @@ endif(CLICK_MODE)
 
 # Make available to all sub dirs
 set(SUPER_MACRO_INCLUDES ${CMAKE_CURRENT_SOURCE_DIR}/lib/3rdParty/SuperMacros)
+set(ASYNC_TASKS_INCLUDES ${CMAKE_CURRENT_SOURCE_DIR}/lib/3rdParty/async-tasks)
 
 add_subdirectory(qmf)
 add_subdirectory(lib)
@@ -134,6 +135,7 @@ file(GLOB_RECURSE DEKKO_GLOBAL_QML_FILES
     RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
     *.qml *.js qmldir
     icons/*svg
+    *.qdoc *.qdocconf
 )
 
 add_custom_target(DekkoGlobalQml ALL SOURCES ${DEKKO_GLOBAL_QML_FILES})

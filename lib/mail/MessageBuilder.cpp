@@ -155,6 +155,23 @@ void MessageBuilder::removeRecipient(const MessageBuilder::RecipientModels which
     }
 }
 
+//void MessageBuilder::addAttachment(const QString &file)
+//{
+//    if (file.isEmpty()) {
+//        return;
+//    }
+//    if (QFile::exists(file)) {
+//        addAttachments(QStringList() << file);
+//    } else {
+//        qDebug() << "Attachment url " << file << "doesn't exist on the local file system";
+//    }
+//}
+
+//void MessageBuilder::addAttachments(const QStringList &files)
+//{
+
+//}
+
 void MessageBuilder::reset()
 {
     m_lastDraftId = QMailMessageId();

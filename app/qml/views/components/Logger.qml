@@ -10,19 +10,17 @@ AppListener {
     Filter {
         type: LogKeys.logInfo
         onDispatched: {
-            logMessage(message.location, "INFO", message.message)
-        }
-    }
-    Filter {
-        type: LogKeys.logError
-        onDispatched: {
-            logMessage(message.location, "ERROR", message.message)
+            if (verboseLogging) {
+                logMessage(message.location, "INFO", message.message)
+            }
         }
     }
     Filter {
         type: LogKeys.logStatus
         onDispatched: {
-            logMessage(message.location, "STATUS", message.message)
+            if (verboseLogging) {
+                logMessage(message.location, "STATUS", message.message)
+            }
         }
     }
     Filter {
@@ -31,6 +29,13 @@ AppListener {
             logMessage(message.location, "WARNING", message.message)
         }
     }
+    Filter {
+        type: LogKeys.logError
+        onDispatched: {
+            logMessage(message.location, "ERROR", message.message)
+        }
+    }
+
     function logMessage(location, type, message) {
         if (devLoggingEnabled) {
             switch (type) {

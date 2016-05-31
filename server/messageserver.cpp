@@ -47,6 +47,7 @@
 #include <qmailstore.h>
 #include <QDataStream>
 #include <QTimer>
+#include <QProcess>
 #include <qmaillog.h>
 #include <qmailipc.h>
 #include <newcountnotifier.h>
@@ -108,6 +109,8 @@ MessageServer::MessageServer(QObject *parent)
 
         connect(store, SIGNAL(messagesAdded(QMailMessageIdList)),
                 this, SLOT(messagesAdded(QMailMessageIdList)));
+        connect(store, SIGNAL(messagesAdded(QMailMessageIdList)),
+                this, SLOT(notifyNewMessages(QMailMessageIdList)));
         connect(store, SIGNAL(messagesUpdated(QMailMessageIdList)),
                 this, SLOT(messagesUpdated(QMailMessageIdList)));
         connect(store, SIGNAL(messagesRemoved(QMailMessageIdList)),
@@ -503,6 +506,28 @@ void MessageServer::updateNewMessageCounts()
 void MessageServer::cleanupTemporaryMessages()
 {
     QMailStore::instance()->removeMessages(QMailMessageKey::status(QMailMessage::Temporary), QMailStore::NoRemovalRecord);
+}
+
+void MessageServer::notifyNewMessages(const QMailMessageIdList &ids)
+{
+    Q_FOREACH(const QMailMessageId &id, ids) {
+        QMailMessageMetaData d(id);
+        if ((d.status() & QMailMessage::NoNotification)) {
+            continue;
+        }
+        if ((d.status() & QMailMessage::Incoming) &&
+                (d.status() & QMailMessage::New)) {
+            QMailMessage msg(id);
+            QProcess proc;
+            QStringList options;
+            options.append("-i");
+            options.append("/usr/share/icons/dekko.png");
+            options.append(msg.from().name());
+            options.append(msg.subject() + "\n" + msg.preview());
+            proc.start("notify-send", options);
+            proc.waitForFinished(1000);
+        }
+    }
 }
 
 #if defined(Q_OS_UNIX)
