@@ -81,7 +81,6 @@ public:
     {
         return m_account->standardFolder((QMailFolder::StandardFolder)folder).toULongLong();
     }
-
     /** @short Map a QMailFolderId to SpecialUseFolder
      *
      *  emits InvalidFolderId on error

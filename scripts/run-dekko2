@@ -2,6 +2,9 @@
 
 set -e
 
+BUILD_DIR=${BUILD_DIR:=../__dekko_build}
+SRC_DIR=${PWD##*/}
+
 for i in "$@"
 do
 case $i in
@@ -22,34 +25,66 @@ case $i in
 esac
 done
 
+if ! which ninja > /dev/null; then
+   echo -e "ninja-build not found! Install it now? (y/n) \c"
+   read ninja
+   echo "$ninja"
+   if [ "$ninja" == "y" ]; then
+      sudo apt-get install ninja-build
+   else
+      echo "This script currently only works with ninja build. either update it to work with gcc make or build it manually :-)"
+      exit 1
+   fi
+fi
+if ! which dpkg-architecture > /dev/null; then
+   echo -e "dpkg-dev not found! Install it now? (y/n) \c"
+   read da
+   echo "$da"
+   if [ "$da" == "y" ]; then
+      sudo apt-get install dpkg-dev
+   else
+      echo "This script requires dpkg-architecture"
+      exit 1
+   fi
+fi
+
+HOST_ARCH="$(dpkg-architecture -qDEB_HOST_MULTIARCH)"
+
+## Create build dir if it doesn't exist
+if [ ! -d "$BUILD_DIR" ]; then
+  mkdir ${BUILD_DIR}
+fi
+# enter it
+cd ${BUILD_DIR}
+
 if [ "$CLEAN" = true ]; then
   ninja clean
   exit 0
 fi
 
-cmake -G Ninja -DCMAKE_BUILD_TYPE=Debug ../../dekko2/
+cmake -G Ninja -DCMAKE_BUILD_TYPE=Debug ../${SRC_DIR}
 ninja -j3
 export DESTDIR=./test
 ninja -j3 install
 
-export PATH=$PWD/test/lib/x86_64-linux-gnu/bin:$PATH
-export LD_LIBRARY_PATH=$PWD/test/lib/x86_64-linux-gnu
-export QML2_IMPORT_PATH=$PWD/test/lib/x86_64-linux-gnu
-export QMF_PLUGINS=$PWD/test/lib/x86_64-linux-gnu/qmf/plugins5
+export PATH=$PWD/test/lib/${HOST_ARCH}/bin:$PATH
+export LD_LIBRARY_PATH=$PWD/test/lib/${HOST_ARCH}
+export QML2_IMPORT_PATH=$PWD/test/lib/${HOST_ARCH}
+export QMF_PLUGINS=$PWD/test/lib/${HOST_ARCH}/qmf/plugins5
 export OXIDE_DISABLE_SETUID_SANDBOX=1
 echo "PATH: $PATH"
 echo "LD_LIBRARY_PATH: $LD_LIBRARY_PATH"
 echo "QMF_PLUGINS: $QMF_PLUGINS"
 
 if [ "$GDB_RUN" = true ]; then
-  gdb ./test/lib/x86_64-linux-gnu/bin/dekko
+  gdb ./test/lib/${HOST_ARCH}/bin/dekko
   exit 0
 fi
 
 if [ "$DEV_MODE" = true ]; then
-  ./test/lib/x86_64-linux-gnu/bin/dekko -d $@
+  ./test/lib/${HOST_ARCH}/bin/dekko -d $@
 else
-  ./test/lib/x86_64-linux-gnu/bin/dekko $@
+  ./test/lib/${HOST_ARCH}/bin/dekko $@
 fi
 
 

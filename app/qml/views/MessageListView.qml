@@ -263,7 +263,6 @@ DekkoPage {
                 selectedIndex = 0
             }
         }
-
     }
 }
 
