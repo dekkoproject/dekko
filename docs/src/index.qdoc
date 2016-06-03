@@ -1,0 +1,30 @@
+/*!
+
+\page index.html
+
+\title Dekko Developer Resources
+
+\table 80%
+
+\header 
+\o Reference Documentation
+\o Using Messaging Framework
+\row
+\o 
+\list
+   \o \l {Class Index}{Classes }
+   \o \l {Grouped Classes}{Grouped Classes}
+   \o \l {Messaging Framework Namespaces}{Namespace List}
+   \o \l {Messaging Framework Class Inheritance Hierarchy}{Class Hierarchy}
+   \o \l {Annotated Class List}{Annotated Classes }
+\endlist
+\o
+\list
+   \o \l {Messaging}{Introduction}
+   \o \l {Changes Between Messaging Framework Versions}
+   \o \l {Messaging Framework Client Library#Examples}{Examples}
+\endlist
+ 
+\endtable 
+
+*/

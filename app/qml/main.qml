@@ -37,6 +37,7 @@ Dekko {
             devLoggingEnabled: devModeEnabled
         }
         property ToastListener toaster: ToastListener{}
+        property ContentManager contentManager: ContentManager{}
     }
 }
 

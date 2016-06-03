@@ -11,8 +11,9 @@ KeyTable {
     property string saveDraft
     property string discardMessage
     property string discardMessageConfirmed
-    property string addAttachment
+    property string addFileAttachment
     property string removeAttachment
+    property string appendTextToBody
 
     property string validateAddress
     property string invalidAddress

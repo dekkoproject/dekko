@@ -1,13 +1,17 @@
 #include "MessageBuilder.h"
 #include <AccountConfiguration.h>
+#include <QFileInfo>
+#include <QMimeType>
+#include <QMimeDatabase>
 
 MessageBuilder::MessageBuilder(QObject *parent) : QObject(parent),
-    m_to(Q_NULLPTR),m_cc(Q_NULLPTR), m_bcc(Q_NULLPTR), m_subject(Q_NULLPTR),
+    m_to(Q_NULLPTR),m_cc(Q_NULLPTR), m_bcc(Q_NULLPTR), m_attachments(Q_NULLPTR), m_subject(Q_NULLPTR),
     m_body(Q_NULLPTR), m_identities(Q_NULLPTR), m_sourceStatus(QMailMessage::LocalOnly)
 {
     m_to = new QQmlObjectListModel<MailAddress>(this);
     m_cc = new QQmlObjectListModel<MailAddress>(this);
     m_bcc = new QQmlObjectListModel<MailAddress>(this);
+    m_attachments = new QQmlObjectListModel<Attachment>(this);
     emit modelsChanged();
 }
 
@@ -58,7 +62,17 @@ QMailMessage MessageBuilder::message()
     // TODO: Do we want to always encode as QuotedPrintable it's efficient for ASCII text but becomes inefficient
     // for non-ascii chars i.e QChar::unicode() > 127. SHould we iterate over all chars and decide based on that as QString
     // doesn't provide an isAscii??
-    mail.setBody(QMailMessageBody::fromData(plainTextBody, type, QMailMessageBody::QuotedPrintable));
+    if (m_attachments->isEmpty()) {
+        mail.setBody(QMailMessageBody::fromData(plainTextBody, type, QMailMessageBody::QuotedPrintable));
+    } else {
+        QMailMessagePart bodyPart;
+        bodyPart.setBody(QMailMessageBody::fromData(plainTextBody, type, QMailMessageBody::QuotedPrintable));
+        mail.setMultipartType(QMailMessagePartContainer::MultipartMixed);
+        mail.appendPart(bodyPart);
+        foreach(Attachment *attachment, m_attachments->toList()) {
+            attachment->addToMessage(mail);
+        }
+    }
     mail.setMessageType(QMailMessage::Email);
 
     mail.setSize(mail.indicativeSize() * 1024);
@@ -155,22 +169,50 @@ void MessageBuilder::removeRecipient(const MessageBuilder::RecipientModels which
     }
 }
 
-//void MessageBuilder::addAttachment(const QString &file)
-//{
-//    if (file.isEmpty()) {
-//        return;
-//    }
-//    if (QFile::exists(file)) {
-//        addAttachments(QStringList() << file);
-//    } else {
-//        qDebug() << "Attachment url " << file << "doesn't exist on the local file system";
-//    }
-//}
+void MessageBuilder::addFileAttachment(const QString &file)
+{
+    if (file.isEmpty()) {
+        return;
+    }
+    if (QFile::exists(file)) {
+        addFileAttachments(QStringList() << file);
+    } else {
+        qDebug() << "Attachment url " << file << "doesn't exist on the local file system";
+    }
+}
 
-//void MessageBuilder::addAttachments(const QStringList &files)
-//{
+void MessageBuilder::addFileAttachments(const QStringList &files)
+{
+    Q_FOREACH(const QString &file, files) {
+        Attachment *a = new Attachment(this, file, Attachment::File, Attachment::Attached);
+        qDebug() << "DisplayName: " << a->displayName();
+        qDebug() << "Size: " << a->size();
+        qDebug() << "Mimetype: " << a->mimeType();
+        m_attachments->append(a);
+    }
+}
 
-//}
+void MessageBuilder::appendTextToBody(const QString &text)
+{
+    if (m_body == Q_NULLPTR) {
+        return;
+    }
+    QString body = m_body->textDocument()->toPlainText();
+    if (body.isEmpty()) {
+        body.append(text);
+    } else {
+        body.append(QStringLiteral("\n\n%1").arg(text));
+    }
+    m_body->textDocument()->setPlainText(body);
+}
+
+void MessageBuilder::removeAttachment(const int &index)
+{
+    if (index < 0 || index > m_attachments->size()) {
+        return;
+    }
+    m_attachments->remove(index);
+}
 
 void MessageBuilder::reset()
 {
@@ -178,6 +220,7 @@ void MessageBuilder::reset()
     m_to->clear();
     m_bcc->clear();
     m_cc->clear();
+    m_attachments->clear();
     if (m_subject != Q_NULLPTR) {
         m_subject->textDocument()->clear();
     }
@@ -213,4 +256,3 @@ void MessageBuilder::setIdentities(QObject *identities)
     m_identities = i;
     emit identitiesChanged();
 }
-

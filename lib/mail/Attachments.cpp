@@ -8,6 +8,7 @@
 #include <QNetworkRequest>
 #include <QMimeDatabase>
 #include <qmailaccount.h>
+#include <qmailnamespace.h>
 #include "Client.h"
 #include <Paths.h>
 
@@ -35,6 +36,64 @@ void Attachments::setMessageId(const QMailMessageId &id)
 Attachment::Attachment(QObject *parent) : QObject(parent),
     m_type(Text), m_fetching(false), m_qnam(0), m_reply(0)
 {
+}
+
+Attachment::Attachment(QObject *parent, const QString &attachment, const Attachment::PartType &partType, const Attachment::Disposition &disposition):
+    QObject(parent), m_partType(partType), m_disposition(disposition)
+{
+    switch(partType) {
+    case Message:
+    {
+        const QMailMessage msg(QMailMessageId(attachment.toULongLong()));
+        QMailMessageContentType cType;
+        if (msg.multipartType() == QMailMessage::MultipartNone) {
+            cType = msg.contentType();
+        } else {
+            // wrap the message in a rfc822
+            cType = QMailMessageContentType(QByteArrayLiteral("message/rfc822"));
+        }
+        QMailMessageContentDisposition d(disposition == Inline ? QMailMessageContentDisposition::Inline : QMailMessageContentDisposition::Attachment);
+        d.setSize(msg.size());
+        m_part = QMailMessagePart::fromMessageReference(msg.id(), d, cType, msg.transferEncoding());
+        break;
+    }
+    case MessagePart:
+    {
+        QMailMessagePart::Location location(attachment);
+        const QMailMessage msg(location.containingMessageId());
+        const QMailMessagePart &existingPart(msg.partAt(location));
+        QMailMessageContentDisposition existingDisposition(existingPart.contentDisposition());
+
+        QMailMessageContentDisposition d(disposition == Inline ? QMailMessageContentDisposition::Inline : QMailMessageContentDisposition::Attachment);
+        d.setFilename(existingDisposition.filename());
+        d.setSize(existingDisposition.size());
+        m_part = QMailMessagePart::fromPartReference(existingPart.location(), d, existingPart.contentType(), existingPart.transferEncoding());
+        break;
+    }
+    case File:
+        QFileInfo fi(attachment);
+        QString partName(fi.fileName());
+        QString filePath(fi.absoluteFilePath());
+
+        QString mimeType(QMail::mimeTypeFromFileName(attachment));
+        QMailMessageContentType type(mimeType.toLatin1());
+        type.setName(partName.toLatin1());
+
+        QMailMessageContentDisposition d(disposition == Inline ? QMailMessageContentDisposition::Inline : QMailMessageContentDisposition::Attachment);
+        d.setFilename(partName.toLatin1());
+        d.setSize(fi.size());
+
+        QMailMessageBodyFwd::TransferEncoding encoding(QMailMessageBody::Base64);
+        QMailMessageBodyFwd::EncodingStatus encodingStatus(QMailMessageBody::RequiresEncoding);
+        if (mimeType == "message/rfc822") {
+            encoding = QMailMessageBody::NoEncoding;
+            encodingStatus = QMailMessageBody::AlreadyEncoded;
+        }
+        m_part = QMailMessagePart::fromFile(filePath, d, type, encoding, encodingStatus);
+        m_filePath = filePath;
+        break;
+    }
+    emit attachmentChanged();
 }
 
 QString Attachment::displayName()
@@ -128,6 +187,27 @@ void Attachment::init(const QMailMessageId &id, const QMailMessagePartContainer:
         m_type = Type::Other;
     }
     emit attachmentChanged();
+}
+
+void Attachment::addToMessage(QMailMessage &msg)
+{
+    switch(m_partType) {
+    case Message:
+    case MessagePart:
+    {
+        msg.appendPart(m_part);
+        msg.setStatus(QMailMessage::HasReferences, true);
+        msg.setStatus(QMailMessage::HasUnresolvedReferences, true);
+        break;
+    }
+    case File:
+        msg.appendPart(m_part);
+        // Store the location of this file for future reference
+        const QMailMessagePart &mailPart(msg.partAt(msg.partCount() - 1));
+        QString name("qmf-file-location-" + mailPart.location().toString(false));
+        msg.setCustomField(name, m_filePath);
+        break;
+    }
 }
 
 void Attachment::open(QObject *qmlObject)

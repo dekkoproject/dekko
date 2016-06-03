@@ -27,5 +27,6 @@
         <file>BottomEdgeConfiguration.qml</file>
         <file>DrawerConfiguration.qml</file>
         <file>TitledHeaderButton.qml</file>
+        <file>ContentManager.qml</file>
     </qresource>
 </RCC>

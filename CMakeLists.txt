@@ -1,7 +1,7 @@
 project(dekko)
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
-set(UBUNTU_PROJECT_TYPE "ClickApp" CACHE INTERNAL "Let Qtc know were a click app")
-set(UBUNTU_MANIFEST_PATH "click/manifest.json" CACHE INTERNAL "Tells QtCreator location and name of the manifest file")
+set(UBUNTU_PROJECT_TYPE "ClickApp" CACHE INTERNAL "Let Qtc know we're a click app")
+set(UBUNTU_MANIFEST_PATH "click/dekko.json" CACHE INTERNAL "Tells QtCreator location and name of the manifest file")
 
 cmake_minimum_required(VERSION 2.8.9)
 
@@ -48,13 +48,17 @@ dekko_option(UPDATE_TRANSLATIONS "Updates Dekko's pot file during build" OFF)
 dekko_option(USE_ONLINE_ACCOUNTS "Switches Dekko's account store to use Ubuntu online accounts" OFF)
 dekko_option(WITH_TESTS "Build tests" OFF)
 dekko_option(ENABLE_LOGGING "Enables logging" ON)
+dekko_option(UNCONFINED "Run dekko unconfined" OFF)
 
 if(NOT ZLIB_FOUND)
     dekko_find_package(ZLIB "" "" "" "" WITH_ZLIB)
 endif()
 
-
-set(QMF_INSTALL_ROOT "/home/dan/test-qmf-install")
+# If QMF_PLUGINS env var isn't set let's set the fallback directory
+# assuming we are in a click configuration for now.
+# for deb/snap installs we should use a wrapper script to launch dekko to
+# set the environment up.
+set(QMF_INSTALL_ROOT "../qmf/plugins5")
 
 find_program(DPKG_ARCHITECTURE_EXECUTABLE dpkg-architecture)
 if(DPKG_ARCHITECTURE_EXECUTABLE)
@@ -102,6 +106,9 @@ set(ACCOUNT_ICON_DIR ${CMAKE_INSTALL_DATADIR}/icons/hicolor/32x32/apps)
 set(ACCOUNT_PROVIDER_DIR ${CMAKE_INSTALL_DATADIR}/accounts/providers)
 set(ACCOUNT_SERVICE_DIR ${CMAKE_INSTALL_DATADIR}/accounts/services)
 set(ACCOUNT_QML_PLUGIN_DIR ${CMAKE_INSTALL_DATADIR}/accounts/qml-plugins)
+
+
+set(APP_VERSION 0.9)
 
 if(CLICK_MODE)
     if(NOT "${CMAKE_INSTALL_PREFIX}" STREQUAL "/")

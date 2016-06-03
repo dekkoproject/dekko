@@ -27,5 +27,8 @@
         <file>composer/ComposerActions.qml</file>
         <file>composer/ComposerKeys.qml</file>
         <file>composer/qmldir</file>
+        <file>content/ContentActions.qml</file>
+        <file>content/ContentKeys.qml</file>
+        <file>content/qmldir</file>
     </qresource>
 </RCC>

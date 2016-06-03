@@ -2,6 +2,7 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Dekko.Components 1.0
 import "../../actions/composer"
+import "../../actions/content"
 
 QtObject {
 
@@ -24,6 +25,13 @@ QtObject {
         iconName: Icons.DeleteIcon
         iconSource: Paths.actionIconUrl(Icons.DeleteIcon)
         onTriggered: ComposerActions.discardMessage()
+    }
+
+    property Action attachmentsAction: Action {
+        text: ""
+        iconName: Icons.AttachmentIcon
+        iconSource: Paths.actionIconUrl(Icons.AttachmentIcon)
+        onTriggered: ContentActions.pickFile()
     }
 }
 

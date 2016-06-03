@@ -9,6 +9,7 @@
 #include <QQuickView>
 #include <QQmlEngine>
 #include <QCommandLineOption>
+#include <QStandardPaths>
 
 #define SMALL_FF_WIDTH 350
 #define MEDIUM_FF_WDTH 800
@@ -17,8 +18,13 @@
 Dekko::Dekko(int &argc, char **argv) :
     QGuiApplication(argc, argv), m_server(0), m_view(0), devMode(false), m_verboseLogging(false)
 {
-    setOrganizationName(QStringLiteral("dekkoproject"));
-    setApplicationName(QStringLiteral("dekko"));
+    if (CLICK_MODE) {
+        setOrganizationName(QStringLiteral("dekko.dekkoproject"));
+        setApplicationName(QStringLiteral("dekko.dekkoproject"));
+    } else {
+        setOrganizationName(QStringLiteral("dekkoproject"));
+        setApplicationName(QStringLiteral("dekko"));
+    }
     // Uncomment to dump out the resource files
     // Useful to be able to check a resource has been included
 //    QDirIterator it(":", QDirIterator::Subdirectories);
@@ -39,6 +45,7 @@ bool Dekko::setup()
 {
     QStringList arguments = this->arguments();
     Q_UNUSED(arguments);
+    qputenv("QMF_DATA", QStandardPaths::writableLocation(QStandardPaths::CacheLocation).toUtf8());
     if (!isServerRunning()) {
         qDebug() << "[Dekko]" << "Message server not running attempting to start";
         if (!startServer()) {
@@ -70,6 +77,8 @@ bool Dekko::setup()
     m_view->engine()->rootContext()->setContextProperty("devModeEnabled", QVariant(devMode));
     m_verboseLogging = (parser.isSet("v") || QFile::exists(QStringLiteral("/tmp/dekko-debug")));
     m_view->engine()->rootContext()->setContextProperty("verboseLogging", QVariant(m_verboseLogging));
+    // Context property to figure out if we are on unity8/mir or not
+    m_view->engine()->rootContext()->setContextProperty(QStringLiteral("isRunningOnMir"), QVariant(qgetenv("QT_QPA_PLATFORM") == "ubuntumirclient"));
 
     m_view->setSource(QUrl(QStringLiteral("qrc:/qml/main.qml")));
     m_view->show();

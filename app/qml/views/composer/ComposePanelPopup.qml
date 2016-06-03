@@ -62,6 +62,12 @@ PopupBase {
                         action: ComposerStore.actions.saveDraftAction
                     }
 
+                    TitledHeaderButton {
+                        height: units.gu(5)
+                        anchors.verticalCenter: parent.verticalCenter
+                        action: ComposerStore.actions.attachmentsAction
+                    }
+
                     Stretcher {}
 
                     TitledHeaderButton {

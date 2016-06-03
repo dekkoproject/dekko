@@ -3,5 +3,6 @@
         <file>ConfirmationDialog.qml</file>
         <file>DialogBase.qml</file>
         <file>DialogQueue.qml</file>
+        <file>FileDialog.qml</file>
     </qresource>
 </RCC>

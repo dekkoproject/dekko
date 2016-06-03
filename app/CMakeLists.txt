@@ -6,7 +6,7 @@ find_package(Qt5Gui 5.4 REQUIRED)
 file(GLOB_RECURSE DEKKO_QML_FILES
     RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
     qml/*.qml *.js
-    icons/*svg
+    icons/*svg icons/*.png
 )
 
 set(DEKKO_QML_RESOURCE
@@ -52,6 +52,10 @@ qt5_add_resources(DEKKO_RESOURCES
     ${DEKKO_PROVIDERS_RESOURCE}
 )
 
+if(CLICK_MODE)
+    add_definitions(-DCLICK_MODE)
+endif()
+
 add_executable(dekko ${DEKKO_SOURCES} ${DEKKO_RESOURCES})
 qt5_use_modules(dekko Gui Core Quick Qml)
 target_link_libraries(dekko qmfclient5 qmfmessageserver5 network)
@@ -65,3 +69,13 @@ install(
     DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/configuration
     DESTINATION ${DATA_DIR}
 )
+
+#destop file configuration
+set(ICON dekko.png)
+set(ICON_PATH ${CMAKE_CURRENT_SOURCE_DIR}/icons/dekko/dekko.png)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/dekko.desktop ${CMAKE_CURRENT_BINARY_DIR}/dekko.desktop)
+install(
+    FILES ${CMAKE_CURRENT_BINARY_DIR}/dekko.desktop
+    DESTINATION ${DATA_DIR}
+)
+install(FILES ${ICON_PATH} DESTINATION ${DATA_DIR})

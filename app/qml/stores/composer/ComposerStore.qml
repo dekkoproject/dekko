@@ -9,6 +9,7 @@ import "../../actions/logging"
 import "../../actions/views"
 import "../../actions/popups"
 import "../accounts"
+import "../../views/utils/QtCoreAPI.js" as QtCoreAPI
 
 AppListener {
 
@@ -255,16 +256,21 @@ AppListener {
     }
 
     Filter {
-        type: ComposerKeys.addAttachment
+        type: ComposerKeys.addFileAttachment
         onDispatched: {
-            Log.logWarning("ComposerStore::addAttachment", "Not implemented yet")
+            if (message.url.isEmpty()) {
+                Log.logWarning("ComposerStore::addFileAttachment", "Attachment url is empty")
+                return;
+            }
+            Log.logInfo("ComposerStore::addFileAttachment", "Adding %1 to attachments".arg(message.url))
+            builder.addFileAttachment(message.url)
         }
     }
 
     Filter {
         type: ComposerKeys.removeAttachment
         onDispatched: {
-            Log.logWarning("ComposerStore::removeAttachment", "Not implemented yet")
+            builder.removeAttachment(message.index)
         }
     }
 
@@ -272,6 +278,13 @@ AppListener {
         type: ComposerKeys.addRecipientFromContacts
         onDispatched: {
             Log.logWarning("ComposerStore::addRecipientFromContacts", "Not implemented yet")
+        }
+    }
+
+    Filter {
+        type: ComposerKeys.appendTextToBody
+        onDispatched: {
+            builder.appendTextToBody(message.text)
         }
     }
 }

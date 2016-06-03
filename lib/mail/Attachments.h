@@ -43,10 +43,10 @@ class Attachment : public QObject
     Q_PROPERTY(QString mimeTypeIcon READ mimeTypeIcon NOTIFY attachmentChanged)
 
     Q_ENUMS(Type)
+    Q_ENUMS(PartType)
+    Q_ENUMS(Disposition)
 
 public:
-    explicit Attachment(QObject *parent = 0);
-
     enum Type {
         Text,
         Image,
@@ -54,6 +54,18 @@ public:
         Multipart,
         Other
     };
+    enum PartType {
+        Message,
+        MessagePart,
+        File
+    };
+    enum Disposition {
+        Inline,
+        Attached
+    };
+
+    explicit Attachment(QObject *parent = 0);
+    Attachment(QObject *parent, const QString &attachment, const PartType &partType, const Disposition &disposition);
 
     QString displayName();
     QString mimeType() const;
@@ -65,8 +77,12 @@ public:
     QString url() const;
     bool fetchInProgress() const;
     QString mimeTypeIcon() const;
+    PartType partType() const { return m_partType; }
+    Disposition contentDisposition() const { return m_disposition; }
 
     void init(const QMailMessageId &id, const QMailMessagePartContainer::Location &location);
+
+    void addToMessage(QMailMessage &msg);
 
 signals:
     void attachmentChanged();
@@ -99,6 +115,9 @@ private:
     bool m_fetching;
     QNetworkAccessManager *m_qnam;
     QNetworkReply *m_reply;
+    PartType m_partType;
+    Disposition m_disposition;
+    QString m_filePath;
 };
 
 #endif // ATTACHMENTS_H

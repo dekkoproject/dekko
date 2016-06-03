@@ -28,7 +28,6 @@ public slots:
 private slots:
     void serverProcessError(QProcess::ProcessError error);
 
-
 private:
     QProcess *m_server;
     QQuickView *m_view;

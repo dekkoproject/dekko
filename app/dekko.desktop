@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+X-Ubuntu-Touch=true
+Name=Dekko
+Keywords=mail;e-mail;IMAP;SMTP;eml;MUA;
+Exec=dekko %U
+Icon=@ICON@
+MimeType=x-scheme-handler/mailto;application/dekko;x-scheme-handler/dekko;
+X-Ubuntu-Splash-Color=#F5F5F5

@@ -209,6 +209,11 @@ QString Paths::standardConfigLocation()
                 QStringLiteral("/%1").arg(qApp->organizationName()));
 }
 
+QString Paths::homeLocation()
+{
+    return QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
+}
+
 QString Paths::cacheLocationForFile(const QString &fileName)
 {
     return Paths::standardCacheLocation().append(QStringLiteral("/%1").arg(fileName));

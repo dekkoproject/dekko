@@ -78,6 +78,9 @@ public:
     // QML use only as it prepends qrc:/// to the icon url instead of :/
     Q_INVOKABLE QUrl actionIconUrl(const ActionIcon icon);
     Q_INVOKABLE QString userscript(const UserScript script);
+    Q_INVOKABLE QString standardHomeLocation() {
+        return Paths::homeLocation();
+    }
 
     QString cachePath() const;
     QString configPath() const;
@@ -85,6 +88,7 @@ public:
     QString configFileLocation(const QString &fileName);
     static QString standardCacheLocation();
     static QString standardConfigLocation();
+    static QString homeLocation();
     static QString cacheLocationForFile(const QString & fileName);
     static QString configLocationForFile(const QString & fileName);
     static bool checkForStaleLockFile(QLockFile **lockFile, QString &filePath, QString &errorMessage);
