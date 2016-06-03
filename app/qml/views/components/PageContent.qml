@@ -20,12 +20,12 @@ import Dekko.Components 1.0
 import "../models"
 import "../../constants"
 
-PixelPerfectItem {
+Item {
 
     anchors.fill: parent
     default property alias content: c.data
 
-    PixelPerfectItem {
+    Item {
         id: c
         anchors.fill: parent
         // PAGE CONTENT

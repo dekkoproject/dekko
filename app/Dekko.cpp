@@ -36,7 +36,7 @@ Dekko::Dekko(int &argc, char **argv) :
     QGuiApplication(argc, argv), m_server(0), m_view(0), devMode(false), m_verboseLogging(false)
 {
     if (CLICK_MODE) {
-        setOrganizationName(QStringLiteral("dekko.dekkoproject"));
+        setOrganizationName(QStringLiteral("dekko.dekkoprojec"));
         setApplicationName(QStringLiteral("dekko.dekkoproject"));
     } else {
         setOrganizationName(QStringLiteral("dekkoproject"));

@@ -29,59 +29,56 @@ DekkoPage {
 
     pageHeader.title: AccountSetup.accountDescripion
 
-    ScrollView {
-        anchors {
-            left: parent.left
-            top: pageHeader.bottom
-            right: parent.right
-            bottom: parent.bottom
+    PageContent{
 
-        }
-        Flickable {
+        ScrollView {
             anchors.fill: parent
-            contentHeight: col.height + units.gu(5)
-            Column {
-                id: col
-                anchors {
-                    left: parent.left
-                    leftMargin: units.gu(2)
-                    top: parent.top
-                    topMargin: units.gu(1)
-                    right: parent.right
-                    rightMargin: units.gu(2)
-                }
-                spacing: units.gu(1)
-
-                TitledTextField {
-                    id: name
-                    objectName: "userInputNameField"
-                    title: qsTr("Name")
-                }
-
-                TitledTextField {
-                    id: email
-                    objectName: "userInputEmailField"
-                    title: qsTr("Email address")
-                }
-
-                TitledTextField {
-                    id: password
-                    objectName: "userInputPasswordField"
-                    title: qsTr("Password")
-                }
-
-                WizardStepper {
+            Flickable {
+                anchors.fill: parent
+                contentHeight: col.height + units.gu(5)
+                Column {
+                    id: col
                     anchors {
                         left: parent.left
+                        leftMargin: units.gu(2)
+                        top: parent.top
+                        topMargin: units.gu(1)
                         right: parent.right
+                        rightMargin: units.gu(2)
                     }
-                    previousAction: Action {
-                        text: qsTr("Cancel")
-                        onTriggered: WizardActions.wizardStepBack()
+                    spacing: units.gu(1)
+
+                    TitledTextField {
+                        id: name
+                        objectName: "userInputNameField"
+                        title: qsTr("Name")
                     }
-                    nextAction: Action {
-                        text: qsTr("Next")
-                        onTriggered: WizardActions.validateUserDetails()
+
+                    TitledTextField {
+                        id: email
+                        objectName: "userInputEmailField"
+                        title: qsTr("Email address")
+                    }
+
+                    TitledTextField {
+                        id: password
+                        objectName: "userInputPasswordField"
+                        title: qsTr("Password")
+                    }
+
+                    WizardStepper {
+                        anchors {
+                            left: parent.left
+                            right: parent.right
+                        }
+                        previousAction: Action {
+                            text: qsTr("Cancel")
+                            onTriggered: WizardActions.wizardStepBack()
+                        }
+                        nextAction: Action {
+                            text: qsTr("Next")
+                            onTriggered: WizardActions.validateUserDetails()
+                        }
                     }
                 }
             }

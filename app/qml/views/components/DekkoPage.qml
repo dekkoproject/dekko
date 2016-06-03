@@ -59,7 +59,7 @@ Item {
         onComposeNewMessage: ViewActions.openMessageComposer()
     }
 
-    PixelPerfectItem {
+    Item {
         id: mainContent
         anchors {
             left: parent.left
