@@ -1,4 +1,4 @@
-/* Copyright (C) 2015 Dan Chapman <dpniel@ubuntu.com>
+/* Copyright (C) 2016 Dan Chapman <dpniel@ubuntu.com>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as

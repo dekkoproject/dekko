@@ -2,11 +2,11 @@
 
 This section outlines the steps to get a working development environment for Dekko.
 
-## Setup launchpad account
+## Setup Dekko project GitLab account
 
-First thing you need to do (if you haven't already) is setup you launchpad profile following the steps outlined here https://help.launchpad.net/YourAccount/NewAccount
+Head over to Dekko's [gitlab instance](http://code.dekkoproject.org) and create an account. Once the account is confirmed you need to add your ssh key so that you can push and pull branches.
 
-Once done you should now be able to assign yourself to bugs and create project branches on launchpad.
+Once done you should now be able to assign yourself to bugs and create project branches on gitlab.
 
 ## Install latest Ubuntu SDK
 
@@ -18,50 +18,33 @@ $ sudo apt update
 $ sudo apt install ubuntu-sdk
 ```
 
-
 ## Clone Dekko project repository
 
-Dekko uses git as it's version control system. There are many great tutorials on the web about using git but I will include the neccesary stuff throughout this guide.
+Dekko uses git (gitlab) as it's version control system. There are many great tutorials on the web about using git but I will include the neccesary stuff throughout this guide.
 
 First ensure you have git installed:
 
 ```bash
 $ sudo apt-get install git
 ```
-
-Now to save a bit of typing let's add a quick alias to to you local git config. In your home directory create a file called ```.gitconfig``` (if it doesn't already exist) and add the following to it.
-
-```bash
-[url "git+ssh://XXXXXX@git.launchpad.net/"]
-        insteadof = lp:
-
-[url "git+ssh://XXXXXX@git.launchpad.net/~XXXXXX/+git/"]
-        insteadof = lpme:
-```
-
-Where ```XXXXXX``` is your launchpad user name. This saves *alot* of typing :-)
-
 Now that's setup you can clone dekko's repo
 
 ```bash
-$ git clone lp:dekko
+$ git clone git@code.dekkoproject.org:dekko-dev/dekko.git
+$ cd dekko
 ```
 
-(See how that handy little alias we created is working here)
-
-Once this is done before making any changes create your own repository on launchpad that you can push your changes to. You need to add a new remote repository. I usually call mine "lp" as that's *my* launchpad repository but you can call it whatever you like. Dekko's main repository is called origin by default. So now you need to add your new remote and push the master branch to launchpad.
+Dekko is made up of a few projects which are set as git submodules so you also need to initialize them.
 
 ```bash
-$ git remote add lp lpme:dekko
-$ git push lp master
+$ git submodule update --init
 ```
-You should now see your personal repository listed under the "Other respositories" section here https://code.launchpad.net/dekko .
 
 ## Installing dependencies & setting up click chroots
 
-The Ubuntu SDK uses the concept of "Kits" for building applications for different architecture. These kits consist of a click chroot and all related packages/api's to build Ubuntu applications. 
+The Ubuntu SDK uses the concept of "Kits" for building applications for different architecture. These kits consist of a click chroot and all related packages/api's to build Ubuntu applications.
 
-Dekko has some additional dependencies not included in the default kit so we need to install them after creating a chroot. To make life easier there's a script for it! 
+Dekko has some additional dependencies not included in the default kit so we need to install them after creating a chroot. To make life easier there's a script for it!
 
 From the root of your local Dekko repository run:
 
@@ -69,51 +52,54 @@ From the root of your local Dekko repository run:
 $ ./scripts/bootstrap.sh
 ```
 
-By default this script will setup an armhf kit. Making it suitable for running on phones & tablets. If you are using the Ubunntu i386 emulator (I would advise not to use the armhf emulator) then you need to set the ```CLICK_SDK_ARCH``` environment variable when running the script.
+if you already have an armhf kit setup then you can just use the script to add the extra dependencies
+
+```bash
+$ ./scripts/bootstrap.sh update
+```
+
+By default this script will setup or update an armhf kit. Making it suitable for running on phones & tablets. If you are using the Ubunntu i386 emulator (I would advise not to use the armhf emulator) then you need to set the ```CLICK_SDK_ARCH``` environment variable when running the script.
 
 ```bash
 $ CLICK_SDK_ARCH=i386 ./scripts/bootstrap.sh
-```
-
-If you just want to build & run Dekko on your desktop then you should use the run-desktop script with the ```--setup``` option.
-
-```bash
-$ ./scripts/run-desktop --setup
 ```
 
 This will install all needed dependencies on your computer and not in a click chroot.
 
 ## Running on your desktop
 
-
-
-Currently there is an issue the the Ubuntu SDK desktop kit that we can't run Dekko using QtCreator so we have to run it from the command line.
-
-> Note: This has only been tested on Ubuntu 15.10 wily werewolf
-
-With all Dekko's dependencies installed from the step before you now need to build and install the latest ubuntu ui toolkit by running the command
+If you just want to build & run Dekko on your desktop then you should use the run-dekko2 script.
 
 ```bash
-$ ./scripts/run-desktop --with-uitk
+$ ./scripts/run-dekko2
 ```
 
-This will first build and install the ui toolkit then build and finally run dekko. You will be prompted for your password when installing any dependencies. The ```run-desktop``` script creates a build directory under ```dekko/__build```. You should only need to use the ```--with-uitk``` option once for the lifetime of the build directory. Each subsequent run of Dekko requires that you just run ```./scripts/run-desktop``` with no additional options.
+Or to run in developer mode, which gives you a panel of application output at the bottom of the window.
+
+```bash
+$ ./scripts/run-dekko2 -d
+```
+
+To ease development on desktop a bit and work with all formfactors you can set the size of the window you
+want when launching dekko. options are ```--small```, ```--medium``` and ```--large```. the default is large
+
+```bash
+$ ./scripts/run-dekko2 --small
+```
 
 If you wish to clean the build directory before a new build then just run.
 
 ```bash
-$ ./scripts/run-desktop --clean
+$ ./scripts/run-dekko2 --clean
+```
+
+and to launch dekko into a gdb session use
+
+```bash
+$ ./scripts/run-dekko2 --gdb
 ```
 
 ## Running on your phablet or emulator
 
-This is somewhat easier to running on desktop as the Ubuntu Sdk IDE will take care of it all for you You need to make sure you have the armhf or i386 added to the project by going to the "Projects" tab on the left side of the IDE and add the correct kit. Then you need to click on the icon just above the green "Run" button at the bottom left of the IDE and make sure your kit and "dekko" (sometimes comes up as "dekko2") are selected. If all is good you can just hit "Run" :-) It will tell you if something goes wrong. 
-
-## Running the test suite
-
-To run the test suite use the run-desktop script and pass the --test flag
-
-```bash
-$ ./scripts/run-desktop --tests
-```
+This isn't completely working yet and i will update this doc as soon as I have it running reliably on devices.
 

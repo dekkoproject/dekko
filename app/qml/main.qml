@@ -1,6 +1,6 @@
-/* Copyright (C) 2014-2016 Dan Chapman <dpniel@ubuntu.com>
+/* Copyright (C) 2016 Dan Chapman <dpniel@ubuntu.com>
 
-   This file is part of Dekko email client for Ubuntu Touch/
+   This file is part of Dekko email client for Ubuntu devices
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
