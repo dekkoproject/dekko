@@ -92,7 +92,7 @@ bool Dekko::setup()
     devMode = parser.isSet("d");
     m_view->engine()->rootContext()->setContextProperty("ctxt_window", m_view);
     m_view->engine()->rootContext()->setContextProperty("devModeEnabled", QVariant(devMode));
-    m_verboseLogging = (parser.isSet("v") || QFile::exists(QStringLiteral("/tmp/dekko-debug")));
+    m_verboseLogging = (parser.isSet("d") || parser.isSet("v") || QFile::exists(QStringLiteral("/tmp/dekko-debug")));
     m_view->engine()->rootContext()->setContextProperty("verboseLogging", QVariant(m_verboseLogging));
     // Context property to figure out if we are on unity8/mir or not
     m_view->engine()->rootContext()->setContextProperty(QStringLiteral("isRunningOnMir"), QVariant(qgetenv("QT_QPA_PLATFORM") == "ubuntumirclient"));

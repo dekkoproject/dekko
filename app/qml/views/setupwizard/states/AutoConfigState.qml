@@ -22,30 +22,30 @@ import "../../../actions/wizard"
 import "../../../stores/accounts"
 
 DSM.State {
-    id: userInputState
+    id: noAccountsState
 
-    property alias backTargetState: finishedTransition.targetState
-    property alias nextTargetState: nextTargetState.targetState
+
+    property alias backTargetState: next.targetState
+    property alias createTargetState: previous.targetState
 
     onEntered: {
-        Log.logStatus("UserInputState::onEntered", "User details input state entered");
-        if (stack.currentItem.objectName !== "userInputUI") {
-            Log.logStatus("NoAccountState::onEntered", "Pushing UserInputUI");
-            WizardActions.wizardNavigateTo("qrc:/qml/views/setupwizard/components/UserInputUI.qml", {})
+        Log.logStatus("AutoConfigState::onEntered", "Loading processing overlay");
+        if (stack.currentItem === null) {
+            Log.logStatus("NoAccountState::onEntered", "Pushing NoAccountsUI");
+            // TODO: either push a processing overlay or a new page with an activity indicator
         }
     }
 
     onExited: {
-        Log.logStatus("NoAccountState::onExited", "Exited no accounts state");
+        console.log("Exited no accounts state")
     }
 
     DSM.SignalTransition {
-        id: nextTargetState
-        signal: AccountSetup.goNext
+        id: next
+        signal: AccountSetup.createAccount
     }
-
     DSM.SignalTransition {
-        id: finishedTransition
+        id: previous
         signal: AccountSetup.goBack
     }
 }

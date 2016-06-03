@@ -71,7 +71,6 @@ export PATH=$PWD/test/lib/${HOST_ARCH}/bin:$PATH
 export LD_LIBRARY_PATH=$PWD/test/lib/${HOST_ARCH}
 export QML2_IMPORT_PATH=$PWD/test/lib/${HOST_ARCH}
 export QMF_PLUGINS=$PWD/test/lib/${HOST_ARCH}/qmf/plugins5
-export OXIDE_DISABLE_SETUID_SANDBOX=1
 echo "PATH: $PATH"
 echo "LD_LIBRARY_PATH: $LD_LIBRARY_PATH"
 echo "QMF_PLUGINS: $QMF_PLUGINS"

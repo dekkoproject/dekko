@@ -8,5 +8,6 @@
         <file>states/NewAccountState.qml</file>
         <file>states/NoAccountState.qml</file>
         <file>states/UserInputState.qml</file>
+        <file>states/AutoConfigState.qml</file>
     </qresource>
 </RCC>

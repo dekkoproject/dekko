@@ -105,7 +105,7 @@ Oxide.WebContext {
                 console.log("Message query: ", message.value)
                 break;
             case "REMOTE_ACCESS":
-//                console.log("Remote resource blocked!", message.url)
+                console.log("Remote resource blocked!", message.url)
                 ctxt.remoteContentBlocked()
                 break;
             }

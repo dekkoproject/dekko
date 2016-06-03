@@ -80,7 +80,7 @@ void GlobalSettings::createDefaultsIfNotExist()
         return;
     }
     write(keyValue(MessageViewStyle), QStringLiteral("default"));
-    write(keyValue(AllowRemoteContent), true);
+    write(keyValue(AllowRemoteContent), false);
     write(keyValue(MessageViewMonospaceFont), false);
     write(keyValue(DefaultsCreated), true);
 }

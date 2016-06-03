@@ -68,17 +68,27 @@ Item {
 
         NewAccountState {
             id: newAccountState
+            // If we already have accounts configured then the user accessed this
+            // from the "Manage accounts" UI so move to the quit state
             backTargetState: Client.hasConfiguredAccounts ? quit : noAccountsState
+            // All account types have to go through the UserInputUI/State
             nextTargetState: userInputState
         }
 
         UserInputState {
             id: userInputState
             backTargetState: newAccountState
+            // TODO: Move to SenderIdentity state if this is a preset account
+            nextTargetState: AccountSetup.isPreset ? autoConfig : autoConfig
+        }
+
+        AutoConfigState {
+            id: autoConfig
         }
 
         DSM.State {
             id: quit
+            // FIXME: Use dispatcher API!!!
             onEntered: rootPageStack.pop()
         }
 
