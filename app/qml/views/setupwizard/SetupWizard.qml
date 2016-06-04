@@ -67,6 +67,7 @@ Item {
     }
     // Here we define our statemachine and there next/previous states
     DSM.StateMachine {
+        // TODO: Use the AccountsStore to query configured accounts. views/ shouldn't talk to Client directly
         initialState: Client.hasConfiguredAccounts ? newAccountState : noAccountsState
         running: true
 
@@ -80,6 +81,7 @@ Item {
             id: newAccountState
             // If we already have accounts configured then the user accessed this
             // from the "Manage accounts" UI so move to the quit state
+            // TODO: same as initialState todo
             backTargetState: Client.hasConfiguredAccounts ? quit : noAccountsState
             // All account types have to go through the UserInputUI/State
             nextTargetState: userInputState
