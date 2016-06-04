@@ -25,11 +25,21 @@ import "../../stores/accounts"
 import "../../actions/logging"
 import "../../actions/wizard"
 
+/*For the setup wizard we use the state machine framework. http://doc.qt.io/qt-5/qmlstatemachine.html
+
+  Each step of the setup wizard should be it's own state in the FSM and each state should be responsible
+  for loading/activating the UI for that state.
+
+  All states go into the setupwizard/states/ directory and UI views/components go into the setupwizard/components directory
+
+  See http://code.dekkoproject.org/dekko-dev/dekko/uploads/626fa76f365226af0b3fa84d39c7e589/SetupWizardStateMachine.pdf
+  for a diagram of the intended state transitions.
+*/
 Item {
     id: wizard
 
     anchors.fill: parent
-
+    // Use stack view so we get the nice page transitions
     StackView {
         id: stack
         anchors.fill: parent
@@ -55,7 +65,7 @@ Item {
             AccountSetup.goBack()
         }
     }
-
+    // Here we define our statemachine and there next/previous states
     DSM.StateMachine {
         initialState: Client.hasConfiguredAccounts ? newAccountState : noAccountsState
         running: true
