@@ -22,6 +22,7 @@ import Dekko.Mail 1.0
 import Dekko.Components 1.0
 import "../../components"
 import "../../webview"
+import "../../constants"
 
 DekkoPage {
 
@@ -56,15 +57,15 @@ DekkoPage {
                         left: parent.left
                         right: starIcon.left
                     }
-                    spacing: dekko.viewState.isSmallFF ? 0 : units.gu(1)
+                    spacing: dekko.viewState.isSmallFF ? 0 : Style.smallSpacing
 
                     AbstractButton {
                         id: backBtn
                         height: parent.height
-                        width: dekko.viewState.isSmallFF ? units.gu(4) : 0
+                        width: dekko.viewState.isSmallFF ? Style.largeSpacing : 0
                         Icon {
-                            height: units.gu(2)
-                            width: units.gu(2)
+                            height: Style.defaultSpacing
+                            width: Style.defaultSpacing
                             visible: dekko.viewState.isSmallFF
                             name: "back"
                             anchors {
@@ -80,8 +81,8 @@ DekkoPage {
                         height: parent.height
                         width: units.gu(4)
                         CachedImage {
-                            height: units.gu(2.5)
-                            width: units.gu(2.5)
+                            height: Style.defaultIconSize
+                            width: Style.defaultIconSize
                             name: Icons.MailReadIcon
                             anchors {
                                 horizontalCenter: parent.horizontalCenter
@@ -95,8 +96,8 @@ DekkoPage {
                         height: parent.height
                         width: units.gu(4)
                         CachedImage {
-                            height: units.gu(2.5)
-                            width: units.gu(2.5)
+                            height: Style.defaultIconSize
+                            width: Style.defaultIconSize
                             name: Icons.ViewListSymbolic
                             anchors {
                                 horizontalCenter: parent.horizontalCenter
@@ -109,8 +110,8 @@ DekkoPage {
                         height: parent.height
                         width: units.gu(4)
                         CachedImage {
-                            height: units.gu(2.5)
-                            width: units.gu(2.5)
+                            height: Style.defaultIconSize
+                            width: Style.defaultIconSize
                             name: Icons.JunkIcon
                             color: message.isJunk ? UbuntuColors.red : UbuntuColors.ash
                             anchors {
@@ -130,8 +131,8 @@ DekkoPage {
                         horizontalCenter: parent.horizontalCenter
                     }
                     CachedImage {
-                        height: units.gu(2.5)
-                        width: units.gu(2.5)
+                        height: Style.defaultIconSize
+                        width: Style.defaultIconSize
                         name: message && message.isImportant ? Icons.StarredIcon : Icons.UnStarredIcon
                         color: message && message.isImportant ? "#f0e442" : "#888888"
                         anchors {
@@ -150,15 +151,15 @@ DekkoPage {
                         right: parent.right
                     }
                     layoutDirection: Qt.RightToLeft
-                    spacing: dekko.viewState.isSmallFF ? 0 : units.gu(1)
+                    spacing: dekko.viewState.isSmallFF ? 0 : Style.smallSpacing
 
                     AbstractButton {
                         id: delBtn
                         height: parent.height
                         width: units.gu(4)
                         CachedImage {
-                            height: units.gu(2.5)
-                            width: units.gu(2.5)
+                            height: Style.defaultIconSize
+                            width: Style.defaultIconSize
                             name: Icons.ContextMenuIcon
                             anchors {
                                 horizontalCenter: parent.horizontalCenter
@@ -172,8 +173,8 @@ DekkoPage {
                         height: parent.height
                         width: units.gu(4)
                         CachedImage {
-                            height: units.gu(2.5)
-                            width: units.gu(2.5)
+                            height: Style.defaultIconSize
+                            width: Style.defaultIconSize
                             name: Icons.MailForwardIcon
                             anchors {
                                 horizontalCenter: parent.horizontalCenter
@@ -186,8 +187,8 @@ DekkoPage {
                         height: parent.height
                         width: units.gu(4)
                         CachedImage {
-                            height: units.gu(2.5)
-                            width: units.gu(2.5)
+                            height: Style.defaultIconSize
+                            width: Style.defaultIconSize
                             name: Icons.MailReplyAllIcon
                             anchors {
                                 horizontalCenter: parent.horizontalCenter
@@ -200,8 +201,8 @@ DekkoPage {
                         height: parent.height
                         width: units.gu(4)
                         CachedImage {
-                            height: units.gu(2.5)
-                            width: units.gu(2.5)
+                            height: Style.defaultIconSize
+                            width: Style.defaultIconSize
                             name: Icons.MailReplyIcon
                             anchors {
                                 horizontalCenter: parent.horizontalCenter

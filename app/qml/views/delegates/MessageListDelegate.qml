@@ -24,6 +24,7 @@ import Dekko.Components 1.0
 import "../components"
 import "../popovers"
 import "../../actions/messaging"
+import "../../constants"
 
 ListItemWithActions {
     id: normalMessageItemDelegate
@@ -131,7 +132,7 @@ ListItemWithActions {
 
             CachedImage {
                 id: star
-                height: units.gu(2)
+                height: Style.defaultSpacing
                 width: height
                 anchors {
                     right: parent.right
@@ -148,7 +149,7 @@ ListItemWithActions {
 
             CachedImage {
                 id: attachmentImg
-                height: units.gu(2)
+                height: Style.defaultSpacing
                 width: visible ? height : 0
                 anchors {
                     right: star.left

@@ -21,6 +21,7 @@ import Ubuntu.Components 1.3
 import Dekko.Components 1.0
 import "../../components"
 import "../../../stores/accounts"
+import "../../../constants"
 
 DekkoPage {
     id: noAccounts
@@ -76,7 +77,7 @@ DekkoPage {
                         left: parent.left
                         right:parent.right
                         top: ibxContainer.bottom
-                        topMargin:units.gu(2)
+                        topMargin:Style.defaultSpacing
                     }
                     height: t.height
 

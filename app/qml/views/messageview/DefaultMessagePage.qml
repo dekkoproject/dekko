@@ -26,6 +26,7 @@ import "../../actions/views"
 import "../components"
 import "../webview"
 import "../composer"
+import "../../constants"
 
 DekkoPage {
 
@@ -96,7 +97,7 @@ DekkoPage {
             id: webview
             anchors {
                 fill: parent
-                leftMargin: !dekko.viewState.isSmallFF ? units.gu(1) : 0
+                leftMargin: !dekko.viewState.isSmallFF ? Style.smallSpacing : 0
             }
             locationBarController.mode: Oxide.LocationBarController.ModeAuto
             locationBarController.height: h.height
@@ -132,16 +133,16 @@ DekkoPage {
                     id: details
                     anchors {
                         left: parent.left
-                        leftMargin: units.gu(1)
+                        leftMargin: Style.smallSpacing
                         right: parent.right
-                        rightMargin: units.gu(1)
+                        rightMargin: Style.smallSpacing
                         top: parent.top
                     }
                     ListItem {
                         height: units.gu(5)
                         Item {
                             id: p
-                            width: tl.width + units.gu(1)
+                            width: tl.width + Style.smallSpacing
                             anchors {
                                 left: parent.left
                                 top: parent.top
@@ -153,8 +154,8 @@ DekkoPage {
                                 anchors {
                                     left: parent.left
                                     top: parent.top
-                                    topMargin: units.gu(2)
-                                    leftMargin: units.gu(1)
+                                    topMargin: Style.defaultSpacing
+                                    leftMargin: Style.smallSpacing
                                 }
                                 text: qsTr("From:")
                             }
@@ -168,7 +169,7 @@ DekkoPage {
                             width: inner_avatar.width + label.width + units.gu(1.5)
                             anchors {
                                 left: p.right
-                                leftMargin: units.gu(1)
+                                leftMargin: Style.smallSpacing
                                 top: parent.top
                                 topMargin: units.gu(1.5)
                             }
@@ -239,7 +240,7 @@ DekkoPage {
             bottom: parent.bottom
             right: parent.right
         }
-        maxHeight: container.height - units.gu(2)
+        maxHeight: container.height - Style.defaultSpacing
     }
 }
 

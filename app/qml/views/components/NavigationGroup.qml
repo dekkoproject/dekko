@@ -17,6 +17,7 @@
 */
 import QtQuick 2.4
 import Ubuntu.Components 1.3
+import "../../constants"
 
 ListItem {
     id: group
@@ -39,9 +40,9 @@ ListItem {
             id: sLabel
             anchors {
                 left: parent.left
-                leftMargin: units.gu(2)
+                leftMargin: Style.defaultSpacing
                 right: parent.right
-                rightMargin: units.gu(2)
+                rightMargin: Style.defaultSpacing
             }
             text: group.title
             height: units.gu(4)

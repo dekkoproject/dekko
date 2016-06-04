@@ -18,6 +18,7 @@
 import QtQuick 2.4
 import QtQuick.Layouts 1.1
 import Ubuntu.Components 1.3
+import "../../constants"
 
 Item {
     id: actionsDrawer
@@ -118,9 +119,9 @@ Item {
                     id: label
                     anchors {
                         left: icon.right
-                        leftMargin: units.gu(2)
+                        leftMargin: Style.defaultSpacing
                         right: parent.right
-                        rightMargin: units.gu(2)
+                        rightMargin: Style.defaultSpacing
                         verticalCenter: parent.verticalCenter
                     }
                     text: model.text
@@ -132,7 +133,7 @@ Item {
                     id: icon
                     anchors {
                         left: parent.left
-                        leftMargin: units.gu(2)
+                        leftMargin: Style.defaultSpacing
                         verticalCenter: parent.verticalCenter
                     }
                     width: height

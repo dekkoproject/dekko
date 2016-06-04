@@ -19,6 +19,7 @@ import QtFeedback 5.0
 import Ubuntu.Components 1.3
 import Ubuntu.Components.ListItems 1.0 as ListItem
 import Dekko.Components 1.0
+import "../../constants"
 
 PixelPerfectItem {
     id: root
@@ -54,14 +55,14 @@ PixelPerfectItem {
 
     function returnToBoundsRTL()
     {
-        var actionFullWidth = actionWidth + units.gu(2)
+        var actionFullWidth = actionWidth + Style.defaultSpacing
         var xOffset = Math.abs(main.x)
         var index = Math.min(Math.floor(xOffset / actionFullWidth), _visibleRightSideActions.length)
 
         if (index < 1) {
             main.x = 0
         } else if (index === _visibleRightSideActions.length) {
-            main.x = -(rightActionsView.width - units.gu(2))
+            main.x = -(rightActionsView.width - Style.defaultSpacing)
         } else {
             main.x = -(actionFullWidth * index)
         }
@@ -111,9 +112,9 @@ PixelPerfectItem {
 
     function updateActiveAction()
     {
-        if ((main.x <= -(root.actionWidth + units.gu(2))) &&
-            (main.x > -(rightActionsView.width - units.gu(2)))) {
-            var actionFullWidth = actionWidth + units.gu(2)
+        if ((main.x <= -(root.actionWidth + Style.defaultSpacing)) &&
+            (main.x > -(rightActionsView.width - Style.defaultSpacing))) {
+            var actionFullWidth = actionWidth + Style.defaultSpacing
             var xOffset = Math.abs(main.x)
             var index = Math.min(Math.floor(xOffset / actionFullWidth), _visibleRightSideActions.length)
             index = index - 1
@@ -203,17 +204,17 @@ PixelPerfectItem {
            bottom: main.bottom
        }
        visible: _visibleRightSideActions.length > 0
-       width: rightActionsRepeater.count > 0 ? rightActionsRepeater.count * (root.actionWidth + units.gu(2)) + root.actionThreshold + units.gu(2) : 0
+       width: rightActionsRepeater.count > 0 ? rightActionsRepeater.count * (root.actionWidth + Style.defaultSpacing) + root.actionThreshold + Style.defaultSpacing : 0
        Row {
            anchors{
                top: parent.top
                left: parent.left
-               leftMargin: units.gu(2)
+               leftMargin: Style.defaultSpacing
                right: parent.right
-               rightMargin: units.gu(2)
+               rightMargin: Style.defaultSpacing
                bottom: parent.bottom
            }
-           spacing: units.gu(2)
+           spacing: Style.defaultSpacing
            Repeater {
                id: rightActionsRepeater
 
@@ -377,7 +378,7 @@ PixelPerfectItem {
         onReleased: {
             // if the mouse reach the safe are we should handle it as full swipe
             if (mouse.x < 0) {
-                main.x = -(rightActionsView.width - units.gu(2))
+                main.x = -(rightActionsView.width - Style.defaultSpacing)
             } else if (root.triggerActionOnMouseRelease && root.activeAction) {
                 clickEffect.start()
                 triggerAction.start()

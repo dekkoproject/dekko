@@ -21,6 +21,7 @@ import Qt.labs.folderlistmodel 2.1;
 import Ubuntu.Components 1.3
 import Dekko.Components 1.0
 import "../components"
+import "../../constants"
 
 Window {
     id: addAttachmentsDialog
@@ -91,8 +92,8 @@ Window {
                                 color: UbuntuColors.porcelain
                                 StretchRow {
                                     anchors {
-                                        leftMargin: units.gu(2)
-                                        rightMargin: units.gu(2)
+                                        leftMargin: Style.defaultSpacing
+                                        rightMargin: Style.defaultSpacing
                                         fill: parent
                                     }
                                     Button {
@@ -143,8 +144,8 @@ Window {
                                 color: UbuntuColors.porcelain
                                 StretchRow {
                                     anchors {
-                                        leftMargin: units.gu(2)
-                                        rightMargin: units.gu(2)
+                                        leftMargin: Style.defaultSpacing
+                                        rightMargin: Style.defaultSpacing
                                         fill: parent
                                     }
                                     Stretcher{}

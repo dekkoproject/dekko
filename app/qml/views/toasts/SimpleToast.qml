@@ -17,6 +17,7 @@
 */
 import QtQuick 2.4
 import Ubuntu.Components 1.3
+import "../../constants"
 
 UbuntuShape {
     id: rootItem
@@ -33,7 +34,7 @@ UbuntuShape {
     }
     color: UbuntuColors.inkstone
     aspect: UbuntuShape.Flat
-    width: label.width + units.gu(2)
+    width: label.width + Style.defaultSpacing
     height: label.height + units.gu(1.5)
 
     Label {

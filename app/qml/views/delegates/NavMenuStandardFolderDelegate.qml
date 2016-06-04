@@ -20,6 +20,7 @@ import Ubuntu.Components 1.3
 import Dekko.Mail 1.0
 import Dekko.Components 1.0
 import "../components"
+import "../../constants"
 
 ListItem {
     id: li
@@ -114,7 +115,7 @@ ListItem {
                 color: UbuntuColors.lightGrey
             }
             Icon {
-                height: units.gu(2)
+                height: Style.defaultSpacing
                 width: height
                 anchors.right: parent.right
                 anchors.rightMargin: units.gu(0.5)
@@ -132,7 +133,7 @@ ListItem {
         id: col
         visible: folder.hasDescendents
         anchors.left: parent.left
-        anchors.leftMargin: units.gu(2)
+        anchors.leftMargin: Style.defaultSpacing
         anchors.top: layout.bottom
         anchors.right: parent.right
         Repeater {

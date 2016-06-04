@@ -19,6 +19,7 @@ import QtQuick 2.4
 import QtQuick.Layouts 1.1
 import Ubuntu.Components 1.3
 import Dekko.Components 1.0
+import "../../constants"
 
 PixelPerfectItem {
     id: dekkoHeader
@@ -126,8 +127,8 @@ PixelPerfectItem {
             property alias button: inner_button
             anchors.fill: parent
 //            anchors.leftMargin: backAction ? 0 : units.gu(2)
-            anchors.rightMargin: units.gu(2)
-            spacing: units.gu(2)
+            anchors.rightMargin: Style.defaultSpacing
+            spacing: Style.defaultSpacing
             HeaderButton {
                 id: inner_button
                 anchors {
@@ -165,7 +166,7 @@ PixelPerfectItem {
             property alias button: inner_button
 
             anchors.fill: parent
-            anchors.rightMargin: units.gu(2)
+            anchors.rightMargin: Style.defaultSpacing
             spacing: 0
 
             HeaderButton {

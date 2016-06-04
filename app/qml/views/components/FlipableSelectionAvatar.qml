@@ -22,6 +22,7 @@ import "../utils/UiUtils.js" as UiUtils
 import "../components"
 import "../../actions/views"
 import "../../stores/mail"
+import "../../constants"
 
 Flipable {
     id: flipable
@@ -51,7 +52,7 @@ Flipable {
                     id: contactIcon
                     name: "contact"
                     anchors.centerIn: parent
-                    height: parent.height - units.gu(2)
+                    height: parent.height - Style.defaultSpacing
                     width: height
                     color: "white"
                     visible: !initialsLabel.text
@@ -118,7 +119,7 @@ Flipable {
             opacity: 0.8
             visible: false
             CachedImage {
-                width: parent.width - units.gu(2)
+                width: parent.width - Style.defaultSpacing
                 height: width
                 anchors.centerIn: parent
                 name: Icons.SearchIcon

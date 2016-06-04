@@ -23,6 +23,7 @@ import "../../../actions/logging"
 import "../../../actions/wizard"
 import "../../../actions/popups"
 import "../../../stores/accounts"
+import "../../../constants"
 
 DekkoPage {
     objectName: "userInputUI"
@@ -40,13 +41,13 @@ DekkoPage {
                     id: col
                     anchors {
                         left: parent.left
-                        leftMargin: units.gu(2)
+                        leftMargin: Style.defaultSpacing
                         top: parent.top
-                        topMargin: units.gu(1)
+                        topMargin: Style.smallSpacing
                         right: parent.right
-                        rightMargin: units.gu(2)
+                        rightMargin: Style.defaultSpacing
                     }
-                    spacing: units.gu(1)
+                    spacing: Style.smallSpacing
 
                     TitledTextField {
                         id: name

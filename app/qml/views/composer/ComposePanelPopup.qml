@@ -24,6 +24,7 @@ import "../../actions/composer"
 import "../../actions/views"
 import "../../stores/composer"
 import "../components"
+import "../../constants"
 
 PopupBase {
     id: base
@@ -46,7 +47,7 @@ PopupBase {
         anchors {
             horizontalCenter: parent.horizontalCenter
             top: shouldCenter ? undefined : parent.top
-            topMargin: shouldCenter ? undefined : (addTopMargin ? units.gu(6) : units.gu(2))
+            topMargin: shouldCenter ? undefined : (addTopMargin ? units.gu(6) : Style.defaultSpacing)
             verticalCenter: shouldCenter ? parent.verticalCenter : undefined
         }
         color: UbuntuColors.porcelain
@@ -123,7 +124,7 @@ PopupBase {
                 Label {
                     anchors {
                         left: parent.left
-                        leftMargin: units.gu(2)
+                        leftMargin: Style.defaultSpacing
                         verticalCenter: parent.verticalCenter
                     }
                     fontSize: "small"

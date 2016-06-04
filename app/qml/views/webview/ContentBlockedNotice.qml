@@ -17,6 +17,7 @@
 */
 import QtQuick 2.4
 import Ubuntu.Components 1.3
+import "../../constants"
 
 Item {
     id: notice
@@ -33,7 +34,7 @@ Item {
         Label {
             anchors {
                 left: parent.left
-                leftMargin: units.gu(2)
+                leftMargin: Style.defaultSpacing
                 verticalCenter: parent.verticalCenter
             }
             visible: notice.contentBlocked
@@ -45,7 +46,7 @@ Item {
             width: units.gu(8)
             anchors {
                 right: parent.right
-                rightMargin: units.gu(2)
+                rightMargin: Style.defaultSpacing
                 verticalCenter: parent.verticalCenter
             }
             color: UbuntuColors.green
