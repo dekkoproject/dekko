@@ -39,4 +39,7 @@ ActionCreator {
     signal wizardStepForward()
     signal wizardResetAccount()
     signal wizardSetAccountPreset(var config)
+    signal lookForServerDetails()
+    signal serverDetailsFound()
+    signal noServerDetailsFound()
 }

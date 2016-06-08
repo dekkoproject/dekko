@@ -19,13 +19,13 @@
 AutoDiscover::AutoDiscover(QObject *parent) :
     QObject(parent), m_inProgress(false), m_testMode(false)
 {
-    m_serverConfig = new ServerConfiguration(this);
+    m_serverConfig = new EmailProvider(this);
     m_autoConfig = new AutoConfig(this, m_serverConfig);
     connect(m_autoConfig, &AutoConfig::failed, this, &AutoDiscover::handleRequestFailed);
     connect(m_autoConfig, &AutoConfig::success, this, &AutoDiscover::handleRequestSucceeded);
-    m_srvLookup = new SrvLookup(this, m_serverConfig);
-    connect(m_srvLookup, &SrvLookup::failed, this, &AutoDiscover::handleRequestFailed);
-    connect(m_srvLookup, &SrvLookup::success, this, &AutoDiscover::handleRequestSucceeded);
+//    m_srvLookup = new SrvLookup(this, m_serverConfig);
+//    connect(m_srvLookup, &SrvLookup::failed, this, &AutoDiscover::handleRequestFailed);
+//    connect(m_srvLookup, &SrvLookup::success, this, &AutoDiscover::handleRequestSucceeded);
     m_status = INVALID;
 }
 
@@ -89,9 +89,9 @@ void AutoDiscover::buildNextRequest()
     case REQUEST_AUTOCONFIG_ISPDB:
         m_autoConfig->lookUp(QString("https://autoconfig.thunderbird.net/v1.1/%1").arg(m_domain));
         break;
-    case REQUEST_SRV:
-        m_srvLookup->lookUp(m_domain);
-        break;
+//    case REQUEST_SRV:
+//        m_srvLookup->lookUp(m_domain);
+//        break;
     case REQUEST_FAILED:
     case REQUEST_SUCCEEDED:
     case BUILDING_RESULT:
@@ -120,10 +120,10 @@ void AutoDiscover::handleRequestFailed()
     // If the request failed on REQUEST_AUTOCONFIG_ISPDB then we
     // have nothing left we can do so just *fail* this.
     case REQUEST_AUTOCONFIG_ISPDB:
-        setStatus(REQUEST_SRV);
+        setStatus(REQUEST_FAILED);
         buildNextRequest();
         break;
-    case REQUEST_SRV:
+//    case REQUEST_SRV:
     case REQUEST_FAILED:
     case REQUEST_SUCCEEDED:
     case BUILDING_RESULT:
@@ -146,7 +146,7 @@ void AutoDiscover::setStatus(AutoDiscover::Status status)
     emit statusChanged();
 }
 
-void AutoDiscover::handleRequestSucceeded(ServerConfiguration *config)
+void AutoDiscover::handleRequestSucceeded(EmailProvider *config)
 {
     if (config == NULL || !config->isValid()) {
         setStatus(INVALID);
@@ -159,8 +159,8 @@ void AutoDiscover::handleRequestSucceeded(ServerConfiguration *config)
     } else {
         // errr how did this happen??
         qDebug() << "[AutoDiscover] Somehow the configs don't match, they are: ";
-        qDebug() << "this: " << m_serverConfig->toMap();
-        qDebug() << "other: " << config->toMap();
+//        qDebug() << "this: " << m_serverConfig->toMap();
+//        qDebug() << "other: " << config->toMap();
         setStatus(INVALID);
         emit failed();
         return;

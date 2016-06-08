@@ -35,4 +35,7 @@ KeyTable {
     property string setNoPasswordAllowed
     property string setUserDetails
     property string setServerDetails
+    property string lookForServerDetails
+    property string serverDetailsFound
+    property string noServerDetailsFound
 }

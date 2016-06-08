@@ -49,6 +49,14 @@ AppListener {
         id: account
     }
 
+    AutoDiscover {
+        id: autoDiscover
+        onSuccess: {
+            d.emailProvider = provider
+            Log.logInfo()
+        }
+    }
+
     Filter {
         type: WizardKeys.setNewAccountType
         onDispatched: {
@@ -145,6 +153,7 @@ AppListener {
             d.isPopAccount = false
             d.accountDescripion = ""
             d.allowEmptyPassword = false
+            d.emailProvider = undefined
         }
     }
 
@@ -177,6 +186,7 @@ AppListener {
         property bool isPresetAccount: false
         property string accountDescripion: ""
         property bool allowEmptyPassword: false
+        property var emailProvider: undefined
 
         function getPresetEncryptionMethod(useStartTls, useSsl) {
             if (useSsl && useStartTls) {

@@ -21,8 +21,8 @@
 #include <QScopedPointer>
 #include "autoconfig.h"
 #include "emailvalidator.h"
-#include "serverconfiguration.h"
 #include "srvlookup.h"
+#include "emailprovider.h"
 
 class AutoDiscover : public QObject
 {
@@ -39,7 +39,7 @@ public:
         REQUEST_AUTOCONFIG,
         REQUEST_AUTOCONFIG_WELLKNOWN,
         REQUEST_AUTOCONFIG_ISPDB,
-        REQUEST_SRV,
+//        REQUEST_SRV,
 //        REQUEST_WEBFINGER, // Is this possible?? it should be!
         REQUEST_FAILED,
         REQUEST_SUCCEEDED,
@@ -52,7 +52,7 @@ public:
 
 signals:
     void invalidMailAddress(QString address);
-    void success(ServerConfiguration *serverConfig) const;
+    void success(EmailProvider *provider) const;
     void failed();
     void progressChanged();
     void statusChanged();
@@ -67,10 +67,10 @@ private:
     void setStatus(Status status);
 
 private slots:
-    void handleRequestSucceeded(ServerConfiguration *config);
+    void handleRequestSucceeded(EmailProvider *config);
 
 private:
-    QPointer<ServerConfiguration> m_serverConfig;
+    QPointer<EmailProvider> m_serverConfig;
     QPointer<AutoConfig> m_autoConfig;
     QPointer<SrvLookup> m_srvLookup;
 
@@ -80,7 +80,7 @@ private:
 
     // For UNIT TESTS
     Q_PROPERTY(bool testMode MEMBER m_testMode)
-    Q_PROPERTY(ServerConfiguration *_serverConf MEMBER m_serverConfig)
+    Q_PROPERTY(EmailProvider *_serverConf MEMBER m_serverConfig)
     bool m_testMode;
 
 };
