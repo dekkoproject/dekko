@@ -17,35 +17,78 @@
 */
 import QtQuick 2.4
 import QtQml.StateMachine 1.0 as DSM
+import Ubuntu.Components.Popups 1.3
+import QuickFlux 1.0
 import "../../../actions/logging"
+import "../../../actions/popups"
 import "../../../actions/wizard"
 import "../../../stores/accounts"
 
 DSM.State {
     id: noAccountsState
 
-
-    property alias backTargetState: next.targetState
-    property alias createTargetState: previous.targetState
+    property alias nextTargetState: next.targetState
 
     onEntered: {
         Log.logStatus("AutoConfigState::onEntered", "Loading processing overlay");
-        if (stack.currentItem === null) {
-            Log.logStatus("NoAccountState::onEntered", "Pushing NoAccountsUI");
-            // TODO: either push a processing overlay or a new page with an activity indicator
-        }
+        d.overlay = PopupUtils.open(Qt.resolvedUrl("qrc:/qml/views/setupwizard/components/ProcessingOverlay.qml"),
+                                    dekko,
+                                    {
+                                        text: qsTr("Searching for configuration.")
+                                    })
+        WizardActions.lookForServerDetails()
     }
 
     onExited: {
-        console.log("Exited no accounts state")
+        Log.logStatus("AutoConfigState::onExited", "Destroying overlay");
+        if (d.overlay !== undefined) {
+            PopupUtils.close(d.overlay)
+        }
+    }
+
+    AppScript {
+        runWhen: WizardKeys.askAboutImapInstead
+        script: {
+            WizardActions.showUseImapDialog()
+            once(PopupKeys.confirmationDialogConfirmed, function (message) {
+                if (message.id !== d.useImapId) {
+                    return;
+                }
+                Log.logInfo("AutoConfigState::confirmationDialogConfirmed", "Seems they do! Using imap config instead")
+                WizardActions.useImapInstead()
+            })
+            once(PopupKeys.confirmationDialogCancelled, function (message) {
+                if (message.id !== d.useImapId) {
+                    return;
+                }
+                Log.logInfo("AutoConfigState::confirmationDialogConfirmed", "Sticking with pop")
+                WizardActions.stickWithPop()
+            })
+        }
+    }
+
+    AppListener {
+        filter: WizardKeys.showUseImapDialog
+        onDispatched: {
+            if (d.overlay !== undefined) {
+                PopupUtils.close(d.overlay)
+            }
+            PopupActions.showConfirmationDialog(
+                        d.useImapId,
+                        qsTr("IMAP server found"),
+                        qsTr("A IMAP server configuration was found for you domain.\n\nWould you like to use this instead?"
+                ))
+        }
     }
 
     DSM.SignalTransition {
         id: next
-        signal: AccountSetup.createAccount
+        signal: AccountSetup.goNext
     }
-    DSM.SignalTransition {
-        id: previous
-        signal: AccountSetup.goBack
+
+    QtObject {
+        id: d
+        property var overlay: undefined
+        readonly property string useImapId: "use-imap-dlg"
     }
 }

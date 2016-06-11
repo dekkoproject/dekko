@@ -28,6 +28,7 @@ class AutoDiscover : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(bool inProgress READ inProgress NOTIFY progressChanged)
+    Q_PROPERTY(QString domain MEMBER m_domain CONSTANT)
     Q_PROPERTY(Status status READ status NOTIFY statusChanged)
     Q_ENUMS(Status)
 public:
@@ -52,7 +53,7 @@ public:
 
 signals:
     void invalidMailAddress(QString address);
-    void success(EmailProvider *provider) const;
+    void success();
     void failed();
     void progressChanged();
     void statusChanged();

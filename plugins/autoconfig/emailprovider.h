@@ -23,6 +23,8 @@ class EmailProvider : public QObject
     QML_READONLY_AUTO_PROPERTY(QQmlObjectListModel<ServerConfig>*, incoming)
     QML_READONLY_AUTO_PROPERTY(QQmlObjectListModel<ServerConfig>*, outgoing)
     Q_PROPERTY(bool isValid READ isValid CONSTANT)
+//    Q_PROPERTY(bool hasImapConfiguration READ hasImapConfiguration CONSTANT)
+//    Q_PROPERTY(bool hasPopConfiguration READ hasPopConfiguration CONSTANT)
 
 public:
     explicit EmailProvider(QObject *parent = 0);
@@ -32,6 +34,12 @@ public:
 
     void setData(const Format &format, const QByteArray &data);
     bool isValid();
+    Q_INVOKABLE bool hasImapConfiguration();
+    Q_INVOKABLE QObject* getFirstImapConfig();
+    Q_INVOKABLE bool hasPopConfiguration();
+    Q_INVOKABLE QObject* getFirstPopConfig();
+    Q_INVOKABLE bool hasSmtpConfiguration();
+    Q_INVOKABLE QObject* getFirstSmtpConfig();
 private:
     // XML specifics
     void parseXmlData();
@@ -49,7 +57,7 @@ class ServerConfig : public QObject
 {
     Q_OBJECT
 public:
-    explicit ServerConfig(QObject *parent = 0) : QObject(parent){}
+    explicit ServerConfig(QObject *parent = 0);
 
     enum ServerType { UNKNOWN, POP3, IMAP, SMTP };
     enum SocketType { PLAIN, STARTTLS, SSL };

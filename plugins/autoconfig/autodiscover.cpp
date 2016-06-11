@@ -56,6 +56,15 @@ void AutoDiscover::lookUp(const QString &mailAddress)
         return;
     }
     m_domain = mailAddress.split("@")[1];
+    // Although this is a valid email address, it may not
+    // actually contain a domain. AutoDiscover works on the
+    // domain being valid so needs to have at least 1 period
+    // i.e .com .co.uk etc
+    // So fail autoconfig now and request manual entry
+    if (!m_domain.contains(QLatin1Char('.'))) {
+        emit failed();
+        return;
+    }
     setStatus(NEW_REQUEST);
     buildNextRequest();
 }
@@ -148,14 +157,23 @@ void AutoDiscover::setStatus(AutoDiscover::Status status)
 
 void AutoDiscover::handleRequestSucceeded(EmailProvider *config)
 {
+    qDebug() << "++++++++++++++++++++++++";
+    qDebug() << "SUCCESS!";
+    qDebug() << "VERSION: " << config->version();
+    qDebug() << "DisplayName: " << config->displayName();
+    qDebug() << "Short display name: " << config->shortName();
+    qDebug() << "Total incoming: " << config->incoming()->size();
+    qDebug() << "Incoming host" << config->incoming()->at(0)->hostname();
+    qDebug() << "++++++++++++++++++++++++";
     if (config == NULL || !config->isValid()) {
         setStatus(INVALID);
         emit failed();
         return;
     }
     setStatus(REQUEST_SUCCEEDED);
-    if (config == m_serverConfig) {
-        emit success(m_serverConfig);
+    m_serverConfig = config;
+    if (config != NULL) {
+        emit success();
     } else {
         // errr how did this happen??
         qDebug() << "[AutoDiscover] Somehow the configs don't match, they are: ";

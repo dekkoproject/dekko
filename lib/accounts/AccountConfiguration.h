@@ -181,6 +181,13 @@ public slots:
     void setIdleEnabled(const bool enabled);
     void setBaseFolder(const QString &baseFolder);
     void setPushFolders(const QStringList &pushFolders);
+    void appendPushFolder(const QString &folder) {
+        QStringList p = pushFolders();
+        qDebug() << "PUSH FOLDERS: " << p;
+        p.append(folder);
+        setPushFolders(p);
+    }
+
     void setCheckInterval(const int &interval); // in milliseconds
     void setCheckWhenRoaming(const bool check);
     void setSearchLimit(const int &limit);

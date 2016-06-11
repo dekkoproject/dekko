@@ -232,7 +232,7 @@ bool ImapAccountConfiguration::canIDLE() const
 
 bool ImapAccountConfiguration::idleEnabled() const
 {
-    return m_service->value(AccountKeys::idleEnabled, QStringLiteral("0")).toInt() != 0;
+    return m_service->value(AccountKeys::idleEnabled, QStringLiteral("1")).toInt() != 0;
 }
 
 QString ImapAccountConfiguration::baseFolder() const
@@ -247,7 +247,7 @@ QStringList ImapAccountConfiguration::pushFolders() const
 
 int ImapAccountConfiguration::checkInterval() const
 {
-    return m_service->value(AccountKeys::checkInterval, QStringLiteral("-1")).toInt();
+    return m_service->value(AccountKeys::checkInterval, QStringLiteral("5")).toInt();
 }
 
 bool ImapAccountConfiguration::checkWhenRoaming() const

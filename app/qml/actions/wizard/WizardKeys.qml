@@ -38,4 +38,26 @@ KeyTable {
     property string lookForServerDetails
     property string serverDetailsFound
     property string noServerDetailsFound
+
+    property string checkProviderForAccountType
+    // Dispatch if config is found and user is setting up a pop3 account
+    // we want the user to have the best experience and they may not
+    // knwo that they can use imap :-)
+    property string askAboutImapInstead
+    // use imap config
+    property string useImapInstead
+    // use pop3 config
+    property string stickWithPop
+    property string runAccountValidation
+    property string validateCredentials
+    property string validateIfAccountHasEnoughCredentials
+    // walk configs till we find one that validates
+    property string validateConfigToUse
+    // config validation succeeded
+    property string validConfigFound
+    // config validation failed :-/ we need to open the manual input view
+    property string noValidConfigs
+
+    property string requestManualInput
+    property string showUseImapDialog
 }

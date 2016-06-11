@@ -32,28 +32,49 @@ AppListener {
     signal goBack()
     signal goNext()
     signal userDetailsSet()
-
     // new account accessor for the setupwizard
-    property alias account: account
+    property NewAccount account: newAccount.createObject(accountSetup)
 
     // Properties regarding new account type
     readonly property alias isPreset: d.isPresetAccount
     readonly property alias isImap: d.isImapAccount
     readonly property alias isPop3: d.isPopAccount
+    readonly property alias needsValidation: d.shouldValidate
     readonly property alias accountDescripion: d.accountDescripion
+    readonly property alias hasProvider: d.hasProvider
 
     // New account object
     // This is a subclass of Account that allows editing of
     // an invalid account before comitting to the QMailStore
-    NewAccount {
-        id: account
+    Component {
+        id: newAccount
+        NewAccount {
+        }
     }
 
     AutoDiscover {
         id: autoDiscover
         onSuccess: {
-            d.emailProvider = provider
-            Log.logInfo()
+            Log.logStatus("AccountSetup::AutoDiscover", "Lookup succeeded!")
+            console.log("SUCCESS!")
+            d.emailProvider = _serverConf
+//            // Check there is a server config for the selected account type
+            WizardActions.checkProviderForAccountType()
+        }
+        onFailed: {
+            Log.logWarning("AccountSetup::AutoDiscover", "Lookup failed!")
+            WizardActions.noServerDetailsFound()
+        }
+    }
+    // TODO: logging
+    AccountValidator {
+        id: validator
+        onSuccess: {
+            WizardActions.wizardResetAccount()
+            accountSetup.goNext()
+        }
+        onValidationFailed: {
+            WizardActions.requestManualInput()
         }
     }
 
@@ -144,20 +165,6 @@ AppListener {
     }
 
     Filter {
-        type: WizardKeys.wizardResetAccount
-        onDispatched: {
-            // TODO: reset account
-            Log.logError("AccountSetup::resetAccount", "FIXME: implement account reset")
-            d.isPresetAccount = false
-            d.isImapAccount = false
-            d.isPopAccount = false
-            d.accountDescripion = ""
-            d.allowEmptyPassword = false
-            d.emailProvider = undefined
-        }
-    }
-
-    Filter {
         type: WizardKeys.wizardSetAccountPreset
         onDispatched: {
             var cfg = message.config
@@ -177,6 +184,160 @@ AppListener {
             d.isPresetAccount = true
         }
     }
+
+    Filter {
+        type: WizardKeys.lookForServerDetails
+        onDispatched: {
+            if (EmailValidator.validate(account.incoming.email)) {
+                Log.logInfo("AccountSetup::lookForServerDetails", "Starting autodiscover......")
+                autoDiscover.lookUp(account.incoming.email)
+            } else {
+                // We can't work here without an email address
+                // so as to not bother anyone just dispatch that we couldn't find anything
+                WizardActions.noServerDetailsFound()
+                Log.logWarning("AccountSetup::lookForServerDetails", "Invalid email address. Signalled no details were found!")
+            }
+        }
+    }
+
+    Filter {
+        type: WizardKeys.checkProviderForAccountType
+        onDispatched: {
+            if (d.isPopAccount && d.emailProvider.hasImapConfiguration() && d.emailProvider.hasPopConfiguration()) {
+                Log.logInfo("AccountSetup::checkProviderForAccountType", "Asking if user would prefer to use imap")
+                WizardActions.askAboutImapInstead()
+                return;
+            }
+            if (d.isPopAccount && d.emailProvider.hasPopConfiguration()) {
+                Log.logInfo("AccountSetup::checkProviderForAccountType", "Pop configuration found. Needs validating")
+                d.shouldValidate = true
+            }
+            if (d.isImapAccount && d.emailProvider.hasImapConfiguration()) {
+                Log.logInfo("AccountSetup::checkProviderForAccountType", "Imap configuration found. Needs validating")
+                d.shouldValidate = true
+            }
+            accountSetup.goNext()
+        }
+    }
+
+    Filter {
+        type: WizardKeys.runAccountValidation
+        onDispatched: {
+            account.save()
+            if (d.isImapAccount) {
+                var imap = account.incoming
+                imap.idleEnabled = true
+                imap.appendPushFolder("INBOX")
+                imap.checkInterval = 5
+                account.save()
+                console.log("IDLE enabled", imap.idleEnabled)
+                console.log("Push Folders: ", imap.pushFolders)
+            }
+            // Delay this starting to allow time for the
+            // the messageserver tobe notified of the new account
+            delayValidate.start()
+        }
+    }
+
+    Timer {
+        id: delayValidate
+        interval: 500 // probably overkill :-)
+        repeat: false
+        onTriggered: validator.validateAccount(account)
+    }
+
+    Filter {
+        type: WizardKeys.validateConfigToUse
+        onDispatched: {
+            Log.logStatus("AccountSetup::validateConfigToUse", "Determining which config to use")
+            // TODO: iterate over configs to find the one that works
+            // FOr now were just using the 1st config and request manual input if that fails
+            if (d.isPopAccount && d.emailProvider.hasPopConfiguration()) {
+                var pop = d.emailProvider.getFirstPopConfig()
+                account.incoming.server = pop.hostname
+                account.incoming.port = pop.port
+                account.incoming.encryption = d.getEncryptionMethodFromConfig(pop.socket)
+                account.incoming.saslMechanism = d.getSaslFromConfig(pop.mechanism)
+            }
+            if (d.isImapAccount && d.emailProvider.hasImapConfiguration()) {
+                var imap = d.emailProvider.getFirstImapConfig()
+                account.incoming.server = imap.hostname
+                account.incoming.port = imap.port
+                account.incoming.encryption = d.getEncryptionMethodFromConfig(imap.socket)
+                account.incoming.saslMechanism = d.getSaslFromConfig(imap.mechanism)
+            }
+            if (!d.emailProvider.hasSmtpConfiguration()) {
+                WizardActions.requestManualInput()
+            } else {
+                var smtp = d.emailProvider.getFirstSmtpConfig()
+                account.outgoing.server = smtp.hostname
+                account.outgoing.port = smtp.port
+                account.outgoing.encryption = d.getEncryptionMethodFromConfig(smtp.socket)
+                account.outgoing.saslMechanism = d.getSaslFromConfig(smtp.mechanism)
+            }
+            WizardActions.validateIfAccountHasEnoughCredentials()
+        }
+    }
+
+    Filter {
+        type: WizardKeys.validateCredentials
+        onDispatched: {
+            if (d.isPresetAccount) {
+                Log.logInfo("AccountSetup::validateCredentials", "Is preset account validating now.")
+                WizardActions.runAccountValidation()
+            } else if (d.hasProvider) {
+                Log.logInfo("AccountSetup::validateCredentials", "Has provider, determining valid config to use")
+                WizardActions.validateConfigToUse()
+            } else {
+                Log.logInfo("AccountSetup::validateCredentials", "Ok... checking if we have enough info to validate")
+                WizardActions.validateIfAccountHasEnoughCredentials()
+            }
+        }
+    }
+
+    Filter {
+        type: WizardKeys.validateIfAccountHasEnoughCredentials
+        onDispatched: {
+            if (d.accountIsSavable()) {
+                WizardActions.runAccountValidation()
+            } else {
+                WizardActions.requestManualInput()
+            }
+        }
+    }
+
+    Filter {
+        type: WizardKeys.useImapInstead
+        onDispatched: {
+            Log.logInfo("AccountSetup::useImapInstead", "Switching to imap setup")
+            d.isPopAccount = false
+            d.isImapAccount = true
+            // TODO: Reset the NewAccount to create an ImapAccountConfiguration
+            accountSetup.goNext()
+        }
+    }
+
+    Filter {
+        type: WizardKeys.stickWithPop
+        onDispatched: accountSetup.goNext()
+    }
+
+    Filter {
+        type: WizardKeys.wizardResetAccount
+        onDispatched: {
+            // TODO: reset account
+            Log.logError("AccountSetup::resetAccount", "FIXME: implement account reset")
+            d.isPresetAccount = false
+            d.isImapAccount = false
+            d.isPopAccount = false
+            d.accountDescripion = ""
+            d.allowEmptyPassword = false
+            d.emailProvider = undefined
+            d.shouldValidate = false
+            account = newAccount.createObject(accountSetup)
+        }
+    }
+
     // We don't expose any utility functions or properties, as developers
     // should dispatch actions via the actions api's.
     QtObject {
@@ -187,6 +348,8 @@ AppListener {
         property string accountDescripion: ""
         property bool allowEmptyPassword: false
         property var emailProvider: undefined
+        property bool shouldValidate: false
+        property bool hasProvider: emailProvider !== undefined
 
         function getPresetEncryptionMethod(useStartTls, useSsl) {
             if (useSsl && useStartTls) {
@@ -196,6 +359,51 @@ AppListener {
             } else {
                 return AccountConfig.NONE;
             }
+        }
+
+        function getEncryptionMethodFromConfig(socket) {
+            switch(socket) {
+            case ServerConfig.SSL:
+                return AccountConfig.SSL
+            case ServerConfig.STARTTLS:
+                return AccountConfig.STARTTLS
+            case ServerConfig.PLAIN:
+                return AccountConfig.NONE
+            }
+        }
+
+        function getSaslFromConfig(sasl) {
+            switch(sasl) {
+            case ServerConfig.CRAM_MD5:
+                return AccountConfig.CRAM_MD5
+            case ServerConfig.LOGIN:
+                return AccountConfig.LOGIN
+            case ServerConfig.NTLM:
+            case ServerConfig.GSSAPI:
+            case ServerConfig.CLIENT_IP:
+                return AccountConfig.PLAIN
+            case ServerConfig.INVALID:
+                return AccountConfig.NONE
+            }
+        }
+
+        function serverUsable(server) {
+            if ((server.server !== "") &&
+                    (server.port !== 0) &&
+                    (server.name !== "") &&
+                    (server.email !== "")) {
+                return true;
+            } else {
+                return false;
+            }
+
+        }
+
+        function accountIsSavable() {
+            if (!serverUsable(account.incoming)) {
+                return false
+            }
+            return serverUsable(account.outgoing)
         }
     }
 }

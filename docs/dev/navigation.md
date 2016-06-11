@@ -22,6 +22,7 @@
 
   * [Openstore manifest](snippets/osmanifest.md)
   * [Regex example](snippets/qregularexpression.md)
+  * [QML Debugging](snippets/qmldebug.md)
 
 [Downloads](downloads/download.md)
 [Bugs](https://bugs.launchpad.net/dekko)

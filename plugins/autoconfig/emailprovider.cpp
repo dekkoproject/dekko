@@ -19,6 +19,9 @@ EmailProvider *EmailProvider::fromXml(const QByteArray &xmlData)
     if (xmlData.isEmpty()) {
         return Q_NULLPTR;
     }
+    //    qDebug() << "===========PROVIDER INFO=========";
+    //    qDebug() << xmlData;
+    //    qDebug() << "==============================";
     provider->setData(Xml, xmlData);
     return provider;
 }
@@ -51,6 +54,76 @@ bool EmailProvider::isValid()
     return !m_incoming->isEmpty();
 }
 
+bool EmailProvider::hasImapConfiguration()
+{
+    qDebug() << __func__ << m_incoming->size();
+    foreach(ServerConfig *config, m_incoming->toList()) {
+        qDebug() << config->hostname();
+        qDebug() << config->type();
+        qDebug() << ServerConfig::ServerType::UNKNOWN;
+        if (config->type() == ServerConfig::ServerType::IMAP) {
+            qDebug() << "Config is IMAP account";
+            return true;
+        }
+    }
+    return false;
+}
+
+QObject *EmailProvider::getFirstImapConfig()
+{
+    foreach(ServerConfig *config, m_incoming->toList()) {
+        if (config->type() == ServerConfig::ServerType::IMAP) {
+            return config;
+        }
+    }
+    return new QObject();
+}
+
+bool EmailProvider::hasPopConfiguration()
+{
+    qDebug() << __func__;
+    foreach(ServerConfig *config, m_incoming->toList()) {
+        qDebug() << config->hostname();
+        qDebug() << config->type();
+        qDebug() << ServerConfig::ServerType::UNKNOWN;
+        if (config->type() == ServerConfig::ServerType::POP3) {
+            qDebug() << "Config is POP3 account";
+            return true;
+        }
+    }
+    return false;
+}
+
+QObject *EmailProvider::getFirstPopConfig()
+{
+    foreach(ServerConfig *config, m_incoming->toList()) {
+        if (config->type() == ServerConfig::ServerType::POP3) {
+            return config;
+        }
+    }
+    return new QObject();
+}
+
+bool EmailProvider::hasSmtpConfiguration()
+{
+    foreach(ServerConfig *config, m_outgoing->toList()) {
+        if (config->type() == ServerConfig::ServerType::SMTP) {
+            return true;
+        }
+    }
+    return false;
+}
+
+QObject *EmailProvider::getFirstSmtpConfig()
+{
+    foreach(ServerConfig *config, m_outgoing->toList()) {
+        if (config->type() == ServerConfig::ServerType::SMTP) {
+            return config;
+        }
+    }
+    return new QObject();
+}
+
 void EmailProvider::parseXmlData()
 {
     if (m_format == Xml) {
@@ -65,6 +138,7 @@ void EmailProvider::parseXmlData()
         }
         QDomElement provider = node.firstChildElement(QStringLiteral("emailProvider"));
         setXmlDomains(provider);
+        setXmlName(provider);
         setXmlServers(provider);
         if (m_version == QStringLiteral(DEKKO_VERSION)) {
             // TODO: parse <imap> and <identities>
@@ -88,7 +162,7 @@ void EmailProvider::setXmlDomains(const QDomElement &providerNode)
 {
     QDomNodeList providers = providerNode.elementsByTagName(QStringLiteral("domain"));
     for (int i = 0; i < providers.count(); ++i) {
-        m_domains << providers.at(i).nodeValue();
+        m_domains << providers.at(i).toElement().text();
     }
 }
 
@@ -96,10 +170,10 @@ void EmailProvider::setXmlName(const QDomElement &providerNode)
 {
     QDomNodeList dnList = providerNode.elementsByTagName(QStringLiteral("displayName"));
     if (!dnList.isEmpty())
-        m_displayName = dnList.at(0).nodeValue();
+        m_displayName = dnList.at(0).toElement().text();;
     QDomNodeList snList = providerNode.elementsByTagName(QStringLiteral("displayShortName"));
     if (!snList.isEmpty())
-        m_shortName = snList.at(0).nodeValue();
+        m_shortName = snList.at(0).toElement().text();;
 }
 
 void EmailProvider::setXmlServers(const QDomElement &providerNode)
@@ -116,6 +190,16 @@ void EmailProvider::setXmlServers(const QDomElement &providerNode)
 }
 
 void EmailProvider::parseJsonData(){}
+
+ServerConfig::ServerConfig(QObject *parent) : QObject(parent),
+    m_type(ServerType::UNKNOWN),
+    m_port(0),
+    m_socket(SocketType::SSL),
+    m_username(PlaceHolder::NONE),
+    m_mechanism(AuthMechanism::LOGIN)
+{
+
+}
 
 void ServerConfig::setConfig(const QDomNode &server) {
     QString type = server.attributes().namedItem(QStringLiteral("type")).nodeValue();
@@ -137,7 +221,7 @@ ServerConfig::ServerType ServerConfig::getServerType(const QString &type)
         return ServerType::IMAP;
     } else if (type == QStringLiteral("smtp")) {
         return ServerType::SMTP;
-    } else if (type == QStringLiteral("pop")) {
+    } else if (type == QStringLiteral("pop3")) {
         return ServerType::POP3;
     } else {
         return ServerType::UNKNOWN;
@@ -147,7 +231,7 @@ ServerConfig::ServerType ServerConfig::getServerType(const QString &type)
 ServerConfig::SocketType ServerConfig::getSocketType(const QString &type)
 {
     if (type == QStringLiteral("plain")) {
-       return SocketType::PLAIN;
+        return SocketType::PLAIN;
     } else if (type == QStringLiteral("STARTTLS")) {
         return SocketType::STARTTLS;
     } else if (type == QStringLiteral("SSL")) {

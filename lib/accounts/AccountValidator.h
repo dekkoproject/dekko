@@ -28,6 +28,8 @@ class AccountValidator: public QObject
 {
     Q_OBJECT
     Q_PROPERTY(bool inProgress READ inProgress NOTIFY inProgressChanged)
+    Q_ENUMS(FailureReason)
+    Q_ENUMS(State)
 public:
     explicit AccountValidator(QObject *parent = 0);
 
@@ -48,6 +50,7 @@ public:
         None,
         RetrieveFolderList,
         CreateStandardFolders,
+        Sync,
         TransmitMessage
     };
     bool inProgress() const { return m_inProgress; }
@@ -55,6 +58,7 @@ public:
 signals:
     void success();
     void failed(AccountConfiguration::ServiceType service, FailureReason reason);
+    void validationFailed(); // qml one
     void inProgressChanged();
 
 public slots:
