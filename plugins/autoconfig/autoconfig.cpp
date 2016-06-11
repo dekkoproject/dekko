@@ -16,12 +16,44 @@
 #include "autoconfig.h"
 #include <QDebug>
 #include <QDomDocument>
+#include <QFile>
+#include <Paths.h>
 
 AutoConfig::AutoConfig(QObject *parent, EmailProvider *config):
     QObject(parent), m_config(config), m_netStatus(new NetworkingStatus)
 {
     m_nam = new QNetworkAccessManager(this);
     connect(m_nam, &QNetworkAccessManager::finished, this, &AutoConfig::handleRequestResponse);
+}
+
+void AutoConfig::findLocal(const QString &domain)
+{
+    if (domain.isEmpty()) {
+        emit failed();
+        return;
+    }
+    QString configPath = Paths::configLocationForFile(QStringLiteral("autoconfig/%1/config-v1.2.xml").arg(domain));
+    qDebug() << "ConfigPath is: " << configPath;
+    if (QFile::exists(configPath)) {
+        QFile config(configPath);
+        if (!config.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            qDebug() << "Failed opening file: " << configPath;
+            emit failed();
+            return;
+        }
+        EmailProvider *provider = EmailProvider::fromXml(config.readAll());
+        if (provider->isValid()) {
+            qDebug() << __func__ << "SUCCESS";
+            m_config = provider;
+            emit success(m_config);
+        } else {
+            qDebug() << __func__ << "FAILED";
+            emit failed();
+        }
+    } else {
+        qDebug() << "No local file";
+    }
+    emit failed();
 }
 
 void AutoConfig::lookUp(const QUrl &url)
@@ -58,11 +90,15 @@ void AutoConfig::handleRequestResponse(QNetworkReply *reply)
         EmailProvider *provider = EmailProvider::fromXml(reply->readAll());
         successful = provider->isValid();
         if (successful) {
+            qDebug() << __func__ << "SUCCESS";
             m_config = provider;
             emit success(m_config);
         } else {
+            qDebug() << __func__ << "FAILED";
             emit failed();
         }
+    } else {
+        emit failed();
     }
 
 }
@@ -91,7 +127,7 @@ void AutoConfig::fakeLookUp(const QUrl &url)
             </outgoingServer> \
             </clientConfig>";
 
-    m_config = EmailProvider::fromXml(fakeXmlResponse);
+            m_config = EmailProvider::fromXml(fakeXmlResponse);
     emit success(m_config);
 }
 

@@ -34,6 +34,7 @@ public:
     AutoConfig(QObject *parent, EmailProvider *config);
 
 public slots:
+    void findLocal(const QString &domain);
     void lookUp(const QUrl &url);
     bool networkAccessible() const;
 
