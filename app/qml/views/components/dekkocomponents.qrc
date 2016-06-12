@@ -28,5 +28,6 @@
         <file>DrawerConfiguration.qml</file>
         <file>TitledHeaderButton.qml</file>
         <file>ContentManager.qml</file>
+        <file>CheckboxWithLabel.qml</file>
     </qresource>
 </RCC>

@@ -75,7 +75,6 @@ void Account::setName(const QString &name)
 bool Account::save()
 {
     bool result;
-    setName(QStringLiteral("TestAccount"));
     m_account->setStatus(QMailAccount::UserEditable, true);
     m_account->setStatus(QMailAccount::UserRemovable, true);
     m_account->setStatus(QMailAccount::MessageSource, true);

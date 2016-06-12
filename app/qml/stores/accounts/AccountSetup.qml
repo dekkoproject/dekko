@@ -102,6 +102,7 @@ AppListener {
         onDispatched: {
             var details = message.details
             // Name is username for imap/pop
+            account.name = details.nickname
             account.incoming.name = details.email
             account.incoming.email = details.email
             account.incoming.password = details.password
@@ -124,6 +125,11 @@ AppListener {
                 valid = false
                 invalidField.push("name")
             }
+            if (user.nickname.isEmpty()){
+                valid = false
+                invalidField.push("nickname")
+            }
+
             if (!EmailValidator.validate(user.email)) {
                 valid = false
                 invalidField.push("email")

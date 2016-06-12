@@ -62,7 +62,6 @@ FocusScope {
 
         TextField {
             id: textfield
-            inputMethodHints: Qt.ImhUrlCharactersOnly | Qt.ImhNoPredictiveText
             iconName: "ok"
             anchors {
                 left: column.left

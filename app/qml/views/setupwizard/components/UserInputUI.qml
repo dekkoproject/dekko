@@ -53,18 +53,40 @@ DekkoPage {
                         id: name
                         objectName: "userInputNameField"
                         title: qsTr("Name")
+                        placeholderText: qsTr("Full name")
+                        inputMethodHints: Qt.ImhNoPredictiveText | Qt.Im
+                    }
+
+                    TitledTextField {
+                        id: nickname
+                        objectName: "nickNameInput"
+                        title: qsTr("Nickname")
+                        placeholderText: qsTr("E.g Home, Work...")
+                        inputMethodHints: Qt.ImhNoPredictiveText
                     }
 
                     TitledTextField {
                         id: email
                         objectName: "userInputEmailField"
                         title: qsTr("Email address")
+                        inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhEmailCharactersOnly | Qt.ImhNoPredictiveText
+                        placeholderText: qsTr("email@example.org")
                     }
 
                     TitledTextField {
                         id: password
                         objectName: "userInputPasswordField"
                         title: qsTr("Password")
+                        inputMethodHints: Qt.ImhHiddenText | Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
+                        echoMode: showPassword.checked ? TextInput.Normal : TextInput.Password
+                        placeholderText: qsTr("Password")
+                    }
+
+                    CheckboxWithLabel {
+                        id: showPassword
+                        objectName: "showPwdCheckBox"
+                        text: qsTr("Show password")
+                        textColor: UbuntuColors.inkstone
                     }
 
                     WizardStepper {
@@ -93,7 +115,8 @@ DekkoPage {
             userDetails = {
                 "name": name.text,
                 "email": email.text,
-                "password": password.text
+                "password": password.text,
+                "nickname": nickname.text
             };
 
             WizardActions.validateUser(userDetails)
@@ -114,6 +137,7 @@ DekkoPage {
                 Log.logInfo("UserInputUI::userDetailsInvalid", "User details invalid")
                 name.requiredField = message.result.indexOf("name") > -1
                 email.requiredField = message.result.indexOf("email") > -1
+                nickname.requiredField = message.result.indexOf("nickname") > -1
 
             })
 
