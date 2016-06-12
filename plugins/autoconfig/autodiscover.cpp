@@ -19,13 +19,13 @@
 AutoDiscover::AutoDiscover(QObject *parent) :
     QObject(parent), m_inProgress(false), m_testMode(false)
 {
-    m_serverConfig = new ServerConfiguration(this);
+    m_serverConfig = new EmailProvider(this);
     m_autoConfig = new AutoConfig(this, m_serverConfig);
     connect(m_autoConfig, &AutoConfig::failed, this, &AutoDiscover::handleRequestFailed);
     connect(m_autoConfig, &AutoConfig::success, this, &AutoDiscover::handleRequestSucceeded);
-    m_srvLookup = new SrvLookup(this, m_serverConfig);
-    connect(m_srvLookup, &SrvLookup::failed, this, &AutoDiscover::handleRequestFailed);
-    connect(m_srvLookup, &SrvLookup::success, this, &AutoDiscover::handleRequestSucceeded);
+//    m_srvLookup = new SrvLookup(this, m_serverConfig);
+//    connect(m_srvLookup, &SrvLookup::failed, this, &AutoDiscover::handleRequestFailed);
+//    connect(m_srvLookup, &SrvLookup::success, this, &AutoDiscover::handleRequestSucceeded);
     m_status = INVALID;
 }
 
@@ -56,41 +56,65 @@ void AutoDiscover::lookUp(const QString &mailAddress)
         return;
     }
     m_domain = mailAddress.split("@")[1];
+    // Although this is a valid email address, it may not
+    // actually contain a domain. AutoDiscover works on the
+    // domain being valid so needs to have at least 1 period
+    // i.e .com .co.uk etc
+    // So fail autoconfig now and request manual entry
+    if (!m_domain.contains(QLatin1Char('.'))) {
+        emit failed();
+        return;
+    }
     setStatus(NEW_REQUEST);
     buildNextRequest();
 }
 
 void AutoDiscover::buildNextRequest()
 {
+
     if (!m_testMode && !m_autoConfig->networkAccessible()) {
         emit noNetworkAvailable();
         emit failed();
         return;
     }
+
     switch(m_status) {
     case INVALID:
         setStatus(REQUEST_FAILED);
         emit failed(); // Nothing we can do from here now.
         break;
     case NEW_REQUEST:
-        setStatus(REQUEST_AUTOCONFIG);
+        qDebug() << "[AutoDiscover::NEW_REQUEST]" << "Requesting local first";
+        setStatus(REQUEST_LOCAL);
         buildNextRequest();
         break;
-    case REQUEST_AUTOCONFIG:
-        if (m_testMode) {
-            m_autoConfig->fakeLookUp(QString("http://fakeurl.com"));
-        } else {
-            m_autoConfig->lookUp(QString("http://autoconfig.%1/mail/config-v1.1.xml").arg(m_domain));
-        }
+    case REQUEST_LOCAL:
+        qDebug() << "[AutoDiscover::REQUEST_LOCAL]" << "Looking for local config";
+        m_autoConfig->findLocal(m_domain);
         break;
-    case REQUEST_AUTOCONFIG_WELLKNOWN:
+    case REQUEST_AUTOCONFIG_V12:
+        qDebug() << "[AutoDiscover::REQUEST_AUTOCONFIG_V12]" << "Looking for autoconfig v1.2";
+        m_autoConfig->lookUp(QString("http://autoconfig.%1/mail/config-v1.2.xml").arg(m_domain));
+        break;
+    case REQUEST_AUTOCONFIG_WELLKNOWN_V12:
+        qDebug() << "[AutoDiscover::REQUEST_AUTOCONFIG_WELLKNOWN_V12]" << "Looking for wellknow autocnfig v1.2";
+        m_autoConfig->lookUp(QString("http://%1/.well-known/autoconfig/mail/config-v1.2.xml").arg(m_domain));
+        break;
+    case REQUEST_AUTOCONFIG_V11:
+        qDebug() << "[AutoDiscover::NEW_REQUEST]" << "Looking for autoconfig v1.1";
+        m_autoConfig->lookUp(QString("http://autoconfig.%1/mail/config-v1.1.xml").arg(m_domain));
+        break;
+    case REQUEST_AUTOCONFIG_WELLKNOWN_V11:
+        qDebug() << "[AutoDiscover::REQUEST_AUTOCONFIG_WELLKNOWN_V11]" << "Looking for wellknow autocnfig v1.1";
         m_autoConfig->lookUp(QString("http://%1/.well-known/autoconfig/mail/config-v1.1.xml").arg(m_domain));
         break;
-    case REQUEST_AUTOCONFIG_ISPDB:
-        m_autoConfig->lookUp(QString("https://autoconfig.thunderbird.net/v1.1/%1").arg(m_domain));
+    case REQUEST_DEKKO_ISPDB:
+        qDebug() << "[AutoDiscover::REQUEST_DEKKO_ISPDB]" << "Querying dekko's ispdb";
+        m_autoConfig->lookUp(QString("http://autoconfig.dekkoproject.org/v1.2/%1").arg(m_domain));
         break;
-    case REQUEST_SRV:
-        m_srvLookup->lookUp(m_domain);
+    case REQUEST_AUTOCONFIG_ISPDB:
+        qDebug() << "[AutoDiscover::REQUEST_AUTOCONFIG_ISPDB]" << "Last chance! trying thunderbirds ispdb...";
+        m_autoConfig->lookUp(QString("https://autoconfig.thunderbird.net/v1.1/%1").arg(m_domain));
         break;
     case REQUEST_FAILED:
     case REQUEST_SUCCEEDED:
@@ -103,32 +127,53 @@ void AutoDiscover::buildNextRequest()
 
 void AutoDiscover::handleRequestFailed()
 {
-    switch (m_status) {
+
+    switch(m_status) {
     case INVALID:
     case NEW_REQUEST:
         setStatus(REQUEST_FAILED);
         emit failed(); // Nothing we can do from here now.
         break;
-    case REQUEST_AUTOCONFIG:
-        setStatus(REQUEST_AUTOCONFIG_WELLKNOWN);
+    case REQUEST_LOCAL:
+        qDebug() << "[AutoDiscover::REQUEST_LOCAL]" << "No local configs";
+        setStatus(REQUEST_AUTOCONFIG_V12);
         buildNextRequest();
         break;
-    case REQUEST_AUTOCONFIG_WELLKNOWN:
+    case REQUEST_AUTOCONFIG_V12:
+        qDebug() << "[AutoDiscover::REQUEST_AUTOCONFIG_V12]" << "Failed lookup";
+        setStatus(REQUEST_AUTOCONFIG_WELLKNOWN_V12);
+        buildNextRequest();
+        break;
+    case REQUEST_AUTOCONFIG_WELLKNOWN_V12:
+        qDebug() << "[AutoDiscover::REQUEST_AUTOCONFIG_WELLKNOWN_V12]" << "Failed lookup";
+        setStatus(REQUEST_AUTOCONFIG_V11);
+        buildNextRequest();
+        break;
+    case REQUEST_AUTOCONFIG_V11:
+        qDebug() << "[AutoDiscover::REQUEST_AUTOCONFIG_V11]" << "Failed lookup";
+        setStatus(REQUEST_AUTOCONFIG_WELLKNOWN_V11);
+        buildNextRequest();
+        break;
+    case REQUEST_AUTOCONFIG_WELLKNOWN_V11:
+        qDebug() << "[AutoDiscover::REQUEST_AUTOCONFIG_WELLKNOWN_V11]" << "Failed lookup";
+        setStatus(REQUEST_DEKKO_ISPDB);
+        buildNextRequest();
+        break;
+    case REQUEST_DEKKO_ISPDB:
+        qDebug() << "[AutoDiscover::REQUEST_DEKKO_ISPDB]" << "Failed lookup";
         setStatus(REQUEST_AUTOCONFIG_ISPDB);
         buildNextRequest();
         break;
-    // If the request failed on REQUEST_AUTOCONFIG_ISPDB then we
-    // have nothing left we can do so just *fail* this.
     case REQUEST_AUTOCONFIG_ISPDB:
-        setStatus(REQUEST_SRV);
+        qDebug() << "[AutoDiscover::REQUEST_AUTOCONFIG_ISPDB]" << "Failed lookup";
+        setStatus(REQUEST_FAILED);
         buildNextRequest();
         break;
-    case REQUEST_SRV:
     case REQUEST_FAILED:
     case REQUEST_SUCCEEDED:
     case BUILDING_RESULT:
         setStatus(REQUEST_FAILED);
-        emit failed(); // Nothing we can do from here now.
+        buildNextRequest();
         break;
     }
 }
@@ -146,21 +191,30 @@ void AutoDiscover::setStatus(AutoDiscover::Status status)
     emit statusChanged();
 }
 
-void AutoDiscover::handleRequestSucceeded(ServerConfiguration *config)
+void AutoDiscover::handleRequestSucceeded(EmailProvider *config)
 {
+    qDebug() << "++++++++++++++++++++++++";
+    qDebug() << "SUCCESS!";
+    qDebug() << "VERSION: " << config->version();
+    qDebug() << "DisplayName: " << config->displayName();
+    qDebug() << "Short display name: " << config->shortName();
+    qDebug() << "Total incoming: " << config->incoming()->size();
+    qDebug() << "Incoming host" << config->incoming()->at(0)->hostname();
+    qDebug() << "++++++++++++++++++++++++";
     if (config == NULL || !config->isValid()) {
         setStatus(INVALID);
         emit failed();
         return;
     }
     setStatus(REQUEST_SUCCEEDED);
-    if (config == m_serverConfig) {
-        emit success(m_serverConfig);
+    m_serverConfig = config;
+    if (config != NULL) {
+        emit success();
     } else {
         // errr how did this happen??
         qDebug() << "[AutoDiscover] Somehow the configs don't match, they are: ";
-        qDebug() << "this: " << m_serverConfig->toMap();
-        qDebug() << "other: " << config->toMap();
+//        qDebug() << "this: " << m_serverConfig->toMap();
+//        qDebug() << "other: " << config->toMap();
         setStatus(INVALID);
         emit failed();
         return;

@@ -48,6 +48,7 @@ dekko_option(UPDATE_TRANSLATIONS "Updates Dekko's pot file during build" OFF)
 dekko_option(USE_ONLINE_ACCOUNTS "Switches Dekko's account store to use Ubuntu online accounts" OFF)
 dekko_option(WITH_TESTS "Build tests" OFF)
 dekko_option(ENABLE_LOGGING "Enables logging" ON)
+dekko_option(ENABLE_QML_DEBUG "Enables qml debugging" OFF)
 dekko_option(UNCONFINED "Run dekko unconfined" OFF)
 
 if(NOT ZLIB_FOUND)

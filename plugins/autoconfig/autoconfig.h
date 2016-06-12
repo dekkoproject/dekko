@@ -23,7 +23,7 @@
 #include <QNetworkReply>
 #include <QPointer>
 #include <ubuntu/connectivity/networking-status.h>
-#include "serverconfiguration.h"
+#include "emailprovider.h"
 
 using ubuntu::connectivity::NetworkingStatus;
 class AutoDiscover;
@@ -31,26 +31,24 @@ class AutoConfig : public QObject
 {
     Q_OBJECT
 public:
-    AutoConfig(QObject *parent, ServerConfiguration *config);
+    AutoConfig(QObject *parent, EmailProvider *config);
 
 public slots:
+    void findLocal(const QString &domain);
     void lookUp(const QUrl &url);
     bool networkAccessible() const;
 
 signals:
-    void success(ServerConfiguration *serverConfig);
+    void success(EmailProvider *serverConfig);
     void failed();
 
 private slots:
     void handleRequestResponse(QNetworkReply *reply);
 
 private:
-    QPointer<ServerConfiguration> m_config;
+    QPointer<EmailProvider> m_config;
     QPointer<QNetworkAccessManager> m_nam;
     QScopedPointer<NetworkingStatus> m_netStatus;
-    bool parseResponse(const QByteArray &response);
-    bool configFromResponse(const QByteArray &response, const QString &tagName, const QString &protocol);
-
     // For unit tests
     friend class AutoDiscover;
     void fakeLookUp(const QUrl &url);

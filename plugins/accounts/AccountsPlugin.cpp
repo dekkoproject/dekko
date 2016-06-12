@@ -20,6 +20,7 @@
 #include <QtQml/QQmlContext>
 #include "Accounts.h"
 #include "AccountConfiguration.h"
+#include "AccountValidator.h"
 #include "PresetProviderModel.h"
 
 void AccountsPlugin::registerTypes(const char *uri)
@@ -27,6 +28,7 @@ void AccountsPlugin::registerTypes(const char *uri)
     Q_ASSERT(uri == QLatin1String("Dekko.Accounts"));
     // @uri Dekko.Accounts
     qmlRegisterType<Account>(uri, 1, 0, "Account");
+    qmlRegisterType<AccountValidator>(uri, 1, 0, "AccountValidator");
     qmlRegisterType<NewAccount>(uri, 1, 0, "NewAccount");
     qmlRegisterType<AccountConfiguration>(uri, 1, 0, "AccountConfig");
     qmlRegisterType<ImapAccountConfiguration>(uri, 1, 0, "ImapAccountConfig");

@@ -9,5 +9,8 @@
         <file>states/NoAccountState.qml</file>
         <file>states/UserInputState.qml</file>
         <file>states/AutoConfigState.qml</file>
+        <file>components/ProcessingOverlay.qml</file>
+        <file>states/ValidationState.qml</file>
+        <file>states/ManualInputState.qml</file>
     </qresource>
 </RCC>

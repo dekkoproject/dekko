@@ -21,13 +21,14 @@
 #include <QScopedPointer>
 #include "autoconfig.h"
 #include "emailvalidator.h"
-#include "serverconfiguration.h"
 #include "srvlookup.h"
+#include "emailprovider.h"
 
 class AutoDiscover : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(bool inProgress READ inProgress NOTIFY progressChanged)
+    Q_PROPERTY(QString domain MEMBER m_domain CONSTANT)
     Q_PROPERTY(Status status READ status NOTIFY statusChanged)
     Q_ENUMS(Status)
 public:
@@ -36,10 +37,14 @@ public:
     enum Status {
         INVALID,
         NEW_REQUEST,
-        REQUEST_AUTOCONFIG,
-        REQUEST_AUTOCONFIG_WELLKNOWN,
-        REQUEST_AUTOCONFIG_ISPDB,
-        REQUEST_SRV,
+        REQUEST_LOCAL,
+        REQUEST_AUTOCONFIG_V12, // dekko v1.2
+        REQUEST_AUTOCONFIG_V11, // tbird v1.1
+        REQUEST_AUTOCONFIG_WELLKNOWN_V12, // dekko v1.2
+        REQUEST_AUTOCONFIG_WELLKNOWN_V11, // tbird v1.1
+        REQUEST_DEKKO_ISPDB, // autoconfig.dekkoproject.org
+        REQUEST_AUTOCONFIG_ISPDB, // autoconfig.thunderbird.net
+//        REQUEST_SRV,
 //        REQUEST_WEBFINGER, // Is this possible?? it should be!
         REQUEST_FAILED,
         REQUEST_SUCCEEDED,
@@ -52,7 +57,7 @@ public:
 
 signals:
     void invalidMailAddress(QString address);
-    void success(ServerConfiguration *serverConfig) const;
+    void success();
     void failed();
     void progressChanged();
     void statusChanged();
@@ -67,10 +72,10 @@ private:
     void setStatus(Status status);
 
 private slots:
-    void handleRequestSucceeded(ServerConfiguration *config);
+    void handleRequestSucceeded(EmailProvider *config);
 
 private:
-    QPointer<ServerConfiguration> m_serverConfig;
+    QPointer<EmailProvider> m_serverConfig;
     QPointer<AutoConfig> m_autoConfig;
     QPointer<SrvLookup> m_srvLookup;
 
@@ -80,7 +85,7 @@ private:
 
     // For UNIT TESTS
     Q_PROPERTY(bool testMode MEMBER m_testMode)
-    Q_PROPERTY(ServerConfiguration *_serverConf MEMBER m_serverConfig)
+    Q_PROPERTY(EmailProvider *_serverConf MEMBER m_serverConfig)
     bool m_testMode;
 
 };

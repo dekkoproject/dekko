@@ -75,6 +75,7 @@ void Account::setName(const QString &name)
 bool Account::save()
 {
     bool result;
+    setName(QStringLiteral("TestAccount"));
     m_account->setStatus(QMailAccount::UserEditable, true);
     m_account->setStatus(QMailAccount::UserRemovable, true);
     m_account->setStatus(QMailAccount::MessageSource, true);
@@ -82,7 +83,7 @@ bool Account::save()
     m_account->setStatus(QMailAccount::MessageSink, true);
     m_account->setStatus(QMailAccount::CanTransmit, true);
     m_account->setStatus(QMailAccount::Enabled, true);
-    m_account->setStatus(QMailAccount::CanCreateFolders, true);
+    m_account->setStatus(QMailAccount::CanCreateFolders, false);
     m_account->setFromAddress(QMailAddress(m_outgoing->email()));
     if (m_account->id().isValid()) {
         qDebug() << "[Account]" << __func__ << "Updating account settings for: " << m_account->id();

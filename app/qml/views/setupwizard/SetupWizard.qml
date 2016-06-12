@@ -30,7 +30,7 @@ import "../../actions/wizard"
   Each step of the setup wizard should be it's own state in the FSM and each state should be responsible
   for loading/activating the UI for that state.
 
-  All states go into the setupwizard/states/ directory and UI views/components go into the setupwizard/components directory
+  All states go into the setupwizard/states/ directory and UI views or components go into the setupwizard/components directory
 
   See http://code.dekkoproject.org/dekko-dev/dekko/uploads/626fa76f365226af0b3fa84d39c7e589/SetupWizardStateMachine.pdf
   for a diagram of the intended state transitions.
@@ -90,12 +90,23 @@ Item {
         UserInputState {
             id: userInputState
             backTargetState: newAccountState
-            // TODO: Move to SenderIdentity state if this is a preset account
-            nextTargetState: AccountSetup.isPreset ? autoConfig : autoConfig
+            // TODO: Move to validation state if this is a preset account
+            nextTargetState: AccountSetup.isPreset ? validate : autoConfig
         }
 
         AutoConfigState {
             id: autoConfig
+            nextTargetState: AccountSetup.needsValidation ? validate : manualInput
+        }
+
+        ManualInputState {
+            id: manualInput
+        }
+
+        ValidationState {
+            id: validate
+            backTartgetState: manualInput
+            nextTargetState: quit
         }
 
         DSM.State {

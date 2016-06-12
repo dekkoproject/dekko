@@ -56,6 +56,10 @@ if(CLICK_MODE)
     add_definitions(-DCLICK_MODE)
 endif()
 
+if(ENABLE_QML_DEBUG)
+    add_definitions(-DQT_QML_DEBUG)
+endif()
+
 add_executable(dekko ${DEKKO_SOURCES} ${DEKKO_RESOURCES})
 qt5_use_modules(dekko Gui Core Quick Qml)
 target_link_libraries(dekko qmfclient5 qmfmessageserver5 network)

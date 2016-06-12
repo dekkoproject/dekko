@@ -12,6 +12,10 @@ case $i in
     DEV_MODE=true
     shift 
     ;;
+    --messageserver)
+    MS_RUN=true
+    shift 
+    ;;
     --gdb)
     GDB_RUN=true
     shift 
@@ -62,7 +66,7 @@ if [ "$CLEAN" = true ]; then
   exit 0
 fi
 
-cmake -G Ninja -DCMAKE_BUILD_TYPE=Debug ../${SRC_DIR}
+cmake -G Ninja -DCMAKE_BUILD_TYPE=Debug -DENABLE_LOGGING=on -DENABLE_QML_DEBUG=On ../${SRC_DIR}
 ninja -j3
 export DESTDIR=./test
 ninja -j3 install
@@ -75,16 +79,19 @@ echo "PATH: $PATH"
 echo "LD_LIBRARY_PATH: $LD_LIBRARY_PATH"
 echo "QMF_PLUGINS: $QMF_PLUGINS"
 
-if [ "$GDB_RUN" = true ]; then
-  gdb ./test/lib/${HOST_ARCH}/bin/dekko
-  exit 0
-fi
-
-if [ "$DEV_MODE" = true ]; then
-  ./test/lib/${HOST_ARCH}/bin/dekko -d $@
+if [ "$MS_RUN" = true ]; then
+  ./test/lib/${HOST_ARCH}/bin/messageserver5
 else
-  ./test/lib/${HOST_ARCH}/bin/dekko $@
-fi
+  if [ "$GDB_RUN" = true ]; then
+    gdb ./test/lib/${HOST_ARCH}/bin/dekko
+    exit 0
+  fi
 
+  if [ "$DEV_MODE" = true ]; then
+    ./test/lib/${HOST_ARCH}/bin/dekko -d $@
+  else
+    ./test/lib/${HOST_ARCH}/bin/dekko $@
+  fi
+fi
 
 

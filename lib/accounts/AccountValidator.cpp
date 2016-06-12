@@ -20,6 +20,29 @@
 AccountValidator::AccountValidator(QObject *parent) : QObject(parent),
     m_inProgress(false), m_state(None), m_timer(new QTimer(this))
 {
+
+    m_retrievelAction = new QMailRetrievalAction(this);
+    connect(m_retrievelAction, &QMailRetrievalAction::activityChanged, this, &AccountValidator::handleAccountActivity);
+    m_transmitAction = new QMailTransmitAction(this);
+    connect(m_transmitAction, &QMailTransmitAction::activityChanged, this, &AccountValidator::handleAccountActivity);
+    connect(m_timer, &QTimer::timeout, [=]() {
+        m_timer->stop();
+          if (m_retrievelAction->isRunning()) {
+              m_retrievelAction->cancelOperation();
+          }
+          if (m_transmitAction->isRunning()) {
+              m_transmitAction->cancelOperation();
+          }
+          AccountConfiguration *conf = 0;
+          if (m_state == TransmitMessage) {
+                conf = static_cast<AccountConfiguration *>(m_account->outgoing());
+          } else {
+              conf = static_cast<AccountConfiguration *>(m_account->incoming());
+          }
+          emit failed(conf->serviceType(), Timeout);
+          setInProgress(false);
+          cleanUp();
+    });
 }
 
 void AccountValidator::validateAccount(Account *account)
@@ -30,34 +53,13 @@ void AccountValidator::validateAccount(Account *account)
     }
     setInProgress(true);
     m_account = account;
-    m_retrievelAction = new QMailRetrievalAction(this);
-    connect(m_retrievelAction, &QMailRetrievalAction::activityChanged, this, &AccountValidator::handleAccountActivity);
-    m_transmitAction = new QMailTransmitAction(this);
-    connect(m_transmitAction, &QMailTransmitAction::activityChanged, this, &AccountValidator::handleAccountActivity);
 
     if (m_account->accountId().isValid()) {
-        connect(m_timer, &QTimer::timeout, [=]() {
-            m_timer->stop();
-              if (m_retrievelAction->isRunning()) {
-                  m_retrievelAction->cancelOperation();
-              }
-              if (m_transmitAction->isRunning()) {
-                  m_transmitAction->cancelOperation();
-              }
-              AccountConfiguration *conf = 0;
-              if (m_state == TransmitMessage) {
-                    conf = static_cast<AccountConfiguration *>(m_account->outgoing());
-              } else {
-                  conf = static_cast<AccountConfiguration *>(m_account->incoming());
-              }
-              emit failed(conf->serviceType(), Timeout);
-              setInProgress(false);
-              cleanUp();
-        });
         m_timer->start(60 * 1000);
         m_retrievelAction->retrieveFolderList(m_account->accountId(), QMailFolderId(), true);
         m_state = RetrieveFolderList;
     } else {
+        emit validationFailed();
         emit failed(static_cast<AccountConfiguration *>(m_account->incoming())->serviceType(), AccountInvalid);
     }
 }
@@ -70,22 +72,35 @@ void AccountValidator::handleAccountActivity(QMailServiceAction::Activity activi
             case RetrieveFolderList:
             {
                 // Success retrieving folders so create the standard folders
-                m_retrievelAction->createStandardFolders(m_account->accountId());
                 m_state = CreateStandardFolders;
-                return;
+                m_retrievelAction->createStandardFolders(m_account->accountId());
+                break;
             }
             case CreateStandardFolders:
             {
-                // Incomings good. finally test outgoing
-                m_transmitAction->transmitMessages(m_account->accountId());
+                // Incomings good. finally do initial sync
+                // We will actually have a seperate process that syncs alot more
+                // than this initial sync. THis is just so that each folder has *something* in it
+                // when the wizard closes :-)
+                m_state = Sync;
+                m_retrievelAction->synchronize(m_account->accountId(), 20);
+                break;
+            }
+            case Sync:
+            {
                 m_state = TransmitMessage;
-                return;
+                m_transmitAction->transmitMessages(m_account->accountId());
+                break;
+            }
+            case TransmitMessage:
+            {
+                break;
             }
             case None:
-            case TransmitMessage:
-                Q_UNREACHABLE();
+                break;
             }
         } else if (activity == QMailServiceAction::Failed) {
+            qDebug() << __func__ << "FAILED";
             AccountConfiguration *incoming = static_cast<AccountConfiguration *>(m_account->incoming());
             testFailed(incoming->serviceType(), m_retrievelAction->status());
         }
@@ -109,41 +124,76 @@ void AccountValidator::handleAccountActivity(QMailServiceAction::Activity activi
 void AccountValidator::testFailed(AccountConfiguration::ServiceType serviceType, QMailServiceAction::Status status)
 {
     m_timer->stop();
+    emit validationFailed();
     switch (status.errorCode) {
     case QMailServiceAction::Status::ErrFrameworkFault:
     case QMailServiceAction::Status::ErrSystemError:
     case QMailServiceAction::Status::ErrInternalServer:
     case QMailServiceAction::Status::ErrEnqueueFailed:
     case QMailServiceAction::Status::ErrInternalStateReset:
+    {
+        qDebug() << "INTERNAL ERROR";
         emit failed(serviceType, InternalError);
         break;
+    }
     case QMailServiceAction::Status::ErrLoginFailed:
+    {
+        qDebug() << "LOGIN FAILED";
         emit failed(serviceType, FailedLogin);
         break;
+    }
     case QMailServiceAction::Status::ErrFileSystemFull:
+    {
+        qDebug() << "DISK FULL";
         emit failed(serviceType, DiskFull);
         break;
+    }
     case QMailServiceAction::Status::ErrUnknownResponse:
+    {
+        qDebug() << "EXTERNAL ERROR";
         emit failed(serviceType, ExternalError);
         break;
+    }
     case QMailServiceAction::Status::ErrNoConnection:
-    case QMailServiceAction::Status::ErrConnectionInUse:
-    case QMailServiceAction::Status::ErrConnectionNotReady:
+    {
+        qDebug() << "NO CONNECTION ERROR";
         emit failed(serviceType, ConnectionError);
         break;
+    }
+    case QMailServiceAction::Status::ErrConnectionInUse:
+    {
+        qDebug() << "CONNECTION IN USE ERROR";
+        emit failed(serviceType, ConnectionError);
+        break;
+    }
+    case QMailServiceAction::Status::ErrConnectionNotReady:
+    {
+        qDebug() << "CONNECTION NOT READY ERROR";
+        emit failed(serviceType, ConnectionError);
+        break;
+    }
     case QMailServiceAction::Status::ErrConfiguration:
     case QMailServiceAction::Status::ErrInvalidAddress:
     case QMailServiceAction::Status::ErrInvalidData:
     case QMailServiceAction::Status::ErrNotImplemented:
     case QMailServiceAction::Status::ErrNoSslSupport:
+    {
+        qDebug() << "INVALID CONFIG";
         emit failed(serviceType, ConfigInvalid);
         break;
+    }
     case QMailServiceAction::Status::ErrTimeout:
+    {
+        qDebug() << "TIMEOUT";
         emit failed(serviceType, Timeout);
         break;
+    }
     case QMailServiceAction::Status::ErrUntrustedCertificates:
+    {
+        qDebug() << "Untrusted certificate";
         emit failed(serviceType, UntrustedCertificates);
         break;
+    }
     case QMailServiceAction::Status::ErrCancel:
         // The operation was cancelled by user intervention.
         break;
