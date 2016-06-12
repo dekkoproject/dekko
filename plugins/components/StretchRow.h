@@ -28,19 +28,19 @@ class StretchRow : public QQuickItem {
 public:
     explicit StretchRow (QQuickItem * parent = Q_NULLPTR);
 
-    int getSpacing (void) const;
+    int getSpacing(void) const;
 
 public slots:
-    void setSpacing (int spacing);
+    void setSpacing(int spacing);
 
 signals:
-    void spacingChanged (int spacing);
+    void spacingChanged(int spacing);
 
 protected:
-    void classBegin        (void);
-    void componentComplete (void);
-    void updatePolish      (void);
-    void itemChange        (ItemChange change, const ItemChangeData & value);
+    void classBegin(void);
+    void componentComplete(void);
+    void updatePolish(void);
+    void itemChange(ItemChange change, const ItemChangeData & value);
 
 private:
     int m_spacing;
