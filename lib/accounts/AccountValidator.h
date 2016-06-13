@@ -75,6 +75,7 @@ private:
     QTimer *m_timer;
 
     void testFailed(AccountConfiguration::ServiceType serviceType, QMailServiceAction::Status status);
+    void init();
     void cleanUp();
     void setInProgress(const bool inProgress) {
         m_inProgress = inProgress;
