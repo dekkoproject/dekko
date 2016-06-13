@@ -60,4 +60,7 @@ KeyTable {
 
     property string requestManualInput
     property string showUseImapDialog
+    property string syncNewAccount
+    property string accountSynced
+    property string accountSyncFailed
 }

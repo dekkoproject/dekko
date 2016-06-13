@@ -20,29 +20,6 @@
 AccountValidator::AccountValidator(QObject *parent) : QObject(parent),
     m_inProgress(false), m_state(None), m_timer(new QTimer(this))
 {
-
-    m_retrievelAction = new QMailRetrievalAction(this);
-    connect(m_retrievelAction, &QMailRetrievalAction::activityChanged, this, &AccountValidator::handleAccountActivity);
-    m_transmitAction = new QMailTransmitAction(this);
-    connect(m_transmitAction, &QMailTransmitAction::activityChanged, this, &AccountValidator::handleAccountActivity);
-    connect(m_timer, &QTimer::timeout, [=]() {
-        m_timer->stop();
-          if (m_retrievelAction->isRunning()) {
-              m_retrievelAction->cancelOperation();
-          }
-          if (m_transmitAction->isRunning()) {
-              m_transmitAction->cancelOperation();
-          }
-          AccountConfiguration *conf = 0;
-          if (m_state == TransmitMessage) {
-                conf = static_cast<AccountConfiguration *>(m_account->outgoing());
-          } else {
-              conf = static_cast<AccountConfiguration *>(m_account->incoming());
-          }
-          emit failed(conf->serviceType(), Timeout);
-          setInProgress(false);
-          cleanUp();
-    });
 }
 
 void AccountValidator::validateAccount(Account *account)
@@ -53,7 +30,7 @@ void AccountValidator::validateAccount(Account *account)
     }
     setInProgress(true);
     m_account = account;
-
+    init();
     if (m_account->accountId().isValid()) {
         m_timer->start(60 * 1000);
         m_retrievelAction->retrieveFolderList(m_account->accountId(), QMailFolderId(), true);
@@ -78,16 +55,7 @@ void AccountValidator::handleAccountActivity(QMailServiceAction::Activity activi
             }
             case CreateStandardFolders:
             {
-                // Incomings good. finally do initial sync
-                // We will actually have a seperate process that syncs alot more
-                // than this initial sync. THis is just so that each folder has *something* in it
-                // when the wizard closes :-)
-                m_state = Sync;
-                m_retrievelAction->synchronize(m_account->accountId(), 20);
-                break;
-            }
-            case Sync:
-            {
+                // Incomings good
                 m_state = TransmitMessage;
                 m_transmitAction->transmitMessages(m_account->accountId());
                 break;
@@ -203,6 +171,32 @@ void AccountValidator::testFailed(AccountConfiguration::ServiceType serviceType,
     }
     setInProgress(false);
     cleanUp();
+}
+
+void AccountValidator::init()
+{
+    m_retrievelAction = new QMailRetrievalAction(this);
+    connect(m_retrievelAction, &QMailRetrievalAction::activityChanged, this, &AccountValidator::handleAccountActivity);
+    m_transmitAction = new QMailTransmitAction(this);
+    connect(m_transmitAction, &QMailTransmitAction::activityChanged, this, &AccountValidator::handleAccountActivity);
+    connect(m_timer, &QTimer::timeout, [=]() {
+        m_timer->stop();
+          if (m_retrievelAction->isRunning()) {
+              m_retrievelAction->cancelOperation();
+          }
+          if (m_transmitAction->isRunning()) {
+              m_transmitAction->cancelOperation();
+          }
+          AccountConfiguration *conf = 0;
+          if (m_state == TransmitMessage) {
+                conf = static_cast<AccountConfiguration *>(m_account->outgoing());
+          } else {
+              conf = static_cast<AccountConfiguration *>(m_account->incoming());
+          }
+          emit failed(conf->serviceType(), Timeout);
+          setInProgress(false);
+          cleanUp();
+    });
 }
 
 void AccountValidator::cleanUp()

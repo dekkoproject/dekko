@@ -44,4 +44,5 @@ KeyTable {
     property string rewindMessageListStack
     property string startMultiSelection
     property string endMultiSelection
+    property string resetFolderLists
 }

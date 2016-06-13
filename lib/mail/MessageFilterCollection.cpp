@@ -24,6 +24,14 @@ MessageFilterCollection::MessageFilterCollection(QObject *parent) : QObject(pare
     m_filter(None), m_firstRun(true)
 {
     m_children = new QQmlObjectListModel<MessageSet>(this);
+    connect(QMailStore::instance(),
+            SIGNAL(accountsAdded(QMailAccountIdList)),
+            this,
+            SLOT(reset()));
+    connect(QMailStore::instance(),
+            SIGNAL(accountsRemoved(QMailAccountIdList)),
+            this,
+            SLOT(reset()));
 }
 
 void MessageFilterCollection::setFilter(MessageFilterCollection::Filter filter)

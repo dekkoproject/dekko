@@ -238,3 +238,15 @@ void SendPendingMessagesAction::process()
     connect(ta, &QMailTransmitAction::messagesFailedTransmission, this, &SendPendingMessagesAction::messageSendingFailed);
     ta->transmitMessages(m_id);
 }
+
+AccountSyncAction::AccountSyncAction(QObject *parent, const QMailAccountId &id): ClientServiceAction(parent), m_id(id)
+{
+    m_actionType = ActionType::Immediate;
+    m_serviceActionType = ServiceAction::SyncAccountAction;
+    m_description = QStringLiteral("Synchronizing account %1").arg(id.toULongLong());
+}
+
+void AccountSyncAction::process()
+{
+    createRetrievalAction()->synchronize(m_id, 20);
+}

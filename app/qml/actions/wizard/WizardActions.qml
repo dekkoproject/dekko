@@ -53,4 +53,7 @@ ActionCreator {
     signal stickWithPop()
     signal noValidConfigs()
     signal runAccountValidation()
+    signal accountSynced()
+    signal accountSyncFailed()
+    signal syncNewAccount()
 }

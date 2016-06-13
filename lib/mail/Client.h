@@ -30,11 +30,36 @@ class Client : public QObject
     Q_OBJECT
     Q_PROPERTY(QObject *service READ service NOTIFY serviceChanged)
     Q_PROPERTY(bool hasConfiguredAccounts READ hasConfiguredAccounts CONSTANT)
+    Q_ENUMS(Error)
 
 public:
     static Client *instance();
     static QObject *factory(QQmlEngine *engine, QJSEngine *scriptEngine);
     explicit Client(QObject *parent = 0);
+
+    enum Error {
+        NoError,
+        FrameworkFault,
+        SystemError,
+        InternalServerError,
+        UnexpectedResponse,
+        LoginFailed,
+        CancelError,
+        FileSystemFull,
+        MessageNotExist,
+        EnqueueFailed,
+        NoConnection,
+        ConnectionInUse,
+        ConnectionNotReady,
+        ConfigurationError,
+        InvalidAddress,
+        InvalidData,
+        TimeoutError,
+        InternalStateReset,
+        SslNotSupported,
+        UntrustedCertificate,
+        UnknownError
+    };
 
     QObject *service() const { return m_service; }
     bool hasConfiguredAccounts();
@@ -47,6 +72,7 @@ public:
     Q_INVOKABLE void markMessageTodo(const int &msgId, const bool todo);
     Q_INVOKABLE void markMessageDone(const int &msgId, const bool done);
     Q_INVOKABLE void moveToStandardFolder(const int &msgId, const int &standardFolder); // standardFolder is a Folder::FolderType
+    Q_INVOKABLE void synchronizeAccount(const int &id);
 
     // C++ Extras API
     void deleteMessages(const QMailMessageIdList &idList);
@@ -59,6 +85,7 @@ public:
     void downloadMessagePart(const QMailMessagePart *msgPart);
     void downloadMessage(const QMailMessageId &msgId);
     void downloadMessages(const QMailMessageIdList &idList);
+    void synchronizeAccount(const QMailAccountId &id);
 
     // C++ Store api
     bool addMessage(QMailMessage *msg);
@@ -78,8 +105,12 @@ signals:
     void messageFetchFailed(const QMailMessageIdList &ids);
     void messagesSent(const QMailMessageIdList &ids);
     void messageSendingFailed(const QMailMessageIdList &ids, QMailServiceAction::Status::ErrorCode error);
+    void accountSynced(const quint64 &id);
+    void syncAccountFailed(const quint64 &id);
+    void clientError(const quint64 &accountId, const Error &error, const QString &errorString);
 
 public slots:
+    void handleFailure(const quint64 &id, const QMailServiceAction::Status &status);
 
 private:
     ClientService *m_service;

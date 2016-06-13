@@ -20,19 +20,32 @@ import QtQml.StateMachine 1.0 as DSM
 import Ubuntu.Components.Popups 1.3
 import QuickFlux 1.0
 import "../../../actions/logging"
+import "../../../actions/messaging"
 import "../../../actions/popups"
 import "../../../actions/wizard"
 import "../../../stores/accounts"
 
 DSM.State {
-    id: validationState
+    id: syncState
 
     property alias nextTargetState: next.targetState
-    property alias backTartgetState: back.targetState
 
-    DSM.SignalTransition {
-        id: back
-        signal: AccountSetup.goBack
+    onEntered: {
+        Log.logStatus("SyncState::onEntered", "Loading sync overlay");
+        d.overlay = PopupUtils.open(Qt.resolvedUrl("qrc:/qml/views/setupwizard/components/ProcessingOverlay.qml"),
+                                    dekko,
+                                    {
+                                        text: qsTr("Synchronizing account.")
+                                    })
+        WizardActions.syncNewAccount()
+    }
+
+    onExited: {
+        Log.logStatus("SyncState::onExited", "Destroying sync overlay");
+        MessageActions.resetFolderLists()
+        if (d.overlay !== undefined) {
+            PopupUtils.close(d.overlay)
+        }
     }
 
     DSM.SignalTransition {
@@ -40,4 +53,8 @@ DSM.State {
         signal: AccountSetup.goNext
     }
 
+    QtObject {
+        id: d
+        property var overlay: undefined
+    }
 }
