@@ -57,6 +57,7 @@ public:
 signals:
     void success();
     void failed(AccountConfiguration::ServiceType service, FailureReason reason);
+    void failedActionStatus(QMailServiceAction::Status status);
     void validationFailed(); // qml one
     void inProgressChanged();
 

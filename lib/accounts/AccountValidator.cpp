@@ -93,6 +93,7 @@ void AccountValidator::testFailed(AccountConfiguration::ServiceType serviceType,
 {
     m_timer->stop();
     emit validationFailed();
+    emit failedActionStatus(status);
     switch (status.errorCode) {
     case QMailServiceAction::Status::ErrFrameworkFault:
     case QMailServiceAction::Status::ErrSystemError:
