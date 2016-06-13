@@ -24,11 +24,6 @@ Dekko {
     id: dekko
     anchors.fill: parent
 
-//    SimpleToast {
-//        text: "simple toast"
-//        displayTime: 10000
-//    }
-
     // Add these components to the resources list
     QtObject {
         id: d
@@ -38,25 +33,10 @@ Dekko {
         }
         property ToastListener toaster: ToastListener{}
         property ContentManager contentManager: ContentManager{}
+        property ErrorManager errorManager: ErrorManager{}
     }
 }
 
-//    Connections {
-//        target: ContentHub
-//        onImportRequested: {
-//            console.log("[ContentHub::importRequested] [STATUS] import requested, running import...")
-//            importTransfer = transfer;
-//            handleContentHubImport()
-//        }
-//        onShareRequested: {
-//            console.log("[ContentHub::shareRequested] [STATUS] share requested. importing share")
-//            importTransfer = transfer;
-//            handleContentHubImport()
-//        }
-//        onExportRequested: {
-//            console.log("ContentHub::exportRequested: NotImplementedYet")
-//        }
-//    }
 
 //    property var uri: undefined
 

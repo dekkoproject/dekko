@@ -57,7 +57,6 @@ AppListener {
         id: autoDiscover
         onSuccess: {
             Log.logStatus("AccountSetup::AutoDiscover", "Lookup succeeded!")
-            console.log("SUCCESS!")
             d.emailProvider = _serverConf
 //            // Check there is a server config for the selected account type
             WizardActions.checkProviderForAccountType()
@@ -75,6 +74,11 @@ AppListener {
         }
         onValidationFailed: {
             WizardActions.requestManualInput()
+        }
+        onFailedActionStatus: {
+            // Client knows how to handle this and pass it on to ErrorManager
+            // for the popups etc.
+            Client.handleFailure(account.id, status)
         }
     }
 
