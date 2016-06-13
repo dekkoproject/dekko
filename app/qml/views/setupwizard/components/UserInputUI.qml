@@ -59,8 +59,8 @@ DekkoPage {
 
                     TitledTextField {
                         id: nickname
-                        objectName: "nickNameInput"
-                        title: qsTr("Nickname")
+                        objectName: "descriptionInput"
+                        title: qsTr("Description")
                         placeholderText: qsTr("E.g Home, Work...")
                         inputMethodHints: Qt.ImhNoPredictiveText
                     }
