@@ -78,16 +78,7 @@ void AccountValidator::handleAccountActivity(QMailServiceAction::Activity activi
             }
             case CreateStandardFolders:
             {
-                // Incomings good. finally do initial sync
-                // We will actually have a seperate process that syncs alot more
-                // than this initial sync. THis is just so that each folder has *something* in it
-                // when the wizard closes :-)
-                m_state = Sync;
-                m_retrievelAction->synchronize(m_account->accountId(), 20);
-                break;
-            }
-            case Sync:
-            {
+                // Incomings good
                 m_state = TransmitMessage;
                 m_transmitAction->transmitMessages(m_account->accountId());
                 break;

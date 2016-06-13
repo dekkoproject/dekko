@@ -50,7 +50,6 @@ public:
         None,
         RetrieveFolderList,
         CreateStandardFolders,
-        Sync,
         TransmitMessage
     };
     bool inProgress() const { return m_inProgress; }

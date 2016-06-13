@@ -47,6 +47,9 @@ Client::Client(QObject *parent) : QObject(parent),
     connect(m_service, &ClientService::messageFetchFailed, this, &Client::messageFetchFailed);
     connect(m_service, &ClientService::messagesSent, this, &Client::messagesSent);
     connect(m_service, &ClientService::messageSendingFailed, this, &Client::messageSendingFailed);
+    connect(m_service, &ClientService::accountSynced, this, &Client::accountSynced);
+    connect(m_service, &ClientService::syncAccountFailed, this, &Client::syncAccountFailed);
+    connect(m_service, &ClientService::actionFailed, this, &Client::handleFailure);
 }
 
 bool Client::hasConfiguredAccounts()
@@ -95,6 +98,11 @@ void Client::moveToStandardFolder(const int &msgId, const int &standardFolder)
     moveToStandardFolder(QMailMessageIdList() << QMailMessageId(msgId), (Folder::FolderType)standardFolder);
 }
 
+void Client::synchronizeAccount(const int &id)
+{
+    synchronizeAccount(QMailAccountId(id));
+}
+
 void Client::markMessagesImportant(const QMailMessageIdList &idList, const bool important)
 {
     m_service->markMessagesImportant(idList, important);
@@ -131,6 +139,11 @@ void Client::downloadMessages(const QMailMessageIdList &idList)
 
 }
 
+void Client::synchronizeAccount(const QMailAccountId &id)
+{
+    m_service->synchronizeAccount(id);
+}
+
 bool Client::addMessage(QMailMessage *msg)
 {
     return QMailStore::instance()->addMessage(msg);
@@ -149,4 +162,77 @@ void Client::moveToStandardFolder(const QMailMessageIdList &msgIds, const Folder
 void Client::sendMessage(const QMailMessage &msg)
 {
     m_service->sendMessage(msg);
+}
+
+void Client::handleFailure(const quint64 &id, const QMailServiceAction::Status &status)
+{
+    Error error;
+    switch(status.errorCode) {
+    case QMailServiceAction::Status::ErrNoError:
+        error = Error::NoError;
+        break;
+    case QMailServiceAction::Status::ErrNotImplemented:
+        error = Error::UnknownError;
+        break;
+    case QMailServiceAction::Status::ErrFrameworkFault:
+        error = Error::FrameworkFault;
+        break;
+    case QMailServiceAction::Status::ErrSystemError:
+        error = Error::SystemError;
+        break;
+    case QMailServiceAction::Status::ErrInternalServer:
+        error = Error::InternalServerError;
+        break;
+    case QMailServiceAction::Status::ErrUnknownResponse:
+        error = Error::UnexpectedResponse;
+        break;
+    case QMailServiceAction::Status::ErrLoginFailed:
+        error = Error::LoginFailed;
+        break;
+    case QMailServiceAction::Status::ErrCancel:
+        error = Error::CancelError;
+        break;
+    case QMailServiceAction::Status::ErrFileSystemFull:
+        error = Error::FileSystemFull;
+        break;
+    case QMailServiceAction::Status::ErrNonexistentMessage:
+        error = Error::MessageNotExist;
+        break;
+    case QMailServiceAction::Status::ErrEnqueueFailed:
+        error = Error::EnqueueFailed;
+        break;
+    case QMailServiceAction::Status::ErrNoConnection:
+        error = Error::NoConnection;
+        break;
+    case QMailServiceAction::Status::ErrConnectionInUse:
+        error = Error::ConnectionInUse;
+        break;
+    case QMailServiceAction::Status::ErrConnectionNotReady:
+        error = Error::ConnectionNotReady;
+        break;
+    case QMailServiceAction::Status::ErrConfiguration:
+        error = Error::ConfigurationError;
+        break;
+    case QMailServiceAction::Status::ErrInvalidAddress:
+        error = Error::InvalidAddress;
+        break;
+    case QMailServiceAction::Status::ErrInvalidData:
+        error = Error::InvalidData;
+        break;
+    case QMailServiceAction::Status::ErrTimeout:
+        error = Error::TimeoutError;
+        break;
+    case QMailServiceAction::Status::ErrInternalStateReset:
+        error = Error::InternalStateReset;
+        break;
+    case QMailServiceAction::Status::ErrNoSslSupport:
+        error = Error::SslNotSupported;
+        break;
+    case QMailServiceAction::Status::ErrUntrustedCertificates:
+        error = Error::UntrustedCertificate;
+        break;
+        error = Error::UnknownError;
+        break;
+    }
+    emit clientError(id, error, status.text);
 }

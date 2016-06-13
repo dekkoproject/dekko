@@ -38,6 +38,9 @@ ClientService::ClientService(QObject *parent) : QObject(parent),
     connect(m_serviceWatcher, &ClientServiceWatcher::messagesFetched, this, &ClientService::messagesFetched);
     connect(m_serviceWatcher, &ClientServiceWatcher::messageFetchFailed, this, &ClientService::messageFetchFailed);
     connect(m_serviceWatcher, &ClientServiceWatcher::checkSendMailQueue, this, &ClientService::sendAnyQueuedMail);
+    connect(m_serviceWatcher, &ClientServiceWatcher::accountSynced, this, &ClientService::accountSynced);
+    connect(m_serviceWatcher, &ClientServiceWatcher::syncAccountFailed, this, &ClientService::syncAccountFailed);
+    connect(m_serviceWatcher, &ClientServiceWatcher::actionFailed, this, &ClientService::actionFailed);
     emit queueChanged();
 }
 
@@ -190,6 +193,15 @@ void ClientService::moveToStandardFolder(const QMailMessageIdList &msgIds, const
         }
     }
     exportMailStoreUpdate(accounts);
+}
+
+void ClientService::synchronizeAccount(const QMailAccountId &id)
+{
+    if (!id.isValid()) {
+        // TODO: emit sync failed in case anything is listening
+        return;
+    }
+    enqueue(new AccountSyncAction(this, id));
 }
 
 void ClientService::undoableCountChanged()

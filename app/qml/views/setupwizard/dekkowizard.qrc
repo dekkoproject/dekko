@@ -12,5 +12,6 @@
         <file>components/ProcessingOverlay.qml</file>
         <file>states/ValidationState.qml</file>
         <file>states/ManualInputState.qml</file>
+        <file>states/SyncState.qml</file>
     </qresource>
 </RCC>

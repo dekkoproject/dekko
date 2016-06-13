@@ -54,7 +54,8 @@ public:
         StorageAction,
         TransmitAction,
         ExportAction,
-        OutboxAction
+        OutboxAction,
+        SyncAccountAction
     };
 
     virtual void process() = 0;
@@ -69,6 +70,12 @@ public:
         Q_ASSERT(false);
         return QString();
     }
+
+    virtual QMailAccountId accountId() {
+        Q_ASSERT(false);
+        return QMailAccountId();
+    }
+
     virtual quint64 messageId() {
         // Not implemented here
         Q_ASSERT(false);
@@ -238,6 +245,19 @@ public:
 signals:
     void messagesSent(const QMailMessageIdList &ids);
     void messageSendingFailed(const QMailMessageIdList &ids, QMailServiceAction::Status::ErrorCode error);
+private:
+    QMailAccountId m_id;
+};
+
+class AccountSyncAction : public ClientServiceAction
+{
+    Q_OBJECT
+public:
+    AccountSyncAction(QObject *parent, const QMailAccountId &id);
+
+    QMailAccountId accountId() { return m_id; }
+    void process();
+
 private:
     QMailAccountId m_id;
 };

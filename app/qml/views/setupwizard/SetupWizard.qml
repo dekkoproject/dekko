@@ -106,13 +106,21 @@ Item {
         ValidationState {
             id: validate
             backTartgetState: manualInput
+            nextTargetState: sync
+        }
+
+        SyncState {
+            id: sync
             nextTargetState: quit
         }
 
         DSM.State {
             id: quit
             // FIXME: Use dispatcher API!!!
-            onEntered: rootPageStack.pop()
+            onEntered: {
+                WizardActions.wizardResetAccount()
+                rootPageStack.pop()
+            }
         }
 
         DSM.FinalState {

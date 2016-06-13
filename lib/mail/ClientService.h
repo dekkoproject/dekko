@@ -24,6 +24,7 @@
 #include <QmlObjectListModel.h>
 #include <PriorityQueue.h>
 #include <qmailserviceaction.h>
+#include <qmailaccount.h>
 #include "ClientServiceAction.h"
 #include "Folder.h"
 
@@ -64,6 +65,7 @@ public:
     void downloadMessages(const QMailMessageIdList &msgIds);
     void sendMessage(const QMailMessage &msg);
     void moveToStandardFolder(const QMailMessageIdList &msgIds, const Folder::FolderType &folder);
+    void synchronizeAccount(const QMailAccountId &id);
 
 signals:
     void undoCountChanged();
@@ -75,7 +77,9 @@ signals:
     void messageFetchFailed(const QMailMessageIdList &ids);
     void messagesSent(const QMailMessageIdList &ids);
     void messageSendingFailed(const QMailMessageIdList &ids, QMailServiceAction::Status::ErrorCode error);
-
+    void accountSynced(const quint64 &id);
+    void syncAccountFailed(const quint64 &id);
+    void actionFailed(const quint64 &id, const QMailServiceAction::Status &status);
 public slots:
     void undoActions();
 
@@ -129,6 +133,9 @@ signals:
     void checkSendMailQueue();
     void messagesSent();
     void messageSendingFailed();
+    void accountSynced(const quint64 &id);
+    void syncAccountFailed(const quint64 &id);
+    void actionFailed(const quint64 &id, const QMailServiceAction::Status &status);
 
 public slots:
     void activityChanged(QMailServiceAction::Activity activity){
@@ -137,15 +144,19 @@ public slots:
                 qDebug() << "Service action successful";
                 if (action->metaObject()->className() == QStringLiteral("QMailRetrievalAction")) {
                     if (m_queue->first()->serviceActionType() == ClientServiceAction::ExportAction) {
-                        qDebug() << "Export action complete";
+                        //                        qDebug() << "Export action complete";
                     } else if (m_queue->first()->serviceActionType() == ClientServiceAction::RetrievePartAction) {
-                        qDebug() << "FetchPart successful";
+                        //                        qDebug() << "FetchPart successful";
                         ClientServiceAction *clientAction = m_queue->at(0);
                         emit messagePartFetched(clientAction->messageId(), clientAction->location());
                     } else if (m_queue->first()->serviceActionType() == ClientServiceAction::RetrieveAction) {
-//                        qDebug() << "Fetch messages successful";
+                        //                        qDebug() << "Fetch messages successful";
                         ClientServiceAction *clientAction = m_queue->at(0);
                         emit messagesFetched(clientAction->messageIds());
+                    } else if (m_queue->first()->serviceActionType() == ClientServiceAction::SyncAccountAction) {
+                        //                        qDebug() << "Sync account successful";
+                        ClientServiceAction *clientAction = m_queue->at(0);
+                        emit accountSynced(clientAction->accountId().toULongLong());
                     }
                     m_queue->dequeue();
                     emit processNext();
@@ -179,6 +190,11 @@ public slots:
                     } else if (m_queue->first()->serviceActionType() == ClientServiceAction::RetrieveAction) {
                         ClientServiceAction *clientAction = m_queue->at(0);
                         emit messageFetchFailed(clientAction->messageIds());
+                    } else if (m_queue->first()->serviceActionType() == ClientServiceAction::SyncAccountAction) {
+                        //                        qDebug() << "Sync account failed";
+                        ClientServiceAction *clientAction = m_queue->at(0);
+                        emit syncAccountFailed(clientAction->accountId().toULongLong());
+                        emit actionFailed(clientAction->accountId().toULongLong(), action->status());
                     }
                     m_queue->dequeue();
                     emit processNext();

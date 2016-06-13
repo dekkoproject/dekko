@@ -20,6 +20,7 @@ import QtQuick 2.4
 import QuickFlux 1.0
 import Dekko.Accounts 1.0
 import Dekko.AutoConfig 1.0
+import Dekko.Mail 1.0
 import "../../actions/wizard"
 import "../../actions/logging"
 import "../../views/utils/QtCoreAPI.js" as QtCoreAPI
@@ -70,11 +71,50 @@ AppListener {
     AccountValidator {
         id: validator
         onSuccess: {
-            WizardActions.wizardResetAccount()
             accountSetup.goNext()
         }
         onValidationFailed: {
             WizardActions.requestManualInput()
+        }
+    }
+
+    Connections {
+        target: Client
+        onAccountSynced: {
+            if (id == account.id) {
+                WizardActions.accountSynced()
+            }
+        }
+        onSyncAccountFailed: {
+            if (id == account.id) {
+                WizardActions.accountSyncFailed()
+            }
+        }
+    }
+
+    Filter {
+        type: WizardKeys.syncNewAccount
+        onDispatched: {
+            Log.logInfo("AccountSetup::syncNewAccount", "Starting initial sync for new account")
+            Client.synchronizeAccount(account.id)
+        }
+    }
+
+    Filter {
+        type: WizardKeys.accountSynced
+        onDispatched: {
+            Log.logInfo("AccountSetup::accountSynced", "Initial sync complete")
+            // TODO: what do we need to do here?
+            accountSetup.goNext()
+        }
+    }
+
+    Filter {
+        type: WizardKeys.accountSyncFailed
+        onDispatched: {
+            Log.logInfo("AccountSetup::accountSyncFailed", "Initial sync failed :-(")
+            // TODO: what do we need to do here?
+            accountSetup.goNext()
         }
     }
 
