@@ -123,4 +123,6 @@ ActionCreator {
     signal startMultiSelection()
 
     signal endMultiSelection()
+
+    signal resetFolderLists()
 }

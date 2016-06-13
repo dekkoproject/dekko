@@ -39,6 +39,14 @@ BaseMessagingStore {
         filter: MessageFilterCollection.SmartFolders
     }
 
+    Filter {
+        type: MessageKeys.resetFolderLists
+        onDispatched: {
+            smartFolders.reset()
+            stdFolders.reset()
+        }
+    }
+
     QtObject {
         id: d
 

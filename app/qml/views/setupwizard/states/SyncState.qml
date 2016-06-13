@@ -20,6 +20,7 @@ import QtQml.StateMachine 1.0 as DSM
 import Ubuntu.Components.Popups 1.3
 import QuickFlux 1.0
 import "../../../actions/logging"
+import "../../../actions/messaging"
 import "../../../actions/popups"
 import "../../../actions/wizard"
 import "../../../stores/accounts"
@@ -41,6 +42,7 @@ DSM.State {
 
     onExited: {
         Log.logStatus("SyncState::onExited", "Destroying sync overlay");
+        MessageActions.resetFolderLists()
         if (d.overlay !== undefined) {
             PopupUtils.close(d.overlay)
         }
