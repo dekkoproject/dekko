@@ -70,10 +70,11 @@ AppListener {
     AccountValidator {
         id: validator
         onSuccess: {
-            accountSetup.goNext()
+            WizardActions.wizardStepForward()
         }
         onValidationFailed: {
-            WizardActions.requestManualInput()
+            Log.logInfo("AccountSetup::validationFailed", "Account validation failed. Going back to manual input")
+            accountSetup.goBack()
         }
         onFailedActionStatus: {
             // Client knows how to handle this and pass it on to ErrorManager
@@ -109,7 +110,7 @@ AppListener {
         onDispatched: {
             Log.logInfo("AccountSetup::accountSynced", "Initial sync complete")
             // TODO: what do we need to do here?
-            accountSetup.goNext()
+            WizardActions.wizardStepForward()
         }
     }
 
@@ -118,7 +119,7 @@ AppListener {
         onDispatched: {
             Log.logInfo("AccountSetup::accountSyncFailed", "Initial sync failed :-(")
             // TODO: what do we need to do here?
-            accountSetup.goNext()
+            WizardActions.wizardStepForward()
         }
     }
 
@@ -192,9 +193,73 @@ AppListener {
     }
 
     Filter {
+        type: WizardKeys.validateServer
+        onDispatched: {
+            var config = message.config
+            var valid = true
+            var invalidFields = new Array()
+            if (config.hostname.isEmpty()) {
+                valid = false
+                invalidFields.push("hostname")
+            }
+            if (config.port.isEmpty()) {
+                valid = false
+                invalidFields.push("port")
+            }
+            if (config.encryption < AccountConfig.None || config.encryption > AccountConfig.STARTTLS) {
+                valid = false
+                invalidFields.push("encryption")
+            }
+            if (config.username.isEmpty()) {
+                valid = false
+                invalidFields.push("username")
+            }
+            if (config.servicetype !== "pop3") {
+                if (config.authentication < AccountConfig.NONE || config.authentication > AccountConfig.CRAM_MD5) {
+                    valid = false
+                    invalidFields.push("authentication")
+                }
+            }
+            if (!valid) {
+                //we want to signal this first as the user may want an empty password field
+                WizardActions.invalidServerConfig(config.servicetype, invalidFields)
+            } else if (!d.allowEmptyPassword && config.password.isEmpty()) {
+            // if the password is empty and the user hasn't confirmed it then
+            // We have to prompt for them to allow it.
+                WizardActions.noServerPasswordSet()
+            } else {
+                WizardActions.serverConfigValid(config.servicetype)
+            }
+        }
+    }
+
+    Filter {
         type: WizardKeys.setNoPasswordAllowed
         onDispatched: {
             d.allowEmptyPassword = true
+        }
+    }
+
+    Filter {
+        type: WizardKeys.applyServerConfig
+        onDispatched: {
+            var config = message.config
+            if (config.servicetype === "smtp") {
+                account.outgoing.username = config.username
+                account.outgoing.password = config.password
+                account.outgoing.server = config.hostname
+                account.outgoing.port = config.port
+                account.outgoing.encryption = config.encryption
+                account.outgoing.saslMechanism = config.authentication
+            } else {
+                account.incoming.name = config.username
+                account.incoming.email = config.username
+                account.incoming.password = config.password
+                account.incoming.server = config.hostname
+                account.incoming.port = config.port
+                account.incoming.encryption = config.encryption
+                account.incoming.saslMechanism = config.authentication
+            }
         }
     }
 
@@ -251,6 +316,11 @@ AppListener {
     }
 
     Filter {
+        type: WizardKeys.noServerDetailsFound
+        onDispatched: WizardActions.requestManualInput()
+    }
+
+    Filter {
         type: WizardKeys.checkProviderForAccountType
         onDispatched: {
             if (d.isPopAccount && d.emailProvider.hasImapConfiguration() && d.emailProvider.hasPopConfiguration()) {
@@ -266,7 +336,7 @@ AppListener {
                 Log.logInfo("AccountSetup::checkProviderForAccountType", "Imap configuration found. Needs validating")
                 d.shouldValidate = true
             }
-            accountSetup.goNext()
+            WizardActions.wizardStepForward()
         }
     }
 
@@ -357,19 +427,27 @@ AppListener {
     }
 
     Filter {
+        type: WizardKeys.requestManualInput
+        onDispatched: {
+            d.shouldValidate = false
+            WizardActions.wizardStepForward()
+        }
+    }
+
+    Filter {
         type: WizardKeys.useImapInstead
         onDispatched: {
             Log.logInfo("AccountSetup::useImapInstead", "Switching to imap setup")
             d.isPopAccount = false
             d.isImapAccount = true
             // TODO: Reset the NewAccount to create an ImapAccountConfiguration
-            accountSetup.goNext()
+            WizardActions.wizardStepForward()
         }
     }
 
     Filter {
         type: WizardKeys.stickWithPop
-        onDispatched: accountSetup.goNext()
+        onDispatched: WizardActions.wizardStepForward()
     }
 
     Filter {

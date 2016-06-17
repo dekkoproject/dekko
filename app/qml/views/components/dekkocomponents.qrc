@@ -30,5 +30,10 @@
         <file>ContentManager.qml</file>
         <file>CheckboxWithLabel.qml</file>
         <file>ErrorManager.qml</file>
+        <file>PageFlickable.qml</file>
+        <file>SectionHeader.qml</file>
+        <file>EncryptionSelector.qml</file>
+        <file>AuthenticationSelector.qml</file>
+        <file>LabeledSwitch.qml</file>
     </qresource>
 </RCC>

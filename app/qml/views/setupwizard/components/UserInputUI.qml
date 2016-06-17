@@ -27,83 +27,62 @@ import "../../../constants"
 
 DekkoPage {
     objectName: "userInputUI"
-
     pageHeader.title: AccountSetup.accountDescripion
 
-    PageContent{
+    PageFlickable{
 
-        ScrollView {
-            anchors.fill: parent
-            Flickable {
-                anchors.fill: parent
-                contentHeight: col.height + units.gu(5)
-                Column {
-                    id: col
-                    anchors {
-                        left: parent.left
-                        leftMargin: Style.defaultSpacing
-                        top: parent.top
-                        topMargin: Style.smallSpacing
-                        right: parent.right
-                        rightMargin: Style.defaultSpacing
-                    }
-                    spacing: Style.smallSpacing
+        TitledTextField {
+            id: name
+            objectName: "userInputNameField"
+            title: qsTr("Name")
+            placeholderText: qsTr("Full name")
+            inputMethodHints: Qt.ImhNoPredictiveText
+        }
 
-                    TitledTextField {
-                        id: name
-                        objectName: "userInputNameField"
-                        title: qsTr("Name")
-                        placeholderText: qsTr("Full name")
-                        inputMethodHints: Qt.ImhNoPredictiveText | Qt.Im
-                    }
+        TitledTextField {
+            id: nickname
+            objectName: "descriptionInput"
+            title: qsTr("Description")
+            placeholderText: qsTr("E.g Home, Work...")
+            inputMethodHints: Qt.ImhNoPredictiveText
+        }
 
-                    TitledTextField {
-                        id: nickname
-                        objectName: "descriptionInput"
-                        title: qsTr("Description")
-                        placeholderText: qsTr("E.g Home, Work...")
-                        inputMethodHints: Qt.ImhNoPredictiveText
-                    }
+        TitledTextField {
+            id: email
+            objectName: "userInputEmailField"
+            title: qsTr("Email address")
+            inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhEmailCharactersOnly | Qt.ImhNoPredictiveText
+            placeholderText: qsTr("email@example.org")
+        }
 
-                    TitledTextField {
-                        id: email
-                        objectName: "userInputEmailField"
-                        title: qsTr("Email address")
-                        inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhEmailCharactersOnly | Qt.ImhNoPredictiveText
-                        placeholderText: qsTr("email@example.org")
-                    }
+        TitledTextField {
+            id: password
+            objectName: "userInputPasswordField"
+            title: qsTr("Password")
+            inputMethodHints: Qt.ImhHiddenText | Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
+            echoMode: showPassword.checked ? TextInput.Normal : TextInput.Password
+            placeholderText: qsTr("Password")
+        }
 
-                    TitledTextField {
-                        id: password
-                        objectName: "userInputPasswordField"
-                        title: qsTr("Password")
-                        inputMethodHints: Qt.ImhHiddenText | Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
-                        echoMode: showPassword.checked ? TextInput.Normal : TextInput.Password
-                        placeholderText: qsTr("Password")
-                    }
+        CheckboxWithLabel {
+            id: showPassword
+            objectName: "showPwdCheckBox"
+            text: qsTr("Show password")
+            textColor: UbuntuColors.inkstone
+        }
 
-                    CheckboxWithLabel {
-                        id: showPassword
-                        objectName: "showPwdCheckBox"
-                        text: qsTr("Show password")
-                        textColor: UbuntuColors.inkstone
-                    }
-
-                    WizardStepper {
-                        anchors {
-                            left: parent.left
-                            right: parent.right
-                        }
-                        previousAction: Action {
-                            text: qsTr("Cancel")
-                            onTriggered: WizardActions.wizardStepBack()
-                        }
-                        nextAction: Action {
-                            text: qsTr("Next")
-                            onTriggered: WizardActions.validateUserDetails()
-                        }
-                    }
-                }
+        WizardStepper {
+            anchors {
+                left: parent.left
+                right: parent.right
+            }
+            previousAction: Action {
+                text: qsTr("Cancel")
+                onTriggered: WizardActions.wizardStepBack()
+            }
+            nextAction: Action {
+                text: qsTr("Next")
+                onTriggered: WizardActions.validateUserDetails()
             }
         }
     }

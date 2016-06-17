@@ -91,86 +91,14 @@ void AccountValidator::handleAccountActivity(QMailServiceAction::Activity activi
 
 void AccountValidator::testFailed(AccountConfiguration::ServiceType serviceType, QMailServiceAction::Status status)
 {
+
+    if (!m_inProgress) {
+        return;
+    }
+    setInProgress(false);
     m_timer->stop();
     emit validationFailed();
     emit failedActionStatus(status);
-    switch (status.errorCode) {
-    case QMailServiceAction::Status::ErrFrameworkFault:
-    case QMailServiceAction::Status::ErrSystemError:
-    case QMailServiceAction::Status::ErrInternalServer:
-    case QMailServiceAction::Status::ErrEnqueueFailed:
-    case QMailServiceAction::Status::ErrInternalStateReset:
-    {
-        qDebug() << "INTERNAL ERROR";
-        emit failed(serviceType, InternalError);
-        break;
-    }
-    case QMailServiceAction::Status::ErrLoginFailed:
-    {
-        qDebug() << "LOGIN FAILED";
-        emit failed(serviceType, FailedLogin);
-        break;
-    }
-    case QMailServiceAction::Status::ErrFileSystemFull:
-    {
-        qDebug() << "DISK FULL";
-        emit failed(serviceType, DiskFull);
-        break;
-    }
-    case QMailServiceAction::Status::ErrUnknownResponse:
-    {
-        qDebug() << "EXTERNAL ERROR";
-        emit failed(serviceType, ExternalError);
-        break;
-    }
-    case QMailServiceAction::Status::ErrNoConnection:
-    {
-        qDebug() << "NO CONNECTION ERROR";
-        emit failed(serviceType, ConnectionError);
-        break;
-    }
-    case QMailServiceAction::Status::ErrConnectionInUse:
-    {
-        qDebug() << "CONNECTION IN USE ERROR";
-        emit failed(serviceType, ConnectionError);
-        break;
-    }
-    case QMailServiceAction::Status::ErrConnectionNotReady:
-    {
-        qDebug() << "CONNECTION NOT READY ERROR";
-        emit failed(serviceType, ConnectionError);
-        break;
-    }
-    case QMailServiceAction::Status::ErrConfiguration:
-    case QMailServiceAction::Status::ErrInvalidAddress:
-    case QMailServiceAction::Status::ErrInvalidData:
-    case QMailServiceAction::Status::ErrNotImplemented:
-    case QMailServiceAction::Status::ErrNoSslSupport:
-    {
-        qDebug() << "INVALID CONFIG";
-        emit failed(serviceType, ConfigInvalid);
-        break;
-    }
-    case QMailServiceAction::Status::ErrTimeout:
-    {
-        qDebug() << "TIMEOUT";
-        emit failed(serviceType, Timeout);
-        break;
-    }
-    case QMailServiceAction::Status::ErrUntrustedCertificates:
-    {
-        qDebug() << "Untrusted certificate";
-        emit failed(serviceType, UntrustedCertificates);
-        break;
-    }
-    case QMailServiceAction::Status::ErrCancel:
-        // The operation was cancelled by user intervention.
-        break;
-    default:
-        emit failed(serviceType, InternalError);
-        break;
-    }
-    setInProgress(false);
     cleanUp();
 }
 

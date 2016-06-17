@@ -15,39 +15,37 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-pragma Singleton
 import QtQuick 2.4
-import QuickFlux 1.0
-import Dekko.Mail 1.0
-import "../../actions"
-import "../../actions/messaging"
-import "../../actions/logging"
+import Ubuntu.Components 1.3
+import "../../constants"
 
-BaseMessagingStore {
-    id: mboxStore
+Item {
 
-    // We only want to expose the actual models.
-    property alias standardFoldersModel: stdFolders.children
-    property alias smartFoldersModel: smartFolders.children
+    property alias text: label.text
+    property int textMargin: Style.defaultSpacing
 
-    MessageFilterCollection {
-        id: stdFolders
-        filter: MessageFilterCollection.StandardFolders
-    }
-    MessageFilterCollection {
-        id: smartFolders
-        filter: MessageFilterCollection.SmartFolders
+    height: units.gu(3)
+    anchors {
+        left: parent.left
+        right: parent.right
     }
 
-    Filter {
-        type: MessageKeys.resetFolderLists
-        onDispatched: {
-            smartFolders.reset()
-            stdFolders.reset()
+    Label {
+        id: label
+        anchors {
+            left: parent.left
+            leftMargin: textMargin
+            verticalCenter: parent.verticalCenter
         }
+        font.weight: Font.DemiBold
+        color: UbuntuColors.inkstone
     }
 
-    QtObject {
-        id: d
+    Line {
+        anchors {
+            bottom: parent.bottom
+            left: parent.left
+            right: parent.right
+        }
     }
 }

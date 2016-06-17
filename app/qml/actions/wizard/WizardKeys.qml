@@ -32,6 +32,7 @@ KeyTable {
     property string userDetailsValid
     property string userDetailsInvalid
     property string noPasswordSet
+    property string noServerPasswordSet
     property string setNoPasswordAllowed
     property string setUserDetails
     property string setServerDetails
@@ -57,10 +58,14 @@ KeyTable {
     property string validConfigFound
     // config validation failed :-/ we need to open the manual input view
     property string noValidConfigs
-
     property string requestManualInput
     property string showUseImapDialog
     property string syncNewAccount
     property string accountSynced
     property string accountSyncFailed
+    property string validateServerConfiguration
+    property string validateServer
+    property string serverConfigValid
+    property string invalidServerConfig
+    property string applyServerConfig
 }

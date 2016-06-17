@@ -25,10 +25,22 @@ import "../../../actions/wizard"
 import "../../../stores/accounts"
 
 DSM.State {
-    id: validationState
+    id: manualInputState
 
     property alias nextTargetState: next.targetState
     property alias backTartgetState: back.targetState
+
+    onEntered: {
+        Log.logStatus("ManualInputState::onEntered", "Manual input state entered");
+        if (stack.currentItem.objectName !== "manualInputUI") {
+            Log.logStatus("NoAccountState::onEntered", "Pushing UserInputUI");
+            WizardActions.wizardNavigateTo("qrc:/qml/views/setupwizard/components/ManualInputUI.qml", {})
+        }
+    }
+
+    onExited: {
+        Log.logStatus("NoAccountState::onExited", "Exited no accounts state");
+    }
 
     DSM.SignalTransition {
         id: back

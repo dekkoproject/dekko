@@ -32,6 +32,7 @@ ActionCreator {
     signal userDetailsValid()
     signal userDetailsInvalid(var result)
     signal noPasswordSet()
+    signal noServerPasswordSet()
     signal setNoPasswordAllowed()
     signal setServerDetails(var details)
     signal wizardNavigateTo(var view, var properties)
@@ -56,4 +57,9 @@ ActionCreator {
     signal accountSynced()
     signal accountSyncFailed()
     signal syncNewAccount()
+    signal validateServerConfiguration()
+    signal validateServer(var config)
+    signal serverConfigValid(string serviceType)
+    signal invalidServerConfig(string serviceType, var result)
+    signal applyServerConfig(var config)
 }

@@ -101,6 +101,8 @@ Item {
 
         ManualInputState {
             id: manualInput
+            nextTargetState: validate
+            backTartgetState: userInputState
         }
 
         ValidationState {

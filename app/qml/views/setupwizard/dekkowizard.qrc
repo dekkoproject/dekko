@@ -13,5 +13,7 @@
         <file>states/ValidationState.qml</file>
         <file>states/ManualInputState.qml</file>
         <file>states/SyncState.qml</file>
+        <file>components/ManualInputUI.qml</file>
+        <file>components/ServerDetails.qml</file>
     </qresource>
 </RCC>
