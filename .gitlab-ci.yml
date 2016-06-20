@@ -1,8 +1,8 @@
 upload-wiki:
   tags:
     - armhf
-    - pi
-    - click
+    - no-build
+    - trusty
   script:
     - sshpass -e scp -oStrictHostKeyChecking=no -vr $PWD/docs/dev dekkoproject.org@ssh.dekkoproject.org:/www
   only:
