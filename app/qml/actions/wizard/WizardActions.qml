@@ -62,4 +62,6 @@ ActionCreator {
     signal serverConfigValid(string serviceType)
     signal invalidServerConfig(string serviceType, var result)
     signal applyServerConfig(var config)
+    signal addAnotherAccount()
+    signal endSetup()
 }
