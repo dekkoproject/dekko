@@ -15,5 +15,8 @@
         <file>states/SyncState.qml</file>
         <file>components/ManualInputUI.qml</file>
         <file>components/ServerDetails.qml</file>
+        <file>states/OhNoTheyWantAGoogleAccountState.qml</file>
+        <file>states/AddAnotherState.qml</file>
+        <file>components/AddAnotherUI.qml</file>
     </qresource>
 </RCC>

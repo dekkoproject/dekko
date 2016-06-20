@@ -65,6 +65,16 @@ Item {
             AccountSetup.goBack()
         }
     }
+
+    AppListener {
+        filter: WizardKeys.addAnotherAccount
+        onDispatched: {
+            WizardActions.wizardResetAccount()
+            stack.clear()
+            WizardActions.wizardStepForward()
+        }
+    }
+
     // Here we define our statemachine and there next/previous states
     DSM.StateMachine {
         // TODO: Use the AccountsStore to query configured accounts. views/ shouldn't talk to Client directly
@@ -94,6 +104,10 @@ Item {
             nextTargetState: AccountSetup.isPreset ? validate : autoConfig
         }
 
+        OhNoTheyWantAGoogleAccountState {
+            id: yukItsGoogle
+        }
+
         AutoConfigState {
             id: autoConfig
             nextTargetState: AccountSetup.needsValidation ? validate : manualInput
@@ -113,7 +127,13 @@ Item {
 
         SyncState {
             id: sync
-            nextTargetState: quit
+            nextTargetState: addAnother
+        }
+
+        AddAnotherState {
+            id: addAnother
+            nextTargetState: newAccountState
+            quitTargetState: quit
         }
 
         DSM.State {

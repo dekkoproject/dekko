@@ -33,6 +33,7 @@ AppListener {
     signal goBack()
     signal goNext()
     signal userDetailsSet()
+    signal quit()
     // new account accessor for the setupwizard
     property NewAccount account: newAccount.createObject(accountSetup)
 
@@ -103,6 +104,11 @@ AppListener {
             Log.logInfo("AccountSetup::syncNewAccount", "Starting initial sync for new account")
             Client.synchronizeAccount(account.id)
         }
+    }
+
+    Filter {
+        type: WizardKeys.endSetup
+        onDispatched: accountSetup.quit()
     }
 
     Filter {

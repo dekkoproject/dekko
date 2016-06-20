@@ -68,4 +68,6 @@ KeyTable {
     property string serverConfigValid
     property string invalidServerConfig
     property string applyServerConfig
+    property string addAnotherAccount
+    property string endSetup
 }
