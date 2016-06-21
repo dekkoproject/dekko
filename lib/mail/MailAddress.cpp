@@ -18,6 +18,7 @@
 #include "MailAddress.h"
 #include <QStringList>
 #include <QList>
+#include <QDebug>
 
 MailAddress::MailAddress(QObject *parent) : QObject(parent)
 {
@@ -58,22 +59,29 @@ QString MailAddress::completeAddress() const
 QString MailAddress::initials()
 {
     QString name = this->name();
+    qDebug() << name;
     if (name.isEmpty() || !name.at(0).isLetter()) {
         // Name is empty so return first character of address. :-/
+        if (address().isEmpty()) {
+            return QString();
+        }
         return QString(address().at(0).toUpper());
     }
     // Intitials string
     QString initials;
     // Now break up the name, we have to set the encoding here as QT_NO_CAST_FROM/TO_ASCII is set
     QStringList parts = name.split(QStringLiteral(" "));
+    qDebug() << parts;
     if (parts.first().at(0).isLetter()) {
         initials += parts.first().at(0).toUpper();
     }
+    qDebug() << initials;
     if (parts.size() > 1) {
         if (parts.last().at(0).isLetter()) {
             initials += parts.last().at(0).toUpper();
         }
     }
+    qDebug() << initials;
     return initials;
 }
 

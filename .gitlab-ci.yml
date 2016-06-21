@@ -8,7 +8,7 @@ upload-wiki:
   only:
     - master
 
-dekko-master:armhf:
+dekko-master-click:armhf:
   tags:
     - armhf
     - xenial
@@ -22,6 +22,8 @@ dekko-master:armhf:
     - ninja -j2
     - export DESTDIR=./test
     - ninja -j3 install
+    - cd ./test
+    - click build .
   cache:
     paths:
       - __build
