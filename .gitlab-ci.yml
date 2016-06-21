@@ -7,3 +7,25 @@ upload-wiki:
     - sshpass -e scp -oStrictHostKeyChecking=no -vr $PWD/docs/dev dekkoproject.org@ssh.dekkoproject.org:/www
   only:
     - master
+
+dekko-master:armhf:
+  tags:
+    - armhf
+    - xenial
+    - sdk-ready
+    - ninja
+  script:
+    - if [ ! -d "__build" ]; then mkdir __build; fi
+    - cd __build
+    - cmake -G Ninja -DCMAKE_BUILD_TYPE=Release ../
+    - ninja -j2
+    - export DESTDIR=./test
+    - ninja -j3 install
+  cache:
+    paths:
+      - __build
+  only:
+    - master
+  artifacts:
+    paths:
+      - __build/test
