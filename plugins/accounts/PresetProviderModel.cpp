@@ -74,14 +74,18 @@ PresetProviderModel::PresetProviderModel(QObject *parent) : QObject(parent),
 void PresetProviderModel::init()
 {
     ProviderFile p(m_providers, ProviderFile::NativeFormat);
+#ifdef IMAP_ENABLED
     Q_FOREACH(const QString &group, p.childGroups()) {
         Provider *provider = new Provider(0, m_providers, group);
         m_model->append(provider);
     }
     Provider *imapprovider = new Provider(0, "IMAP", Provider::IMAP);
     m_model->append(imapprovider);
+#endif
+#ifdef POP3_ENABLED
     Provider *pop3provider = new Provider(0, "POP3", Provider::POP3);
     m_model->append(pop3provider);
+#endif
     Provider *smtpprovider = new Provider(0, "SMTP", Provider::SMTP);
     m_model->append(smtpprovider);
 }

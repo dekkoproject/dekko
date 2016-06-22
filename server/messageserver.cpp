@@ -72,7 +72,8 @@ MessageServer::MessageServer(QObject *parent)
       client(new MailMessageClient(this)),
       messageCountUpdate("QPE/Messages/MessageCountUpdated"),
       newMessageTotal(0),
-      completionAttempted(false)
+      completionAttempted(false),
+      m_started(QDateTime::currentDateTime())
 {
     qMailLog(Messaging) << "MessageServer ctor begin";
     new QCopServer(this);
@@ -513,6 +514,9 @@ void MessageServer::notifyNewMessages(const QMailMessageIdList &ids)
     Q_FOREACH(const QMailMessageId &id, ids) {
         QMailMessageMetaData d(id);
         if ((d.status() & QMailMessage::NoNotification)) {
+            continue;
+        }
+        if (d.date().toLocalTime() < m_started) {
             continue;
         }
         if ((d.status() & QMailMessage::Incoming) &&

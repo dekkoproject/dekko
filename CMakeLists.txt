@@ -9,6 +9,19 @@ cmake_policy(SET CMP0028 OLD)
 if(POLICY CMP0043)
     cmake_policy(SET CMP0043 OLD)
 endif()
+
+include(DekkoConfigOption)
+dekko_option(CLICK_MODE "Installs to a contained location. From which a click package can be created" ON)
+dekko_option(WITH_TESTS "Build tests" OFF)
+dekko_option(ENABLE_LOGGING "Enables logging" ON)
+dekko_option(ENABLE_QML_DEBUG "Enables qml debugging" OFF)
+dekko_option(UNCONFINED "Run dekko unconfined" OFF)
+dekko_option(UPDATE_TRANSLATIONS "Updates Dekko's pot file during build" OFF)
+dekko_option(USE_ONLINE_ACCOUNTS "EXPERIMENTAL: Switches Dekko's account store to use Ubuntu online accounts" OFF)
+dekko_option(ENABLE_IMAP_SUPPORT "Enables dekko's IMAP plugin support" ON)
+dekko_option(ENABLE_POP3_SUPPORT "EXPERIMENTAL: Enables dekko's POP3 plugin support" OFF)
+
+
 # POSITION_INDEPENDENT_CODE is only available on cmake 2.8.9 or later
 # Add needed flags for supported compilers which simulate POSITION_INDEPENDENT_CODE property
 if(CMAKE_VERSION VERSION_LESS "2.8.9")
@@ -42,14 +55,6 @@ else()
 endif()
 
 message(STATUS "CXXFLAGS ARE ${CMAKE_CXX_FLAGS}")
-include(DekkoConfigOption)
-dekko_option(CLICK_MODE "Installs to a contained location. From which a click package can be created" ON)
-dekko_option(UPDATE_TRANSLATIONS "Updates Dekko's pot file during build" OFF)
-dekko_option(USE_ONLINE_ACCOUNTS "Switches Dekko's account store to use Ubuntu online accounts" OFF)
-dekko_option(WITH_TESTS "Build tests" OFF)
-dekko_option(ENABLE_LOGGING "Enables logging" ON)
-dekko_option(ENABLE_QML_DEBUG "Enables qml debugging" OFF)
-dekko_option(UNCONFINED "Run dekko unconfined" OFF)
 
 if(NOT ZLIB_FOUND)
     dekko_find_package(ZLIB "" "" "" "" WITH_ZLIB)

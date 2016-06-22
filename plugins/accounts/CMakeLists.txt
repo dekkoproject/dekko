@@ -20,6 +20,14 @@ set(AccountsPlugin_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/PresetProviderModel.cpp
 )
 
+# We enable imap/pop3 support at the Accounts level by preventing creation of that type of account
+if (ENABLE_IMAP_SUPPORT)
+    add_definitions(-DIMAP_ENABLED)
+endif(ENABLE_IMAP_SUPPORT)
+if (ENABLE_POP3_SUPPORT)
+    add_definitions(-DPOP3_ENABLED)
+endif(ENABLE_POP3_SUPPORT)
+
 add_library(accountsplugin MODULE ${AccountsPlugin_SRCS})
 
 qt5_use_modules(accountsplugin Core Quick)

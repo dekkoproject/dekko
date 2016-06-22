@@ -47,6 +47,7 @@
 #include <QSet>
 #include <QSocketNotifier>
 #include <qcopadaptor.h>
+#include <QDateTime>
 
 class ServiceHandler;
 class MailMessageClient;
@@ -115,7 +116,7 @@ private:
     static int sighupFd[2];
     QSocketNotifier *snHup;
 #endif
-
+    QDateTime m_started;
 };
 
 #endif

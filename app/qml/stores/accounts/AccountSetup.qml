@@ -329,6 +329,7 @@ AppListener {
     Filter {
         type: WizardKeys.checkProviderForAccountType
         onDispatched: {
+            // TODO: ask about using imap instead for a pop3 account
             if (d.isPopAccount && d.emailProvider.hasImapConfiguration() && d.emailProvider.hasPopConfiguration()) {
                 Log.logInfo("AccountSetup::checkProviderForAccountType", "Asking if user would prefer to use imap")
                 WizardActions.askAboutImapInstead()
@@ -453,7 +454,13 @@ AppListener {
 
     Filter {
         type: WizardKeys.stickWithPop
-        onDispatched: WizardActions.wizardStepForward()
+        onDispatched: {
+            if (d.isPopAccount && d.emailProvider.hasPopConfiguration()) {
+                Log.logInfo("AccountSetup::checkProviderForAccountType", "Pop configuration found. Needs validating")
+                d.shouldValidate = true
+            }
+            WizardActions.wizardStepForward()
+        }
     }
 
     Filter {
