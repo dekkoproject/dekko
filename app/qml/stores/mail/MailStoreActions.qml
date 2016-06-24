@@ -20,6 +20,14 @@ import Ubuntu.Components 1.3
 import Dekko.Components 1.0
 import "../../actions/messaging"
 
+/*!
+*
+* MailStoreActions API
+*
+* MailStoreActions provided as a readonly property of the MailStore.
+*
+* @ingroup qml_stores
+*/
 QtObject {
 
     property Action selectAll: Action {

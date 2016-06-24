@@ -25,6 +25,14 @@ import "../../actions/wizard"
 import "../../actions/logging"
 import "../../views/utils/QtCoreAPI.js" as QtCoreAPI
 
+/*!
+*
+* AccountSetup API
+*
+* AccountSetup maintains the state and processes for setting up an account
+*
+* @ingroup qml_stores
+*/
 AppListener {
     id: accountSetup
 
@@ -37,12 +45,17 @@ AppListener {
     // new account accessor for the setupwizard
     property NewAccount account: newAccount.createObject(accountSetup)
 
-    // Properties regarding new account type
+    /** type:bool Is the NewAccount using a preset configuration */
     readonly property alias isPreset: d.isPresetAccount
+    /** type:bool Is this a new IMAP account */
     readonly property alias isImap: d.isImapAccount
+    /** type:bool Is this a new POP3 account */
     readonly property alias isPop3: d.isPopAccount
+    /** type:bool Does the NewAccount require validation */
     readonly property alias needsValidation: d.shouldValidate
+    /** type:string The description of the account. i.e IMAP/SMTP/Yahoo! etc */
     readonly property alias accountDescripion: d.accountDescripion
+    /** type:bool A provider configuration was found during the AutoDiscover process */
     readonly property alias hasProvider: d.hasProvider
 
     // New account object

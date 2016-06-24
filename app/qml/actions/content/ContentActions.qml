@@ -19,6 +19,9 @@ pragma Singleton
 import QtQuick 2.4
 import QuickFlux 1.0
 
+/*!
+* @ingroup qml_actions
+*/
 ActionCreator {
     signal importFromContentHub(var transfer)
     signal pickFile()

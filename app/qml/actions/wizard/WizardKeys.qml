@@ -19,6 +19,9 @@ pragma Singleton
 import QtQuick 2.4
 import QuickFlux 1.0
 
+/*!
+* @ingroup qml_actions
+*/
 KeyTable {
     // SetupWizard api
     property string wizardStepBack
@@ -70,4 +73,5 @@ KeyTable {
     property string applyServerConfig
     property string addAnotherAccount
     property string endSetup
+    property string removeNewAccount
 }

@@ -29,6 +29,10 @@ import QuickFlux 1.0
 // for how this works                                                                                               \\
 // Note: all dialogs must inherit from DialogBase.qml                                            \\
 //===============================================\\
+
+/*!
+* @ingroup qml_actions
+*/
 ActionCreator {
 
     signal showError(string error)

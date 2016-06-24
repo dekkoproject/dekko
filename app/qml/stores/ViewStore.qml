@@ -23,6 +23,14 @@ import "../actions/views"
 import "../actions/logging"
 import "./"
 
+/*!
+*
+* ViewStore API
+*
+* ViewStore maintains the state of the views for the whole application.
+*
+* @ingroup qml_stores
+*/
 AppListener {
     id: viewStore
 

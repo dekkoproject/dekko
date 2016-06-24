@@ -24,6 +24,8 @@
 #include <qmailtransport.h>
 #include <qmailnamespace.h>
 
+
+/** @ingroup group_accounts */
 struct AccountKeys {
     // Base properties
     static const QString name, email, password, server, port, encryption, acceptUntrustedCert;
@@ -35,6 +37,7 @@ struct AccountKeys {
     static const QString saslMechanism, username, authFromCaps, smtppassword;
 };
 
+/** @ingroup group_accounts */
 class AccountConfiguration : public QObject
 {
     Q_OBJECT
@@ -111,6 +114,7 @@ protected:
     QString m_serviceType;
 };
 
+/** @ingroup group_accounts */
 class ImapAccountConfiguration : public AccountConfiguration
 {
     Q_OBJECT
@@ -193,6 +197,7 @@ public slots:
     void setSearchLimit(const int &limit);
 };
 
+/** @ingroup group_accounts */
 class SmtpAccountConfiguration : public AccountConfiguration
 {
     Q_OBJECT
@@ -223,6 +228,7 @@ public slots:
 
 };
 
+/** @ingroup group_accounts */
 class PopAccountConfiguration : public AccountConfiguration
 {
     Q_OBJECT
@@ -259,6 +265,7 @@ public slots:
 
 };
 
+/** @ingroup group_accounts */
 class PasswordHelper : public QMailServiceConfiguration
 {
 public:

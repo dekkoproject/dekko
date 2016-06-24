@@ -1,4 +1,4 @@
-# Setting up your development environment
+# Setting up your development environment                         {#dev_setup}
 
 This section outlines the steps to get a working development environment for Dekko.
 

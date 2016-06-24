@@ -23,6 +23,14 @@ import "../../actions"
 import "../../actions/messaging"
 import "../../actions/logging"
 
+/*!
+*
+* MailStore API
+*
+* MailStore maintains the state and models for all the messages of each account.
+*
+* @ingroup qml_stores
+*/
 BaseMessagingStore {
     id: mailStore
 

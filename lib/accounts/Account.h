@@ -24,6 +24,7 @@
 #include <qmailaccountconfiguration.h>
 #include "AccountConfiguration.h"
 
+/** @ingroup group_accounts */
 class Account : public QObject
 {
     Q_OBJECT
@@ -146,6 +147,7 @@ protected:
 
 };
 
+/** @ingroup group_accounts */
 class NewAccount : public Account
 {
     Q_OBJECT

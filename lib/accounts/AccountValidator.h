@@ -24,6 +24,7 @@
 #include <qmailserviceaction.h>
 #include "Account.h"
 
+/** @ingroup group_accounts */
 class AccountValidator: public QObject
 {
     Q_OBJECT

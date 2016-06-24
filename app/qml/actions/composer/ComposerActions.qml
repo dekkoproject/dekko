@@ -19,6 +19,14 @@ pragma Singleton
 import QtQuick 2.4
 import QuickFlux 1.0
 
+/*!
+*
+* QML Composer action API
+*
+* API for interacting with the message composer from QML, via dispatched actions
+*
+* @ingroup qml_actions
+*/
 ActionCreator {
 
     signal resetComposer()

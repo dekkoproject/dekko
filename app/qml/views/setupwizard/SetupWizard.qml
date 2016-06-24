@@ -133,20 +133,29 @@ Item {
         AddAnotherState {
             id: addAnother
             nextTargetState: newAccountState
-            quitTargetState: quit
+            quitTargetState: finished
         }
 
+        // This state deletes the NewAccount object
+        // and removes it form the accounts store if it exists
+        // i.e we tried validating the account which requires
+        // we save it first so it has a valid entry in the db
+        // that needs clenaing up
         DSM.State {
             id: quit
-            // FIXME: Use dispatcher API!!!
             onEntered: {
-                WizardActions.wizardResetAccount()
-                rootPageStack.pop()
+
+
             }
         }
 
         DSM.FinalState {
             id: finished
+        }
+        onFinished: {
+            WizardActions.wizardResetAccount()
+            // FIXME: Use dispatcher API!!!
+            rootPageStack.pop()
         }
     }
 }

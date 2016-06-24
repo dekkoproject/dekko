@@ -1,4 +1,4 @@
-# Coding Style
+# Coding Style                         {#dev_codestyle}
 
 Note: Alot of the current source doesn't yet follow alot of this style guide. But going forward efforts will be made to bring the source inline. So please try to stick to this guide with new code additions
 

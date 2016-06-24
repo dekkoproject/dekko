@@ -148,7 +148,7 @@ file(GLOB_RECURSE DEKKO_GLOBAL_QML_FILES
     RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
     *.qml *.js qmldir
     icons/*svg
-    *.qdoc *.qdocconf
+    *.dox *.md
 )
 
 add_custom_target(DekkoGlobalQml ALL SOURCES ${DEKKO_GLOBAL_QML_FILES})

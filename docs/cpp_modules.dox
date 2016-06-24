@@ -1,0 +1,12 @@
+/**
+ * @defgroup group_main Dekko modules
+ * @brief All project modules
+ *
+ * @{
+ */
+
+/** @defgroup group_accounts Accounts library */
+/** @defgroup group_mail Mail library */
+/** @defgroup group_network Network library */
+
+/** @} */

@@ -18,7 +18,14 @@
 pragma Singleton
 import QtQuick 2.4
 import QuickFlux 1.0
-
+/*!
+*
+* QML Accounts API keys
+*
+* API keys for use with AppListener
+*
+* @ingroup qml_actions
+*/
 KeyTable {
 
 }

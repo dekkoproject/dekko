@@ -36,7 +36,7 @@ DekkoPage {
 
             Flickable {
                 anchors.fill: parent
-                contentHeight: ibxContainer.height + b.height + l.height + units.gu(7)
+                contentHeight: ibxContainer.height + b.height + b2.height + l.height + units.gu(7)
                 clip: true
 
                 Item {
@@ -58,13 +58,12 @@ DekkoPage {
                     CachedImage {
                         id: inbox
                         name: Icons.TickIcon
-                        height: units.gu(20)
+                        height: units.gu(15)
                         width: height
                         anchors {
                             bottom: parent.bottom
                             horizontalCenter: parent.horizontalCenter
                         }
-
                         color: UbuntuColors.silk
                         visible: false
                     }
@@ -87,7 +86,7 @@ DekkoPage {
                             horizontalCenter: parent.horizontalCenter
                         }
                         width: parent.width - units.gu(4)
-                        text: qsTr("Would you like to add another account?")
+                        text: qsTr("New account created.")
                         wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                         fontSize: "large"
                         horizontalAlignment: Text.AlignHCenter
@@ -96,25 +95,27 @@ DekkoPage {
 
                 Button {
                     id: b
-                    text: qsTr("Add another")
+                    text: qsTr("Continue")
                     color: UbuntuColors.green
                     anchors {
                         top: l.bottom
                         topMargin: units.gu(3)
                         horizontalCenter: parent.horizontalCenter
                     }
-                    onClicked: WizardActions.addAnotherAccount()
+                    width: units.gu(20)
+                    onClicked: WizardActions.endSetup()
                 }
                 Button {
                     id: b2
-                    text: qsTr("Not now")
-                    color: UbuntuColors.green
+                    text: qsTr("Add another")
+                    strokeColor: UbuntuColors.ash
+                    width: units.gu(20)
                     anchors {
                         top: b.bottom
-                        topMargin: units.gu(3)
+                        topMargin: Style.defaultSpacing
                         horizontalCenter: parent.horizontalCenter
                     }
-                    onClicked: WizardActions.endSetup()
+                    onClicked: WizardActions.addAnotherAccount()
                 }
             }
         }

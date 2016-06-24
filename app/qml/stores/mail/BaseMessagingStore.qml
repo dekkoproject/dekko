@@ -20,6 +20,14 @@ import QuickFlux 1.0
 import Dekko.Mail 1.0
 import "../../actions/messaging"
 
+/*!
+*
+* BaseMessagingStore
+*
+* BaseMessagingStore is the base component that all mail store components should derive from.
+*
+* @ingroup qml_stores
+*/
 AppListener {
     id: baseStore
     property bool hasUndoableActions: Client.service.hasUndoableAction

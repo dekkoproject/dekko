@@ -18,7 +18,16 @@
 pragma Singleton
 import QtQuick 2.4
 import QuickFlux 1.0
-
+/*!
+*
+* QML Accounts action API
+*
+* API for interacting with Dekko's accounts store from QML, via dispatched actions
+*
+* @ingroup qml_actions
+*/
 ActionCreator {
+
+    signal newAccount()
 
 }

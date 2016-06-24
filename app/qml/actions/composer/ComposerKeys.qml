@@ -19,6 +19,12 @@ pragma Singleton
 import QtQuick 2.4
 import QuickFlux 1.0
 
+/*!
+*
+* QML Composer API keys
+*
+* @ingroup qml_actions
+*/
 KeyTable {
 
     property string resetComposer

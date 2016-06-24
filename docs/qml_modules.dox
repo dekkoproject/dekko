@@ -1,0 +1,42 @@
+/**
+ * @defgroup cpp_modules Dekko QML API
+ * @brief All QML modules
+ *
+ * @{
+ */
+
+/**
+ * @defgroup qml_actions Actions API
+ * @brief Main API for dispatching events to the @ref qml_stores and backend services
+ */
+/**
+* @defgroup qml_stores Stores API
+* @brief The Store components are readonly and **only** support queries.
+*
+* Updates to the store can only be done via the @ref qml_actions
+*/
+/** @defgroup qml_constants Constants */
+/** 
+ * @defgroup qml_views Views
+ * @brief Components that make up the UI
+ *
+ * @{
+ */
+
+/** @defgroup qml_components Components */
+/** @defgroup qml_composer Composer */
+/** @defgroup qml_delegates Delegates */
+/** @defgroup qml_dialogs Dialogs */
+/** @defgroup qml_msgview MessageView */
+/** @defgroup qml_models Models */
+/** @defgroup qml_popovers Popovers */
+/** @defgroup qml_setupwizard SetupWizard */
+/** @defgroup qml_stages Stages */
+/** @defgroup qml_toasts Toasts */
+/** @defgroup qml_utils Utils */
+/** @defgroup qml_webview WebView */
+/** @defgroup qml_view Views */
+
+/** @} */
+
+/** @} */

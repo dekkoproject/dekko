@@ -1,4 +1,4 @@
-# Fixing a bug
+# Fixing a bug                         {#dev_bugs}
 
 In Dekko we track all work items through bugs & blueprints. I would suggest having a read of the [Launchpad help documents](https://help.launchpad.net) to get a good idea of how these work.
 
