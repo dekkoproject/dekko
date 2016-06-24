@@ -7,6 +7,18 @@ upload-wiki:
     - sshpass -e scp -oStrictHostKeyChecking=no -vr $PWD/docs/dev dekkoproject.org@ssh.dekkoproject.org:/www
   only:
     - master
+    
+upload-docs:
+  tags:
+    - armhf
+    - no-build
+    - trusty
+  script:
+    - doxygen Doxyfile
+    - mv ../doxygen-out ../docs
+    - sshpass -e scp -oStrictHostKeyChecking=no -vr $PWD/../docs dekkoproject.org@ssh.dekkoproject.org:/www
+  only:
+    - master
 
 dekko-master-click:armhf:
   tags:
