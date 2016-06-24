@@ -15,7 +15,7 @@ upload-docs:
     - trusty
   script:
     - doxygen Doxyfile
-    - mv ../doxygen-out ../docs
+    - mv ../doxygen-out/html ../docs
     - sshpass -e scp -oStrictHostKeyChecking=no -vr $PWD/../docs dekkoproject.org@ssh.dekkoproject.org:/www
   only:
     - master
