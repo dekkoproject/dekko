@@ -52,6 +52,8 @@ public:
     Filters filter() const;
     QObject *model() { return m_model; }
 
+    Q_INVOKABLE bool deleteAccount(const quint64 &id);
+
 signals:
     void filterChanged(Filters filter);
     void modelChanged();

@@ -61,6 +61,11 @@ Accounts::Filters Accounts::filter() const
     return m_filter;
 }
 
+bool Accounts::deleteAccount(const quint64 &id)
+{
+    return QMailStore::instance()->removeAccount(QMailAccountId(id));
+}
+
 void Accounts::setFilter(Accounts::Filters filter)
 {
     if (m_filter == filter)

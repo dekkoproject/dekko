@@ -144,8 +144,9 @@ Item {
         DSM.State {
             id: quit
             onEntered: {
-
-
+                WizardActions.removeNewAccount()
+                WizardActions.wizardResetAccount()
+                rootPageStack.pop()
             }
         }
 
