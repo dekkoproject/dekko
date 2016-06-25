@@ -36,6 +36,7 @@ DSM.State {
         } else {
             // we've come back to this state so reset the NewAccount in the store
             Log.logInfo("NewAccountState::onEntered", "Resetting account as user navigated back")
+            WizardActions.removeNewAccount()
             WizardActions.wizardResetAccount()
         }
     }

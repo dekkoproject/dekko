@@ -156,23 +156,78 @@ ActionCreator {
      * ```
      */
     signal wizardSetAccountPreset(var config)
+
+    /*!
+     * Look for the users server configuration via AutoDiscover.
+     */
     signal lookForServerDetails()
+
+    /*!
+     * Dispatch when AutoDiscover finds a server configuration
+     */
     signal serverDetailsFound()
+
+    /*!
+     * Dispatch when AutoDiscover fails to find a server configuration
+     */
     signal noServerDetailsFound()
+
+    /*!
+     * Checks the server configuration is usable for the selected account type
+     *
+     * We may end up in a situation where the user asked for IMAP but we only found a POP3 configuration
+     * Calling this will do a sanity check and dispatch a relevent action to present to the user if things don't add up.
+     */
     signal checkProviderForAccountType()
+    /*!
+     * Dispatched when the user has selected a POP3 account but we have a usable IMAp configuration
+     *
+     * We dispatch this because IMAP is far superior and the user maybe unaware their service provides IMAP
+     */
     signal askAboutImapInstead()
+
+    /*!
+     * Validate the users credentials
+     */
     signal validateCredentials()
+    /*!
+     * Iterate over server configurations and find one that works
+     */
     signal validateConfigToUse()
+
+    /*!
+     * Validate the user has provided enough info to proceed
+     */
     signal validateIfAccountHasEnoughCredentials()
+
+    /*!
+     * User needs to input details manually.
+     *
+     * Either AutoDiscover failed or there was an issue validating the account.
+     */
     signal requestManualInput()
+
+    /*!
+     * Show a dialog to the user about using IMAP instead
+     *
+     * This should be called as a result of receiving the askAboutImapInstead event
+     */
     signal showUseImapDialog()
+    /*!
+     * Use imap instead
+     */
     signal useImapInstead()
+    /*!
+     * Strick with pop
+     */
     signal stickWithPop()
+
+
     signal noValidConfigs()
     signal runAccountValidation()
+    signal syncNewAccount()
     signal accountSynced()
     signal accountSyncFailed()
-    signal syncNewAccount()
     signal validateServerConfiguration()
     signal validateServer(var config)
     signal serverConfigValid(string serviceType)

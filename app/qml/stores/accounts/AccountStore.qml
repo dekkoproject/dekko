@@ -22,6 +22,7 @@ import Dekko.Accounts 1.0
 import "../../actions"
 import "../../actions/accounts"
 import "../../actions/logging"
+import "../../actions/popups"
 
 AppListener {
     id: accountStore
@@ -37,5 +38,65 @@ AppListener {
     Accounts {
         id: sendAccounts
         filter: Accounts.CanSend
+    }
+
+    Filter {
+        type: AccountKeys.deleteAccount
+        onDispatched: {
+            d.__accountAboutToRemove = message.accountId
+            // It doesn't matter which we use here
+            if (message.confirmRemoval) {
+                Log.logInfo("AccountStore::deleteAccount", "Confirming account removal")
+                AccountActions.confirmRemoveAccount()
+            } else {
+                Log.logInfo("AccountStore::deleteAccount", "Doesn't need confirmation. Removing now")
+                AccountActions._confirmRemoval()
+            }
+        }
+    }
+
+    Filter {
+        type: AccountKeys.confirmRemoveAccount
+        onDispatched: {
+            Log.logWarning("AccountStore::confirmRemoveAccount", "Prompting to confirm account removal")
+            PopupActions.showConfirmationDialog(d.removeAccountDlgId, qsTr("Remove account"), qsTr("Are you sure you wish to remove this account?"))
+        }
+    }
+
+    Filter {
+        type: PopupKeys.confirmationDialogConfirmed
+        onDispatched: {
+            if (message.id !== d.removeAccountDlgId) {
+                return;
+            }
+            Log.logInfo("AccountStore::confirmationDialogConfirmed", "Confirmed account removal")
+            AccountActions._confirmRemoval()
+        }
+    }
+
+    Filter {
+        type: PopupKeys.confirmationDialogCancelled
+        onDispatched: {
+            if (message.id !== d.removeAccountDlgId) {
+                return
+            }
+            Log.logInfo("AccountStore::confirmationFialogCancelled", "Cancelling account removal")
+            d.__accountAboutToRemove = -1
+        }
+    }
+
+    Filter {
+        type: AccountKeys._confirmRemoval
+        onDispatched: {
+            Log.logInfo("AccountStore::_confirmRemoval", "Let's delete it \o/")
+            recieveAccounts.deleteAccount(d.__accountAboutToRemove)
+            d.__accountAboutToRemove = -1
+        }
+    }
+
+    QtObject {
+        id: d
+        property string removeAccountDlgId: "remove-account-dlg"
+        property int __accountAboutToRemove: -1
     }
 }

@@ -36,6 +36,7 @@ class Account : public QObject
     Q_PROPERTY(QObject *incoming READ incoming NOTIFY accountChanged)
     Q_PROPERTY(QObject *outgoing READ outgoing NOTIFY accountChanged)
     Q_PROPERTY(bool enabled READ enabled NOTIFY accountChanged)
+    Q_PROPERTY(bool isValid READ isValid CONSTANT)
 
     Q_ENUMS(SpecialUseFolder)
     Q_ENUMS(Error)
@@ -115,6 +116,8 @@ public:
     void emitAccountChanged() {
         emit accountChanged(id());
     }
+
+    bool isValid() const { return m_account->id().isValid(); }
 
 signals:
     void accountChanged(const int &id);

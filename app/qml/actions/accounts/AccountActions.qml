@@ -28,6 +28,12 @@ import QuickFlux 1.0
 */
 ActionCreator {
 
-    signal newAccount()
+    /*!
+     * Deletes the complete account removing all messages and configs
+     * @param int The accounts ID
+     * @param bool Whether we should prompt for removal of the account.
+     */
+    signal deleteAccount(int accountId, bool confirmRemoval)
+    signal _confirmRemoval()
 
 }

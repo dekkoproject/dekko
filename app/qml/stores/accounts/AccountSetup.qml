@@ -21,6 +21,7 @@ import QuickFlux 1.0
 import Dekko.Accounts 1.0
 import Dekko.AutoConfig 1.0
 import Dekko.Mail 1.0
+import "../../actions/accounts"
 import "../../actions/wizard"
 import "../../actions/logging"
 import "../../views/utils/QtCoreAPI.js" as QtCoreAPI
@@ -122,6 +123,16 @@ AppListener {
     Filter {
         type: WizardKeys.endSetup
         onDispatched: accountSetup.quit()
+    }
+
+    Filter {
+        type: WizardKeys.removeNewAccount
+        onDispatched: {
+            Log.logInfo("AccountSetup::removeNewAccount", "Attempting account removal")
+            // We don't need to confirm removal here
+            AccountActions.deleteAccount(account.id, false)
+            WizardActions.wizardResetAccount()
+        }
     }
 
     Filter {
