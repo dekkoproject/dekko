@@ -17,6 +17,7 @@ upload-docs:
     - doxygen Doxyfile
     - mv ../doxygen-out/html ../doxygen-out/docs
     - sshpass -e scp -oStrictHostKeyChecking=no -vr $PWD/../doxygen-out/docs dekkoproject.org@ssh.dekkoproject.org:/www
+    - rm -rf ../doxygen-out
   only:
     - master
 
