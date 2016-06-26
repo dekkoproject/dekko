@@ -29,6 +29,7 @@ PixelPerfectItem {
     property double defaultHeight: units.gu(8)
     property bool locked: false
     property Action activeAction: null
+    property int triggerIndex: -1
     property var activeItem: null
     property bool triggerActionOnMouseRelease: false
     property color selectedColor: "#E6E6E6"
@@ -398,7 +399,11 @@ PixelPerfectItem {
             } else if (main.x > 0) {
                 var action = getActionAt(Qt.point(mouse.x, mouse.y))
                 if (action && action !== -1) {
-                    action.triggered(root)
+                    if (triggerIndex > -1) {
+                        action.triggered(triggerIndex)
+                    } else {
+                        action.triggered(root)
+                    }
                 }
             } else {
                 var actionIndex = getActionAt(Qt.point(mouse.x, mouse.y))

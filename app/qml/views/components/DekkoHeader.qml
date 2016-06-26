@@ -273,7 +273,9 @@ PixelPerfectItem {
                     top: parent.top
                     bottom: parent.bottom
                 }
-                implicitWidth: units.gu(4)
+                width: units.gu(4)
+                implicitWidth: width
+                implicitHeight: height
                 visible: !dekko.viewState.isSmallFF && composeButtonEnabled
                 action: Action {
                     iconName: "list-add"
@@ -286,7 +288,9 @@ PixelPerfectItem {
                     top: parent.top
                     bottom: parent.bottom
                 }
-                implicitWidth: units.gu(4)
+                width: units.gu(4)
+                implicitWidth: width
+                implicitHeight: height
                 visible: action ? action.visible : false
                 action: enableSearching ? searchAction : primaryAction
             }
@@ -296,6 +300,9 @@ PixelPerfectItem {
                     top: parent.top
                     bottom: parent.bottom
                 }
+                width: units.gu(4)
+                implicitWidth: width
+                implicitHeight: height
                 visible: secondaryActions[0] ? secondaryActions[0].visible : false
                 action: secondaryActions.length > 1 ? drawerAction : secondaryActions.length === 1 ? secondaryActions[0] : null
             }

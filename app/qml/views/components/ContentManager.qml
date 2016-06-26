@@ -29,6 +29,23 @@ AppListener {
 
     property string pickerUrl: ""
 
+
+
+    Connections {
+        target: ContentHub
+        onImportRequested: {
+            Log.logStatus("[ContentHub::importRequested]", "import requested, running import...")
+            ContentActions.importFromContentHub(transfer)
+        }
+        onShareRequested: {
+            Log.logStatus("[ContentHub::shareRequested]", "share requested. importing share")
+            ContentActions.importFromContentHub(transfer)
+        }
+        onExportRequested: {
+            Log.logStatus("ContentHub::exportRequested",  "NotImplementedYet")
+        }
+    }
+
     AppScript {
         runWhen: ContentKeys.pickFile
         script: {
@@ -37,15 +54,15 @@ AppListener {
             // or Qt's own FileDialog for non unity8 platforms
             ContentActions.openFilePicker()
             // Listen on selected files and add them to the composer
-            once(ContentKeys.filesSelected, function(files) {
-                console.log("FILES: ", files)
-                for (var i in files) {
+            once(ContentKeys.filesSelected, function(message) {
+                console.log("FILES: ", message.files)
+                var files = message.files
+                for (var i in message.files) {
                     if (isRunningOnMir) {
                         ComposerActions.addFileAttachment(files[i].url)
                     } else {
-                        console.log("File: ", files[i])
-                        var file = files[i]
-                        console.log("SubFile: ", file[i])
+                        console.log("File: ", message.files[i])
+                        var file = message.files[i]
                         ComposerActions.addFileAttachment(file.toString().replace("file://", ""))
                     }
                 }
@@ -62,50 +79,23 @@ AppListener {
             if (isRunningOnMir) {
                 //TODO: popup content hub
             } else {
-//                var c = Qt.createComponent("qrc:/qml/views/dialogs/FileDialog.qml")
-                var filePicker = pick.createObject(dekko)
-                filePicker.show()
+                var c = Qt.createComponent("qrc:/qml/views/dialogs/FilePickerDialog.qml")
+                var filePicker = c.createObject(dekko)
                 filePicker.accepted.connect(function(){
-                    ContentActions.filesSelected(filePicker.fileUrls)
+                    var files = new Array()
+                    for (var i in filePicker.fileUrls) {
+                        Log.logInfo("ContentManager::filesPicked", "File selected: %1".arg(filePicker.fileUrls[i]))
+                        files.push(filePicker.fileUrls[i])
+                    }
+                    ContentActions.filesSelected(files)
                     filePicker.close()
                     filePicker.destroy()
                 })
                 filePicker.rejected.connect(function() {
+                    Log.logInfo("ContentManager::filePickerRejected", "No attachments selected")
                     ContentActions.pickerClosed()
                 })
             }
-        }
-    }
-
-    Component {
-        id: pick
-        FileDialog {
-            visible: true
-//            id: addAttachmentsDialog
-//            title: qsTr("Select files")
-//            folder: shortcuts.home
-//            onRejected: {
-//                console.log("Canceled adding attachments")
-//                close()
-//                destroy()
-//            }
-//            selectMultiple: true
-//            Component.onCompleted: open()
-        }
-    }
-
-    Connections {
-        target: ContentHub
-        onImportRequested: {
-            Log.logStatus("[ContentHub::importRequested]", "import requested, running import...")
-            ContentActions.importFromContentHub(transfer)
-        }
-        onShareRequested: {
-            Log.logStatus("[ContentHub::shareRequested]", "share requested. importing share")
-            ContentActions.importFromContentHub(transfer)
-        }
-        onExportRequested: {
-            Log.logStatus("ContentHub::exportRequested",  "NotImplementedYet")
         }
     }
 

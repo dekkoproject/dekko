@@ -45,10 +45,18 @@ QtObject {
     }
 
     property Action attachmentsAction: Action {
-        text: ""
+        text: qsTr("Attach")
         iconName: Icons.AttachmentIcon
         iconSource: Paths.actionIconUrl(Icons.AttachmentIcon)
         onTriggered: ContentActions.pickFile()
+    }
+
+    property Action deleteAttachment: Action {
+        iconName: "delete"
+        parameterType: Action.Integer
+        onTriggered: {
+            ComposerActions.removeAttachment(value)
+        }
     }
 }
 

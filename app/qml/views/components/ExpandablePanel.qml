@@ -1,38 +1,20 @@
-/* Copyright (C) 2016 Dan Chapman <dpniel@ubuntu.com>
-
-   This file is part of Dekko email client for Ubuntu devices
-
-   This program is free software; you can redistribute it and/or
-   modify it under the terms of the GNU General Public License as
-   published by the Free Software Foundation; either version 2 of
-   the License or (at your option) version 3
-
-   This program is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License
-   along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Dekko.Components 1.0
 import "../../constants"
-import "../delegates"
-import "../../actions/logging"
 
 Rectangle {
-    id: attachmentPanel
-
-    property var attachments
+    id: expandingPanel
+    default property alias content: content.data
+    property alias iconName: ai.name
+    property alias text: l.text
+    property alias countText: countLable.text
     property int maxHeight
     readonly property int expandedHeight: internalHeight > maxHeight ? maxHeight : internalHeight
-    readonly property int internalHeight: header.height + col.height
-    readonly property int collapsedHeight: attachmentPanel.visible ? header.height : 0
+    readonly property int internalHeight: header.height + content.height
+    readonly property int collapsedHeight: expandingPanel.visible ? header.height : 0
     readonly property bool expanded: state === "expanded"
     color: "#ffffff"
-    visible: attachments.model.count
 
     MouseArea {
         anchors.fill: parent
@@ -40,6 +22,7 @@ Rectangle {
         onClicked: mouse.accepted = true
         onWheel: wheel.accepted = true
     }
+
     Line {
         anchors {
             left: parent.left
@@ -60,7 +43,6 @@ Rectangle {
 
         CachedImage {
             id: ai
-            name: Icons.AttachmentIcon
             height: Style.defaultIconSize
             width: height
             anchors {
@@ -87,6 +69,7 @@ Rectangle {
                 leftMargin: Style.smallSpacing
                 verticalCenter: parent.verticalCenter
             }
+            visible: countLable.text
 
             aspect: UbuntuShape.Flat
             color: UbuntuColors.porcelain
@@ -97,7 +80,6 @@ Rectangle {
                 anchors.margins: units.gu(0.5)
                 anchors.centerIn: parent
                 fontSize: "small"
-                text: attachments.model.count
             }
         }
 
@@ -110,9 +92,9 @@ Rectangle {
                 verticalCenter: parent.verticalCenter
             }
             color: UbuntuColors.ash
-            rotation: attachmentPanel.expanded ? 180 : 0
+            rotation: expandingPanel.expanded ? 180 : 0
             height: Style.defaultSpacing; width: height
-            state: attachmentPanel.expanded ? "rotated" : "normal"
+            state: expandingPanel.expanded ? "rotated" : "normal"
             states: [
                 State {
                     name: "rotated"
@@ -131,7 +113,6 @@ Rectangle {
             }
         }
     }
-
     ScrollView {
         anchors {
             left: parent.left
@@ -141,23 +122,18 @@ Rectangle {
         }
         Flickable {
             anchors.fill: parent
-            contentHeight: col.height
+            contentHeight: content.height
             clip: true
             Column {
-                id: col
+                id: content
                 anchors {
                     left: parent.left
                     top: parent.top
                     right: parent.right
                 }
-                Repeater {
-                    model: attachments ? attachments.model : 0
-                    delegate:  AttachmentDelegate{}
-                }
             }
         }
     }
-
     QtObject {
         id: d
         property bool isExpanded: false
@@ -172,17 +148,16 @@ Rectangle {
         State {
             name: "collapsed"
             PropertyChanges {
-                target: attachmentPanel
+                target: expandingPanel
                 height: collapsedHeight
             }
         },
         State {
             name: "expanded"
             PropertyChanges {
-                target: attachmentPanel
+                target: expandingPanel
                 height: expandedHeight
             }
         }
     ]
 }
-

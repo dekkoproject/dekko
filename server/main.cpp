@@ -66,7 +66,7 @@ static void shutdown(int n)
 
 static void recreateLoggers(int n)
 {
-    qMailLoggersRecreate("QtProject", "Messageserver", "Msgsrv");
+    qMailLoggersRecreate("dekko.dekkoproject", "dekkod", "Msgsrv");
     qMailLog(Messaging) << "Received signal" << n << ", logs recreated.";
 }
 #endif
@@ -80,8 +80,8 @@ Q_DECL_EXPORT int main(int argc, char** argv)
     QCoreApplication app(argc, argv);
 #endif
 
-    // This is ~/.config/QtProject/Messageserver.conf
-    qMailLoggersRecreate("QtProject", "Messageserver", "Msgsrv");
+    // This is ~/.config/dekko.dekkoproject/dekkod.conf
+    qMailLoggersRecreate("dekko.dekkoproject", "dekkod", "Msgsrv");
 
     if(QMail::fileLock("messageserver-instance.lock") == -1)
         qFatal("Could not get messageserver lock. Messageserver might already be running!");

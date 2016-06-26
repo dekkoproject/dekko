@@ -68,7 +68,7 @@ PopupBase {
                     anchors.fill: parent
                     anchors.leftMargin: units.gu(1)
                     anchors.rightMargin: units.gu(1)
-                    spacing: units.gu(0.5)
+                    spacing: units.gu(1)
                     TitledHeaderButton {
                         height: units.gu(5)
                         anchors.verticalCenter: parent.verticalCenter
@@ -110,11 +110,20 @@ PopupBase {
                     anchors.fill: parent
                     color: "#FFFFFF"
                 }
-
-                MessageComposer {
+                StretchRow {
                     anchors.fill: parent
+                    spacing: 0
+
+                    Stretcher {
+                        implicitHeight: parent.height
+                        MessageComposer {
+                            anchors.fill: parent
+                        }
+                    }
+                    ComposeSidePanel {}
                 }
             }
+
             Item {
                 id: statusBar
                 height: units.gu(3)

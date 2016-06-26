@@ -19,7 +19,6 @@
         <file>mail-reply.svg</file>
         <file>mail-unread.svg</file>
         <file>navigation-menu.svg</file>
-        <file>new-contact.svg</file>
         <file>select-none.svg</file>
         <file>select.svg</file>
         <file>sent.svg</file>
@@ -49,5 +48,6 @@
         <file>share.svg</file>
         <file>webbrowser-app-symbolic.svg</file>
         <file>account.svg</file>
+        <file>contact-new.svg</file>
     </qresource>
 </RCC>

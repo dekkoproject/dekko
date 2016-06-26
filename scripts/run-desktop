@@ -90,6 +90,9 @@ if [ "$SETUP" = true ]; then
     bzr \
     cmake \
     libqt5svg5-dev \
+    qml-module-qtquick-dialogs \
+    ninja-build \
+    libsignon-qt5-dev \
     --no-install-recommends
   exit 0
 fi
