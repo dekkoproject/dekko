@@ -42,6 +42,7 @@ ScrollView {
             height: aLayout.implicitHeight
             width: parent.width
             showDivider: true
+            triggerIndex: model.index
             leftSideAction: ComposerStore.actions.deleteAttachment
 //            rightSideActions: [flagAction, readAction, contextAction]
             onItemClicked: {

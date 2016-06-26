@@ -38,6 +38,7 @@ AppListener {
     readonly property QtObject identity: priv_identity
     readonly property QtObject recipients: priv_recipients
     readonly property QtObject attachments: builder.attachments
+    readonly property QtObject __builder: builder
 
     property ComposerStoreActions actions: ComposerStoreActions{}
 

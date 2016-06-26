@@ -35,5 +35,6 @@
         <file>EncryptionSelector.qml</file>
         <file>AuthenticationSelector.qml</file>
         <file>LabeledSwitch.qml</file>
+        <file>ExpandablePanel.qml</file>
     </qresource>
 </RCC>

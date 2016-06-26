@@ -53,8 +53,9 @@ QtObject {
 
     property Action deleteAttachment: Action {
         iconName: "delete"
+        parameterType: Action.Integer
         onTriggered: {
-            ComposerActions.removeAttachment(model.index)
+            ComposerActions.removeAttachment(value)
         }
     }
 }
