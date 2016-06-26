@@ -2,6 +2,7 @@ find_package(Qt5Core 5.4 REQUIRED)
 find_package(Qt5Quick 5.4 REQUIRED)
 find_package(Qt5Qml 5.4 REQUIRED)
 find_package(Qt5Gui 5.4 REQUIRED)
+find_package(Qt5Widgets 5.4 REQUIRED)
 
 file(GLOB_RECURSE DEKKO_QML_FILES
     RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
@@ -26,7 +27,12 @@ set(DEKKO_QML_RESOURCE
     ${CMAKE_CURRENT_SOURCE_DIR}/qml/views/composer/dekkocomposer.qrc
     ${CMAKE_CURRENT_SOURCE_DIR}/qml/views/toasts/dekkotoasts.qrc
 )
-set(DEKKO_ICON_RESOURCE ${CMAKE_CURRENT_SOURCE_DIR}/icons/actions/actionicons.qrc)
+
+set(DEKKO_ICON_RESOURCE
+    ${CMAKE_CURRENT_SOURCE_DIR}/icons/actions/actionicons.qrc
+    ${CMAKE_CURRENT_SOURCE_DIR}/icons/filetypes/filetypeicons.qrc
+)
+
 set(DEKKO_PROVIDERS_RESOURCE ${CMAKE_CURRENT_SOURCE_DIR}/icons/providers/providericons.qrc)
 
 add_custom_target(DekkoQml ALL SOURCES ${DEKKO_QML_FILES})
@@ -61,7 +67,7 @@ if(ENABLE_QML_DEBUG)
 endif()
 
 add_executable(dekko ${DEKKO_SOURCES} ${DEKKO_RESOURCES})
-qt5_use_modules(dekko Gui Core Quick Qml)
+qt5_use_modules(dekko Gui Core Quick Qml Widgets)
 target_link_libraries(dekko qmfclient5 qmfmessageserver5 network)
 
 install(TARGETS dekko DESTINATION ${BIN_DIR})

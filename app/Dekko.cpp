@@ -33,15 +33,15 @@
 #define LARGE_FF_WIDTH 1100
 
 Dekko::Dekko(int &argc, char **argv) :
-    QGuiApplication(argc, argv), m_server(0), m_view(0), devMode(false), m_verboseLogging(false)
+    QApplication(argc, argv), m_server(0), m_view(0), devMode(false), m_verboseLogging(false)
 {
-    if (CLICK_MODE) {
-        setOrganizationName(QStringLiteral("dekko.dekkoproject"));
-        setApplicationName(QStringLiteral("dekko.dekkoproject"));
-    } else {
-        setOrganizationName(QStringLiteral("dekkoproject"));
-        setApplicationName(QStringLiteral("dekko"));
-    }
+#ifdef CLICK_MODE
+        QCoreApplication::setOrganizationName(QStringLiteral("dekko.dekkoproject"));
+        QCoreApplication::setApplicationName(QStringLiteral("dekko.dekkoproject"));
+ #else
+        QCoreApplication::setOrganizationName(QStringLiteral("dekkoproject"));
+        QCoreApplication::setApplicationName(QStringLiteral("dekko"));
+#endif
     // Uncomment to dump out the resource files
     // Useful to be able to check a resource has been included
 //    QDirIterator it(":", QDirIterator::Subdirectories);

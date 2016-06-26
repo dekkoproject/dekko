@@ -108,6 +108,7 @@ Attachment::Attachment(QObject *parent, const QString &attachment, const Attachm
         }
         m_part = QMailMessagePart::fromFile(filePath, d, type, encoding, encodingStatus);
         m_filePath = filePath;
+        m_url = m_filePath;
         break;
     }
     emit attachmentChanged();

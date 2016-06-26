@@ -5,5 +5,6 @@
         <file>NoticePopup.qml</file>
         <file>RecipientPopover.qml</file>
         <file>MessageDetailsPopover.qml</file>
+        <file>AttachmentPopover.qml</file>
     </qresource>
 </RCC>

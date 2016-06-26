@@ -9,5 +9,7 @@
         <file>SubjectField.qml</file>
         <file>SenderIdentityField.qml</file>
         <file>MessageField.qml</file>
+        <file>ComposeSidePanel.qml</file>
+        <file>AttachmentList.qml</file>
     </qresource>
 </RCC>

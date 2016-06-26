@@ -19,7 +19,8 @@
 #define DEKKO_H
 
 #include <QObject>
-#include <QGuiApplication>
+//#include <QGuiApplication>
+#include <QApplication>
 #include <QPointer>
 #include <QProcess>
 #include <QtQuick/QQuickView>
@@ -27,7 +28,7 @@
 #include <MsgPartQNAMFactory.h>
 #include <QCommandLineParser>
 
-class Dekko : public QGuiApplication
+class Dekko : public QApplication
 {
     Q_OBJECT
 public:

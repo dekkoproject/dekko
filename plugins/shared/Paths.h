@@ -98,6 +98,8 @@ public:
     Q_INVOKABLE QString standardHomeLocation() {
         return Paths::homeLocation();
     }
+    Q_INVOKABLE QString mimeIconForUrl(const QString &url);
+    Q_INVOKABLE QString mimeIconForMimeType(const QString &mimeType);
 
     QString cachePath() const;
     QString configPath() const;
@@ -120,6 +122,21 @@ public slots:
 
 private:
     QString findUserScript(const QString &scriptName);
+
+    class MimeTypeCache {
+    public:
+        explicit MimeTypeCache(void);
+
+        void mapIconToMimeType(const QString &mimeType, const QString &icon);
+        QString getIconForMimeType(const QString &type);
+        QMimeType getMimeTypeForFile(const QString &path);
+        QMimeType getMimeTypeForName(const QString &name);
+
+    private:
+        QMimeDatabase mimeDb;
+        QHash<QString, QString> iconForMimetype;
+    };
+    static MimeTypeCache s_mimeCache;
 };
 
 #endif // PATHS_H

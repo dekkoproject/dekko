@@ -34,8 +34,10 @@ AppListener {
     readonly property bool showBCC: d.bccVisible
     readonly property bool sendInProgress: d.sendInProgress
     readonly property bool hasValidIdentity: d.identitiesValid
+    readonly property bool sidePanelOpen: builder.attachments.count || d.openContacts
     readonly property QtObject identity: priv_identity
     readonly property QtObject recipients: priv_recipients
+    readonly property QtObject attachments: builder.attachments
 
     property ComposerStoreActions actions: ComposerStoreActions{}
 
@@ -104,6 +106,7 @@ AppListener {
         property bool ccVisible: false
         property bool bccVisible: false
         property bool identitiesValid: identities.selectedIndex >= 0
+        property bool openContacts: false
         property Timer delayDiscard: Timer {
             interval: 10
             onTriggered: ComposerActions.discardMessage()
@@ -287,6 +290,7 @@ AppListener {
     Filter {
         type: ComposerKeys.removeAttachment
         onDispatched: {
+            Log.logInfo("ComposerStore::removeAttachment", "Removing attachment at index: %1".arg(message.index))
             builder.removeAttachment(message.index)
         }
     }

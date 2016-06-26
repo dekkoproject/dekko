@@ -19,6 +19,7 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Dekko.Components 1.0
 import "../../constants"
+import "../delegates"
 import "../../actions/logging"
 
 Rectangle {
@@ -151,54 +152,7 @@ Rectangle {
                 }
                 Repeater {
                     model: attachments ? attachments.model : 0
-                    delegate: ListItem {
-                        property Component openItem: Item{}
-                        property var attachment: model.qtObject
-                        height: aLayout.height
-
-                        Connections {
-                            target: model.qtObject
-                            onReadyToOpen: {
-                                Qt.openUrlExternally(url)
-                            }
-                        }
-                        onClicked: {
-                            Log.logInfo("AttachmentPanel::openAttachment", "Attachment octet size is: %1".arg(model.qtObject.sizeInBytes))
-                            // This really is a crude hack
-                            // the attachments object can't directly
-                            // access the custom qnam factory. So we pass
-                            // it a QObject from the qml context which
-                            // the attachment object can access the QQmlEngine from
-                            // FIXME: Refactor Client* classes into seperate lib
-                            model.qtObject.open(openItem.createObject())
-                        }
-                        ListItemLayout {
-                            id: aLayout
-                            height: units.gu(6)
-                            title.text: attachment.displayName
-                            subtitle.text: attachment.mimeType + ", " + attachment.size
-                            Icon {
-                                name: attachment.mimeTypeIcon
-                                color: "#888888"
-                                height: Style.largeSpacing; width: height
-                                SlotsLayout.position: SlotsLayout.Leading
-                            }
-                            ActivityIndicator {
-                                visible: running
-                                running: attachment.fetchInProgress
-                            }
-
-                            CachedImage {
-                                height: Style.defaultSpacing
-                                width: height
-                                name: Icons.ContextMenuIcon
-                                AbstractButton {
-                                    anchors.fill: parent
-                                    onClicked: PopupActions.showNotice("Not implemented. Fix before release")
-                                }
-                            }
-                        }
-                    }
+                    delegate:  AttachmentDelegate{}
                 }
             }
         }

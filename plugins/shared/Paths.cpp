@@ -91,7 +91,7 @@ QString Paths::iconUrl(const Paths::ActionIcon icon, bool prefix)
         iconName = QStringLiteral("navigation-menu.svg");
         break;
     case NewContactIcon:
-        iconName = QStringLiteral("new-contact.svg");
+        iconName = QStringLiteral("contact-new.svg");
         break;
     case UnStarredIcon:
         iconName = QStringLiteral("non-starred.svg");
@@ -194,6 +194,38 @@ QString Paths::userscript(const Paths::UserScript script)
     return QString();
 }
 
+QString Paths::mimeIconForUrl(const QString &url)
+{
+    static const QString defaultIcon = QStringLiteral("file");
+    QString ret;
+    const QString path = QUrl(url).toLocalFile();
+    const QFileInfo info(path);
+    if (info.exists()) {
+        const QMimeType type = s_mimeCache.getMimeTypeForFile(path);
+        ret = s_mimeCache.getIconForMimeType(type.name());
+        if (ret.isEmpty()) {
+            ret = defaultIcon;
+        }
+    } else {
+        ret = defaultIcon;
+    }
+    return QStringLiteral("qrc:///mimetypes/%1.svg").arg(ret);
+}
+
+QString Paths::mimeIconForMimeType(const QString &mimeType)
+{
+    qDebug() << "Getting icon for mime type: " << mimeType;
+    QString ret;
+    const QMimeType type = s_mimeCache.getMimeTypeForName(mimeType);
+    qDebug() << "TYPENAME: " << type.name();
+    ret = s_mimeCache.getIconForMimeType(type.name());
+    if (ret.isEmpty()) {
+        ret = QStringLiteral("file");
+    }
+    qDebug() << "ICON NAME: " << ret;
+    return QStringLiteral("qrc:///mimetypes/%1.svg").arg(ret);
+}
+
 QString Paths::cachePath() const
 {
     return Paths::standardCacheLocation();
@@ -280,16 +312,16 @@ QString Paths::findProviderFile()
     QString configFile;
     // TODO: make this configurable
     const QString filePath = QStringLiteral("configuration/serviceProviders.conf");
-//    QStringList paths = QStandardPaths::standardLocations(QStandardPaths::DataLocation);
-//    paths.prepend(QDir::currentPath());
-//    paths.prepend(QCoreApplication::applicationDirPath());
-//    Q_FOREACH (const QString &path, paths) {
-//        QString myPath = path + QLatin1Char('/') + filePath;
-//        if (QFile::exists(myPath)) {
-//            configFile = myPath;
-//            break;
-//        }
-//    }
+    //    QStringList paths = QStandardPaths::standardLocations(QStandardPaths::DataLocation);
+    //    paths.prepend(QDir::currentPath());
+    //    paths.prepend(QCoreApplication::applicationDirPath());
+    //    Q_FOREACH (const QString &path, paths) {
+    //        QString myPath = path + QLatin1Char('/') + filePath;
+    //        if (QFile::exists(myPath)) {
+    //            configFile = myPath;
+    //            break;
+    //        }
+    //    }
     if (configFile.isEmpty()) {
         QString desktopFile = QDir(QCoreApplication::applicationDirPath()).absoluteFilePath(QStringLiteral("../../../dekko.desktop"));
         if (QFile::exists(desktopFile)) {
@@ -352,4 +384,108 @@ QString Paths::findUserScript(const QString &scriptName)
         qFatal("Userscript: %s does not exist at any of the standard paths!", qPrintable(scriptName));
     }
     return QStringLiteral("file://%1").arg(script);
+}
+
+Paths::MimeTypeCache Paths::s_mimeCache;
+
+Paths::MimeTypeCache::MimeTypeCache()
+{
+    iconForMimetype.reserve(100);
+    mapIconToMimeType("image/png", "image");
+    mapIconToMimeType("image/jpeg", "image");
+    mapIconToMimeType("image/gif", "image");
+
+    mapIconToMimeType("image/svg", "drawing");
+    mapIconToMimeType("image/svg+xml", "drawing");
+    mapIconToMimeType("application/vnd.oasis.opendocument.graphics", "drawing");
+
+    mapIconToMimeType("audio/mpeg", "sound");
+    mapIconToMimeType("audio/x-wav", "sound");
+    mapIconToMimeType("audio/midi", "sound");
+
+    mapIconToMimeType("video/mp4", "video");
+
+    mapIconToMimeType("text/x-csrc", "code");
+    mapIconToMimeType("text/x-chdr", "code");
+    mapIconToMimeType("text/x-c++src", "code");
+    mapIconToMimeType("text/x-c++hdr", "code");
+    mapIconToMimeType("text/x-qml", "code");
+    mapIconToMimeType("text/x-java", "code");
+    mapIconToMimeType("text/css", "code");
+    mapIconToMimeType("application/javascript", "code");
+    mapIconToMimeType("text/x-diff", "code");
+    mapIconToMimeType("text/x-patch", "code");
+
+    mapIconToMimeType("application/xml", "xml");
+
+    mapIconToMimeType("application/x-shellscript", "script");
+    mapIconToMimeType("application/x-perl", "script");
+
+    mapIconToMimeType("application/x-object", "binary");
+    mapIconToMimeType("application/octet-stream", "binary");
+
+    mapIconToMimeType("application/x-cd-image", "disk-image");
+
+    mapIconToMimeType("application/zip", "archive");
+    mapIconToMimeType("application/x-xz-compressed-tar", "archive");
+    mapIconToMimeType("application/x-compressed-tar", "archive");
+    mapIconToMimeType("application/x-rar", "archive");
+    mapIconToMimeType("application/x-rpm", "archive");
+    mapIconToMimeType("application/gzip", "archive");
+    mapIconToMimeType("application/vnd.debian.binary-package", "archive");
+    mapIconToMimeType("application/vnd.android.package-archive", "archive");
+    mapIconToMimeType("application/x-7z-compressed", "archive");
+    mapIconToMimeType("application/x-bzip-compressed-tar", "archive");
+
+    mapIconToMimeType("text/x-makefile", "text");
+    mapIconToMimeType("text/x-log", "text");
+    mapIconToMimeType("text/x-theme", "text");
+    mapIconToMimeType("text/csv", "text");
+    mapIconToMimeType("text/plain", "text");
+    mapIconToMimeType("text/vcard", "text");
+    mapIconToMimeType("text/markdown", "text");
+    mapIconToMimeType("application/json", "text");
+
+    mapIconToMimeType("application/pdf", "pdf");
+
+    mapIconToMimeType("application/vnd.oasis.opendocument.text", "document");
+    mapIconToMimeType("application/vnd.openxmlformats-officedocument.wordprocessingml.document", "document");
+    mapIconToMimeType("application/msword", "document");
+
+    mapIconToMimeType("application/vnd.oasis.opendocument.spreadsheet", "spreadsheet");
+    mapIconToMimeType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "spreadsheet");
+    mapIconToMimeType("application/vnd.ms-excel", "spreadsheet");
+    mapIconToMimeType("application/ms-excel", "spreadsheet");
+
+    mapIconToMimeType("application/vnd.oasis.opendocument.presentation", "slideshow");
+    mapIconToMimeType("application/vnd.openxmlformats-officedocument.presentationml.presentation", "slideshow");
+    mapIconToMimeType("application/vnd.ms-powerpoint", "slideshow");
+
+    mapIconToMimeType("text/html", "webpage");
+
+    mapIconToMimeType("application/sql", "database");
+    mapIconToMimeType("application/x-sqlite3", "database");
+
+    mapIconToMimeType("application/x-executable", "executable");
+    mapIconToMimeType("application/x-ms-dos-executable", "executable");
+}
+
+void Paths::MimeTypeCache::mapIconToMimeType(const QString &mimeType, const QString &icon)
+{
+    iconForMimetype.insert(mimeType, icon);
+}
+
+QString Paths::MimeTypeCache::getIconForMimeType(const QString &type)
+{
+    return iconForMimetype.value(type);
+}
+
+QMimeType Paths::MimeTypeCache::getMimeTypeForFile(const QString &path)
+{
+    return mimeDb.mimeTypeForFile(path);
+}
+
+QMimeType Paths::MimeTypeCache::getMimeTypeForName(const QString &name)
+{
+    return mimeDb.mimeTypeForName(name);
 }
