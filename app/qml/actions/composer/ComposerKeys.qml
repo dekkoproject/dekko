@@ -31,6 +31,8 @@ KeyTable {
     property string addCC
     property string addBCC
     property string sendMessage
+    property string respondToMessage
+    property string forwardMessage
     property string saveDraft
     property string discardMessage
     property string discardMessageConfirmed

@@ -37,6 +37,9 @@ public:
     static QString singleLinePlainTextToHtml(QString line);
     static QString plainTextToHtml(const QString &text);
     static QString markupPlainTextToHtml(const QString &text);
+    static QStringList quoteBody(QStringList bodyLines);
+    static QString mangleReplySubject(const QString &subject);
+    static QString mangleForwardSubject(const QString &subject);
 };
 
 #endif // FORMATTING_H

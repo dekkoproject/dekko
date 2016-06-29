@@ -53,6 +53,8 @@ public:
 
     QObject *builder() const;
     bool canSend() const;
+    void respondToMessage(const ResponseType &type, const QMailMessageId &msgId);
+    void forwardMessage(const ResponseType &type, const QMailMessageId &msgId);
 
 signals:
     void builderChanged();
@@ -69,6 +71,8 @@ public slots:
     void saveDraft(const bool userTriggered = false);
 //    void respond(const ResponseType &type);
     void messageSent(const QMailMessageIdList &ids);
+    void respondToMessage(const ResponseType &type, const quint64 &msgId);
+    void forwardMessage(const ResponseType &type, const quint64 &msgId);
     void reset();
     void discard();
 

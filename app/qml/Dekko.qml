@@ -23,6 +23,7 @@ import "./views/components"
 import "./views/utils"
 import "./views/stages"
 import "./stores"
+import "./stores/composer"
 
 Item {
     id: dekko
@@ -51,6 +52,10 @@ Item {
         StageStack {
             id: rootPageStack
             Component.onCompleted: {
+                // this just ensures the ComposerStore instance has been created
+                // before dispatching any actions. It's usually created when the composer is opened
+                // for the first time but we may dispatch actions before it's open. i.e from the msglist context menus.
+                var ignore = ComposerStore.sendInProgress
                 ViewActions.stageStackReady()
             }
         }

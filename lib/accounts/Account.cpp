@@ -83,7 +83,7 @@ bool Account::save()
     m_account->setStatus(QMailAccount::CanTransmit, true);
     m_account->setStatus(QMailAccount::Enabled, true);
     m_account->setStatus(QMailAccount::CanCreateFolders, false);
-    m_account->setFromAddress(QMailAddress(m_outgoing->email()));
+    m_account->setFromAddress(QMailAddress(m_outgoing->name(), m_outgoing->email()));
     if (m_account->id().isValid()) {
         qDebug() << "[Account]" << __func__ << "Updating account settings for: " << m_account->id();
         result = QMailStore::instance()->updateAccount(m_account, m_accountConfig);

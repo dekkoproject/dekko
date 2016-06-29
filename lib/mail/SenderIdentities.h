@@ -36,6 +36,7 @@ public:
     QObject *selectedAccount() const;
     QObject *accountsModel() const;
     bool isEmpty();
+    bool hasAddress(const QString &address);
 
 signals:
     void selectedIndexChanged();

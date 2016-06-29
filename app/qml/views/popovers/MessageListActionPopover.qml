@@ -21,6 +21,7 @@ import Ubuntu.Components.Popups 1.3
 import Dekko.Mail 1.0
 import Dekko.Components 1.0
 import "../components"
+import "../../actions/composer"
 import "../../actions/messaging"
 import "../../actions/popups"
 
@@ -102,7 +103,7 @@ Popover {
                     description: qsTr("Reply")
                     actionIcon: Icons.MailRepliedIcon
                     onTriggered: {
-                        PopupActions.showNotice("not implemented yet. Fix it before release!!!!")
+                        ComposerActions.respondToMessage(msg.isListPost ? SubmissionManager.ReplyList : SubmissionManager.Reply, msg.messageId)
                         PopupUtils.close(actionPopover)
                     }
                 },
@@ -111,7 +112,7 @@ Popover {
                     description: qsTr("Reply all")
                     actionIcon: Icons.MailRepliedAllIcon
                     onTriggered: {
-                        PopupActions.showNotice("not implemented yet. Fix it before release!!!!")
+                        ComposerActions.respondToMessage(SubmissionManager.ReplyAll, msg.messageId)
                         PopupUtils.close(actionPopover)
                     }
                 },
@@ -119,7 +120,7 @@ Popover {
                     description: qsTr("Forward")
                     actionIcon: Icons.MailForwardedIcon
                     onTriggered: {
-                        PopupActions.showNotice("Not implemented yet. Fix it before release!!!!")
+                        ComposerActions.forwardMessage(SubmissionManager.ForwardInline, msg.messageId)
                         PopupUtils.close(actionPopover)
                     }
                 }

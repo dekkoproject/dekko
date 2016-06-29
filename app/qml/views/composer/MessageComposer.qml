@@ -93,7 +93,7 @@ FocusScope {
                 }
                 MessageField {
                     id: messageField
-                    placeholderText: qsTr("Enter message")
+                    placeholderText: text !== "" ? "" : qsTr("Enter message")
                     onKeyEventOccurred: {
                         var targetY = -1
                         var p = getCursorPosition().y
@@ -103,7 +103,6 @@ FocusScope {
                         } else if (positionOnScreen > flicker.height - units.gu(5)) {
                             targetY = (contentHeader.height + p) - (flicker.height - units.gu(5))
                         }
-
                         if (targetY >= 0 && targetY < flicker.contentHeight) {
                             flicker.contentY = targetY
                         }

@@ -26,7 +26,7 @@ set(AutoConfigPlugin_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/autoconfigplugin.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/autoconfig.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/autodiscover.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/emailvalidator.cpp
+#    ${CMAKE_CURRENT_SOURCE_DIR}/emailvalidator.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/serverconfiguration.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/srvlookup.cpp
 )

@@ -50,6 +50,17 @@ bool SenderIdentities::isEmpty()
     return result;
 }
 
+bool SenderIdentities::hasAddress(const QString &address)
+{
+    foreach (Account *account, m_accountsModel->toList()) {
+        QMailAddress from = account->qMailAccount()->fromAddress();
+        if (from.address() == address) {
+            return true;
+        }
+    }
+    return false;
+}
+
 void SenderIdentities::setSelectedIndex(int selectedIndex)
 {
     if (m_selectedIndex == selectedIndex)
@@ -79,6 +90,7 @@ void SenderIdentities::setAccountsModel(QObject *accountsModel)
 
 void SenderIdentities::setSelectedIndexFromAccountId(quint64 accountId)
 {
+    qDebug() << __func__;
     if (m_accountsModel->isEmpty()) {
         setSelectedIndex(-1);
         return;
