@@ -108,7 +108,7 @@ ListItem {
                 iconColor: UbuntuColors.ash
                 action: Action {
                     iconSource: Paths.actionIconUrl(Icons.ContextMenuIcon)
-                    onTriggered: PopupActions.showNotice("Not implemented yet. Fix it before release!!!!")
+                    onTriggered: PopupUtils.open("qrc:/qml/views/popovers/MessageActionPopover.qml", ctxt, {msg: msg})
                 }
             }
             HeaderButton {

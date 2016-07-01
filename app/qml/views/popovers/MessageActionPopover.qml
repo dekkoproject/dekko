@@ -18,17 +18,18 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
-import Dekko.Components 1.0
 import Dekko.Mail 1.0
+import Dekko.Components 1.0
 import "../components"
 import "../../actions/composer"
+import "../../actions/messaging"
 import "../../actions/popups"
 
 Popover {
     id: actionPopover
-    z: 100 // Prevent being rendered below the message header
     property var msg
-    property var ctxtModel
+
+    contentWidth: units.gu(25)
 
     Column {
         id: containerLayout
@@ -40,49 +41,7 @@ Popover {
         }
 
         ContextGroup {
-            // only show this group on links
-            visible: ctxtModel && ctxtModel.linkUrl.toString()
             contextActions: [
-                ContextAction {
-                    description: qsTr("Open in browser")
-                    actionIcon: Icons.BrowserIcon
-                    onTriggered: {
-                        Qt.openUrlExternally(ctxtModel.linkUrl.toString())
-                        PopupUtils.close(actionPopover)
-                    }
-                },
-                ContextAction {
-                    description: qsTr("Copy link")
-                    actionIcon: Icons.CopyIcon
-                    onTriggered: {
-                        Clipboard.push(["text/plain", ctxtModel.linkUrl.toString()])
-                        PopupUtils.close(actionPopover)
-                    }
-                },
-                ContextAction {
-                    visible: isRunningOnMir
-                    description: qsTr("Share link")
-                    actionIcon: Icons.ShareIcon
-                    onTriggered: {
-                        PopupActions.showNotice("not implemented yet. Fix it before release!!!!")
-                        PopupUtils.close(actionPopover)
-                    }
-                }
-
-            ]
-        }
-
-        ContextGroup {
-            contextActions: [
-                ContextAction {
-                    description: qsTr("Reply")
-                    actionIcon: Icons.MailRepliedAllIcon
-                    onTriggered: {
-                        ComposerActions.respondToMessage(msg.isListPost ? SubmissionManager.ReplyList : SubmissionManager.Reply, msg.messageId)
-                        PopupUtils.close(actionPopover)
-                    }
-                },
-
                 ContextAction {
                     description: qsTr("Reply all")
                     actionIcon: Icons.MailRepliedIcon
@@ -102,10 +61,11 @@ Popover {
             ]
         }
         ContextGroup {
+            divider.visible: false // last group so we don't need divider
             contextActions: [
                 ContextAction {
-                    description: qsTr("View source")
-                    actionIcon: Icons.NoteIcon
+                    description: qsTr("Move")
+                    actionIcon: Icons.InboxIcon
                     onTriggered: {
                         PopupActions.showNotice("not implemented yet. Fix it before release!!!!")
                         PopupUtils.close(actionPopover)
@@ -115,4 +75,3 @@ Popover {
         }
     }
 }
-

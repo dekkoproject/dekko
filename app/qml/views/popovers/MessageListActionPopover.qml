@@ -101,16 +101,15 @@ Popover {
             contextActions: [
                 ContextAction {
                     description: qsTr("Reply")
-                    actionIcon: Icons.MailRepliedIcon
+                    actionIcon: Icons.MailRepliedAllIcon
                     onTriggered: {
                         ComposerActions.respondToMessage(msg.isListPost ? SubmissionManager.ReplyList : SubmissionManager.Reply, msg.messageId)
                         PopupUtils.close(actionPopover)
                     }
                 },
-
                 ContextAction {
                     description: qsTr("Reply all")
-                    actionIcon: Icons.MailRepliedAllIcon
+                    actionIcon: Icons.MailRepliedIcon
                     onTriggered: {
                         ComposerActions.respondToMessage(SubmissionManager.ReplyAll, msg.messageId)
                         PopupUtils.close(actionPopover)

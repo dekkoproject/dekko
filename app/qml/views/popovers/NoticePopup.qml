@@ -29,4 +29,3 @@ DialogBase {
         onClicked: PopupUtils.close(dlg)
     }
 }
-

@@ -97,7 +97,7 @@ WebView {
     contextMenu: Item {
         Component.onCompleted: {
             internal.ctxtModel = model
-            PopupUtils.open("qrc:/qml/views/popovers/MessageViewContextMenu.qml", contextualRectangle, {ctxtModel: internal.ctxtModel})
+            PopupUtils.open("qrc:/qml/views/popovers/MessageViewContextMenu.qml", contextualRectangle, {ctxtModel: internal.ctxtModel, msg: message})
         }
     }
 
