@@ -21,6 +21,7 @@
 #include <QDebug>
 #include <QMimeType>
 #include <QMimeDatabase>
+#include <QStringBuilder>
 #include <emailvalidator.h>
 #include <Formatting.h>
 
@@ -251,14 +252,58 @@ void MessageBuilder::buildResponse(const MessageBuilder::ReplyType &type, const 
 void MessageBuilder::buildForward(const MessageBuilder::ForwardType &type, const QMailMessage &src)
 {
     Q_UNUSED(type);
-    Q_UNUSED(src);
-
+    const QString subject = Formatting::mangleForwardSubject(src.subject().simplified());
+    if (m_subject == Q_NULLPTR) {
+        m_internalSubject->setPlainText(subject);
+    } else {
+        m_subject->textDocument()->setPlainText(subject);
+    }
     // So what we have to think about is....
-
+    QString body;
+    QString srcBody;
+    bool hasInlineBody(false);
     // if message only has a plaintext part then we forward it inline
+    if (src.hasBody() && src.hasPlainTextBody()) {
+        //use it
+        hasInlineBody = true;
+        srcBody = src.body().data();
+        // if it is just a multipart/alternative with no other attachments then inline the text/plain
+    } else if (src.multipartType() == QMailMessage::MultipartAlternative) {
+        QMailMessagePartContainer *ptext = src.findPlainTextContainer();
+        if (ptext) {
+            // use it
+            hasInlineBody = true;
+            srcBody = static_cast<QMailMessagePart *>(ptext)->body().data();
+            // FIXME: fetch the plaintext part!!!
+            if (srcBody.isEmpty() && src.hasHtmlBody()) {
+                QMailMessagePartContainer *htext = src.findHtmlContainer();
+                if (htext) {
+                    QMailMessagePart *part = static_cast<QMailMessagePart *>(htext);
+                    QTextDocument b;
+                    b.setHtml(part->body().data());
+                    srcBody = b.toPlainText();
+                }
+            }
+        }
+    }
 
-    // if it's only a html part then attach it instead
-
+    if (hasInlineBody) {
+        QString forwardBlock = "\n------------ " + tr("Forwarded Message") + " ------------\n";
+        forwardBlock += tr("Date: ") + src.date().toString() + '\n';
+        forwardBlock += tr("From: ") + src.from().toString() + '\n';
+        forwardBlock += tr("To: ") + QMailAddress::toStringList(src.to()).join(QLatin1String(", ")) + '\n';
+        forwardBlock += tr("Subject: ") + src.subject().simplified() + '\n';
+        body = (forwardBlock % QStringLiteral("\n") % srcBody);
+    } else {
+        // We need to attach the message instead using part refs if possible
+        Attachment *srcAttach = new Attachment(this, QString::number(src.id().toULongLong()), Attachment::PartType::Message, Attachment::Disposition::Attached);
+        m_attachments->append(srcAttach);
+    }
+    if (m_body == Q_NULLPTR) {
+        m_internalBody->setPlainText(body);
+    } else {
+        m_body->textDocument()->setPlainText(body);
+    }
     m_mode = Mode::Fwd;
     m_srcMessageId = src.id();
 }

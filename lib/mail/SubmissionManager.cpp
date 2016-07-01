@@ -76,16 +76,16 @@ void SubmissionManager::send()
         msg.setStatus(QMailMessage::TransmitFromExternal, true);
     }
     // we also need to update the Replied RepliedToAll and Forwarded status masks if appropriate
+    // TODO: move this to after the message has been sent. i.e on SubmissionManager::messageSent() signal
     QMailMessageId inReplyTo(msg.inResponseTo());
     if (inReplyTo.isValid()) {
         QMailMessage src(inReplyTo);
         if (msg.responseType() == QMailMessage::Forward) {
-            src.setStatus(QMailMessage::Forwarded, true);
+            Client::instance()->markMessageForwarded(QMailMessageIdList() << src.id());
         } else {
-            src.setStatus(QMailMessage::Replied, true);
-            if (msg.responseType() == QMailMessage::ReplyToAll) {
-                src.setStatus(QMailMessage::RepliedAll, true);
-            }
+            Client::instance()->markMessagesReplied(
+                        QMailMessageIdList() << src.id(),
+                        (msg.responseType() == QMailMessage::ReplyToAll));
         }
     }
     Client::instance()->sendMessage(msg);

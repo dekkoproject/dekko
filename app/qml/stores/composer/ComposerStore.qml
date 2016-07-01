@@ -276,6 +276,15 @@ AppListener {
     }
 
     Filter {
+        type: ComposerKeys.forwardMessage
+        onDispatched: {
+            Log.logInfo("ComposerStore::forwardMessage", "Constructing message to forward")
+            ViewActions.openMessageComposer()
+            submissionManager.forwardMessage(message.type, message.msgId)
+        }
+    }
+
+    Filter {
         type: ComposerKeys.saveDraft
         onDispatched: {
             Log.logInfo("ComposerStore::saveDraft", "Saving draft...")

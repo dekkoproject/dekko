@@ -80,6 +80,8 @@ public:
     void markMessagesRead(const QMailMessageIdList &idList, const bool read);
     void markMessagesTodo(const QMailMessageIdList &idList, const bool todo);
     void markMessagesDone(const QMailMessageIdList &idList, const bool done);
+    void markMessagesReplied(const QMailMessageIdList &idList, const bool all);
+    void markMessageForwarded(const QMailMessageIdList &idList);
 
     // C++ fetch api
     void downloadMessagePart(const QMailMessagePart *msgPart);

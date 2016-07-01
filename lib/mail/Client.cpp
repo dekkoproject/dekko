@@ -123,6 +123,16 @@ void Client::markMessagesDone(const QMailMessageIdList &idList, const bool done)
     m_service->markMessagesDone(idList, done);
 }
 
+void Client::markMessagesReplied(const QMailMessageIdList &idList, const bool all)
+{
+    m_service->markMessagesReplied(idList, all);
+}
+
+void Client::markMessageForwarded(const QMailMessageIdList &idList)
+{
+    m_service->markMessageForwarded(idList);
+}
+
 void Client::downloadMessagePart(const QMailMessagePart *msgPart)
 {
     qDebug() << "[Client]" << "Downloading message part" << msgPart->location().toString(true);
