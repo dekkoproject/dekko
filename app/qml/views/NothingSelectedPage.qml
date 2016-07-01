@@ -33,23 +33,37 @@ DekkoPage {
         canActionTrigger: dekko.viewState.isMediumFF
         listenerEnabled: enabled
     }
+    PageContent {
 
-    CachedImage {
-        id: image
-        height: units.gu(20)
-        width: height
-        anchors.centerIn: parent
-        name: Icons.InboxIcon
-        color: UbuntuColors.ash
-    }
+        Item {
+            height: image.height + label.height + Style.defaultSpacing
+            width: parent.width
+            anchors {
+                verticalCenter: parent.verticalCenter
+                verticalCenterOffset: -units.gu(5)
+            }
+            CachedImage {
+                id: image
+                height: units.gu(20)
+                width: height
+                anchors {
+                    top: parent.top
+                    horizontalCenter: parent.horizontalCenter
+                }
+                name: Icons.InboxIcon
+                color: UbuntuColors.ash
+            }
 
-    Label {
-        fontSize: "large"
-        text: qsTr("No message selected")
-        anchors {
-            top: image.bottom
-            topMargin: Style.defaultSpacing
-            horizontalCenter: parent.horizontalCenter
+            Label {
+                id: label
+                fontSize: "large"
+                text: qsTr("No message selected")
+                anchors {
+                    top: image.bottom
+                    topMargin: Style.defaultSpacing
+                    horizontalCenter: parent.horizontalCenter
+                }
+            }
         }
     }
 }
