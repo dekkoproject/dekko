@@ -61,6 +61,8 @@ public:
     void markMessagesRead(const QMailMessageIdList &msgIds, const bool read);
     void markMessagesTodo(const QMailMessageIdList &msgIds, const bool todo);
     void markMessagesDone(const QMailMessageIdList &msgIds, const bool done);
+    void markMessagesReplied(const QMailMessageIdList &idList, const bool all);
+    void markMessageForwarded(const QMailMessageIdList &idList);
     void downloadMessagePart(const QMailMessagePart *part);
     void downloadMessages(const QMailMessageIdList &msgIds);
     void sendMessage(const QMailMessage &msg);

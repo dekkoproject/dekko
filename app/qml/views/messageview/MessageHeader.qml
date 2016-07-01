@@ -19,8 +19,10 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import Dekko.Components 1.0
+import Dekko.Mail 1.0
 import Dekko.Settings 1.0
 import "../components"
+import "../../actions/composer"
 import "../../actions/popups"
 import "../../actions/views"
 import "../../constants"
@@ -123,7 +125,7 @@ ListItem {
                 iconColor: UbuntuColors.ash
                 action: Action {
                     iconSource: Paths.actionIconUrl(Icons.MailReplyIcon)
-                    onTriggered: ViewActions.replyToOpenMessage()
+                    onTriggered: ComposerActions.respondToMessage(msg.isListPost ? SubmissionManager.ReplyList : SubmissionManager.Reply, msg.messageId)
                 }
             }
         }

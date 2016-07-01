@@ -33,6 +33,8 @@ ActionCreator {
     signal addCC()
     signal addBCC()
     signal sendMessage()
+    signal respondToMessage(int type, int msgId)
+    signal forwardMessage(int type, int msgId)
     signal saveDraft()
     signal discardMessage()
     signal addFileAttachment(string url)

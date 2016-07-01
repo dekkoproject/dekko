@@ -545,3 +545,111 @@ QString Formatting::markupPlainTextToHtml(const QString &text)
         return htmlHeader + markup + htmlFooter;
 }
 
+// pinched from trojita/Composer/PlainTextFormatter.cpp and modified to use QRegularExpression
+QStringList Formatting::quoteBody(QStringList bodyLines)
+{
+    QStringList quoted;
+    static QRegularExpression sig(Formatting::Regex::signatureSeperator);
+    //sig.match(line, 0).hasMatch()
+    for (QStringList::iterator line = bodyLines.begin(); line != bodyLines.end(); ++line) {
+        if (sig.match(*line, 0).hasMatch()) {
+            // we've hit the top level signature. In Dekko we don't include this
+            // but other clients do... but they will be nested in > quote blocks so that's fine and we
+            // will just work with that.
+            break;
+        }
+        if (line->length() < 79 - 2) {
+            if (line->isEmpty() || line->at(0) == QChar('>')) {
+                line->prepend(QStringLiteral(">"));
+            } else {
+                line->prepend(QStringLiteral("> "));
+            }
+            quoted << *line;
+            continue;
+        }
+
+        int quoteLevel = 0;
+        int contentStart = 0;
+        if (line->at(0) == QChar('>')) {
+            quoteLevel = 1;
+            while (quoteLevel < line->length() && line->at(0) == QChar('>')) {
+                ++quoteLevel;
+            }
+            contentStart = quoteLevel;
+            if (quoteLevel < line->length() && line->at(quoteLevel) == QChar(' ')) {
+                ++contentStart;
+            }
+        }
+
+        QString qm;
+        for (int i = 0; i < quoteLevel; ++i) {
+            qm += QStringLiteral(">");
+        }
+        qm += QStringLiteral("> ");
+
+        int space(contentStart), lastSpace(contentStart), pos(contentStart), length(0);
+        while (pos < line->length()) {
+            if (line->at(pos) == QChar(' ')) {
+                space = pos + 1;
+            }
+            ++length;
+            if (length > ( 65 - qm.length()) && space != lastSpace) {
+                // wrap
+                quoted << qm + line->mid(lastSpace, space - lastSpace);
+                lastSpace = space;
+                length = pos - space;
+            }
+            ++pos;
+        }
+        quoted << qm + line->mid(lastSpace);
+    }
+    return quoted;
+}
+
+QString Formatting::mangleReplySubject(const QString &subject)
+{
+    // These operations should *not* check for internationalized variants of "Re"; these are evil.
+
+#define RE_PREFIX_RE "(?:(?:Re:\\s*)*)"
+#define RE_PREFIX_ML "(?:(\\[[^\\]]+\\]\\s*)?)"
+
+    static QRegExp rePrefixMatcher(QLatin1String("^"
+                                                 RE_PREFIX_RE // a sequence of "Re: " prefixes
+                                                 RE_PREFIX_ML // something like a mailing list prefix
+                                                 RE_PREFIX_RE // a sequence of "Re: " prefixes
+                                                 ), Qt::CaseInsensitive);
+    rePrefixMatcher.setPatternSyntax(QRegExp::RegExp2);
+    QLatin1String correctedPrefix("Re: ");
+
+    if (rePrefixMatcher.indexIn(subject) == -1) {
+        // Our regular expression has failed, so better play it safe and blindly prepend "Re: "
+        return correctedPrefix + subject;
+    } else {
+        QStringList listPrefixes;
+        int pos = 0;
+        int oldPos = 0;
+        while ((pos = rePrefixMatcher.indexIn(subject, pos, QRegExp::CaretAtOffset)) != -1) {
+            if (rePrefixMatcher.matchedLength() == 0)
+                break;
+            pos += rePrefixMatcher.matchedLength();
+            if (!listPrefixes.contains(rePrefixMatcher.cap(1)))
+                listPrefixes << rePrefixMatcher.cap(1);
+            oldPos = pos;
+        }
+
+        QString mlPrefix = listPrefixes.join(QString()).trimmed();
+        QString baseSubject = subject.mid(oldPos + qMax(0, rePrefixMatcher.matchedLength()));
+
+        if (!mlPrefix.isEmpty() && !baseSubject.isEmpty())
+            mlPrefix += QLatin1Char(' ');
+
+        return correctedPrefix + mlPrefix + baseSubject;
+    }
+}
+
+QString Formatting::mangleForwardSubject(const QString &subject)
+{
+    QLatin1String forwardPrefix("Fwd: ");
+    return forwardPrefix + subject;
+}
+

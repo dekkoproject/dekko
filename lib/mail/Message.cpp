@@ -80,6 +80,11 @@ bool MinimalMessage::isJunk() const
     return (QMailMessageMetaData(m_id).status() & QMailMessageMetaData::Junk);
 }
 
+bool MinimalMessage::isListPost() const
+{
+    return !QMailMessage(m_id).listId().isEmpty();
+}
+
 QString MinimalMessage::previousFolderName() const
 {
     return QMailFolder(QMailMessage(m_id).restoreFolderId()).displayName();

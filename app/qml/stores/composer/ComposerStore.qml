@@ -267,6 +267,24 @@ AppListener {
     }
 
     Filter {
+        type: ComposerKeys.respondToMessage
+        onDispatched: {
+            Log.logInfo("ComposerStore::replyToMessage", "Constructing reply message for msg: " + message.msgId)
+            ViewActions.openMessageComposer()
+            submissionManager.respondToMessage(message.type, message.msgId)
+        }
+    }
+
+    Filter {
+        type: ComposerKeys.forwardMessage
+        onDispatched: {
+            Log.logInfo("ComposerStore::forwardMessage", "Constructing message to forward")
+            ViewActions.openMessageComposer()
+            submissionManager.forwardMessage(message.type, message.msgId)
+        }
+    }
+
+    Filter {
         type: ComposerKeys.saveDraft
         onDispatched: {
             Log.logInfo("ComposerStore::saveDraft", "Saving draft...")

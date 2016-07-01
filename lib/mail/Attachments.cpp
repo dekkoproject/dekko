@@ -51,27 +51,38 @@ void Attachments::setMessageId(const QMailMessageId &id)
 }
 
 Attachment::Attachment(QObject *parent) : QObject(parent),
-    m_type(Text), m_fetching(false), m_qnam(0), m_reply(0)
+    m_type(Text), m_fetching(false), m_qnam(0), m_reply(0), m_hasRefs(false)
 {
 }
 
 Attachment::Attachment(QObject *parent, const QString &attachment, const Attachment::PartType &partType, const Attachment::Disposition &disposition):
-    QObject(parent), m_partType(partType), m_disposition(disposition)
+    QObject(parent), m_partType(partType), m_disposition(disposition), m_hasRefs(false)
 {
     switch(partType) {
     case Message:
     {
-        const QMailMessage msg(QMailMessageId(attachment.toULongLong()));
-        QMailMessageContentType cType;
-        if (msg.multipartType() == QMailMessage::MultipartNone) {
-            cType = msg.contentType();
-        } else {
-            // wrap the message in a rfc822
-            cType = QMailMessageContentType(QByteArrayLiteral("message/rfc822"));
-        }
-        QMailMessageContentDisposition d(disposition == Inline ? QMailMessageContentDisposition::Inline : QMailMessageContentDisposition::Attachment);
+        const QMailMessageId mid(attachment.toULongLong());
+        const QMailMessage msg(mid);
+        QMailAccount srcAccount(msg.parentAccountId());
+        bool viaReference((srcAccount.status() & QMailAccount::CanReferenceExternalData) &&
+                                  (srcAccount.status() & QMailAccount::CanTransmitViaReference));
+//        QMailMessageContentType cType;
+//        if (msg.multipartType() == QMailMessage::MultipartNone) {
+//            cType = msg.contentType();
+//        } else {
+//            // wrap the message in a rfc822
+//            cType =
+//        }
+        QMailMessageContentType cType(QByteArrayLiteral("message/rfc822"));
+        QMailMessageContentDisposition d(QMailMessageContentDisposition::Attachment);
+        d.setFilename(msg.subject().simplified().toUtf8() + QByteArrayLiteral(".eml"));
         d.setSize(msg.size());
-        m_part = QMailMessagePart::fromMessageReference(msg.id(), d, cType, msg.transferEncoding());
+        if (viaReference) {
+            m_part = QMailMessagePart::fromMessageReference(msg.id(), d, cType, msg.transferEncoding());
+            m_hasRefs = true;
+        } else {
+            m_part = QMailMessagePart::fromData(msg.toRfc2822(), d, cType, msg.transferEncoding());
+        }
         break;
     }
     case MessagePart:
@@ -116,20 +127,22 @@ Attachment::Attachment(QObject *parent, const QString &attachment, const Attachm
 
 QString Attachment::displayName()
 {
-    // if this is an rfc822 message attachment then
-    // the displayname is either empty or just not useable.
-    // Fall back to the subject of the attached message
-    if (isRfc822()) {
-        const bool nameIsEmpty = m_part.contentDisposition().parameter(QByteArrayLiteral("name")).isEmpty();
-        const bool fnameIsEmpty = m_part.contentDisposition().parameter(QByteArrayLiteral("filename")).isEmpty();
-        const bool ctypeNameIsEmpty = m_part.contentType().name().isEmpty();
-        if (nameIsEmpty && fnameIsEmpty && ctypeNameIsEmpty) {
-            QMailMessage msgPart = QMailMessage::fromRfc2822(m_part.body().data(QMailMessageBody::Decoded));
-            if (!msgPart.subject().isEmpty()) {
-                return msgPart.subject();
-            }
-        }
-    }
+//    // if this is an rfc822 message attachment then
+//    // the displayname is either empty or just not useable.
+//    // Fall back to the subject of the attached message
+//    if (isRfc822()) {
+//        QMailMessage msgPart = QMailMessage::fromRfc2822(m_part.body().data(QMailMessageBody::Decoded));
+//        qDebug() <<
+//        if (!msgPart.subject().isEmpty()) {
+//            return msgPart.subject();
+//        }
+////        const bool nameIsEmpty = m_part.contentDisposition().parameter(QByteArrayLiteral("name")).isEmpty();
+////        const bool fnameIsEmpty = m_part.contentDisposition().parameter(QByteArrayLiteral("filename")).isEmpty();
+////        const bool ctypeNameIsEmpty = m_part.contentType().name().isEmpty();
+////        if (nameIsEmpty && fnameIsEmpty && ctypeNameIsEmpty) {
+
+////        }
+//    }
     return m_part.displayName();
 }
 
@@ -214,8 +227,10 @@ void Attachment::addToMessage(QMailMessage &msg)
     case MessagePart:
     {
         msg.appendPart(m_part);
-        msg.setStatus(QMailMessage::HasReferences, true);
-        msg.setStatus(QMailMessage::HasUnresolvedReferences, true);
+        if (m_hasRefs) {
+            msg.setStatus(QMailMessage::HasReferences, true);
+            msg.setStatus(QMailMessage::HasUnresolvedReferences, true);
+        }
         break;
     }
     case File:

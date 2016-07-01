@@ -21,6 +21,7 @@
 #include <QObject>
 #include <QmlObjectListModel.h>
 #include <QQuickTextDocument>
+#include <QTextDocument>
 #include <QStringList>
 #include <qmailmessage.h>
 #include "Attachments.h"
@@ -44,6 +45,8 @@ public:
     explicit MessageBuilder(QObject *parent = Q_NULLPTR);
 
     enum RecipientModels { To, Cc, Bcc };
+    enum ReplyType { Reply, ReplyAll, ReplyList };
+    enum ForwardType { Inline, Attach };
 
     QObject *to() const { return m_to; }
     QObject *cc() const { return m_cc; }
@@ -62,6 +65,9 @@ public:
 
     bool hasDraft() { return m_lastDraftId.isValid(); }
 
+    void buildResponse(const ReplyType &type, const QMailMessage &src);
+    void buildForward(const ForwardType &type, const QMailMessage &src);
+
 signals:
     void modelsChanged();
     void subjectChanged(QQuickTextDocument *subject);
@@ -72,6 +78,7 @@ signals:
 public slots:
     void addRecipient(const RecipientModels which, const QString &emailAddress);
     void addRecipient(const RecipientModels which, const QString &name, const QString &address);
+    void addRecipients(const RecipientModels which, const QMailAddressList &addresses);
     void removeRecipient(const RecipientModels which, const int &index);
     void addFileAttachment(const QString &file);
     void addFileAttachments(const QStringList &files);
@@ -85,16 +92,34 @@ public slots:
     void setBody(QQuickTextDocument *body);
     void setIdentities(QObject *identities);
 
+protected:
+    void buildRecipientsLists(const ReplyType &type, const QMailMessage &src);
+
+private slots:
+    void subjectChanged(int position, int charsRemoved, int charsAdded);
+    void bodyChanged(int position, int charsRemoved, int charsAdded);
+
 private:
+    enum Mode { New, Rply, Fwd };
     QQmlObjectListModel<MailAddress> *m_to;
     QQmlObjectListModel<MailAddress> *m_cc;
     QQmlObjectListModel<MailAddress> *m_bcc;
     QQmlObjectListModel<Attachment> *m_attachments;
     QQuickTextDocument *m_subject;
+    QTextDocument *m_internalSubject;
     QQuickTextDocument *m_body;
+    QTextDocument *m_internalBody;
     SenderIdentities *m_identities;
     quint64 m_sourceStatus;
     QMailMessageId m_lastDraftId;
+    QMailMessageId m_srcMessageId;
+    Mode m_mode;
+    ReplyType m_replyType;
+
+    QByteArray getListPostAddress(const QMailMessage &src);
+
 };
+
+
 
 #endif // MESSAGEBUILDER_H

@@ -135,6 +135,7 @@ private:
     PartType m_partType;
     Disposition m_disposition;
     QString m_filePath;
+    bool m_hasRefs;
 };
 
 #endif // ATTACHMENTS_H

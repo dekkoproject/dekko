@@ -147,6 +147,32 @@ void ClientService::markMessagesDone(const QMailMessageIdList &msgIds, const boo
     }
 }
 
+void ClientService::markMessagesReplied(const QMailMessageIdList &idList, const bool all)
+{
+    if (idList.isEmpty()) {
+        return;
+    }
+    quint64 applyMask = 0;
+    quint64 removeMask = 0;
+    if (all) {
+        applyMask = (QMailMessage::Replied | QMailMessage::RepliedAll);
+    } else {
+        applyMask = QMailMessage::Replied;
+    }
+    QMailDisconnected::flagMessages(idList, applyMask, removeMask, "Marking messages replied");
+}
+
+void ClientService::markMessageForwarded(const QMailMessageIdList &idList)
+{
+    if (idList.isEmpty()) {
+        return;
+    }
+    quint64 applyMask = 0;
+    quint64 removeMask = 0;
+    applyMask = QMailMessage::Forwarded;
+    QMailDisconnected::flagMessages(idList, applyMask, removeMask, "Marking messages forwarded");
+}
+
 void ClientService::downloadMessagePart(const QMailMessagePart *part)
 {
     if (!part->location().isValid(true)) {

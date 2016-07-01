@@ -1,8 +1,8 @@
 #include "autoconfigplugin.h"
 #include <QtQml/QtQml>
 #include <QtQml/QQmlContext>
+#include <emailvalidator.h>
 #include "autodiscover.h"
-#include "emailvalidator.h"
 #include "emailprovider.h"
 
 void AutoConfigPlugin::registerTypes(const char *uri)

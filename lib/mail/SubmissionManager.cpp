@@ -75,6 +75,19 @@ void SubmissionManager::send()
             QMailFolder(account.standardFolder(QMailFolder::SentFolder)).id().isValid()) {
         msg.setStatus(QMailMessage::TransmitFromExternal, true);
     }
+    // we also need to update the Replied RepliedToAll and Forwarded status masks if appropriate
+    // TODO: move this to after the message has been sent. i.e on SubmissionManager::messageSent() signal
+    QMailMessageId inReplyTo(msg.inResponseTo());
+    if (inReplyTo.isValid()) {
+        QMailMessage src(inReplyTo);
+        if (msg.responseType() == QMailMessage::Forward) {
+            Client::instance()->markMessageForwarded(QMailMessageIdList() << src.id());
+        } else {
+            Client::instance()->markMessagesReplied(
+                        QMailMessageIdList() << src.id(),
+                        (msg.responseType() == QMailMessage::ReplyToAll));
+        }
+    }
     Client::instance()->sendMessage(msg);
     emit messageQueued();
 }
@@ -121,6 +134,75 @@ void SubmissionManager::saveDraft(const bool userTriggered)
 void SubmissionManager::messageSent(const QMailMessageIdList &ids)
 {
     qDebug() << ids.count() << "messages sent";
+}
+
+void SubmissionManager::respondToMessage(const SubmissionManager::ResponseType &type, const quint64 &msgId)
+{
+    respondToMessage(type, QMailMessageId(msgId));
+}
+
+void SubmissionManager::respondToMessage(const SubmissionManager::ResponseType &type, const QMailMessageId &msgId)
+{
+    if (!hasBuilder()) {
+        qWarning() << "Builder not ready";
+        return;
+    }
+    if (!msgId.isValid()) {
+        qWarning() << "Invalid msg id";
+        return;
+    }
+
+    MessageBuilder::ReplyType rt;
+    switch(type) {
+    case Reply:
+        rt = MessageBuilder::ReplyType::Reply;
+        break;
+    case ReplyAll:
+        rt = MessageBuilder::ReplyType::ReplyAll;
+        break;
+    case ReplyList:
+        rt = MessageBuilder::ReplyType::ReplyList;
+        break;
+    default:
+        qWarning() << "Unexpected responsetype.";
+        Q_ASSERT(false);
+        return;
+    }
+    m_builder->buildResponse(rt, QMailMessage(msgId));
+    // Normally we would trigger this from the UI side once the first recipient has been added
+    // but replies are generated on the c++ side so trigger it here.
+    maybeStartSaveTimer();
+}
+
+void SubmissionManager::forwardMessage(const SubmissionManager::ResponseType &type, const QMailMessageId &msgId)
+{
+    if (!hasBuilder()) {
+        qWarning() << "Builder not ready";
+        return;
+    }
+    if (!msgId.isValid()) {
+        qWarning() << "Invalid msg id";
+        return;
+    }
+    MessageBuilder::ForwardType ft;
+    switch(type) {
+    case ForwardInline:
+        ft = MessageBuilder::ForwardType::Inline;
+        break;
+    case ForwardAsAttachment:
+        ft = MessageBuilder::ForwardType::Attach;
+        break;
+    default:
+        qWarning() << "Unexpected forward type.";
+        Q_ASSERT(false);
+        return;
+    }
+    m_builder->buildForward(ft, QMailMessage(msgId));
+}
+
+void SubmissionManager::forwardMessage(const SubmissionManager::ResponseType &type, const quint64 &msgId)
+{
+    forwardMessage(type, QMailMessageId(msgId));
 }
 
 void SubmissionManager::reset()

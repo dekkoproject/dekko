@@ -51,6 +51,8 @@ struct SearchQuery {
  * them to complete before our search get's triggered.
  *
  * We shouldn't get in the way here and just get the results back to the user asap
+ *
+ * \ingroup group_mail
  */
 class SearchService : public QObject
 {
