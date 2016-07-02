@@ -34,6 +34,7 @@ DekkoPage {
         iconName: "back"
         onTriggered: ViewActions.popStageArea(dekko.viewState.isLargeFF ? ViewKeys.navigationStack : ViewKeys.messageListStack)
     }
+    pageHeader.composeButtonEnabled: !dekko.viewState.isSmallFF
     extendHeader: !dekko.viewState.isSmallFF
 
     FolderList {
