@@ -21,6 +21,7 @@ import Dekko.Mail 1.0
 import Dekko.Components 1.0
 import "../components"
 import "../../constants"
+import "../../stores"
 
 ListItem {
     id: li
@@ -29,6 +30,7 @@ ListItem {
     signal subFolderClicked(string name, var key)
     property bool supportsDescendents: false
     property bool smartFolder: false
+    readonly property bool isCurrentIndex: layout ? layout.title.text === ViewStore.selectedNavFolder : false
 
     expansion.expanded: false
     expansion.height: layout.height + col.height
@@ -71,6 +73,11 @@ ListItem {
                 return Icons.JunkIcon
             }
         }
+    }
+    Rectangle {
+        anchors.fill: layout ? layout : parent
+        color: Qt.rgba(0, 0, 0, 0.05)
+        visible: li.isCurrentIndex
     }
 
     ListItemLayout {
@@ -142,11 +149,16 @@ ListItem {
                 id: delegate
                 divider.visible: false
                 height: dlayout.height
-                onClicked: li.subFolderClicked(model.qtObject.displayName, model.qtObject.messageKey)
+                onClicked: li.subFolderClicked(dlayout.title.text, model.qtObject.messageKey)
+                Rectangle {
+                    anchors.fill: parent
+                    color: Qt.rgba(0, 0, 0, 0.05)
+                    visible: layout ? dlayout.title.text === ViewStore.selectedNavFolder : false
+                }
                 ListItemLayout {
                     id: dlayout
                     height: units.gu(5)
-                    title.text: qtObject.displayName
+                    title.text: qsTr("Inbox (%1)").arg(qtObject.displayName)
 
                     CachedImage {
                         height: units.gu(2.6)

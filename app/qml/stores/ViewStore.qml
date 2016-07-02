@@ -35,6 +35,7 @@ AppListener {
     id: viewStore
 
     property string formFactor
+    readonly property string selectedNavFolder: d.currentNavFolder
 
     Filter {
         type: ViewKeys.stageStackReady
@@ -64,6 +65,18 @@ AppListener {
             }
         }
         onMessageSendingFailed: ViewActions.orderSimpleToast(qsTr("Message sending failed"))
+    }
+
+    Filter {
+        type: ViewKeys.setCurrentNavFolder
+        onDispatched: {
+            d.currentNavFolder = message.folderName
+        }
+    }
+
+    QtObject {
+        id: d
+        property string currentNavFolder: ""
     }
 }
 

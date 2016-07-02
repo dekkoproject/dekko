@@ -63,4 +63,6 @@ ActionCreator {
     signal orderSubtitledToast(string title, string subtitle)
     signal orderComplexToast(string title, string subtitle, string image)
 
+    signal setCurrentNavFolder(string folderName);
+
 }

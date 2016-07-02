@@ -22,6 +22,7 @@ import Dekko.Mail 1.0
 import "../../actions"
 import "../../actions/messaging"
 import "../../actions/logging"
+import "../../actions/views"
 
 /*!
 *
@@ -78,6 +79,7 @@ BaseMessagingStore {
             d.currentFolderName = message.folderName
             msgList.messageKey = message.folderKey
             MessageActions.rewindMessageListStack()
+            ViewActions.setCurrentNavFolder(d.currentFolderName)
         }
     }
 

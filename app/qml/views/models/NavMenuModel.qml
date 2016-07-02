@@ -20,6 +20,7 @@ import Ubuntu.Components 1.3
 import Dekko.Settings 1.0
 import "../delegates"
 import "../components"
+import "../../stores"
 import "../../stores/mail"
 import "../../stores/accounts"
 import "../../actions/messaging"
@@ -115,6 +116,11 @@ VisualItemModel {
                                 height: dLayout.height
                                 divider.visible: false
                                 onClicked: MessageActions.openAccountFolder(qtObject.name, qtObject.id)
+                                Rectangle {
+                                    anchors.fill: parent
+                                    color: Qt.rgba(0, 0, 0, 0.05)
+                                    visible: dLayout ? dLayout.title.text === ViewStore.selectedNavFolder : false
+                                }
                                 ListItemLayout {
                                     id: dLayout
                                     height: units.gu(6)

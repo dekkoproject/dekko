@@ -68,4 +68,6 @@ KeyTable {
     property string orderSimpleToast
     property string orderSubtitledToast
     property string orderComplexToast
+
+    property string setCurrentNavFolder
 }
