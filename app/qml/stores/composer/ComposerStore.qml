@@ -35,6 +35,7 @@ AppListener {
     readonly property bool sendInProgress: d.sendInProgress
     readonly property bool hasValidIdentity: d.identitiesValid
     readonly property bool sidePanelOpen: builder.attachments.count || d.openContacts
+    readonly property string currentSignature: identities.selectedAccount.outgoing.signature
     readonly property QtObject identity: priv_identity
     readonly property QtObject recipients: priv_recipients
     readonly property QtObject attachments: builder.attachments

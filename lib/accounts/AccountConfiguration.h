@@ -34,7 +34,7 @@ struct AccountKeys {
     static const QString prefferedSubType, canIDLE, idleEnabled, baseFolder, pushFolders, checkInterval;
     static const QString checkWhenRoaming, capabilities, timeTillLogout, searchLimit;
     //SMTP
-    static const QString saslMechanism, username, authFromCaps, smtppassword;
+    static const QString saslMechanism, username, authFromCaps, smtppassword, signature;
 };
 
 /** @ingroup group_accounts */
@@ -205,6 +205,7 @@ class SmtpAccountConfiguration : public AccountConfiguration
     Q_PROPERTY(QString username READ username WRITE setUsername NOTIFY usernameChanged)
     Q_PROPERTY(QString initials READ initials CONSTANT)
     Q_PROPERTY(bool authFromCaps READ authFromCaps WRITE setAuthFromCaps NOTIFY authFromCapsChanged)
+    Q_PROPERTY(QString signature READ signature WRITE setSignature NOTIFY signatureChanged)
 
 public:
     explicit SmtpAccountConfiguration(QObject *parent = 0) : AccountConfiguration(parent){}
@@ -215,16 +216,19 @@ public:
     QString username() const;
     bool authFromCaps() const;
     QString initials();
+    QString signature() const;
 
 signals:
     void saslChanged();
     void usernameChanged();
     void authFromCapsChanged();
+    void signatureChanged();
 
 public slots:
     void setSaslMechanism(SaslMechanism sasl);
     void setUsername(const QString &username);
     void setAuthFromCaps(const bool use);
+    void setSignature(const QString &sig);
 
 };
 

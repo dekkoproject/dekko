@@ -80,8 +80,9 @@ QMailMessage MessageBuilder::message()
         mail.setBcc(createAddressList(m_bcc));
     }
     mail.setSubject(m_internalSubject->toPlainText());
-
     QString plainTextBody = m_internalBody->toPlainText();
+    SmtpAccountConfiguration *outgoing = static_cast<SmtpAccountConfiguration *>(sender->outgoing());
+    plainTextBody.append(QStringLiteral("\n\n%1").arg(outgoing->signature()));
     QMailMessageContentType type(QByteArrayLiteral("text/plain; charset=UTF-8"));
     // TODO: Do we want to always encode as QuotedPrintable it's efficient for ASCII text but becomes inefficient
     // for non-ascii chars i.e QChar::unicode() > 127. SHould we iterate over all chars and decide based on that as QString

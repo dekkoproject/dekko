@@ -98,24 +98,31 @@ FocusScope {
                         }
                         placeholderText: qsTr("Enter an address")
                         height: parent.height
+                        onFocusChanged: {
+                            if (!focus && input.text) {
+                                Log.logInfo("RecipientFIeld::focusChanged", "Lost focus adding recipient")
+                                ComposerActions.addRecipientIfValid(recipientType, input.text)
+                            }
+                        }
+
                         // We don't want to let the return/enter key events
                         // propogate to the textarea as it just moves to a new line
                         // whereas we want it to validate & commit the address to the
                         // recipients model. So we catch and accept the event here.
                         Keys.onReturnPressed: {
                             event.accepted = true
-                            console.log("RETURN PRESSED")
+                            Log.logInfo("RecipientField::returnPressed", "Adding recipient");
                             ComposerActions.addRecipientIfValid(recipientType, input.text)
                         }
                         Keys.onEnterPressed: {
                             event.accepted = true
-                            console.log("ENTER PRESSED")
+                            Log.logInfo("RecipientField::enterPressed", "Adding recipient");
                             ComposerActions.addRecipientIfValid(recipientType, input.text)
                         }
                         // We also support completion tokens. and is triggered
                         // when an address ends with ';' or ','
                         onCompletionTokenSeen: {
-                            console.log("COMPLETION TOKEN SEEN")
+                            Log.logInfo("RecipientField::CompletionTokenSeen", "Adding recipient");
                             ComposerActions.addRecipientIfValid(recipientType, input.text)
                         }
                     }

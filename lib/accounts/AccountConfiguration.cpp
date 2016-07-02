@@ -44,6 +44,7 @@ const QString AccountKeys::searchLimit = QStringLiteral("searchLimit");
 const QString AccountKeys::saslMechanism = QStringLiteral("authentication");
 const QString AccountKeys::username = QStringLiteral("smtpusername");
 const QString AccountKeys::authFromCaps = QStringLiteral("authFromCapabilities");
+const QString AccountKeys::signature = QStringLiteral("signature");
 
 namespace {
     QString defaultPort(AccountConfiguration::ServiceType service, AccountConfiguration::EncryptionMethod method) {
@@ -399,6 +400,12 @@ QString SmtpAccountConfiguration::initials()
     return initials;
 }
 
+QString SmtpAccountConfiguration::signature() const
+{
+    static const QString defaultSig = QStringLiteral("-- \n%1").arg(tr("Sent using Dekko from my Ubuntu device"));
+    return m_service->value(AccountKeys::signature, defaultSig);
+}
+
 void SmtpAccountConfiguration::setSaslMechanism(AccountConfiguration::SaslMechanism sasl)
 {
     m_service->setValue(AccountKeys::saslMechanism, QString::number(sasl));
@@ -415,6 +422,12 @@ void SmtpAccountConfiguration::setAuthFromCaps(const bool use)
 {
     m_service->setValue(AccountKeys::authFromCaps, QString::number(use ? 1 : 0));
     emit authFromCapsChanged();
+}
+
+void SmtpAccountConfiguration::setSignature(const QString &sig)
+{
+    m_service->setValue(AccountKeys::signature, sig);
+    emit signatureChanged();
 }
 
 bool PopAccountConfiguration::canDeleteMail() const

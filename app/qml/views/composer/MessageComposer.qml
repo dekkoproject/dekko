@@ -19,6 +19,7 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Dekko.Components 1.0
 import Dekko.Mail 1.0
+import "../../constants"
 import "../../actions/composer"
 import "../../actions/views"
 import "../../stores/composer"
@@ -127,6 +128,18 @@ FocusScope {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: messageField.__textArea.forceActiveFocus()
+                }
+                Label {
+                    anchors {
+                        left: parent.left
+                        leftMargin: Style.defaultSpacing
+                        top: parent.top
+                        topMargin: Style.smallSpacing
+                        right: parent.right
+                        rightMargin: Style.defaultSpacing
+                    }
+                    color: UbuntuColors.ash
+                    text: ComposerStore.currentSignature
                 }
             }
         }
