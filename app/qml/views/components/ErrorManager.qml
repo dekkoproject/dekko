@@ -26,7 +26,6 @@ import "../../actions/views"
 // from the Client and other dispatched error actions.
 Item {
 
-
     Connections {
         target: Client
         onClientError: {

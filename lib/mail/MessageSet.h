@@ -19,6 +19,7 @@
 #define MESSAGESET_H
 
 #include <QObject>
+#include <QFlags>
 #include <QmlObjectListModel.h>
 #include <qmailmessagekey.h>
 #include <qmailfolder.h>
@@ -34,9 +35,26 @@ class MessageSet : public QObject
     Q_PROPERTY(QVariant descendentsKey READ descendentsKey NOTIFY descendentsCountChanged)
     Q_PROPERTY(int unreadCount READ unreadCount NOTIFY countChanged)
     Q_PROPERTY(int totalCount READ totalCount NOTIFY countChanged)
-
+    Q_PROPERTY(SupportedActions supportedActions READ supportedActions CONSTANT)
 public:
     explicit MessageSet(QObject *parent = 0);
+
+    enum SupportedAction {
+        NoActions = 0,
+        SyncAction = 1 << 0,
+        MarkAsRead = 1 << 1,
+        ExportPending = 1 << 2,
+        Expunge = 1 << 3,
+        RenameAllowed = 1 << 4,
+        SearchFolder = 1 << 5,
+        ShowProperties = 1 << 6,
+        MarkAsDone = 1 << 7, // for the Todo Items
+    };
+
+    Q_DECLARE_FLAGS(SupportedActions, SupportedAction)
+    Q_FLAGS(SupportedActions)
+    Q_ENUMS(SupportedAction)
+
     virtual void init(const QString &displayName, const QMailMessageKey &messageKey) = 0;
     QObject *children() { return m_children; }
     QVariant messageKey() const { return m_key; }
@@ -45,6 +63,8 @@ public:
     bool hasDecendents() const { return !m_children->isEmpty(); }
     int unreadCount();
     int totalCount();
+    SupportedActions supportedActions() const { return m_actions; }
+    void setSupportedActions(const SupportedActions &actions) { m_actions = actions; }
 
 signals:
     void messageKeyChanged();
@@ -60,7 +80,10 @@ protected:
     QString m_name;
     QQmlObjectListModel<MessageSet> *m_children;
     QMailMessageKey m_key;
+    SupportedActions m_actions;
 };
+
+Q_DECLARE_OPERATORS_FOR_FLAGS(MessageSet::SupportedActions)
 
 
 class StandardFolderSet : public MessageSet
