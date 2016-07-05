@@ -49,5 +49,6 @@
         <file>webbrowser-app-symbolic.svg</file>
         <file>account.svg</file>
         <file>contact-new.svg</file>
+        <file>sync.svg</file>
     </qresource>
 </RCC>

@@ -49,6 +49,7 @@ public:
         SearchFolder = 1 << 5,
         ShowProperties = 1 << 6,
         MarkAsDone = 1 << 7, // for the Todo Items
+        EmptyTrash = 1 << 8
     };
 
     Q_DECLARE_FLAGS(SupportedActions, SupportedAction)

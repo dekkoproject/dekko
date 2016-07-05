@@ -77,7 +77,7 @@ void MessageFilterCollection::createStandardFolderCollection()
     StandardFolderSet *inbox = new StandardFolderSet(); // model will take ownership
     inbox->setType(StandardFolderSet::SpecialUseInboxFolder);
     inbox->init(tr("All inboxes"), inboxKey);
-    inbox->setSupportedActions(MessageSet::SyncAction | MessageSet::MarkAsRead | MessageSet::SearchFolder | MessageSet::ShowProperties);
+    inbox->setSupportedActions(MessageSet::SyncAction | MessageSet::MarkAsRead | MessageSet::Expunge |  MessageSet::SearchFolder | MessageSet::ShowProperties);
     m_children->append(inbox);
 
     // Drafts
@@ -107,7 +107,7 @@ void MessageFilterCollection::createStandardFolderCollection()
     StandardFolderSet *outbox = new StandardFolderSet();
     outbox->setType(StandardFolderSet::SpecialUseOutboxFolder);
     outbox->initNoDecendents(tr("Outbox"), outboxKey);
-    outbox->setSupportedActions(MessageSet::SyncAction | MessageSet::MarkAsRead | MessageSet::ExportPending | MessageSet::SearchFolder | MessageSet::ShowProperties);
+    outbox->setSupportedActions(MessageSet::MarkAsRead | MessageSet::ExportPending | MessageSet::SearchFolder | MessageSet::ShowProperties);
     m_children->append(outbox);
 
     // Sent
@@ -126,7 +126,7 @@ void MessageFilterCollection::createStandardFolderCollection()
     StandardFolderSet *trash = new StandardFolderSet();
     trash->setType(StandardFolderSet::SpecialUseTrashFolder);
     trash->initNoDecendents(tr("Trash"), trashKey);
-    trash->setSupportedActions(MessageSet::SyncAction | MessageSet::MarkAsRead | MessageSet::Expunge | MessageSet::SearchFolder | MessageSet::ShowProperties);
+    trash->setSupportedActions(MessageSet::SyncAction | MessageSet::MarkAsRead | MessageSet::SearchFolder | MessageSet::ShowProperties | MessageSet::EmptyTrash);
     m_children->append(trash);
 }
 

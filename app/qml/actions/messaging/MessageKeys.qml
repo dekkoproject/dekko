@@ -48,4 +48,5 @@ KeyTable {
     property string startMultiSelection
     property string endMultiSelection
     property string resetFolderLists
+    property string stackRewound
 }

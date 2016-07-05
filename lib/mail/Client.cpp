@@ -98,9 +98,56 @@ void Client::moveToStandardFolder(const int &msgId, const int &standardFolder)
     moveToStandardFolder(QMailMessageIdList() << QMailMessageId(msgId), (Folder::FolderType)standardFolder);
 }
 
+void Client::markStandardFolderRead(const int &standardFolder)
+{
+    Q_FOREACH(auto &id, getEnabledAccountIds()) {
+        markStandardFolderRead(id.toULongLong(), standardFolder);
+    }
+}
+
+void Client::markStandardFolderRead(const quint64 &accountId, const int &standardFolder)
+{
+    QMailAccountId id(accountId);
+    QMailAccount account(id);
+    QMailFolderId folder = account.standardFolder(Folder::folderFromType((Folder::FolderType)standardFolder));
+    markFolderRead(folder);
+}
+
 void Client::synchronizeAccount(const int &id)
 {
     synchronizeAccount(QMailAccountId(id));
+}
+
+void Client::syncStandardFolder(const int &standardFolder)
+{
+    Q_FOREACH(auto &id, getEnabledAccountIds()) {
+        syncStandardFolder(id.toULongLong(), standardFolder);
+    }
+}
+
+void Client::syncStandardFolder(const quint64 &accountId, const int &standardFolder)
+{
+    QMailAccountId id(accountId);
+    QMailAccount account(id);
+    QMailFolderId folder = account.standardFolder(Folder::folderFromType((Folder::FolderType)standardFolder));
+    syncFolders(id, QMailFolderIdList() << folder);
+}
+
+void Client::syncFolder(const quint64 &accountId, const quint64 &folderId)
+{
+    QMailAccountId id(accountId);
+    QMailFolderId folder(folderId);
+    syncFolders(id, QMailFolderIdList() << folder);
+}
+
+void Client::emptyTrash()
+{
+    emptyTrash(getEnabledAccountIds());
+}
+
+void Client::emptyTrash(const int &accountId)
+{
+    emptyTrash(QMailAccountIdList() << QMailAccountId(accountId));
 }
 
 void Client::markMessagesImportant(const QMailMessageIdList &idList, const bool important)
@@ -131,6 +178,21 @@ void Client::markMessagesReplied(const QMailMessageIdList &idList, const bool al
 void Client::markMessageForwarded(const QMailMessageIdList &idList)
 {
     m_service->markMessageForwarded(idList);
+}
+
+void Client::markFolderRead(const QMailFolderId &id)
+{
+    m_service->markFolderRead(id);
+}
+
+void Client::emptyTrash(const QMailAccountIdList &ids)
+{
+    m_service->emptyTrash(ids);
+}
+
+void Client::syncFolders(const QMailAccountId &accountId, const QMailFolderIdList &folders)
+{
+    m_service->syncFolders(accountId, folders);
 }
 
 void Client::downloadMessagePart(const QMailMessagePart *msgPart)
@@ -245,4 +307,11 @@ void Client::handleFailure(const quint64 &id, const QMailServiceAction::Status &
         break;
     }
     emit clientError(id, error, status.text);
+}
+
+QMailAccountIdList Client::getEnabledAccountIds() const
+{
+    return QMailStore::instance()->queryAccounts(QMailAccountKey::messageType(QMailMessage::Email)
+                                                 & QMailAccountKey::status(QMailAccount::Enabled),
+                                                 QMailAccountSortKey::name());
 }

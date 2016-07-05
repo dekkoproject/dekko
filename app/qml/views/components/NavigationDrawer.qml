@@ -50,7 +50,7 @@ Panel {
             type: MessageKeys.openFolder
             onDispatched: {
                 if (accountsDrawer.opened) {
-                    accountsDrawer.delayClose()
+//                    accountsDrawer.delayClose()
                 }
             }
         }
@@ -66,7 +66,7 @@ Panel {
 
     Timer {
         id: delayCloseTimer
-        interval: 300
+        interval: 100
         repeat: false
         onTriggered: accountsDrawer.close()
     }

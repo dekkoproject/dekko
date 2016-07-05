@@ -70,16 +70,37 @@ BaseMessagingStore {
         }
     }
 
-    Filter {
-        type: MessageKeys.openFolder
-        onDispatched: {
+//    Filter {
+//        type: MessageKeys.openFolder
+//        onDispatched: {
+//            Log.logStatus("MailStore::openFolder", "Opening %1 folder with key %2"
+//                                   .arg(message.folderName).arg(message.folderKey))
+//            ViewActions.setCurrentNavFolder(d.currentFolderName)
+//            MessageActions.resetMessageList()
+//            d.currentFolderName = message.folderName
+//            msgList.messageKey = message.folderKey
+//            MessageActions.rewindMessageListStack()
+//        }
+//    }
+
+    AppScript {
+        id: openFolderScript
+        property var fkey
+        property string fname
+        runWhen: MessageKeys.openFolder
+        script: {
             Log.logStatus("MailStore::openFolder", "Opening %1 folder with key %2"
                                    .arg(message.folderName).arg(message.folderKey))
-            MessageActions.resetMessageList()
-            d.currentFolderName = message.folderName
-            msgList.messageKey = message.folderKey
+            fkey = message.folderKey
+            fname = message.folderName
+            ViewActions.toggleNavDrawer()
             MessageActions.rewindMessageListStack()
-            ViewActions.setCurrentNavFolder(d.currentFolderName)
+            once(MessageKeys.stackRewound, function() {
+                MessageActions.resetMessageList()
+                d.currentFolderName = fname
+                ViewActions.setCurrentNavFolder(d.currentFolderName)
+                msgList.messageKey = fkey
+            })
         }
     }
 

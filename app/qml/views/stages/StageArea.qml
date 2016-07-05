@@ -49,6 +49,10 @@ Item {
         internalStack.pop()
     }
 
+    function popImmediate() {
+        internalStack.pop()
+    }
+
     AppListener {
         Filter {
             type: ViewKeys.pushToStageArea

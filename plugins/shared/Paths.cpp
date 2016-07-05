@@ -117,6 +117,9 @@ QString Paths::iconUrl(const Paths::ActionIcon icon, bool prefix)
     case StarredIcon:
         iconName = QStringLiteral("starred.svg");
         break;
+    case SyncIcon:
+        iconName = QStringLiteral("sync.svg");
+        break;
     case TagsIcon:
         iconName = QStringLiteral("tags.svg");
         break;

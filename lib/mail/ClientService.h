@@ -63,11 +63,14 @@ public:
     void markMessagesDone(const QMailMessageIdList &msgIds, const bool done);
     void markMessagesReplied(const QMailMessageIdList &idList, const bool all);
     void markMessageForwarded(const QMailMessageIdList &idList);
+    void markFolderRead(const QMailFolderId &id);
     void downloadMessagePart(const QMailMessagePart *part);
     void downloadMessages(const QMailMessageIdList &msgIds);
     void sendMessage(const QMailMessage &msg);
     void moveToStandardFolder(const QMailMessageIdList &msgIds, const Folder::FolderType &folder);
     void synchronizeAccount(const QMailAccountId &id);
+    void emptyTrash(const QMailAccountIdList &ids);
+    void syncFolders(const QMailAccountId &accountId, const QMailFolderIdList &folders);
 
 signals:
     void undoCountChanged();

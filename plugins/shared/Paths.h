@@ -67,6 +67,7 @@ public:
         SendIcon,
         SentIcon,
         StarredIcon,
+        SyncIcon,
         TagsIcon,
         ViewFullScreenIcon,
         CalendarTodayIcon,

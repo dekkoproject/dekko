@@ -1,2 +1,4 @@
 singleton MessageActions 1.0 MessageActions.qml
 singleton MessageKeys 1.0 MessageKeys.qml
+singleton MailboxActions 1.0 MailboxActions.qml
+singleton MailboxKeys 1.0 MailboxKeys.qml

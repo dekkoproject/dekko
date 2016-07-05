@@ -91,11 +91,10 @@ DekkoPage {
     }
 
     bottomEdgeConfig: BottomEdgeComposer {
-        //        hintText: "Hello world"
         hintVisible: true
         iconSource: Paths.actionIconUrl(Icons.MailUnreadIcon)
-        activationKey: ViewKeys.openMessageComposer
-        canActionTrigger: false
+        activationKey: ViewKeys.replyToOpenMessage
+        canActionTrigger: dekko.viewState.isSmallFF
         enabled: dekko.viewState.isSmallFF
         flickable: listView
         listenerEnabled: enabled

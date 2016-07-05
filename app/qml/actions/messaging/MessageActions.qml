@@ -128,4 +128,6 @@ ActionCreator {
     signal endMultiSelection()
 
     signal resetFolderLists()
+
+    signal stackRewound()
 }

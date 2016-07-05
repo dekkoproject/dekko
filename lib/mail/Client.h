@@ -64,35 +64,50 @@ public:
     QObject *service() const { return m_service; }
     bool hasConfiguredAccounts();
 
-    // QML API
     Q_INVOKABLE void deleteMessage(const int &msgId);
     Q_INVOKABLE void restoreMessage(const int &msgId);
-    Q_INVOKABLE void markMessageImportant(const int &msgId, const bool important);
-    Q_INVOKABLE void markMessageRead(const int &msgId, const bool read);
-    Q_INVOKABLE void markMessageTodo(const int &msgId, const bool todo);
-    Q_INVOKABLE void markMessageDone(const int &msgId, const bool done);
-    Q_INVOKABLE void moveToStandardFolder(const int &msgId, const int &standardFolder); // standardFolder is a Folder::FolderType
-    Q_INVOKABLE void synchronizeAccount(const int &id);
-
-    // C++ Extras API
     void deleteMessages(const QMailMessageIdList &idList);
+
+    Q_INVOKABLE void synchronizeAccount(const int &id);
+    void synchronizeAccount(const QMailAccountId &id);
+
+    Q_INVOKABLE void syncStandardFolder(const int &standardFolder); //Folder::FolderType
+    Q_INVOKABLE void syncStandardFolder(const quint64 &accountId, const int &standardFolder);
+    Q_INVOKABLE void syncFolder(const quint64 &accountId, const quint64 &folderId);
+    void syncFolders(const QMailAccountId &accountId, const QMailFolderIdList &folders);
+
+    Q_INVOKABLE void markMessageImportant(const int &msgId, const bool important);
     void markMessagesImportant(const QMailMessageIdList &idList, const bool important);
+
+    Q_INVOKABLE void markMessageRead(const int &msgId, const bool read);
     void markMessagesRead(const QMailMessageIdList &idList, const bool read);
+
+    Q_INVOKABLE void markMessageTodo(const int &msgId, const bool todo);
     void markMessagesTodo(const QMailMessageIdList &idList, const bool todo);
+
+    Q_INVOKABLE void markMessageDone(const int &msgId, const bool done);
     void markMessagesDone(const QMailMessageIdList &idList, const bool done);
+
+    Q_INVOKABLE void moveToStandardFolder(const int &msgId, const int &standardFolder); // standardFolder is a Folder::FolderType
+    void moveToStandardFolder(const QMailMessageIdList &msgIds, const Folder::FolderType &folder);
+
+    Q_INVOKABLE void emptyTrash();
+    Q_INVOKABLE void emptyTrash(const int &accountId);
+    void emptyTrash(const QMailAccountIdList &ids);
+
+    Q_INVOKABLE void markStandardFolderRead(const int &standardFolder); // Folder::FolderType
+    Q_INVOKABLE void markStandardFolderRead(const quint64 &accountId, const int &standardFolder);
+    void markFolderRead(const QMailFolderId &id);
+
     void markMessagesReplied(const QMailMessageIdList &idList, const bool all);
     void markMessageForwarded(const QMailMessageIdList &idList);
 
-    // C++ fetch api
     void downloadMessagePart(const QMailMessagePart *msgPart);
     void downloadMessage(const QMailMessageId &msgId);
     void downloadMessages(const QMailMessageIdList &idList);
-    void synchronizeAccount(const QMailAccountId &id);
 
-    // C++ Store api
     bool addMessage(QMailMessage *msg);
     void removeMessage(const QMailMessageId &id, const QMailStore::MessageRemovalOption &option);
-    void moveToStandardFolder(const QMailMessageIdList &msgIds, const Folder::FolderType &folder);
 //    void addMessages(const QMailMessageList &msgList);
 //    void updateMessages(const QMailMessageList &msgList);
 
@@ -113,6 +128,9 @@ signals:
 
 public slots:
     void handleFailure(const quint64 &id, const QMailServiceAction::Status &status);
+
+protected:
+    QMailAccountIdList getEnabledAccountIds() const;
 
 private:
     ClientService *m_service;

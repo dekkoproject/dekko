@@ -83,10 +83,17 @@ BaseStage {
                 anchors.fill: parent
                 baseUrl: "qrc:/qml/views/MessageListView.qml"
                 function rewind() {
+                    var needsDelay = false
                     if (stackCount > 1) {
+                        needsDelay = true
                         while (stackCount !== 1) {
                             pop()
                         }
+                    }
+                    if (needsDelay) {
+                        delaySignalRewind.start()
+                    } else {
+                        MessageActions.stackRewound()
                     }
                 }
             }
@@ -126,6 +133,13 @@ BaseStage {
                 return "qrc:/qml/views/messageview/CleanMessagePage.qml"
             }
         }
+    }
+
+    Timer {
+        id: delaySignalRewind
+        interval: 300
+        repeat: false
+        onTriggered: MessageActions.stackRewound()
     }
 
     AppListener {

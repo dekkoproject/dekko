@@ -173,6 +173,17 @@ void ClientService::markMessageForwarded(const QMailMessageIdList &idList)
     QMailDisconnected::flagMessages(idList, applyMask, removeMask, "Marking messages forwarded");
 }
 
+void ClientService::markFolderRead(const QMailFolderId &id)
+{
+    QMailMessageKey folderKey = QMailMessageKey::parentFolderId(id) &
+            QMailMessageKey::status(
+                QMailMessage::Removed | QMailMessage::Read | QMailMessage::ReadElsewhere,
+                QMailDataComparator::Excludes);
+    auto msgList = QMailStore::instance()->queryMessages(folderKey);
+    qDebug() << "MARKING " << msgList.size() << "AS READ";
+    markMessagesRead(msgList, true);
+}
+
 void ClientService::downloadMessagePart(const QMailMessagePart *part)
 {
     if (!part->location().isValid(true)) {
@@ -228,6 +239,21 @@ void ClientService::synchronizeAccount(const QMailAccountId &id)
         return;
     }
     enqueue(new AccountSyncAction(this, id));
+}
+
+void ClientService::emptyTrash(const QMailAccountIdList &ids)
+{
+    Q_FOREACH(auto &id, ids) {
+        enqueue(new EmptyTrashAction(this, id));
+    }
+    exportMailStoreUpdate(ids);
+}
+
+void ClientService::syncFolders(const QMailAccountId &accountId, const QMailFolderIdList &folders)
+{
+    if (accountId.isValid()) {
+        enqueue(new FolderSyncAction(this, accountId, folders));
+    }
 }
 
 void ClientService::undoableCountChanged()

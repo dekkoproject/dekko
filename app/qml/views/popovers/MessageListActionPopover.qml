@@ -29,6 +29,8 @@ Popover {
     id: actionPopover
     property var msg
 
+    contentWidth: units.gu(30)
+
     Column {
         id: containerLayout
 

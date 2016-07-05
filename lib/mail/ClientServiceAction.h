@@ -55,7 +55,8 @@ public:
         TransmitAction,
         ExportAction,
         OutboxAction,
-        SyncAccountAction
+        SyncAccountAction,
+        SyncFolderAction
     };
 
     virtual void process() = 0;
@@ -154,6 +155,16 @@ public:
     void process();
     int itemCount();
     QMailAccountIdList accountIds();
+};
+
+class EmptyTrashAction : public ClientServiceAction
+{
+    Q_OBJECT
+    QMailAccountId m_id;
+public:
+    EmptyTrashAction(QObject *parent, const QMailAccountId &id);
+    void process();
+    QMailAccountId accountId() { return m_id; }
 };
 
 class ExportUpdatesAction : public ClientServiceAction
@@ -260,6 +271,17 @@ public:
 
 private:
     QMailAccountId m_id;
+};
+
+class FolderSyncAction : public ClientServiceAction
+{
+    Q_OBJECT
+    QMailAccountId m_id;
+    QMailFolderIdList m_list;
+public:
+    FolderSyncAction(QObject *parent, const QMailAccountId &id, const QMailFolderIdList &folders);
+    QMailAccountId accountId() { return m_id; }
+    void process();
 };
 
 //class MoveMessagesAction : public UndoableAction

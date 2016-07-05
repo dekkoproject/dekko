@@ -7,5 +7,6 @@
         <file>MessageDetailsPopover.qml</file>
         <file>AttachmentPopover.qml</file>
         <file>MessageActionPopover.qml</file>
+        <file>NavViewContextMenu.qml</file>
     </qresource>
 </RCC>

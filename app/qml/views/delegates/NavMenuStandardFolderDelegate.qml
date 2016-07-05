@@ -17,6 +17,7 @@
 */
 import QtQuick 2.4
 import Ubuntu.Components 1.3
+import Ubuntu.Components.Popups 1.3
 import Dekko.Mail 1.0
 import Dekko.Components 1.0
 import "../components"
@@ -78,6 +79,18 @@ ListItem {
         anchors.fill: layout ? layout : parent
         color: Qt.rgba(0, 0, 0, 0.05)
         visible: li.isCurrentIndex
+    }
+    MouseArea {
+        anchors.fill: parent
+        acceptedButtons: Qt.RightButton
+        onClicked: {
+            if (mouse.button === Qt.RightButton) {
+                PopupUtils.open("qrc:/qml/views/popovers/NavViewContextMenu.qml", li, {folder: li.folder})
+                mouse.accepted = true
+            } else {
+                mouse.accepted = false
+            }
+        }
     }
 
     ListItemLayout {

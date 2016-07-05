@@ -30,5 +30,7 @@
         <file>content/ContentActions.qml</file>
         <file>content/ContentKeys.qml</file>
         <file>content/qmldir</file>
+        <file>messaging/MailboxActions.qml</file>
+        <file>messaging/MailboxKeys.qml</file>
     </qresource>
 </RCC>

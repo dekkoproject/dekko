@@ -19,6 +19,7 @@
 #include <qmaildisconnected.h>
 #include <qmailmessage.h>
 #include <qmailaccount.h>
+#include <qmailstore.h>
 #include <QDebug>
 
 DeleteMessagesAction::DeleteMessagesAction(QObject *parent, const QMailMessageIdList &msgIds):
@@ -249,4 +250,44 @@ AccountSyncAction::AccountSyncAction(QObject *parent, const QMailAccountId &id):
 void AccountSyncAction::process()
 {
     createRetrievalAction()->synchronize(m_id, 20);
+}
+
+EmptyTrashAction::EmptyTrashAction(QObject *parent, const QMailAccountId &id) : ClientServiceAction(parent),
+    m_id(id)
+{
+    m_actionType = ActionType::Immediate;
+    m_serviceActionType = ServiceAction::DeleteAction;
+    m_description = QStringLiteral("Emptying trash for account %1").arg(m_id.toULongLong());
+}
+
+void EmptyTrashAction::process()
+{
+    QMailAccount account(m_id);
+    QMailMessageKey trashKey;
+    QMailFolderId trashFolder = account.standardFolder(QMailFolder::TrashFolder);
+    QMailMessageKey excludeKey = QMailMessageKey::status(QMailMessage::Removed, QMailDataComparator::Excludes);
+    if (!trashFolder.isValid()) {
+        trashKey = (QMailMessageKey::parentFolderId(QMailFolder::LocalStorageFolderId) &
+                QMailMessageKey::status(QMailMessage::Trash) &
+                excludeKey);
+    } else {
+        trashKey = (QMailMessageKey::parentFolderId(trashFolder) &
+                QMailMessageKey::status(QMailMessage::Trash) &
+                excludeKey);
+    }
+    auto msgs = QMailStore::instance()->queryMessages(trashKey, QMailMessageSortKey::timeStamp(Qt::AscendingOrder));
+    createStorageAction()->deleteMessages(msgs);
+}
+
+FolderSyncAction::FolderSyncAction(QObject *parent, const QMailAccountId &id, const QMailFolderIdList &folders):
+    ClientServiceAction(parent), m_id(id), m_list(folders)
+{
+    m_actionType = ActionType::Immediate;
+    m_serviceActionType = ServiceAction::SyncFolderAction;
+    m_description = QStringLiteral("Syncing folders for account: %1").arg(m_id.toULongLong());
+}
+
+void FolderSyncAction::process()
+{
+    createRetrievalAction()->retrieveNewMessages(m_id, m_list);
 }

@@ -54,6 +54,53 @@ BaseMessagingStore {
             stdFolders.reset()
         }
     }
+    Filter {
+        type: MailboxKeys.emptyTrash
+        onDispatched: {
+            Log.logInfo("MailboxStore::emptyTrash", "Emptying trash folder. This cannot be undone!")
+            Client.emptyTrash()
+        }
+    }
+
+    Filter {
+        type: MailboxKeys.markStandardFoldersRead
+        onDispatched: {
+            Log.logInfo("MailboxStore::markStandardFoldersRead", "Marking unified standard folder as read")
+            Client.markStandardFolderRead(message.standardFolder)
+        }
+    }
+
+    Filter {
+        type: MailboxKeys.markStandardFolderRead
+        onDispatched: {
+            Log.logInfo("MailboxStore::markStandardFolderRead", "Marking standard folder for account id: %1 as read".arg(message.accountId))
+            Client.markStandardFolderRead(message.accountId, message.standardFolder)
+        }
+    }
+
+    Filter {
+        type: MailboxKeys.syncStandardFolders
+        onDispatched: {
+            Log.logInfo("MailboxStore::syncStandardFolders", "Syncing standard folder")
+            Client.syncStandardFolder(message.standardFolder)
+        }
+    }
+
+    Filter {
+        type: MailboxKeys.syncStandardFolder
+        onDispatched: {
+            Log.logInfo("MailboxStore::syncStandardFolder", "Syncing folder for account: %1".arg(message.accountId))
+            Client.syncStandardFolder(message.accountId, message.standardFolder)
+        }
+    }
+
+    Filter {
+        type: MailboxKeys.syncFolder
+        onDispatched: {
+            Log.logInfo("MailboxStore::syncFolder", "Syncing folder for account: %1".arg(message.accountId))
+            Client.syncFolder(message.accountId, message.folderId)
+        }
+    }
 
     QtObject {
         id: d
