@@ -70,36 +70,27 @@ BaseMessagingStore {
         }
     }
 
-//    Filter {
-//        type: MessageKeys.openFolder
-//        onDispatched: {
-//            Log.logStatus("MailStore::openFolder", "Opening %1 folder with key %2"
-//                                   .arg(message.folderName).arg(message.folderKey))
-//            ViewActions.setCurrentNavFolder(d.currentFolderName)
-//            MessageActions.resetMessageList()
-//            d.currentFolderName = message.folderName
-//            msgList.messageKey = message.folderKey
-//            MessageActions.rewindMessageListStack()
-//        }
-//    }
-
     AppScript {
         id: openFolderScript
         property var fkey
         property string fname
         runWhen: MessageKeys.openFolder
         script: {
-            Log.logStatus("MailStore::openFolder", "Opening %1 folder with key %2"
-                                   .arg(message.folderName).arg(message.folderKey))
-            fkey = message.folderKey
-            fname = message.folderName
-            ViewActions.toggleNavDrawer()
+            Log.logStatus("MailStore::openFolder", "Opening %1 folder with key %2".arg(message.folderName).arg(message.folderKey))
+            // So this is a performance critical point. Well for the UI anyway
+            // We may have views stacked ontop of the base message list view
+            // so before we go resetting models we first need to rewind the stack to the view we
+            // want and *then* reset the model and apply the new key
             MessageActions.rewindMessageListStack()
+
+            // Wait for the MailStage to inform us the stack has been rewound
             once(MessageKeys.stackRewound, function() {
                 MessageActions.resetMessageList()
-                d.currentFolderName = fname
+                // nice! we still have the message value captured from script execution
+                // so we don't need to store the values in tmp properties
+                d.currentFolderName = message.folderName
                 ViewActions.setCurrentNavFolder(d.currentFolderName)
-                msgList.messageKey = fkey
+                msgList.messageKey = message.folderKey
             })
         }
     }

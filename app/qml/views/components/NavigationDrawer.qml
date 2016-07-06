@@ -50,7 +50,7 @@ Panel {
             type: MessageKeys.openFolder
             onDispatched: {
                 if (accountsDrawer.opened) {
-//                    accountsDrawer.delayClose()
+                    accountsDrawer.delayClose()
                 }
             }
         }
