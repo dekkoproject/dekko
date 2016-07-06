@@ -24,6 +24,7 @@ import "../components"
 ListItemWithActions {
 
     property var folder
+    property bool actionsEnabled: false
 
 
     function getIconForFolderType(f) {
@@ -45,10 +46,7 @@ ListItemWithActions {
         }
     }
 
-
-
-
-    rightSideActions: [
+    property list<Action> ctxtActions: [
         Action {
             id: favouriteFolder
             text: folder && folder.isFavourite ? qsTr("Un-favourite") : qsTr("Favourite")
@@ -56,8 +54,11 @@ ListItemWithActions {
                                                        Paths.actionIconUrl(Paths.StarredIcon)
             onTriggered: folder.isFavourite = !folder.isFavourite
         }
-
     ]
+
+
+    rightSideActions: actionsEnabled ? ctxtActions : []
+
     height: layout.height
     anchors {
         left: parent.left

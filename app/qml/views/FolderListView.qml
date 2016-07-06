@@ -27,7 +27,7 @@ import "../actions/messaging"
 DekkoPage {
 
     property string pageTitle: "Folders"
-    property alias accountId: folderList.accountId
+    property alias accountId: picker.accountId
 
     pageHeader.title: pageTitle
     pageHeader.backAction: Action {
@@ -37,25 +37,13 @@ DekkoPage {
     pageHeader.composeButtonEnabled: !dekko.viewState.isSmallFF
     extendHeader: !dekko.viewState.isSmallFF
 
-    FolderList {
-        id: folderList
-    }
-
     PageContent {
 
-        ScrollView {
-            anchors {
-                fill: parent
-            }
-            ListView {
-                anchors.fill: parent
-                clip: true
-                model: folderList.model
-                delegate: FolderListDelegate {
-                    folder: model.qtObject
-                    onItemClicked: MessageActions.openFolder(folder.name, folder.messageKey)
-                }
-            }
+        MailboxPicker {
+            id: picker
+            anchors.fill: parent
+            contextActionsEnabled: true
+            onFolderSelected: MessageActions.openFolder(folderName, folderKey)
         }
     }
 }

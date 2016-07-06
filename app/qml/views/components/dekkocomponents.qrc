@@ -36,5 +36,6 @@
         <file>AuthenticationSelector.qml</file>
         <file>LabeledSwitch.qml</file>
         <file>ExpandablePanel.qml</file>
+        <file>MailboxPicker.qml</file>
     </qresource>
 </RCC>
