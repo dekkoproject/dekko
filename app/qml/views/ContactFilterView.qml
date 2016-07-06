@@ -140,13 +140,18 @@ DekkoPage {
         }
 
         ListView {
+            id: lv
             anchors.fill: parent
             clip: true
             add: DekkoAnimation.listViewAddTransition
             addDisplaced: DekkoAnimation.listViewAddDisplacedTransition
             remove: DekkoAnimation.listViewRemoveTransition
             removeDisplaced: DekkoAnimation.listViewRemoveDisplacedTransition
+            highlight: !dekko.viewState.isSmallFF ? Style.highlightBar : null
+            highlightFollowsCurrentItem: true
+            highlightMoveDuration: 200
             model: msgList.model
+            currentIndex: -1
             delegate: MessageListDelegate {
                 id: msgListDelegate
                 anchors {
@@ -161,8 +166,15 @@ DekkoPage {
                         MessageActions.deleteMessage(msgListDelegate.msg.messageId)
                     }
                 }
-                rightSideActions: [flagAction, readAction, moveAction, contextAction]
-                onItemClicked: MessageActions.openMessage(msgListDelegate.msg.messageId)
+                rightSideActions: [flagAction, readAction, contextAction]
+                onItemClicked: {
+                    if (mouse.button === Qt.RightButton) {
+                        rightClickActions.trigger()
+                        return;
+                    }
+                    lv.currentIndex = model.index
+                    MessageActions.openMessage(msgListDelegate.msg.messageId)
+                }
             }
 
             Component.onCompleted: positionViewAtBeginning()

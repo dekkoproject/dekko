@@ -60,6 +60,7 @@ ListItemWithActions {
     property Action contextAction: Action {
         text: qsTr("Context menu")
         iconName: "contextual-menu"
+        onTriggered: rightClickActions.trigger()
     }
 
     property Action rightClickActions: Action {
