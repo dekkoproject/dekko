@@ -231,6 +231,22 @@ void Client::moveToStandardFolder(const QMailMessageIdList &msgIds, const Folder
     m_service->moveToStandardFolder(msgIds, folder);
 }
 
+void Client::moveToFolder(const quint64 &msgId, const quint64 &folderId)
+{
+    QMailMessageId id(msgId);
+    QMailFolderId folder(folderId);
+
+    if (!id.isValid() || !folder.isValid()) {
+        return;
+    }
+    moveToFolder(QMailMessageIdList() << id, folder);
+}
+
+void Client::moveToFolder(const QMailMessageIdList &ids, const QMailFolderId &folderId)
+{
+    m_service->moveToFolder(ids, folderId);
+}
+
 void Client::sendMessage(const QMailMessage &msg)
 {
     m_service->sendMessage(msg);

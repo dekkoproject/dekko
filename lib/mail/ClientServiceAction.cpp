@@ -55,6 +55,83 @@ QMailAccountIdList DeleteMessagesAction::accountIds()
     return accounts;
 }
 
+MoveToFolderAction::MoveToFolderAction(QObject *parent, const QMailMessageIdList &msgIds, const QMailFolderId &destination):
+    UndoableAction(parent), m_ids(msgIds), m_destination(destination)
+{
+    m_itemType = ItemType::Message;
+    m_serviceActionType = ServiceAction::MoveAction;
+    m_description = QStringLiteral("Moving %1 messages to %2").arg(QString::number(m_ids.count()), QMailFolder(m_destination).displayName());
+}
+
+void MoveToFolderAction::process()
+{
+    QMailDisconnected::moveToFolder(m_ids, m_destination);
+}
+
+int MoveToFolderAction::itemCount()
+{
+    return m_ids.count();
+}
+
+QMailAccountIdList MoveToFolderAction::accountIds()
+{
+    QMailAccountIdList accounts;
+    Q_FOREACH(auto &id, m_ids) {
+        QMailAccountId accountId = QMailMessageMetaData(id).parentAccountId();
+        if (!accounts.contains(accountId)) {
+            accounts.append(accountId);
+        }
+    }
+    return accounts;
+}
+
+MoveToStandardFolderAction::MoveToStandardFolderAction(QObject *parent, const QMailMessageIdList &msgIds, const QMailFolder::StandardFolder &folder):
+    UndoableAction(parent), m_ids(msgIds), m_standard(folder)
+{
+    m_itemType = ItemType::Message;
+    m_serviceActionType = ServiceAction::MoveAction;
+    m_description = QStringLiteral("Moving %1 messages to standard folder").arg(QString::number(m_ids.count()));
+}
+
+void MoveToStandardFolderAction::process()
+{
+    QMailDisconnected::moveToStandardFolder(m_ids, m_standard);
+    switch (m_standard) {
+    case QMailFolder::DraftsFolder:
+        QMailDisconnected::flagMessages(m_ids, QMailMessage::Draft, 0, "Flagging messages as draft");
+        break;
+    case QMailFolder::SentFolder:
+        QMailDisconnected::flagMessages(m_ids, QMailMessage::Sent, 0, "Flagging messages as sent");
+        break;
+    case QMailFolder::TrashFolder:
+        QMailDisconnected::flagMessages(m_ids, QMailMessage::Trash, 0, "Flagging messages as trash");
+        break;
+    case QMailFolder::JunkFolder:
+        QMailDisconnected::flagMessages(m_ids, QMailMessage::Junk, 0, "Flagging messages as Junk");
+        break;
+    case QMailFolder::InboxFolder:
+    case QMailFolder::OutboxFolder:
+        break;
+    }
+}
+
+int MoveToStandardFolderAction::itemCount()
+{
+    return m_ids.count();
+}
+
+QMailAccountIdList MoveToStandardFolderAction::accountIds()
+{
+    QMailAccountIdList accounts;
+    Q_FOREACH(auto &id, m_ids) {
+        QMailAccountId accountId = QMailMessageMetaData(id).parentAccountId();
+        if (!accounts.contains(accountId)) {
+            accounts.append(accountId);
+        }
+    }
+    return accounts;
+}
+
 ExportUpdatesAction::ExportUpdatesAction(QObject *parent, const QMailAccountId &id) :
     ClientServiceAction(parent), m_accountId(id)
 {

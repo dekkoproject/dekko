@@ -38,4 +38,7 @@ KeyTable {
     property string expungeStandardFolder
     property string expungeFolder
     property string emptyTrash
+    property string moveMessage
+    property string moveMessageCancelled
+    property string folderSelected
 }

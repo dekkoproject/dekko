@@ -59,11 +59,15 @@ QString ClientService::undoDescription()
 {
     int undoCount = 0;
     bool isDeleteAction = false;
+    bool isMoveAction = false;
     foreach(ClientServiceAction *action, m_undoQueue->toList()) {
         if (action->actionType() == ClientServiceAction::Undoable) {
             undoCount += qobject_cast<UndoableAction *>(action)->itemCount();
             if (action->serviceActionType() == ClientServiceAction::DeleteAction) {
                 isDeleteAction = true;
+            }
+            if (action->serviceActionType() == ClientServiceAction::MoveAction) {
+                isMoveAction = true;
             }
         }
     }
@@ -71,6 +75,10 @@ QString ClientService::undoDescription()
     if (isDeleteAction) {
         QString msg = undoCount > 1 ? tr("messages") : tr("message");
         return QStringLiteral("%1 %2 deleted").arg(QString::number(undoCount), msg);
+    }
+    if (isMoveAction) {
+        QString msg = undoCount > 1 ? tr("messages") : tr("message");
+        return QStringLiteral("%1 %2 moved").arg(QString::number(undoCount), msg);
     }
     return QString();
 }
@@ -209,27 +217,16 @@ void ClientService::sendMessage(const QMailMessage &msg)
 
 void ClientService::moveToStandardFolder(const QMailMessageIdList &msgIds, const Folder::FolderType &folder)
 {
-    QMailDisconnected::moveToStandardFolder(msgIds, Folder::folderFromType(folder));
-    // if msgIds are being mvoed to drafts then flag them accordingly
-    if (folder == Folder::SpecialUseDraftsFolder) {
-        QMailDisconnected::flagMessages(msgIds, QMailMessage::Draft, 0, "Flagging message as draft");
-    }
+    MoveToStandardFolderAction *action = new MoveToStandardFolderAction(this, msgIds, Folder::folderFromType(folder));
+    action->process();
+    m_undoQueue->append(action);
+}
 
-    int size = QMailStore::instance()->queryAccounts(QMailAccountKey::messageType(QMailMessage::Email)
-                                              & QMailAccountKey::status(QMailAccount::Enabled),
-                                              QMailAccountSortKey::name()).count();
-    QMailAccountIdList accounts;
-    foreach(ClientServiceAction *action, m_undoQueue->toList()) {
-        Q_FOREACH(const QMailAccountId &id, qobject_cast<UndoableAction *>(action)->accountIds()) {
-            if (!accounts.contains(id)) {
-                accounts.append(id);
-                if (accounts.count() == size) {
-                    break; // early
-                }
-            }
-        }
-    }
-    exportMailStoreUpdate(accounts);
+void ClientService::moveToFolder(const QMailMessageIdList &msgIds, const QMailFolderId &folder)
+{
+    MoveToFolderAction *action = new MoveToFolderAction(this, msgIds, folder);
+    action->process();
+    m_undoQueue->append(action);
 }
 
 void ClientService::synchronizeAccount(const QMailAccountId &id)

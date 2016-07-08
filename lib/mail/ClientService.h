@@ -68,6 +68,7 @@ public:
     void downloadMessages(const QMailMessageIdList &msgIds);
     void sendMessage(const QMailMessage &msg);
     void moveToStandardFolder(const QMailMessageIdList &msgIds, const Folder::FolderType &folder);
+    void moveToFolder(const QMailMessageIdList &msgIds, const QMailFolderId &folder);
     void synchronizeAccount(const QMailAccountId &id);
     void emptyTrash(const QMailAccountIdList &ids);
     void syncFolders(const QMailAccountId &accountId, const QMailFolderIdList &folders);
@@ -85,6 +86,7 @@ signals:
     void accountSynced(const quint64 &id);
     void syncAccountFailed(const quint64 &id);
     void actionFailed(const quint64 &id, const QMailServiceAction::Status &status);
+
 public slots:
     void undoActions();
 

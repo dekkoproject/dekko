@@ -22,6 +22,7 @@ import Dekko.Mail 1.0
 import "../../actions"
 import "../../actions/messaging"
 import "../../actions/logging"
+import "../../actions/views"
 
 /*!
 *
@@ -100,6 +101,31 @@ BaseMessagingStore {
             Log.logInfo("MailboxStore::syncFolder", "Syncing folder for account: %1".arg(message.accountId))
             Client.syncFolder(message.accountId, message.folderId)
         }
+    }
+
+    AppScript {
+        property string pickerId: "move-msg-picker"
+        runWhen: MailboxKeys.moveMessage
+        script: {
+            ViewActions.pushToStageArea(ViewKeys.messageListStack,
+                                        "qrc:/qml/views/MailboxPickerPage.qml",
+                                        {
+                                            pickerId: pickerId,
+                                            accountId: message.accountId
+                                        })
+            once(MailboxKeys.folderSelected, function (result) {
+                if (result.pickerId !== pickerId) {
+                    return;
+                }
+                if (result.folderType === Folder.StandardFolder) {
+                    Client.moveToFolder(message.msgId, result.folderId)
+                } else {
+                    Client.moveToStandardFolder(message.msgId, result.folderType)
+                }
+            })
+            once(MailboxKeys.moveMessageCancelled, exit.bind(this, 0))
+        }
+
     }
 
     QtObject {

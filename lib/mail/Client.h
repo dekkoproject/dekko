@@ -90,6 +90,8 @@ public:
 
     Q_INVOKABLE void moveToStandardFolder(const int &msgId, const int &standardFolder); // standardFolder is a Folder::FolderType
     void moveToStandardFolder(const QMailMessageIdList &msgIds, const Folder::FolderType &folder);
+    Q_INVOKABLE void moveToFolder(const quint64 &msgId, const quint64 &folderId);
+    void moveToFolder(const QMailMessageIdList &ids, const QMailFolderId &folderId);
 
     Q_INVOKABLE void emptyTrash();
     Q_INVOKABLE void emptyTrash(const int &accountId);

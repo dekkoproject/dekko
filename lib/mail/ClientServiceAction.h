@@ -157,6 +157,30 @@ public:
     QMailAccountIdList accountIds();
 };
 
+class MoveToFolderAction : public UndoableAction
+{
+    Q_OBJECT
+    QMailMessageIdList m_ids;
+    QMailFolderId m_destination;
+public:
+    MoveToFolderAction(QObject *parent, const QMailMessageIdList &msgIds, const QMailFolderId &destination);
+    void process();
+    int itemCount();
+    QMailAccountIdList accountIds();
+};
+
+class MoveToStandardFolderAction : public UndoableAction
+{
+    Q_OBJECT
+    QMailMessageIdList m_ids;
+    QMailFolder::StandardFolder m_standard;
+public:
+    MoveToStandardFolderAction(QObject *parent, const QMailMessageIdList &msgIds, const QMailFolder::StandardFolder &folder);
+    void process();
+    int itemCount();
+    QMailAccountIdList accountIds();
+};
+
 class EmptyTrashAction : public ClientServiceAction
 {
     Q_OBJECT
@@ -283,17 +307,5 @@ public:
     QMailAccountId accountId() { return m_id; }
     void process();
 };
-
-//class MoveMessagesAction : public UndoableAction
-//{
-//    Q_OBJECT
-//    QMailMessageIdList m_ids;
-//    QMailFolderId m_destination;
-//public:
-//    MoveMessagesAction(QObject *parent, const QMailMessageIdList &msgIds, const QMailFolderId &destination);
-//    void process();
-//    int itemCount();
-//    QMailAccountIdList accountIds();
-//};
 
 #endif // CLIENTSERVICEACTION_H

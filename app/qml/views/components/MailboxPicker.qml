@@ -28,6 +28,7 @@ Item {
     property bool contextActionsEnabled: false
     signal folderSelected(string folderName, var folderKey)
     signal folderClicked(int folderId)
+    signal folderTypeClicked(int folderType, int folderId)
 
     FolderList {
         id: folderList
@@ -54,6 +55,7 @@ Item {
                     lv.currentIndex = model.index
                     picker.folderSelected(folder.name, folder.messageKey)
                     picker.folderClicked(folder.folderId)
+                    picker.folderTypeClicked(folder.type, folder.folderId)
                 }
             }
         }

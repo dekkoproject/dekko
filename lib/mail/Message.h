@@ -37,6 +37,7 @@ class MinimalMessage : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(int messageId READ messageId WRITE setMessageId NOTIFY minMessageChanged)
+    Q_PROPERTY(int parentAccountId READ parentAccountId NOTIFY minMessageChanged)
     Q_PROPERTY(MailAddress *from READ from NOTIFY minMessageChanged)
     Q_PROPERTY(QString subject READ subject NOTIFY minMessageChanged)
     Q_PROPERTY(QString preview READ preview NOTIFY minMessageChanged)
@@ -58,6 +59,7 @@ class MinimalMessage : public QObject
 public:
     explicit MinimalMessage(QObject *parent = 0);
     int messageId() const { return m_id.toULongLong(); }
+    int parentAccountId() const { return QMailMessageMetaData(m_id).parentAccountId().toULongLong(); }
     MailAddress *from() const;
     QString subject() const;
     QString preview() const;

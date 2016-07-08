@@ -38,4 +38,7 @@ ActionCreator {
     signal expungeStandardFolder(int accountId, int standardFolder)
     signal expungeFolder(int accountId, int folderId)
     signal emptyTrash()
+    signal moveMessage(int accountId, int msgId)
+    signal moveMessageCancelled(string pickerId)
+    signal folderSelected(string pickerId, int folderType, int folderId)
 }
