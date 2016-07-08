@@ -47,6 +47,8 @@ public:
     bool isNull() const;
     bool isContact() const;
 
+    Q_INVOKABLE QString toRfc6068Mailto();
+
     QMailAddress qMailAddress() const { return m_address; }
 
 signals:

@@ -96,6 +96,12 @@ bool Dekko::setup()
     m_view->engine()->rootContext()->setContextProperty("verboseLogging", QVariant(m_verboseLogging));
     // Context property to figure out if we are on unity8/mir or not
     m_view->engine()->rootContext()->setContextProperty(QStringLiteral("isRunningOnMir"), QVariant(qgetenv("QT_QPA_PLATFORM") == "ubuntumirclient"));
+    // Check both APP_URIS and positionalArgs for uris we need to handle
+    QStringList uris;
+    uris << qgetenv("APP_URIS");
+    uris << parser.positionalArguments();
+    uris.removeDuplicates();
+    m_view->engine()->rootContext()->setContextProperty(QStringLiteral("appUris"), uris);
 
     m_view->setSource(QUrl(QStringLiteral("qrc:/qml/main.qml")));
     m_view->show();

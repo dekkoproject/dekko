@@ -46,6 +46,7 @@ ActionCreator {
     signal replyToOpenMessage()
     signal detachComposer()
     signal attachComposer()
+    signal openUri(string uri)
 
     signal resetPanelWidths()
 

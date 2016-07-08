@@ -22,6 +22,7 @@ import Dekko.Mail 1.0
 import "../components"
 import "../../actions/popups"
 import "../../actions/composer"
+import "../../actions/views"
 
 Popover {
     id: info
@@ -74,17 +75,6 @@ Popover {
             }
         }
 
-//        ListItem {
-//            height: deleteLayout.implicitHeight
-//            ListItemLayout {
-//                id: deleteLayout
-//                title.text: qsTr("Remove")
-//                title.font.weight: Style.common.fontWeight
-//                title.elide: Text.ElideRight
-//                title.wrapMode: Text.NoWrap
-//            }
-//            onClicked: info.remove()
-//        }
         ListItem {
             height: clipboard.implicitHeight
             color: UbuntuColors.porcelain
@@ -124,7 +114,8 @@ Popover {
                 title.wrapMode: Text.NoWrap
             }
             onClicked: {
-                PopupActions.showNotice("Not implemented yet. Fix it before release!!!!")
+                // Just dispatch a mailto: uri to be opened.
+                ViewActions.openUri(address.toRfc6068Mailto())
                 PopupUtils.close(info)
             }
         }

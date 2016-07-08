@@ -83,6 +83,7 @@ Flipable {
                 if (flipable.state === "front") {
                     ViewActions.pushToStageArea(ViewKeys.messageListStack, "qrc:///qml/views/ContactFilterView.qml",
                                                 {
+                                                    sender: msg.from,
                                                     title: msg.from.name,
                                                     email: msg.from.address,
                                                     initials: msg.from.initials,

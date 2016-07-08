@@ -22,6 +22,7 @@
 #include <QMimeType>
 #include <QMimeDatabase>
 #include <QStringBuilder>
+#include <QUrlQuery>
 #include <emailvalidator.h>
 #include <Formatting.h>
 
@@ -307,6 +308,99 @@ void MessageBuilder::buildForward(const MessageBuilder::ForwardType &type, const
     }
     m_mode = Mode::Fwd;
     m_srcMessageId = src.id();
+}
+
+void MessageBuilder::composeMailTo(const QString &mailtoUri)
+{
+    QUrl mailto(mailtoUri);
+    if (mailto.isEmpty() || mailto.scheme() != QStringLiteral("mailto")) {
+        qDebug() << "Not a valid mailto url" << mailto;
+        return;
+    }
+    QString host; // Will be our "To" addresses that aren't part of the queries
+    QString tos; // query to=
+    QString ccs; // query cc=
+    QString bccs; // query bcc=
+    QString encoded = mailto.path(QUrl::FullyDecoded).replace(QStringLiteral("mailto:"), QStringLiteral(""));
+//    qDebug() << "Encoded path" << encoded;
+    int index = encoded.indexOf(QChar('?'));
+    if (index != -1) {
+        QString query = encoded.mid(index + 1);
+//        qDebug() << "Query: " << query;
+        QUrlQuery opts(query);
+        if (opts.hasQueryItem(QStringLiteral("subject"))) {
+            setSubjectText(opts.queryItemValue(QStringLiteral("subject")));
+        }
+        if (opts.hasQueryItem(QStringLiteral("body"))) {
+            setBodyText(opts.queryItemValue(QStringLiteral("body")));
+        }
+        if (opts.hasQueryItem(QStringLiteral("to"))) {
+            tos = opts.queryItemValue(QStringLiteral("to"));
+        }
+        if (opts.hasQueryItem(QStringLiteral("cc"))) {
+            ccs = opts.queryItemValue(QStringLiteral("cc"));
+        }
+        if (opts.hasQueryItem(QStringLiteral("bcc"))) {
+            bccs = opts.queryItemValue(QStringLiteral("bcc"));
+        }
+        host = encoded.left(index);
+    } else {
+        host = encoded;
+    }
+    auto parseRecipients = [=](const QString &val) -> QStringList {
+        QStringList result;
+        if (val.contains(QChar(';'))) {
+            Q_FOREACH(const QString &addr, val.split(QChar(';'))) {
+                QMailAddress address(addr);
+                if (EmailValidator::instance()->validate(address.address())) {
+                    result << addr;
+                } else {
+                    qDebug() << "Invalid mailto address" << addr << ". Ignoring!!!!";
+                }
+            }
+        } else if (val.contains(QChar(','))) {
+            Q_FOREACH(const QString &addr, val.split(QChar(','))) {
+                QMailAddress address(addr);
+                if (EmailValidator::instance()->validate(address.address())) {
+                    result << addr;
+                } else {
+                    qDebug() << "Invalid mailto address" << addr << ". Ignoring!!!!";
+                }
+            }
+        } else {
+            QMailAddress address(val);
+            if (EmailValidator::instance()->validate(address.address())) {
+                result << val;
+            } else {
+                qDebug() << "Invalid mailto address" << val << ". Ignoring!!!!";
+            }
+        }
+        int ok = result.removeDuplicates();
+        Q_UNUSED(ok);
+        return result;
+    };
+    // need to make sure we include the tos as it maybe something stupid like
+    // mailto:test1@example.com?to=test2@example.com,test3@example.com&cc=blah@meh.org...
+    if (!tos.isEmpty()) {
+        host.append(QChar(','));
+        host.append(tos);
+    }
+    QStringList tosList = parseRecipients(host);
+    Q_FOREACH(const QString &addr, tosList) {
+        addRecipient(To, addr);
+    }
+    if (!ccs.isEmpty()) {
+        QStringList ccList = parseRecipients(ccs);
+        Q_FOREACH(const QString &addr, ccList) {
+            addRecipient(Cc, addr);
+        }
+    }
+    if (!bccs.isEmpty()) {
+        QStringList bccList = parseRecipients(bccs);
+        Q_FOREACH(const QString &addr, bccList) {
+            addRecipient(Bcc, addr);
+        }
+    }
 }
 
 void MessageBuilder::addRecipient(const MessageBuilder::RecipientModels which, const QString &emailAddress)
@@ -628,4 +722,22 @@ QByteArray MessageBuilder::getListPostAddress(const QMailMessage &src)
         return listPost;
     }
     return QByteArray();
+}
+
+void MessageBuilder::setSubjectText(const QString &text)
+{
+    if (m_subject == Q_NULLPTR) {
+        m_internalSubject->setPlainText(text);
+    } else {
+        m_subject->textDocument()->setPlainText(text);
+    }
+}
+
+void MessageBuilder::setBodyText(const QString &body)
+{
+    if (m_body == Q_NULLPTR) {
+        m_internalBody->setPlainText(body);
+    } else {
+        m_body->textDocument()->setPlainText(body);
+    }
 }

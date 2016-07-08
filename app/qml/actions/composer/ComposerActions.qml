@@ -77,4 +77,6 @@ ActionCreator {
        idx: index of the identity in SenderIdentities model
     */
     signal setIdentity(int idx)
+
+    signal composeMailtoUri(string mailto)
 }

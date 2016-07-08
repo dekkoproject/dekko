@@ -328,5 +328,22 @@ AppListener {
             builder.appendTextToBody(message.text)
         }
     }
+
+    Filter {
+        type: ComposerKeys.composeMailtoUri
+        onDispatched: {
+            builder.composeMailTo(message.mailto)
+            // we need to delay this now as we may have actually only just been opened
+            // and the various stores are still getting initialized as the UI is constructed
+            delayOpenComposer.start()
+        }
+    }
+
+    Timer {
+        id: delayOpenComposer
+        interval: 500 // this should be plenty long enough
+        repeat: false
+        onTriggered: ViewActions.openMessageComposer()
+    }
 }
 

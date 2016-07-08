@@ -34,6 +34,7 @@ Dekko {
         property ToastListener toaster: ToastListener{}
         property ContentManager contentManager: ContentManager{}
         property ErrorManager errorManager: ErrorManager{}
+        property UriListener uriListener: UriListener{}
     }
 }
 

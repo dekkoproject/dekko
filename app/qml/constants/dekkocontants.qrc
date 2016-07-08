@@ -1,9 +1,9 @@
 <RCC>
     <qresource prefix="/qml/constants">
-        <file>Constants.qml</file>
         <file>Style.qml</file>
         <file>qmldir</file>
         <file>DekkoAnimation.qml</file>
         <file>MailUtils.qml</file>
+        <file>Uris.qml</file>
     </qresource>
 </RCC>

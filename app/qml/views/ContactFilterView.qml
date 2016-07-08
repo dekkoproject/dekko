@@ -28,6 +28,7 @@ import "../constants"
 DekkoPage {
     id: contactFilterView
 
+    property var sender
     property string title: ""
     property alias filterKey: msgList.messageKey
     property string name: title
@@ -116,6 +117,7 @@ DekkoPage {
                         leftMargin: Style.defaultSpacing
                     }
                     color: UbuntuColors.green
+                    onTriggered: ViewActions.openUri(Uris.newContactUri(sender.completeAddress))
                 }
                 Button {
                     id: sendButton
@@ -126,6 +128,7 @@ DekkoPage {
                         rightMargin: Style.defaultSpacing
                     }
                     color: UbuntuColors.green
+                    onTriggered: ViewActions.openUri(sender.toRfc6068Mailto())
                 }
             }
         }

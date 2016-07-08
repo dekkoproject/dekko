@@ -50,5 +50,6 @@ KeyTable {
     property string removeRecipient
 
     property string setIdentity
+    property string composeMailtoUri
 
 }

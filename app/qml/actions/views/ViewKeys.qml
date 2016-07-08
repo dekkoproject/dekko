@@ -44,6 +44,7 @@ KeyTable {
     property string replyToOpenMessage
     property string detachComposer
     property string attachComposer
+    property string openUri
 
     property string resetPanelWidths
 

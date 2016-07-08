@@ -67,6 +67,7 @@ public:
 
     void buildResponse(const ReplyType &type, const QMailMessage &src);
     void buildForward(const ForwardType &type, const QMailMessage &src);
+    Q_INVOKABLE void composeMailTo(const QString &mailtoUri);
 
 signals:
     void modelsChanged();
@@ -117,6 +118,8 @@ private:
     ReplyType m_replyType;
 
     QByteArray getListPostAddress(const QMailMessage &src);
+    void setSubjectText(const QString &text);
+    void setBodyText(const QString &body);
 
 };
 

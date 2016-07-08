@@ -96,6 +96,11 @@ bool MailAddress::isContact() const
     return false; // not implemented yet
 }
 
+QString MailAddress::toRfc6068Mailto()
+{
+    return QStringLiteral("mailto:%1").arg(completeAddress());
+}
+
 void MailAddress::setAddress(const QMailAddress &address)
 {
     m_address = address;
