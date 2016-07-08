@@ -68,7 +68,7 @@ FocusScope {
                         }
                     }
                     RecipientField {
-                        visible: ComposerStore.showCC
+                        visible: ComposerStore.showCC || ComposerStore.recipients.cc.count
                         recipientType: RecipientType.Cc
                         recipientModel: ComposerStore.recipients.cc
                         anchors {
@@ -77,7 +77,7 @@ FocusScope {
                         }
                     }
                     RecipientField {
-                        visible: ComposerStore.showBCC
+                        visible: ComposerStore.showBCC || ComposerStore.recipients.bcc.count
                         recipientType: RecipientType.Bcc
                         recipientModel: ComposerStore.recipients.bcc
                         anchors {
