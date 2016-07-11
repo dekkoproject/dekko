@@ -71,4 +71,5 @@ KeyTable {
     property string orderComplexToast
 
     property string setCurrentNavFolder
+    property string switchMessageViewLocation
 }

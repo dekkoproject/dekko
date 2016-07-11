@@ -23,6 +23,7 @@ import Dekko.Mail 1.0
 import Dekko.Components 1.0
 import "../../actions/messaging"
 import "../../actions/views"
+import "../../stores"
 import "../components"
 import "../webview"
 import "../composer"
@@ -52,6 +53,17 @@ DekkoPage {
         canActionTrigger: !dekko.viewState.isLargeFF
         activationKey: ViewKeys.replyToOpenMessage
         listenerEnabled: enabled
+    }
+
+    Connections {
+        target: ViewStore
+        onFormFactorChanged: {
+            if ((ViewStore.formFactor !== "small") && (stageArea.stageID === ViewKeys.messageListStack)) {
+                ViewActions.switchMessageViewLocation(ViewKeys.messageListStack, msgId)
+            } else if ((ViewStore.formFactor === "small") && (stageArea.stageID === ViewKeys.messageViewStack)) {
+                ViewActions.switchMessageViewLocation(ViewKeys.messageViewStack, msgId)
+            }
+        }
     }
 
     Message {

@@ -25,6 +25,7 @@ import "../../actions/views"
 // A StageArea has it's own internal page stack and should be used
 // by all child pages of this StageArea
 Item {
+    id: stageArea
     clip: true // Don't leak into another area
     // Set a page url to load on creation
     property var baseUrl: undefined

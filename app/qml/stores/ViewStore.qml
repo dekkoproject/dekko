@@ -20,8 +20,12 @@ import QtQuick 2.4
 import QuickFlux 1.0
 import Dekko.Mail 1.0
 import "../actions/views"
+import "../actions/messaging"
 import "../actions/logging"
 import "./"
+import "./accounts"
+import "./composer"
+import "./mail"
 
 /*!
 *
@@ -36,6 +40,11 @@ AppListener {
 
     property string formFactor
     readonly property string selectedNavFolder: d.currentNavFolder
+
+    waitFor: [
+        ComposerStore.listenerId,
+        MailStore.listenerId,
+    ]
 
     Filter {
         type: ViewKeys.stageStackReady
@@ -71,6 +80,24 @@ AppListener {
         type: ViewKeys.setCurrentNavFolder
         onDispatched: {
             d.currentNavFolder = message.folderName
+        }
+    }
+
+    Filter {
+        id: switchFilter
+        type: ViewKeys.switchMessageViewLocation
+        onDispatched: {
+            ViewActions.popStageArea(message.currentStageArea)
+            msgId = message.msgId
+            delaySwitch.start()
+        }
+        property int msgId
+        property Timer delaySwitch: Timer {
+            interval: 50
+            repeat: false
+            onTriggered: {
+                MessageActions.openMessage(switchFilter.msgId)
+            }
         }
     }
 

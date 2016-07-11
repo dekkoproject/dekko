@@ -27,6 +27,7 @@ PageStack {
     id: stageStack
 
     AppListener {
+        waitFor: ViewStore.listenerId
         Filter {
             type: ViewKeys.pushStage
             onDispatched: {

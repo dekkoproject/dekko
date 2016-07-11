@@ -29,8 +29,6 @@ AppListener {
 
     property string pickerUrl: ""
 
-
-
     Connections {
         target: ContentHub
         onImportRequested: {

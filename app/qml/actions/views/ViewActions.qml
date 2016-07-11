@@ -65,5 +65,6 @@ ActionCreator {
     signal orderComplexToast(string title, string subtitle, string image)
 
     signal setCurrentNavFolder(string folderName);
+    signal switchMessageViewLocation(string currentStageArea, int msgId)
 
 }

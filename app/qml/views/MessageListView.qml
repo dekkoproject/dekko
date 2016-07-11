@@ -216,10 +216,6 @@ DekkoPage {
                     rightSideActions: [flagAction, readAction, contextAction]
 
                     onItemClicked: {
-                        if (msg.isDraft) {
-                            ComposerActions.openDraft(msg.messageId)
-                            return;
-                        }
 
                         if (MailStore.isInSelectionMode) {
                             if (msg.checked) {
@@ -227,6 +223,11 @@ DekkoPage {
                             } else {
                                 MessageActions.setMessageCheck(model.index, Qt.Checked)
                             }
+                            return;
+                        }
+
+                        if (msg.isDraft) {
+                            ComposerActions.openDraft(msg.messageId)
                             return;
                         }
 
