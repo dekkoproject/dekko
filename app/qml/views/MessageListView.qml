@@ -184,7 +184,21 @@ DekkoPage {
 
                 anchors.fill: parent
                 clip: true
-                currentIndex: -1
+                currentIndex: MailStore ? MailStore.currentSelectedIndex : -1
+//                onCurrentIndexChanged: {
+//                    console.log("CurrentIndexChanged: ", currentIndex)
+//                    if (currentIndex === -1) {
+//                        return;
+//                    }
+//                    var msgId = -1
+//                    if (isSearchMode) {
+//                        msgId = mboxSearch.results.get(currentIndex).messageId
+//                    } else {
+//                        msgId = MailStore.msgListModel.get(currentIndex).messageId
+//                    }
+//                    MessageActions.openMessage(msgId)
+//                }
+
                 add: DekkoAnimation.listViewAddTransition
                 addDisplaced: DekkoAnimation.listViewAddDisplacedTransition
                 remove: DekkoAnimation.listViewRemoveTransition
@@ -235,8 +249,9 @@ DekkoPage {
                             rightClickActions.trigger()
                             return;
                         }
-                        MessageActions.openMessage(msgListDelegate.msg.messageId)
-                        listView.currentIndex = model.index
+
+                        MessageActions.openMessage(msg.messageId)
+                        MailStore.currentSelectedIndex = model.index
                     }
                     onItemPressAndHold: {
                         // TODO: get multiselect working on search results.
@@ -272,9 +287,10 @@ DekkoPage {
     }
 
     Binding {
-        target: MailStore;
-        property: "currentSelectedIndex";
-        value: listView.currentIndex
+        target: listView;
+        property: "currentIndex";
+        value: MailStore.currentSelectedIndex
+        when: MailStore
     }
 
     AppListener {

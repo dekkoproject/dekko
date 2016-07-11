@@ -20,6 +20,7 @@
 
 #include <QObject>
 #include <QMap>
+#include <QCache>
 #include <QmlObjectListModel.h>
 #include <qmailmessage.h>
 #include <qmailmessagekey.h>
@@ -27,6 +28,9 @@
 #include "Message.h"
 
 #define INCREMENT_VALUE 50
+// Remember the selected message for each key using QCache
+// it works but it's really bogging down qml. Bindings need optimizing.
+// #define EXPERIMENTAL_REMEMBER_SELECTED_MESSAGE
 
 class MessageList : public QObject
 {
@@ -164,6 +168,9 @@ private: //members
     bool m_selectionMode;
     int m_currentIndex;
     FilterKey m_filter;
+#ifdef EXPERIMENTAL_REMEMBER_SELECTED_MESSAGE
+    QCache<QByteArray, QMailMessageId> m_cache;
+#endif
 };
 
 #endif // MESSAGELIST_H

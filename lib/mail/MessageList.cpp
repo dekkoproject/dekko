@@ -174,6 +174,21 @@ void MessageList::setKey(const QVariant &key)
         m_msgKey = QMailMessageKey::nonMatchingKey();
     }
     reset();
+#ifdef EXPERIMENTAL_REMEMBER_SELECTED_MESSAGE
+    QByteArray cacheKey;
+    QDataStream keystream(&cacheKey, QIODevice::WriteOnly);
+    m_msgKey.serialize<QDataStream>(keystream);
+    if (m_cache.contains(cacheKey)) {
+        QMailMessageId lookingFor = *m_cache.object(cacheKey);
+        foreach (auto msg, m_model->toList()) {
+            if (msg->messageId() == lookingFor.toULongLong()) {
+                setCurrentSelectedIndex(m_model->indexOf(msg));
+                return;
+            }
+            setCurrentSelectedIndex(-1);
+        }
+    }
+#endif
 }
 
 void MessageList::setSortOrder(const Qt::SortOrder &order)
@@ -245,10 +260,27 @@ void MessageList::deleteSelectedMessages()
 
 void MessageList::setCurrentSelectedIndex(int currentSelectedIndex)
 {
+    qDebug() << "CURRENT INDEX: " << currentSelectedIndex;
     if (m_currentIndex == currentSelectedIndex)
         return;
 
     m_currentIndex = currentSelectedIndex;
+
+    if (currentSelectedIndex == -1) {
+        emit currentSelectedIndexChanged();
+        return;
+    }
+#ifdef EXPERIMENTAL_REMEMBER_SELECTED_MESSAGE
+    if (!m_msgKey.isEmpty()) {
+        QByteArray cacheKey;
+        QDataStream keystream(&cacheKey, QIODevice::WriteOnly);
+        m_msgKey.serialize<QDataStream>(keystream);
+        if (m_cache.contains(cacheKey)) {
+            m_cache.remove(cacheKey);
+        }
+        m_cache.insert(cacheKey, new QMailMessageId(m_model->at(m_currentIndex)->messageId()));
+    }
+#endif
     emit currentSelectedIndexChanged();
 }
 
