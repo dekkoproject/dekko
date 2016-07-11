@@ -55,7 +55,7 @@ public:
     bool canSend() const;
     void respondToMessage(const ResponseType &type, const QMailMessageId &msgId);
     void forwardMessage(const ResponseType &type, const QMailMessageId &msgId);
-
+    void reloadDraft(const QMailMessageId &msgId);
 signals:
     void builderChanged();
     void error(const Error &error);
@@ -71,6 +71,7 @@ public slots:
     void saveDraft(const bool userTriggered = false);
 //    void respond(const ResponseType &type);
     void messageSent(const QMailMessageIdList &ids);
+    void reloadDraft(const quint64 &msgId);
     void respondToMessage(const ResponseType &type, const quint64 &msgId);
     void forwardMessage(const ResponseType &type, const quint64 &msgId);
     void reset();

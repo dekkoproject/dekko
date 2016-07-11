@@ -36,6 +36,7 @@ ActionCreator {
     signal respondToMessage(int type, int msgId)
     signal forwardMessage(int type, int msgId)
     signal saveDraft()
+    signal openDraft(int draftId)
     signal discardMessage()
     signal addFileAttachment(string url)
     signal removeAttachment(int index)

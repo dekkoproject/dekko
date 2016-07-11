@@ -68,6 +68,7 @@ public:
     void buildResponse(const ReplyType &type, const QMailMessage &src);
     void buildForward(const ForwardType &type, const QMailMessage &src);
     Q_INVOKABLE void composeMailTo(const QString &mailtoUri);
+    void reloadLastDraftId();
 
 signals:
     void modelsChanged();

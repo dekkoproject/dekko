@@ -221,14 +221,14 @@ bool Client::addMessage(QMailMessage *msg)
     return QMailStore::instance()->addMessage(msg);
 }
 
-void Client::removeMessage(const QMailMessageId &id, const QMailStore::MessageRemovalOption &option)
+bool Client::removeMessage(const QMailMessageId &id, const QMailStore::MessageRemovalOption &option)
 {
-    QMailStore::instance()->removeMessage(id, option);
+    return QMailStore::instance()->removeMessage(id, option);
 }
 
-void Client::moveToStandardFolder(const QMailMessageIdList &msgIds, const Folder::FolderType &folder)
+void Client::moveToStandardFolder(const QMailMessageIdList &msgIds, const Folder::FolderType &folder, const bool userTriggered)
 {
-    m_service->moveToStandardFolder(msgIds, folder);
+    m_service->moveToStandardFolder(msgIds, folder, userTriggered);
 }
 
 void Client::moveToFolder(const quint64 &msgId, const quint64 &folderId)

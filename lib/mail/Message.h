@@ -49,6 +49,7 @@ class MinimalMessage : public QObject
     Q_PROPERTY(bool isJunk READ isJunk NOTIFY minMessageChanged)
     Q_PROPERTY(bool canBeRestored READ canBeRestored NOTIFY minMessageChanged)
     Q_PROPERTY(bool isListPost READ isListPost NOTIFY minMessageChanged)
+    Q_PROPERTY(bool isDraft READ isDraft NOTIFY minMessageChanged)
     Q_PROPERTY(QString previousFolderName READ previousFolderName NOTIFY minMessageChanged)
     Q_PROPERTY(QDateTime date READ date NOTIFY minMessageChanged)
     Q_PROPERTY(QString prettyDate READ prettyDate NOTIFY minMessageChanged)
@@ -71,6 +72,7 @@ public:
     bool isDone() const;
     bool isJunk() const;
     bool isListPost() const;
+    bool isDraft() const;
     QString previousFolderName() const;
     QDateTime date() const;
     QString prettyDate();

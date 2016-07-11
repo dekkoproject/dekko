@@ -118,10 +118,13 @@ BaseMessagingStore {
                     return;
                 }
                 if (result.folderType === Folder.StandardFolder) {
-                    Client.moveToFolder(message.msgId, result.folderId)
+//                    Client.moveToFolder(message.msgId, result.folderId)
+                    d.moveConfig = {specialUse: false, id: message.msgId, folder: result.folderId}
                 } else {
-                    Client.moveToStandardFolder(message.msgId, result.folderType)
+//                    Client.moveToStandardFolder(message.msgId, result.folderType)
+                    d.moveConfig = {specialUse: true, id: message.msgId, folder: result.folderType}
                 }
+                d.delayMoveTimer.start()
             })
             once(MailboxKeys.moveMessageCancelled, exit.bind(this, 0))
         }
@@ -130,5 +133,19 @@ BaseMessagingStore {
 
     QtObject {
         id: d
+
+        property var moveConfig
+        property Timer delayMoveTimer: Timer {
+            interval:300
+            repeat: false
+            onTriggered: {
+                if(d.moveConfig["specialUse"]) {
+                    Client.moveToStandardFolder(d.moveConfig["id"], d.moveConfig["folder"])
+                } else {
+                    Client.moveToFolder(d.moveConfig["id"], d.moveConfig["folder"])
+                }
+                ViewActions.orderSimpleToast(qsTr("Message moved"))
+            }
+        }
     }
 }

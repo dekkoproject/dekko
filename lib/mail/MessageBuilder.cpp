@@ -403,6 +403,49 @@ void MessageBuilder::composeMailTo(const QString &mailtoUri)
     }
 }
 
+void MessageBuilder::reloadLastDraftId()
+{
+    QMailMessage src(m_lastDraftId);
+    m_identities->setSelectedIndexFromAccountId(src.parentAccountId().toULongLong());
+    if (src.responseType() == QMailMessage::Reply || src.responseType() == QMailMessage::ReplyToAll) {
+        m_srcMessageId = src.inResponseTo();
+        m_mode = Mode::Rply;
+    } else if (src.responseType() == QMailMessage::Reply) {
+        m_mode = Mode::Fwd;
+    } else {
+        m_mode = Mode::New;
+    }
+    addRecipients(To, src.to());
+    addRecipients(Cc, src.cc());
+    addRecipients(Bcc, src.bcc());
+    setSubjectText(src.subject());
+    if (src.multipartType() == QMailMessagePartContainer::MultipartNone) {
+        if (src.hasBody()) {
+            setBodyText(src.body().data());
+        }
+    } else {
+        // were a multipart
+        QMailMessagePart *part = Q_NULLPTR;
+        // Atm we prefer plaintext parts until we have an proper html editor
+        QMailMessagePartContainer *ptext = src.findPlainTextContainer();
+        if (ptext) {
+            // YAY!
+            part = static_cast<QMailMessagePart *>(ptext);
+            setBodyText(part->body().data());
+        } else {
+            QMailMessagePartContainer *htext = src.findHtmlContainer();
+            if (htext) {
+                part = static_cast<QMailMessagePart *>(htext);
+                QTextDocument b;
+                b.setHtml(part->body().data());
+                setBodyText(b.toPlainText());
+            }
+        }
+    }
+
+    // TODO: attachments
+}
+
 void MessageBuilder::addRecipient(const MessageBuilder::RecipientModels which, const QString &emailAddress)
 {
     if (emailAddress.isEmpty()) {

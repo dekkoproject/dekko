@@ -89,7 +89,7 @@ public:
     void markMessagesDone(const QMailMessageIdList &idList, const bool done);
 
     Q_INVOKABLE void moveToStandardFolder(const int &msgId, const int &standardFolder); // standardFolder is a Folder::FolderType
-    void moveToStandardFolder(const QMailMessageIdList &msgIds, const Folder::FolderType &folder);
+    void moveToStandardFolder(const QMailMessageIdList &msgIds, const Folder::FolderType &folder, const bool userTriggered = true);
     Q_INVOKABLE void moveToFolder(const quint64 &msgId, const quint64 &folderId);
     void moveToFolder(const QMailMessageIdList &ids, const QMailFolderId &folderId);
 
@@ -109,7 +109,7 @@ public:
     void downloadMessages(const QMailMessageIdList &idList);
 
     bool addMessage(QMailMessage *msg);
-    void removeMessage(const QMailMessageId &id, const QMailStore::MessageRemovalOption &option);
+    bool removeMessage(const QMailMessageId &id, const QMailStore::MessageRemovalOption &option);
 //    void addMessages(const QMailMessageList &msgList);
 //    void updateMessages(const QMailMessageList &msgList);
 

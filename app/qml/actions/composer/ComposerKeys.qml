@@ -34,6 +34,7 @@ KeyTable {
     property string respondToMessage
     property string forwardMessage
     property string saveDraft
+    property string openDraft
     property string discardMessage
     property string discardMessageConfirmed
     property string addFileAttachment

@@ -67,7 +67,7 @@ public:
     void downloadMessagePart(const QMailMessagePart *part);
     void downloadMessages(const QMailMessageIdList &msgIds);
     void sendMessage(const QMailMessage &msg);
-    void moveToStandardFolder(const QMailMessageIdList &msgIds, const Folder::FolderType &folder);
+    void moveToStandardFolder(const QMailMessageIdList &msgIds, const Folder::FolderType &folder, const bool userTriggered);
     void moveToFolder(const QMailMessageIdList &msgIds, const QMailFolderId &folder);
     void synchronizeAccount(const QMailAccountId &id);
     void emptyTrash(const QMailAccountIdList &ids);

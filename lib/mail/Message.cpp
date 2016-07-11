@@ -85,6 +85,11 @@ bool MinimalMessage::isListPost() const
     return !QMailMessage(m_id).listId().isEmpty();
 }
 
+bool MinimalMessage::isDraft() const
+{
+    return (QMailMessageMetaData(m_id).status() & QMailMessageMetaData::Draft);
+}
+
 QString MinimalMessage::previousFolderName() const
 {
     return QMailFolder(QMailMessage(m_id).restoreFolderId()).displayName();

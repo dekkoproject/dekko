@@ -215,11 +215,15 @@ void ClientService::sendMessage(const QMailMessage &msg)
     enqueue(new OutboxAction(this, msg));
 }
 
-void ClientService::moveToStandardFolder(const QMailMessageIdList &msgIds, const Folder::FolderType &folder)
+void ClientService::moveToStandardFolder(const QMailMessageIdList &msgIds, const Folder::FolderType &folder, const bool userTriggered)
 {
     MoveToStandardFolderAction *action = new MoveToStandardFolderAction(this, msgIds, Folder::folderFromType(folder));
     action->process();
-    m_undoQueue->append(action);
+    if (userTriggered) {
+        m_undoQueue->append(action);
+    } else {
+        exportMailStoreUpdate(action->accountIds());
+    }
 }
 
 void ClientService::moveToFolder(const QMailMessageIdList &msgIds, const QMailFolderId &folder)

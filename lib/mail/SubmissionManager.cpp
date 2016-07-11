@@ -106,9 +106,11 @@ void SubmissionManager::saveDraft(const bool userTriggered)
     bool saved = false;
     if (!msg.id().isValid()) {
         // local only
+        qDebug() << "LOCAL ONLY";
         msg.setStatus(QMailMessage::LocalOnly, true);
         saved = Client::instance()->addMessage(&msg);
     } else {
+        qDebug() << "UPDATING DRAFT";
         QMailMessageId id = msg.id();
         msg.setId(QMailMessageId());
         msg.setStatus(QMailMessage::LocalOnly, true);
@@ -119,12 +121,13 @@ void SubmissionManager::saveDraft(const bool userTriggered)
     // now queue an update at some point with the server. It doesn't
     // have to be immediate as we have it localy
     if (saved) {
-        Client::instance()->moveToStandardFolder(QMailMessageIdList() << msg.id(), Folder::SpecialUseDraftsFolder);
+        Client::instance()->moveToStandardFolder(QMailMessageIdList() << msg.id(), Folder::SpecialUseDraftsFolder, false);
         if (userTriggered) {
             emit draftSaved();
         } else {
             emit draftSavedSilently();
         }
+        qDebug() << "SETTING LAST ID: " << msg.id();
         m_builder->setLastDraftId(msg.id());
     } else {
         // TODO: emit an error
@@ -198,6 +201,25 @@ void SubmissionManager::forwardMessage(const SubmissionManager::ResponseType &ty
         return;
     }
     m_builder->buildForward(ft, QMailMessage(msgId));
+}
+
+void SubmissionManager::reloadDraft(const quint64 &msgId)
+{
+    reloadDraft(QMailMessageId(msgId));
+}
+
+void SubmissionManager::reloadDraft(const QMailMessageId &msgId)
+{
+    if (!hasBuilder()) {
+        qWarning() << "Builder not ready";
+        return;
+    }
+    if (!msgId.isValid() || !(QMailMessage(msgId).status() & QMailMessage::Draft)) {
+        qWarning() << "THis isn't a draft message. Aborting!";
+        return;
+    }
+    m_builder->setLastDraftId(msgId);
+    m_builder->reloadLastDraftId();
 }
 
 void SubmissionManager::forwardMessage(const SubmissionManager::ResponseType &type, const quint64 &msgId)

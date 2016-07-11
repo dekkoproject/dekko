@@ -330,6 +330,15 @@ AppListener {
     }
 
     Filter {
+        type: ComposerKeys.openDraft
+        onDispatched: {
+            Log.logInfo("ComposerStore::openDraft", "Constinuing draft message")
+            ViewActions.openMessageComposer()
+            submissionManager.reloadDraft(message.draftId)
+        }
+    }
+
+    Filter {
         type: ComposerKeys.composeMailtoUri
         onDispatched: {
             builder.composeMailTo(message.mailto)

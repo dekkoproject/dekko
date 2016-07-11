@@ -25,6 +25,7 @@ import QuickFlux 1.0
 import "./components"
 import "./delegates"
 import "./models"
+import "../actions/composer"
 import "../actions/views"
 import "../actions/messaging"
 import "../stores/mail" 1.0
@@ -215,6 +216,11 @@ DekkoPage {
                     rightSideActions: [flagAction, readAction, contextAction]
 
                     onItemClicked: {
+                        if (msg.isDraft) {
+                            ComposerActions.openDraft(msg.messageId)
+                            return;
+                        }
+
                         if (MailStore.isInSelectionMode) {
                             if (msg.checked) {
                                 MessageActions.setMessageCheck(model.index, Qt.Unchecked)
