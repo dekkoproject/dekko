@@ -9,7 +9,6 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/qmf/libraries/qmfmessageserver
     ${CMAKE_SOURCE_DIR}/plugins/shared
     ${CMAKE_SOURCE_DIR}/lib/accounts
-    ${ASYNC_TASKS_INCLUDES}
 )
 
 set(libMail_SRCS

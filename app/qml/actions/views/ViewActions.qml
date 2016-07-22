@@ -67,4 +67,6 @@ ActionCreator {
     signal setCurrentNavFolder(string folderName);
     signal switchMessageViewLocation(string currentStageArea, int msgId)
 
+    signal openAddressBook()
+
 }

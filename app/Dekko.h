@@ -39,6 +39,8 @@ public:
     bool isServerRunning();
     bool startServer();
 
+    Q_INVOKABLE void trimCache();
+
 signals:
 
 public slots:

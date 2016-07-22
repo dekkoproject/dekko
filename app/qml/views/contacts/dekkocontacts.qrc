@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/qml/views/contacts">
+        <file>AddressBookList.qml</file>
+        <file>ContactListPage.qml</file>
+        <file>ContactsListView.qml</file>
+    </qresource>
+</RCC>

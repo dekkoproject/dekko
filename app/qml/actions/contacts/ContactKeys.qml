@@ -23,5 +23,9 @@ import QuickFlux 1.0
 * @ingroup qml_actions
 */
 KeyTable {
+    property string openAddressBook
+    property string setSelectedAddressBook
 
+    property string slimPicker
+    property string standardPicker
 }

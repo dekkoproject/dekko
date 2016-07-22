@@ -19,12 +19,16 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import QuickFlux 1.0
+import Dekko.Controls 1.0
 import "../../actions/views"
 import "../../actions/logging"
 import "../../stores"
-
-PageStack {
+import "../../constants"
+// {item: message.page, properties: message.properties}
+StackView {
     id: stageStack
+
+    delegate: DekkoAnimation.customStackViewDelegate2
 
     AppListener {
         waitFor: ViewStore.listenerId
@@ -32,7 +36,7 @@ PageStack {
             type: ViewKeys.pushStage
             onDispatched: {
                 Log.logStatus("StageStack::pushStage", "Pushing stage: " + message.stage)
-                stageStack.push(message.stage, message.properties)
+                stageStack.push({item: message.stage, properties: message.properties})
             }
         }
         Filter {
@@ -55,6 +59,13 @@ PageStack {
                 if (dekko.viewState.isLargeFF) {
                     PopupUtils.open("qrc:/qml/views/composer/ComposePanelPopup.qml", dekkoContainer, {})
                 }
+            }
+        }
+        Filter {
+            type: ViewKeys.openAddressBook
+            onDispatched: {
+                Log.logStatus("StageStack::openAddressBook", "Opening addressbook stage ")
+                ViewActions.pushStage("qrc:/qml/views/stages/AddressBookStage.qml", {})
             }
         }
     }

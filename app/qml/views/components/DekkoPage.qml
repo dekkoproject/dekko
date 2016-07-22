@@ -145,6 +145,6 @@ Item {
         active: drawerConfig !== null && drawerConfig.enabled
         z: 10
         asynchronous: true
-        sourceComponent: navDrawerCompo
+        sourceComponent: drawerConfig.hasSourceComponent ? drawerConfig.sourceComponent : navDrawerCompo
     }
 }

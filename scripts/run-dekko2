@@ -10,21 +10,25 @@ do
 case $i in
     --devmode)
     DEV_MODE=true
-    shift 
+    shift
     ;;
     --messageserver)
     MS_RUN=true
-    shift 
+    shift
     ;;
     --gdb)
     GDB_RUN=true
-    shift 
+    shift
     ;;
     --clean)
     CLEAN=true
-    shift 
+    shift
     ;;
-    *)   
+    --valgrind)
+    VALGRIND=true
+    shift
+    ;;
+    *)
     ;;
 esac
 done
@@ -73,24 +77,30 @@ ninja -j3 install
 
 export PATH=$PWD/test/lib/${HOST_ARCH}/bin:$PATH
 export LD_LIBRARY_PATH=$PWD/test/lib/${HOST_ARCH}
-export QML2_IMPORT_PATH=$PWD/test/lib/${HOST_ARCH}
-export QMF_PLUGINS=$PWD/test/lib/${HOST_ARCH}/qmf/plugins5
+export QML2_IMPORT_PATH=$LD_LIBRARY_PATH
+export QMF_PLUGINS=$LD_LIBRARY_PATH/qmf/plugins5
+export DEKKO_PLUGINS=$LD_LIBRARY_PATH/Dekko/plugins
 echo "PATH: $PATH"
 echo "LD_LIBRARY_PATH: $LD_LIBRARY_PATH"
 echo "QMF_PLUGINS: $QMF_PLUGINS"
 
 if [ "$MS_RUN" = true ]; then
-  ./test/lib/${HOST_ARCH}/bin/messageserver5
+  messageserver5
+  exit 0
 else
   if [ "$GDB_RUN" = true ]; then
-    gdb ./test/lib/${HOST_ARCH}/bin/dekko
+    gdb dekko
+    exit 0
+  fi
+  if [ "$VALGRIND" = true ]; then
+    valgrind -v --tool=massif dekko
     exit 0
   fi
 
   if [ "$DEV_MODE" = true ]; then
-    ./test/lib/${HOST_ARCH}/bin/dekko -d $@
+    dekko -d $@
   else
-    ./test/lib/${HOST_ARCH}/bin/dekko $@
+    dekko $@
   fi
 fi
 

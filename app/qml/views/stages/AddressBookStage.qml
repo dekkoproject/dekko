@@ -15,9 +15,65 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-import QtQuick 2.0
+import QtQuick 2.4
+import Ubuntu.Components 1.3
+import Dekko.Components 1.0
+import "../components"
+import "../contacts"
+import "../../actions/contacts"
+import "../../actions/logging"
+import "../../actions/views"
+import "../../constants"
 
-Item {
+BaseStage {
+    id: ms
+    panelEnabled: devModeEnabled
 
+    StretchRow {
+        spacing: 0
+        anchors.fill: parent
+        // Should only be visible on large FF
+        // Access is done via the navigation drawer
+        // for smaller FF's
+        PanelContainer {
+            visible: dekko.viewState.isLargeFF
+            resizable: !dekko.viewState.isSmallFF
+            minSize: units.gu(30)
+            maxSize: units.gu(50)
+            height: parent.height
+            activeEdge: Item.Right
+            StageArea {
+                id: navMenuStage
+                stageID: "TODO"
+                anchors.fill: parent
+                baseUrl: "qrc:/qml/views/contacts/AddressBookList.qml"
+            }
+        }
+
+        PanelContainer {
+            stretchOnSmallFF: true
+            resizable: !dekko.viewState.isSmallFF
+            minSize: units.gu(40)
+            maxSize: units.gu(60)
+            size: units.gu(40)
+            height: parent.height
+            activeEdge: Item.Right
+            StageArea {
+                id: msgListStage
+                stageID: "TODO1"
+                anchors.fill: parent
+                baseUrl: "qrc:/qml/views/contacts/ContactListPage.qml"
+                function rewind() {
+                    var needsDelay = false
+                    if (stackCount > 1) {
+                        needsDelay = true
+                        while (stackCount !== 1) {
+                            pop()
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 

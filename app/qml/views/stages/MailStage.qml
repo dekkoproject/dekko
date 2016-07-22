@@ -25,7 +25,9 @@ import "../../actions"
 import "../../actions/logging"
 import "../../actions/messaging"
 import "../../actions/views"
+import "../../actions/contacts"
 import "../../stores"
+import "../../stores/contacts"
 import "../components"
 import "../../constants"
 
@@ -189,6 +191,20 @@ BaseStage {
                                                     accountId: message.accountId
                                                 })
                 }
+            }
+        }
+    }
+
+    AppListener {
+        Filter {
+            type: ContactKeys.openAddressBook
+            onDispatched: {
+                ViewActions.pushToStageArea(ViewKeys.messageListStack,
+                                            ab,
+                                            {
+                                                pageTitle: message.accountName,
+                                                accountId: message.accountId
+                                            })
             }
         }
     }

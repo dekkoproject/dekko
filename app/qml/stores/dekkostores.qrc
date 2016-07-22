@@ -13,5 +13,7 @@
         <file>composer/qmldir</file>
         <file>composer/ComposerStore.qml</file>
         <file>composer/ComposerStoreActions.qml</file>
+        <file>contacts/ContactsStore.qml</file>
+        <file>contacts/qmldir</file>
     </qresource>
 </RCC>

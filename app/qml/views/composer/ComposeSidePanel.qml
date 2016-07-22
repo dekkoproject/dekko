@@ -23,7 +23,9 @@ import "../../actions/composer"
 import "../../actions/views"
 import "../../constants"
 import "../../stores/composer"
+import "../../stores/contacts"
 import "../components"
+import "../contacts"
 
 PanelContainer {
     id: sp
@@ -130,6 +132,20 @@ PanelContainer {
 
     AttachmentList {
         visible: bar.currentIndex === 0
+        anchors {
+            top: parent.top
+            topMargin: units.gu(4)
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+        }
+    }
+
+    ContactsListView {
+        visible: bar.currentIndex === 1
+        addressBook: ContactsStore.selectedAddressBook
+        filterEmailOnly: true
+        state: "slimPicker"
         anchors {
             top: parent.top
             topMargin: units.gu(4)

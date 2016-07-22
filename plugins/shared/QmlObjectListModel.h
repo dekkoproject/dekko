@@ -131,6 +131,7 @@ public:
         QVariant ret;
         ItemType * item = at (index.row ());
         const QByteArray rolename = (role != Qt::DisplayRole ? m_roles.value (role, emptyBA ()) : m_dispRoleName);
+//        qDebug() << "ROLENAME CALLED: " << rolename;
         if (item != Q_NULLPTR && !rolename.isEmpty ()) {
             ret.setValue (role != baseRole () ? item->property (rolename) : QVariant::fromValue (static_cast<QObject *> (item)));
         }
@@ -165,7 +166,7 @@ public: // C++ API
     ItemType * getByUid (const QString & uid) const {
         return m_indexByUid.value (uid, Q_NULLPTR);
     }
-    int roleForName (const QByteArray & name) const {
+    Q_INVOKABLE int roleForName (const QByteArray & name) const {
         return m_roles.key (name, -1);
     }
     int count (void) const {
@@ -189,7 +190,10 @@ public: // C++ API
             FOREACH_PTR_IN_QLIST (ItemType, item, m_items) {
                 dereferenceItem (item);
             }
-            m_items.clear ();
+            qDeleteAll(m_items);
+            if (!m_items.isEmpty()) {
+                m_items.clear ();
+            }
             endRemoveRows ();
             updateCounter ();
         }
@@ -418,9 +422,10 @@ protected: // internal stuff
                     m_indexByUid.remove (key);
                 }
             }
-            if (item->parent () == this) { // FIXME : maybe that's not the best way to test ownership ?
-                item->deleteLater ();
-            }
+            item->deleteLater();
+//            if (item->parent () == this) { // FIXME : maybe that's not the best way to test ownership ?
+//                item->deleteLater ();
+//            }
         }
     }
     void onItemPropertyChanged (void) {

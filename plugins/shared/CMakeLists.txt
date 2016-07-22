@@ -11,6 +11,7 @@ set(SharedLib_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/Paths.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Formatting.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/emailvalidator.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/RowsJoinerProxy.cpp
 )
 
 add_library(dekkohelpers SHARED ${SharedLib_SRCS})

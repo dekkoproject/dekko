@@ -91,6 +91,46 @@ QtObject {
         replaceTransition: pushTransition
     }
 
+    // Just does a simple fade in/out animation
+    property StackViewDelegate customStackViewDelegate2: StackViewDelegate {
+        function transitionFinished(properties)
+        {
+            properties.exitItem.opacity = 1
+        }
+
+        pushTransition: StackViewTransition {
+            PropertyAnimation {
+                target: enterItem
+                property: "opacity"
+                from: 0
+                to: 1
+                duration: 400
+            }
+            PropertyAnimation {
+                target: exitItem
+                property: "opacity"
+                from: 1
+                to: 0
+            }
+        }
+        popTransition: StackViewTransition {
+            PropertyAnimation {
+                target: enterItem
+                property: "opacity"
+                from: 0
+                to: 1
+                duration: 400
+            }
+            PropertyAnimation {
+                target: exitItem
+                property: "opacity"
+                from: 1
+                to: 0
+            }
+        }
+        replaceTransition: pushTransition
+    }
+
 
 }
 

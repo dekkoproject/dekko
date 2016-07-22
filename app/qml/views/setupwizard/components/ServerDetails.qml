@@ -67,7 +67,7 @@ Item {
             objectName: "serverInputField"
             title: qsTr("Hostname")
             placeholderText: "imap.example.org"
-            inputMethodHints: Qt.ImhNoPredictiveText | Qt.Im
+            inputMethodHints: Qt.ImhNoPredictiveText | Qt.ImhEmailCharactersOnly
             text: accountConfig ?  accountConfig.server : ""
         }
 
@@ -97,7 +97,7 @@ Item {
             id: username
             objectName: "usernameInputField"
             title: qsTr("Username")
-            inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
+            inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText | Qt.ImhEmailCharactersOnly
             placeholderText: "user@example.org"
             text: accountConfig ? ((serviceType === "smtp") ? accountConfig.username : accountConfig.email) : ""
         }

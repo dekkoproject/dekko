@@ -26,6 +26,7 @@
 #include <QQuickView>
 #include <QQmlEngine>
 #include <QCommandLineOption>
+#include <QDir>
 #include <QStandardPaths>
 
 #define SMALL_FF_WIDTH 350
@@ -36,12 +37,28 @@ Dekko::Dekko(int &argc, char **argv) :
     QApplication(argc, argv), m_server(0), m_view(0), devMode(false), m_verboseLogging(false)
 {
 #ifdef CLICK_MODE
-        QCoreApplication::setOrganizationName(QStringLiteral("dekko.dekkoproject"));
-        QCoreApplication::setApplicationName(QStringLiteral("dekko.dekkoproject"));
+    QCoreApplication::setOrganizationName(QStringLiteral("dekko.dekkoproject"));
+    QCoreApplication::setApplicationName(QStringLiteral("dekko.dekkoproject"));
  #else
-        QCoreApplication::setOrganizationName(QStringLiteral("dekkoproject"));
-        QCoreApplication::setApplicationName(QStringLiteral("dekko"));
+    QCoreApplication::setOrganizationName(QStringLiteral("dekkoproject"));
+    QCoreApplication::setApplicationName(QStringLiteral("dekko"));
 #endif
+    QDir appPath(QCoreApplication::applicationDirPath());
+    addLibraryPath(appPath.absolutePath());
+    QDir plugins5(appPath);
+    if (plugins5.cd(QStringLiteral("qmf/plugins5"))) {
+        qDebug() << "Putting QMF_PLUGINS ENV";
+        qputenv("QMF_PLUGINS", plugins5.absolutePath().toUtf8());
+    } else {
+        qDebug() << "QMF PLUGINS NOT SET";
+    }
+
+    if (appPath.cd(QStringLiteral("Dekko/plugins"))) {
+        qDebug() << "Putting DEKKO_PLUGINS ENV";
+        qputenv("DEKKO_PLUGINS", appPath.absolutePath().toUtf8());
+    } else {
+        qDebug() << "DEKKO PLUGINS NOT SET";
+    }
     // Uncomment to dump out the resource files
     // Useful to be able to check a resource has been included
 //    QDirIterator it(":", QDirIterator::Subdirectories);
@@ -90,6 +107,8 @@ bool Dekko::setup()
     m_view->setTitle("Dekko");
 
     devMode = parser.isSet("d");
+
+    m_view->engine()->rootContext()->setContextProperty("dekkoapp", this);
     m_view->engine()->rootContext()->setContextProperty("ctxt_window", m_view);
     m_view->engine()->rootContext()->setContextProperty("devModeEnabled", QVariant(devMode));
     m_verboseLogging = (parser.isSet("d") || parser.isSet("v") || QFile::exists(QStringLiteral("/tmp/dekko-debug")));
@@ -130,6 +149,11 @@ bool Dekko::startServer()
             this,SLOT(serverProcessError(QProcess::ProcessError)));
     m_server->start(QMail::messageServerPath() + binary);
     return m_server->waitForStarted();
+}
+
+void Dekko::trimCache()
+{
+    m_view->engine()->trimComponentCache();
 }
 // TODO: show popup in mainview about server vanishing and Dekko will now close.
 void Dekko::serverProcessError(QProcess::ProcessError error)

@@ -19,6 +19,16 @@
 #define HELPERS_H
 
 #include <QObject>
+#include <QMetaObject>
+
+#define DELAY_CALL(TARGET, FUNCTION, ...) \
+{ bool res = QMetaObject::invokeMethod(TARGET, #FUNCTION, Qt::QueuedConnection, __VA_ARGS__); \
+        Q_ASSERT(res); Q_UNUSED(res); }
+
+#define DELAY_CALL_NOARG(TARGET, FUNCTION) DELAY_CALL(TARGET, FUNCTION, QGenericArgument())
+
+#define DELAY_EMIT DELAY_CALL
+#define DELAY_EMIT_NOARG DELAY_CALL_NOARG
 
 #define QML_WRITABLE_PROPERTY(type, name) \
     protected: \

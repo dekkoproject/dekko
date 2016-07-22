@@ -23,11 +23,20 @@ Item {
 
     property alias text: label.text
     property int textMargin: Style.defaultSpacing
+    property alias backgroundEnabled: background.visible
+    property alias backgroundColor: background.color
 
     height: units.gu(3)
     anchors {
         left: parent.left
         right: parent.right
+    }
+
+    Rectangle {
+        id: background
+        visible: false
+        anchors.fill: parent
+        color: UbuntuColors.porcelain
     }
 
     Label {

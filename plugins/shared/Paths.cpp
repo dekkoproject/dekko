@@ -251,14 +251,29 @@ QString Paths::configFileLocation(const QString &fileName)
 
 QString Paths::standardCacheLocation()
 {
-    return QStandardPaths::writableLocation(QStandardPaths::CacheLocation).append(
-                QStringLiteral("/%1").arg(qApp->organizationName()));
+    QString path = QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
+    if (!path.contains(qApp->applicationName())) {
+        path.append(QStringLiteral("/%1").arg(qApp->applicationName()));
+    }
+    return path;
 }
 
 QString Paths::standardConfigLocation()
 {
-    return QStandardPaths::writableLocation(QStandardPaths::ConfigLocation).append(
-                QStringLiteral("/%1").arg(qApp->organizationName()));
+    QString path = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
+    if (!path.contains(qApp->applicationName())) {
+        path.append(QStringLiteral("/%1").arg(qApp->applicationName()));
+    }
+    return path;
+}
+
+QString Paths::standardDataLocation()
+{
+    QString path = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+    if (!path.contains(qApp->applicationName())) {
+        path.append(QStringLiteral("/%1").arg(qApp->applicationName()));
+    }
+    return path;
 }
 
 QString Paths::homeLocation()
@@ -274,6 +289,11 @@ QString Paths::cacheLocationForFile(const QString &fileName)
 QString Paths::configLocationForFile(const QString &fileName)
 {
     return Paths::standardConfigLocation().append(QStringLiteral("/%1").arg(fileName));
+}
+
+QString Paths::dataLocationForFile(const QString &fileName)
+{
+    return Paths::standardDataLocation().append(QStringLiteral("/%1").arg(fileName));
 }
 
 bool Paths::checkForStaleLockFile(QLockFile **lockFile, QString &filePath, QString &errorMessage)

@@ -20,7 +20,7 @@
 
 #include <QObject>
 #include <QCryptographicHash>
-#include <qmailaddress.h>
+#include "qmailaddress.h"
 
 class MailAddress : public QObject
 {

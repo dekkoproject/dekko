@@ -41,9 +41,16 @@ StretchColumn {
         width: parent.width
         visible: false
         activeEdge: Item.Top
-        DevPanel {
-            id: panel
+        Loader {
             anchors.fill: parent
+            active: pc.visible
+            asynchronous: true
+            sourceComponent: Component {
+                DevPanel {
+                    id: panel
+                    anchors.fill: parent
+                }
+            }
         }
     }
 }

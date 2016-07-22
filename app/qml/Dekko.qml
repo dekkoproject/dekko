@@ -51,6 +51,7 @@ Item {
         }
         StageStack {
             id: rootPageStack
+            anchors.fill: parent
             Component.onCompleted: {
                 // this just ensures the ComposerStore instance has been created
                 // before dispatching any actions. It's usually created when the composer is opened
@@ -66,6 +67,17 @@ Item {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
+    }
+
+    Timer {
+        interval: 120000
+        repeat: true
+        triggeredOnStart: true
+        onTriggered: {
+            Log.logStatus("Dekko::TrimCache", "Trimming component cache")
+            dekkoapp.trimCache()
+        }
+        Component.onCompleted: start()
     }
 }
 

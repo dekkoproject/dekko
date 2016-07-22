@@ -37,59 +37,18 @@ public:
     explicit Paths(QObject *parent = 0);
 
     enum ActionIcon {
-        NoIcon,
-        AccountIcon,
-        AttachmentIcon,
-        ContextMenuIcon,
-        DeleteIcon,
-        DraftIcon,
-        EditIcon,
-        FolderIcon,
-        ImportantIcon,
-        CombineInboxIcon,
-        InboxIcon,
-        JunkIcon,
-        MailForwardIcon,
-        MailForwardedIcon,
-        MailReadIcon,
-        MailRepliedIcon,
-        MailRepliedAllIcon,
-        MailReplyIcon,
-        MailReplyAllIcon,
-        MailUnreadIcon,
-        NavigationMenuIcon,
-        NewContactIcon,
-        UnStarredIcon,
-        NoteIcon,
-        NoneSelectedIcon,
-        SearchIcon,
-        SelectIcon,
-        SendIcon,
-        SentIcon,
-        StarredIcon,
-        SyncIcon,
-        TagsIcon,
-        ViewFullScreenIcon,
-        CalendarTodayIcon,
-        FilterIcon,
-        TimerIcon,
-        ViewListSymbolic,
-        TickIcon,
-        UndoIcon,
-        CopyIcon,
-        CutIcon,
-        PasteIcon,
-        ShareIcon,
-        BrowserIcon
+        NoIcon,AccountIcon,AttachmentIcon,ContextMenuIcon,DeleteIcon,DraftIcon,EditIcon,
+        FolderIcon,ImportantIcon,CombineInboxIcon,InboxIcon,JunkIcon,MailForwardIcon,MailForwardedIcon,
+        MailReadIcon,MailRepliedIcon,MailRepliedAllIcon,MailReplyIcon,MailReplyAllIcon,
+        MailUnreadIcon,NavigationMenuIcon,NewContactIcon,UnStarredIcon,NoteIcon,NoneSelectedIcon,
+        SearchIcon,SelectIcon,SendIcon,SentIcon,StarredIcon,SyncIcon,TagsIcon,ViewFullScreenIcon,
+        CalendarTodayIcon,FilterIcon,TimerIcon,ViewListSymbolic,TickIcon,UndoIcon,CopyIcon,
+        CutIcon,PasteIcon,ShareIcon,BrowserIcon
     };
 
     enum UserScript {
-        CidQueryScript,
-        FakeScript,
-        FontScript,
-        OverFlowScript,
-        ViewportScript,
-        ZoomScript
+        CidQueryScript,FakeScript,FontScript,
+        OverFlowScript,ViewportScript,ZoomScript
     };
 
     static QString iconUrl(const ActionIcon icon, bool prefix = true);
@@ -108,9 +67,11 @@ public:
     QString configFileLocation(const QString &fileName);
     static QString standardCacheLocation();
     static QString standardConfigLocation();
+    static QString standardDataLocation();
     static QString homeLocation();
     static QString cacheLocationForFile(const QString & fileName);
     static QString configLocationForFile(const QString & fileName);
+    static QString dataLocationForFile(const QString & fileName);
     static bool checkForStaleLockFile(QLockFile **lockFile, QString &filePath, QString &errorMessage);
     static QString findProviderFile();
     static QString providerIconForDomain(const QString &domain);

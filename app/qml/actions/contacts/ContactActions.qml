@@ -22,5 +22,6 @@ import QuickFlux 1.0
 * @ingroup qml_actions
 */
 ActionCreator {
-
+    signal openAddressBook()
+    signal setSelectedAddressBook(int idx)
 }

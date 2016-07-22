@@ -72,4 +72,6 @@ KeyTable {
 
     property string setCurrentNavFolder
     property string switchMessageViewLocation
+
+    property string openAddressBook
 }
