@@ -349,7 +349,30 @@ PixelPerfectItem {
             leftMargin: units.gu(1)
             rightMargin: units.gu(1)
         }
-        sourceComponent: defaultHeadState
+        Binding {
+            target: loader
+            property: "sourceComponent"
+            value: defaultHeadState
+            when: loader && dekkoHeader.state === "default"
+        }
+        Binding {
+            target: loader
+            property: "sourceComponent"
+            value: searchComponent
+            when: loader && dekkoHeader.state === "search"
+        }
+        Binding {
+            target: loader
+            property: "sourceComponent"
+            value: multiSelectComponent
+            when: loader && dekkoHeader.state === "multi-select"
+        }
+        Binding {
+            target: loader
+            property: "sourceComponent"
+            value: customComponent
+            when: loader && dekkoHeader.state === "custom"
+        }
     }
 
     ActionDrawer {
@@ -365,24 +388,12 @@ PixelPerfectItem {
     states: [
         State {
             name: "default"
-            PropertyChanges {
-                target: loader
-                sourceComponent: defaultHeadState
-            }
         },
         State {
             name: "search"
-            PropertyChanges {
-                target: loader
-                sourceComponent: searchComponent
-            }
         },
         State {
             name: "multi-select"
-            PropertyChanges {
-                target: loader
-                sourceComponent: multiSelectComponent
-            }
             PropertyChanges {
                 target: dekkoHeader
                 height: units.gu(6) + filterColumn.height
@@ -390,10 +401,6 @@ PixelPerfectItem {
         },
         State {
             name: "custom"
-            PropertyChanges {
-                target: loader
-                sourceComponent: customComponent
-            }
         }
     ]
 }

@@ -25,6 +25,7 @@ Item {
     property int textMargin: Style.defaultSpacing
     property alias backgroundEnabled: background.visible
     property alias backgroundColor: background.color
+    property alias dividerVisible: divider.visible
 
     height: units.gu(3)
     anchors {
@@ -51,6 +52,7 @@ Item {
     }
 
     Line {
+        id: divider
         anchors {
             bottom: parent.bottom
             left: parent.left

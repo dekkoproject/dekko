@@ -68,5 +68,6 @@ ActionCreator {
     signal switchMessageViewLocation(string currentStageArea, int msgId)
 
     signal openAddressBook()
+    signal delayCall(string funcKey)
 
 }

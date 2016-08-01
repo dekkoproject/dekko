@@ -28,4 +28,8 @@ KeyTable {
 
     property string slimPicker
     property string standardPicker
+
+    property string addressBookListStageArea
+    property string addressBookStageArea
+    property string contactViewStageArea
 }

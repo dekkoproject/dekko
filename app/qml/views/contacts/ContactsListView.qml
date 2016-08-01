@@ -62,10 +62,10 @@ Item {
             id: lv
             anchors.fill: parent
             model: searchModel
-            add: DekkoAnimation.listViewAddTransition
-            addDisplaced: DekkoAnimation.listViewAddDisplacedTransition
-            remove: DekkoAnimation.listViewRemoveTransition
-            removeDisplaced: DekkoAnimation.listViewRemoveDisplacedTransition
+//            add: DekkoAnimation.listViewAddTransition
+//            addDisplaced: DekkoAnimation.listViewAddDisplacedTransition
+//            remove: DekkoAnimation.listViewRemoveTransition
+//            removeDisplaced: DekkoAnimation.listViewRemoveDisplacedTransition
 
             delegate: ListItem {
                 height: layout.height

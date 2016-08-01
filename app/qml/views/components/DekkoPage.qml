@@ -75,7 +75,6 @@ Item {
         id: bel
         anchors.fill: parent
         active: bottomEdgeConfig !== null && bottomEdgeConfig.enabled
-        onActiveChanged: console.log("ACTIVE CHANGED: ", active)
         asynchronous: true
         sourceComponent: Component {
             BottomEdge {
@@ -145,6 +144,6 @@ Item {
         active: drawerConfig !== null && drawerConfig.enabled
         z: 10
         asynchronous: true
-        sourceComponent: drawerConfig.hasSourceComponent ? drawerConfig.sourceComponent : navDrawerCompo
+        sourceComponent: drawerConfig && drawerConfig.hasSourceComponent ? drawerConfig.sourceComponent : navDrawerCompo
     }
 }

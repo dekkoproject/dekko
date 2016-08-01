@@ -74,4 +74,5 @@ KeyTable {
     property string switchMessageViewLocation
 
     property string openAddressBook
+    property string delayCall
 }

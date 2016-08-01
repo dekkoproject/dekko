@@ -25,6 +25,10 @@ DekkoPage {
         ContactsListView {
             anchors.fill: parent
             addressBook: contactsListPage.addressBook
+            onContactClicked: ViewActions.replaceTopStageAreaItem(
+                                  ContactKeys.contactViewStageArea,
+                                  "qrc:/qml/views/contacts/ContactView.qml",
+                                  {contact: contact})
         }
     }
 }

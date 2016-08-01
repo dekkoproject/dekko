@@ -72,6 +72,7 @@ Dekko::Dekko(int &argc, char **argv) :
     parser.addOption({"small", "Open in small form factor state"});
     parser.addOption({"medium", "Open in medium form factor state"});
     parser.addOption({"large", "Open in large form factor state"});
+    parser.addOption({"contacts", "Open the addressbook"});
     parser.process(*this);
 }
 
@@ -119,6 +120,9 @@ bool Dekko::setup()
     QStringList uris;
     uris << qgetenv("APP_URIS");
     uris << parser.positionalArguments();
+    if (parser.isSet("contacts")) {
+        uris << QStringLiteral("dekko://contacts/open");
+    }
     uris.removeDuplicates();
     m_view->engine()->rootContext()->setContextProperty(QStringLiteral("appUris"), uris);
 

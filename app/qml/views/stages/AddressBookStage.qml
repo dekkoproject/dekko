@@ -44,7 +44,7 @@ BaseStage {
             activeEdge: Item.Right
             StageArea {
                 id: navMenuStage
-                stageID: "TODO"
+                stageID: ContactKeys.addressBookListStageArea
                 anchors.fill: parent
                 baseUrl: "qrc:/qml/views/contacts/AddressBookList.qml"
             }
@@ -60,7 +60,7 @@ BaseStage {
             activeEdge: Item.Right
             StageArea {
                 id: msgListStage
-                stageID: "TODO1"
+                stageID: ContactKeys.addressBookStageArea
                 anchors.fill: parent
                 baseUrl: "qrc:/qml/views/contacts/ContactListPage.qml"
                 function rewind() {
@@ -72,6 +72,21 @@ BaseStage {
                         }
                     }
                 }
+            }
+        }
+        Stretcher {
+            visible: !dekko.viewState.isSmallFF
+            anchors {
+                top: parent.top
+                bottom: parent.bottom
+            }
+            StageArea {
+                id: msgViewStage
+                stageID: ContactKeys.contactViewStageArea
+                anchors.fill: parent
+                immediatePush: false
+                baseUrl: ""
+                delegate: DekkoAnimation.customStackViewDelegate1
             }
         }
     }

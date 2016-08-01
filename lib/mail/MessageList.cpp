@@ -66,7 +66,7 @@ bool MessageList::canLoadMore()
 bool MessageList::canSelectAll()
 {
     bool shouldSelectAll = false;
-    foreach (auto msg, m_model->toList()) {
+    foreach (const auto *msg, m_model->toList()) {
         if (msg->checked() == Qt::Unchecked) {
             shouldSelectAll = true;
             break;
@@ -78,7 +78,7 @@ bool MessageList::canSelectAll()
 bool MessageList::canMarkSelectionAsRead()
 {
     bool canMarkRead = false;
-    foreach (auto &id, checkedIds()) {
+    foreach (const auto &id, checkedIds()) {
         bool isRead = (QMailMessageMetaData(id).status() & QMailMessageMetaData::Read);
         if (!isRead) {
             canMarkRead = true;
@@ -91,7 +91,7 @@ bool MessageList::canMarkSelectionAsRead()
 bool MessageList::canMarkSelectionImportant()
 {
     bool canMarkFlagged = false;
-    foreach (auto &id, checkedIds()) {
+    foreach (const auto &id, checkedIds()) {
         bool isImportant = (QMailMessageMetaData(id).status() & QMailMessageMetaData::Important);
         if (!isImportant) {
             canMarkFlagged = true;
@@ -112,7 +112,6 @@ int MessageList::indexOf(const QMailMessageId &id)
     if (it != m_indexMap.end()) {
         return it.value();
     }
-
     return -1;
 }
 
@@ -218,7 +217,8 @@ void MessageList::endSelection()
 
 void MessageList::selectAll()
 {
-    foreach(auto msg, m_model->toList()) {
+    // XXX: iterator?
+    foreach(auto *msg, m_model->toList()) {
         msg->setProperty("checked", Qt::Checked);
     }
     emit selectionIndexesChanged();
@@ -226,7 +226,7 @@ void MessageList::selectAll()
 
 void MessageList::unselectAll()
 {
-    foreach(auto msg, m_model->toList()) {
+    foreach(auto *msg, m_model->toList()) {
         msg->setProperty("checked", Qt::Unchecked);
     }
     emit selectionIndexesChanged();
@@ -400,7 +400,7 @@ void MessageList::handleUpdatedMessages(const QMailMessageIdList &updatedList)
     }
 
     std::sort(insertIndices.begin(), insertIndices.end());
-    foreach (int index, insertIndices) {
+    foreach (const int &index, insertIndices) {
         // Since the list is ordered, if index is bigger than the limit
         // we stop inserting
         if(m_limit && index > m_limit) {
@@ -415,7 +415,7 @@ void MessageList::handleUpdatedMessages(const QMailMessageIdList &updatedList)
     }
 
     std::sort(updateIndices.begin(), updateIndices.end());
-    foreach (int index, updateIndices) {
+    foreach (const int &index, updateIndices) {
         m_model->at(index)->emitMinMessageChanged();
     }
     emit canPossiblyLoadMore();
@@ -496,7 +496,7 @@ void MessageList::sortAndAppendNewMessages(const QMailMessageIdList &idsToAppend
         }
     }
     std::sort(insertIndices.begin(), insertIndices.end());
-    foreach (int index, insertIndices) {
+    foreach (const int &index, insertIndices) {
         // Since the list is ordered, if index is bigger than the limit
         // we stop inserting
         if(m_limit && index > m_limit) {
@@ -538,7 +538,7 @@ QMailMessageIdList MessageList::checkedIds()
         return QMailMessageIdList();
     }
     QMailMessageIdList checkedMsgs;
-    foreach(MinimalMessage *m,m_model->toList()) {
+    foreach(const MinimalMessage *m, m_model->toList()) {
         if (m->checked() == Qt::Checked) {
             checkedMsgs.append(QMailMessageId(m->messageId()));
         }
@@ -555,7 +555,7 @@ void MessageList::init()
 
         int index = 0;
         QMailMessageIdList tmpList = QMailStore::instance()->queryMessages(messageListKey(), m_sortKey, m_limit);
-        Q_FOREACH(auto &id, tmpList) {
+        Q_FOREACH(const auto &id, tmpList) {
             insertMessageAt(index, id);
             ++index;
         }

@@ -22,7 +22,8 @@ import "../components"
 import "../utils"
 
 StretchColumn {
-    anchors {fill: parent}
+    height: parent.height
+    width: parent.width
     default property alias content: mainContainer.data
     property alias panelEnabled: pc.visible
     // We want the main content to take up as much space as possible

@@ -3,5 +3,7 @@
         <file>AddressBookList.qml</file>
         <file>ContactListPage.qml</file>
         <file>ContactsListView.qml</file>
+        <file>ContactView.qml</file>
+        <file>ContactDetail.qml</file>
     </qresource>
 </RCC>

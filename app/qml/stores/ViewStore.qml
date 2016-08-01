@@ -26,6 +26,7 @@ import "./"
 import "./accounts"
 import "./composer"
 import "./mail"
+import "../views/utils/QtCoreAPI.js" as QtCoreAPI
 
 /*!
 *
@@ -101,9 +102,42 @@ AppListener {
         }
     }
 
+    Filter {
+        type: ViewKeys.delayCall
+        onDispatched: {
+            if (message.funcKey.isEmpty()) {
+                return;
+            }
+            Log.logInfo("ViewStore::delayCall", "Queuing call for key %1".arg(message.funcKey))
+            d.pendingCalls.push(message.funcKey)
+            if (!delayCallTimer.running) {
+                delayCallTimer.start()
+            }
+        }
+    }
+
+    Timer {
+        id: delayCallTimer
+        interval: 500
+        repeat: false
+        onTriggered: {
+            AppDispatcher.dispatch(d.pendingCalls.takeAt(0), {})
+            if (!d.pendingCalls.isEmpty()) {
+                Log.logInfo("ViewStore::delayCallTimer", "Moving to next pending call")
+                interval = 50 // we don't want to wait half a second for every call, just the first one.
+                delayCallTimer.start()
+            } else {
+                Log.logInfo("ViewStore::delayCallTimer", "No more pending calls")
+                interval = 500
+                delayCallTimer.stop()
+            }
+        }
+    }
+
     QtObject {
         id: d
         property string currentNavFolder: ""
+        property var pendingCalls: []
     }
 }
 

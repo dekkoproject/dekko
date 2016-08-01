@@ -251,8 +251,8 @@ void ABook::readContact(Contact *contact, QSettings *abook)
         contact->set_firstname(abook->value(ABookKeys::name).toString());
     }
     if (keys.contains(ABookKeys::email)) {
-        QString emails = abook->value(ABookKeys::email).toString();
-        Q_FOREACH(const QString &email, emails.split(QChar(','))) {
+        QStringList emails = abook->value(ABookKeys::email).toStringList();
+        Q_FOREACH(const QString &email, emails) {
             QString name;
             if (keys.contains(ABookKeys::name)) {
                 name = abook->value(ABookKeys::name).toString();

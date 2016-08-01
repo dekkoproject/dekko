@@ -72,6 +72,7 @@ AppListener {
 
             if (uri.startsWith("dekko:")) {
                 var commands = uri.split("://")[1].split("/")
+                console.log("COmmands: ", commands)
                 if (commands.isEmpty()) {
                     Log.logInfo("UriListener::processUri", "Dekko command is empty, nothing we can do")
                     return
@@ -91,6 +92,13 @@ AppListener {
                         break
                     case "remove":
                         Log.logInfo("UriListener::processUri", "Remove contact")
+                        break
+                    case "open":
+                        Log.logInfo("UriListener::processUri", "Opening addressbook")
+                        // We have most likely got this off the commandline args or from url dispatcher
+                        // now we need to wait for the stage stacks to be done first so just
+                        // schedule a dispatch in a little while.
+                        ViewActions.delayCall(ViewKeys.openAddressBook)
                         break
                     }
                     break
