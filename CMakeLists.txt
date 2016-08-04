@@ -20,6 +20,7 @@ dekko_option(UPDATE_TRANSLATIONS "Updates Dekko's pot file during build" OFF)
 dekko_option(USE_ONLINE_ACCOUNTS "EXPERIMENTAL: Switches Dekko's account store to use Ubuntu online accounts" OFF)
 dekko_option(ENABLE_IMAP_SUPPORT "Enables dekko's IMAP plugin support" ON)
 dekko_option(ENABLE_POP3_SUPPORT "EXPERIMENTAL: Enables dekko's POP3 plugin support" OFF)
+dekko_option(ENABLE_UBUNTU_CONNECTIVITY "Enable support for unity8 connectivity api" OFF)
 
 
 # POSITION_INDEPENDENT_CODE is only available on cmake 2.8.9 or later
