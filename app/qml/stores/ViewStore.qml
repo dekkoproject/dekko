@@ -45,6 +45,7 @@ AppListener {
     waitFor: [
         ComposerStore.listenerId,
         MailStore.listenerId,
+        AccountStore.listenerId
     ]
 
     Filter {
@@ -103,6 +104,31 @@ AppListener {
     }
 
     Filter {
+        type: ViewKeys.navigateToAccount
+        onDispatched: {
+            var id = parseInt(message.accountId)
+            if (AccountStore.recieveAccounts.hasAccount(id)) {
+                var account = AccountStore.recieveAccounts.get(id)
+                MessageActions.openAccountFolder(account.name, account.id)
+            }
+        }
+    }
+
+    Filter {
+        type: ViewKeys.navigateToFolder
+        onDispatched: {
+            Log.logWarning("ViewStore::navigateToFolder", "Not implemented yet")
+        }
+    }
+
+    Filter {
+        type: ViewKeys.navigateToMessage
+        onDispatched: {
+            Log.logWarning("ViewStore::navigateToFolder", "Not implemented yet")
+        }
+    }
+
+    Filter {
         type: ViewKeys.delayCall
         onDispatched: {
             if (message.funcKey.isEmpty()) {
@@ -134,10 +160,47 @@ AppListener {
         }
     }
 
+    Filter {
+        type: ViewKeys.delayCallWithArgs
+        onDispatched: {
+            if (message.funcKey.isEmpty()) {
+                return;
+            }
+            Log.logInfo("ViewStore::delayCallWithArgs", "Queuing call for key %1".arg(message.funcKey))
+            d.pendingCalls2.push(message.funcKey)
+            d.pendingArgs.push(message.args)
+            if (!delayCallTimer2.running) {
+                delayCallTimer2.start()
+            }
+        }
+    }
+
+    Timer {
+        id: delayCallTimer2
+        interval: 500
+        repeat: false
+        onTriggered: {
+            AppDispatcher.dispatch(d.pendingCalls2.takeAt(0), d.pendingArgs.takeAt(0))
+            if (!d.pendingCalls2.isEmpty()) {
+                Log.logInfo("ViewStore::delayCallTimer2", "Moving to next pending call")
+                interval = 50 // we don't want to wait half a second for every call, just the first one.
+                delayCallTimer2.start()
+            } else {
+                Log.logInfo("ViewStore::delayCallTimer2", "No more pending calls")
+                interval = 500
+                delayCallTimer2.stop()
+            }
+        }
+    }
+
+
+
     QtObject {
         id: d
         property string currentNavFolder: ""
         property var pendingCalls: []
+        property var pendingCalls2: []
+        property var pendingArgs: []
     }
 }
 

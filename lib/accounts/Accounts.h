@@ -53,6 +53,8 @@ public:
     QObject *model() { return m_model; }
 
     Q_INVOKABLE bool deleteAccount(const quint64 &id);
+    Q_INVOKABLE bool hasAccount(const quint64 &id);
+    Q_INVOKABLE Account *get(const quint64 &id);
 
 signals:
     void filterChanged(Filters filter);

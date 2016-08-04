@@ -66,6 +66,26 @@ bool Accounts::deleteAccount(const quint64 &id)
     return QMailStore::instance()->removeAccount(QMailAccountId(id));
 }
 
+bool Accounts::hasAccount(const quint64 &id)
+{
+    foreach(const Account *a, m_model->toList()) {
+        if (a->accountId().toULongLong() == id) {
+            return true;
+        }
+    }
+    return false;
+}
+
+Account *Accounts::get(const quint64 &id)
+{
+    foreach(Account *a, m_model->toList()) {
+        if (a->accountId().toULongLong() == id) {
+            return a;
+        }
+    }
+    return new Account();
+}
+
 void Accounts::setFilter(Accounts::Filters filter)
 {
     if (m_filter == filter)

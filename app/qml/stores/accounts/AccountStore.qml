@@ -29,6 +29,7 @@ AppListener {
 
     property alias receiveAccountsModel: recieveAccounts.model
     property alias sendAccountsModel: sendAccounts.model
+    property alias recieveAccounts: recieveAccounts
 
     Accounts{
         id: recieveAccounts

@@ -78,4 +78,5 @@ KeyTable {
 
     property string openAddressBook
     property string delayCall
+    property string delayCallWithArgs
 }

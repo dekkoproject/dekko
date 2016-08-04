@@ -84,13 +84,25 @@ AppListener {
                         return
                     } else if (commands.size() === 2) {
                         Log.logInfo("UriListener::processUri", "Navigating to account")
-                        ViewActions.navigateToAccount(commands.at(1))
+                        // Call later: This is equivalent to ViewActions.navigateToAccount(commands.at(1))
+                        ViewActions.delayCallWithArgs(ViewKeys.navigateToAccount, {accountId: commands.at(1)})
                     } else if (commands.size() === 3) {
                         Log.logInfo("UriListener::processUri", "Navigating to folder")
-                        ViewActions.navigateToFolder(commands.at(1), commands.at(2))
+                        // Call later: ViewActions.navigateToFolder(commands.at(1), commands.at(2))
+                        ViewActions.delayCallWithArgs(ViewKeys.navigateToFolder,
+                                                      {
+                                                          accountId: commands.at(1),
+                                                          folderId: commands.at(2)
+                                                      })
                     } else if (commands.size() === 4) {
                         Log.logInfo("UriListener::processUri", "Navigating to message")
-                        ViewActions.navigateToMessage(commands.at(1), commands.at(2), commands.at(3))
+                        // Call later: ViewActions.navigateToMessage(commands.at(1), commands.at(2), commands.at(3))
+                        ViewActions.delayCallWithArgs(ViewKeys.navigateToMessage,
+                                                      {
+                                                          accountId: commands.at(1),
+                                                          folderId: commands.at(2),
+                                                          messageId: commands.at(3)
+                                                      })
                     }
                     break
                 case "contacts":

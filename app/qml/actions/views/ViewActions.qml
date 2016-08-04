@@ -72,5 +72,6 @@ ActionCreator {
 
     signal openAddressBook()
     signal delayCall(string funcKey)
+    signal delayCallWithArgs(string funcKey, var args)
 
 }
