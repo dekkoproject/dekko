@@ -94,3 +94,29 @@ void Contact::addContactAddress(ContactAddress *c)
 {
     Q_UNUSED(c);
 }
+
+bool Contact::operator ==(const Contact *contact)
+{
+    return m_uid == contact->uid() && m_addressbook == contact->addressbook();
+}
+
+bool Contact::operator ==(const ContactId &uid)
+{
+    return m_uid == uid;
+}
+
+QString ContactPhone::typeToString(ContactPhone::Type t)
+{
+    switch(t) {
+    case Home:
+        return tr("Home");
+    case Work:
+        return tr("Work");
+    case Fax:
+        return tr("Fax");
+    case Mobile:
+        return tr("Mobile");
+    default:
+        return tr("Other");
+    }
+}

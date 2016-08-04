@@ -23,6 +23,7 @@ void SearchFilter::setSrcModel(QObject *srcModel)
     Q_ASSERT(model);
     setSourceModel(model);
     invalidateFilter();
+    sort(0);
     emit srcSet();
 }
 
@@ -33,7 +34,7 @@ void SearchFilter::setFilterString(QString filterString)
 
     m_filterString = filterString.toLower();
     setFilterRegExp(m_filterString);
-//    invalidateFilter();
+    invalidate();
     emit filterStringChanged(filterString);
 }
 
@@ -47,4 +48,20 @@ bool SearchFilter::filterAcceptsRow(int source_row, const QModelIndex &source_pa
         return true;
     }
     return false;
+}
+
+bool SearchFilter::lessThan(const QModelIndex &source_left, const QModelIndex &source_right) const
+{
+    Contact *left = static_cast<Contact *>(source_left.data(Qt::UserRole).value<Contact *>());
+    Contact *right = static_cast<Contact *>(source_right.data(Qt::UserRole).value<Contact *>());
+    bool startsWith = left->firstname().toLower().startsWith(m_filterString);
+    if (!m_filterString.isEmpty() && startsWith) {
+        qDebug() << "STARTS WITH" << startsWith;
+        return true;
+    } else {
+        if (m_filterString.isEmpty() && left->sortString() == -1) {
+            return false;
+        }
+        return left->sortString() < right->sortString();
+    }
 }

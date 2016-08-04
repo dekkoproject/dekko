@@ -19,6 +19,28 @@ QObject *AddressBooks::combinedModel() const
     return m_combined;
 }
 
+void AddressBooks::saveContact(QObject *contact)
+{
+    Contact *c = qobject_cast<Contact *>(contact);
+    if (c) {
+        AddressBook *ab = findAddressBook(c->addressbook());
+        if (ab) {
+            ab->save(c);
+        }
+    }
+}
+
+void AddressBooks::removeContact(QObject *contact)
+{
+    Contact *c = qobject_cast<Contact *>(contact);
+    if (c) {
+        AddressBook *ab = findAddressBook(c->addressbook());
+        if (ab) {
+            ab->remove(c);
+        }
+    }
+}
+
 void AddressBooks::init()
 {
     QMap<QString, IContactsPlugin*> plugins = loader->contactsPlugins();
@@ -39,8 +61,7 @@ void AddressBooks::init()
                 } else {
                     p = plugin->create(this);
                 }
-                p->setAddressbookName(name);
-                AddressBook *book = new AddressBook(this, p);
+                AddressBook *book = p->create(this, name);
                 book->setObjectName(QStringLiteral("addressbook-%1").arg(name));
                 p->setParent(book);
                 m_books->append(book);
@@ -52,4 +73,14 @@ void AddressBooks::init()
     if (!m_books->isEmpty()) {
         DELAY_EMIT_NOARG(this, pluginsLoaded);
     }
+}
+
+AddressBook *AddressBooks::findAddressBook(const QString &name)
+{
+    foreach(AddressBook *ab, m_books->toList()) {
+        if (ab->name() == name) {
+            return ab;
+        }
+    }
+    return Q_NULLPTR;
 }

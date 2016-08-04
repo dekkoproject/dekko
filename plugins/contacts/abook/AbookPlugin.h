@@ -5,7 +5,7 @@
 #include <QPointer>
 #include <ContactsPlugin.h>
 #include <ContactsPluginInterface.h>
-#include "ABookTask.h"
+#include "ABookAddressBook.h"
 
 class AbookPlugin : public ContactsPlugin
 {
@@ -13,23 +13,10 @@ class AbookPlugin : public ContactsPlugin
 public:
     explicit AbookPlugin(QObject *parent = 0);
 
-public:
     Capabilities capabilities() const;
-    ContactListTask *list(const Qt::SortOrder &sortOrder);
-    ContactEditTask *add(Contact *contact, ContactEditTask::Action action);
-    ContactEditTask *update(Contact *contact, ContactEditTask::Action action);
-    ContactEditTask *remove(Contact *contact, ContactEditTask::Action action);
-//    ContactImportTask *import(const QByteArray &vcard);
     QStringList addressBooks() const;
-    QString addressBookName() const;
-    void setAddressbookName(const QString &name);
-
-private:
-    QPointer<ABook> m_abook;
-    QString m_name;
-
-    // ContactsPlugin interface
-public:
+    AddressBook *create(QObject *parent, const QString &name);
+    bool remove(const QString &name);
 };
 
 class contacts_AbookPlugin: public QObject, public IContactsPlugin

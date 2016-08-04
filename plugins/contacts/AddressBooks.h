@@ -12,7 +12,6 @@ class CombinedAddressBooks;
 class AddressBooks : public QObject
 {
     Q_OBJECT
-    // Q_P RowsJoinerProxy<AddressBook> combinedModel
     Q_PROPERTY(QObject *model READ model NOTIFY modelsChanged)
     Q_PROPERTY(QObject *combinedModel READ combinedModel NOTIFY combinedModelChanged)
 public:
@@ -20,8 +19,10 @@ public:
 
     QObject *model() const;
     QObject *combinedModel() const;
+    Q_INVOKABLE void saveContact(QObject *contact);
+    Q_INVOKABLE void removeContact(QObject *contact);
 
-signals:
+Q_SIGNALS:
     void modelsChanged();
     void combinedModelChanged();
     void pluginsLoaded();
@@ -30,6 +31,7 @@ private slots:
     void init();
 
 private:
+    AddressBook *findAddressBook(const QString &name);
     QQmlObjectListModel<AddressBook> *m_books;
     ContactsPluginLoader *loader;
     CombinedAddressBooks *m_combined;

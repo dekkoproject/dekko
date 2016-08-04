@@ -1,4 +1,5 @@
 #include "ABook.h"
+#include <QString>
 #include <QStringBuilder>
 #include <Paths.h>
 #include <emailvalidator.h>
@@ -16,7 +17,7 @@ const QString ABookKeys::phone = QStringLiteral("phone");
 const QString ABookKeys::workphone = QStringLiteral("workphone");
 const QString ABookKeys::fax = QStringLiteral("fax");
 const QString ABookKeys::mobile = QStringLiteral("mobile");
-const QString ABookKeys::formatGroup = QStringLiteral("formatGroup");
+const QString ABookKeys::formatGroup = QStringLiteral("format");
 
 ABook::ABook(QObject *parent) : QObject(parent),
     m_abook(0)
@@ -47,21 +48,36 @@ QString ABook::version() const
     }
 }
 
-QList<Contact *> ABook::list()
+ContactIdList ABook::list()
 {
     QStringList currentGroups = m_abook->childGroups();
     currentGroups.removeAll(ABookKeys::formatGroup);
-    QList<Contact *> list;
+    ContactIdList list;
     Q_FOREACH(const QString &group, currentGroups) {
-        Contact *c = new Contact(this);
-        c->set_addressbook("abook");
-        c->set_id(group);
-        m_abook->beginGroup(group);
-        readContact(c, m_abook);
-        m_abook->endGroup();
-        list.append(c);
+        list << Contact::createUid(QStringLiteral("abook"), group);
     }
+    qSort(list.begin(), list.end(), [&](const ContactId &left, const ContactId &right) {
+        QStringList ls = left.split(QChar('/'));
+        QStringList rs = right.split(QChar('/'));
+        return ls.at(1).toInt() < rs.at(1).toInt();
+    });
     return list;
+}
+
+Contact *ABook::get(const ContactId &uid)
+{
+    QString id = uid.split(QChar('/')).at(1);
+
+    if (!m_abook->childGroups().contains(id)) {
+        return Q_NULLPTR;
+    }
+    Contact *c = new Contact(this);
+    c->set_addressbook(QStringLiteral("abook"));
+    c->set_uid(uid);
+    m_abook->beginGroup(id);
+    readContact(c, m_abook);
+    m_abook->endGroup();
+    return c;
 }
 
 bool ABook::add(Contact *contact)
@@ -69,14 +85,14 @@ bool ABook::add(Contact *contact)
     if (contact->addressbook() != QStringLiteral("abook")) {
         return false;
     }
-    if (m_abook->childGroups().contains(contact->id())) {
+    if (m_abook->childGroups().contains(contact->uid())) {
         return update(contact);
     }
     QStringList currentGroups = m_abook->childGroups();
     currentGroups.removeAll(ABookKeys::formatGroup);
-    contact->set_id(QString::number(currentGroups.count() + 1));
+    contact->set_uid(QString::number(currentGroups.count() + 1));
     contact->set_addressbook("abook");
-    m_abook->beginGroup(contact->id());
+    m_abook->beginGroup(contact->uid());
     writeContact(contact, m_abook);
     m_abook->endGroup();
     m_abook->sync();
@@ -94,7 +110,7 @@ bool ABook::remove(Contact *contact)
     if (contact->addressbook() != QStringLiteral("abook")) {
         return false;
     }
-    if (!m_abook->childGroups().contains(contact->id())) {
+    if (!m_abook->childGroups().contains(contact->uid())) {
         return false;
     }
     QStringList currentGroups = m_abook->childGroups();
@@ -106,7 +122,8 @@ bool ABook::remove(Contact *contact)
     GroupHash hash;
     bool seen = false; // if seen we need to drop the new index by 1
     Q_FOREACH(const QString &group, currentGroups) {
-        if (group == contact->id()) {
+        qDebug() << group;
+        if (group == contact->uid()) {
             seen = true;
             continue;
         }
@@ -151,10 +168,10 @@ bool ABook::update(Contact *contact)
     if (contact->addressbook() != QStringLiteral("abook")) {
         return false;
     }
-    if (!m_abook->childGroups().contains(contact->id())) {
+    if (!m_abook->childGroups().contains(contact->uid())) {
         return false;
     }
-    m_abook->beginGroup(contact->id());
+    m_abook->beginGroup(contact->uid());
     writeContact(contact, m_abook);
     m_abook->endGroup();
     m_abook->sync();
@@ -166,6 +183,16 @@ bool ABook::import(const QByteArray &vcard)
 {
     Q_ASSERT(false);
     return false;
+}
+
+void ABook::read(Contact *contact)
+{
+    if (contact->uid().isEmpty()) {
+        return;
+    }
+    m_abook->beginGroup(contact->uid());
+    readContact(contact, m_abook);
+    m_abook->endGroup();
 }
 
 void ABook::createSearchIndex()
@@ -197,7 +224,7 @@ void ABook::createSearchIndex()
 
 void ABook::writeContact(Contact *contact, QSettings *abook)
 {
-    abook->remove(""); // clear and re-write them all
+//    abook->remove(""); // clear and re-write them all
     if (!contact->firstname().isEmpty()) {
         QString name = contact->firstname();
         if (!contact->lastname().isEmpty()) {
@@ -210,7 +237,7 @@ void ABook::writeContact(Contact *contact, QSettings *abook)
         foreach(ContactEmail *email, contact->emailList()) {
             emails << email->address();
         }
-        abook->setValue(ABookKeys::email, emails.join(QChar(',')));
+        abook->setValue(ABookKeys::email, emails);
     }
     if (contact->hasPhoneNumber()) {
         foreach(ContactPhone *phone, contact->phoneList()) {

@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QSettings>
 #include <Contact.h>
+#include <ContactsPlugin.h>
 
 struct ABookKeys {
     static const QString name, email, nickname, avatar;
@@ -19,11 +20,15 @@ public:
     explicit ABook(QObject *parent = 0);
     // abook version
     QString version() const;
-    QList<Contact *> list();
+    ContactIdList list();
+    Contact *get(const ContactId &uid);
+    QList<Contact *> get(const ContactIdList &uids);
     bool add(Contact *contact);
     bool remove(Contact *contact);
     bool update(Contact *contact);
     bool import(const QByteArray &vcard);
+
+    void read(Contact *contact);
 
 private:
     void createSearchIndex();

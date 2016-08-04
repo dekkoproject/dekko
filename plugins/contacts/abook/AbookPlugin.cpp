@@ -5,7 +5,6 @@
 
 AbookPlugin::AbookPlugin(QObject *parent) : ContactsPlugin(parent)
 {
-    m_abook = new ABook(this);
 }
 
 ContactsPlugin::Capabilities AbookPlugin::capabilities() const
@@ -15,52 +14,24 @@ ContactsPlugin::Capabilities AbookPlugin::capabilities() const
             ContactsPlugin::ImportFromVCard;
 }
 
-ContactListTask *AbookPlugin::list(const Qt::SortOrder &sortOrder)
-{
-    ABookListTask *task = new ABookListTask(this, Qt::AscendingOrder);
-    task->setABook(m_abook);
-    task->setDeleteWhenDone(false);
-    return task;
-}
-
-ContactEditTask *AbookPlugin::add(Contact *contact, ContactEditTask::Action action)
-{
-    ABookEditTask *task = new ABookEditTask(this, contact, action);
-    task->setABook(m_abook);
-    task->setDeleteWhenDone(true);
-    return task;
-}
-
-ContactEditTask *AbookPlugin::update(Contact *contact, ContactEditTask::Action action)
-{
-    ABookEditTask *task = new ABookEditTask(this, contact, action);
-    task->setABook(m_abook);
-    task->setDeleteWhenDone(true);
-    return task;
-}
-
-ContactEditTask *AbookPlugin::remove(Contact *contact, ContactEditTask::Action action)
-{
-    ABookEditTask *task = new ABookEditTask(this, contact, action);
-    task->setABook(m_abook);
-    task->setDeleteWhenDone(true);
-    return task;
-}
-
 QStringList AbookPlugin::addressBooks() const
 {
     // we don't support multi addressbooks and the default name is abook so use that.
     return QStringList() << QStringLiteral("abook");
 }
 
-QString AbookPlugin::addressBookName() const
+AddressBook *AbookPlugin::create(QObject *parent, const QString &name)
 {
-    return m_name;
+    if (!name.isEmpty()) {
+        return new ABookAddressBook(parent, this, name);
+    }
+    return Q_NULLPTR;
 }
 
-void AbookPlugin::setAddressbookName(const QString &name)
+bool AbookPlugin::remove(const QString &name)
 {
-    m_name = name;
+    Q_UNUSED(name);
+    return false;
 }
 
 QString contacts_AbookPlugin::pluginName() const

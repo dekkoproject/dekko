@@ -13,7 +13,7 @@ class SortedContactsModel : public QSortFilterProxyModel
 public:
     explicit SortedContactsModel(QObject *parent = 0);
     QObject *srcModel() const;
-signals:
+Q_SIGNALS:
     void srcSet();
 public slots:
     void setSrcModel(QObject * srcModel);

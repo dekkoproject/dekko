@@ -5,5 +5,6 @@
         <file>ContactsListView.qml</file>
         <file>ContactView.qml</file>
         <file>ContactDetail.qml</file>
+        <file>ContactGroup.qml</file>
     </qresource>
 </RCC>

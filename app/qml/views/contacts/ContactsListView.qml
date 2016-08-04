@@ -85,7 +85,16 @@ Item {
                     }
                 }
                 onClicked: contactClicked(model.qtObject)
+                leadingActions: ListItemActions {
+                    actions: [
+                        Action {
+                            iconName: "delete"
+                            onTriggered: ContactActions.removeContact(model.qtObject)
+                        }
+                    ]
+                }
             }
+
             // Ok so this took a bit of figuring out. We have to add \x00 to
             // be able to use a qtObject property for sections.
             section.property: "section\x00"

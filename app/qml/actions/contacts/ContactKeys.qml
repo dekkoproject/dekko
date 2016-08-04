@@ -32,4 +32,7 @@ KeyTable {
     property string addressBookListStageArea
     property string addressBookStageArea
     property string contactViewStageArea
+
+    property string saveContact
+    property string removeContact
 }

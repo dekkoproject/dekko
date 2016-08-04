@@ -5,6 +5,10 @@
 #include <QmlObjectListModel.h>
 #include <QQmlAutoPropertyHelpers.h>
 
+
+typedef QString ContactId;
+typedef QStringList ContactIdList;
+
 class ContactEmail : public QObject
 {
     Q_OBJECT
@@ -32,6 +36,8 @@ class ContactPhone : public QObject
 public:
     explicit ContactPhone(QObject *parent = 0): QObject(parent) {}
     enum Type { Home, Work, Fax, Mobile };
+
+    Q_INVOKABLE QString typeToString(Type t);
 private:
     Q_ENUMS(Type)
     QML_WRITABLE_AUTO_PROPERTY(Type, type)
@@ -41,7 +47,7 @@ private:
 class Contact : public QObject
 {
     Q_OBJECT
-    QML_WRITABLE_AUTO_PROPERTY(QString, id)
+    QML_WRITABLE_AUTO_PROPERTY(QString, uid)
     QML_WRITABLE_AUTO_PROPERTY(QString, addressbook)
     QML_WRITABLE_AUTO_PROPERTY(QString, firstname)
     QML_WRITABLE_AUTO_PROPERTY(QString, lastname)
@@ -71,7 +77,14 @@ public:
     void addContactNumber(ContactPhone *c);
     void addContactAddress(ContactAddress *c);
 
-signals:
+    static QString createUid(const QString &abook, const QString &uid) {
+        return QString("%1/%2").arg(abook, uid);
+    }
+
+    bool operator==(const Contact *contact);
+    bool operator==(const ContactId &uid);
+
+Q_SIGNALS:
     void modelsChanged();
 
 private:

@@ -24,4 +24,6 @@ import QuickFlux 1.0
 ActionCreator {
     signal openAddressBook()
     signal setSelectedAddressBook(int idx)
+    signal saveContact(var contact)
+    signal removeContact(var contact)
 }

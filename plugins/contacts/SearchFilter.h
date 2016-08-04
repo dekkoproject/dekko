@@ -16,7 +16,7 @@ public:
     QObject *srcModel() const;
     QString filterString() const;
 
-signals:
+Q_SIGNALS:
     void srcSet();
     void filterStringChanged(QString filterString);
 
@@ -27,6 +27,7 @@ public slots:
     // QSortFilterProxyModel interface
 protected:
     bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const;
+    bool lessThan(const QModelIndex &source_left, const QModelIndex &source_right) const;
 };
 
 #endif // SEARCHFILTER_H

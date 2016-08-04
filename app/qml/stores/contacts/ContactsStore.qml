@@ -51,6 +51,22 @@ AppListener {
         }
     }
 
+    Filter {
+        type: ContactKeys.saveContact
+        onDispatched: {
+            Log.logInfo("ContactsStore::saveContact", "Saving contact details")
+            abooks.saveContact(message.contact)
+        }
+    }
+
+    Filter {
+        type: ContactKeys.removeContact
+        onDispatched: {
+            Log.logInfo("ContactsStore::remvoeContact", "Removing contact")
+            abooks.removeContact(message.contact)
+        }
+    }
+
     QtObject {
         id: d
         property int selectedIndex: 0

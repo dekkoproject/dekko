@@ -12,7 +12,6 @@ set(libContactsPlugins_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/Contact.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ContactsPluginInterface.h
     ${CMAKE_CURRENT_SOURCE_DIR}/ContactsPlugin.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/PluginTask.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ContactsPluginLoader.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/AddressBooks.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/AddressBook.cpp

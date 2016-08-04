@@ -15,7 +15,7 @@ public:
     AddressBooks *addressBooks() const;
     QHash<int, QByteArray> roleNames() const;
 
-signals:
+Q_SIGNALS:
     void addressBooksChanged(AddressBooks *addressBooks);
 
 public slots:

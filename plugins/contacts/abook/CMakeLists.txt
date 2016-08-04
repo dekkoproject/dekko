@@ -10,7 +10,7 @@ include_directories(
 set(libABookPlugin_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/AbookPlugin.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ABook.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/ABookTask.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/ABookAddressBook.cpp
 )
 
 add_library(abook-plugin SHARED ${libABookPlugin_SRCS})
