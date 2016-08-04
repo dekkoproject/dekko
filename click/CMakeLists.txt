@@ -35,6 +35,6 @@ if (CLICK_MODE)
     )
     install(
         PROGRAMS ${CMAKE_CURRENT_SOURCE_DIR}/dekko-helper
-        DESTINATION ${DATA_DIR}
+        DESTINATION ${CMAKE_INSTALL_PREFIX}
     )
 endif()
