@@ -45,6 +45,9 @@ KeyTable {
     property string detachComposer
     property string attachComposer
     property string openUri
+    property string navigateToAccount
+    property string navigateToFolder
+    property string navigateToMessage
 
     property string resetPanelWidths
 
