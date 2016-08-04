@@ -18,6 +18,8 @@ set(OTHER_MANIFEST
     ${CMAKE_CURRENT_SOURCE_DIR}/dekko.dekkoproject_dekko.service
     ${CMAKE_CURRENT_SOURCE_DIR}/dekko.url-dispatcher
     ${CMAKE_CURRENT_SOURCE_DIR}/dekko-content.json
+    ${CMAKE_CURRENT_SOURCE_DIR}/dekkohelper-aa.json
+    ${CMAKE_CURRENT_SOURCE_DIR}/dekko-helper.json
 )
 
 if (CLICK_MODE)
@@ -30,5 +32,9 @@ if (CLICK_MODE)
     install(
         PROGRAMS ${CMAKE_CURRENT_SOURCE_DIR}/dekko-launch
         DESTINATION ${BIN_DIR}
+    )
+    install(
+        PROGRAMS ${CMAKE_CURRENT_SOURCE_DIR}/dekko-helper
+        DESTINATION ${DATA_DIR}
     )
 endif()
