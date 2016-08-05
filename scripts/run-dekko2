@@ -24,6 +24,10 @@ case $i in
     CLEAN=true
     shift
     ;;
+    --connectivity-api)
+    USE_CONNECTIVITY=true
+    shift
+    ;;
     --valgrind)
     VALGRIND=true
     shift
@@ -70,7 +74,11 @@ if [ "$CLEAN" = true ]; then
   exit 0
 fi
 
-cmake -G Ninja -DCMAKE_BUILD_TYPE=Debug -DENABLE_LOGGING=on -DENABLE_QML_DEBUG=On ../${SRC_DIR}
+if [ "$USE_CONNECTIVITY" = true ]; then
+    cmake -G Ninja -DCMAKE_BUILD_TYPE=Debug -DENABLE_LOGGING=on -DENABLE_QML_DEBUG=On -DENABLE_UBUNTU_CONNECTIVITY=On ../${SRC_DIR}
+else
+    cmake -G Ninja -DCMAKE_BUILD_TYPE=Debug -DENABLE_LOGGING=on -DENABLE_QML_DEBUG=On ../${SRC_DIR}
+fi
 ninja -j3
 export DESTDIR=./test
 ninja -j3 install
