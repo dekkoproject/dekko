@@ -45,6 +45,9 @@ KeyTable {
     property string detachComposer
     property string attachComposer
     property string openUri
+    property string navigateToAccount
+    property string navigateToFolder
+    property string navigateToMessage
 
     property string resetPanelWidths
 
@@ -75,4 +78,5 @@ KeyTable {
 
     property string openAddressBook
     property string delayCall
+    property string delayCallWithArgs
 }

@@ -47,6 +47,9 @@ ActionCreator {
     signal detachComposer()
     signal attachComposer()
     signal openUri(string uri)
+    signal navigateToAccount(var accountId)
+    signal navigateToFolder(var accountId, var folderId)
+    signal navigateToMessage(var accountId, var folderId, var messageId)
 
     signal resetPanelWidths()
 
@@ -69,5 +72,6 @@ ActionCreator {
 
     signal openAddressBook()
     signal delayCall(string funcKey)
+    signal delayCallWithArgs(string funcKey, var args)
 
 }

@@ -72,7 +72,6 @@ AppListener {
 
             if (uri.startsWith("dekko:")) {
                 var commands = uri.split("://")[1].split("/")
-                console.log("COmmands: ", commands)
                 if (commands.isEmpty()) {
                     Log.logInfo("UriListener::processUri", "Dekko command is empty, nothing we can do")
                     return
@@ -80,6 +79,31 @@ AppListener {
                 switch (commands.at(0).toLowerCase()) {
                 case "notify":
                     Log.logInfo("UriListener::processUri", "Were opening a notification")
+                    if (commands.size() < 2) {
+                        Log.logInfo("UriListener::processUri", "Not enough args to show a notification")
+                        return
+                    } else if (commands.size() === 2) {
+                        Log.logInfo("UriListener::processUri", "Navigating to account")
+                        // Call later: This is equivalent to ViewActions.navigateToAccount(commands.at(1))
+                        ViewActions.delayCallWithArgs(ViewKeys.navigateToAccount, {accountId: commands.at(1)})
+                    } else if (commands.size() === 3) {
+                        Log.logInfo("UriListener::processUri", "Navigating to folder")
+                        // Call later: ViewActions.navigateToFolder(commands.at(1), commands.at(2))
+                        ViewActions.delayCallWithArgs(ViewKeys.navigateToFolder,
+                                                      {
+                                                          accountId: commands.at(1),
+                                                          folderId: commands.at(2)
+                                                      })
+                    } else if (commands.size() === 4) {
+                        Log.logInfo("UriListener::processUri", "Navigating to message")
+                        // Call later: ViewActions.navigateToMessage(commands.at(1), commands.at(2), commands.at(3))
+                        ViewActions.delayCallWithArgs(ViewKeys.navigateToMessage,
+                                                      {
+                                                          accountId: commands.at(1),
+                                                          folderId: commands.at(2),
+                                                          messageId: commands.at(3)
+                                                      })
+                    }
                     break
                 case "contacts":
                     Log.logInfo("UriListener::processUri", "We're opening contacts")
