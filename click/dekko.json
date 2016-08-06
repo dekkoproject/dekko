@@ -15,6 +15,10 @@
         },
         "messageserver5": {
             "apparmor": "dekko.apparmor"
+        },
+        "dekko-notify": {
+            "apparmor": "dekkohelper-aa.json",
+            "push-helper": "dekko-helper.json"
         }
     },
     "version": "@APP_VERSION@",
