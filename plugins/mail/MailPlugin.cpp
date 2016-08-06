@@ -26,6 +26,7 @@
 #include <MessageSet.h>
 #include <MessageList.h>
 #include <MailboxSearch.h>
+#include <MailAddress.h>
 #include <SenderIdentities.h>
 #include <MessageBuilder.h>
 #include <SubmissionManager.h>
@@ -40,6 +41,7 @@ void MailPlugin::registerTypes(const char *uri)
     qmlRegisterType<MessageFilterCollection>(uri, 1, 0, "MessageFilterCollection");
     qmlRegisterType<MessageList>(uri, 1, 0, "MessageList");
     qmlRegisterType<MinimalMessage>(uri, 1, 0, "MinimalMessage");
+    qmlRegisterType<MailAddress>(uri, 1, 0, "MailAddress");
     qmlRegisterType<Message>(uri, 1, 0, "Message");
     qmlRegisterType<MailboxSearch>(uri, 1, 0, "MailboxSearch");
     qmlRegisterType<SenderIdentities>(uri, 1, 0, "SenderIdentities");

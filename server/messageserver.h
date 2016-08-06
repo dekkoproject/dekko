@@ -48,6 +48,10 @@
 #include <QSocketNotifier>
 #include <qcopadaptor.h>
 #include <QDateTime>
+#ifdef SERVER_AS_QTHREAD
+#include <QThread>
+#include <QEventLoop>
+#endif
 
 class ServiceHandler;
 class MailMessageClient;
@@ -119,4 +123,16 @@ private:
     QDateTime m_started;
 };
 
+#ifdef SERVER_AS_QTHREAD
+class MessageServerThread : public QThread
+{
+    Q_OBJECT
+public:
+    MessageServerThread();
+    ~MessageServerThread();
+    void run();
+signals:
+    void messageServerStarted();
+};
+#endif
 #endif

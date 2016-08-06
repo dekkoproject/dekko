@@ -12,6 +12,9 @@
             "urls": "dekko.url-dispatcher",
             "account-application": "dekko.dekkoproject_dekko.application",
             "account-service": "dekko.dekkoproject_dekko.service"
+        },
+        "messageserver5": {
+            "apparmor": "dekko.apparmor"
         }
     },
     "version": "@APP_VERSION@",

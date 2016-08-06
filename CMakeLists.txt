@@ -12,6 +12,8 @@ endif()
 
 include(DekkoConfigOption)
 dekko_option(CLICK_MODE "Installs to a contained location. From which a click package can be created" ON)
+dekko_option(UNITY8 "Adjusts client/server to work under confinement" OFF)
+dekko_option(SERVER_AS_THREAD "Run the message server as a new thread instead of a QProcess" OFF)
 dekko_option(WITH_TESTS "Build tests" OFF)
 dekko_option(ENABLE_LOGGING "Enables logging" ON)
 dekko_option(ENABLE_QML_DEBUG "Enables qml debugging" OFF)
@@ -115,7 +117,7 @@ set(ACCOUNT_SERVICE_DIR ${CMAKE_INSTALL_DATADIR}/accounts/services)
 set(ACCOUNT_QML_PLUGIN_DIR ${CMAKE_INSTALL_DATADIR}/accounts/qml-plugins)
 
 
-set(APP_VERSION 0.9)
+set(APP_VERSION 0.9.1)
 
 if(CLICK_MODE)
     if(NOT "${CMAKE_INSTALL_PREFIX}" STREQUAL "/")

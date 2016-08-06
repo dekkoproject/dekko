@@ -16,6 +16,8 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include <QCoreApplication>
+#include <QTimer>
+#include <QDebug>
 #include "Dekko.h"
 
 int main(int argc, char** argv)

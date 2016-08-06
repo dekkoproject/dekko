@@ -67,9 +67,22 @@ if(ENABLE_QML_DEBUG)
     add_definitions(-DQT_QML_DEBUG)
 endif()
 
+if(SERVER_AS_THREAD)
+    include_directories(${CMAKE_SOURCE_DIR}/server)
+    add_definitions(-DSERVER_AS_QTHREAD)
+endif()
+
+if(UNITY8)
+    add_definitions(-DIS_UNITY8)
+endif()
+
 add_executable(dekko ${DEKKO_SOURCES} ${DEKKO_RESOURCES})
 qt5_use_modules(dekko Gui Core Quick Qml Widgets)
-target_link_libraries(dekko qmfclient5 qmfmessageserver5 network)
+if(SERVER_AS_THREAD)
+    target_link_libraries(dekko qmfclient5 qmfmessageserver5 network msgserver)
+else()
+    target_link_libraries(dekko qmfclient5 qmfmessageserver5 network)
+endif()
 
 install(TARGETS dekko DESTINATION ${BIN_DIR})
 install(

@@ -20,7 +20,7 @@
 #include <Paths.h>
 
 AutoConfig::AutoConfig(QObject *parent, EmailProvider *config):
-    QObject(parent), m_config(config), m_netStatus(new NetworkingStatus)
+    QObject(parent), m_config(config), m_netStatus(new Connectivity)
 {
     m_nam = new QNetworkAccessManager(this);
     connect(m_nam, &QNetworkAccessManager::finished, this, &AutoConfig::handleRequestResponse);
@@ -68,10 +68,11 @@ void AutoConfig::lookUp(const QUrl &url)
 
 bool AutoConfig::networkAccessible() const
 {
+    qDebug() << "QT_QPA_PLATFORM" << qgetenv("QT_QPA_PLATFORM");
     if (qgetenv("QT_QPA_PLATFORM") != "ubuntumirclient" ) {
         return m_nam->networkAccessible() == QNetworkAccessManager::Accessible;
     } else {
-        return m_netStatus.data()->status() == NetworkingStatus::Offline;
+        return m_netStatus->online();
     }
 }
 

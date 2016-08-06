@@ -27,4 +27,8 @@ if (CLICK_MODE)
         ${OTHER_MANIFEST}
         DESTINATION ${CMAKE_INSTALL_PREFIX}
     )
+    install(
+        PROGRAMS ${CMAKE_CURRENT_SOURCE_DIR}/dekko-launch
+        DESTINATION ${BIN_DIR}
+    )
 endif()

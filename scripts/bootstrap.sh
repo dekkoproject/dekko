@@ -20,6 +20,7 @@ update_chroot() {
     qttools5-dev-tools \
     libconnectivity-qt1-dev:${CLICK_SDK_ARCH} \
     libaccounts-qt5-dev:${CLICK_SDK_ARCH} \
+    libsignon-qt5-dev:${CLICK_SDK_ARCH} \
     libgsettings-qt-dev:${CLICK_SDK_ARCH} \
     qtdeclarative5-private-dev:${CLICK_SDK_ARCH} \
     qtscript5-private-dev:${CLICK_SDK_ARCH} \

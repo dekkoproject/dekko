@@ -18,6 +18,7 @@
 #include "Dekko.h"
 #include <QDebug>
 #include <qmailnamespace.h>
+#include <qmaillog.h>
 #include <QUrl>
 #include <QDirIterator>
 #include <QtQuick/QQuickView>
@@ -34,7 +35,15 @@
 #define LARGE_FF_WIDTH 1100
 
 Dekko::Dekko(int &argc, char **argv) :
-    QApplication(argc, argv), m_server(0), m_view(0), devMode(false), m_verboseLogging(false)
+    QApplication(argc, argv),
+#ifdef SERVER_AS_QTHREAD
+    m_serverThread(0),
+#else
+    m_server(0),
+#endif
+    m_view(0),
+    devMode(false),
+    m_verboseLogging(false)
 {
 #ifdef CLICK_MODE
     QCoreApplication::setOrganizationName(QStringLiteral("dekko.dekkoproject"));
@@ -43,22 +52,7 @@ Dekko::Dekko(int &argc, char **argv) :
     QCoreApplication::setOrganizationName(QStringLiteral("dekkoproject"));
     QCoreApplication::setApplicationName(QStringLiteral("dekko"));
 #endif
-    QDir appPath(QCoreApplication::applicationDirPath());
-    addLibraryPath(appPath.absolutePath());
-    QDir plugins5(appPath);
-    if (plugins5.cd(QStringLiteral("qmf/plugins5"))) {
-        qDebug() << "Putting QMF_PLUGINS ENV";
-        qputenv("QMF_PLUGINS", plugins5.absolutePath().toUtf8());
-    } else {
-        qDebug() << "QMF PLUGINS NOT SET";
-    }
 
-    if (appPath.cd(QStringLiteral("Dekko/plugins"))) {
-        qDebug() << "Putting DEKKO_PLUGINS ENV";
-        qputenv("DEKKO_PLUGINS", appPath.absolutePath().toUtf8());
-    } else {
-        qDebug() << "DEKKO PLUGINS NOT SET";
-    }
     // Uncomment to dump out the resource files
     // Useful to be able to check a resource has been included
 //    QDirIterator it(":", QDirIterator::Subdirectories);
@@ -80,6 +74,29 @@ bool Dekko::setup()
 {
     QStringList arguments = this->arguments();
     Q_UNUSED(arguments);
+#ifdef IS_UNITY8
+    if (!QMail::mkLockDir()) {
+        return false;
+    }
+    QDir appPath(QCoreApplication::applicationDirPath());
+    addLibraryPath(appPath.absolutePath());
+    QDir plugins5(appPath);
+    if (plugins5.cd(QStringLiteral("../qmf/plugins5"))) {
+        qDebug() << "Putting QMF_PLUGINS ENV";
+        qputenv("QMF_PLUGINS", plugins5.absolutePath().toUtf8());
+    } else {
+        qDebug() << "QMF PLUGINS NOT SET";
+    }
+
+    if (appPath.cd(QStringLiteral("../Dekko/plugins"))) {
+        qDebug() << "Putting DEKKO_PLUGINS ENV";
+        qputenv("DEKKO_PLUGINS", appPath.absolutePath().toUtf8());
+    } else {
+        qDebug() << "DEKKO PLUGINS NOT SET";
+    }
+    qDebug() << "DEKKO_PLUGINS:" << qgetenv("DEKKO_PLUGINS");
+    qDebug() << "QMF_PLUGINS: " << qgetenv("QMF_PLUGINS");
+#endif
     qputenv("QMF_DATA", QStandardPaths::writableLocation(QStandardPaths::CacheLocation).toUtf8());
     if (!isServerRunning()) {
         qDebug() << "[Dekko]" << "Message server not running attempting to start";
@@ -143,6 +160,15 @@ bool Dekko::isServerRunning()
 
 bool Dekko::startServer()
 {
+#ifdef SERVER_AS_QTHREAD
+    // Use MessageServerThread
+    m_serverThread = new MessageServerThread();
+    m_serverThread->start();
+    QEventLoop loop;
+    QObject::connect(m_serverThread, &MessageServerThread::messageServerStarted, &loop, &QEventLoop::quit);
+    loop.exec();
+    return true;
+#else
     if (m_server) {
         delete m_server;
         m_server = 0;
@@ -153,6 +179,7 @@ bool Dekko::startServer()
             this,SLOT(serverProcessError(QProcess::ProcessError)));
     m_server->start(QMail::messageServerPath() + binary);
     return m_server->waitForStarted();
+#endif
 }
 
 void Dekko::trimCache()
@@ -164,4 +191,3 @@ void Dekko::serverProcessError(QProcess::ProcessError error)
 {
     Q_UNUSED(error)
 }
-

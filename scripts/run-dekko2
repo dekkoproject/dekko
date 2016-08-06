@@ -28,6 +28,10 @@ case $i in
     USE_CONNECTIVITY=true
     shift
     ;;
+    --server-as-thread)
+    SERVER_AS_THREAD=true
+    shift
+    ;;
     --valgrind)
     VALGRIND=true
     shift

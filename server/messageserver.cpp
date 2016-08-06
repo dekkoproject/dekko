@@ -555,3 +555,33 @@ void MessageServer::handleSigHup()
 }
 
 #endif // defined(Q_OS_UNIX)
+
+#ifdef SERVER_AS_QTHREAD
+MessageServerThread::MessageServerThread()
+{
+}
+
+MessageServerThread::~MessageServerThread()
+{
+    // Tell the thread's event loop to exit
+    // => thread returns from the call to exec()
+    exit();
+
+    // Wait until this thread has finished execution
+    // <=> waits until thread returns from run()
+    wait();
+}
+
+void MessageServerThread::run()
+{
+    // This is ~/.config/dekko.dekkoproject/dekkod.conf
+//    qMailLoggersRecreate("dekko.dekkoproject", "dekkod", "Msgsrv");
+    // Start messageserver
+    MessageServer server;
+
+    emit messageServerStarted();
+
+    // Enter the thread event loop
+    (void) exec();
+}
+#endif

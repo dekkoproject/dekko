@@ -22,10 +22,10 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QPointer>
-#include <ubuntu/connectivity/networking-status.h>
+#include <connectivityqt/connectivity.h>
 #include "emailprovider.h"
 
-using ubuntu::connectivity::NetworkingStatus;
+using connectivityqt::Connectivity;
 class AutoDiscover;
 class AutoConfig : public QObject
 {
@@ -48,7 +48,7 @@ private slots:
 private:
     QPointer<EmailProvider> m_config;
     QPointer<QNetworkAccessManager> m_nam;
-    QScopedPointer<NetworkingStatus> m_netStatus;
+    QScopedPointer<Connectivity> m_netStatus;
     // For unit tests
     friend class AutoDiscover;
     void fakeLookUp(const QUrl &url);

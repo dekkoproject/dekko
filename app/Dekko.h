@@ -28,6 +28,10 @@
 #include <MsgPartQNAMFactory.h>
 #include <QCommandLineParser>
 
+#ifdef SERVER_AS_QTHREAD
+#include <messageserver.h>
+#endif
+
 class Dekko : public QApplication
 {
     Q_OBJECT
@@ -49,12 +53,17 @@ private slots:
     void serverProcessError(QProcess::ProcessError error);
 
 private:
+#ifdef SERVER_AS_QTHREAD
+    MessageServerThread *m_serverThread;
+#else
     QProcess *m_server;
+#endif
     QQuickView *m_view;
     MsgPartQNAMFactory m_partqnam;
     bool devMode;
     bool m_verboseLogging;
     QCommandLineParser parser;
+
 };
 
 #endif // DEKKO_H
