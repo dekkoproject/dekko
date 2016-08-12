@@ -16,7 +16,6 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "GlobalSettings.h"
-#include <QPointer>
 #include <Paths.h>
 #include "SettingsFileBase.h"
 
@@ -26,27 +25,9 @@ const QString GlobalSettingsKeys::messageViewStyle = QStringLiteral("messageview
 const QString GlobalSettingsKeys::allowRemoteContent = QStringLiteral("messageview.security.allowRemoteContent");
 const QString GlobalSettingsKeys::messageViewMonospaceFont = QStringLiteral("messageview.useMonospaceFont");
 
-static QPointer<SettingsFileBase> globalSettingsFile;
-
 GlobalSettings::GlobalSettings(QObject *parent) : SettingsObjectBase(parent)
 {
-    if (globalSettingsFile.isNull()) {
-        QString error;
-        QScopedPointer<SettingsFileBase> file(new SettingsFileBase);
-        QLockFile *lock = 0;
-        QString globalSettingsLock = Paths::configLocationForFile("globalsettings.json.lock");
-        if (Paths::checkForStaleLockFile(&lock, globalSettingsLock, error)) {
-            qCritical() << error;
-            qApp->quit();
-        }
-        globalSettingsFile = new SettingsFileBase();
-        globalSettingsFile->setPath(Paths::configLocationForFile("globalsettings.json"));
-    }
-    setFilePath(globalSettingsFile.data());
-    if (m_file) {
-        setPath(QStringLiteral("default"));
-        createDefaultsIfNotExist();
-    }
+    setSettingsKey(QStringLiteral("globalsettings"));
 }
 
 QString GlobalSettings::keyValue(GlobalSettings::Keys key)

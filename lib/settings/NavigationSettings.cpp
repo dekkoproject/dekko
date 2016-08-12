@@ -16,7 +16,6 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "NavigationSettings.h"
-#include <QPointer>
 #include <Paths.h>
 #include "SettingsFileBase.h"
 
@@ -32,28 +31,9 @@ const QString NavigationKeys::accounts = QStringLiteral("accounts");
 const QString NavigationKeys::accountsExpanded = QStringLiteral("accounts.expanded");
 const QString NavigationKeys::showAccounts = QStringLiteral("accounts.show");
 
-static QPointer<SettingsFileBase> navSettingsFile;
-
 NavigationSettings::NavigationSettings(QObject *parent): SettingsObjectBase(parent)
 { 
-    if (navSettingsFile.isNull()) {
-        QString error;
-        QScopedPointer<SettingsFileBase> file(new SettingsFileBase);
-        QLockFile *lock = 0;
-        QString navSettingsLock = Paths::configLocationForFile("navigation.json.lock");
-        if (Paths::checkForStaleLockFile(&lock, navSettingsLock, error)) {
-            qCritical() << error;
-            qApp->quit();
-        }
-        navSettingsFile = new SettingsFileBase();
-        navSettingsFile->setPath(Paths::configLocationForFile("navigation.json"));
-        m_lock = new QScopedPointer<QLockFile>(lock);
-    }
-    setFilePath(navSettingsFile.data());
-    if (m_file) {
-        setPath(QStringLiteral("default"));
-        createDefaultsIfNotExist();
-    }
+    setSettingsKey(QStringLiteral("navigation"));
 }
 
 QString NavigationSettings::keyValue(NavigationSettings::Keys key)

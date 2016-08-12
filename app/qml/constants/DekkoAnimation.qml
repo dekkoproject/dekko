@@ -22,8 +22,8 @@ import Dekko.Controls 1.0
 QtObject {
 
     property Transition listViewAddTransition: Transition {
-        NumberAnimation { property: "opacity"; from: 0; to: 1.0; duration: 300 }
-        NumberAnimation { property: "scale"; easing.type: Easing.InOutSine; from: 0.4; to: 1.0; duration: 300 }
+        NumberAnimation { property: "opacity"; from: 0; to: 1.0; duration: 250 }
+        NumberAnimation { property: "scale"; easing.type: Easing.InOutSine; from: 0.75; to: 1.0; duration: 250 }
     }
 
     property Transition listViewAddDisplacedTransition: Transition {

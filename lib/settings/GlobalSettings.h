@@ -20,8 +20,6 @@
 
 #include <QObject>
 #include <QVariantMap>
-#include <QLockFile>
-#include <QScopedPointer>
 #include "SettingsObjectBase.h"
 
 struct GlobalSettingsKeys {
@@ -47,10 +45,8 @@ public:
     Q_INVOKABLE QVariant get(Keys key);
     Q_INVOKABLE void set(Keys key, const QJsonValue &value);
 
-private:
-    void createDefaultsIfNotExist();
-
-    QScopedPointer<QLockFile> m_lock;
+protected:
+    virtual void createDefaultsIfNotExist() override;
 };
 
 #endif // GLOBALSETTINGS_H

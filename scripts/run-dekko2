@@ -83,9 +83,9 @@ if [ "$USE_CONNECTIVITY" = true ]; then
 else
     cmake -G Ninja -DCMAKE_BUILD_TYPE=Debug -DENABLE_LOGGING=on -DENABLE_QML_DEBUG=On ../${SRC_DIR}
 fi
-ninja -j3
+ninja -j4
 export DESTDIR=./test
-ninja -j3 install
+ninja -j4 install
 
 export PATH=$PWD/test/lib/${HOST_ARCH}/bin:$PATH
 export LD_LIBRARY_PATH=$PWD/test/lib/${HOST_ARCH}

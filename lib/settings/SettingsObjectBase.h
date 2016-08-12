@@ -24,6 +24,10 @@
 #include <QJsonValue>
 #include <QJsonArray>
 #include <QDateTime>
+#include <QVariantMap>
+#include <QSharedPointer>
+#include <QScopedPointer>
+#include <QLockFile>
 #include "SettingsFileBase.h"
 
 class SettingsFileBase;
@@ -48,7 +52,6 @@ public:
     Q_INVOKABLE void write(const QString &key, const QJsonValue &value);
     template<typename T> void write(const QString &key, const T &value);
 
-    // const char* key overloads
     QJsonValue read(const char *key, const QJsonValue &defaultValue = QJsonValue::Undefined) const
     {
         return read(QString::fromLatin1(key), defaultValue);
@@ -71,17 +74,22 @@ public:
 signals:
     void pathChanged();
     void dataChanged();
-
     void modified(const QString &path, const QJsonValue &value);
 public slots:
     void modified(const QStringList &path, const QJsonValue &value);
 
 protected:
-    void setFilePath(SettingsFileBase *file);
-    SettingsFileBase *m_file;
+    virtual void createDefaultsIfNotExist();
+    void setSettingsKey(const QString &key);
+
+private:
+    void setFile(QSharedPointer<SettingsFileBase> file);
+    QSharedPointer<SettingsFileBase> m_file;
+    QScopedPointer<QLockFile> *m_lock;
     QStringList m_path;
     QJsonObject m_object;
     bool m_invalid;
+    QString m_settingsKey;
 
 };
 template<typename T> inline void SettingsObjectBase::write(const QString &key, const T &value)

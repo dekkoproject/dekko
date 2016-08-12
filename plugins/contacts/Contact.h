@@ -5,7 +5,6 @@
 #include <QmlObjectListModel.h>
 #include <QQmlAutoPropertyHelpers.h>
 
-
 typedef QString ContactId;
 typedef QStringList ContactIdList;
 
