@@ -46,6 +46,7 @@ public:
     QString path() const;
     void setPath(const QString &path);
     bool isValid() const;
+    bool hasKey() const { return !m_settingsKey.isEmpty(); }
 
     Q_INVOKABLE QJsonValue read(const QString &key, const QJsonValue &defaultValue = QJsonValue::Undefined) const;
     template<typename T> T read(const QString &key) const;

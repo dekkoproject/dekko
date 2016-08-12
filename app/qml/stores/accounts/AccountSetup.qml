@@ -21,6 +21,7 @@ import QuickFlux 1.0
 import Dekko.Accounts 1.0
 import Dekko.AutoConfig 1.0
 import Dekko.Mail 1.0
+import Dekko.Settings 1.0
 import "../../actions/accounts"
 import "../../actions/wizard"
 import "../../actions/logging"
@@ -85,6 +86,9 @@ AppListener {
     AccountValidator {
         id: validator
         onSuccess: {
+            Log.logInfo("AccountSetup::validationSuccess", "Account validation succeeded")
+            Log.logInfo("AccountSetup::validationSuccess", "Setting default settings policies")
+            PolicyManager.setDefaultPolicies(account.id)
             WizardActions.wizardStepForward()
         }
         onValidationFailed: {
@@ -376,6 +380,7 @@ AppListener {
         onDispatched: {
             account.save()
             if (d.isImapAccount) {
+
                 var imap = account.incoming
                 imap.idleEnabled = true
                 imap.appendPushFolder("INBOX")
@@ -384,6 +389,7 @@ AppListener {
                 console.log("IDLE enabled", imap.idleEnabled)
                 console.log("Push Folders: ", imap.pushFolders)
             }
+
             // Delay this starting to allow time for the
             // the messageserver tobe notified of the new account
             delayValidate.start()
