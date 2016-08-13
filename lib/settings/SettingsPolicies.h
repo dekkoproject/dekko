@@ -26,24 +26,49 @@
 
 /**
  * @brief The PolicyInterface class
+ *
+ * Interface that all policies should implement.
+ *
+ * A Policy is a group of related configurations/settings.
  */
 class PolicyInterface
 {
 public:
+    /**
+     * @brief readPolicy
+     * @param policy
+     * @return policy value
+     */
     virtual QString readPolicy(const QString &policy) = 0;
+    /**
+     * @brief setPolicy
+     * @param policy
+     * @param value
+     */
     virtual void setPolicy(const QString &policy, const QString &value) = 0;
+    /**
+     * @brief setDefaults
+     */
     virtual void setDefaults() = 0;
 };
 Q_DECLARE_INTERFACE(PolicyInterface, "PolicyInterface")
 
 /**
  * @brief The GlobalPolicy class
+ *
+ * This is the base class for all application wide policies. Each derived policy
+ * will get it's own atomic settings file located in the cache directory. You
+ * need to set the policies key in the constructor \see setSettingsKey().
+ *
+ * You also need to re-implement setDefaults() and createDefaultsIfNotExist(),
+ * usually createDefaultsIfNotExist() can just directly call setDefaults() but is
+ * left to the subclass implementor to do incase they want to add some extra logic
+ * before creating the default values.
  */
 class GlobalPolicy : public SettingsObjectBase, public PolicyInterface
 {
     Q_OBJECT
     Q_INTERFACES(PolicyInterface)
-
 public:
     /**
      * @brief GlobalPolicy
@@ -69,8 +94,21 @@ protected:
 class PrivacyPolicy : public GlobalPolicy
 {
     Q_OBJECT
-    // Not much here right now. But more will come as we add support for encryption and what not.
+    /**
+     * @brief Allow automatic loading of remote content
+     * @accessors %allowRemoteContent(), setAllowRemoteContent()
+     */
     Q_PROPERTY(bool allowRemoteContent READ allowRemoteContent WRITE setAllowRemoteContent NOTIFY policyChanged)
+    /**
+     * @brief Allow loading of images
+     *
+     * This differs slightly to allowRemoteContent as that blocks all network requests from a message body. i.e tracking links et al.
+     *
+     * This will only prevent images from loading in the message body.
+     * Usually we would want this to always be true and leave allowRemoteContent to handle the privacy stuff.
+     *
+     * @accessors %autoLoadImages(), setAutoLoadImages()
+     */
     Q_PROPERTY(bool autoLoadImages READ autoLoadImages WRITE setAutoLoadImages NOTIFY policyChanged)
 public:
     explicit PrivacyPolicy(QObject *parent = 0);
@@ -96,7 +134,15 @@ protected:
 class ViewPolicy : public GlobalPolicy
 {
     Q_OBJECT
+    /**
+     * @brief Crontrol and retain the state of the unified inbox expansion
+     * @accessors %unifiedInboxExpanded(), setUnifiedInboxExpanded()
+     */
     Q_PROPERTY(bool unifiedInboxExpanded READ unifiedInboxExpanded WRITE setUnifiedInboxExpanded NOTIFY policyChanged)
+    /**
+     * @brief Crontrol and retain the state of the favourite folders expansion
+     * @accessors %favouritesExpanded(), favouritesExpanded()
+     */
     Q_PROPERTY(bool favouritesExpanded READ favouritesExpanded WRITE setFavouritesExpanded NOTIFY policyChanged)
     Q_PROPERTY(bool smartFoldersExpanded READ smartFoldersExpanded WRITE setSmartFoldersExpanded NOTIFY policyChanged)
     Q_PROPERTY(bool smartFoldersVisible READ smartFoldersVisible WRITE setSmartFoldersVisible NOTIFY policyChanged)
@@ -250,24 +296,5 @@ signals:
     void policyChanged();
 
 };
-
-///**
-// * @brief The PrivacyPolicy class
-// */
-//class PrivacyPolicy : public BasePolicy
-//{
-//    Q_OBJECT
-//public:
-//};
-
-//class ViewPolicy : public BasePolicy
-//{
-//    Q_OBJECT
-//};
-
-//class ContactsPolicy : public BasePolicy
-//{
-//    Q_OBJECT
-//};
 
 #endif // SETTINGSPOLICIES_H
