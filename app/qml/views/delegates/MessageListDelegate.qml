@@ -21,6 +21,7 @@ import Ubuntu.Components.Popups 1.1
 import QtGraphicalEffects 1.0
 import Dekko.Mail 1.0
 import Dekko.Components 1.0
+import Dekko.Settings 1.0
 import "../components"
 import "../popovers"
 import "../../actions/messaging"
@@ -96,7 +97,7 @@ ListItemWithActions {
         subtitle.elide: Text.ElideRight
         subtitle.wrapMode: Text.NoWrap
 
-        summary.maximumLineCount: 2 /*GlobalSettings.preferences.previewLines*/
+        summary.maximumLineCount: PolicyManager.views.previewLines
         summary.text: msg && msg.preview ? msg.preview  : " "
         summary.fontSize: "medium"
 

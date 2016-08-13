@@ -18,6 +18,7 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Dekko.Components 1.0
+import Dekko.Settings 1.0
 import "../utils/UiUtils.js" as UiUtils
 import "../../constants"
 
@@ -71,7 +72,7 @@ PixelPerfectItem {
     UbuntuShapeGravatar {
         id: inner_name
         radius: avatar.radius
-        emailAddress: validContact /*&& GlobalSettings.preferences.gravatarAllowed */? email : ""
+        emailAddress: validContact && PolicyManager.views.gravatarEnabled ? email : ""
         clip: true
         anchors.fill: parent
         visible: status === Image.Ready

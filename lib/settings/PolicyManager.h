@@ -22,14 +22,16 @@
 #include <QObject>
 #include <QQmlEngine>
 #include <QJSEngine>
+#include <QPointer>
 #include "SettingsPolicies.h"
-
 /**
  * @brief The PolicyManager class
  */
 class PolicyManager : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(PrivacyPolicy *privacy READ privacyPolicy CONSTANT)
+    Q_PROPERTY(ViewPolicy *views READ viewPolicy CONSTANT)
 public:
     explicit PolicyManager(QObject *parent = 0);
 
@@ -60,6 +62,18 @@ public:
     MailPolicy *mailPolicy(const QMailAccountId &accountId);
 
     /**
+     * @brief Retrieve the PrivacyPolicy for this user
+     * @return PrivacyPolicy
+     */
+    PrivacyPolicy *privacyPolicy();
+
+    /**
+     * @brief Retrieve the ViewPolicy for this user
+     * @return ViewPolicy
+     */
+    ViewPolicy *viewPolicy();
+
+    /**
      * @brief Set the default policies for \param accountId
      * @param QMailAccountId::toULongLong()
      */
@@ -69,6 +83,10 @@ public:
      * @param QMailAccountId
      */
     void setDefaultPolicies(const QMailAccountId &accountId);
+
+private:
+    QPointer<PrivacyPolicy> m_privacy;
+    QPointer<ViewPolicy> m_view;
 };
 
 #endif // POLICYMANAGER_H

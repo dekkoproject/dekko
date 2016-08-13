@@ -22,13 +22,153 @@
 #include <QObject>
 #include <qmailaccount.h>
 #include <qmailstore.h>
+#include "SettingsObjectBase.h"
 
 /**
- * @brief The BasePolicy class
+ * @brief The PolicyInterface class
  */
-class BasePolicy : public QObject
+class PolicyInterface
+{
+public:
+    virtual QString readPolicy(const QString &policy) = 0;
+    virtual void setPolicy(const QString &policy, const QString &value) = 0;
+    virtual void setDefaults() = 0;
+};
+Q_DECLARE_INTERFACE(PolicyInterface, "PolicyInterface")
+
+/**
+ * @brief The GlobalPolicy class
+ */
+class GlobalPolicy : public SettingsObjectBase, public PolicyInterface
 {
     Q_OBJECT
+    Q_INTERFACES(PolicyInterface)
+
+public:
+    /**
+     * @brief GlobalPolicy
+     * @param parent
+     */
+    explicit GlobalPolicy(QObject *parent) : SettingsObjectBase(parent) {}
+
+    // PolicyInterface interface
+public:
+    virtual QString readPolicy(const QString &policy) override {
+        return read(policy, QString()).toString();
+    }
+    virtual void setPolicy(const QString &policy, const QString &value) override {
+        write(policy, value);
+    }
+    virtual void setDefaults() override {}
+
+    // SettingsObjectBase interface
+protected:
+    virtual void createDefaultsIfNotExist() override {}
+};
+
+class PrivacyPolicy : public GlobalPolicy
+{
+    Q_OBJECT
+    // Not much here right now. But more will come as we add support for encryption and what not.
+    Q_PROPERTY(bool allowRemoteContent READ allowRemoteContent WRITE setAllowRemoteContent NOTIFY policyChanged)
+    Q_PROPERTY(bool autoLoadImages READ autoLoadImages WRITE setAutoLoadImages NOTIFY policyChanged)
+public:
+    explicit PrivacyPolicy(QObject *parent = 0);
+
+    bool allowRemoteContent();
+    void setAllowRemoteContent(const bool allowed);
+
+    bool autoLoadImages();
+    void setAutoLoadImages(const bool autoLoad);
+
+    // PolicyInterface interface
+public:
+    virtual void setDefaults() override;
+
+signals:
+    void policyChanged();
+
+    // SettingsObjectBase interface
+protected:
+    virtual void createDefaultsIfNotExist() override;
+};
+
+class ViewPolicy : public GlobalPolicy
+{
+    Q_OBJECT
+    Q_PROPERTY(bool unifiedInboxExpanded READ unifiedInboxExpanded WRITE setUnifiedInboxExpanded NOTIFY policyChanged)
+    Q_PROPERTY(bool favouritesExpanded READ favouritesExpanded WRITE setFavouritesExpanded NOTIFY policyChanged)
+    Q_PROPERTY(bool smartFoldersExpanded READ smartFoldersExpanded WRITE setSmartFoldersExpanded NOTIFY policyChanged)
+    Q_PROPERTY(bool smartFoldersVisible READ smartFoldersVisible WRITE setSmartFoldersVisible NOTIFY policyChanged)
+    Q_PROPERTY(bool accountsExpanded READ accountsExpanded WRITE setAccountsExpanded NOTIFY policyChanged)
+    Q_PROPERTY(bool accountsVisible READ accountsVisible WRITE setAccountsVisible NOTIFY policyChanged)
+    Q_PROPERTY(bool gravatarEnabled READ gravatarEnabled WRITE setGravatarEnabled NOTIFY policyChanged)
+    Q_PROPERTY(bool hideMarkedDeleted READ hideMarkedDeleted WRITE setHideMarkedDeleted NOTIFY policyChanged)
+    Q_PROPERTY(bool preferPlainText READ preferPlainText WRITE setPreferPlainText NOTIFY policyChanged)
+    Q_PROPERTY(int previewLines READ previewLines WRITE setPreviewLines NOTIFY policyChanged)
+    Q_PROPERTY(bool threadViewEnabled READ threadViewEnabled WRITE setThreadViewEnabled NOTIFY policyChanged)
+    Q_PROPERTY(bool showToasts READ showToasts WRITE setShowToasts NOTIFY policyChanged)
+public:
+    explicit ViewPolicy(QObject *parent = 0);
+
+    bool unifiedInboxExpanded();
+    void setUnifiedInboxExpanded(const bool expanded);
+
+    bool favouritesExpanded();
+    void setFavouritesExpanded(const bool expanded);
+
+    bool favouritesVisible();
+    void setFavouritesVisible(const bool visible);
+
+    bool smartFoldersExpanded();
+    void setSmartFoldersExpanded(const bool expanded);
+
+    bool smartFoldersVisible();
+    void setSmartFoldersVisible(const bool visible);
+
+    bool accountsExpanded();
+    void setAccountsExpanded(const bool expanded);
+
+    bool accountsVisible();
+    void setAccountsVisible(const bool visible);
+
+    bool gravatarEnabled();
+    void setGravatarEnabled(const bool enabled);
+
+    bool hideMarkedDeleted();
+    void setHideMarkedDeleted(const bool hide);
+
+    bool preferPlainText();
+    void setPreferPlainText(const bool prefer);
+
+    int previewLines();
+    void setPreviewLines(const int &lines);
+
+    bool threadViewEnabled();
+    void setThreadViewEnabled(const bool enabled);
+
+    bool showToasts();
+    void setShowToasts(const bool show);
+signals:
+    void policyChanged();
+    // PolicyInterface interface
+public:
+    virtual void setDefaults() override;
+
+    // SettingsObjectBase interface
+protected:
+    virtual void createDefaultsIfNotExist() override {
+        setDefaults();
+    }
+};
+
+/**
+ * @brief The AccountPolicy class
+ */
+class AccountPolicy : public QObject, public PolicyInterface
+{
+    Q_OBJECT
+    Q_INTERFACES(PolicyInterface)
     /**
      * @brief The account id this policy belongs to
      * @accessors %accountId(), setAccountId()
@@ -36,26 +176,16 @@ class BasePolicy : public QObject
     Q_PROPERTY(int accountId READ accountId WRITE setAccountId NOTIFY accountIdChanged)
 
 public:
-    explicit BasePolicy(QObject *parent = 0) : QObject(parent) {}
-    BasePolicy(QObject *parent, const QMailAccountId &id): QObject(parent), m_accountId(id) {}
-    BasePolicy(QObject *parent, const int &id): QObject(parent), m_accountId(QMailAccountId(id)) {}
+    explicit AccountPolicy(QObject *parent = 0) : QObject(parent) {}
+    AccountPolicy(QObject *parent, const QMailAccountId &id): QObject(parent), m_accountId(id) {}
+    AccountPolicy(QObject *parent, const int &id): QObject(parent), m_accountId(QMailAccountId(id)) {}
 
-    int accountId() const { return m_accountId.toULongLong(); }
-    void setAccountId(const int &id) {
-        setAccountId(QMailAccountId(id));
-    }
-    void setAccountId(const QMailAccountId &id) {
-        m_accountId = id;
-        emit accountIdChanged();
-    }
-    Q_INVOKABLE void setPolicy(const QString &policy, const QString &value) {
-        QMailAccount account(m_accountId);
-        account.setCustomField(QString("policy.%1").arg(policy), value);
-        QMailStore::instance()->updateAccount(&account);
-    }
-    Q_INVOKABLE QString readPolicy(const QString &policy) {
-        return QMailAccount(m_accountId).customField(QString("policy.%1").arg(policy));
-    }
+    int accountId() const;
+    void setAccountId(const int &id);
+    void setAccountId(const QMailAccountId &id);
+    // policy interfact
+    Q_INVOKABLE virtual void setPolicy(const QString &policy, const QString &value) override;
+    Q_INVOKABLE virtual QString readPolicy(const QString &policy) override;
     virtual void setDefaults() {}
 
 signals:
@@ -72,7 +202,7 @@ private:
 /**
  * @brief The MailPolicy class
  */
-class MailPolicy :  public BasePolicy
+class MailPolicy :  public AccountPolicy
 {
     Q_OBJECT
     /**
@@ -88,15 +218,9 @@ class MailPolicy :  public BasePolicy
     Q_ENUMS(MarkReadMode)
 
 public:
-    explicit MailPolicy(QObject *parent = 0) : BasePolicy(parent) {
-        connect(this, &MailPolicy::accountIdChanged, this, &MailPolicy::policyChanged);
-    }
-    MailPolicy(QObject *parent, const int &id) : BasePolicy(parent, id) {
-        connect(this, &MailPolicy::accountIdChanged, this, &MailPolicy::policyChanged);
-    }
-    MailPolicy(QObject *parent, const QMailAccountId &id) : BasePolicy(parent, id) {
-        connect(this, &MailPolicy::accountIdChanged, this, &MailPolicy::policyChanged);
-    }
+    explicit MailPolicy(QObject *parent = 0);
+    MailPolicy(QObject *parent, const int &id);
+    MailPolicy(QObject *parent, const QMailAccountId &id);
 
     /**
      * @brief The MarkReadMode enum

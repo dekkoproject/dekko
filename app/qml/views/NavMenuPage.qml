@@ -32,10 +32,6 @@ Comps.DekkoPage {
     pageHeader.composeButtonEnabled: tabBar.currentIndex === 0 && dekko.viewState.isLargeFF
     extendHeader: true
 
-    NavigationSettings {
-        id: navSettings
-    }
-
     Comps.PageContent {
 
         ListView {

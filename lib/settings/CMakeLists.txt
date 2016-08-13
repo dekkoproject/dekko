@@ -7,13 +7,12 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/qmf/libraries/qmfclient
     ${CMAKE_SOURCE_DIR}/qmf/libraries/qmfclient/support
     ${CMAKE_SOURCE_DIR}/plugins/shared
+    ${SUPER_MACRO_INCLUDES}
 )
 
 set(libSettings_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/SettingsFileBase.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/SettingsObjectBase.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/NavigationSettings.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/GlobalSettings.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/SettingsPolicies.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/PolicyManager.cpp
 )

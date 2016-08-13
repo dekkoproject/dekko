@@ -18,9 +18,13 @@
 **************************************************************************/
 #include "PolicyManager.h"
 #include <QPointer>
+#include <QScopedPointer>
 
 PolicyManager::PolicyManager(QObject *parent) : QObject(parent)
 {
+    // Maintain instances of global policies
+    m_privacy = new PrivacyPolicy(this);
+    m_view = new ViewPolicy(this);
 }
 
 static QPointer<PolicyManager> s_mgr;
@@ -47,6 +51,19 @@ MailPolicy *PolicyManager::mailPolicy(const int &accountId)
 MailPolicy *PolicyManager::mailPolicy(const QMailAccountId &accountId)
 {
     return new MailPolicy(this, accountId);
+}
+
+PrivacyPolicy *PolicyManager::privacyPolicy()
+{
+    if (m_privacy->isValid()) {
+        return m_privacy;
+    }
+    return Q_NULLPTR;
+}
+
+ViewPolicy *PolicyManager::viewPolicy()
+{
+    return m_view;
 }
 
 void PolicyManager::setDefaultPolicies(const int &accountId) {
