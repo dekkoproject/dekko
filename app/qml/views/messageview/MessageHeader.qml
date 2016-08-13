@@ -33,19 +33,13 @@ ListItem {
     property var msg
     property bool detailsVisible: false
     width: parent.width
-    height: gs.isCleanLayout ? cleanLayout.height + Style.smallSpacing : defaultLayout.height
+    height: defaultLayout.height
     divider.visible: false
 
     signal showDetails()
 
-    GlobalSettings {
-        id: gs
-        property bool isCleanLayout: data.messageview.style === "clean"
-    }
-
     ListItemLayout {
         id: defaultLayout
-        visible: !gs.isCleanLayout
         title.text: msg.from.name
         title.elide: Text.ElideRight
         title.wrapMode: Text.NoWrap
@@ -126,100 +120,6 @@ ListItem {
                 action: Action {
                     iconSource: Paths.actionIconUrl(Icons.MailReplyIcon)
                     onTriggered: ComposerActions.respondToMessage(msg.isListPost ? SubmissionManager.ReplyList : SubmissionManager.Reply, msg.messageId)
-                }
-            }
-        }
-    }
-
-    Column {
-        id: cleanLayout
-        visible: gs.isCleanLayout
-        anchors {
-            left: parent.left
-            top: parent.top
-            right: parent.right
-        }
-        spacing: units.gu(0.5)
-
-        Label {
-            anchors {
-                left: parent.left
-                right: parent.right
-            }
-            text: msg.prettyLongDate
-            horizontalAlignment: Text.AlignHCenter
-            fontSize: "small"
-        }
-        Item {
-            anchors {
-                left: parent.left
-                right: parent.right
-            }
-            height: s.height
-            Label {
-                id: s
-                width: parent.width - units.gu(6)
-                anchors {
-                    top: parent.top
-                    horizontalCenter: parent.horizontalCenter
-                }
-                wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-                text: msg.subject
-                horizontalAlignment: Text.AlignHCenter
-                fontSize: "medium"
-                font.weight: Font.DemiBold
-            }
-        }
-        Item {
-            anchors {
-                left: parent.left
-                right: parent.right
-            }
-            height: r.height
-            Item {
-                anchors {
-                    top: parent.top
-                    horizontalCenter: parent.horizontalCenter
-                }
-                width: r.width + d.width + div.width + Style.defaultSpacing
-                Label {
-                    id: r
-                    anchors {
-                        left: parent.left
-                        top: parent.top
-                    }
-                    color: UbuntuColors.blue
-                    text: msg.from.name
-                    fontSize: "small"
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: PopupUtils.open("qrc:/qml/views/popovers/RecipientPopover.qml", r, {address: msg.from})
-                    }
-                }
-                Label {
-                    id: div
-                    text: "|"
-                    anchors {
-                        left: r.right
-                        leftMargin: Style.smallSpacing
-                        top: parent.top
-                    }
-                    fontSize: "small"
-                }
-                Label {
-                    id: d
-                    anchors {
-                        top: parent.top
-                        left: div.right
-                        leftMargin: Style.smallSpacing
-                    }
-                    color: UbuntuColors.blue
-                    text: qsTr("Details")
-                    fontSize: "small"
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: PopupUtils.open("qrc:/qml/views/popovers/MessageDetailsPopover.qml", d, {message: msg})
-                    }
                 }
             }
         }

@@ -21,6 +21,8 @@ import Ubuntu.Components.Popups 1.3
 import com.canonical.Oxide 1.9 as Oxide
 import Dekko.Mail 1.0
 import Dekko.Components 1.0
+import Dekko.Settings 1.0
+import "../../actions/logging"
 import "../../actions/messaging"
 import "../../actions/views"
 import "../../stores"
@@ -72,14 +74,31 @@ DekkoPage {
             webview.setCidQuery(message.messageId)
             webview.setBodyUrl(body)
             if (!message.isRead) {
-                markReadTimer.start()
+                switch(mailPolicy.markRead) {
+                case MailPolicy.Never:
+                    Log.logInfo("DefaultMessagePage::onBodyChanged", "Not marking message as read");
+                    break; // do nothing
+                case MailPolicy.AfterInterval:
+                    Log.logInfo("DefaultMessagePage::onBodyChanged", "Marking message read after interval");
+                    markReadTimer.start()
+                    break
+                case MailPolicy.Immediately:
+                    Log.logInfo("DefaultMessagePage::onBodyChanged", "Marking message read immediately");
+                    MessageActions.markMessageRead(message.messageId, true)
+                    break
+                }
             }
         }
     }
 
+    MailPolicy {
+        id: mailPolicy
+        accountId: message.parentAccountId
+    }
+
     Timer {
         id: markReadTimer
-        interval: 1000
+        interval: mailPolicy.markAsReadInterval
         repeat: false
         onTriggered: MessageActions.markMessageRead(message.messageId, true)
     }

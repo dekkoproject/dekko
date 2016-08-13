@@ -18,15 +18,20 @@
 #include "SettingsPlugin.h"
 #include <QtQml/QtQml>
 #include <QtQml/QQmlContext>
-#include <NavigationSettings.h>
-#include <GlobalSettings.h>
+#include <SettingsPolicies.h>
+#include <PolicyManager.h>
 
 void SettingsPlugin::registerTypes(const char *uri)
 {
     Q_ASSERT(uri == QLatin1String("Dekko.Settings"));
     // @uri Dekko.Settings
-    qmlRegisterType<NavigationSettings>(uri, 1, 0, "NavigationSettings");
-    qmlRegisterType<GlobalSettings>(uri, 1, 0, "GlobalSettings");
+    qmlRegisterSingletonType<PolicyManager>(uri, 1, 0, "PolicyManager", PolicyManager::factory);
+    qmlRegisterType<MailPolicy>(uri, 1, 0, "MailPolicy");
+    qmlRegisterType<PrivacyPolicy>(uri, 1, 0, "PrivacyPolicy");
+    qmlRegisterType<ViewPolicy>(uri, 1, 0, "ViewPolicy");
+    qmlRegisterUncreatableType<AccountPolicy>(uri, 1, 0, "AccountPolicy", "Cannot be created in qml");
+    qmlRegisterUncreatableType<GlobalPolicy>(uri, 1, 0, "GlobalPolicy", "Cannot be created in qml");
+    qmlRegisterInterface<PolicyInterface>("PolicyInterface");
 }
 
 void SettingsPlugin::initializeEngine(QQmlEngine *engine, const char *uri)

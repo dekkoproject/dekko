@@ -126,17 +126,6 @@ BaseStage {
         }
     }
 
-    GlobalSettings {
-        id: globalSettings
-        function messageViewStyle() {
-            if (data.messageview.style === "default") {
-                return "qrc:/qml/views/messageview/DefaultMessagePage.qml"
-            } else if (data.messageview.style === "clean") {
-                return "qrc:/qml/views/messageview/CleanMessagePage.qml"
-            }
-        }
-    }
-
     Timer {
         id: delaySignalRewind
         interval: 300
@@ -148,7 +137,7 @@ BaseStage {
         Filter {
             type: MessageKeys.openMessage
             onDispatched: {
-                var style = globalSettings.messageViewStyle()
+                var style = "qrc:/qml/views/messageview/DefaultMessagePage.qml"
                 if (dekko.viewState.isSmallFF) {
                     // leftStage push msgview
                     ViewActions.pushToStageArea(ViewKeys.messageListStack, style, {msgId: message.msgId})

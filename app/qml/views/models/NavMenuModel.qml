@@ -84,13 +84,13 @@ VisualItemModel {
                             right: parent.right
                         }
                         height: smf.height
-                        visible: navSettings.data.smartfolders.show
+                        visible: PolicyManager.views.smartFoldersVisible
                         NavigationGroup {
                             id: smf
                             title: qsTr("Smart folders")
                             model: MailboxStore.smartFoldersModel
-                            expansion.expanded: navSettings.data.smartfolders.expanded
-                            onExpandClicked: navSettings.set(NavigationSettings.SmartFoldersExpanded, !navSettings.data.smartfolders.expanded)
+                            expansion.expanded: PolicyManager.views.smartFoldersExpanded
+                            onExpandClicked: PolicyManager.views.smartFoldersExpanded = !PolicyManager.views.smartFoldersExpanded
                             delegate: NavMenuStandardFolderDelegate {
                                 id: smartFolderDelegate
                                 folder: qtObject
@@ -106,13 +106,13 @@ VisualItemModel {
                             right: parent.right
                         }
                         height: acg.height
-                        visible: navSettings.data.accounts.show
+                        visible: PolicyManager.views.accountsVisible
                         NavigationGroup {
                             id: acg
                             title: qsTr("Folders")
                             model: AccountStore.receiveAccountsModel
-                            expansion.expanded: navSettings.data.accounts.expanded
-                            onExpandClicked: navSettings.set(NavigationSettings.AccountsExpanded, !navSettings.data.accounts.expanded)
+                            expansion.expanded: PolicyManager.views.accountsExpanded
+                            onExpandClicked: PolicyManager.views.accountsExpanded = !PolicyManager.views.accountsExpanded
                             delegate: ListItem {
                                 height: dLayout.height
                                 divider.visible: false

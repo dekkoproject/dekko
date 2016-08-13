@@ -16,11 +16,50 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "SettingsObjectBase.h"
+#include <QWeakPointer>
+#include <QSharedPointer>
+#include <QMap>
+#include <Paths.h>
 #include <QDebug>
+
+typedef QMap<QString, QWeakPointer<SettingsFileBase> > SettingsObjectMap;
+static SettingsObjectMap objectMap;
 
 SettingsObjectBase::SettingsObjectBase(QObject *parent) :
     QObject(parent), m_file(0), m_invalid(true)
 {
+}
+
+void SettingsObjectBase::setSettingsKey(const QString &key)
+{
+    m_settingsKey = key;
+    const QString lockKey = QString("%1.json.lock").arg(m_settingsKey);
+    const QString fileKey = QString("%1.json").arg(m_settingsKey);
+    if (!objectMap.contains(m_settingsKey)) {
+        QString error;
+        QLockFile *lock = 0;
+        QString settingsLockPath = Paths::configLocationForFile(lockKey);
+        if (Paths::checkForStaleLockFile(&lock, settingsLockPath, error)) {
+            qCritical() << error;
+            qApp->quit();
+        }
+        QSharedPointer<SettingsFileBase> file = QSharedPointer<SettingsFileBase>(new SettingsFileBase);
+        objectMap.insert(m_settingsKey, file);
+        setFile(file);
+        m_lock = new QScopedPointer<QLockFile>(lock);
+    } else {
+        QSharedPointer<SettingsFileBase> file = objectMap.value(m_settingsKey).toStrongRef();
+        if (file.isNull()) {
+            qCritical() << "Failed to get strong ref for settings file object";
+            qApp->quit();
+        }
+        setFile(file);
+    }
+    if (!m_file.isNull()) {
+        m_file->setPath(Paths::configLocationForFile(fileKey));
+        setPath(QStringLiteral("default"));
+        createDefaultsIfNotExist();
+    }
 }
 
 QJsonObject SettingsObjectBase::data() const
@@ -127,16 +166,21 @@ void SettingsObjectBase::modified(const QStringList &path, const QJsonValue &val
     emit dataChanged();
 }
 
-void SettingsObjectBase::setFilePath(SettingsFileBase *file)
+void SettingsObjectBase::createDefaultsIfNotExist()
+{
+    qDebug() << __func__ << "Not implemented here";
+}
+
+void SettingsObjectBase::setFile(QSharedPointer<SettingsFileBase> file)
 {
     if (m_file == file) {
         return;
     }
-    if (m_file) {
-        disconnect(m_file, 0, this, 0);
+    if (!m_file.isNull()) {
+        disconnect(m_file.data(), 0, this, 0);
     }
     m_file = file;
-    if (m_file) {
-        connect(m_file, SIGNAL(modified(QStringList,QJsonValue)), this, SLOT(modified(QStringList,QJsonValue)));
+    if (!m_file.isNull()) {
+        connect(m_file.data(), SIGNAL(modified(QStringList,QJsonValue)), this, SLOT(modified(QStringList,QJsonValue)));
     }
 }

@@ -55,10 +55,6 @@ WebView {
         reload()
     }
 
-    GlobalSettings{
-        id: globalSettings
-    }
-
     // LOCK IT DOWN!!
 //    incognito: true can't set his as it disables userscripts.
     preferences {
@@ -68,13 +64,13 @@ WebView {
         javascriptEnabled: false
         javascriptCanAccessClipboard: false
         allowUniversalAccessFromFileUrls: false
-//        loadsImagesAutomatically: globalSettings.get(GlobalSettings.AutoLoadImages)
+        loadsImagesAutomatically: PolicyManager.privacy.autoLoadImages
         allowScriptsToCloseWindows: false
         appCacheEnabled: false
         localStorageEnabled: false
         hyperlinkAuditingEnabled: false
         defaultEncoding: "UTF-8"
-        fixedFontFamily: globalSettings.data && globalSettings.data.messageview.useMonospaceFont ? "Ubuntu Monospace" : "Ubuntu"
+        fixedFontFamily: "Ubuntu"
         serifFontFamily: "Ubuntu"
         sanSerifFontFamily: "Ubuntu"
     }
@@ -82,7 +78,7 @@ WebView {
     context: DekkoWebContext {
         id: ctxt
         messageUid: webview.messageUid
-        remoteContentAllowed: globalSettings.get(GlobalSettings.AllowRemoteContent)
+        remoteContentAllowed: PolicyManager.privacy.allowRemoteContent
         onRemoteContentBlocked: {
             if (!internal.remoteContentBlockRunning) {
                 internal.remoteContentBlockRunning = true

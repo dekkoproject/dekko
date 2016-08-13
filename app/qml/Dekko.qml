@@ -17,6 +17,7 @@
 */
 import QtQuick 2.4
 import Ubuntu.Components 1.3
+import Dekko.Settings 1.0
 import "./actions/views"
 import "./actions/logging"
 import "./views/components"
@@ -57,6 +58,7 @@ Item {
                 // before dispatching any actions. It's usually created when the composer is opened
                 // for the first time but we may dispatch actions before it's open. i.e from the msglist context menus.
                 var ignore = ComposerStore.sendInProgress
+                ignore = PolicyManager.objectName // init the global policies so they are ready. This seems enough to get the singleton fired up
                 ViewActions.stageStackReady()
             }
         }

@@ -207,7 +207,7 @@ DekkoPage {
                 highlight: !dekko.viewState.isSmallFF ? Style.highlightBar : null
                 highlightFollowsCurrentItem: true
                 highlightMoveDuration: 200
-
+                cacheBuffer: units.gu(35)
                 model: isSearchMode ? mboxSearch.results : MailStore.msgListModel
                 delegate: MessageListDelegate{
                     id: msgListDelegate

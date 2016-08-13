@@ -24,14 +24,84 @@
 #include <QJsonValue>
 #include <QJsonArray>
 #include <QDateTime>
+#include <QVariantMap>
+#include <QSharedPointer>
+#include <QScopedPointer>
+#include <QLockFile>
 #include "SettingsFileBase.h"
 
 class SettingsFileBase;
+/**
+ * @brief The SettingsObjectBase class
+ *
+ * Provides a settings object that supports atomic writes and change notifications across
+ * multiple instances for a single process.
+ *
+ * The first created instance holds the lockfile for this process.
+ */
 class SettingsObjectBase : public QObject
 {
     Q_OBJECT
+    /**
+     * @brief Raw data object stored in the settings file
+     *
+     * Individual object properties can be access in QML using dot notation
+     *
+     * @code
+     * import QtQuick 2.4
+     * import Dekko.Settings 1.0
+     *
+     * Item {
+     *     property string labelVal: settings.data.label.value
+     *
+     *     SettingsObject {
+     *         id: settings
+     *         Component.onCompleted: {
+     *             write("label.value", "Hello world!")
+     *         }
+     *     }
+     * }
+     * @endcode
+     *
+     * This means you can bind to properties and get change notifications in QML.
+     *
+     * @accessors %data(), setData()
+     */
     Q_PROPERTY(QJsonObject data READ data WRITE setData NOTIFY dataChanged)
+    /**
+     * @brief The base path used to resolve QJsonObject returned by data()
+     *
+     * You can position a SettingsObjectBase instance at a specific point in the json hierachy
+     * if you are only interested in accessing or getting change notifications for certain properties.
+     *
+     * Say we have a JSON object that looks like
+     *
+     * @code
+     * {
+     *     "accounts": {
+     *         "account1" : {
+     *             "id": 0,
+     *             "name": "Foo Bar"
+     *         },
+     *         "account2" : {
+     *             "id": 1,
+     *             "name": "Bar Foo"
+     *         }
+     *     }
+     * }
+     * @endcode
+     *
+     * By setting the path to "accounts.account2" only the account2 object will be returned by data().
+     * So in QML you would write something like settings.data.name and not settings.data.account2.name.
+     * The result is you will only get change notifications for changes to account2 :-)
+     *
+     * @accessors %path(), setPath()
+     */
     Q_PROPERTY(QString path READ path WRITE setPath NOTIFY pathChanged)
+    /**
+     * @brief Is the QJsonObject at path() valid
+     * @accessors %isValid()
+     */
     Q_PROPERTY(bool isValid READ isValid NOTIFY dataChanged)
 
 public:
@@ -42,13 +112,13 @@ public:
     QString path() const;
     void setPath(const QString &path);
     bool isValid() const;
+    bool hasKey() const { return !m_settingsKey.isEmpty(); }
 
     Q_INVOKABLE QJsonValue read(const QString &key, const QJsonValue &defaultValue = QJsonValue::Undefined) const;
     template<typename T> T read(const QString &key) const;
     Q_INVOKABLE void write(const QString &key, const QJsonValue &value);
     template<typename T> void write(const QString &key, const T &value);
 
-    // const char* key overloads
     QJsonValue read(const char *key, const QJsonValue &defaultValue = QJsonValue::Undefined) const
     {
         return read(QString::fromLatin1(key), defaultValue);
@@ -71,17 +141,22 @@ public:
 signals:
     void pathChanged();
     void dataChanged();
-
     void modified(const QString &path, const QJsonValue &value);
 public slots:
     void modified(const QStringList &path, const QJsonValue &value);
 
 protected:
-    void setFilePath(SettingsFileBase *file);
-    SettingsFileBase *m_file;
+    virtual void createDefaultsIfNotExist();
+    void setSettingsKey(const QString &key);
+
+private:
+    void setFile(QSharedPointer<SettingsFileBase> file);
+    QSharedPointer<SettingsFileBase> m_file;
+    QScopedPointer<QLockFile> *m_lock;
     QStringList m_path;
     QJsonObject m_object;
     bool m_invalid;
+    QString m_settingsKey;
 
 };
 template<typename T> inline void SettingsObjectBase::write(const QString &key, const T &value)

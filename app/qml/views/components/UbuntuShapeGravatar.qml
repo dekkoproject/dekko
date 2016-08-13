@@ -18,6 +18,7 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Dekko.Components 1.0
+import Dekko.Settings 1.0
 
 PixelPerfectItem {
     id: item
@@ -47,7 +48,7 @@ PixelPerfectItem {
         ImageHelper on source {
             id: helper
             size: item.width
-            gravatarEmail: (size > 0/* && GlobalSettings.preferences.gravatarAllowed*/) ? emailAddress : ""
+            gravatarEmail: (size > 0 && PolicyManager.views.gravatarEnabled) ? emailAddress : ""
         }
         onSourceChanged: shape.source = inner_image;
     }
