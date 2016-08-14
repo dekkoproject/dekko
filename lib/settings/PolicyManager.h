@@ -84,6 +84,8 @@ public:
      */
     void setDefaultPolicies(const QMailAccountId &accountId);
 
+    Q_INVOKABLE bool idValid(const int &id);
+
 private:
     QPointer<PrivacyPolicy> m_privacy;
     QPointer<ViewPolicy> m_view;
