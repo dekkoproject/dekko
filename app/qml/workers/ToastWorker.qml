@@ -16,17 +16,26 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 import QtQuick 2.4
+import QuickFlux 1.0
+import "../actions/views"
+import "../stores"
+import "../views/toasts"
 
-QtObject {
-    property bool canActionTrigger: false
-    property bool enabled: true
-    property bool hintVisible: false
-    property string hintText: ""
-    property string iconSource: ""
-    // The dispatched key that will open the composer
-    property string activationKey: ""
-    property Flickable flickable: null
-    property bool listenerEnabled: true
-    property Component sourceComponent: null
+AppListener {
+
+    waitFor: [ViewStore.listenerId]
+    property ToastQueue toaster: ToastQueue{}
+
+    Filter {
+        type: ViewKeys.orderSimpleToast
+        onDispatched: {
+            toaster.orderToast(dekko, simple, { text: message.message })
+        }
+    }
+
+    Component {
+        id: simple
+        SimpleToast {}
+    }
 }
 

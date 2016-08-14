@@ -18,11 +18,11 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import QuickFlux 1.0
-import "../../actions/composer"
-import "../../actions/logging"
-import "../../actions/views"
-import "../../stores/composer"
-import "../utils/QtCoreAPI.js" as QtCoreAPI
+import "../actions/composer"
+import "../actions/logging"
+import "../actions/views"
+import "../stores/composer"
+import "../views/utils/QtCoreAPI.js" as QtCoreAPI
 
 AppListener {
 

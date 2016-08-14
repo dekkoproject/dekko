@@ -16,23 +16,20 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 import QtQuick 2.4
-import QuickFlux 1.0
-import "../../actions/views"
 
-AppListener {
-
-    property ToastQueue toaster: ToastQueue{}
-
-    Filter {
-        type: ViewKeys.orderSimpleToast
-        onDispatched: {
-            toaster.orderToast(dekko, simple, { text: message.message })
-        }
-    }
-
-    Component {
-        id: simple
-        SimpleToast {}
+// This component should be created using an async loader
+// The containing workers should not be required immediately
+// but be available shortly after app start.
+Item {
+    // workers are private
+    QtObject {
+        property MailboxWorker mboxWorker: MailboxWorker {}
+        property SettingsWorker settingsWorker: SettingsWorker {}
+        property ComposerWorker composeWorker: ComposerWorker {}
+        property ContentWorker contentWorker: ContentWorker{}
+        property UriWorker uriWorker: UriWorker {}
+        property DialogWorker dlgWorker: DialogWorker {}
+        property ErrorsWorker errorsWorker: ErrorsWorker {}
+        property ToastWorker toastWorker: ToastWorker {}
     }
 }
-

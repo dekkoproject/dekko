@@ -78,3 +78,8 @@ void PolicyManager::setDefaultPolicies(const QMailAccountId &accountId)
     }
 }
 
+bool PolicyManager::idValid(const int &id)
+{
+    return QMailAccountId(id).isValid();
+}
+

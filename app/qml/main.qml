@@ -19,21 +19,23 @@ import QtQuick 2.4
 import "./views/components"
 import "./views/dialogs"
 import "./views/toasts"
+import "./workers"
 
 Dekko {
     id: dekko
     anchors.fill: parent
 
-    // Add these components to the resources list
+    Loader {
+        asynchronous: true
+        source: "qrc:/qml/workers/Workers.qml"
+    }
+
+    // Workers we need straight away
     QtObject {
         id: d
-        property DialogQueue dlgQueue: DialogQueue {}
+        property MailWorker mailWorker: MailWorker {}
         property Logger logger: Logger {
             devLoggingEnabled: devModeEnabled
         }
-        property ToastListener toaster: ToastListener{}
-        property ContentManager contentManager: ContentManager{}
-        property ErrorManager errorManager: ErrorManager{}
-        property UriListener uriListener: UriListener{}
     }
 }

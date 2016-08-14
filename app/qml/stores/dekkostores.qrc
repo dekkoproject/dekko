@@ -15,5 +15,7 @@
         <file>composer/ComposerStoreActions.qml</file>
         <file>contacts/ContactsStore.qml</file>
         <file>contacts/qmldir</file>
+        <file>settings/qmldir</file>
+        <file>settings/SettingsStore.qml</file>
     </qresource>
 </RCC>

@@ -17,13 +17,15 @@
 */
 import QtQuick 2.4
 import QuickFlux 1.0
-import "../../actions"
-import "../../actions/popups"
-import "../utils"
+import "../actions"
+import "../actions/popups"
+import "../views/utils"
+import "../stores"
 
 AppListener {
     id: logListener
 
+    waitFor: [ViewStore.listenerId]
     property PopupQueue popupQueue: PopupQueue {}
 
     Filter {

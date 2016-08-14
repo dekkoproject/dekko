@@ -27,9 +27,7 @@
         <file>BottomEdgeConfiguration.qml</file>
         <file>DrawerConfiguration.qml</file>
         <file>TitledHeaderButton.qml</file>
-        <file>ContentManager.qml</file>
         <file>CheckboxWithLabel.qml</file>
-        <file>ErrorManager.qml</file>
         <file>PageFlickable.qml</file>
         <file>SectionHeader.qml</file>
         <file>EncryptionSelector.qml</file>
@@ -37,6 +35,5 @@
         <file>LabeledSwitch.qml</file>
         <file>ExpandablePanel.qml</file>
         <file>MailboxPicker.qml</file>
-        <file>UriListener.qml</file>
     </qresource>
 </RCC>

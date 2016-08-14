@@ -24,4 +24,6 @@ import QuickFlux 1.0
 */
 ActionCreator {
 
+    signal updateMarkAsReadInterval(int accountId, int interval)
+    signal updateMarkAsReadMode(int accountId, var mode)
 }

@@ -18,15 +18,28 @@
 import QtQuick 2.4
 import QuickFlux 1.0
 import Ubuntu.Content 1.1
-import "../../actions/composer"
-import "../../actions/content"
-import "../../actions/logging"
-import "../../actions/views"
-import "../dialogs"
+import "../actions/composer"
+import "../actions/content"
+import "../actions/logging"
+import "../actions/views"
+import "../views/dialogs"
+import "../stores"
 
+/*!
+*
+* ContentWorker
+*
+* The ContentWorker is responsible for the import and export of content.
+* Whether that's by ContentHub on unity8 or using the native platform pickers
+*
+* Users of the ContentActions API should not be concerned with the platform they
+* are on as that is all handled here.
+*
+* @ingroup qml_worker
+*/
 AppListener {
 
-
+    waitFor: [ViewStore.listenerId]
     property string pickerUrl: ""
 
     Connections {
@@ -130,4 +143,3 @@ AppListener {
         }
     }
 }
-

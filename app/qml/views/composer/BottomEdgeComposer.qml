@@ -28,6 +28,7 @@ import "../components"
 import "../../constants"
 
 BottomEdgeConfiguration {
+    id: bc
     sourceComponent: DekkoPage {
         width: dekkoPage.width
         height: dekkoPage.height

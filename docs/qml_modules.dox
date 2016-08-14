@@ -15,6 +15,13 @@
 *
 * Updates to the store can only be done via the @ref qml_actions
 */
+/**
+* @defgroup qml_workers Worker components
+* @brief The Worker components handle all dispatched actions
+*
+* Workers listen on actions that are dispatched via the @ref qml_actions.
+* The workers are tasked with updating the state of stores or backend components
+*/
 /** @defgroup qml_constants Constants */
 /** 
  * @defgroup qml_views Views
