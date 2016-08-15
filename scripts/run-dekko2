@@ -32,6 +32,10 @@ case $i in
     SERVER_AS_THREAD=true
     shift
     ;;
+    --no-build)
+    NO_BUILD=true
+    shift
+    ;;
     --valgrind)
     VALGRIND=true
     shift
@@ -78,6 +82,47 @@ if [ "$CLEAN" = true ]; then
   exit 0
 fi
 
+function exportenvs {
+    export PATH=$PWD/test/lib/${HOST_ARCH}/bin:$PATH
+    export LD_LIBRARY_PATH=$PWD/test/lib/${HOST_ARCH}
+    export QML2_IMPORT_PATH=$LD_LIBRARY_PATH
+    export QMF_PLUGINS=$LD_LIBRARY_PATH/qmf/plugins5
+    export DEKKO_PLUGINS=$LD_LIBRARY_PATH/Dekko/plugins
+    echo "PATH: $PATH"
+    echo "LD_LIBRARY_PATH: $LD_LIBRARY_PATH"
+    echo "QMF_PLUGINS: $QMF_PLUGINS"
+}
+
+function run {
+
+    exportenvs
+    
+    if [ "$MS_RUN" = true ]; then
+        messageserver5
+        exit 0
+    else
+    if [ "$GDB_RUN" = true ]; then
+        gdb dekko
+        exit 0
+    fi
+    if [ "$VALGRIND" = true ]; then
+        valgrind -v --tool=massif dekko
+        exit 0
+    fi
+
+    if [ "$DEV_MODE" = true ]; then
+        dekko -d $@
+    else
+        dekko $@
+    fi
+fi
+}
+
+if [ "$NO_BUILD" = true ]; then
+    run $@
+    exit 0
+fi
+
 if [ "$USE_CONNECTIVITY" = true ]; then
     cmake -G Ninja -DCMAKE_BUILD_TYPE=Debug -DENABLE_LOGGING=on -DENABLE_QML_DEBUG=On -DENABLE_UBUNTU_CONNECTIVITY=On ../${SRC_DIR}
 else
@@ -87,33 +132,5 @@ ninja -j3
 export DESTDIR=./test
 ninja -j4 install
 
-export PATH=$PWD/test/lib/${HOST_ARCH}/bin:$PATH
-export LD_LIBRARY_PATH=$PWD/test/lib/${HOST_ARCH}
-export QML2_IMPORT_PATH=$LD_LIBRARY_PATH
-export QMF_PLUGINS=$LD_LIBRARY_PATH/qmf/plugins5
-export DEKKO_PLUGINS=$LD_LIBRARY_PATH/Dekko/plugins
-echo "PATH: $PATH"
-echo "LD_LIBRARY_PATH: $LD_LIBRARY_PATH"
-echo "QMF_PLUGINS: $QMF_PLUGINS"
-
-if [ "$MS_RUN" = true ]; then
-  messageserver5
-  exit 0
-else
-  if [ "$GDB_RUN" = true ]; then
-    gdb dekko
-    exit 0
-  fi
-  if [ "$VALGRIND" = true ]; then
-    valgrind -v --tool=massif dekko
-    exit 0
-  fi
-
-  if [ "$DEV_MODE" = true ]; then
-    dekko -d $@
-  else
-    dekko $@
-  fi
-fi
-
+run $@
 

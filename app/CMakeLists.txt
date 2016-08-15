@@ -27,6 +27,7 @@ set(DEKKO_QML_RESOURCE
     ${CMAKE_CURRENT_SOURCE_DIR}/qml/views/composer/dekkocomposer.qrc
     ${CMAKE_CURRENT_SOURCE_DIR}/qml/views/toasts/dekkotoasts.qrc
     ${CMAKE_CURRENT_SOURCE_DIR}/qml/views/contacts/dekkocontacts.qrc
+    ${CMAKE_CURRENT_SOURCE_DIR}/qml/views/settings/dekkosettings.qrc
     ${CMAKE_CURRENT_SOURCE_DIR}/qml/workers/dekkoworkers.qrc
 )
 

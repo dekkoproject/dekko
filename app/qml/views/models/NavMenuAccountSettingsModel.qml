@@ -18,6 +18,7 @@
 import QtQuick 2.4
 import QtQuick.Window 2.2
 import Ubuntu.Components 1.3
+import Ubuntu.Components.Popups 1.3
 import "../../actions/views"
 
 VisualItemModel {
@@ -51,6 +52,13 @@ VisualItemModel {
             }
             ProgressionSlot{}
         }
+        onClicked: {
+            if (dekko.viewState.isSmallFF) {
+                ViewActions.pushToStageArea(ViewKeys.messageListStack, "qrc:/qml/views/settings/DisplaySettingsPage.qml", {})
+            } else {
+                PopupUtils.open("qrc:/qml/views/settings/DisplaySettingsPopup.qml")
+            }
+        }
     }
     ListItem {
         height: privacySettingsLayout.implicitHeight
@@ -65,6 +73,13 @@ VisualItemModel {
                 SlotsLayout.position: SlotsLayout.Leading
             }
             ProgressionSlot{}
+        }
+        onClicked: {
+            if (dekko.viewState.isSmallFF) {
+                ViewActions.pushToStageArea(ViewKeys.messageListStack, "qrc:/qml/views/settings/PrivacySettingsPage.qml", {})
+            } else {
+                PopupUtils.open("qrc:/qml/views/settings/PrivacySettingsPopup.qml")
+            }
         }
     }
     ListItem {
