@@ -144,6 +144,7 @@ class ViewPolicy : public GlobalPolicy
      * @accessors %favouritesExpanded(), favouritesExpanded()
      */
     Q_PROPERTY(bool favouritesExpanded READ favouritesExpanded WRITE setFavouritesExpanded NOTIFY policyChanged)
+    Q_PROPERTY(bool favouritesVisible READ favouritesVisible WRITE setFavouritesVisible NOTIFY policyChanged)
     Q_PROPERTY(bool smartFoldersExpanded READ smartFoldersExpanded WRITE setSmartFoldersExpanded NOTIFY policyChanged)
     Q_PROPERTY(bool smartFoldersVisible READ smartFoldersVisible WRITE setSmartFoldersVisible NOTIFY policyChanged)
     Q_PROPERTY(bool accountsExpanded READ accountsExpanded WRITE setAccountsExpanded NOTIFY policyChanged)

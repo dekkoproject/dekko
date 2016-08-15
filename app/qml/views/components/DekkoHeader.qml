@@ -53,6 +53,7 @@ PixelPerfectItem {
     // of the screen so there is no need to configure it to do so here.
     property Item pageFlickable: null
     property bool composeButtonEnabled: false
+    property alias backgroundVisible: backgroundColor.visible
     // Useful readonly properties
     readonly property bool isDefault: state === "default"
     readonly property bool isSearchMode: state === "search"
