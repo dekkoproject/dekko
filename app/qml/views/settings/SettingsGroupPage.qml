@@ -1,0 +1,47 @@
+/* Copyright (C) 2016 Dan Chapman <dpniel@ubuntu.com>
+
+   This file is part of Dekko email client for Ubuntu devices
+
+   This program is free software; you can redistribute it and/or
+   modify it under the terms of the GNU General Public License as
+   published by the Free Software Foundation; either version 2 of
+   the License or (at your option) version 3
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+import QtQuick 2.4
+import Ubuntu.Components 1.3
+import "../../actions/views"
+import "../../actions/settings"
+import "../../stores"
+import "../components"
+
+DekkoPage {
+
+    pageHeader.backAction: dekko.viewState.isSmallFF ? bk : null
+    Action {
+        id: bk
+        iconName: "back"
+        onTriggered: {
+            SettingsActions.saveCurrentGroup()
+            ViewActions.popStageArea(ViewKeys.settingsStack1)
+        }
+    }
+
+    Connections {
+        target: ViewStore
+        onFormFactorChanged: {
+            if ((ViewStore.formFactor !== "small") && (stageArea.stageID === ViewKeys.settingsStack1)) {
+                SettingsActions.switchSettingsGroupLocation(ViewKeys.settingsStack1)
+            } else if ((ViewStore.formFactor === "small") && (stageArea.stageID === ViewKeys.settingsStack2)) {
+                SettingsActions.switchSettingsGroupLocation(ViewKeys.settingsStack2)
+            }
+        }
+    }
+}

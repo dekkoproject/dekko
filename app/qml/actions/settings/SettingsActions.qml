@@ -24,6 +24,12 @@ import QuickFlux 1.0
 */
 ActionCreator {
 
+    signal openSettingsGroup(string group)
+    signal switchSettingsGroupLocation(string stackKey)
+    signal setSelectedAccount(var account)
+    signal updateServerDetails(var details)
     signal updateMarkAsReadInterval(int accountId, int interval)
     signal updateMarkAsReadMode(int accountId, var mode)
+    signal saveCurrentGroup()
+    signal saveSelectedAccount()
 }

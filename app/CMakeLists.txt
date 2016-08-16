@@ -15,6 +15,7 @@ set(DEKKO_QML_RESOURCE
     ${CMAKE_CURRENT_SOURCE_DIR}/qml/actions/dekkoactions.qrc
     ${CMAKE_CURRENT_SOURCE_DIR}/qml/stores/dekkostores.qrc
     ${CMAKE_CURRENT_SOURCE_DIR}/qml/constants/dekkocontants.qrc
+    ${CMAKE_CURRENT_SOURCE_DIR}/qml/views/accounts/dekkoaccounts.qrc
     ${CMAKE_CURRENT_SOURCE_DIR}/qml/views/components/dekkocomponents.qrc
     ${CMAKE_CURRENT_SOURCE_DIR}/qml/views/delegates/dekkodelegates.qrc
     ${CMAKE_CURRENT_SOURCE_DIR}/qml/views/dialogs/dekkodialogs.qrc

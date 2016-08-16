@@ -25,6 +25,7 @@ import "../../stores"
 import "../../stores/mail"
 import "../../stores/accounts"
 import "../../actions/messaging"
+import "../../actions/views"
 
 VisualItemModel {
 
@@ -72,7 +73,10 @@ VisualItemModel {
                                 onSubFolderClicked: MessageActions.openFolder(name, key)
                                 Component.onCompleted: {
                                     if (model.index === 0 && !panelIsParent) {
-                                        MessageActions.openFolder(folder.displayName, folder.descendentsKey)
+                                        ViewActions.delayCallWithArgs(MessageKeys.openFolder, {
+                                                                          folderName: folder.displayName,
+                                                                          folderKey: folder.descendentsKey
+                                                                      })
                                     }
                                 }
                             }

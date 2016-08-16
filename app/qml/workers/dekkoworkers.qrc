@@ -10,5 +10,6 @@
         <file>MailWorker.qml</file>
         <file>MailboxWorker.qml</file>
         <file>ComposerWorker.qml</file>
+        <file>AccountsWorker.qml</file>
     </qresource>
 </RCC>

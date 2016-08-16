@@ -35,6 +35,7 @@ Item {
     property alias currentItem: internalStack.currentItem
     property bool immediatePush: false
     property alias delegate: internalStack.delegate
+    property bool pushBeforeReplace: false
 
     property string stageID: ""
 
@@ -71,7 +72,10 @@ Item {
             type: ViewKeys.replaceTopStageAreaItem
             onDispatched: {
                 if (message.stageID === stageID) {
-//                    internalStack.pop()
+                    if (pushBeforeReplace && stackCount === 1) {
+                        ViewActions.pushToStageArea(stageID, message.page, message.properties)
+                        return
+                    }
                     if (immediatePush) {
                         internalStack.push({item: message.page, replace: true, immediate: true, properties: message.properties})
                     } else {

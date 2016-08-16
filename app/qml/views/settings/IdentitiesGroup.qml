@@ -15,14 +15,13 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-pragma Singleton
 import QtQuick 2.4
-import QuickFlux 1.0
-import Dekko.Accounts 1.0
-import Dekko.Settings 1.0
+import Ubuntu.Components 1.3
+import "../../actions/views"
+import "../../actions/settings"
+import "../../stores/settings"
+import "../components"
 
-AppListener {
-
-    property Account selectedAccount: null
-    property string currentGroup: ""
+SettingsGroupPage {
+    pageHeader.title: qsTr("Identities")
 }

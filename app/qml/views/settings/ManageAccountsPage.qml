@@ -15,14 +15,34 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-pragma Singleton
 import QtQuick 2.4
-import QuickFlux 1.0
-import Dekko.Accounts 1.0
-import Dekko.Settings 1.0
+import Ubuntu.Components 1.3
+import "../../actions/views"
+import "../../actions/settings"
+import "../accounts"
+import "../components"
 
-AppListener {
+AccountsListPage {
 
-    property Account selectedAccount: null
-    property string currentGroup: ""
+    pageHeader.title: qsTr("Manage accounts")
+    pageHeader.backAction: Action {
+        iconName: "back"
+        onTriggered: {
+            ViewActions.popStage()
+        }
+    }
+    pageHeader.primaryAction: addNewAccount
+    canRemove: true
+    contextActionsEnabled: true
+
+    onAccountSelected: {
+        SettingsActions.setSelectedAccount(account)
+        ViewActions.pushToStageArea(ViewKeys.settingsStack1, "qrc:/qml/views/settings/AccountSettingsList.qml", {})
+    }
+
+    Action {
+        id: addNewAccount
+        iconName: "add"
+        onTriggered: ViewActions.runSetupWizard()
+    }
 }

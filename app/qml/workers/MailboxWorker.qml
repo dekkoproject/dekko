@@ -24,6 +24,7 @@ import "../actions/views"
 import "../stores/mail"
 
 AppListener {
+
     waitFor: [MailboxStore.listenerId]
 
     Filter {

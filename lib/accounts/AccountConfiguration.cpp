@@ -294,6 +294,7 @@ int ImapAccountConfiguration::searchLimit() const
 
 void ImapAccountConfiguration::setSaslMechanism(AccountConfiguration::SaslMechanism sasl)
 {
+    qDebug() << "Setting new SASL mech: " << sasl;
     m_service->setValue(AccountKeys::saslMechanism, QString::number(sasl));
     emit saslChanged();
 }

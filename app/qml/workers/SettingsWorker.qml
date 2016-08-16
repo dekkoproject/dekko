@@ -17,8 +17,10 @@
 */
 import QtQuick 2.4
 import QuickFlux 1.0
+import Dekko.Accounts 1.0
 import Dekko.Settings 1.0
 import "../actions/logging"
+import "../actions/views"
 import "../actions/settings"
 import "../stores/settings"
 
@@ -47,6 +49,50 @@ AppListener {
             }
             Log.logInfo("SettingsWorker::updateMarkAsReadMode", "Updating mode to %1 for account: %2".arg(message.mode).arg(message.accountId))
             PolicyManager.mailPolicy(message.accountId).markRead = message.mode
+        }
+    }
+
+    Filter {
+        type: SettingsKeys.openSettingsGroup
+        onDispatched: {
+            SettingsActions.saveCurrentGroup()
+            SettingsStore.currentGroup = message.group
+            if (dekko.viewState.isSmallFF) {
+                ViewActions.pushToStageArea(ViewKeys.settingsStack1, SettingsStore.currentGroup, {})
+            } else {
+                ViewActions.replaceTopStageAreaItem(ViewKeys.settingsStack2, SettingsStore.currentGroup, {})
+            }
+        }
+    }
+
+    Filter {
+        type: SettingsKeys.switchSettingsGroupLocation
+        onDispatched: {
+            SettingsActions.saveCurrentGroup()
+            ViewActions.popStageArea(message.stackKey)
+            delaySwitch.start()
+        }
+        property Timer delaySwitch: Timer {
+            interval: 50
+            repeat: false
+            onTriggered: {
+                SettingsActions.openSettingsGroup(SettingsStore.currentGroup)
+            }
+        }
+    }
+
+    Filter {
+        type: SettingsKeys.setSelectedAccount
+        onDispatched: {
+            SettingsStore.selectedAccount = message.account
+        }
+    }
+
+    Filter {
+        type: SettingsKeys.saveSelectedAccount
+        onDispatched: {
+            SettingsStore.selectedAccount.save()
+            ViewActions.orderSimpleToast(qsTr("Account saved"))
         }
     }
 }

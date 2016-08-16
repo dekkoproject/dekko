@@ -23,6 +23,12 @@ import QuickFlux 1.0
 * @ingroup qml_actions
 */
 KeyTable {
+    property string openSettingsGroup
+    property string switchSettingsGroupLocation
+    property string setSelectedAccount
+    property string updateServerDetails
     property string updateMarkAsReadInterval
     property string updateMarkAsReadMode
+    property string saveCurrentGroup
+    property string saveSelectedAccount
 }

@@ -36,7 +36,7 @@ VisualItemModel {
             }
             ProgressionSlot{}
         }
-        onClicked: ViewActions.runSetupWizard()
+        onClicked: ViewActions.pushStage("qrc:/qml/views/stages/SettingsStage.qml", {})
     }
     ListItem {
         height: displaySettingsLayout.implicitHeight

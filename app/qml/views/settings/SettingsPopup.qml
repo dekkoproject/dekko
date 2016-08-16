@@ -48,7 +48,7 @@ PopupBase {
             topMargin: shouldCenter ? undefined : (addTopMargin ? units.gu(6) : Style.defaultSpacing)
             verticalCenter: shouldCenter ? parent.verticalCenter : undefined
         }
-        color: UbuntuColors.porcelain
+        color: "#ffffff"
         clip: true
 
         StretchColumn {
