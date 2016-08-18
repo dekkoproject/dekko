@@ -11,8 +11,8 @@
         <file>AccountSettingsList.qml</file>
         <file>SettingsGroupPage.qml</file>
         <file>DetailsGroup.qml</file>
-        <file>IdentitiesGroup.qml</file>
         <file>IncomingServerGroup.qml</file>
         <file>OutgoingServerGroup.qml</file>
+        <file>CopyFoldersGroup.qml</file>
     </qresource>
 </RCC>

@@ -48,5 +48,11 @@ BaseMessagingStore {
         id: smartFolders
         filter: MessageFilterCollection.SmartFolders
     }
-
+    Filter {
+        type: ViewKeys.reloadAccountBasedModels
+        onDispatched: {
+            stdFolders.reset()
+            smartFolders.reset()
+        }
+    }
 }

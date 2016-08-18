@@ -18,6 +18,7 @@
 import QtQuick 2.4
 import QuickFlux 1.0
 import Dekko.Accounts 1.0
+import Dekko.Mail 1.0
 import Dekko.Settings 1.0
 import "../actions/logging"
 import "../actions/views"
@@ -66,6 +67,19 @@ AppListener {
     }
 
     Filter {
+        type: SettingsKeys.setSelectedAccount
+        property Component accountComponent: Component {
+            Account {
+                accountId: SettingsStore.selectedAccountId
+            }
+        }
+        onDispatched: {
+            SettingsStore.selectedAccountId = message.account.id
+            SettingsStore.selectedAccount = accountComponent.createObject()
+        }
+    }
+
+    Filter {
         type: SettingsKeys.switchSettingsGroupLocation
         onDispatched: {
             SettingsActions.saveCurrentGroup()
@@ -82,17 +96,55 @@ AppListener {
     }
 
     Filter {
-        type: SettingsKeys.setSelectedAccount
-        onDispatched: {
-            SettingsStore.selectedAccount = message.account
-        }
-    }
-
-    Filter {
         type: SettingsKeys.saveSelectedAccount
         onDispatched: {
             SettingsStore.selectedAccount.save()
             ViewActions.orderSimpleToast(qsTr("Account saved"))
         }
+    }
+
+    Filter {
+        type: SettingsKeys.detectStandardFolders
+        onDispatched: {
+            SettingsActions.saveCurrentGroup()
+            SettingsActions.saveSelectedAccount()
+            Client.createStandardFolders(SettingsStore.selectedAccount.id)
+        }
+    }
+    Filter {
+        type: SettingsKeys.createStandardFolders
+        onDispatched: {
+            Client.createStandardFolders(message.accountId)
+        }
+    }
+
+    AppScript {
+        property string pickerId: "settings-mbox-picker"
+        property string fieldId: ""
+        runWhen: SettingsKeys.pickFolder
+        script: {
+            Log.logInfo("MailboxWorker::moveMessage", "Opening folder picker.")
+            fieldId = message.fieldId
+            ViewActions.pushToStageArea(ViewKeys.settingsStack1,
+                                        "qrc:/qml/views/MailboxPickerPage.qml",
+                                        {
+                                            pickerId: pickerId,
+                                            accountId: message.accountId
+                                        })
+            once(SettingsKeys.folderPicked, function (result) {
+                Log.logInfo("MailboxWorker::moveMessage", "Folder selected")
+                if (result.pickerId !== pickerId) {
+                    return;
+                }
+                SettingsActions.folderPathPicked(fieldId, result.folder.path)
+                ViewActions.popStageArea(ViewKeys.settingsStack1)
+            })
+
+            once(SettingsKeys.pickFolderCancelled, function (msg) {
+                ViewActions.popStageArea(ViewKeys.settingsStack1)
+                exit.bind(this, 0)
+            })
+        }
+
     }
 }

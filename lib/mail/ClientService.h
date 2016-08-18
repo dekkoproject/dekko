@@ -67,6 +67,7 @@ public:
     void downloadMessagePart(const QMailMessagePart *part);
     void downloadMessages(const QMailMessageIdList &msgIds);
     void sendMessage(const QMailMessage &msg);
+    void createStandardFolders(const QMailAccountId &id);
     void moveToStandardFolder(const QMailMessageIdList &msgIds, const Folder::FolderType &folder, const bool userTriggered);
     void moveToFolder(const QMailMessageIdList &msgIds, const QMailFolderId &folder);
     void synchronizeAccount(const QMailAccountId &id);
@@ -86,6 +87,7 @@ signals:
     void accountSynced(const quint64 &id);
     void syncAccountFailed(const quint64 &id);
     void actionFailed(const quint64 &id, const QMailServiceAction::Status &status);
+    void standardFoldersCreated(const quint64 &id, const bool created);
 
 public slots:
     void undoActions();
@@ -142,6 +144,7 @@ signals:
     void messageSendingFailed();
     void accountSynced(const quint64 &id);
     void syncAccountFailed(const quint64 &id);
+    void standardFoldersCreated(const quint64 &id, const bool created);
     void actionFailed(const quint64 &id, const QMailServiceAction::Status &status);
 
 public slots:
@@ -164,6 +167,9 @@ public slots:
                         //                        qDebug() << "Sync account successful";
                         ClientServiceAction *clientAction = m_queue->at(0);
                         emit accountSynced(clientAction->accountId().toULongLong());
+                    } else if (m_queue->first()->serviceActionType() == ClientServiceAction::CreateStandardFolders) {
+                        ClientServiceAction *clientAction = m_queue->at(0);
+                        emit standardFoldersCreated(clientAction->accountId().toULongLong(), true);
                     }
                     m_queue->dequeue();
                     emit processNext();
@@ -202,6 +208,9 @@ public slots:
                         ClientServiceAction *clientAction = m_queue->at(0);
                         emit syncAccountFailed(clientAction->accountId().toULongLong());
                         emit actionFailed(clientAction->accountId().toULongLong(), action->status());
+                    } else if (m_queue->first()->serviceActionType() == ClientServiceAction::CreateStandardFolders) {
+                        ClientServiceAction *clientAction = m_queue->at(0);
+                        emit standardFoldersCreated(clientAction->accountId().toULongLong(), false);
                     }
                     m_queue->dequeue();
                     emit processNext();

@@ -104,11 +104,13 @@ public slots:
     void setPort(const QString &port);
     void setEncryption(EncryptionMethod method);
     void setAcceptUntrustedCertificates(const bool accept);
+    virtual void emitConfigurationChanges();
 
 protected:
     void init(QMailAccountConfiguration *config, const QString &serviceType);
     void addServiceType(ServiceType type);
     void removeServiceType(ServiceType type);
+
     QMailAccountConfiguration *m_config;
     QMailServiceConfiguration *m_service;
     QString m_serviceType;
@@ -187,6 +189,9 @@ public slots:
     void setPushFolders(const QStringList &pushFolders);
     void appendPushFolder(const QString &folder) {
         QStringList p = pushFolders();
+        if (p.contains(folder)) {
+            return;
+        }
         qDebug() << "PUSH FOLDERS: " << p;
         p.append(folder);
         setPushFolders(p);
@@ -195,6 +200,8 @@ public slots:
     void setCheckInterval(const int &interval); // in milliseconds
     void setCheckWhenRoaming(const bool check);
     void setSearchLimit(const int &limit);
+    virtual void emitConfigurationChanges() override;
+
 };
 
 /** @ingroup group_accounts */
@@ -229,7 +236,7 @@ public slots:
     void setUsername(const QString &username);
     void setAuthFromCaps(const bool use);
     void setSignature(const QString &sig);
-
+    virtual void emitConfigurationChanges() override;
 };
 
 /** @ingroup group_accounts */
@@ -266,6 +273,7 @@ public slots:
     void setMaxMailSize(const int &maxSize);
     void setCheckInterval(const int &interval);
     void setCheckWhenRoaming(const bool check);
+    virtual void emitConfigurationChanges() override;
 
 };
 

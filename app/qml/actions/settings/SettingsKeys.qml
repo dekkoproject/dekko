@@ -29,6 +29,20 @@ KeyTable {
     property string updateServerDetails
     property string updateMarkAsReadInterval
     property string updateMarkAsReadMode
-    property string saveCurrentGroup
     property string saveSelectedAccount
+    property string detectStandardFolders
+    property string createStandardFolders
+
+
+    property string saveCurrentGroup
+    property string saveCurrentGroupNow
+    property string determineIfSettingsChanged
+    property string settingsChanged
+    property string noChange
+    property string currentGroupSaved
+
+    property string pickFolder
+    property string folderPicked
+    property string folderPathPicked
+    property string pickFolderCancelled
 }

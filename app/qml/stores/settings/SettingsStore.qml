@@ -24,5 +24,7 @@ import Dekko.Settings 1.0
 AppListener {
 
     property Account selectedAccount: null
+    property var selectedAccountId
     property string currentGroup: ""
+    property bool settingsChanged: false
 }

@@ -50,6 +50,7 @@ Client::Client(QObject *parent) : QObject(parent),
     connect(m_service, &ClientService::accountSynced, this, &Client::accountSynced);
     connect(m_service, &ClientService::syncAccountFailed, this, &Client::syncAccountFailed);
     connect(m_service, &ClientService::actionFailed, this, &Client::handleFailure);
+    connect(m_service, &ClientService::standardFoldersCreated, this, &Client::standardFoldersCreated);
 }
 
 bool Client::hasConfiguredAccounts()
@@ -168,6 +169,11 @@ void Client::markMessagesTodo(const QMailMessageIdList &idList, const bool todo)
 void Client::markMessagesDone(const QMailMessageIdList &idList, const bool done)
 {
     m_service->markMessagesDone(idList, done);
+}
+
+void Client::createStandardFolders(const quint64 &accountId)
+{
+    m_service->createStandardFolders(QMailAccountId(accountId));
 }
 
 void Client::markMessagesReplied(const QMailMessageIdList &idList, const bool all)

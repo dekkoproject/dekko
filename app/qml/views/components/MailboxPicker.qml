@@ -29,6 +29,7 @@ Item {
     signal folderSelected(string folderName, var folderKey)
     signal folderClicked(int folderId)
     signal folderTypeClicked(int folderType, int folderId)
+    signal folderPicked(var folder)
 
     FolderList {
         id: folderList
@@ -56,6 +57,7 @@ Item {
                     picker.folderSelected(folder.name, folder.messageKey)
                     picker.folderClicked(folder.folderId)
                     picker.folderTypeClicked(folder.type, folder.folderId)
+                    picker.folderPicked(folder)
                 }
             }
         }

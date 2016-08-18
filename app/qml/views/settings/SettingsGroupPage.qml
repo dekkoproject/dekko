@@ -16,10 +16,13 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 import QtQuick 2.4
+import QuickFlux 1.0
 import Ubuntu.Components 1.3
+import Dekko.Accounts 1.0
 import "../../actions/views"
 import "../../actions/settings"
 import "../../stores"
+import "../../stores/settings"
 import "../components"
 
 DekkoPage {
@@ -33,6 +36,8 @@ DekkoPage {
             ViewActions.popStageArea(ViewKeys.settingsStack1)
         }
     }
+
+    property Account account: SettingsStore.selectedAccount
 
     Connections {
         target: ViewStore

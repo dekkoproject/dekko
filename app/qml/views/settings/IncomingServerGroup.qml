@@ -28,22 +28,52 @@ import "../components"
 SettingsGroupPage {
     pageHeader.title: qsTr("Incoming Server")
 
-    property AccountConfig incoming: SettingsStore.selectedAccount.incoming
+    property AccountConfig incoming: account.incoming
 
     readonly property bool isIMAP: incoming ? incoming.serviceType === AccountConfig.IMAP : false
     readonly property bool isPOP: incoming ? incoming.serviceType === AccountConfig.POP3 : false
+
+    function settingsChanged() {
+        if (incoming.baseFolder !== basePath.text
+            || incoming.name !== username.text
+            || incoming.email !== username.text
+            || incoming.password !== password.text
+            || incoming.server !== server.text
+            || incoming.port !== port.text
+            || incoming.encryption !== encryption.selectedMethod
+            || incoming.acceptUntrustedCertificates !== allowUntrustedSwitch.checked
+            || (isIMAP && incoming.saslMechanism !== authentication.selectedMethod)
+            || (isIMAP && incoming.idleEnabled !== idleEnabled.checked)
+            || (isIMAP && incoming.isAutoDownload !== noMaxMailSize.checked)
+            || (isIMAP && incoming.downloadAttachments !== autoDownloadAttachments.checked)
+            || incoming.checkInterval !== parseInt(checkInterval.text)
+            || incoming.checkWhenRoaming !== checkRoaming.checked
+            || incoming.maxMailSize !== parseInt(maxMailSize.text)
+            || incoming.canDeleteMail !== canDeleteMail.checked)
+        {
+            Log.logInfo("IncomingServerGroup::determineIfSettingsChanged", "Settings have changed")
+            return true
+        } else {
+            Log.logInfo("IncomingServerGroup::determineIfSettingsChanged", "No changes")
+            return false
+        }
+    }
 
     AppListener {
         Filter {
             type: SettingsKeys.saveCurrentGroup
             onDispatched: {
                 Log.logInfo("IncomingServerGroup::saveCurrentGroup", "Saving group settings")
+                if (!settingsChanged()) {
+                    return
+                }
                 incoming.name = username.text
                 incoming.email = username.text
                 incoming.password = password.text
                 incoming.server = server.text
                 incoming.port = port.text
                 incoming.encryption = encryption.selectedMethod
+                incoming.acceptUntrustedCertificates = allowUntrustedSwitch.checked
                 if (isIMAP) {
                     Log.logInfo("IncomingServerGroup::saveCurrentGroup", "Saving IMAP properties")
                     incoming.saslMechanism = authentication.selectedMethod
@@ -64,6 +94,7 @@ SettingsGroupPage {
                     incoming.isAutoDownload = noMaxMailSize.checked
                     incoming.canDeleteMail = canDeleteMail.checked
                 }
+                SettingsStore.settingsChanged = true
                 Log.logInfo("IncomingServerGroup::saveCurrentGroup", "Saved group settings")
             }
         }

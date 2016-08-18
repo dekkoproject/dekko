@@ -70,7 +70,7 @@ ListItemWithActions {
     ListItemLayout {
         id: layout
         height: units.gu(5)
-        title.text: folder.name
+        title.text: folder ? folder.name : ""
         CachedImage {
             id: attachmentImg
             height: units.gu(3)

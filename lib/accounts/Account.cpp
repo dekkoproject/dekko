@@ -33,6 +33,7 @@ Account::Account(QObject *parent) : QObject(parent),
     m_incoming(0),
     m_outgoing(0)
 {
+//    connect(QMailStore::instance(), SIGNAL(accountsUpdated(QMailAccountIdList)), this, SLOT(reload(QMailAccountIdList)));
     m_account->setMessageType(QMailMessage::Email);
     initialize();
 }
@@ -46,6 +47,27 @@ void Account::setSpecialUseFolder(Account::SpecialUseFolder folder, const quint6
         qDebug() << "[Account]" << __func__ << "Invalid folder id";
         emit error(Error::InvalidFolderId, id());
     }
+}
+
+void Account::setSpecialUseFolder(Account::SpecialUseFolder folder, const QString &path)
+{
+    const QMailFolderIdList folders = QMailStore::instance()->queryFolders(
+                QMailFolderKey::path(path) & QMailFolderKey::parentAccountId(m_account->id())
+                );
+    if (path.isEmpty() || folders.count() == 0) {
+        m_account->setStandardFolder((QMailFolder::StandardFolder)folder, QMailFolderId());
+        return;
+    }
+    if (folders.count() != 1) {
+        return;
+    }
+    setSpecialUseFolder(folder, folders.first().toULongLong());
+}
+
+QString Account::specialUseFolderPath(Account::SpecialUseFolder folder)
+{
+    QMailFolderId folderId = m_account->standardFolder((QMailFolder::StandardFolder)folder);
+    return folderId.isValid() ? QMailFolder(folderId).path() : QString();
 }
 
 void Account::setId(const int &id)
@@ -134,6 +156,27 @@ void Account::initialize()
     m_outgoing = new SmtpAccountConfiguration(this, m_accountConfig, smtpServiceType);
 }
 
+void Account::reload(const QMailAccountIdList &ids)
+{
+    if (!ids.contains(m_account->id())) {
+        return;
+    }
+    qDebug() << "[Account]" << __func__ << "Reloading account";
+    delete m_incoming;
+    m_incoming = 0;
+    delete m_outgoing;
+    m_outgoing = 0;
+    delete m_accountConfig;
+    m_accountConfig = 0;
+    m_accountConfig = new QMailAccountConfiguration();
+    QMailAccountId id(m_account->id());
+    delete m_account;
+    m_account = 0;
+    setId(id.toULongLong());
+    emit accountChanged(m_account->id().toULongLong());
+    m_incoming->emitConfigurationChanges();
+    m_outgoing->emitConfigurationChanges();
+}
 
 NewAccount::NewAccount(QObject *parent) : Account(parent)
 {

@@ -88,6 +88,7 @@ public:
     Q_INVOKABLE void markMessageDone(const int &msgId, const bool done);
     void markMessagesDone(const QMailMessageIdList &idList, const bool done);
 
+    Q_INVOKABLE void createStandardFolders(const quint64 &accountId);
     Q_INVOKABLE void moveToStandardFolder(const int &msgId, const int &standardFolder); // standardFolder is a Folder::FolderType
     void moveToStandardFolder(const QMailMessageIdList &msgIds, const Folder::FolderType &folder, const bool userTriggered = true);
     Q_INVOKABLE void moveToFolder(const quint64 &msgId, const quint64 &folderId);
@@ -127,6 +128,7 @@ signals:
     void accountSynced(const quint64 &id);
     void syncAccountFailed(const quint64 &id);
     void clientError(const quint64 &accountId, const Error &error, const QString &errorString);
+    void standardFoldersCreated(const quint64 &accountId, const bool &created);
 
 public slots:
     void handleFailure(const quint64 &id, const QMailServiceAction::Status &status);

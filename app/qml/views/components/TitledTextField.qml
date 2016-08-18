@@ -17,6 +17,8 @@
 */
 import QtQuick 2.4
 import Ubuntu.Components 1.3
+import Dekko.Components 1.0
+import "../components"
 
 FocusScope {
     id: titledTextField
@@ -39,6 +41,7 @@ FocusScope {
     readonly property bool _inputValid: requiredField ? textfield.text : true
     property alias placeholderText: textfield.placeholderText
     property alias secondaryItem: textfield.secondaryItem
+    property Action trailingAction
 
     Column {
         id: column
@@ -59,18 +62,31 @@ FocusScope {
             text: !_inputValid ? title + qsTr(" (Required)") : title
             color: !_inputValid ? UbuntuColors.red : UbuntuColors.inkstone
         }
-
-        TextField {
-            id: textfield
-            iconName: "ok"
+        StretchRow {
+            height: textfield.height
+            spacing: units.gu(1)
             anchors {
-                left: column.left
-                right: column.right
+                left: parent.left
+                right: parent.right
             }
-            onAccepted: {
-               if (sendTabEventOnEnter) {
-                    // TabEventSignaler.sendTabEvent()
-               }
+            TextField {
+                id: textfield
+                iconName: "ok"
+                implicitWidth: -1
+                onAccepted: {
+                   if (sendTabEventOnEnter) {
+                        // TabEventSignaler.sendTabEvent()
+                   }
+                }
+            }
+            HeaderButton {
+                height: units.gu(6)
+                implicitWidth: width
+                implicitHeight: height
+                iconSize: units.gu(3)
+                anchors.verticalCenter: textfield.verticalCenter
+                visible: trailingAction
+                action: trailingAction
             }
         }
     }

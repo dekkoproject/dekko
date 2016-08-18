@@ -18,6 +18,8 @@
 import QtQuick 2.4
 import QuickFlux 1.0
 import Ubuntu.Components 1.3
+import Dekko.AutoConfig 1.0
+import "../../actions/logging"
 import "../../actions/views"
 import "../../actions/settings"
 import "../../stores/settings"
@@ -26,11 +28,32 @@ import "../components"
 SettingsGroupPage {
     pageHeader.title: qsTr("Details")
 
+    function settingsChanged() {
+        if (account.name !== accountName.text
+            || account.outgoing.name !== name.text
+            || account.outgoing.email !== email.text) {
+            return true
+        } else {
+            return false
+        }
+    }
+
     AppListener {
         Filter {
             type: SettingsKeys.saveCurrentGroup
             onDispatched: {
-                SettingsStore.selectedAccount.name = accountName.text
+                Log.logInfo("DetailsGroup::saveCurrentGroup", "Saving current group")
+                if (!settingsChanged()) {
+                    Log.logInfo("DetailsGroup::saveCurrentGroup", "No settings changed")
+                    return
+                }
+                account.name = accountName.text
+                account.outgoing.name = name.text
+                if (EmailValidator.validate(email.text)) {
+                    account.outgoing.email = email.text
+                }
+                SettingsStore.settingsChanged = true
+                Log.logInfo("DetailsGroup::saveCurrentGroup", "Current group saved")
             }
         }
     }
@@ -39,7 +62,30 @@ SettingsGroupPage {
         TitledTextField {
             id: accountName
             title: qsTr("Account name")
-            text: SettingsStore.selectedAccount.name
+            text: account.name
+        }
+
+        SectionHeader {
+            textMargin: 0
+            text: qsTr("Default Identity")
+        }
+
+        TitledTextField {
+            id: name
+            title: qsTr("Name")
+            text: account.outgoing.name
+        }
+
+        TitledTextField {
+            id: email
+            title: qsTr("Email Address")
+            text: account.outgoing.email
+        }
+
+        TitledTextField {
+            id: replyTo
+            title: qsTr("Reply-To")
+            text: ""
         }
     }
 }

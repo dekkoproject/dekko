@@ -17,6 +17,7 @@
 */
 import QtQuick 2.4
 import Ubuntu.Components 1.3
+import "../../actions/accounts"
 import "../../actions/views"
 import "../../actions/settings"
 import "../../stores/settings"
@@ -28,10 +29,24 @@ DekkoPage {
         iconName: "back"
         onTriggered: {
             SettingsActions.saveCurrentGroup()
-            SettingsActions.saveSelectedAccount()
+            if (SettingsStore.settingsChanged) {
+                SettingsActions.saveSelectedAccount()
+                ViewActions.reloadAccountBasedModels()
+                SettingsStore.settingsChanged = false
+            }
             ViewActions.popStageArea(ViewKeys.settingsStack2)
             ViewActions.popStageArea(ViewKeys.settingsStack1)
         }
+    }
+
+    pageHeader.primaryAction: Action {
+        iconName: "delete"
+        onTriggered: {
+            AccountActions.deleteAccount(SettingsStore.selectedAccountId, true)
+            ViewActions.popStageArea(ViewKeys.settingsStack2)
+            ViewActions.popStageArea(ViewKeys.settingsStack1)
+        }
+
     }
 
     PageFlickable {
@@ -68,10 +83,10 @@ DekkoPage {
             height: l4.height + divider.height
             ListItemLayout {
                 id: l4
-                title.text: qsTr("Identities")
+                title.text: qsTr("Copies and Folders")
                 ProgressionSlot{}
             }
-            onClicked: SettingsActions.openSettingsGroup("qrc:/qml/views/settings/IdentitiesGroup.qml")
+            onClicked: SettingsActions.openSettingsGroup("qrc:/qml/views/settings/CopyFoldersGroup.qml")
         }
     }
 }

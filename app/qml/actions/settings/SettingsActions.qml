@@ -30,6 +30,19 @@ ActionCreator {
     signal updateServerDetails(var details)
     signal updateMarkAsReadInterval(int accountId, int interval)
     signal updateMarkAsReadMode(int accountId, var mode)
-    signal saveCurrentGroup()
     signal saveSelectedAccount()
+    signal detectStandardFolders()
+    signal createStandardFolders(int accountId)
+
+    signal saveCurrentGroup()
+    signal saveCurrentGroupNow()
+    signal determineIfSettingsChanged()
+    signal settingsChanged()
+    signal noChange()
+    signal currentGroupSaved()
+
+    signal pickFolder(int accountId, string fieldId)
+    signal folderPicked(string pickerId, var folder)
+    signal folderPathPicked(string fieldId, string path)
+    signal pickFolderCancelled(string pickerId)
 }

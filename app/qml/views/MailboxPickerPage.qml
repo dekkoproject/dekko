@@ -22,6 +22,7 @@ import Dekko.Components 1.0
 import "./components"
 import "../actions/views"
 import "../actions/messaging"
+import "../actions/settings"
 import "../constants"
 
 DekkoPage {
@@ -37,7 +38,7 @@ DekkoPage {
         iconName: "back"
         onTriggered: {
             MailboxActions.moveMessageCancelled(pickerId)
-            ViewActions.popStageArea(ViewKeys.messageListStack)
+            SettingsActions.pickFolderCancelled(pickerId)
         }
     }
     extendHeader: !dekko.viewState.isSmallFF
@@ -48,7 +49,9 @@ DekkoPage {
             anchors.fill: parent
             onFolderTypeClicked: {
                 MailboxActions.folderSelected(pickerId, folderType, folderId)
-                ViewActions.popStageArea(ViewKeys.messageListStack)
+            }
+            onFolderPicked: {
+                SettingsActions.folderPicked(pickerId, folder)
             }
         }
     }

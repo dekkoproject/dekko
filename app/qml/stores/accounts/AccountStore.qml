@@ -22,6 +22,7 @@ import Dekko.Accounts 1.0
 import "../../actions"
 import "../../actions/accounts"
 import "../../actions/logging"
+import "../../actions/views"
 import "../../actions/popups"
 
 AppListener {
@@ -56,5 +57,14 @@ AppListener {
     Accounts {
         id: sendAccounts
         filter: Accounts.CanSend
+    }
+
+    Filter {
+        type: ViewKeys.reloadAccountBasedModels
+        onDispatched: {
+            enabledAccounts.reset()
+            recieveAccounts.reset()
+            sendAccounts.reset()
+        }
     }
 }
