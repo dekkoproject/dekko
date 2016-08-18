@@ -95,14 +95,14 @@ ListItem {
 
     ListItemLayout {
         id: layout
-        title.text: folder.displayName
+        title.text: folder ? folder.displayName : ""
         height: units.gu(6)
 
         CachedImage {
             id: attachmentImg
             height: units.gu(3)
             width: height
-            name: getIconForFolderType(folder)
+            name: folder ? getIconForFolderType(folder) : ""
             color: UbuntuColors.ash
             SlotsLayout.position: SlotsLayout.Leading
         }
@@ -110,7 +110,7 @@ ListItem {
         UbuntuShape {
             id: shape
             // TODO: We should probably display total count for To-Do smart folder
-            visible: folder.unreadCount > 0
+            visible: folder && folder.unreadCount > 0
             aspect: UbuntuShape.Flat
             color: UbuntuColors.porcelain
             height: units.gu(2.2)
@@ -120,7 +120,7 @@ ListItem {
                 anchors.margins: units.gu(0.5)
                 anchors.centerIn: parent
                 fontSize: "small"
-                text: folder.unreadCount
+                text: folder ? folder.unreadCount : ""
             }
         }
 
@@ -151,13 +151,13 @@ ListItem {
     }
     Column {
         id: col
-        visible: folder.hasDescendents
+        visible: folder && folder.hasDescendents
         anchors.left: parent.left
         anchors.leftMargin: Style.defaultSpacing
         anchors.top: layout.bottom
         anchors.right: parent.right
         Repeater {
-            model: folder.descendents
+            model: folder ? folder.descendents : 0
             delegate: ListItem {
                 id: delegate
                 divider.visible: false

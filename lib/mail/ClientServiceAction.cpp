@@ -368,3 +368,16 @@ void FolderSyncAction::process()
 {
     createRetrievalAction()->retrieveNewMessages(m_id, m_list);
 }
+
+CreateStandardFoldersAction::CreateStandardFoldersAction(QObject *parent, const QMailAccountId &id):
+    ClientServiceAction(parent), m_id(id)
+{
+    m_actionType = ActionType::Immediate;
+    m_serviceActionType = ServiceAction::CreateStandardFolders;
+    m_description = QStringLiteral("Creating standard folders for account %1").arg(m_id.toULongLong());
+}
+
+void CreateStandardFoldersAction::process()
+{
+    createRetrievalAction()->createStandardFolders(m_id);
+}

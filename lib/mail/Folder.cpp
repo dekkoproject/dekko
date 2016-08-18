@@ -105,6 +105,11 @@ QString Folder::name()
     }
 }
 
+QString Folder::path()
+{
+    return m_folder.path();
+}
+
 int Folder::unreadCount()
 {
     return m_folder.id().isValid() ? getUnreadCount() : 0;

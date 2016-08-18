@@ -177,7 +177,7 @@ AppListener {
 
     Timer {
         id: delayCallTimer2
-        interval: 500
+        interval: 300
         repeat: false
         onTriggered: {
             AppDispatcher.dispatch(d.pendingCalls2.takeAt(0), d.pendingArgs.takeAt(0))
@@ -187,13 +187,11 @@ AppListener {
                 delayCallTimer2.start()
             } else {
                 Log.logInfo("ViewStore::delayCallTimer2", "No more pending calls")
-                interval = 500
+                interval = 300
                 delayCallTimer2.stop()
             }
         }
     }
-
-
 
     QtObject {
         id: d

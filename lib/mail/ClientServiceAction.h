@@ -56,7 +56,8 @@ public:
         ExportAction,
         OutboxAction,
         SyncAccountAction,
-        SyncFolderAction
+        SyncFolderAction,
+        CreateStandardFolders
     };
 
     virtual void process() = 0;
@@ -179,6 +180,16 @@ public:
     void process();
     int itemCount();
     QMailAccountIdList accountIds();
+};
+
+class CreateStandardFoldersAction : public ClientServiceAction
+{
+    Q_OBJECT
+    QMailAccountId m_id;
+public:
+    CreateStandardFoldersAction(QObject *parent, const QMailAccountId &id);
+    void process();
+    QMailAccountId accountId() { return m_id; }
 };
 
 class EmptyTrashAction : public ClientServiceAction

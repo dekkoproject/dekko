@@ -24,6 +24,7 @@ import "../actions/views"
 import "../stores/mail"
 
 AppListener {
+
     waitFor: [MailboxStore.listenerId]
 
     Filter {
@@ -100,10 +101,14 @@ AppListener {
                 } else {
                     d.moveConfig = {specialUse: true, id: message.msgId, folder: result.folderType}
                 }
+                ViewActions.popStageArea(ViewKeys.messageListStack)
                 Log.logInfo("MailboxWorker::moveMessage", "Ordering the mail squirrels to take this message somewhere else")
                 d.delayMoveTimer.start()
             })
-            once(MailboxKeys.moveMessageCancelled, exit.bind(this, 0))
+            once(MailboxKeys.moveMessageCancelled, function (msg) {
+                ViewActions.popStageArea(ViewKeys.messageListStack)
+                exit.bind(this, 0)
+            })
         }
 
     }

@@ -40,7 +40,7 @@ ClientService::ClientService(QObject *parent) : QObject(parent),
     connect(m_serviceWatcher, &ClientServiceWatcher::checkSendMailQueue, this, &ClientService::sendAnyQueuedMail);
     connect(m_serviceWatcher, &ClientServiceWatcher::accountSynced, this, &ClientService::accountSynced);
     connect(m_serviceWatcher, &ClientServiceWatcher::syncAccountFailed, this, &ClientService::syncAccountFailed);
-    connect(m_serviceWatcher, &ClientServiceWatcher::actionFailed, this, &ClientService::actionFailed);
+    connect(m_serviceWatcher, &ClientServiceWatcher::standardFoldersCreated, this, &ClientService::standardFoldersCreated);
     emit queueChanged();
 }
 
@@ -213,6 +213,13 @@ void ClientService::sendMessage(const QMailMessage &msg)
     // place it in outbox local storage. The service will pick up it's been stored
     // and trigger the transmit action.
     enqueue(new OutboxAction(this, msg));
+}
+
+void ClientService::createStandardFolders(const QMailAccountId &id)
+{
+    if (id.isValid()) {
+        enqueue(new CreateStandardFoldersAction(this, id));
+    }
 }
 
 void ClientService::moveToStandardFolder(const QMailMessageIdList &msgIds, const Folder::FolderType &folder, const bool userTriggered)

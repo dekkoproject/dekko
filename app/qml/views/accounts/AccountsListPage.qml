@@ -15,16 +15,25 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-pragma Singleton
 import QtQuick 2.4
-import QuickFlux 1.0
-import Dekko.Accounts 1.0
-import Dekko.Settings 1.0
+import Ubuntu.Components 1.3
+import "../../actions/views"
+import "../components"
 
-AppListener {
+DekkoPage {
 
-    property Account selectedAccount: null
-    property var selectedAccountId
-    property string currentGroup: ""
-    property bool settingsChanged: false
+    property alias canRemove: al.canRemove
+    property alias contextActionsEnabled: al.contextActionsEnabled
+    signal accountSelected(var account)
+
+    PageContent {
+        ScrollView {
+            anchors.fill: parent
+            AccountsListView {
+                id: al
+                anchors.fill: parent
+                onAccountClicked: accountSelected(account)
+            }
+        }
+    }
 }

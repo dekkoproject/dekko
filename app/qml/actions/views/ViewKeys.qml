@@ -61,13 +61,6 @@ KeyTable {
     property string openComposer
     property string setComposePanelSource
     property string closeComposer
-    // These are not actions as such but keys for the stagearea's
-    // They are used to determine which StackView we are pushing a page to
-    // via pushToStage(stackID, ....)
-    // NOTE: When creating a new StageArea add a key for it here
-    property string navigationStack
-    property string messageListStack
-    property string messageViewStack
 
     property string orderSimpleToast
     property string orderSubtitledToast
@@ -79,4 +72,18 @@ KeyTable {
     property string openAddressBook
     property string delayCall
     property string delayCallWithArgs
+
+    property string reloadAccountBasedModels
+
+
+    // These are not actions as such but keys for the stagearea's
+    // They are used to determine which StackView we are pushing a page to
+    // via pushToStage(stackID, ....)
+    // NOTE: When creating a new StageArea add a key for it here
+    property string navigationStack
+    property string messageListStack
+    property string messageViewStack
+    property string settingsStack1
+    property string settingsStack2
+    property string settingsStack3
 }

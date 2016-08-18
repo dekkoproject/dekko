@@ -74,4 +74,6 @@ ActionCreator {
     signal delayCall(string funcKey)
     signal delayCallWithArgs(string funcKey, var args)
 
+    signal reloadAccountBasedModels()
+
 }

@@ -16,42 +16,36 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 import QtQuick 2.4
+import QuickFlux 1.0
 import Ubuntu.Components 1.3
-import Dekko.Mail 1.0
-import Dekko.Components 1.0
-import "./components"
-import "../actions/views"
-import "../actions/messaging"
-import "../actions/settings"
-import "../constants"
+import Dekko.Accounts 1.0
+import "../../actions/views"
+import "../../actions/settings"
+import "../../stores"
+import "../../stores/settings"
+import "../components"
 
 DekkoPage {
-    id: contactFilterView
 
-    property string pickerId
-    // the messages parentAccountId
-    property alias accountId: pick.accountId
-
-    pageHeader.title: qsTr("Select folder")
-    pageHeader.backAction: Action {
-        id: back
+    pageHeader.backAction: dekko.viewState.isSmallFF ? bk : null
+    Action {
+        id: bk
         iconName: "back"
         onTriggered: {
-            MailboxActions.moveMessageCancelled(pickerId)
-            SettingsActions.pickFolderCancelled(pickerId)
+            SettingsActions.saveCurrentGroup()
+            ViewActions.popStageArea(ViewKeys.settingsStack1)
         }
     }
-    extendHeader: !dekko.viewState.isSmallFF
 
-    PageContent {
-        MailboxPicker {
-            id: pick
-            anchors.fill: parent
-            onFolderTypeClicked: {
-                MailboxActions.folderSelected(pickerId, folderType, folderId)
-            }
-            onFolderPicked: {
-                SettingsActions.folderPicked(pickerId, folder)
+    property Account account: SettingsStore.selectedAccount
+
+    Connections {
+        target: ViewStore
+        onFormFactorChanged: {
+            if ((ViewStore.formFactor !== "small") && (stageArea.stageID === ViewKeys.settingsStack1)) {
+                SettingsActions.switchSettingsGroupLocation(ViewKeys.settingsStack1)
+            } else if ((ViewStore.formFactor === "small") && (stageArea.stageID === ViewKeys.settingsStack2)) {
+                SettingsActions.switchSettingsGroupLocation(ViewKeys.settingsStack2)
             }
         }
     }

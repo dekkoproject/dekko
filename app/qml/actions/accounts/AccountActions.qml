@@ -34,6 +34,7 @@ ActionCreator {
      * @param bool Whether we should prompt for removal of the account.
      */
     signal deleteAccount(int accountId, bool confirmRemoval)
+    signal confirmRemoveAccount()
     signal _confirmRemoval()
 
 }

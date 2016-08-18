@@ -23,6 +23,7 @@ import QtQuick 2.4
 Item {
     // workers are private
     QtObject {
+        property AccountsWorker accountsWorker: AccountsWorker {}
         property MailboxWorker mboxWorker: MailboxWorker {}
         property SettingsWorker settingsWorker: SettingsWorker {}
         property ComposerWorker composeWorker: ComposerWorker {}

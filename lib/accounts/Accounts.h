@@ -62,6 +62,7 @@ signals:
 
 public slots:
     void setFilter(Filters filter);
+    void reset();
 
 private slots:
     void accountsAdded(const QMailAccountIdList &ids);
@@ -72,7 +73,6 @@ private:
     Filters m_filter;
     QQmlObjectListModel<Account> *m_model;
     QMailAccountIdList m_idList;
-    void reset();
     void init();
 };
 

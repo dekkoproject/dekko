@@ -193,6 +193,16 @@ void AccountConfiguration::init(QMailAccountConfiguration *config, const QString
     m_service->setVersion(100);
 }
 
+void AccountConfiguration::emitConfigurationChanges(){
+    emit nameChanged(name());
+    emit emailChanged(email());
+    emit serverChanged(server());
+    emit portChanged(port());
+    emit encryptionChanged();
+    emit passwordChanged();
+    emit acceptUntrustedCertChanged();
+}
+
 AccountConfiguration::SaslMechanism ImapAccountConfiguration::saslMechanism() const
 {
     return (AccountConfiguration::SaslMechanism)m_service->value(AccountKeys::saslMechanism, "0").toInt();
@@ -363,6 +373,22 @@ void ImapAccountConfiguration::setSearchLimit(const int &limit)
     emit searchLimitChanged();
 }
 
+void ImapAccountConfiguration::emitConfigurationChanges() {
+    emit saslChanged();
+    emit canDeleteMailChanged();
+    emit downloadAttachmentsChanged();
+    emit autoDownloadChanged();
+    emit maxMailSizeChanged();
+    emit preferredSubTypeChanged();
+    emit idleEnabledChanged();
+    emit baseFolderChanged();
+    emit pushFolderChanged();
+    emit checkIntervalChanged();
+    emit checkWhenRoamingChanged();
+    emit searchLimitChanged();
+    AccountConfiguration::emitConfigurationChanges();
+}
+
 AccountConfiguration::SaslMechanism SmtpAccountConfiguration::saslMechanism() const
 {
     return (AccountConfiguration::SaslMechanism)m_service->value(AccountKeys::saslMechanism, "0").toInt();
@@ -430,6 +456,14 @@ void SmtpAccountConfiguration::setSignature(const QString &sig)
     emit signatureChanged();
 }
 
+void SmtpAccountConfiguration::emitConfigurationChanges() {
+    emit saslChanged();
+    emit usernameChanged();
+    emit authFromCapsChanged();
+    emit signatureChanged();
+    AccountConfiguration::emitConfigurationChanges();
+}
+
 bool PopAccountConfiguration::canDeleteMail() const
 {
     return m_service->value(AccountKeys::canDeleteMail, QStringLiteral("1")).toInt() != 0;
@@ -483,4 +517,13 @@ void PopAccountConfiguration::setCheckWhenRoaming(const bool check)
 {
     m_service->setValue(AccountKeys::checkWhenRoaming, QString::number(check ? 1 : 0));
     emit checkWhenRoamingChanged();
+}
+
+void PopAccountConfiguration::emitConfigurationChanges() {
+    emit canDeleteMailChanged();
+    emit autoDownloadChanged();
+    emit maxMailSizeChanged();
+    emit checkIntervalChanged();
+    emit checkWhenRoamingChanged();
+    AccountConfiguration::emitConfigurationChanges();
 }

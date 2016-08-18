@@ -17,42 +17,32 @@
 */
 import QtQuick 2.4
 import Ubuntu.Components 1.3
-import Dekko.Mail 1.0
-import Dekko.Components 1.0
-import "./components"
-import "../actions/views"
-import "../actions/messaging"
-import "../actions/settings"
-import "../constants"
+import "../../actions/views"
+import "../../actions/settings"
+import "../accounts"
+import "../components"
 
-DekkoPage {
-    id: contactFilterView
+AccountsListPage {
 
-    property string pickerId
-    // the messages parentAccountId
-    property alias accountId: pick.accountId
-
-    pageHeader.title: qsTr("Select folder")
+    pageHeader.title: qsTr("Manage accounts")
     pageHeader.backAction: Action {
-        id: back
         iconName: "back"
         onTriggered: {
-            MailboxActions.moveMessageCancelled(pickerId)
-            SettingsActions.pickFolderCancelled(pickerId)
+            ViewActions.popStage()
         }
     }
-    extendHeader: !dekko.viewState.isSmallFF
+    pageHeader.primaryAction: addNewAccount
+    canRemove: true
+    contextActionsEnabled: true
 
-    PageContent {
-        MailboxPicker {
-            id: pick
-            anchors.fill: parent
-            onFolderTypeClicked: {
-                MailboxActions.folderSelected(pickerId, folderType, folderId)
-            }
-            onFolderPicked: {
-                SettingsActions.folderPicked(pickerId, folder)
-            }
-        }
+    onAccountSelected: {
+        SettingsActions.setSelectedAccount(account)
+        ViewActions.pushToStageArea(ViewKeys.settingsStack1, "qrc:/qml/views/settings/AccountSettingsList.qml", {})
+    }
+
+    Action {
+        id: addNewAccount
+        iconName: "add"
+        onTriggered: ViewActions.runSetupWizard()
     }
 }

@@ -29,6 +29,7 @@ class Folder : public QObject
     Q_PROPERTY(QVariant messageKey READ messageKey NOTIFY folderChanged)
     Q_PROPERTY(FolderType type READ type NOTIFY folderChanged)
     Q_PROPERTY(QString name READ name NOTIFY folderChanged)
+    Q_PROPERTY(QString path READ path NOTIFY folderChanged)
     Q_PROPERTY(int unreadCount READ unreadCount NOTIFY countChanged)
     Q_PROPERTY(int totalCount READ totalCount NOTIFY countChanged)
     Q_PROPERTY(bool synchronizationEnabled READ syncEnabled NOTIFY folderChanged)
@@ -67,6 +68,7 @@ public:
     FolderType type() const;
     void setFolderType(const FolderType type);
     QString name();
+    QString path();
     int unreadCount();
     int totalCount() const;
     bool syncEnabled() const;

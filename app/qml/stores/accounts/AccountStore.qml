@@ -22,82 +22,49 @@ import Dekko.Accounts 1.0
 import "../../actions"
 import "../../actions/accounts"
 import "../../actions/logging"
+import "../../actions/views"
 import "../../actions/popups"
 
 AppListener {
     id: accountStore
 
-    property alias receiveAccountsModel: recieveAccounts.model
-    property alias sendAccountsModel: sendAccounts.model
+    /** type:Accounts Enabled accounts object */
+    property alias enabledAccounts: enabledAccounts
+    /** type:QAbstractListModel enabled accounts model */
+    property alias enabledAccountsModel: enabledAccounts.model
+    /** type:Accounts Receive accounts object */
     property alias recieveAccounts: recieveAccounts
+    /** type:QAbstractListModel receiving accounts model */
+    property alias receiveAccountsModel: recieveAccounts.model
+    /** type:Accounts Sending accounts object */
+    property alias sendAccounts: sendAccounts
+    /** type:QAbstractListModel sending accounts model */
+    property alias sendAccountsModel: sendAccounts.model
 
+    // List of all enabled accounts. (IMAP/POP/SMTP)
+    Accounts {
+        id: enabledAccounts
+        filter: Accounts.Enabled
+    }
+
+    // List of enabled accounts that receive mail. (IMAP/POP)
     Accounts{
         id: recieveAccounts
         filter: Accounts.CanReceive
     }
 
+    // List of enabled accounts that send mail. (SMTP)
     Accounts {
         id: sendAccounts
         filter: Accounts.CanSend
     }
 
     Filter {
-        type: AccountKeys.deleteAccount
+        type: ViewKeys.reloadAccountBasedModels
         onDispatched: {
-            d.__accountAboutToRemove = message.accountId
-            // It doesn't matter which we use here
-            if (message.confirmRemoval) {
-                Log.logInfo("AccountStore::deleteAccount", "Confirming account removal")
-                AccountActions.confirmRemoveAccount()
-            } else {
-                Log.logInfo("AccountStore::deleteAccount", "Doesn't need confirmation. Removing now")
-                AccountActions._confirmRemoval()
-            }
+            enabledAccounts.reset()
+            recieveAccounts.reset()
+            sendAccounts.reset()
         }
-    }
-
-    Filter {
-        type: AccountKeys.confirmRemoveAccount
-        onDispatched: {
-            Log.logWarning("AccountStore::confirmRemoveAccount", "Prompting to confirm account removal")
-            PopupActions.showConfirmationDialog(d.removeAccountDlgId, qsTr("Remove account"), qsTr("Are you sure you wish to remove this account?"))
-        }
-    }
-
-    Filter {
-        type: PopupKeys.confirmationDialogConfirmed
-        onDispatched: {
-            if (message.id !== d.removeAccountDlgId) {
-                return;
-            }
-            Log.logInfo("AccountStore::confirmationDialogConfirmed", "Confirmed account removal")
-            AccountActions._confirmRemoval()
-        }
-    }
-
-    Filter {
-        type: PopupKeys.confirmationDialogCancelled
-        onDispatched: {
-            if (message.id !== d.removeAccountDlgId) {
-                return
-            }
-            Log.logInfo("AccountStore::confirmationFialogCancelled", "Cancelling account removal")
-            d.__accountAboutToRemove = -1
-        }
-    }
-
-    Filter {
-        type: AccountKeys._confirmRemoval
-        onDispatched: {
-            Log.logInfo("AccountStore::_confirmRemoval", "Let's delete it \o/")
-            recieveAccounts.deleteAccount(d.__accountAboutToRemove)
-            d.__accountAboutToRemove = -1
-        }
-    }
-
-    QtObject {
-        id: d
-        property string removeAccountDlgId: "remove-account-dlg"
-        property int __accountAboutToRemove: -1
     }
 }

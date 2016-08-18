@@ -30,6 +30,7 @@ class Account : public QObject
     Q_OBJECT
     // TODO: add last synchronized properties to this as well as the other account properties
     Q_PROPERTY(int id READ id WRITE setId NOTIFY accountChanged)
+    Q_PROPERTY(int accountId READ id WRITE setId NOTIFY accountChanged)
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY accountChanged)
     Q_PROPERTY(QStringList messageSources READ messageSources NOTIFY accountChanged)
     Q_PROPERTY(QStringList messageSinks READ messageSinks NOTIFY accountChanged)
@@ -105,6 +106,8 @@ public:
      *  emits InvalidFolderId on error
      */
     Q_INVOKABLE void setSpecialUseFolder(SpecialUseFolder folder, const quint64 &folderId);
+    Q_INVOKABLE void setSpecialUseFolder(SpecialUseFolder folder, const QString &path);
+    Q_INVOKABLE QString specialUseFolderPath(SpecialUseFolder folder);
 
     QMailAccount *qMailAccount() const { return m_account; }
 
@@ -147,6 +150,9 @@ protected:
     AccountConfiguration *m_outgoing;
 
     void initialize();
+
+private slots:
+    void reload(const QMailAccountIdList &ids);
 
 };
 
