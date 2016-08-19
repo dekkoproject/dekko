@@ -34,8 +34,7 @@ SettingsGroupPage {
     readonly property bool isPOP: incoming ? incoming.serviceType === AccountConfig.POP3 : false
 
     function settingsChanged() {
-        if (incoming.baseFolder !== basePath.text
-            || incoming.name !== username.text
+        if (incoming.name !== username.text
             || incoming.email !== username.text
             || incoming.password !== password.text
             || incoming.server !== server.text
