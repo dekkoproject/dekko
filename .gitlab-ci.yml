@@ -87,6 +87,9 @@ dekko-feature-branch:armhf:
     - ninja -j3 install
     - cd ./test
     - click build .
+  cache:
+    paths:
+      - __build
   only:
     - branches@dekko-dev/dekko
   except:
