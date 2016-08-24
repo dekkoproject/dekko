@@ -52,42 +52,54 @@ void SubmissionManager::setBuilder(QObject *builder)
 void SubmissionManager::send()
 {
     if (!hasBuilder() || !hasIdentities()) {
+        qDebug() << "No builder or identity";
         return;
     }
     if (!canSend()) {
+        qDebug() << "Can't send yet, invalid message";
         emit error(Error::InvalidMessage);
         return;
     }
+    qDebug() << "Stopping timer";
     m_timer.stop();
     // So we first save it as the *final* draft and then use that draft message as the one to send
+    qDebug() << "Saving final draft";
     saveDraft(false);
+
+    qDebug() << "Final draft id valid? " << m_builder->lastDraftId().isValid();
     // Ok so this function doesn't actually send anything. All we
     // are actually doing is grabbing the constructed message, checking if we can reference
     // it externally from the imap server for the lemonade profile stuff and handing it
     // over to the Client service which will manage the storage and submission at the
     // most appropriate time.
+    qDebug() << "Constructing message";
     QMailMessage msg(m_builder->lastDraftId());
+    qDebug() << "Msg valid> " << msg.id().isValid();
 //    qDebug() << msg.toRfc2822(QMailMessage::TransmissionFormat);
     QMailAccount account(msg.parentAccountId());
     if ((account.status() & QMailAccount::CanReferenceExternalData) &&
             (account.status() & QMailAccount::CanTransmitViaReference) &&
             account.standardFolder(QMailFolder::SentFolder).isValid() &&
             QMailFolder(account.standardFolder(QMailFolder::SentFolder)).id().isValid()) {
+        qDebug() << "Enabling transmit from external";
         msg.setStatus(QMailMessage::TransmitFromExternal, true);
     }
     // we also need to update the Replied RepliedToAll and Forwarded status masks if appropriate
     // TODO: move this to after the message has been sent. i.e on SubmissionManager::messageSent() signal
-    QMailMessageId inReplyTo(msg.inResponseTo());
-    if (inReplyTo.isValid()) {
-        QMailMessage src(inReplyTo);
-        if (msg.responseType() == QMailMessage::Forward) {
-            Client::instance()->markMessageForwarded(QMailMessageIdList() << src.id());
-        } else {
-            Client::instance()->markMessagesReplied(
-                        QMailMessageIdList() << src.id(),
-                        (msg.responseType() == QMailMessage::ReplyToAll));
+    if (msg.inResponseTo().isValid()) {
+        QMailMessageId inReplyTo(msg.inResponseTo());
+        if (inReplyTo.isValid()) {
+            QMailMessage src(inReplyTo);
+            if (msg.responseType() == QMailMessage::Forward) {
+                Client::instance()->markMessageForwarded(QMailMessageIdList() << src.id());
+            } else {
+                Client::instance()->markMessagesReplied(
+                            QMailMessageIdList() << src.id(),
+                            (msg.responseType() == QMailMessage::ReplyToAll));
+            }
         }
     }
+    qDebug() << "Queuing message to send";
     Client::instance()->sendMessage(msg);
     emit messageQueued();
 }

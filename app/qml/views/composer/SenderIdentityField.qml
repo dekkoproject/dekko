@@ -126,7 +126,7 @@ FocusScope {
             model: ComposerStore.identitiesModel
             delegate: ListItem {
                 id: d
-                property var config: model.outgoing
+                property var config: model.qtObject.outgoing
                 height: layout.height
                 anchors {
                     left: parent.left

@@ -229,7 +229,7 @@ void ClientService::moveToStandardFolder(const QMailMessageIdList &msgIds, const
     if (userTriggered) {
         m_undoQueue->append(action);
     } else {
-        exportMailStoreUpdate(action->accountIds());
+//        exportMailStoreUpdate(action->accountIds());
     }
 }
 
