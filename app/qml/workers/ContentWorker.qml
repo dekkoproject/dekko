@@ -17,6 +17,7 @@
 */
 import QtQuick 2.4
 import QuickFlux 1.0
+import Ubuntu.Components.Popups 1.3
 import Ubuntu.Content 1.1
 import "../actions/composer"
 import "../actions/content"
@@ -69,13 +70,9 @@ AppListener {
                 console.log("FILES: ", message.files)
                 var files = message.files
                 for (var i in message.files) {
-                    if (isRunningOnMir) {
-                        ComposerActions.addFileAttachment(files[i].url)
-                    } else {
-                        console.log("File: ", message.files[i])
-                        var file = message.files[i]
-                        ComposerActions.addFileAttachment(file.toString().replace("file://", ""))
-                    }
+                    console.log("File: ", message.files[i])
+                    var file = message.files[i]
+                    ComposerActions.addFileAttachment(file.toString().replace("file://", ""))
                 }
             })
             // Drop all callbacks if the picker is closed with no selections
@@ -86,9 +83,16 @@ AppListener {
     Filter {
         type: ContentKeys.openFilePicker
         onDispatched: {
-            // TODO: open picker
             if (isRunningOnMir) {
-                //TODO: popup content hub
+                var chPicker = PopupUtils.open("qrc:/qml/views/dialogs/ContentPickerDialog.qml", dekko, {isExport: false})
+                chPicker.filesImported.connect(function(files){
+                    var imports = new Array()
+                    for (var i in files) {
+                        Log.logInfo("ContentManager::filesPicked", "File selected: %1".arg(files[i].url))
+                        imports.push(files[i].url)
+                    }
+                    ContentActions.filesSelected(imports)
+                })
             } else {
                 var c = Qt.createComponent("qrc:/qml/views/dialogs/FilePickerDialog.qml")
                 var filePicker = c.createObject(dekko)
@@ -140,6 +144,13 @@ AppListener {
                     break;
                 }
             }
+        }
+    }
+
+    Filter {
+        type: ContentKeys.exportFile
+        onDispatched: {
+            PopupUtils.open("qrc:/qml/views/dialogs/ContentPickerDialog.qml", dekko, {fileUrl: message.file})
         }
     }
 }

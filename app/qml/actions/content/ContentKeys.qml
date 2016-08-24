@@ -29,4 +29,5 @@ KeyTable {
     property string openFilePicker
     property string pickerClosed
     property string filesSelected
+    property string exportFile
 }
