@@ -26,8 +26,6 @@ Item {
         property AccountsWorker accountsWorker: AccountsWorker {}
         property MailboxWorker mboxWorker: MailboxWorker {}
         property SettingsWorker settingsWorker: SettingsWorker {}
-        property ComposerWorker composeWorker: ComposerWorker {}
-        property ContentWorker contentWorker: ContentWorker{}
         property UriWorker uriWorker: UriWorker {}
         property DialogWorker dlgWorker: DialogWorker {}
         property ErrorsWorker errorsWorker: ErrorsWorker {}

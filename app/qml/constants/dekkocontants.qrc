@@ -5,5 +5,6 @@
         <file>DekkoAnimation.qml</file>
         <file>MailUtils.qml</file>
         <file>Uris.qml</file>
+        <file>ContentType.qml</file>
     </qresource>
 </RCC>

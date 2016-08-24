@@ -25,6 +25,7 @@ import "../actions/logging"
 import "../actions/views"
 import "../views/dialogs"
 import "../stores"
+import "../stores/composer"
 
 /*!
 *
@@ -40,7 +41,7 @@ import "../stores"
 */
 AppListener {
 
-    waitFor: [ViewStore.listenerId]
+    waitFor: [ViewStore.listenerId, ComposerStore.listenerId]
     property string pickerUrl: ""
 
     Connections {
@@ -123,7 +124,7 @@ AppListener {
             }
             Log.logInfo("ContentManager::importFromContentHub", "Number of transferred items: " + message.transfer.items.length)
             // open the composer
-            ViewActions.openComposer()
+            ViewActions.delayCall(ViewKeys.openMessageComposer)
             for (var item in message.transfer.items) {
                 var url = message.transfer.items[item].url
                 Log.logInfo("ContentManager::importFromContentHub", "Item url: " + url)
@@ -139,8 +140,9 @@ AppListener {
                     ComposerActions.appendTextToBody(text)
                     break;
                 default:
-                    Log.logInfo("ContentManager::importFromContentHub", "ContentType is Other, most likely a file: " + url.toString())
-                    ComposerActions.addFileAttachment(url.toString())
+                    var other = url.toString().replace("file://", "")
+                    Log.logInfo("ContentManager::importFromContentHub", "ContentType is Other, most likely a file: " + other)
+                    ComposerActions.addFileAttachment(other)
                     break;
                 }
             }

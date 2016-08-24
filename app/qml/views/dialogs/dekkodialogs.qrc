@@ -3,5 +3,6 @@
         <file>ConfirmationDialog.qml</file>
         <file>DialogBase.qml</file>
         <file>FilePickerDialog.qml</file>
+        <file>ContentPickerDialog.qml</file>
     </qresource>
 </RCC>

@@ -34,6 +34,8 @@ Dekko {
     QtObject {
         id: d
         property MailWorker mailWorker: MailWorker {}
+        property ComposerWorker composeWorker: ComposerWorker {}
+        property ContentWorker contentWorker: ContentWorker{}
         property Logger logger: Logger {
             devLoggingEnabled: devModeEnabled
         }

@@ -534,10 +534,17 @@ void MessageBuilder::addFileAttachment(const QString &file)
     if (file.isEmpty()) {
         return;
     }
-    if (QFile::exists(file)) {
-        addFileAttachments(QStringList() << file);
+    QString newFile;
+    if (file.startsWith(QStringLiteral("file://"))) {
+        qDebug() << "Stripping file://";
+        newFile = file.split(QStringLiteral("://")).at(1);
     } else {
-        qDebug() << "Attachment url " << file << "doesn't exist on the local file system";
+        newFile = file;
+    }
+    if (QFile::exists(newFile)) {
+        addFileAttachments(QStringList() << newFile);
+    } else {
+        qDebug() << "Attachment url " << newFile << "doesn't exist on the local file system";
     }
 }
 
