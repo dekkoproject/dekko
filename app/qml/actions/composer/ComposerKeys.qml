@@ -39,6 +39,7 @@ KeyTable {
     property string discardMessageConfirmed
     property string addFileAttachment
     property string removeAttachment
+    property string appendTextToSubject
     property string appendTextToBody
 
     property string validateAddress

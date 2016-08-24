@@ -561,6 +561,14 @@ void MessageBuilder::addFileAttachments(const QStringList &files)
     }
 }
 
+void MessageBuilder::appendTextToSubject(const QString &text)
+{
+    if (m_subject == Q_NULLPTR) {
+        return;
+    }
+    m_subject->textDocument()->setPlainText(text);
+}
+
 void MessageBuilder::appendTextToBody(const QString &text)
 {
     if (m_body == Q_NULLPTR) {

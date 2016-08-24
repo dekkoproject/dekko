@@ -84,6 +84,7 @@ public slots:
     void removeRecipient(const RecipientModels which, const int &index);
     void addFileAttachment(const QString &file);
     void addFileAttachments(const QStringList &files);
+    void appendTextToSubject(const QString &text);
     void appendTextToBody(const QString &text);
     // TODO: inline/attached messages and messageparts
 

@@ -40,6 +40,7 @@ ActionCreator {
     signal discardMessage()
     signal addFileAttachment(string url)
     signal removeAttachment(int index)
+    signal appendTextToSubject(string text)
     signal appendTextToBody(string text)
     // Add recipient from address book contacts
     // type: RecipientType enum value of To, Cc, Bcc

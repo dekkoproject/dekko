@@ -124,7 +124,7 @@ AppListener {
             }
             Log.logInfo("ContentManager::importFromContentHub", "Number of transferred items: " + message.transfer.items.length)
             // open the composer
-            ViewActions.delayCall(ViewKeys.openMessageComposer)
+            ViewActions.delayCallWithArgs(ViewKeys.openMessageComposer, {})
             for (var item in message.transfer.items) {
                 var url = message.transfer.items[item].url
                 Log.logInfo("ContentManager::importFromContentHub", "Item url: " + url)
@@ -133,11 +133,12 @@ AppListener {
                 switch (message.transfer.contentType) {
                 case ContentType.Links:
                     Log.logInfo("ContentManager::importFromContentHub", "ContentType is Link: " + url.toString())
-                    ComposerActions.appendTextToBody(url.toString())
+                    ViewActions.delayCallWithArgs(ComposerKeys.appendTextToSubject, {text: text})
+                    ViewActions.delayCallWithArgs(ComposerKeys.appendTextToBody, {text: url.toString()})
                     break;
                 case ContentType.Text:
                     Log.logInfo("ContentManager::importFromContentHub", "ContentType is Text: " + text)
-                    ComposerActions.appendTextToBody(text)
+                    ViewActions.delayCallWithArgs(ComposerKeys.appendTextToBody, {text: text})
                     break;
                 default:
                     var other = url.toString().replace("file://", "")

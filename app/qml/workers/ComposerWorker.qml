@@ -235,6 +235,13 @@ AppListener {
     }
 
     Filter {
+        type: ComposerKeys.appendTextToSubject
+        onDispatched: {
+            ComposerStore.builder.appendTextToSubject(message.text)
+        }
+    }
+
+    Filter {
         type: ComposerKeys.openDraft
         onDispatched: {
             Log.logInfo("ComposerWorker::openDraft", "Constinuing draft message")
