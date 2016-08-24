@@ -25,6 +25,7 @@ import Dekko.Settings 1.0
 import "../../actions/accounts"
 import "../../actions/wizard"
 import "../../actions/logging"
+import "../../actions/popups"
 import "../../views/utils/QtCoreAPI.js" as QtCoreAPI
 
 /*!
@@ -210,6 +211,9 @@ AppListener {
             }
 
             if (!EmailValidator.validate(user.email)) {
+                if (valid && user.email) {
+                    PopupActions.showError(qsTr("Invalid email address"))
+                }
                 valid = false
                 invalidField.push("email")
             }
