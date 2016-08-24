@@ -28,4 +28,5 @@ ActionCreator {
     signal openFilePicker()
     signal pickerClosed()
     signal filesSelected(var files)
+    signal exportFile(string file)
 }

@@ -20,6 +20,7 @@ import Ubuntu.Components 1.3
 import Dekko.Components 1.0
 import "../../constants"
 import "../components"
+import "../../actions/content"
 import "../../actions/logging"
 import "../../actions/popups"
 
@@ -31,7 +32,11 @@ ListItem {
     Connections {
         target: model.qtObject
         onReadyToOpen: {
-            Qt.openUrlExternally(url)
+            if (isRunningOnMir) {
+                ContentActions.exportFile(url)
+            } else {
+                Qt.openUrlExternally(url)
+            }
         }
     }
     onClicked: {

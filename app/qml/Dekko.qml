@@ -79,7 +79,7 @@ Item {
             Log.logStatus("Dekko::TrimCache", "Trimming component cache")
             dekkoapp.trimCache()
         }
-        Component.onCompleted: start()
+//        Component.onCompleted: start()
     }
 }
 
