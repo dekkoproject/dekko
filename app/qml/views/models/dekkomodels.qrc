@@ -4,5 +4,7 @@
         <file>NavMenuContactsModel.qml</file>
         <file>NavMenuDekkoVisualModel.qml</file>
         <file>NavMenuModel.qml</file>
+        <file>LicenseModel.qml</file>
+        <file>ContributorsModel.qml</file>
     </qresource>
 </RCC>

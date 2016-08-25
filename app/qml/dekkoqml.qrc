@@ -16,5 +16,7 @@
         <file>views/messageview/DefaultMessagePageHeader.qml</file>
         <file>Dekko.qml</file>
         <file>views/MailboxPickerPage.qml</file>
+        <file>views/LicensesPage.qml</file>
+        <file>views/ContributorsPage.qml</file>
     </qresource>
 </RCC>

@@ -17,6 +17,7 @@
 */
 import QtQuick 2.4
 import Ubuntu.Components 1.3
+import "../../actions/views"
 import "../../actions/popups"
 
 VisualItemModel {
@@ -52,6 +53,9 @@ VisualItemModel {
             }
             ProgressionSlot{}
         }
+        onClicked: {
+            ViewActions.pushToStageArea(ViewKeys.messageListStack, "qrc:/qml/views/LicensesPage.qml", {})
+        }
     }
     ListItem {
         height: contributorLayout.implicitHeight
@@ -66,6 +70,9 @@ VisualItemModel {
                 SlotsLayout.position: SlotsLayout.Leading
             }
             ProgressionSlot{}
+        }
+        onClicked: {
+            ViewActions.pushToStageArea(ViewKeys.messageListStack, "qrc:/qml/views/ContributorsPage.qml", {})
         }
     }
 }
