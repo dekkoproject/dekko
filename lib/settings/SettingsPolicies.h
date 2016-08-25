@@ -262,6 +262,8 @@ class MailPolicy :  public AccountPolicy
      * @accessors %markRead(), setMarkRead()
      */
     Q_PROPERTY(MarkReadMode markRead READ markRead WRITE setMarkRead NOTIFY policyChanged)
+    Q_PROPERTY(QString ccIncludes READ ccIncludes WRITE setCCIncludes NOTIFY policyChanged)
+    Q_PROPERTY(QString bccIncludes READ bccIncludes WRITE setBCCIncludes NOTIFY policyChanged)
     Q_ENUMS(MarkReadMode)
 
 public:
@@ -290,6 +292,11 @@ public:
     MarkReadMode markRead();
     /** @short Set the MarkAsRead policy applied to just opened messages */
     void setMarkRead(const MarkReadMode mode);
+
+    QString ccIncludes();
+    void setCCIncludes(const QString &includes);
+    QString bccIncludes();
+    void setBCCIncludes(const QString &includes);
 
     virtual void setDefaults() override;
 

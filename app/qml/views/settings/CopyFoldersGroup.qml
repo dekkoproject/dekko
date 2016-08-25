@@ -21,6 +21,7 @@ import Ubuntu.Components 1.3
 import Dekko.Accounts 1.0
 import Dekko.Mail 1.0
 import Dekko.Components 1.0
+import Dekko.Settings 1.0
 import "../../actions/views"
 import "../../actions/logging"
 import "../../actions/popups"
@@ -41,7 +42,9 @@ SettingsGroupPage {
             || account.specialUseFolderPath(Account.SentFolder) !== sent.text
             || account.specialUseFolderPath(Account.JunkFolder) !== junk.text
             || account.specialUseFolderPath(Account.OutboxFolder) !== outbox.text
-            || account.specialUseFolderPath(Account.TrashFolder) !== trash.text )
+            || account.specialUseFolderPath(Account.TrashFolder) !== trash.text
+            || ccIncludes.text !== mailPolicy.ccIncludes
+            || ccIncludes.text !== mailPolicy.ccIncludes )
         {
             Log.logInfo("CopyFoldersGroup::determineIfSettingsChanged", "Settings have changed")
             return true
@@ -49,6 +52,11 @@ SettingsGroupPage {
             Log.logInfo("CopyFoldersGroup::determineIfSettingsChanged", "No changes")
             return false
         }
+    }
+
+    MailPolicy {
+        id: mailPolicy
+        accountId: SettingsStore.selectedAccount.accountId
     }
 
     AppListener {
@@ -67,6 +75,8 @@ SettingsGroupPage {
                 account.setSpecialUseFolder(Account.JunkFolder, junk.text)
                 account.setSpecialUseFolder(Account.OutboxFolder, outbox.text)
                 account.setSpecialUseFolder(Account.TrashFolder, trash.text)
+                mailPolicy.ccIncludes = ccIncludes.text
+                mailPolicy.bccIncludes = bccIncludes.text
                 SettingsStore.settingsChanged = true
                 Log.logInfo("CopyFoldersGroup::saveCurrentGroup", "Current group saved")
                 SettingsActions.currentGroupSaved()
@@ -267,35 +277,37 @@ SettingsGroupPage {
             text: qsTr("Sending messages")
         }
 
-        TitledTextField {
-            id: ccIncludes
-            anchors {
-                left: parent.left
-                right: parent.right
-                margins: units.gu(2)
-            }
-            inputMethodHints: Qt.ImhEmailCharactersOnly | Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
-            title: qsTr("Cc these email addresses:")
-            placeholderText: qsTr("Comma separated list")
-        }
+//        TitledTextField {
+//            id: ccIncludes
+//            anchors {
+//                left: parent.left
+//                right: parent.right
+//                margins: units.gu(2)
+//            }
+//            inputMethodHints: Qt.ImhEmailCharactersOnly | Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
+//            title: qsTr("Cc these email addresses:")
+//            text: mailPolicy ? mailPolicy.ccIncludes : ""
+//            placeholderText: qsTr("Comma separated list")
+//        }
 
-        TitledTextField {
-            id: bccIncludes
-            anchors {
-                left: parent.left
-                right: parent.right
-                margins: units.gu(2)
-            }
-            inputMethodHints: Qt.ImhEmailCharactersOnly | Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
-            title: qsTr("Bcc these email addresses:")
-            placeholderText: qsTr("Comma separated list")
-        }
+//        TitledTextField {
+//            id: bccIncludes
+//            anchors {
+//                left: parent.left
+//                right: parent.right
+//                margins: units.gu(2)
+//            }
+//            inputMethodHints: Qt.ImhEmailCharactersOnly | Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
+//            title: qsTr("Bcc these email addresses:")
+//            text: mailPolicy ? mailPolicy.bccIncludes : ""
+//            placeholderText: qsTr("Comma separated list")
+//        }
 
-        SectionHeader {
-            text: qsTr("Draft messages")
-        }
-        SectionHeader {
-            text: qsTr("Push folders")
-        }
+//        SectionHeader {
+//            text: qsTr("Draft messages")
+//        }
+//        SectionHeader {
+//            text: qsTr("Push folders")
+//        }
     }
 }

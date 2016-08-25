@@ -82,20 +82,20 @@ VisualItemModel {
             }
         }
     }
-    ListItem {
-        height: offlineSettingsLayout.implicitHeight
-        ListItemLayout {
-            id: offlineSettingsLayout
-            title.text: qsTr("Offline settings")
+//    ListItem {
+//        height: offlineSettingsLayout.implicitHeight
+//        ListItemLayout {
+//            id: offlineSettingsLayout
+//            title.text: qsTr("Offline settings")
 
-            Icon {
-                height: units.gu(3)
-                width: height
-                name: "network-wifi-symbolic"
-                SlotsLayout.position: SlotsLayout.Leading
-            }
-            ProgressionSlot{}
-        }
-    }
+//            Icon {
+//                height: units.gu(3)
+//                width: height
+//                name: "network-wifi-symbolic"
+//                SlotsLayout.position: SlotsLayout.Leading
+//            }
+//            ProgressionSlot{}
+//        }
+//    }
 }
 

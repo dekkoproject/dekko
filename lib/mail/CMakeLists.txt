@@ -9,6 +9,7 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/qmf/libraries/qmfmessageserver
     ${CMAKE_SOURCE_DIR}/plugins/shared
     ${CMAKE_SOURCE_DIR}/lib/accounts
+    ${CMAKE_SOURCE_DIR}/lib/settings
 )
 
 set(libMail_SRCS
@@ -33,6 +34,6 @@ set(libMail_SRCS
 add_library(mail SHARED ${libMail_SRCS})
 
 qt5_use_modules(mail Core Quick)
-target_link_libraries(mail qmfclient5 qmfmessageserver5 dekkohelpers accounts)
+target_link_libraries(mail qmfclient5 qmfmessageserver5 dekkohelpers accounts settings)
 
 install(TARGETS mail DESTINATION ${QT_IMPORTS_DIR})

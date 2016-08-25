@@ -102,12 +102,35 @@ void MailPolicy::setMarkRead(const MailPolicy::MarkReadMode mode)
     emit policyChanged();
 }
 
+QString MailPolicy::ccIncludes()
+{
+    return readPolicy(QStringLiteral("submission.ccIncludes"));
+}
+
+void MailPolicy::setCCIncludes(const QString &includes)
+{
+    setPolicy(QStringLiteral("submission.ccIncludes"), includes);
+    emit policyChanged();
+}
+
+QString MailPolicy::bccIncludes()
+{
+    return readPolicy(QStringLiteral("submission.bccIncludes"));
+}
+
+void MailPolicy::setBCCIncludes(const QString &includes)
+{
+    setPolicy(QStringLiteral("submission.bccIncludes"), includes);
+    emit policyChanged();
+}
+
 void MailPolicy::setDefaults()
 {
     setMarkRead(MarkReadMode::AfterInterval);
     setMarkInterval(1000);
+    setCCIncludes(QString(""));
+    setBCCIncludes(QString(""));
 }
-
 
 
 PrivacyPolicy::PrivacyPolicy(QObject *parent) : GlobalPolicy(parent) {

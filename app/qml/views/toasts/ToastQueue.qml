@@ -63,6 +63,7 @@ QtObject {
 //        var c = Qt.createComponent(toast)
         var t = toast.createObject(consumer, condiments)
         t.closed.connect(__toastCollected)
+        __toastPoppedUp = true
     }
 
     function __toastCollected() {

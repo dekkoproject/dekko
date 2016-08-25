@@ -25,6 +25,8 @@
 #include <QUrlQuery>
 #include <emailvalidator.h>
 #include <Formatting.h>
+#include <PolicyManager.h>
+#include <SettingsPolicies.h>
 
 MessageBuilder::MessageBuilder(QObject *parent) : QObject(parent),
     m_to(Q_NULLPTR),m_cc(Q_NULLPTR), m_bcc(Q_NULLPTR), m_attachments(Q_NULLPTR), m_subject(Q_NULLPTR), m_internalSubject(Q_NULLPTR),
@@ -73,6 +75,26 @@ QMailMessage MessageBuilder::message()
         return addrList;
     };
 
+    // append cc/bcc includes
+//    MailPolicy *policy = PolicyManager::instance()->mailPolicy(sender->accountId().toULongLong());
+//    if (policy) {
+//        QStringList ccInc = policy->ccIncludes().split(",");
+//        if (!ccInc.isEmpty()) {
+//            for( const QString &cc : ccInc) {
+//                if (EmailValidator::instance()->validate(cc.trimmed())) {
+//                    addRecipient(Cc, cc.trimmed());
+//                }
+//            }
+//        }
+//        QStringList bccInc = policy->bccIncludes().split(",");
+//        if (!bccInc.isEmpty()) {
+//            for( const QString &bcc : ccInc) {
+//                if (EmailValidator::instance()->validate(bcc.trimmed())) {
+//                    addRecipient(Bcc, bcc.trimmed());
+//                }
+//            }
+//        }
+//    }
     mail.setTo(createAddressList(m_to));
     if (!m_cc->isEmpty()) {
         mail.setCc(createAddressList(m_cc));
@@ -563,24 +585,31 @@ void MessageBuilder::addFileAttachments(const QStringList &files)
 
 void MessageBuilder::appendTextToSubject(const QString &text)
 {
-    if (m_subject == Q_NULLPTR) {
-        return;
+    if (m_subject) {
+        m_subject->textDocument()->setPlainText(text);
+    } else {
+        m_internalSubject->setPlainText(text);
     }
-    m_subject->textDocument()->setPlainText(text);
 }
 
 void MessageBuilder::appendTextToBody(const QString &text)
 {
+    QString body;
     if (m_body == Q_NULLPTR) {
-        return;
+        body = m_internalBody->toPlainText();
+    } else {
+        body = m_body->textDocument()->toPlainText();
     }
-    QString body = m_body->textDocument()->toPlainText();
     if (body.isEmpty()) {
         body.append(text);
     } else {
         body.append(QStringLiteral("\n\n%1").arg(text));
     }
-    m_body->textDocument()->setPlainText(body);
+    if (m_body) {
+        m_body->textDocument()->setPlainText(body);
+    } else {
+        m_internalBody->setPlainText(body);
+    }
 }
 
 void MessageBuilder::removeAttachment(const int &index)
