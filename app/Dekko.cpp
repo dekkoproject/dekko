@@ -52,6 +52,7 @@ Dekko::Dekko(int &argc, char **argv) :
     QCoreApplication::setOrganizationName(QStringLiteral("dekkoproject"));
     QCoreApplication::setApplicationName(QStringLiteral("dekko"));
 #endif
+    QCoreApplication::setApplicationVersion(QStringLiteral(DEKKO_VERSION));
 
     // Uncomment to dump out the resource files
     // Useful to be able to check a resource has been included

@@ -17,6 +17,7 @@
 */
 import QtQuick 2.4
 import Ubuntu.Components 1.3
+import "../../actions/popups"
 
 VisualItemModel {
     ListItem {
@@ -32,6 +33,9 @@ VisualItemModel {
                 SlotsLayout.position: SlotsLayout.Leading
             }
             ProgressionSlot{}
+        }
+        onClicked: {
+            PopupActions.queueDialog("qrc:/qml/views/dialogs/VersionDialog.qml", {})
         }
     }
     ListItem {

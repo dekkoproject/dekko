@@ -62,6 +62,8 @@ qt5_add_resources(DEKKO_RESOURCES
     ${DEKKO_PROVIDERS_RESOURCE}
 )
 
+add_definitions(-DDEKKO_VERSION="${APP_VERSION}")
+
 if(CLICK_MODE)
     add_definitions(-DCLICK_MODE)
 endif()

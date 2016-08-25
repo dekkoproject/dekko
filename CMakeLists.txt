@@ -155,4 +155,3 @@ file(GLOB_RECURSE DEKKO_GLOBAL_QML_FILES
 )
 
 add_custom_target(DekkoGlobalQml ALL SOURCES ${DEKKO_GLOBAL_QML_FILES})
-
