@@ -17,10 +17,5 @@ ListModel {
         license: "Apache License"
         url: "https://raw.githubusercontent.com/benlau/quickflux/master/LICENSE"
     }
-    ListElement {
-        name: "App Icon - Sam Hewitt"
-        license: "CC-BY-SA 3.0"
-        url: "https://raw.githubusercontent.com/snwh/suru-icons/master/COPYING_CCBYSA3"
-    }
 }
 
