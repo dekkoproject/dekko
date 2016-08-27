@@ -1,0 +1,40 @@
+#! /bin/sh
+
+set -e
+
+sudo apt-get install -y \
+    qtpim5-dev \
+    ubuntu-sdk-libs \
+    qml-module-qtcontacts \
+    qttools5-dev-tools \
+    libconnectivity-qt1-dev \
+    libaccounts-qt5-dev \
+    libgsettings-qt-dev \
+    qtdeclarative5-private-dev \
+    qtscript5-private-dev \
+    qml-module-qtquick-privatewidgets \
+    qtbase5-private-dev \
+    qtbase5-dev \
+    qtbase5-dbg \
+    qtbase5-dev-tools-dbg \
+    qtbase5-dbg \
+    qtbase5-dev-tools \
+    intltool \
+    libunity-dev \
+    libmessaging-menu-dev \
+    libnotify-dev \
+    qml-module-qtqml-statemachine \
+    xvfb \
+    bzr \
+    cmake \
+    libqt5svg5-dev \
+    qml-module-qtquick-dialogs \
+    ninja-build \
+    libsignon-qt5-dev \
+    libsasl2-dev \
+    signon-plugin-sasl-dev \
+    signon-plugin-oauth2-dev \
+    --no-install-recommends
+
+
+
