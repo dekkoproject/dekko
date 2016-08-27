@@ -1,6 +1,6 @@
-if(USE_ONLINE_ACCOUNTS)
-    add_subdirectory(oa-plugin)
-endif()
+#if(USE_ONLINE_ACCOUNTS)
+#    add_subdirectory(oa-plugin)
+#endif()
 
 find_package(Qt5Core 5.4 REQUIRED)
 find_package(Qt5Quick 5.4 REQUIRED)
