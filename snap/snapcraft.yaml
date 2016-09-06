@@ -6,7 +6,7 @@ confinement: devmode  # use "strict" to enforce system access only via declared 
 
 apps:
     dekko:
-        command: dekko
+        command: dekko-launch
         plugs: [unity7, opengl, network, networkbind, home]
 parts:
     dekko:
@@ -41,9 +41,10 @@ parts:
             - qml-module-qtsysteminfo
             - qtmir-desktop
             - mir-graphics-drivers-desktop
+            - notify-send
     launcher:
         plugin: copy
         files:
-            dekko.launcher: bin/dekko
+            dekko.launcher: bin/dekko-launch
             snappy-qt5.conf: etc/xdg/qtchooser/snappy-qt5.conf
 

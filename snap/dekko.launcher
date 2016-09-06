@@ -70,6 +70,10 @@ export LD_LIBRARY_PATH="$SNAP_LIBRARY_PATH:$LD_LIBRARY_PATH"
 export QMF_PLUGINS=$SNAP/usr/lib/qmf/plugins5
 export DEKKO_PLUGINS=$SNAP/usr/lib/Dekko/plugins
 
+echo "LD_LIBRARY_PATH: $LD_LIBRARY_PATH"
+echo "QMF_PLUGINS: $QMF_PLUGINS"
+echo "DEKKO_PLUGINS: $DEKKO_PLUGINS"
+
 cd $SNAP
 
 exec $SNAP/usr/bin/dekko
