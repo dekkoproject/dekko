@@ -41,7 +41,7 @@ parts:
             - qml-module-qtsysteminfo
             - qtmir-desktop
             - mir-graphics-drivers-desktop
-            - notify-send
+            - libnotify-bin
     launcher:
         plugin: copy
         files:
