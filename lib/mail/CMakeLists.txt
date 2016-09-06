@@ -36,4 +36,4 @@ add_library(mail SHARED ${libMail_SRCS})
 qt5_use_modules(mail Core Quick)
 target_link_libraries(mail qmfclient5 qmfmessageserver5 dekkohelpers accounts settings)
 
-install(TARGETS mail DESTINATION ${QT_IMPORTS_DIR})
+install(TARGETS mail DESTINATION ${LIB_DIR})

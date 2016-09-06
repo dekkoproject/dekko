@@ -1,0 +1,49 @@
+name: dekko  # the name of the snap
+version: 0.9  # the version of the snap
+summary: Dekko email client  # 79 char long summary
+description: Email client for ubuntu devices  # a longer description for the snap
+confinement: devmode  # use "strict" to enforce system access only via declared interfaces
+
+apps:
+    dekko:
+        command: dekko
+        plugs: [unity7, opengl, network, networkbind, home]
+parts:
+    dekko:
+        source: ../
+        plugin: cmake
+        configflags: [-DSNAP_MODE=On]
+        build-packages:
+            - build-essential
+            - cmake
+            - qtpim5-dev
+            - qtbase5-dev
+            - qtbase5-dbg
+            - qtbase5-dev-tools-dbg
+            - qtbase5-dev-tools
+            - zlib1g
+            - zlib1g-dev
+            - qttools5-dev-tools
+            - libconnectivity-qt1-dev
+            - libaccounts-qt5-dev
+            - qtdeclarative5-private-dev
+            - qtscript5-private-dev
+            - qml-module-qtquick-privatewidgets
+            - libqt5svg5-dev
+            - libsignon-qt5-dev
+            - libsasl2-dev
+            - signon-plugin-sasl-dev
+            - signon-plugin-oauth2-dev
+            - ubuntu-sdk-libs
+        stage-packages:
+            - ubuntu-sdk-libs
+            - qtubuntu-desktop
+            - qml-module-qtsysteminfo
+            - qtmir-desktop
+            - mir-graphics-drivers-desktop
+    launcher:
+        plugin: copy
+        files:
+            dekko.launcher: bin/dekko
+            snappy-qt5.conf: etc/xdg/qtchooser/snappy-qt5.conf
+

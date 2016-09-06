@@ -17,4 +17,4 @@ set(SharedLib_SRCS
 add_library(dekkohelpers SHARED ${SharedLib_SRCS})
 qt5_use_modules(dekkohelpers Core Gui Quick)
 
-install(TARGETS dekkohelpers DESTINATION ${QT_IMPORTS_DIR})
+install(TARGETS dekkohelpers DESTINATION ${LIB_DIR})

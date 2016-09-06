@@ -22,4 +22,4 @@ add_library(settings SHARED ${libSettings_SRCS})
 qt5_use_modules(settings Core Quick)
 target_link_libraries(settings qmfclient5 dekkohelpers)
 
-install(TARGETS settings DESTINATION ${QT_IMPORTS_DIR})
+install(TARGETS settings DESTINATION ${LIB_DIR})
