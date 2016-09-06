@@ -25,4 +25,4 @@ add_library(network SHARED ${libNetwork_SRCS})
 qt5_use_modules(network Core Quick Network)
 target_link_libraries(network qmfclient5 qmfmessageserver5 mail dekkohelpers)
 
-install(TARGETS network DESTINATION ${QT_IMPORTS_DIR})
+install(TARGETS network DESTINATION ${LIB_DIR})

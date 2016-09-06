@@ -21,4 +21,4 @@ add_library(accounts SHARED ${libAccount_SRCS})
 qt5_use_modules(accounts Core Quick)
 target_link_libraries(accounts qmfclient5 qmfmessageserver5 dekkohelpers)
 
-install(TARGETS accounts DESTINATION ${QT_IMPORTS_DIR})
+install(TARGETS accounts LIBRARY DESTINATION ${LIB_DIR})

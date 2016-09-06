@@ -66,23 +66,28 @@ add_definitions(-DDEKKO_VERSION="${APP_VERSION}")
 
 if(CLICK_MODE)
     add_definitions(-DCLICK_MODE)
-endif()
+endif(CLICK_MODE)
+
+if(SNAP_MODE)
+    add_definitions(-DSNAP_MODE)
+endif(SNAP_MODE)
 
 if(ENABLE_QML_DEBUG)
     add_definitions(-DQT_QML_DEBUG)
-endif()
+endif(ENABLE_QML_DEBUG)
 
 if(SERVER_AS_THREAD)
     include_directories(${CMAKE_SOURCE_DIR}/server)
     add_definitions(-DSERVER_AS_QTHREAD)
-endif()
+endif(SERVER_AS_THREAD)
 
 if(UNITY8)
     add_definitions(-DIS_UNITY8)
-endif()
+endif(UNITY8)
 
 add_executable(dekko ${DEKKO_SOURCES} ${DEKKO_RESOURCES})
 qt5_use_modules(dekko Gui Core Quick Qml Widgets)
+
 if(SERVER_AS_THREAD)
     target_link_libraries(dekko qmfclient5 qmfmessageserver5 network msgserver)
 else()
@@ -90,6 +95,7 @@ else()
 endif()
 
 install(TARGETS dekko DESTINATION ${BIN_DIR})
+
 install(
     DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/qml/views/webview/userscripts
     DESTINATION ${DATA_DIR}
@@ -105,6 +111,6 @@ set(ICON_PATH ${CMAKE_CURRENT_SOURCE_DIR}/icons/dekko/dekko.png)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/dekko.desktop ${CMAKE_CURRENT_BINARY_DIR}/dekko.desktop)
 install(
     FILES ${CMAKE_CURRENT_BINARY_DIR}/dekko.desktop
-    DESTINATION ${DATA_DIR}
+    DESTINATION ${DESKTOP_DIR}
 )
-install(FILES ${ICON_PATH} DESTINATION ${DATA_DIR})
+install(FILES ${ICON_PATH} DESTINATION ${ICON_DIR})

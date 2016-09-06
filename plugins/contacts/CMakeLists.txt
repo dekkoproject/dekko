@@ -19,14 +19,15 @@ set(libContactsPlugins_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/SortedContactsModel.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/SearchFilter.cpp
 )
-set(DEKKO_PLUGIN_DIR ${QT_IMPORTS_DIR}/Dekko/plugins)
+
 add_definitions(-DQTQMLTRICKS_NO_PREFIX_ON_GETTERS)
 add_definitions(-DDEKKO_PLUGINS_DIR="/${DEKKO_PLUGIN_DIR}")
+
 add_library(contacts SHARED ${libContactsPlugins_SRCS})
 qt5_use_modules(contacts Core)
 target_link_libraries(contacts dekkohelpers)
 
-install(TARGETS contacts DESTINATION ${QT_IMPORTS_DIR})
+install(TARGETS contacts DESTINATION ${LIB_DIR})
 
 # Quick plugin
 set(libQuickContacts_SRCS
