@@ -1,4 +1,4 @@
-upload-wiki:
+wiki:
   tags:
     - armhf
     - no-build
@@ -8,7 +8,7 @@ upload-wiki:
   only:
     - master
     
-upload-docs:
+doxygen:
   tags:
     - armhf
     - no-build
@@ -21,7 +21,7 @@ upload-docs:
   only:
     - master
 
-dekko-master-click:armhf:
+click-master:armhf:
   tags:
     - armhf
     - xenial
@@ -46,7 +46,7 @@ dekko-master-click:armhf:
     paths:
       - __build/test
       
-dekko-master-click:amd64:
+click-master:amd64:
   tags:
     - amd64
     - xenial
@@ -70,7 +70,7 @@ dekko-master-click:amd64:
     paths:
       - __build/test
 
-dekko-master-snap:amd64:
+snap-master:amd64:
   tags:
     - amd64
     - xenial
@@ -86,7 +86,7 @@ dekko-master-snap:amd64:
     paths:
       - snap/*.snap
       
-dekko-feature-branch:armhf:
+feature-branch:armhf:
   image: dpniel/dekko-docker-sdk:latest
   tags:
     - armhf
