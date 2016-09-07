@@ -21,7 +21,7 @@ doxygen:
   only:
     - master
 
-click-master:armhf:
+click:armhf:
   tags:
     - armhf
     - xenial
@@ -46,7 +46,7 @@ click-master:armhf:
     paths:
       - __build/test
       
-click-master:amd64:
+click:amd64:
   tags:
     - amd64
     - xenial
@@ -70,11 +70,28 @@ click-master:amd64:
     paths:
       - __build/test
 
-snap-master:amd64:
+snap:amd64:
   tags:
     - amd64
     - xenial
     - sdk-ready
+  script:
+    - git submodule update --init
+    - cd snap
+    - snapcraft snap
+    - snapcraft clean
+  only:
+    - master
+  artifacts:
+    paths:
+      - snap/*.snap
+
+snap:armhf:
+  tags:
+    - armhf
+    - xenial
+    - sdk-ready
+    - ninja
   script:
     - git submodule update --init
     - cd snap
