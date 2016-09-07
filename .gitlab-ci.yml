@@ -31,7 +31,7 @@ dekko-master-click:armhf:
     - git submodule update --init
     - if [ ! -d "__build" ]; then mkdir __build; fi
     - cd __build
-    - cmake -G Ninja -DCLICK_MODE=On -DCMAKE_BUILD_TYPE=Release ../
+    - cmake -G Ninja -DUNITY8=On-DCLICK_MODE=On -DCMAKE_BUILD_TYPE=Release ../
     - ninja -j3
     - export DESTDIR=./test
     - ninja -j3 install
@@ -55,7 +55,7 @@ dekko-master-click:amd64:
     - git submodule update --init
     - if [ ! -d "__build" ]; then mkdir __build; fi
     - cd __build
-    - cmake -G Ninja -DCLICK_MODE=On -DCMAKE_BUILD_TYPE=Release ../
+    - cmake -G Ninja -DUNITY8=On -DCLICK_MODE=On -DCMAKE_BUILD_TYPE=Release ../
     - ninja -j3
     - export DESTDIR=./test
     - ninja -j3 install
@@ -80,14 +80,11 @@ dekko-master-snap:amd64:
     - cd snap
     - snapcraft snap
     - snapcraft clean
-  cache:
-    paths:
-      - __build
   only:
     - master
   artifacts:
     paths:
-      - snap/
+      - snap/*.snap
       
 dekko-feature-branch:armhf:
   image: dpniel/dekko-docker-sdk:latest
@@ -100,7 +97,7 @@ dekko-feature-branch:armhf:
     - git submodule update --init
     - if [ ! -d "__build" ]; then mkdir __build; fi
     - cd __build
-    - cmake -G Ninja -DCLICK_MODE=On -DCMAKE_BUILD_TYPE=Release ../
+    - cmake -G Ninja -DUNITY8=On -DCLICK_MODE=On -DCMAKE_BUILD_TYPE=Release ../
     - ninja -j3
     - export DESTDIR=./test
     - ninja -j3 install
