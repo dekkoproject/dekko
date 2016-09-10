@@ -36,6 +36,10 @@ case $i in
     NO_BUILD=true
     shift
     ;;
+    --uoa-enabled)
+    UOA_ENABLED=true
+    shift
+    ;;
     --valgrind)
     VALGRIND=true
     shift
@@ -123,10 +127,17 @@ if [ "$NO_BUILD" = true ]; then
     exit 0
 fi
 
+uoa_opts=Off
+
+if [ "$UOA_ENABLED" = true ]; then
+    echo "Using online accounts"
+    uoa_opts=On
+fi
+
 if [ "$USE_CONNECTIVITY" = true ]; then
-    cmake -G Ninja -DCMAKE_BUILD_TYPE=Debug -DENABLE_LOGGING=on -DENABLE_QML_DEBUG=On -DENABLE_UBUNTU_CONNECTIVITY=On ../${SRC_DIR}
+    cmake -G Ninja -DCMAKE_BUILD_TYPE=Debug -DCLICK_MODE=On -DUNITY8=On -DUSE_ONLINE_ACCOUNTS=${uoa_opts} -DENABLE_LOGGING=on -DENABLE_QML_DEBUG=On -DENABLE_UBUNTU_CONNECTIVITY=On ../${SRC_DIR}
 else
-    cmake -G Ninja -DCMAKE_BUILD_TYPE=Debug -DENABLE_LOGGING=on -DENABLE_QML_DEBUG=On ../${SRC_DIR}
+    cmake -G Ninja -DCMAKE_BUILD_TYPE=Debug -DCLICK_MODE=On -DUNITY8=On -DUSE_ONLINE_ACCOUNTS=${uoa_opts} -DENABLE_LOGGING=on -DENABLE_QML_DEBUG=On ../${SRC_DIR}
 fi
 ninja -j2
 export DESTDIR=./test

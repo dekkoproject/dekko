@@ -1,7 +1,3 @@
-#if(USE_ONLINE_ACCOUNTS)
-#    add_subdirectory(oa-plugin)
-#endif()
-
 find_package(Qt5Core 5.4 REQUIRED)
 find_package(Qt5Quick 5.4 REQUIRED)
 
@@ -38,3 +34,6 @@ set(ACCOUNTS_PLUGIN_DIR ${QT_IMPORTS_DIR}/Dekko/Accounts)
 
 install(TARGETS accountsplugin DESTINATION ${ACCOUNTS_PLUGIN_DIR})
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/qmldir DESTINATION ${ACCOUNTS_PLUGIN_DIR})
+if(USE_ONLINE_ACCOUNTS)
+    add_subdirectory(setup)
+endif()

@@ -708,6 +708,10 @@ void MessageBuilder::buildRecipientsLists(const MessageBuilder::ReplyType &type,
             // we don't need to worry about duplicates as they get pruned next;
             tos << src.from();
         }
+        if (type == ReplyAll) {
+            tos << src.to();
+        }
+        qDebug() << "TOS COUNT; " << tos.count();
         // if we still have nothing from the reply-to's then just use from
         if (tos.isEmpty()) {
             tos << src.from();

@@ -1,0 +1,91 @@
+#!/usr/bin/fish
+
+set SCRIPT_VERSION 0.1
+set CLICK_SDK_ARCH armhf
+set CONTAINER_NAME "dekko-$CLICK_SDK_ARCH"
+
+function show_help
+  echo "
+  Usage :  lxc-setup [options] [function] [--] 
+ 
+  Options: 
+
+    -h    Display this message
+    -v    Display script version
+    -n    Name of lxc container (default: $CONTAINER_NAME)
+  	
+  Functions:
+    
+    setup   Installs required dependencies to build dekko
+    clean   Clean container apt
+    update  Update/upgrade container
+    
+  Example:
+    
+    lxc-setup -n dekko-armhf setup
+  "
+    exit 0;
+end
+
+function clean
+    echo -e "\033[1;32m [ $CONTAINER_NAME ] Cleaning up unused packages \033[0m"
+    sudo lxc exec $CONTAINER_NAME apt-get autoremove
+    echo -e "\033[1;32m [ $CONTAINER_NAME ] Clean complete \033[0m"
+end
+
+function update
+    echo -e "\033[1;32m [ $CONTAINER_NAME ] Update & Upgrade \033[0m"
+    
+    sudo lxc exec $CONTAINER_NAME apt update
+    sudo lxc exec $CONTAINER_NAME apt upgrade -- -y
+    
+    echo -e "\033[1;32m [ $CONTAINER_NAME ] Upgrade complete \033[0m"
+end
+
+function setup
+    echo -e "\033[1;32m [ $CONTAINER_NAME:$CLICK_SDK_ARCH ] Bootstrapping lxc container installing the earth for dekko to build!\033[0m"
+    echo -e "\033[1;32m [ $CONTAINER_NAME ] Installing dekko's build dependencies \033[0m"
+    
+    sudo lxc exec $CONTAINER_NAME apt install \
+        qtpim5-dev:$CLICK_SDK_ARCH \
+        qml-module-qtcontacts \
+        qttools5-dev-tools \
+        libconnectivity-qt1-dev:$CLICK_SDK_ARCH \
+        libaccounts-qt5-dev:$CLICK_SDK_ARCH \
+        libsignon-qt5-dev:$CLICK_SDK_ARCH \
+        libgsettings-qt-dev:$CLICK_SDK_ARCH \
+        qtdeclarative5-private-dev:$CLICK_SDK_ARCH \
+        qtscript5-private-dev:$CLICK_SDK_ARCH \
+        qml-module-qtquick-privatewidgets:$CLICK_SDK_ARCH \
+        qtbase5-private-dev:$CLICK_SDK_ARCH \
+        qtbase5-dev:$CLICK_SDK_ARCH \
+        qtbase5-dbg:$CLICK_SDK_ARCH \
+        qtbase5-dev-tools-dbg \
+        qtbase5-dbg:$CLICK_SDK_ARCH \
+        qtbase5-dev-tools \
+        libnotify-dev:$CLICK_SDK_ARCH \
+        libmessaging-menu-dev:$CLICK_SDK_ARCH \
+        intltool \
+        bzr -- -y --no-install-recommends
+
+    echo -e "\033[1;32m [ $CONTAINER_NAME ] Setup complete \033[0m"
+end
+
+
+getopts $argv | while read -l key value
+    switch $key
+        case h
+            show_help
+            exit 0
+        case n
+            set CONTAINER_NAME "$value"
+            echo "Container name changed to $CONTAINER_NAME"
+        case v
+            echo "Version: $SCRIPT_VERSION"
+            exit 0
+        case _
+            eval $value # baz
+    end
+end
+
+exit 0;
