@@ -45,6 +45,7 @@ click:armhf:
   artifacts:
     paths:
       - __build/test
+    expire_in: 7d
       
 click:amd64:
   tags:
@@ -69,6 +70,7 @@ click:amd64:
   artifacts:
     paths:
       - __build/test
+    expire_in: 7d
 
 snap:amd64:
   tags:
@@ -85,6 +87,7 @@ snap:amd64:
   artifacts:
     paths:
       - snap/*.snap
+    expire_in: 7d
 
 snap:armhf:
   tags:
@@ -102,6 +105,7 @@ snap:armhf:
   artifacts:
     paths:
       - snap/*.snap
+    expire_in: 7d
       
 feature-branch:armhf:
   image: dpniel/dekko-docker-sdk:latest
@@ -130,3 +134,4 @@ feature-branch:armhf:
   artifacts:
     paths:
       - __build/test
+    expire_in: 2d
