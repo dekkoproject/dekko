@@ -8,7 +8,7 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/qmf/libraries/qmfclient
     ${CMAKE_SOURCE_DIR}/qmf/libraries/qmfclient/support
     ${CMAKE_SOURCE_DIR}/qmf/libraries/qmfmessageserver
-    ${CMAKE_SOURCE_DIR}/plugins/shared
+    ${CMAKE_SOURCE_DIR}/plugins/shared/src
     ${CMAKE_SOURCE_DIR}/lib/mail
 )
 

@@ -4,7 +4,7 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_BINARY_DIR}
     ${CMAKE_SOURCE_DIR}/plugins/contacts
-    ${CMAKE_SOURCE_DIR}/plugins/shared
+    ${CMAKE_SOURCE_DIR}/plugins/shared/src
 )
 
 set(libABookPlugin_SRCS

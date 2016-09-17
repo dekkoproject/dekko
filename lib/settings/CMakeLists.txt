@@ -6,7 +6,7 @@ include_directories(
     ${CMAKE_CURRENT_BINARY_DIR}
     ${CMAKE_SOURCE_DIR}/qmf/libraries/qmfclient
     ${CMAKE_SOURCE_DIR}/qmf/libraries/qmfclient/support
-    ${CMAKE_SOURCE_DIR}/plugins/shared
+    ${CMAKE_SOURCE_DIR}/plugins/shared/src
     ${SUPER_MACRO_INCLUDES}
 )
 

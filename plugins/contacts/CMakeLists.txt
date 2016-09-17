@@ -4,7 +4,7 @@ find_package(Qt5Quick 5.4 REQUIRED)
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_BINARY_DIR}
-    ${CMAKE_SOURCE_DIR}/plugins/shared
+    ${CMAKE_SOURCE_DIR}/plugins/shared/src
     ${SUPER_MACRO_INCLUDES}
 )
 

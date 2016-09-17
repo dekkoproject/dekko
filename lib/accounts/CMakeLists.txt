@@ -7,7 +7,7 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/qmf/libraries/qmfclient
     ${CMAKE_SOURCE_DIR}/qmf/libraries/qmfclient/support
     ${CMAKE_SOURCE_DIR}/qmf/libraries/qmfmessageserver
-    ${CMAKE_SOURCE_DIR}/plugins/shared
+    ${CMAKE_SOURCE_DIR}/plugins/shared/src
 )
 
 set(libAccount_SRCS
@@ -16,6 +16,9 @@ set(libAccount_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/Accounts.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/AccountValidator.cpp
 )
+
+
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/usr/lib")
 
 add_library(accounts SHARED ${libAccount_SRCS})
 qt5_use_modules(accounts Core Quick)

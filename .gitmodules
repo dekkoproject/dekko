@@ -10,3 +10,18 @@
 [submodule "lib/3rdParty/async-tasks"]
 	path = lib/3rdParty/async-tasks
 	url = http://code.dekkoproject.org/dekko-dev/async-tasks.git
+[submodule "plugins/notify"]
+	path = plugins/notify
+	url = http://code.dekkoproject.org/dekko-dev/notify.git
+[submodule "plugins/controls"]
+	path = plugins/controls
+	url = http://code.dekkoproject.org/dekko-dev/controls.git
+[submodule "plugins/shared"]
+	path = plugins/shared
+	url = http://code.dekkoproject.org/dekko-dev/utils.git
+[submodule "plugins/components"]
+	path = plugins/components
+	url = http://code.dekkoproject.org/dekko-dev/qml-components.git
+[submodule "plugins/autoconfig"]
+	path = plugins/autoconfig
+	url = http://code.dekkoproject.org/dekko-dev/autoconfig.git
