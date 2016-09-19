@@ -25,3 +25,6 @@
 [submodule "plugins/autoconfig"]
 	path = plugins/autoconfig
 	url = http://code.dekkoproject.org/dekko-dev/autoconfig.git
+[submodule "plugins/mail"]
+	path = plugins/mail
+	url = http://code.dekkoproject.org/dekko-dev/mail.git

@@ -122,7 +122,6 @@ set(ACCOUNT_PROVIDER_DIR ${CMAKE_INSTALL_DATADIR}/accounts/providers)
 set(ACCOUNT_SERVICE_DIR ${CMAKE_INSTALL_DATADIR}/accounts/services)
 set(ACCOUNT_QML_PLUGIN_DIR ${CMAKE_INSTALL_DATADIR}/accounts/qml-plugins)
 
-
 set(APP_VERSION 0.9.4)
 
 if(CLICK_MODE)
@@ -156,6 +155,11 @@ endif(SNAP_MODE)
 # Make available to all sub dirs
 set(SUPER_MACRO_INCLUDES ${CMAKE_CURRENT_SOURCE_DIR}/lib/3rdParty/SuperMacros)
 set(ASYNC_TASKS_INCLUDES ${CMAKE_CURRENT_SOURCE_DIR}/lib/3rdParty/async-tasks)
+
+# Required by plugins/mail to point to our top level qmf directory
+set(QMFCLIENT_INCLUDES ${CMAKE_CURRENT_SOURCE_DIR}/qmf/libraries/qmfclient)
+set(QMFCLIENT_SUPPORT_INCLUDES ${CMAKE_CURRENT_SOURCE_DIR}/qmf/libraries/qmfclient/support)
+set(QMFSERVER_INCLUDES ${CMAKE_CURRENT_SOURCE_DIR}/qmf/libraries/qmfmessageserver)
 
 add_subdirectory(qmf)
 add_subdirectory(lib)

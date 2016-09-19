@@ -48,7 +48,7 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/qmf/libraries/qmfclient
     ${CMAKE_SOURCE_DIR}/qmf/libraries/qmfclient/support
     ${CMAKE_SOURCE_DIR}/qmf/libraries/qmfmessageserver
-    ${CMAKE_SOURCE_DIR}/lib/network
+    ${CMAKE_SOURCE_DIR}/plugins/mail/src/network
 )
 
 set(DEKKO_SOURCES
