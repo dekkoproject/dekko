@@ -28,10 +28,6 @@ fi
 export LD_LIBRARY_PATH=$SNAP/usr/lib/$ARCH/qt5/libs:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=$SNAP/usr/lib/$ARCH/pulseaudio:$LD_LIBRARY_PATH
 
-#dekko libs - why don't we have multiarch???
-export LD_LIBRARY_PATH=$SNAP/usr/lib:$LD_LIBRARY_PATH
-export LD_LIBRARY_PATH=$SNAP/usr/lib/Dekko:$LD_LIBRARY_PATH
-
 # Qt Modules
 export QT_PLUGIN_PATH=$SNAP/usr/lib/$ARCH/qt5/plugins
 export QML2_IMPORT_PATH=$QML2_IMPORT_PATH:$SNAP/usr/lib/$ARCH/qt5/qml
@@ -66,17 +62,24 @@ export APP_DIR=$SNAP
 # ensure the snappy gl libs win
 export LD_LIBRARY_PATH="$SNAP_LIBRARY_PATH:$LD_LIBRARY_PATH"
 
-# Dekko plugins - plugins in these dirs are loaded on demand at runtime
+##############################################################
+# Dekko specific configurations                              #
+##############################################################
+
+# libs - why don't we have multiarch???
+export LD_LIBRARY_PATH=$SNAP/usr/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$SNAP/usr/lib/Dekko:$LD_LIBRARY_PATH
+
+# plugins - plugins in these dirs are loaded on demand at runtime
 export QMF_PLUGINS=$SNAP/usr/lib/qmf/plugins5
 export DEKKO_PLUGINS=$SNAP/usr/lib/Dekko/plugins
 
-echo "QMF_PLUGINS Path is: $QMF_PLUGINS"
-echo "DEKKO_PLUGINS Path is: $DEKKO_PLUGINS"
+# echo "QMF_PLUGINS Path is: $QMF_PLUGINS"
+# echo "DEKKO_PLUGINS Path is: $DEKKO_PLUGINS"
 
-echo "Disabling oxide sandbox features"
-export OXIDE_DISABLE_SETUID_SANDBOX=1
-export OXIDE_DISABLE_SECCOMP_FILTER_SANDBOX=1
+echo "WARNING: Disabling oxide sandbox features, relying on snap confinement now!"
+export OXIDE_NO_SANDBOX=1
 
 cd $SNAP
-echo "Launching dekko now"
+# echo "Launching dekko now"
 exec $SNAP/usr/bin/dekko

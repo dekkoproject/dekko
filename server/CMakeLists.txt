@@ -1,5 +1,6 @@
 if(UNITY8)
     add_definitions(-DQMF_NO_MESSAGE_SERVICE_EDITOR)
+    add_definitions(-DIS_UNITY8)
 else()
     add_definitions(-DQMF_NO_MESSAGE_SERVICE_EDITOR -DUSE_HTML_PARSER)
 endif()
@@ -9,6 +10,10 @@ endif()
 if(USE_ONLINE_ACCOUNTS)
     add_definitions(-DUSE_ACCOUNTS_QT)
 endif()
+
+if(SNAP_MODE)
+    add_definitions(-DSNAP)
+endif(SNAP_MODE)
 
 find_package(Qt5Core 5.4 REQUIRED)
 find_package(Qt5Gui 5.4 REQUIRED)

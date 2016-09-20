@@ -75,6 +75,10 @@ bool Dekko::setup()
 {
     QStringList arguments = this->arguments();
     Q_UNUSED(arguments);
+
+    if (!QMail::mkLockDir()) {
+        return false;
+    }
 #ifdef IS_UNITY8
     if (!QMail::mkLockDir()) {
         return false;
