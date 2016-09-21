@@ -82,4 +82,4 @@ export OXIDE_NO_SANDBOX=1
 
 cd $SNAP
 # echo "Launching dekko now"
-exec $SNAP/usr/bin/dekko
+exec $SNAP/usr/bin/dekko $@

@@ -39,6 +39,7 @@ parts:
             - ubuntu-sdk-libs
             - qtubuntu-desktop
             - qml-module-qtsysteminfo
+            - qml-module-qtquick-dialogs
             - qtmir-desktop
             - mir-graphics-drivers-desktop
             - libnotify-bin
