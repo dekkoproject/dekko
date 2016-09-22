@@ -94,6 +94,9 @@ AppListener {
         }
         onValidationFailed: {
             Log.logInfo("AccountSetup::validationFailed", "Account validation failed. Going back to manual input")
+            if (d.hasProvider) {
+                d.providerFailedValidation = true
+            }
             accountSetup.goBack()
         }
         onFailedActionStatus: {
@@ -298,6 +301,7 @@ AppListener {
                 account.incoming.encryption = config.encryption
                 account.incoming.saslMechanism = config.authentication
             }
+            account.save()
         }
     }
 
@@ -446,7 +450,7 @@ AppListener {
             if (d.isPresetAccount) {
                 Log.logInfo("AccountSetup::validateCredentials", "Is preset account validating now.")
                 WizardActions.runAccountValidation()
-            } else if (d.hasProvider) {
+            } else if (d.hasProvider && !d.providerFailedValidation) {
                 Log.logInfo("AccountSetup::validateCredentials", "Has provider, determining valid config to use")
                 WizardActions.validateConfigToUse()
             } else {
@@ -509,6 +513,7 @@ AppListener {
             d.allowEmptyPassword = false
             d.emailProvider = undefined
             d.shouldValidate = false
+            d.providerFailedValidation = false
             account = newAccount.createObject(accountSetup)
         }
     }
@@ -525,6 +530,7 @@ AppListener {
         property var emailProvider: undefined
         property bool shouldValidate: false
         property bool hasProvider: emailProvider !== undefined
+        property bool providerFailedValidation: false
 
         function getPresetEncryptionMethod(useStartTls, useSsl) {
             if (useSsl && useStartTls) {
