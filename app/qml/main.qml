@@ -26,6 +26,7 @@ Dekko {
     anchors.fill: parent
 
     Loader {
+        id: workerLoader
         asynchronous: true
         source: "qrc:/qml/workers/Workers.qml"
     }

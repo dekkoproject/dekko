@@ -28,3 +28,9 @@
 [submodule "plugins/mail"]
 	path = plugins/mail
 	url = http://code.dekkoproject.org/dekko-dev/mail.git
+[submodule "plugins/plugger"]
+	path = plugins/plugger
+	url = http://code.dekkoproject.org/dekko-dev/plugger.git
+[submodule "plugins/maz-db"]
+	path = plugins/maz-db
+	url = http://code.dekkoproject.org/dekko-dev/maz-db.git

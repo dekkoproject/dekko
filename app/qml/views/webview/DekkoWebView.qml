@@ -20,7 +20,7 @@ import QtFeedback 5.0
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import Ubuntu.Web 0.2
-import com.canonical.Oxide 1.12 as Oxide
+import com.canonical.Oxide 1.15 as Oxide
 import Dekko.Components 1.0
 import Dekko.Settings 1.0
 import "../components"

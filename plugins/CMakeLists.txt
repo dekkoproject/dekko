@@ -1,3 +1,4 @@
+add_subdirectory(plugger)
 add_subdirectory(shared)
 add_subdirectory(autoconfig)
 add_subdirectory(contacts)

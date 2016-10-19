@@ -70,16 +70,5 @@ Item {
         anchors.right: parent.right
         anchors.bottom: parent.bottom
     }
-
-    Timer {
-        interval: 120000
-        repeat: true
-        triggeredOnStart: true
-        onTriggered: {
-            Log.logStatus("Dekko::TrimCache", "Trimming component cache")
-            dekkoapp.trimCache()
-        }
-//        Component.onCompleted: start()
-    }
 }
 

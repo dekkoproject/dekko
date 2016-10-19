@@ -16,19 +16,21 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 import QtQuick 2.4
+import Plugger 1.0
 
 // This component should be created using an async loader
 // The containing workers should not be required immediately
 // but be available shortly after app start.
-Item {
-    // workers are private
-    QtObject {
-        property AccountsWorker accountsWorker: AccountsWorker {}
-        property MailboxWorker mboxWorker: MailboxWorker {}
-        property SettingsWorker settingsWorker: SettingsWorker {}
-        property UriWorker uriWorker: UriWorker {}
-        property DialogWorker dlgWorker: DialogWorker {}
-        property ErrorsWorker errorsWorker: ErrorsWorker {}
-        property ToastWorker toastWorker: ToastWorker {}
-    }
+
+// We will also load all plugins that registered as a "Dekko::Listener"
+ListenerRegistry {
+    defaultListeners: [
+        AccountsWorker {},
+        MailboxWorker {},
+        SettingsWorker {},
+        UriWorker {},
+        DialogWorker {},
+        ErrorsWorker {},
+        ToastWorker {}
+    ]
 }
