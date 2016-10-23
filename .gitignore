@@ -1,3 +1,7 @@
 CMakeLists.txt.user
 ./__build
 .gitman
+cmake
+qmf
+plugins
+libs

@@ -161,11 +161,12 @@ set(QMFCLIENT_INCLUDES ${CMAKE_CURRENT_SOURCE_DIR}/qmf/libraries/qmfclient)
 set(QMFCLIENT_SUPPORT_INCLUDES ${CMAKE_CURRENT_SOURCE_DIR}/qmf/libraries/qmfclient/support)
 set(QMFSERVER_INCLUDES ${CMAKE_CURRENT_SOURCE_DIR}/qmf/libraries/qmfmessageserver)
 
+include(SubdirsHelper)
 add_subdirectory(qmf)
 add_subdirectory(lib)
 add_subdirectory(app)
 add_subdirectory(click)
-add_subdirectory(plugins)
+add_all_subdirectories(${CMAKE_CURRENT_SOURCE_DIR}/plugins)
 add_subdirectory(server)
 
 feature_summary(FATAL_ON_MISSING_REQUIRED_PACKAGES DESCRIPTION "\n" WHAT ALL)

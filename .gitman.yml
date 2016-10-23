@@ -7,7 +7,7 @@ sources:
 - name: quick-flux
   repo: http://code.dekkoproject.org/dekko-dev/quick-flux.git
   rev: master
-  link: plugins/3rdParty/quick-flux
+  link: plugins/quick-flux
 - name: SuperMacros
   repo: http://code.dekkoproject.org/dekko-dev/super-macros.git
   rev: master
