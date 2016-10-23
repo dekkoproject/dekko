@@ -1,5 +1,5 @@
 wiki:
-  stage: wiki
+  stage: deploy
   tags:
     - armhf
     - no-build
@@ -8,9 +8,9 @@ wiki:
     - sshpass -e scp -oStrictHostKeyChecking=no -vr $PWD/docs/dev dekkoproject.org@ssh.dekkoproject.org:/www
   only:
     - master
-    
+
 doxygen:
-  stage: docs
+  stage: deploy
   tags:
     - armhf
     - no-build
@@ -24,7 +24,7 @@ doxygen:
     - master
       
 click:amd64:
-  - stage: click
+  stage: build
   tags:
     - amd64
     - xenial
