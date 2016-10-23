@@ -1,4 +1,4 @@
-location: .gitman
+location: .upstream
 sources:
 - name: cmake
   repo: http://code.dekkoproject.org/dekko-dev/cmake-modules.git

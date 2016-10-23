@@ -5,3 +5,5 @@ cmake
 qmf
 plugins
 libs
+lib
+.upstream
