@@ -19,7 +19,6 @@ pragma Singleton
 import QtQuick 2.4
 import QuickFlux 1.0
 import Dekko.Contacts 1.0
-import "../../actions/contacts"
 import "../../actions/logging"
 
 AppListener {

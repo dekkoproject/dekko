@@ -20,14 +20,13 @@ import Ubuntu.Components 1.3
 import Dekko.Mail 1.0
 import Dekko.Components 1.0
 import Dekko.Settings 1.0
+import Dekko.Contacts 1.0
 import QuickFlux 1.0
 import "../../actions"
 import "../../actions/logging"
 import "../../actions/messaging"
 import "../../actions/views"
-import "../../actions/contacts"
 import "../../stores"
-import "../../stores/contacts"
 import "../components"
 import "../../constants"
 
@@ -184,18 +183,18 @@ BaseStage {
         }
     }
 
-    AppListener {
-        Filter {
-            type: ContactKeys.openAddressBook
-            onDispatched: {
-                ViewActions.pushToStageArea(ViewKeys.messageListStack,
-                                            ab,
-                                            {
-                                                pageTitle: message.accountName,
-                                                accountId: message.accountId
-                                            })
-            }
-        }
-    }
+//    AppListener {
+//        Filter {
+//            type: ContactKeys.openAddressBook
+//            onDispatched: {
+//                ViewActions.pushToStageArea(ViewKeys.messageListStack,
+//                                            ab,
+//                                            {
+//                                                pageTitle: message.accountName,
+//                                                accountId: message.accountId
+//                                            })
+//            }
+//        }
+//    }
 }
 

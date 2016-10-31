@@ -52,6 +52,9 @@ public slots:
 private slots:
     void serverProcessError(QProcess::ProcessError error);
 
+protected:
+    void loadPlugins();
+
 private:
 #ifdef SERVER_AS_QTHREAD
     MessageServerThread *m_serverThread;

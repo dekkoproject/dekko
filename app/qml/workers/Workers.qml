@@ -17,6 +17,8 @@
 */
 import QtQuick 2.4
 import Plugger 1.0
+import Dekko.Contacts 1.0
+import "../actions/views"
 
 // This component should be created using an async loader
 // The containing workers should not be required immediately
@@ -31,6 +33,9 @@ ListenerRegistry {
         UriWorker {},
         DialogWorker {},
         ErrorsWorker {},
-        ToastWorker {}
+        ToastWorker {},
+        ContactsWorker{
+            onPluginsReady: ViewActions.delayCall(ContactKeys.registerAddressBooks)
+        }
     ]
 }

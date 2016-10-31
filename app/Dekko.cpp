@@ -29,6 +29,7 @@
 #include <QCommandLineOption>
 #include <QDir>
 #include <QStandardPaths>
+#include <PluginRegistry.h>
 
 #define SMALL_FF_WIDTH 350
 #define MEDIUM_FF_WDTH 800
@@ -114,6 +115,9 @@ bool Dekko::setup()
     } else {
         qDebug() << "[Dekko]" << "Message server already running, using that";
     }
+
+    loadPlugins();
+
     m_view = new QQuickView();
     m_view->engine()->setNetworkAccessManagerFactory(&m_partqnam);
     m_view->setResizeMode(QQuickView::SizeRootObjectToView);
@@ -195,4 +199,19 @@ void Dekko::trimCache()
 void Dekko::serverProcessError(QProcess::ProcessError error)
 {
     Q_UNUSED(error)
+}
+
+void Dekko::loadPlugins()
+{
+    PluginRegistry::instance()->setPluginLocations(
+                QStringList()
+                << QStringLiteral("Dekko::Service")
+                << QStringLiteral("Dekko::Listener")
+                << QStringLiteral("Dekko::AddressBook::Provider")
+                );
+
+   PluginRegistry::instance()->loadPlugins(
+               QStringList()
+               << QStringLiteral("%1/plugins").arg(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation))
+               );
 }

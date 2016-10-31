@@ -49,6 +49,7 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/qmf/libraries/qmfclient/support
     ${CMAKE_SOURCE_DIR}/qmf/libraries/qmfmessageserver
     ${CMAKE_SOURCE_DIR}/plugins/mail/src/network
+    ${PLUGGER_INCLUDES}
 )
 
 set(DEKKO_SOURCES
@@ -89,9 +90,9 @@ add_executable(dekko ${DEKKO_SOURCES} ${DEKKO_RESOURCES})
 qt5_use_modules(dekko Gui Core Quick Qml Widgets)
 
 if(SERVER_AS_THREAD)
-    target_link_libraries(dekko qmfclient5 qmfmessageserver5 network msgserver)
+    target_link_libraries(dekko qmfclient5 qmfmessageserver5 network msgserver dekko-plugins)
 else()
-    target_link_libraries(dekko qmfclient5 qmfmessageserver5 network)
+    target_link_libraries(dekko qmfclient5 qmfmessageserver5 network dekko-plugins)
 endif()
 
 install(TARGETS dekko DESTINATION ${BIN_DIR})

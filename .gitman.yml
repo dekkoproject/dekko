@@ -48,3 +48,7 @@ sources:
   repo: http://code.dekkoproject.org/dekko-dev/maz-db.git
   rev: master
   link: plugins/maz-db
+- name: addressbook
+  repo: http://code.dekkoproject.org/dekko-dev/addressbook.git
+  rev: master
+  link: plugins/zaddressbook

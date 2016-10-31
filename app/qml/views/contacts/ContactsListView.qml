@@ -4,9 +4,7 @@ import Ubuntu.Components.ListItems 1.3 as ListItems
 import Dekko.Contacts 1.0
 import "../components"
 import "../../constants"
-import "../../actions/contacts"
 import "../../actions/views"
-import "../../stores/contacts"
 
 Item {
 
