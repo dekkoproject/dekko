@@ -137,7 +137,7 @@ add_subdirectory(${CMAKE_BINARY_DIR}/maz-db-src
     ${CMAKE_BINARY_DIR}/maz-db-build)
 
 
-set(MAZDB_SRCS ${maz-db_SOURCE_DIR} ${maz-db_BINARY_DIR})
+set(MAZDB_SRCS ${maz-db_SOURCE_DIR}/src ${maz-db_BINARY_DIR})
 
 #####################################################
 # Fetch our qt-messaginging-framework based library #
