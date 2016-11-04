@@ -21,9 +21,10 @@ find_package(Qt5Gui 5.4 REQUIRED)
 include_directories(
     ${CMAKE_CURRENT_BINARY_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}
-    ${CMAKE_SOURCE_DIR}/qmf/libraries/qmfclient
-    ${CMAKE_SOURCE_DIR}/qmf/libraries/qmfclient/support
-    ${CMAKE_SOURCE_DIR}/qmf/libraries/qmfmessageserver
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${QMFCLIENT_INCLUDES}
+    ${QMFCLIENT_SUPPORT_INCLUDES}
+    ${QMFSERVER_INCLUDES}
 )
 message(STATUS "CMAKE SOURCE DIR: ${CMAKE_SOURCE_DIR}")
 

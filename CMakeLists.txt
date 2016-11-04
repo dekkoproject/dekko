@@ -4,70 +4,34 @@ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 set(UBUNTU_PROJECT_TYPE "ClickApp" CACHE INTERNAL "Let Qtc know we're a click app")
 set(UBUNTU_MANIFEST_PATH "click/dekko.json" CACHE INTERNAL "Tells QtCreator location and name of the manifest file")
 
-cmake_minimum_required(VERSION 2.8.9)
-
-cmake_policy(SET CMP0028 OLD)
-if(POLICY CMP0043)
-    cmake_policy(SET CMP0043 OLD)
-endif()
+cmake_minimum_required(VERSION 3.0)
 
 include(GNUInstallDirs)
 
 include(DekkoConfigOption)
-dekko_option(CLICK_MODE "Installs to a contained location. From which a click package can be created" OFF)
-dekko_option(SNAP_MODE "Configures libs and Installs to locations suitable for snaps" OFF)
-dekko_option(UNITY8 "Adjusts client/server to work under confinement" OFF)
-dekko_option(SERVER_AS_THREAD "Run the message server as a new thread instead of a QProcess" OFF)
-dekko_option(WITH_TESTS "Build tests" OFF)
-dekko_option(ENABLE_LOGGING "Enables logging" ON)
-dekko_option(ENABLE_QML_DEBUG "Enables qml debugging" OFF)
-dekko_option(UNCONFINED "Run dekko unconfined" OFF)
-dekko_option(UPDATE_TRANSLATIONS "Updates Dekko's pot file during build" OFF)
-dekko_option(USE_ONLINE_ACCOUNTS "EXPERIMENTAL: Switches Dekko's account store to use Ubuntu online accounts" OFF)
-dekko_option(ENABLE_IMAP_SUPPORT "Enables dekko's IMAP plugin support" ON)
-dekko_option(ENABLE_POP3_SUPPORT "EXPERIMENTAL: Enables dekko's POP3 plugin support" OFF)
-dekko_option(ENABLE_UBUNTU_CONNECTIVITY "Enable support for unity8 connectivity api" OFF)
+option(CLICK_MODE "Installs to a contained location. From which a click package can be created" ON)
+option(SNAP_MODE "Configures libs and Installs to locations suitable for snaps" OFF)
+option(UNITY8 "Adjusts client/server to work under confinement" OFF)
+option(SERVER_AS_THREAD "Run the message server as a new thread instead of a QProcess" OFF)
+option(WITH_TESTS "Build tests" OFF)
+option(ENABLE_LOGGING "Enables logging" ON)
+option(ENABLE_QML_DEBUG "Enables qml debugging" OFF)
+option(UNCONFINED "Run dekko unconfined" OFF)
+option(UPDATE_TRANSLATIONS "Updates Dekko's pot file during build" OFF)
+option(USE_ONLINE_ACCOUNTS "EXPERIMENTAL: Switches Dekko's account store to use Ubuntu online accounts" OFF)
+option(ENABLE_IMAP_SUPPORT "Enables dekko's IMAP plugin support" ON)
+option(ENABLE_POP3_SUPPORT "EXPERIMENTAL: Enables dekko's POP3 plugin support" OFF)
+option(ENABLE_UBUNTU_CONNECTIVITY "Enable support for unity8 connectivity api" OFF)
 
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+set(CMAKE_AUTOMOC True)
 
-# POSITION_INDEPENDENT_CODE is only available on cmake 2.8.9 or later
-# Add needed flags for supported compilers which simulate POSITION_INDEPENDENT_CODE property
-if(CMAKE_VERSION VERSION_LESS "2.8.9")
-    if(CMAKE_COMPILER_IS_GNUCXX OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
-    else()
-        message(FATAL_ERROR "Needs GNU or Clang C++ compiler or CMake 2.8.9 (or later)")
-    endif()
-else()
-    set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-endif()
-
-message(STATUS "CMAKE LIB ARCH IS ${CMAKE_LIBRARY_ARCHITECTURE}")
-
-# First check the compiler is up to the task
-include(FindCXXFeatures)
-if(NOT CXXFeatures_auto_FOUND)
-    message(SEND_ERROR "Your compiler doesn't support C++11's auto")
-endif()
-if(NOT CXXFeatures_static_assert_FOUND)
-    message(SEND_ERROR "Your compiler doesn't support C++11's static_assert")
-endif()
-if(NOT CXXFeatures_alignof_FOUND)
-    if(NOT CMAKE_COMPILER_IS_GNUCXX AND NOT MSVC)
-        message(SEND_ERROR "Your compiler doesn't support C++11's alignof and it also isn't gcc or MSVC. Either would work.")
-    endif()
-endif()
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CXX11_COMPILER_FLAGS}")
-
-if (CMAKE_BUILD_TYPE MATCHES Debug)
-    set(CMAKE_CXX_FLAGS "-O0 -g -Wall -Wsign-compare ${CMAKE_CXX_FLAGS}")
-else()
-    set(CMAKE_CXX_FLAGS "-O2 -Wall -Wsign-compare ${CMAKE_CXX_FLAGS} -s")
-endif()
-
-message(STATUS "CXXFLAGS ARE ${CMAKE_CXX_FLAGS}")
 
 if(NOT ZLIB_FOUND)
-    dekko_find_package(ZLIB "" "" "" "" WITH_ZLIB)
+    find_package(ZLIB)
 endif()
 
 # If QMF_PLUGINS env var isn't set let's set the fallback directory
@@ -98,25 +62,24 @@ endif()
 include(FindPkgConfig)
 
 if(USE_ONLINE_ACCOUNTS)
-pkg_search_module(ACCOUNTS_QT REQUIRED accounts-qt5)
-if(NOT ACCOUNTS_QT_FOUND)
-    MESSAGE(FATAL_ERROR "Could no find accounts-qt")
-else()
-    MESSAGE(STATUS "accounts-qt found: include dirs = ${ACCOUNTS_QT_INCLUDE_DIRS}")
-endif()
-INCLUDE_DIRECTORIES(${ACCOUNTS_QT_INCLUDE_DIRS})
-LINK_DIRECTORIES(${ACCOUNTS_QT_INCLUDE_DIRS})
-pkg_search_module(SIGNON_QT REQUIRED libsignon-qt5)
-if(NOT SIGNON_QT_FOUND)
-    MESSAGE(FATAL_ERROR "Could not find signon-qt5, have you got libaccounts-qt5-dev installed??")
-else()
-    MESSAGE(STATUS "signon-qt5 found: include dirs = ${SIGNON_QT_INCLUDE_DIRS}")
-endif()
-include_directories(${SIGNON_QT_INCLUDE_DIRS})
-link_directories(${SIGNON_QT_INCLUDE_DIRS})
+    pkg_search_module(ACCOUNTS_QT REQUIRED accounts-qt5)
+    if(NOT ACCOUNTS_QT_FOUND)
+        message(FATAL_ERROR "Could no find accounts-qt")
+    else()
+        message(STATUS "accounts-qt found: include dirs = ${ACCOUNTS_QT_INCLUDE_DIRS}")
+    endif()
+    include_directories(${ACCOUNTS_QT_INCLUDE_DIRS})
+    link_directories(${ACCOUNTS_QT_INCLUDE_DIRS})
+    pkg_search_module(SIGNON_QT REQUIRED libsignon-qt5)
+    if(NOT SIGNON_QT_FOUND)
+        message(FATAL_ERROR "Could not find signon-qt5, have you got libaccounts-qt5-dev installed??")
+    else()
+        message(STATUS "signon-qt5 found: include dirs = ${SIGNON_QT_INCLUDE_DIRS}")
+    endif()
+    include_directories(${SIGNON_QT_INCLUDE_DIRS})
+    link_directories(${SIGNON_QT_INCLUDE_DIRS})
 endif()
 
-set(CMAKE_AUTOMOC True)
 
 set(ACCOUNT_ICON_DIR ${CMAKE_INSTALL_DATADIR}/icons/hicolor/32x32/apps)
 set(ACCOUNT_PROVIDER_DIR ${CMAKE_INSTALL_DATADIR}/accounts/providers)
@@ -153,20 +116,159 @@ if(SNAP_MODE)
     set(QMF_LIB_DIR ${CMAKE_INSTALL_LIBDIR})
 endif(SNAP_MODE)
 
+include(Upstream)
+##################################################
+# Fetch MazDB which is our leveldb based library #
+##################################################
+set(MAZ_DB_ARGS
+    -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
+    -DLIB_DIR:STRING=${LIB_DIR}
+    -DQT_IMPORTS_DIR:STRING=${QT_IMPORTS_DIR}
+)
+
+fetch_upstream(
+    PROJ maz-db
+    GIT_REPOSITORY http://code.dekkoproject.org/dekko-dev/maz-db.git
+    GIT_TAG master
+    CMAKE_ARGS ${MAZ_DB_ARGS}
+)
+
+add_subdirectory(${CMAKE_BINARY_DIR}/maz-db-src
+    ${CMAKE_BINARY_DIR}/maz-db-build)
+
+
+set(MAZDB_SRCS ${maz-db_SOURCE_DIR} ${maz-db_BINARY_DIR})
+
+#####################################################
+# Fetch our qt-messaginging-framework based library #
+#####################################################
+set(QMF_ARGS
+    -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
+    -DQMF_LIB_DIR:STRING=${QMF_LIB_DIR}
+    -DENABLE_LOGGING:BOOL=${ENABLE_LOGGING}
+    -DUSE_ONLINE_ACCOUNTS:BOOL=${USE_ONLINE_ACCOUNTS}
+    -DUNITY8:BOOL=${UNITY8}
+    -DSNAP_MODE:BOOL=${SNAP_MODE}
+    -DCLICK_MODE:BOOL=${CLICK_MODE}
+    -DENABLE_UBUNTU_CONNECTIVITY:BOOL=${ENABLE_UBUNTU_CONNECTIVITY}
+)
+
+fetch_upstream(
+    PROJ qmf
+    GIT_REPOSITORY http://code.dekkoproject.org/dekko-dev/messagingframework.git
+    GIT_TAG master
+    CMAKE_ARGS ${QMF_ARGS}
+)
+
+add_subdirectory(${CMAKE_BINARY_DIR}/qmf-src
+    ${CMAKE_BINARY_DIR}/qmf-build)
+
+set(QMFCLIENT_INCLUDES ${qmf_SOURCE_DIR}/libraries/qmfclient)
+set(QMFCLIENT_SUPPORT_INCLUDES ${qmf_SOURCE_DIR}/libraries/qmfclient/support)
+set(QMFSERVER_INCLUDES ${qmf_SOURCE_DIR}/libraries/qmfmessageserver)
+
+#######################################
+# Fetch QuickFlux qml event framework #
+#######################################
+set(QUICK_FLUX_ARGS
+    -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
+    -DQT_IMPORTS_DIR:STRING=${QT_IMPORTS_DIR}
+)
+
+fetch_upstream(
+    PROJ quick-flux
+    GIT_REPOSITORY http://code.dekkoproject.org/dekko-dev/quick-flux.git
+    GIT_TAG master
+    CMAKE_ARGS ${QUICK_FLUX_ARGS}
+)
+
+add_subdirectory(${CMAKE_BINARY_DIR}/quick-flux-src
+    ${CMAKE_BINARY_DIR}/quick-flux-build)
+
+###############################
+# Fetch the SuperMacros       #
+###############################
+fetch_upstream(
+    PROJ super-macros
+    GIT_REPOSITORY http://code.dekkoproject.org/dekko-dev/super-macros.git
+    GIT_TAG master
+)
+
 # Make available to all sub dirs
-set(SUPER_MACRO_INCLUDES ${CMAKE_CURRENT_SOURCE_DIR}/lib/3rdParty/SuperMacros)
-set(ASYNC_TASKS_INCLUDES ${CMAKE_CURRENT_SOURCE_DIR}/lib/3rdParty/async-tasks)
+set(SUPER_MACRO_INCLUDES ${super-macros_SOURCE_DIR})
 
-# Required by plugins/mail to point to our top level qmf directory
-set(QMFCLIENT_INCLUDES ${CMAKE_CURRENT_SOURCE_DIR}/qmf/libraries/qmfclient)
-set(QMFCLIENT_SUPPORT_INCLUDES ${CMAKE_CURRENT_SOURCE_DIR}/qmf/libraries/qmfclient/support)
-set(QMFSERVER_INCLUDES ${CMAKE_CURRENT_SOURCE_DIR}/qmf/libraries/qmfmessageserver)
-set(MAZDB_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/plugins/maz-db/src)
+###############################
+# Fetch our Notify qml plugin #
+###############################
+set(NOTIFY_ARGS
+    -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
+    -DQT_IMPORTS_DIR:STRING=${QT_IMPORTS_DIR}
+)
 
+fetch_upstream(
+    PROJ notify
+    GIT_REPOSITORY http://code.dekkoproject.org/dekko-dev/notify.git
+    GIT_TAG master
+    CMAKE_ARGS ${NOTIFY_ARGS}
+)
+
+add_subdirectory(${CMAKE_BINARY_DIR}/notify-src
+    ${CMAKE_BINARY_DIR}/notify-build)
+
+##########################################################
+# Fetch Controls plugin - StackView borrowed from QQC1.2 #
+##########################################################
+set(CONTROLS_ARGS
+    -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
+    -DQT_IMPORTS_DIR:STRING=${QT_IMPORTS_DIR}
+)
+
+fetch_upstream(
+    PROJ controls
+    GIT_REPOSITORY http://code.dekkoproject.org/dekko-dev/controls.git
+    GIT_TAG master
+    CMAKE_ARGS ${CONTROLS_ARGS}
+)
+
+add_subdirectory(${CMAKE_BINARY_DIR}/controls-src
+    ${CMAKE_BINARY_DIR}/controls-build)
+
+######################################
+# Fetch Plugger the plugin framework #
+######################################
+set(PLUGGER_ARGS
+    -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
+    -DLIB_DIR:STRING=${LIB_DIR}
+    -DQT_IMPORTS_DIR:STRING=${QT_IMPORTS_DIR}
+)
+
+fetch_upstream(
+    PROJ plugger
+    GIT_REPOSITORY http://code.dekkoproject.org/dekko-dev/plugger.git
+    GIT_TAG master
+    CMAKE_ARGS ${PLUGGER_ARGS}
+)
+
+add_subdirectory(${CMAKE_BINARY_DIR}/plugger-src
+    ${CMAKE_BINARY_DIR}/plugger-build)
+
+set(PLUGGER_INCLUDES ${plugger_SOURCE_DIR}/src)
+
+###########################
+# Setup libs and includes #
+###########################
+add_subdirectory(libs)
+set(ACCOUNTS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/libs/accounts)
+set(MAIL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/libs/mail)
+set(SETTINGS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/libs/settings)
+set(NETWORK_DIR ${CMAKE_CURRENT_SOURCE_DIR}/libs/network)
+set(SHARED_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/libs/shared)
+
+#######################
+# Setup plugins       #
+#######################
 include(SubdirsHelper)
-add_subdirectory(qmf)
 add_all_subdirectories(${CMAKE_CURRENT_SOURCE_DIR}/plugins)
-set(PLUGGER_INCLUDES ${CMAKE_CURRENT_SOURCE_DIR}/plugins/plugger/src)
 add_subdirectory(app)
 add_subdirectory(click)
 add_subdirectory(server)

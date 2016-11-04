@@ -17,18 +17,6 @@ Item {
 
     signal contactClicked(var contact);
 
-    SortedContactsModel {
-        id: sortedContacts
-        emailOnly: false
-        srcModel: addressBook ? addressBook.contacts : ContactsStore.combinedModel
-    }
-
-    SearchFilter {
-        id: searchModel
-        srcModel: sortedContacts
-        filterString: tf.text
-    }
-
     Item {
         id: sf
         anchors {

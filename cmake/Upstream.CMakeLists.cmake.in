@@ -1,0 +1,14 @@
+cmake_minimum_required(VERSION 3.0)
+
+project(${UPSTREAM_PROJ}-repo NONE)
+
+include(ExternalProject)
+ExternalProject_Add(${UPSTREAM_PROJ}-download
+                    ${UPSTREAM_UNPARSED_ARGUMENTS}
+                    SOURCE_DIR          "${UPSTREAM_SOURCE_DIR}"
+                    BINARY_DIR          "${UPSTREAM_BINARY_DIR}"
+                    CONFIGURE_COMMAND   ""
+                    BUILD_COMMAND       ""
+                    INSTALL_COMMAND     ""
+                    TEST_COMMAND        ""
+)

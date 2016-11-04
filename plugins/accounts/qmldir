@@ -1,0 +1,2 @@
+module Dekko.Accounts
+plugin accountsplugin

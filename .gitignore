@@ -1,9 +1,4 @@
 CMakeLists.txt.user
-./__build
-.gitman
-cmake
-qmf
-plugins
-libs
-lib
-.upstream
+build
+__build
+.build
