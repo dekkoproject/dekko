@@ -6,6 +6,8 @@ set(UBUNTU_MANIFEST_PATH "click/dekko.json" CACHE INTERNAL "Tells QtCreator loca
 
 cmake_minimum_required(VERSION 3.0)
 
+cmake_policy(SET CMP0058 OLD)
+
 include(GNUInstallDirs)
 
 include(DekkoConfigOption)
