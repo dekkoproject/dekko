@@ -1,0 +1,5 @@
+{
+    "id": "default-addressbook-plugin",
+    "register" : "Dekko::AddressBook::Provider",
+    "component" : "DefaultPlugin.qml"
+}
