@@ -1,0 +1,2 @@
+module MazDB
+plugin mazdb-plugin

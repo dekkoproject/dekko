@@ -1,0 +1,7 @@
+test:
+  stage: test
+  script:
+    - gitman install
+    - cmake -G Ninja -DENABLE_TESTS=On
+    - ninja -j3
+    - xvfb-run -s "-screen 0 1024x768x24" $PWD/tests/mazdb-tests
