@@ -1,0 +1,5 @@
+{
+    "id": "listener-plugin",
+    "register" : "Dekko::Listener",
+    "component" : "Listener.qml"
+}

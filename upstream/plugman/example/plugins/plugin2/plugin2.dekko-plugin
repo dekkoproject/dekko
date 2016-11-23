@@ -1,0 +1,5 @@
+{
+    "id": "my-label-plugin",
+    "register" : "View::Item",
+    "component" : "MyLabel.qml"
+}
