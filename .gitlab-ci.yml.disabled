@@ -1,66 +1,49 @@
-dekko-master:amd64:
-  image: dpniel/dekko-docker-sdk:latest
-  tags:
-    - scaleway
-  script:
-    - if [ ! -d "__build" ]; then mkdir __build; fi
-    - cd __build
-    - cmake -DCMAKE_BUILD_TYPE=Release ../
-    - make -j2
-    - make DESTDIR=./test install
-  cache:
-    paths:
-      - __build
-  only:
-    - master
-  artifacts:
-    paths:
-      - __build/test
-      
-dekko-master:armhf:
+wiki:
+  stage: deploy
   tags:
     - armhf
-    - pi
-    - click
-  script:
-    - if [ ! -d "__build" ]; then mkdir __build; fi
-    - cd __build
-    - cmake -DCMAKE_BUILD_TYPE=Release ../
-    - make -j2
-    - make DESTDIR=./test install
-  cache:
-    paths:
-      - __build
-  only:
-    - master
-  artifacts:
-    paths:
-      - __build/test
-      
-upload-wiki:
-  tags:
-    - armhf
-    - pi
-    - click
+    - no-build
+    - trusty
   script:
     - sshpass -e scp -oStrictHostKeyChecking=no -vr $PWD/docs/dev dekkoproject.org@ssh.dekkoproject.org:/www
   only:
     - master
-      
-dekko-feature-branch:
-  image: dpniel/dekko-docker-sdk:latest
+
+doxygen:
+  stage: deploy
   tags:
-    - scaleway
+    - armhf
+    - no-build
+    - trusty
   script:
-    - if [ ! -d "build" ]; then mkdir build; fi
-    - cd build
-    - cmake -DCMAKE_BUILD_TYPE=Debug ../
-    - make -j4
-    - make DESTDIR=./test install
+    - doxygen Doxyfile
+    - mv ../doxygen-out/html ../doxygen-out/docs
+    - sshpass -e scp -oStrictHostKeyChecking=no -vr $PWD/../doxygen-out/docs dekkoproject.org@ssh.dekkoproject.org:/www
+    - rm -rf ../doxygen-out
   only:
-    - branches@dpniel/Dekko
-  except:
-    - master@dpniel/Dekko
+    - master
+      
+click:amd64:
+  stage: build
+  tags:
+    - amd64
+    - xenial
+    - sdk-ready
+  script:
+    - if [ ! -d "__build" ]; then mkdir __build; fi
+    - cd __build
+    - cmake -G Ninja -DUNITY8=On -DCLICK_MODE=On -DCMAKE_BUILD_TYPE=Release ../
+    - ninja -j3
+    - export DESTDIR=./test
+    - ninja -j3 install
+    - cd ./test
+    - click build .
+  cache:
+    paths:
+      - __build
+  only:
+    - master
   artifacts:
     paths:
-      - build/test
+      - __build/test
+    expire_in: 7d
