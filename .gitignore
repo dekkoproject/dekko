@@ -1,0 +1,8 @@
+.gitman
+cmake
+build
+.build
+__build
+CMakeLists.txt.user
+libs
+plugman.qbs.user
