@@ -1,0 +1,6 @@
+location: .gitman
+sources:
+- name: cmake
+  repo: http://code.dekkoproject.org/dekko-dev/cmake-modules.git
+  rev: master
+  link: cmake
