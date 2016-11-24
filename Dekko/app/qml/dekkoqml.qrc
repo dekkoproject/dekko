@@ -1,0 +1,22 @@
+<RCC>
+    <qresource prefix="/qml">
+        <file>main.qml</file>
+        <file>views/MessageListView.qml</file>
+        <file>views/ContactFilterView.qml</file>
+        <file>views/NavMenuPage.qml</file>
+        <file>views/NothingSelectedPage.qml</file>
+        <file>views/FolderListView.qml</file>
+        <file>views/messageview/MessageHeader.qml</file>
+        <file>views/messageview/DetailItem.qml</file>
+        <file>views/messageview/DetailList.qml</file>
+        <file>views/messageview/RecipientInfo.qml</file>
+        <file>views/messageview/RecipientFlow.qml</file>
+        <file>views/messageview/CleanMessagePage.qml</file>
+        <file>views/messageview/DefaultMessagePage.qml</file>
+        <file>views/messageview/DefaultMessagePageHeader.qml</file>
+        <file>Dekko.qml</file>
+        <file>views/MailboxPickerPage.qml</file>
+        <file>views/LicensesPage.qml</file>
+        <file>views/ContributorsPage.qml</file>
+    </qresource>
+</RCC>

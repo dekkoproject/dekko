@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<application>
+    <services>
+        <service id="dekko.dekkoproject_dekko">
+            <description>Sync your e-mail with dekko</description>
+        </service>
+    </services>
+</application>

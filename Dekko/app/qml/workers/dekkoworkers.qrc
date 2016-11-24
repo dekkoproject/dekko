@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/qml/workers">
+        <file>SettingsWorker.qml</file>
+        <file>Workers.qml</file>
+        <file>UriWorker.qml</file>
+        <file>ContentWorker.qml</file>
+        <file>DialogWorker.qml</file>
+        <file>ErrorsWorker.qml</file>
+        <file>ToastWorker.qml</file>
+        <file>MailWorker.qml</file>
+        <file>MailboxWorker.qml</file>
+        <file>ComposerWorker.qml</file>
+        <file>AccountsWorker.qml</file>
+    </qresource>
+</RCC>

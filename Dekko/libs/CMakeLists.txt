@@ -1,0 +1,13 @@
+set(ACCOUNTS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/accounts)
+set(MAIL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/mail)
+set(SETTINGS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/settings)
+set(NETWORK_DIR ${CMAKE_CURRENT_SOURCE_DIR}/network)
+set(SHARED_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/shared)
+
+add_subdirectory(shared)
+add_subdirectory(accounts)
+add_subdirectory(mail)
+add_subdirectory(settings)
+add_subdirectory(network)
+add_subdirectory(addressbook)
+add_subdirectory(autoconfig)

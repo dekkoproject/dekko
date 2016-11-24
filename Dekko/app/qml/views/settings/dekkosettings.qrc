@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/qml/views/settings">
+        <file>DisplaySettings.qml</file>
+        <file>DisplaySettingsPage.qml</file>
+        <file>SettingsPopup.qml</file>
+        <file>DisplaySettingsPopup.qml</file>
+        <file>PrivacySettings.qml</file>
+        <file>PrivacySettingsPage.qml</file>
+        <file>PrivacySettingsPopup.qml</file>
+        <file>ManageAccountsPage.qml</file>
+        <file>AccountSettingsList.qml</file>
+        <file>SettingsGroupPage.qml</file>
+        <file>DetailsGroup.qml</file>
+        <file>IncomingServerGroup.qml</file>
+        <file>OutgoingServerGroup.qml</file>
+        <file>CopyFoldersGroup.qml</file>
+    </qresource>
+</RCC>

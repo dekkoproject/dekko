@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/qml/views/stages">
+        <file>AddressBookStage.qml</file>
+        <file>SettingsStage.qml</file>
+        <file>StageArea.qml</file>
+        <file>StageStack.qml</file>
+        <file>BaseStage.qml</file>
+        <file>MailStage.qml</file>
+    </qresource>
+</RCC>

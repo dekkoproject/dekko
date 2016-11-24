@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/qml/views/toasts">
+        <file>ToastQueue.qml</file>
+        <file>SimpleToast.qml</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/qml/views/composer">
+        <file>ComposePanelPopup.qml</file>
+        <file>MessageComposer.qml</file>
+        <file>RecipientField.qml</file>
+        <file>RecipientInput.qml</file>
+        <file>BottomEdgeComposer.qml</file>
+        <file>RecipientInputContextMenu.qml</file>
+        <file>SubjectField.qml</file>
+        <file>SenderIdentityField.qml</file>
+        <file>MessageField.qml</file>
+        <file>ComposeSidePanel.qml</file>
+        <file>AttachmentList.qml</file>
+    </qresource>
+</RCC>

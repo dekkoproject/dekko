@@ -1,0 +1,2 @@
+singleton WizardKeys 1.0 WizardKeys.qml
+singleton WizardActions 1.0 WizardActions.qml

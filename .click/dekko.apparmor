@@ -1,0 +1,14 @@
+{
+    "policy_groups": [
+        "networking",
+        "content_exchange",
+        "content_exchange_source",
+        "webview",
+        "push-notification-client",
+        "accounts",
+        "usermetrics",
+        "audio",
+        "connectivity"
+    ],
+    "policy_version": 1.3
+}

@@ -1,0 +1,36 @@
+<RCC>
+    <qresource prefix="/qml/actions">
+        <file>accounts/AccountActions.qml</file>
+        <file>accounts/AccountKeys.qml</file>
+        <file>accounts/qmldir</file>
+        <file>contacts/ContactActions.qml</file>
+        <file>contacts/ContactKeys.qml</file>
+        <file>contacts/qmldir</file>
+        <file>logging/Log.qml</file>
+        <file>logging/LogKeys.qml</file>
+        <file>logging/qmldir</file>
+        <file>messaging/MessageActions.qml</file>
+        <file>messaging/MessageKeys.qml</file>
+        <file>messaging/qmldir</file>
+        <file>popups/PopupActions.qml</file>
+        <file>popups/PopupKeys.qml</file>
+        <file>popups/qmldir</file>
+        <file>settings/qmldir</file>
+        <file>settings/SettingsActions.qml</file>
+        <file>settings/SettingsKeys.qml</file>
+        <file>views/qmldir</file>
+        <file>views/ViewActions.qml</file>
+        <file>views/ViewKeys.qml</file>
+        <file>wizard/qmldir</file>
+        <file>wizard/WizardActions.qml</file>
+        <file>wizard/WizardKeys.qml</file>
+        <file>composer/ComposerActions.qml</file>
+        <file>composer/ComposerKeys.qml</file>
+        <file>composer/qmldir</file>
+        <file>content/ContentActions.qml</file>
+        <file>content/ContentKeys.qml</file>
+        <file>content/qmldir</file>
+        <file>messaging/MailboxActions.qml</file>
+        <file>messaging/MailboxKeys.qml</file>
+    </qresource>
+</RCC>
