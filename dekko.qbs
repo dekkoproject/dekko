@@ -39,6 +39,7 @@ Project {
 
        docs: https://quickflux.dekkoproject.org
        upstream: https://github.com/benlau/quickflux
+       fork: code.dekkoproject.org/dekko-dev/quick-flux
     */
     SubProject {
         filePath: "upstream/quick-flux/quickflux.qbs"
@@ -62,6 +63,13 @@ Project {
         filePath: "upstream/controls/controls.qbs"
         Properties {
             installDir: dekko.qmlDir
+        }
+    }
+
+    SubProject {
+        filePath: "upstream/notify/notify.qbs"
+        Properties {
+            qmlDir: dekko.qmlDir
         }
     }
 }
