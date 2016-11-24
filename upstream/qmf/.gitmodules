@@ -1,0 +1,3 @@
+[submodule "qt-messaging-framework"]
+	path = qt-messaging-framework
+	url = https://code.qt.io/qt-labs/messagingframework.git
