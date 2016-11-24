@@ -57,4 +57,11 @@ Project {
             qmlDir: dekko.qmlDir + "/PlugMan"
         }
     }
+
+    SubProject {
+        filePath: "upstream/controls/controls.qbs"
+        Properties {
+            installDir: dekko.qmlDir
+        }
+    }
 }
