@@ -1,8 +1,0 @@
-module Dekko.Contacts
-singleton ContactActions 1.0 ContactActions.qml
-singleton ContactKeys 1.0 ContactKeys.qml
-singleton ContactsStore 1.0 ContactsStore.qml
-ContactsWorker 1.0 ContactsWorker.qml
-CollectionListModel 1.0 CollectionListModel.qml
-AddressBookRegistry 1.0 AddressBookRegistry.qml
-plugin addressbook-plugin

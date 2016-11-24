@@ -1,7 +1,0 @@
-{
-    "policy_groups": [
-        "push-notification-client"
-    ],
-    "template": "ubuntu-push-helper",
-    "policy_version": 1.3
-}

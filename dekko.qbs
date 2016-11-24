@@ -72,7 +72,13 @@ Project {
             qmlDir: dekko.qmlDir
         }
     }
+
     SubProject {
         filePath: "upstream/super-macros/super-macros.qbs"
+    }
+
+    SubProject {
+        filePath: "Dekko/Dekko.qbs"
+        inheritProperties: true
     }
 }

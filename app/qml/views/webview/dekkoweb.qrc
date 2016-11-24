@@ -1,7 +1,0 @@
-<RCC>
-    <qresource prefix="/qml/views/webview">
-        <file>ContentBlockedNotice.qml</file>
-        <file>DekkoWebContext.qml</file>
-        <file>DekkoWebView.qml</file>
-    </qresource>
-</RCC>
