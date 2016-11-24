@@ -1,0 +1,56 @@
+project(qmf)
+cmake_minimum_required(VERSION 3.0)
+set(CMAKE_GENERATOR "Unix Makefiles")
+
+
+option(ENABLE_LOGGING "Enable additional logging" OFF)
+mark_as_advanced(ENABLE_LOGGING)
+option(USE_ONLINE_ACCOUNTS "Use UOA fr the accounts backend" OFF)
+mark_as_advanced(USE_ONLINE_ACCOUNTS)
+option(UNITY8 "Enable Unity8 support" OFF)
+mark_as_advanced(UNITY8)
+option(SNAP_MODE "Enable snap support" OFF)
+mark_as_advanced(SNAP_MODE)
+option(CLICK_MODE "Enable click support" OFF)
+mark_as_advanced(CLICK_MODE)
+option(ENABLE_UBUNTU_CONNECTIVITY "Use connectivity api" OFF)
+mark_as_advanced(ENABLE_UBUNTU_CONNECTIVITY)
+
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+set(CMAKE_AUTOMOC True)
+
+if (CMAKE_BUILD_TYPE MATCHES Debug)
+    set(CMAKE_CXX_FLAGS "-O0 -g -Wall -Wsign-compare ${CMAKE_CXX_FLAGS}")
+else()
+    set(CMAKE_CXX_FLAGS "-O2 -Wall -Wsign-compare ${CMAKE_CXX_FLAGS} -s")
+endif()
+
+if(NOT ZLIB_FOUND)
+    find_package(ZLIB)
+endif()
+
+message(STATUS "CXXFLAGS ARE ${CMAKE_CXX_FLAGS}")
+
+include(GNUInstallDirs)
+
+if(DEFINED QMF_LIB_DIR)
+    message(STATUS "QMF_LIB_DIR already set. Messaging framework will be installed to ${QMF_LIB_DIR}")
+else()
+    if(EXISTS "/etc/debian_version")
+        set(QMF_LIB_DIR ${CMAKE_INSTALL_LIBDIR})
+    else()
+        set(QMF_LIB_DIR ${CMAKE_INSTALL_LIBDIR}/${CMAKE_LIBRARY_ARCHITECTURE})
+    endif()
+    set(QMF_PLUGINS_DIR ${QMF_LIB_DIR}/qmf/plugins5)
+endif()
+
+set(QMFCLIENT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/libraries/qmfclient)
+set(QMFSERVER_DIR ${CMAKE_CURRENT_SOURCE_DIR}/libraries/qmfmessageserver)
+
+add_subdirectory(libraries)
+add_subdirectory(plugins)
+#add_subdirectory(tools)

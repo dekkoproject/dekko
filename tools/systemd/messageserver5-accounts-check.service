@@ -1,0 +1,12 @@
+[Unit]
+Description=check accounts for messageserver5
+After=oneshot-user.service
+After=jolla-settings-accounts-update.service
+Before=messageserver5.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/qmf-accountscheck
+
+[Install]
+WantedBy=user-session.target
