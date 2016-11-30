@@ -1,7 +1,0 @@
-<RCC>
-    <qresource prefix="/qml/views/accounts">
-        <file>AccountsListView.qml</file>
-        <file>AccountDelegate.qml</file>
-        <file>AccountsListPage.qml</file>
-    </qresource>
-</RCC>

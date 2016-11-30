@@ -1,0 +1,2 @@
+module Dekko.Mail.Accounts
+plugin accounts-plugin

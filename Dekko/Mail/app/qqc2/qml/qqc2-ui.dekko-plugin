@@ -1,0 +1,5 @@
+{
+    "id": "qqc2-mail-ui",
+    "register" : "Dekko::Mail",
+    "component" : "MainUI.qml"
+}

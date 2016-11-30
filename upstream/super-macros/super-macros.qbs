@@ -15,6 +15,7 @@ Project {
         }
         
         Export {
+            Depends { name: "cpp" }
             cpp.includePaths: ["./"]
         }
     }

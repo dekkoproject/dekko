@@ -1,0 +1,10 @@
+module Dekko.Mail.Workers
+
+AccountsWorker 1.0 AccountsWorker.qml
+ComposerWorker 1.0 ComposerWorker.qml
+ErrorsWorker 1.0 ErrorsWorker.qml
+MailboxWorker 1.0 MailboxWorker.qml
+MailWorker 1.0 MailWorker.qml
+Workers 1.0 Workers.qml
+SettingsWorker 1.0 SettingsWorker.qml
+UriWorker 1.0 UriWorker.qml

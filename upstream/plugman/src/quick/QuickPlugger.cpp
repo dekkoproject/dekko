@@ -9,8 +9,8 @@
 
 void QuickPlugger::registerTypes(const char *uri)
 {
-    Q_ASSERT(uri == QLatin1String("Plugger"));
-    // @uri Plugger
+    Q_ASSERT(uri == QLatin1String("PlugMan"));
+    // @uri PlugMan
     qmlRegisterType<ActionRegistry>(uri, 1, 0, "ActionRegistry");
     qmlRegisterType<ItemRegistry>(uri, 1, 0, "ItemRegistry");
     qmlRegisterType<ListenerRegistry>(uri, 1, 0, "ListenerRegistry");

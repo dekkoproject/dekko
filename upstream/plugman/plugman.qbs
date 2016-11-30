@@ -21,6 +21,8 @@ Project {
         cpp.optimization: qbs.buildVariant === "debug" ? "none" : "fast"
         cpp.debugInformation: qbs.buildVariant === "debug"
         cpp.includePaths: ["./src"]
+        cpp.cxxLanguageVersion: "c++11";
+        cpp.cxxStandardLibrary: "libstdc++";
 
         Export {
             Depends { name: "cpp" }
@@ -28,7 +30,6 @@ Project {
             Depends { name: "Qt.quick" }
             cpp.includePaths: ["./src"]
         }
-
 
         Group {
             name: "C++ Headers"
@@ -78,6 +79,8 @@ Project {
         cpp.optimization: qbs.buildVariant === "debug" ? "none" : "fast"
         cpp.debugInformation: qbs.buildVariant === "debug"
         cpp.includePaths: ["./src"]
+        cpp.cxxLanguageVersion: "c++11";
+        cpp.cxxStandardLibrary: "libstdc++";
 
 
         Group {
@@ -115,6 +118,8 @@ Project {
         Depends { name: "cpp" }
         Depends { name: "Qt.core" }
         Depends { name: "PlugMan" }
+        cpp.cxxLanguageVersion: "c++11";
+        cpp.cxxStandardLibrary: "libstdc++";
 
         files: [
             "example/NotifySendService.h",
@@ -150,6 +155,8 @@ Project {
         Depends { name: "Qt.qml" }
         Depends { name: "PlugMan" }
 
+        cpp.cxxLanguageVersion: "c++11";
+        cpp.cxxStandardLibrary: "libstdc++";
         Group {
             name: "Sources"
             files: [
