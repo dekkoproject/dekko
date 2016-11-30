@@ -188,6 +188,16 @@ Product {
     }
 
     Group {
+        name: "Resources"
+        prefix: "libraries/qmfclient/"
+        files: [
+            "qmf.qrc",
+            "qmf_qt.qrc"
+        ]
+
+    }
+
+    Group {
         name: "Translations"
         prefix: "libraries/qmfclient/"
         files: [
