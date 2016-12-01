@@ -5,6 +5,7 @@
 #include <QPointer>
 #include <QQuickItem>
 #include <QQmlListProperty>
+#include "PluginIncubator.h"
 
 class ItemRegistry : public QObject
 {
@@ -14,6 +15,8 @@ class ItemRegistry : public QObject
     Q_PROPERTY(QQmlListProperty<QQuickItem> defaultItems READ defaultItems)
     Q_PROPERTY(LoadMode loadMode READ loadMode WRITE setLoadMode NOTIFY loadModeChanged)
     Q_PROPERTY(QString pluginId MEMBER m_pluginId)
+    // Should plugins be loaded asynchonously. Default items are always created synchronously
+    Q_PROPERTY(bool asynchronous READ asynchronous WRITE setAsynchronous NOTIFY asyncChanged)
     Q_ENUMS(LoadMode)
 
 public:
@@ -32,22 +35,29 @@ public:
     QQmlListProperty<QQuickItem> defaultItems();
 
     LoadMode loadMode() const;
+    bool asynchronous() const;
 
 signals:
     void targetChanged(QQuickItem *target);
     void locationChanged(QString location);
     void loadModeChanged(LoadMode loadMode);
 
+    void asyncChanged(bool asynchronous);
+
 public slots:
     void setTarget(QQuickItem *target);
     void setLocation(QString location);
     void setLoadMode(LoadMode loadMode);
+    void setAsynchronous(bool asynchronous);
 
 private slots:
     void loadIfPossible();
     void reparentItemToTarget(QQuickItem *item);
     void reparentItemsToTarget(QList<QQuickItem *> items);
     QQuickItem *createItemFromUrl(const QString &itemUrl);
+    void createItemAsync(const QString &itemUrl);
+    void asyncItemReady();
+    void handleIncubatorError();
 
 private:
     LoadMode m_loadMode;
@@ -55,6 +65,8 @@ private:
     QString m_location;
     QList<QQuickItem *> m_defaultItems;
     QString m_pluginId;
+    bool m_asynchronous;
+    IncubatorList m_incubators;
 };
 
 #endif // ITEMREGISTRY_H

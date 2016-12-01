@@ -17,6 +17,7 @@ Project {
         Depends { name: "cpp" }
         Depends { name: "Qt.core" }
         Depends { name: "Qt.quick" }
+        Depends { name: "Qt.qml" }
 
         cpp.optimization: qbs.buildVariant === "debug" ? "none" : "fast"
         cpp.debugInformation: qbs.buildVariant === "debug"
@@ -29,6 +30,8 @@ Project {
             Depends { name: "Qt.core" }
             Depends { name: "Qt.quick" }
             cpp.includePaths: ["./src"]
+            cpp.cxxLanguageVersion: "c++11";
+            cpp.cxxStandardLibrary: "libstdc++";
         }
 
         Group {
@@ -38,6 +41,7 @@ Project {
                 "ActionRegistry.h",
                 "ItemRegistry.h",
                 "ListenerRegistry.h",
+                "PluginIncubator.h",
                 "PluginInfo.h",
                 "PluginLoader.h",
                 "PluginRegistry.h",
@@ -52,10 +56,11 @@ Project {
                 "ActionRegistry.cpp",
                 "ItemRegistry.cpp",
                 "ListenerRegistry.cpp",
+                "PluginIncubator.cpp",
                 "PluginInfo.cpp",
                 "PluginLoader.cpp",
                 "PluginRegistry.cpp",
-                "ServiceRegistry.cpp"
+                "ServiceRegistry.cpp",
             ]
         }
 
@@ -154,6 +159,8 @@ Project {
         Depends { name: "Qt.quick" }
         Depends { name: "Qt.qml" }
         Depends { name: "PlugMan" }
+        cpp.cxxLanguageVersion: "c++11";
+        cpp.cxxStandardLibrary: "libstdc++";
 
         cpp.cxxLanguageVersion: "c++11";
         cpp.cxxStandardLibrary: "libstdc++";
