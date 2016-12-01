@@ -18,9 +18,8 @@
 import QtQuick 2.4
 import QtQml.StateMachine 1.0 as DSM
 import Dekko.Mail 1.0
-import "../../../actions/logging"
-import "../../../actions/wizard"
-import "../../../stores/accounts"
+import Dekko.Mail.API 1.0
+import Dekko.Mail.Stores.Accounts 1.0
 
 DSM.State {
     id: newAccountState
@@ -32,7 +31,7 @@ DSM.State {
         Log.logStatus("NewAccountState::onEntered", "State entered")
         if (d.shouldPush) {
             Log.logInfo("NewAccountState::onEntered", "Pushing NewAccountsUI")
-            WizardActions.wizardNavigateTo("qrc:/qml/views/setupwizard/components/NewAccountsUI.qml", {})
+            WizardActions.wizardNavigateTo(Qt.resolvedUrl("../components/NewAccountsUI.qml"), {})
         } else {
             // we've come back to this state so reset the NewAccount in the store
             Log.logInfo("NewAccountState::onEntered", "Resetting account as user navigated back")

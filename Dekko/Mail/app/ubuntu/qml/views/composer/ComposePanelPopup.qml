@@ -20,9 +20,8 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import Dekko.Components 1.0
 import QuickFlux 1.0
-import "../../actions/composer"
-import "../../actions/views"
-import "../../stores/composer"
+import Dekko.Mail.API 1.0
+import Dekko.Mail.Stores.Composer 1.0
 import "../components"
 import "../../constants"
 
@@ -143,7 +142,7 @@ PopupBase {
         }
     }
     AppListener {
-        enabled: dekko.viewState.isLargeFF
+        enabled: dekko.isLargeFF
         filter: ViewKeys.closeComposer
         onDispatched: {
             PopupUtils.close(base)

@@ -9,7 +9,7 @@ import "../../actions/views"
 DekkoPage {
     id: contactsListPage
     pageHeader.title: qsTr("Contact")
-    pageHeader.backAction:!dekko.viewState.isLargeFF ? bkAction : null
+    pageHeader.backAction:!dekko.isLargeFF ? bkAction : null
 
     property Contact contact
     property bool editModeEnabled: false

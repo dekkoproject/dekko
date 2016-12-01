@@ -41,7 +41,7 @@ DekkoPage {
             SettingsActions.pickFolderCancelled(pickerId)
         }
     }
-    extendHeader: !dekko.viewState.isSmallFF
+    extendHeader: !dekko.isSmallFF
 
     PageContent {
         MailboxPicker {

@@ -20,7 +20,8 @@ import QtGraphicalEffects 1.0
 import Ubuntu.Components 1.3
 import Dekko.Components 1.0
 import "../../components"
-import "../../../stores/accounts"
+import Dekko.Mail.API 1.0
+import Dekko.Mail.Stores.Accounts 1.0
 import "../../../constants"
 
 DekkoPage {

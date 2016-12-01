@@ -19,10 +19,8 @@ import QtQuick 2.4
 import QtQml.StateMachine 1.0 as DSM
 import Ubuntu.Components.Popups 1.3
 import QuickFlux 1.0
-import "../../../actions/logging"
-import "../../../actions/popups"
-import "../../../actions/wizard"
-import "../../../stores/accounts"
+import Dekko.Mail.API 1.0
+import Dekko.Mail.Stores.Accounts 1.0
 
 DSM.State {
     id: manualInputState
@@ -34,7 +32,7 @@ DSM.State {
         Log.logStatus("ManualInputState::onEntered", "Manual input state entered");
         if (stack.currentItem.objectName !== "manualInputUI") {
             Log.logStatus("NoAccountState::onEntered", "Pushing UserInputUI");
-            WizardActions.wizardNavigateTo("qrc:/qml/views/setupwizard/components/ManualInputUI.qml", {})
+            WizardActions.wizardNavigateTo(Qt.resolvedUrl("../components/ManualInputUI.qml"), {})
         }
     }
 

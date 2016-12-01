@@ -18,9 +18,7 @@
 import QtQuick 2.4
 import QuickFlux 1.0
 import Dekko.Mail 1.0
-import "../actions/logging"
-import "../actions/popups"
-import "../actions/views"
+import Dekko.Mail.API 1.0
 
 // Error manager is responsible for listening for and ordering display of error messages
 // from the Client and other dispatched error actions.

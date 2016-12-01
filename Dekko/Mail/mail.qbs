@@ -39,7 +39,9 @@ Project {
             qbs.installDir: project.qmlDir + "/Dekko/Mail/Stores"
             qbs.installSourceBase: "stores"
         }
-        readonly property stringList qmlImportPaths: [ qbs.installRoot + "/" + project.qmlDir + "/" ]
+        readonly property stringList qmlImportPaths: [
+            qbs.installRoot + "/" + project.qmlDir + "/"
+        ]
     }
 
     DynamicLibrary {

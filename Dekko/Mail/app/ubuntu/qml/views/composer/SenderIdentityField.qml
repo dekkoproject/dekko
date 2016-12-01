@@ -17,10 +17,10 @@
 */
 import QtQuick 2.4
 import Ubuntu.Components 1.3
-import Dekko.Accounts 1.0
+import Dekko.Mail.Accounts 1.0
 import Dekko.Components 1.0
-import "../../actions/composer"
-import "../../stores/composer"
+import Dekko.Mail.API 1.0
+import Dekko.Mail.Stores.Composer 1.0
 import "../../constants"
 import "../components"
 

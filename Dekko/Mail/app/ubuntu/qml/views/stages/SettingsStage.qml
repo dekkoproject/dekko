@@ -34,7 +34,7 @@ BaseStage {
         // for smaller FF's
         PanelContainer {
             stretchOnSmallFF: true
-            resizable: !dekko.viewState.isSmallFF
+            resizable: !dekko.isSmallFF
             minSize: units.gu(40)
             maxSize: units.gu(60)
             size: units.gu(40)
@@ -49,7 +49,7 @@ BaseStage {
         }
         // Take rest of space when visible
         Stretcher {
-            visible: !dekko.viewState.isSmallFF
+            visible: !dekko.isSmallFF
             anchors {
                 top: parent.top
                 bottom: parent.bottom

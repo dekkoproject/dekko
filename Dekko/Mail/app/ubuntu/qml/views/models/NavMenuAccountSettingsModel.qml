@@ -19,7 +19,7 @@ import QtQuick 2.4
 import QtQuick.Window 2.2
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
-import "../../actions/views"
+import Dekko.Mail.API 1.0
 
 VisualItemModel {
     ListItem {
@@ -36,7 +36,7 @@ VisualItemModel {
             }
             ProgressionSlot{}
         }
-        onClicked: ViewActions.pushStage("qrc:/qml/views/stages/SettingsStage.qml", {})
+        onClicked: ViewActions.pushStage("../stages/SettingsStage.qml", {})
     }
     ListItem {
         height: displaySettingsLayout.implicitHeight
@@ -53,10 +53,10 @@ VisualItemModel {
             ProgressionSlot{}
         }
         onClicked: {
-            if (dekko.viewState.isSmallFF) {
-                ViewActions.pushToStageArea(ViewKeys.messageListStack, "qrc:/qml/views/settings/DisplaySettingsPage.qml", {})
+            if (dekko.isSmallFF) {
+                ViewActions.pushToStageArea(ViewKeys.messageListStack, Qt.resolvedUrl("../settings/DisplaySettingsPage.qml"), {})
             } else {
-                PopupUtils.open("qrc:/qml/views/settings/DisplaySettingsPopup.qml")
+                PopupUtils.open("../settings/DisplaySettingsPopup.qml")
             }
         }
     }
@@ -75,10 +75,10 @@ VisualItemModel {
             ProgressionSlot{}
         }
         onClicked: {
-            if (dekko.viewState.isSmallFF) {
-                ViewActions.pushToStageArea(ViewKeys.messageListStack, "qrc:/qml/views/settings/PrivacySettingsPage.qml", {})
+            if (dekko.isSmallFF) {
+                ViewActions.pushToStageArea(ViewKeys.messageListStack, Qt.resolvedUrl("../settings/PrivacySettingsPage.qml"), {})
             } else {
-                PopupUtils.open("qrc:/qml/views/settings/PrivacySettingsPopup.qml")
+                PopupUtils.open(Qt.resolvedUrl("../settings/PrivacySettingsPopup.qml"))
             }
         }
     }

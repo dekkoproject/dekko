@@ -18,10 +18,10 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Dekko.Components 1.0
+import Dekko.Mail.API 1.0
+import Dekko.Mail.Stores.Mail 1.0
 import "../utils/UiUtils.js" as UiUtils
 import "../components"
-import "../../actions/views"
-import "../../stores/mail"
 import "../../constants"
 
 Flipable {
@@ -81,7 +81,7 @@ Flipable {
             visible: flipable.state === "front"
             onClicked: {
                 if (flipable.state === "front") {
-                    ViewActions.pushToStageArea(ViewKeys.messageListStack, "qrc:///qml/views/ContactFilterView.qml",
+                    ViewActions.pushToStageArea(ViewKeys.messageListStack, Qt.resolvedUrl("../ContactFilterView.qml"),
                                                 {
                                                     sender: msg.from,
                                                     title: msg.from.name,

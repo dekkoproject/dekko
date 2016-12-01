@@ -21,10 +21,8 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import Dekko.Components 1.0
 import Dekko.Mail 1.0
-import "../../actions/composer"
-import "../../actions/logging"
-import "../../actions/popups"
-import "../../stores/composer"
+import Dekko.Mail.API 1.0
+import Dekko.Mail.Stores.Composer 1.0
 import "../../constants"
 import "../components"
 import "../delegates"
@@ -145,7 +143,7 @@ FocusScope {
             iconColor: UbuntuColors.ash
             action: Action {
                 iconSource: Paths.actionIconUrl(Icons.ContextMenuIcon)
-                onTriggered: PopupUtils.open("qrc:/qml/views/composer/RecipientInputContextMenu.qml",
+                onTriggered: PopupUtils.open(Qt.resolvedUrl("./RecipientInputContextMenu.qml"),
                                              ctxt,
                                              {
                                                  recipientType: field.recipientType

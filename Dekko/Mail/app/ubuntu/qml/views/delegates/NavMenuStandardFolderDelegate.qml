@@ -22,7 +22,7 @@ import Dekko.Mail 1.0
 import Dekko.Components 1.0
 import "../components"
 import "../../constants"
-import "../../stores"
+import Dekko.Mail.Stores.Views 1.0
 
 ListItem {
     id: li
@@ -85,7 +85,7 @@ ListItem {
         acceptedButtons: Qt.RightButton
         onClicked: {
             if (mouse.button === Qt.RightButton) {
-                PopupUtils.open("qrc:/qml/views/popovers/NavViewContextMenu.qml", li, {folder: li.folder})
+                PopupUtils.open(Qt.resolvedUrl("../popovers/NavViewContextMenu.qml"), li, {folder: li.folder})
                 mouse.accepted = true
             } else {
                 mouse.accepted = false

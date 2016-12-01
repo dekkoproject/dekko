@@ -19,11 +19,9 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import Dekko.Components 1.0
+import Dekko.Mail.API 1.0
+import Dekko.Mail.Stores.Composer 1.0
 import QuickFlux 1.0
-import "../../actions/composer"
-import "../../actions/views"
-import "../../actions/logging"
-import "../../stores/composer"
 import "../components"
 import "../../constants"
 
@@ -80,7 +78,7 @@ BottomEdgeConfiguration {
         //            rightSideActions: [flagAction, readAction, contextAction]
                     onItemClicked: {
                         if (mouse.button === Qt.RightButton) {
-                            PopupUtils.open(Qt.resolvedUrl("qrc:/qml/views/popovers/AttachmentPopover.qml"),
+                            PopupUtils.open(Qt.resolvedUrl("../popovers/AttachmentPopover.qml"),
                                                                  ad,
                                                                  {
                                                                      index: model.index,
@@ -122,7 +120,7 @@ BottomEdgeConfiguration {
             runWhen: ViewKeys.closeComposer
             enabled: listenerEnabled
             script: {
-                if (!dekko.viewState.isLargeFF) {
+                if (!dekko.isLargeFF) {
                     bottomEdge.collapse()
                 } else {
                     exit.bind(this, 0)
@@ -130,7 +128,7 @@ BottomEdgeConfiguration {
             }
         }
         AppListener {
-            enabled: !dekko.viewState.isLargeFF
+            enabled: !dekko.isLargeFF
             filter: ViewKeys.closeComposer
             onDispatched: {
                 bottomEdge.collapse()

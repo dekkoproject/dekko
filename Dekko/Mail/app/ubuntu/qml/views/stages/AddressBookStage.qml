@@ -36,8 +36,8 @@ BaseStage {
         // Access is done via the navigation drawer
         // for smaller FF's
         PanelContainer {
-            visible: dekko.viewState.isLargeFF
-            resizable: !dekko.viewState.isSmallFF
+            visible: dekko.isLargeFF
+            resizable: !dekko.isSmallFF
             minSize: units.gu(30)
             maxSize: units.gu(50)
             height: parent.height
@@ -52,7 +52,7 @@ BaseStage {
 
         PanelContainer {
             stretchOnSmallFF: true
-            resizable: !dekko.viewState.isSmallFF
+            resizable: !dekko.isSmallFF
             minSize: units.gu(40)
             maxSize: units.gu(60)
             size: units.gu(40)
@@ -75,7 +75,7 @@ BaseStage {
             }
         }
         Stretcher {
-            visible: !dekko.viewState.isSmallFF
+            visible: !dekko.isSmallFF
             anchors {
                 top: parent.top
                 bottom: parent.bottom

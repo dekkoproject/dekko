@@ -19,18 +19,17 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Dekko.Components 1.0
 import QuickFlux 1.0
-import "../../actions/composer"
-import "../../actions/views"
+import Dekko.Mail.API 1.0
+import Dekko.Mail.Stores.Composer 1.0
+//import Dekko.Contacts.Stores 1.0
 import "../../constants"
-import "../../stores/composer"
-import "../../stores/contacts"
 import "../components"
 import "../contacts"
 
 PanelContainer {
     id: sp
     visible: width > 0
-    resizable: !dekko.viewState.isSmallFF
+    resizable: !dekko.isSmallFF
     minSize: units.gu(20)
     maxSize: units.gu(30)
     size: ComposerStore.sidePanelOpen ? units.gu(25) : 0
@@ -141,17 +140,17 @@ PanelContainer {
         }
     }
 
-    ContactsListView {
-        visible: bar.currentIndex === 1
-        addressBook: ContactsStore.selectedAddressBook
-        filterEmailOnly: true
-        state: "slimPicker"
-        anchors {
-            top: parent.top
-            topMargin: units.gu(4)
-            left: parent.left
-            right: parent.right
-            bottom: parent.bottom
-        }
-    }
+//    ContactsListView {
+//        visible: bar.currentIndex === 1
+//        addressBook: ContactsStore.selectedAddressBook
+//        filterEmailOnly: true
+//        state: "slimPicker"
+//        anchors {
+//            top: parent.top
+//            topMargin: units.gu(4)
+//            left: parent.left
+//            right: parent.right
+//            bottom: parent.bottom
+//        }
+//    }
 }

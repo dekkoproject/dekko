@@ -148,7 +148,7 @@ Item {
     QtObject {
         id: d
         property bool collapsed: false
-        readonly property bool shouldStretch: dekko.viewState.isSmallFF && stretchOnSmallFF
+        readonly property bool shouldStretch: dekko.isSmallFF && stretchOnSmallFF
         readonly property bool dockedLeft: activeEdge === Item.Right
         readonly property bool dockedRight: activeEdge === Item.Left
         readonly property bool dockedBottom: activeEdge === Item.Top

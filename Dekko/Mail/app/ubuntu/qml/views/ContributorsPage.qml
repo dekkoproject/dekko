@@ -24,7 +24,7 @@ DekkoPage {
 
     pageHeader.title: qsTr("Contributors")
 
-    extendHeader: !dekko.viewState.isSmallFF
+    extendHeader: !dekko.isSmallFF
     pageHeader.backAction: Action {
         iconName: "back"
         onTriggered: internalStack.pop()

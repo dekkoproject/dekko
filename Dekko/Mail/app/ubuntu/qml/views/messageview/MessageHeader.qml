@@ -20,11 +20,9 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import Dekko.Components 1.0
 import Dekko.Mail 1.0
-import Dekko.Settings 1.0
+import Dekko.Mail.API 1.0
+import Dekko.Mail.Settings 1.0
 import "../components"
-import "../../actions/composer"
-import "../../actions/popups"
-import "../../actions/views"
 import "../../constants"
 import "../utils/UiUtils.js" as UiUtils
 
@@ -102,7 +100,7 @@ ListItem {
                 iconColor: UbuntuColors.ash
                 action: Action {
                     iconSource: Paths.actionIconUrl(Icons.ContextMenuIcon)
-                    onTriggered: PopupUtils.open("qrc:/qml/views/popovers/MessageActionPopover.qml", ctxt, {msg: msg})
+                    onTriggered: PopupUtils.open(Qt.resolvedUrl("../popovers/MessageActionPopover.qml"), ctxt, {msg: msg})
                 }
             }
             HeaderButton {

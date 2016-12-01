@@ -17,26 +17,24 @@
 */
 import QtQuick 2.4
 import Ubuntu.Components 1.3
-import Dekko.Settings 1.0
-import "./actions/views"
-import "./actions/logging"
+import Dekko.Mail.Settings 1.0
+import Dekko.Mail.API 1.0
+import Dekko.Mail.Stores.Views 1.0
+import Dekko.Mail.Stores.Composer 1.0
+import Dekko.Mail.Workers 1.0
 import "./views/components"
 import "./views/utils"
 import "./views/stages"
-import "./stores"
-import "./stores/composer"
 
-Item {
+ViewState {
     id: dekko
-    property alias viewState: view
+
     anchors.fill: parent
-    ViewState {
-        id: view
-        anchors.fill: parent
-        onStateChanged: {
-            ViewStore.formFactor = state
-            Log.logStatus("ViewState::stateChanged", state)
-        }
+    onStateChanged: {
+        var ignore = ComposerStore.listenerId
+        ignore = PolicyManager.objectName
+        ViewStore.formFactor = state
+        Log.logStatus("ViewState::stateChanged", state)
     }
 
     Item {
@@ -53,14 +51,27 @@ Item {
         StageStack {
             id: rootPageStack
             anchors.fill: parent
+
             Component.onCompleted: {
-                // this just ensures the ComposerStore instance has been created
-                // before dispatching any actions. It's usually created when the composer is opened
-                // for the first time but we may dispatch actions before it's open. i.e from the msglist context menus.
-                var ignore = ComposerStore.sendInProgress
-                ignore = PolicyManager.objectName // init the global policies so they are ready. This seems enough to get the singleton fired up
                 ViewActions.stageStackReady()
             }
+        }
+    }
+
+    Loader {
+        id: workerLoader
+        asynchronous: true
+        sourceComponent: Workers {}
+    }
+
+    // Workers we need straight away
+    QtObject {
+        id: d
+        property MailWorker mailWorker: MailWorker {}
+        property ComposerWorker composeWorker: ComposerWorker {}
+//        property ContentWorker contentWorker: ContentWorker{}
+        property Logger logger: Logger {
+            devLoggingEnabled: devModeEnabled
         }
     }
 

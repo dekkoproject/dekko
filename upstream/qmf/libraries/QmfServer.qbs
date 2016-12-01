@@ -17,14 +17,11 @@ Product {
     ]
     property stringList defaultDefines: [
         "QMF_NO_MESSAGE_SERVICE_EDITOR",
-        "MESSAGESERVER_INTERNAL"
+        "MESSAGESERVER_INTERNAL",
+        "QMF_ENABLE_LOGGING",
+        "SNAP"
     ]
-    cpp.defines: {
-        if (project.enableLogging) {
-            defaultDefines.concat("QMF_ENABLE_LOGGING")
-        }
-        return defaultDefines
-    }
+    cpp.defines: defaultDefines
 
     Export {
         Depends { name: "cpp" }

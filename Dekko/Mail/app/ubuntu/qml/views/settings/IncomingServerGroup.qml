@@ -18,11 +18,9 @@
 import QtQuick 2.4
 import QuickFlux 1.0
 import Ubuntu.Components 1.3
-import Dekko.Accounts 1.0
-import "../../actions/logging"
-import "../../actions/views"
-import "../../actions/settings"
-import "../../stores/settings"
+import Dekko.Mail.Accounts 1.0
+import Dekko.Mail.API 1.0
+import Dekko.Mail.Stores.Settings 1.0
 import "../components"
 
 SettingsGroupPage {

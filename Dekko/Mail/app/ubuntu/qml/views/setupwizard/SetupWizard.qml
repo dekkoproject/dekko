@@ -19,11 +19,10 @@ import QtQuick 2.4
 import QtQml.StateMachine 1.0 as DSM
 import Dekko.Controls 1.0
 import Dekko.Mail 1.0
+import Dekko.Mail.API 1.0
+import Dekko.Mail.Stores.Accounts 1.0
 import QuickFlux 1.0
 import "./states"
-import "../../stores/accounts"
-import "../../actions/logging"
-import "../../actions/wizard"
 
 /*For the setup wizard we use the state machine framework. http://doc.qt.io/qt-5/qmlstatemachine.html
 
@@ -38,7 +37,8 @@ import "../../actions/wizard"
 Item {
     id: wizard
 
-    anchors.fill: parent
+    width: parent.width
+    height: parent.height
     // Use stack view so we get the nice page transitions
     StackView {
         id: stack

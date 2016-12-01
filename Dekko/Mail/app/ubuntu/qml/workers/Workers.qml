@@ -16,7 +16,7 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 import QtQuick 2.4
-import Plugger 1.0
+import PlugMan 1.0
 import Dekko.Contacts 1.0
 import "../actions/views"
 

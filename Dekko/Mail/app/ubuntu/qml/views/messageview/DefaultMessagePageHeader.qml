@@ -21,8 +21,7 @@ import Ubuntu.Components 1.3
 import Dekko.Components 1.0
 import Dekko.Mail 1.0
 import "../components"
-import "../../actions/views"
-import "../../actions/messaging"
+import Dekko.Mail.API 1.0
 import "../../constants"
 
 Item {
@@ -30,14 +29,14 @@ Item {
 
     property var msg
 
-    height: dekko.viewState.isSmallFF ? units.gu(6) : units.gu(9.075)
+    height: dekko.isSmallFF ? units.gu(6) : units.gu(9.075)
     anchors {
         left: parent.left
         right: parent.right
         top: parent.top
     }
 
-    property bool showBack: dekko.viewState.isSmallFF
+    property bool showBack: dekko.isSmallFF
 
     HeaderButton {
         id: inner_button
@@ -89,7 +88,7 @@ Item {
             text: msg.from.name
             clip: true
             elide: Text.ElideRight
-            visible: !dekko.viewState.isSmallFF
+            visible: !dekko.isSmallFF
             font.weight: Font.Normal
 
         }

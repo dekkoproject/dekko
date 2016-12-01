@@ -17,18 +17,16 @@
 */
 import QtQuick 2.4
 import Ubuntu.Components 1.3
-import Dekko.Accounts 1.0
+import Dekko.Mail.Accounts 1.0
 import Dekko.Mail 1.0
+import Dekko.Mail.API 1.0
+import Dekko.Mail.Stores.Mail 1.0
 import Dekko.Components 1.0
-import Dekko.Settings 1.0
+import Dekko.Mail.Settings 1.0
 import QuickFlux 1.0
 import "./components"
 import "./delegates"
 import "./models"
-import "../actions/composer"
-import "../actions/views"
-import "../actions/messaging"
-import "../stores/mail" 1.0
 import "../constants"
 import "./composer"
 
@@ -37,8 +35,8 @@ DekkoPage {
 
     pageHeader.title: MailStore.folderTitle
     pageHeader.enableSearching: true
-    pageHeader.composeButtonEnabled: !dekko.viewState.isLargeFF
-    pageHeader.backAction: !dekko.viewState.isLargeFF || MailStore.isInSelectionMode ? drawerAction : null
+    pageHeader.composeButtonEnabled: !dekko.isLargeFF
+    pageHeader.backAction: !dekko.isLargeFF || MailStore.isInSelectionMode ? drawerAction : null
     pageHeader.filterSections: isSearchMode ? MailStore.searchFilters : MailStore.defaultFilters
     onSelectedIndexChanged: {
         if (isSearchMode) {
@@ -95,15 +93,15 @@ DekkoPage {
         hintVisible: true
         iconSource: Paths.actionIconUrl(Icons.MailUnreadIcon)
         activationKey: ViewKeys.replyToOpenMessage
-        canActionTrigger: dekko.viewState.isSmallFF
-        enabled: dekko.viewState.isSmallFF
+        canActionTrigger: dekko.isSmallFF
+        enabled: dekko.isSmallFF
         flickable: listView
         listenerEnabled: enabled
     }
 
     drawerConfig: DrawerConfiguration {
         visible: true
-        enabled: !dekko.viewState.isLargeFF
+        enabled: !dekko.isLargeFF
     }
 
     Action {
@@ -204,7 +202,7 @@ DekkoPage {
                 remove: DekkoAnimation.listViewRemoveTransition
                 removeDisplaced: DekkoAnimation.listViewRemoveDisplacedTransition
 
-                highlight: !dekko.viewState.isSmallFF ? Style.highlightBar : null
+                highlight: !dekko.isSmallFF ? Style.highlightBar : null
                 highlightFollowsCurrentItem: true
                 highlightMoveDuration: 200
                 cacheBuffer: units.gu(35)

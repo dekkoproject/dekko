@@ -32,10 +32,10 @@ DekkoPage {
     pageHeader.title: pageTitle
     pageHeader.backAction: Action {
         iconName: "back"
-        onTriggered: ViewActions.popStageArea(dekko.viewState.isLargeFF ? ViewKeys.navigationStack : ViewKeys.messageListStack)
+        onTriggered: ViewActions.popStageArea(dekko.isLargeFF ? ViewKeys.navigationStack : ViewKeys.messageListStack)
     }
-    pageHeader.composeButtonEnabled: !dekko.viewState.isSmallFF
-    extendHeader: !dekko.viewState.isSmallFF
+    pageHeader.composeButtonEnabled: !dekko.isSmallFF
+    extendHeader: !dekko.isSmallFF
 
     PageContent {
 

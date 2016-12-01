@@ -18,7 +18,7 @@
 import QtQuick 2.4
 import QuickFlux 1.0
 import Dekko.Components 1.0
-import "../../actions/logging"
+import Dekko.Mail.API 1.0
 
 AppListener {
     id: logListener

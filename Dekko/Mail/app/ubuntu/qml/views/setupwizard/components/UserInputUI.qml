@@ -17,12 +17,10 @@
 */
 import QtQuick 2.4
 import Ubuntu.Components 1.3
+import Dekko.Mail.API 1.0
+import Dekko.Mail.Stores.Accounts 1.0
 import QuickFlux 1.0
 import "../../components"
-import "../../../actions/logging"
-import "../../../actions/wizard"
-import "../../../actions/popups"
-import "../../../stores/accounts"
 import "../../../constants"
 
 DekkoPage {

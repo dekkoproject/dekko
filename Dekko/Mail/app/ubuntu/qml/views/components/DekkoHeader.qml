@@ -277,7 +277,7 @@ PixelPerfectItem {
                 width: units.gu(4)
                 implicitWidth: width
                 implicitHeight: height
-                visible: !dekko.viewState.isSmallFF && composeButtonEnabled
+                visible: !dekko.isSmallFF && composeButtonEnabled
                 action: Action {
                     iconName: "list-add"
                     onTriggered: composeNewMessage()

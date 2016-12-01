@@ -1,35 +1,32 @@
 import QtQuick 2.4
 import QtQuick.Window 2.1
 import Ubuntu.Components 1.3
-import "./workers"
-import Dekko.Mail.Workers 1.0
+import MazDB 1.0
+import "./views/components"
 
 Window {
-
+    id: window
     visible: true
     minimumWidth: units.gu(30)
     minimumHeight: units.gu(30)
 
-    Binding {
-        target: window
-        property: "minimumWidth"
-        value: units.gu(30)
+    title: qsTr("Dekko Mail")
+
+    MazDBSettings {
+        category: "window-property-cache"
+        property alias windowWidth: window.width
+        property alias windowHeight: window.height
+        property alias windowVisible: window.visible
+        property alias windowX: window.x
+        property alias windowY: window.y
     }
 
-    Loader {
-        id: workerLoader
-        asynchronous: true
-        source: "qrc:/qml/workers/Workers.qml"
-    }
-
-    // Workers we need straight away
-    QtObject {
-        id: d
-        property MailWorker mailWorker: MailWorker {}
-        property ComposerWorker composeWorker: ComposerWorker {}
-        property ContentWorker contentWorker: ContentWorker{}
-//        property Logger logger: Logger {
-//            devLoggingEnabled: devModeEnabled
-//        }
+    Item {
+        anchors.fill: parent
+        Loader {
+            asynchronous: false
+            anchors.fill: parent
+            source: Qt.resolvedUrl("./Dekko.qml")
+        }
     }
 }

@@ -17,9 +17,8 @@
 */
 import QtQuick 2.4
 import QtQml.StateMachine 1.0 as DSM
-import "../../../actions/logging"
-import "../../../actions/wizard"
-import "../../../stores/accounts"
+import Dekko.Mail.API 1.0
+import Dekko.Mail.Stores.Accounts 1.0
 
 DSM.State {
     id: userInputState
@@ -31,7 +30,7 @@ DSM.State {
         Log.logStatus("UserInputState::onEntered", "User details input state entered");
         if (stack.currentItem.objectName !== "userInputUI") {
             Log.logStatus("NoAccountState::onEntered", "Pushing UserInputUI");
-            WizardActions.wizardNavigateTo("qrc:/qml/views/setupwizard/components/UserInputUI.qml", {})
+            WizardActions.wizardNavigateTo(Qt.resolvedUrl("../components/UserInputUI.qml"), {})
         }
     }
 

@@ -62,7 +62,7 @@ UbuntuShape {
     MouseArea {
         anchors.fill: parent
         onClicked: {
-            PopupUtils.open("qrc:/qml/views/popovers/RecipientPopover.qml", delegate, {address: model.qtObject, composeMode: composeMode, index: model.index, type: type})
+            PopupUtils.open(Qt.resolvedUrl("../popovers/RecipientPopover.qml"), delegate, {address: model.qtObject, composeMode: composeMode, index: model.index, type: type})
         }
     }
 }

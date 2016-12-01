@@ -18,10 +18,8 @@
 import QtQuick 2.4
 import QtQml.StateMachine 1.0 as DSM
 import QuickFlux 1.0
-import "../../../actions/logging"
-import "../../../actions/messaging"
-import "../../../actions/wizard"
-import "../../../stores/accounts"
+import Dekko.Mail.API 1.0
+import Dekko.Mail.Stores.Accounts 1.0
 
 DSM.State {
     id: syncState
@@ -33,7 +31,7 @@ DSM.State {
         Log.logStatus("SyncState::onEntered", "Loading sync overlay");
         if (stack.currentItem.objectName !== "addAnotherUI") {
             Log.logStatus("addAnotherUI::onEntered", "Pushing UserInputUI");
-            WizardActions.wizardNavigateTo("qrc:/qml/views/setupwizard/components/AddAnotherUI.qml", {})
+            WizardActions.wizardNavigateTo(Qt.resolvedUrl("../components/AddAnotherUI.qml"), {})
         }
     }
 

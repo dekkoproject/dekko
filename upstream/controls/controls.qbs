@@ -58,7 +58,7 @@ Project {
         Group {
             name: "QML Files"
             prefix: "src/"
-            files: ["*.qml", "qmldir"]
+            files: ["*.qml", "*.js", "qmldir"]
             fileTags: ["qml-plugins"]
             qbs.install: true
             qbs.installDir: controlsLib.targetDir

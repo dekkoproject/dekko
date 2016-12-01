@@ -18,11 +18,9 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Dekko.Components 1.0
+import Dekko.Mail.API 1.0
 import "../../constants"
 import "../components"
-import "../../actions/content"
-import "../../actions/logging"
-import "../../actions/popups"
 
 ListItem {
     property Component openItem: Item{}

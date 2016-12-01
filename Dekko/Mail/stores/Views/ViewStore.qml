@@ -49,7 +49,7 @@ AppListener {
         type: ViewKeys.stageStackReady
         onDispatched: {
             Log.logStatus("ViewStore::stageStackReady", "Stack is ready")
-            ViewActions.pushStage("qrc:/qml/views/stages/MailStage.qml", {})
+            ViewActions.pushStage("./MailStage.qml", {})
             if (!Client.hasConfiguredAccounts) {
                 ViewActions.runSetupWizard()
             }
@@ -59,7 +59,7 @@ AppListener {
     Filter {
         type: ViewKeys.runSetupWizard
         onDispatched: {
-            ViewActions.pushStage("qrc:/qml/views/setupwizard/SetupWizard.qml", {})
+            ViewActions.pushStage("../setupwizard/SetupWizard.qml", {})
         }
     }
 

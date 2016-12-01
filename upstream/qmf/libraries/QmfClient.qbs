@@ -65,9 +65,13 @@ Product {
     property stringList defaultDefines: [
         "QT_BUILD_QCOP_LIB",
         "QMF_INTERNAL",
-        "QMF_INSTALL_ROOT=\"" + project.qmfInstallRoot + "\""
+        "QMF_INSTALL_ROOT=\"" + project.qmfInstallRoot + "\"",
+        "SNAP",
+        "QMF_ENABLE_LOGGING"
     ]
-    cpp.defines: {
+    cpp.defines: defaultDefines
+
+        /*{
         if (project.snapMode) {
             defaultDefines.concat("SNAP")
         }
@@ -78,7 +82,7 @@ Product {
             defaultDefines.concat("QMF_ENABLE_LOGGING")
         }
         return defaultDefines
-    }
+    }*/
 
     cpp.optimization: qbs.buildVariant === "debug" ? "none" : "fast"
     cpp.debugInformation: qbs.buildVariant === "debug"

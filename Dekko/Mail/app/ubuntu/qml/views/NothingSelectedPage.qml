@@ -29,8 +29,8 @@ DekkoPage {
 
     bottomEdgeConfig: BottomEdgeComposer {
         hintVisible: false // we don't need a hint in this view
-        enabled: dekko.viewState.isMediumFF && (internalStack.depth === 1)
-        canActionTrigger: dekko.viewState.isMediumFF
+        enabled: dekko.isMediumFF && (internalStack.depth === 1)
+        canActionTrigger: dekko.isMediumFF
         listenerEnabled: enabled
     }
     PageContent {

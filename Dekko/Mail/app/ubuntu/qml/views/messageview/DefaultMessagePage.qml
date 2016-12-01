@@ -21,11 +21,9 @@ import Ubuntu.Components.Popups 1.3
 import com.canonical.Oxide 1.9 as Oxide
 import Dekko.Mail 1.0
 import Dekko.Components 1.0
-import Dekko.Settings 1.0
-import "../../actions/logging"
-import "../../actions/messaging"
-import "../../actions/views"
-import "../../stores"
+import Dekko.Mail.Settings 1.0
+import Dekko.Mail.API 1.0
+import Dekko.Mail.Stores.Views 1.0
 import "../components"
 import "../webview"
 import "../composer"
@@ -51,8 +49,8 @@ DekkoPage {
 
     bottomEdgeConfig: BottomEdgeComposer {
         hintVisible: false // we don't need a hint in this view
-        enabled: !dekko.viewState.isLargeFF && internalStack.depth > 1
-        canActionTrigger: !dekko.viewState.isLargeFF
+        enabled: !dekko.isLargeFF && internalStack.depth > 1
+        canActionTrigger: !dekko.isLargeFF
         activationKey: ViewKeys.replyToOpenMessage
         listenerEnabled: enabled
     }
@@ -128,7 +126,7 @@ DekkoPage {
             id: webview
             anchors {
                 fill: parent
-                leftMargin: !dekko.viewState.isSmallFF ? Style.smallSpacing : 0
+                leftMargin: !dekko.isSmallFF ? Style.smallSpacing : 0
             }
             locationBarController.mode: Oxide.LocationBarController.ModeAuto
             locationBarController.height: h.height
@@ -234,7 +232,7 @@ DekkoPage {
                             MouseArea {
                                 anchors.fill: parent
                                 onClicked: {
-                                    PopupUtils.open("qrc:/qml/views/popovers/RecipientPopover.qml", delegate, {address: message.from})
+                                    PopupUtils.open(Qt.resolvedUrl("../popovers/RecipientPopover.qml"), delegate, {address: message.from})
                                 }
                             }
                         }

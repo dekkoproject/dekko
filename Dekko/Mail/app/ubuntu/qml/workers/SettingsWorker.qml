@@ -17,7 +17,7 @@
 */
 import QtQuick 2.4
 import QuickFlux 1.0
-import Dekko.Accounts 1.0
+import Dekko.Mail.Accounts 1.0
 import Dekko.Mail 1.0
 import Dekko.Settings 1.0
 import "../actions/logging"
@@ -58,7 +58,7 @@ AppListener {
         onDispatched: {
             SettingsActions.saveCurrentGroup()
             SettingsStore.currentGroup = message.group
-            if (dekko.viewState.isSmallFF) {
+            if (dekko.isSmallFF) {
                 ViewActions.pushToStageArea(ViewKeys.settingsStack1, SettingsStore.currentGroup, {})
             } else {
                 ViewActions.replaceTopStageAreaItem(ViewKeys.settingsStack2, SettingsStore.currentGroup, {})

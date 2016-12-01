@@ -18,8 +18,8 @@
 pragma Singleton
 import QtQuick 2.4
 import QuickFlux 1.0
-import Dekko.Accounts 1.0
-import Dekko.Settings 1.0
+import Dekko.Mail.Accounts 1.0
+import Dekko.Mail.Settings 1.0
 
 AppListener {
 

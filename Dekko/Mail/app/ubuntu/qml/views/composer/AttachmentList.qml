@@ -19,10 +19,9 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import Dekko.Components 1.0
-import "../../actions/composer"
-import "../../actions/logging"
+import Dekko.Mail.API 1.0
+import Dekko.Mail.Stores.Composer 1.0
 import "../../constants"
-import "../../stores/composer"
 import "../components"
 import "../delegates"
 
@@ -47,7 +46,7 @@ ScrollView {
 //            rightSideActions: [flagAction, readAction, contextAction]
             onItemClicked: {
                 if (mouse.button === Qt.RightButton) {
-                    PopupUtils.open(Qt.resolvedUrl("qrc:/qml/views/popovers/AttachmentPopover.qml"),
+                    PopupUtils.open(Qt.resolvedUrl("../popovers/AttachmentPopover.qml"),
                                                          ad,
                                                          {
                                                              index: model.index,

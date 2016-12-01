@@ -20,10 +20,10 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import QuickFlux 1.0
 import Dekko.Controls 1.0
-import "../../actions/views"
-import "../../actions/logging"
-import "../../stores"
+import Dekko.Mail.API 1.0
+import Dekko.Mail.Stores.Views 1.0
 import "../../constants"
+
 // {item: message.page, properties: message.properties}
 StackView {
     id: stageStack
@@ -36,7 +36,7 @@ StackView {
             type: ViewKeys.pushStage
             onDispatched: {
                 Log.logStatus("StageStack::pushStage", "Pushing stage: " + message.stage)
-                stageStack.push({item: message.stage, properties: message.properties})
+                stageStack.push({item: Qt.resolvedUrl(message.stage), properties: message.properties})
             }
         }
         Filter {
@@ -56,7 +56,7 @@ StackView {
         Filter {
             type: ViewKeys.openMessageComposer
             onDispatched: {
-                if (dekko.viewState.isLargeFF) {
+                if (dekko.isLargeFF) {
                     PopupUtils.open("qrc:/qml/views/composer/ComposePanelPopup.qml", dekkoContainer, {})
                 }
             }

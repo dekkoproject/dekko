@@ -77,6 +77,19 @@ Project {
         }
 
         Group {
+            name: "Asset Configs"
+            files: ["assets/configuration/**"]
+            qbs.install: true
+            qbs.installDir: "/usr/share/dekko"
+            qbs.installSourceBase: "assets/configuration"
+        }
+
+        Group {
+            name: "Asset Resources"
+            files: ["assets/**/*.qrc"]
+        }
+
+        Group {
             name: "QML Resources"
             files: ["dekko.qrc"]
         }

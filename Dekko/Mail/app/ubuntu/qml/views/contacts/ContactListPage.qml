@@ -1,15 +1,15 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
+import Dekko.Mail.API 1.0
 import Dekko.Contacts 1.0
 import "../components"
 import "../../constants"
-import "../../actions/views"
 
 
 DekkoPage {
     id: contactsListPage
     pageHeader.title: addressBook ? addressBook.name : qsTr("Address book")
-    pageHeader.backAction:!dekko.viewState.isLargeFF ? bkAction : null
+    pageHeader.backAction:!dekko.isLargeFF ? bkAction : null
 
     Action {
         id: bkAction
@@ -25,7 +25,7 @@ DekkoPage {
             addressBook: contactsListPage.addressBook
             onContactClicked: ViewActions.replaceTopStageAreaItem(
                                   ContactKeys.contactViewStageArea,
-                                  "qrc:/qml/views/contacts/ContactView.qml",
+                                  Qt.resolvedUrl("./ContactView.qml"),
                                   {contact: contact})
         }
     }

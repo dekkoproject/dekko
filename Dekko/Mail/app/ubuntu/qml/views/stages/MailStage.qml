@@ -18,15 +18,12 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Dekko.Mail 1.0
+import Dekko.Mail.API 1.0
 import Dekko.Components 1.0
-import Dekko.Settings 1.0
-import Dekko.Contacts 1.0
+import Dekko.Mail.Settings 1.0
+import Dekko.Mail.Stores.Views 1.0
+//import Dekko.Contacts 1.0
 import QuickFlux 1.0
-import "../../actions"
-import "../../actions/logging"
-import "../../actions/messaging"
-import "../../actions/views"
-import "../../stores"
 import "../components"
 import "../../constants"
 
@@ -47,8 +44,8 @@ BaseStage {
         // Access is done via the navigation drawer
         // for smaller FF's
         PanelContainer {
-            visible: dekko.viewState.isLargeFF
-            resizable: !dekko.viewState.isSmallFF
+            visible: dekko.isLargeFF
+            resizable: !dekko.isSmallFF
             minSize: units.gu(30)
             maxSize: units.gu(50)
             height: parent.height
@@ -57,7 +54,7 @@ BaseStage {
                 id: navMenuStage
                 stageID: ViewKeys.navigationStack
                 anchors.fill: parent
-                baseUrl: "qrc:/qml/views/NavMenuPage.qml"
+                baseUrl: Qt.resolvedUrl("../NavMenuPage.qml")
             }
         }
 
@@ -72,17 +69,18 @@ BaseStage {
             // on small FF. This sets the implicit width to -1
             // and restores it on going back to larger FF's
             stretchOnSmallFF: true
-            resizable: !dekko.viewState.isSmallFF
+            resizable: !dekko.isSmallFF
             minSize: units.gu(40)
             maxSize: units.gu(60)
             size: units.gu(40)
             height: parent.height
             activeEdge: Item.Right
+
             StageArea {
                 id: msgListStage
                 stageID: ViewKeys.messageListStack
                 anchors.fill: parent
-                baseUrl: "qrc:/qml/views/MessageListView.qml"
+                baseUrl: Qt.resolvedUrl("../MessageListView.qml")
                 function rewind() {
                     var needsDelay = false
                     if (stackCount > 1) {
@@ -101,7 +99,7 @@ BaseStage {
         }
         // Take rest of space when visible
         Stretcher {
-            visible: !dekko.viewState.isSmallFF
+            visible: !dekko.isSmallFF
             anchors {
                 top: parent.top
                 bottom: parent.bottom
@@ -111,7 +109,7 @@ BaseStage {
                 stageID: ViewKeys.messageViewStack
                 anchors.fill: parent
                 immediatePush: false
-                baseUrl: "qrc:/qml/views/NothingSelectedPage.qml"
+                baseUrl: Qt.resolvedUrl("../NothingSelectedPage.qml")
                 delegate: DekkoAnimation.customStackViewDelegate1
                 AppListener {
                     filter: MessageKeys.openFolder
@@ -136,8 +134,8 @@ BaseStage {
         Filter {
             type: MessageKeys.openMessage
             onDispatched: {
-                var style = "qrc:/qml/views/messageview/DefaultMessagePage.qml"
-                if (dekko.viewState.isSmallFF) {
+                var style = Qt.resolvedUrl("../messageview/DefaultMessagePage.qml")
+                if (dekko.isSmallFF) {
                     // leftStage push msgview
                     ViewActions.pushToStageArea(ViewKeys.messageListStack, style, {msgId: message.msgId})
                 } else {
@@ -164,16 +162,16 @@ BaseStage {
         Filter {
             type: MessageKeys.openAccountFolder
             onDispatched: {
-                if (dekko.viewState.isLargeFF) {
+                if (dekko.isLargeFF) {
                     ViewActions.pushToStageArea(ViewKeys.navigationStack,
-                                                "qrc:/qml/views/FolderListView.qml",
+                                                Qt.resolvedUrl("../FolderListView.qml"),
                                                 {
                                                     pageTitle: message.accountName,
                                                     accountId: message.accountId
                                                 })
                 } else {
                     ViewActions.pushToStageArea(ViewKeys.messageListStack,
-                                                "qrc:/qml/views/FolderListView.qml",
+                                                Qt.resolvedUrl("../FolderListView.qml"),
                                                 {
                                                     pageTitle: message.accountName,
                                                     accountId: message.accountId
