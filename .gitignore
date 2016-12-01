@@ -6,3 +6,4 @@ __build
 CMakeLists.txt.user
 libs
 plugman.qbs.user
+*.qbs.user

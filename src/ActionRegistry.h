@@ -2,7 +2,9 @@
 #define ACTIONREGISTRY_H
 
 #include <QObject>
+#include <QQmlIncubator>
 #include <QQmlListProperty>
+#include "PluginIncubator.h"
 
 class ActionRegistry : public QObject
 {
@@ -28,11 +30,14 @@ public slots:
 
 private slots:
     void loadActions();
+    void finishLoading();
+    void handleError();
 
 private:
     QList<QObject *> m_actions;
     QList<QObject *> m_defaults;
     QString m_location;
+    IncubatorList m_incubators;
 };
 
 #endif // ACTIONREGISTRY_H

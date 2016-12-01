@@ -23,6 +23,7 @@ MainView {
 
     ItemRegistry {
         target: col
+        asynchronous: true
         location: "View::Item"
         defaultItems: [
             Label {

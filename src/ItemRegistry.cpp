@@ -2,7 +2,7 @@
 #include "PluginRegistry.h"
 
 ItemRegistry::ItemRegistry(QObject *parent) : QObject(parent),
-    m_loadMode(LoadAll)
+    m_loadMode(LoadAll), m_asynchronous(true)
 {
 }
 
@@ -24,6 +24,11 @@ QQmlListProperty<QQuickItem> ItemRegistry::defaultItems()
 ItemRegistry::LoadMode ItemRegistry::loadMode() const
 {
     return m_loadMode;
+}
+
+bool ItemRegistry::asynchronous() const
+{
+    return m_asynchronous;
 }
 
 void ItemRegistry::setTarget(QQuickItem *target)
@@ -55,6 +60,15 @@ void ItemRegistry::setLoadMode(ItemRegistry::LoadMode loadMode)
     emit loadModeChanged(loadMode);
 }
 
+void ItemRegistry::setAsynchronous(bool asynchronous)
+{
+    if (m_asynchronous == asynchronous)
+        return;
+
+    m_asynchronous = asynchronous;
+    emit asyncChanged(asynchronous);
+}
+
 void ItemRegistry::loadIfPossible()
 {
     if (m_location.isEmpty() || m_target.isNull()) {
@@ -72,18 +86,36 @@ void ItemRegistry::loadIfPossible()
     }
     case LoadFirstEnabled:
     {
+        if (plugins.isEmpty()) {
+            setLoadMode(DefaultOnly);
+            loadIfPossible();
+            return;
+        }
         qDebug() << "Loading first enabled plugin";
         auto firstplugin = qobject_cast<DekkoPlugin *>(plugins.first());
-        QQuickItem *firstItem = createItemFromUrl(firstplugin->component());
-        reparentItemToTarget(firstItem);
+        if (m_asynchronous) {
+            createItemAsync(firstplugin->component());
+        } else {
+            QQuickItem *firstItem = createItemFromUrl(firstplugin->component());
+            reparentItemToTarget(firstItem);
+        }
         break;
     }
     case LoadLastEnabled:
     {
+        if (plugins.isEmpty()) {
+            setLoadMode(DefaultOnly);
+            loadIfPossible();
+            return;
+        }
         qDebug() << "Loading last enabled plugin";
         auto lastplugin = qobject_cast<DekkoPlugin *>(plugins.last());
-        QQuickItem *lastItem = createItemFromUrl(lastplugin->component());
-        reparentItemToTarget(lastItem);
+        if (m_asynchronous) {
+            createItemAsync(lastplugin->component());
+        } else {
+            QQuickItem *lastItem = createItemFromUrl(lastplugin->component());
+            reparentItemToTarget(lastItem);
+        }
         break;
     }
     case LoadAll:
@@ -92,14 +124,23 @@ void ItemRegistry::loadIfPossible()
         reparentItemsToTarget(m_defaultItems); // default items get appended first
         for (auto plugin : plugins) {
             if (auto dp = qobject_cast<DekkoPlugin *>(plugin)) {
-                QQuickItem *item = createItemFromUrl(dp->component());
-                reparentItemToTarget(item);
+                if (m_asynchronous) {
+                    createItemAsync(dp->component());
+                } else {
+                    QQuickItem *item = createItemFromUrl(dp->component());
+                    reparentItemToTarget(item);
+                }
             }
         }
         break;
     }
     case LoadById:
     {
+        if (plugins.isEmpty()) {
+            setLoadMode(DefaultOnly);
+            loadIfPossible();
+            return;
+        }
         qDebug() << "Looking for plugin with id: " << m_pluginId;
         QQuickItem *item = Q_NULLPTR;
         for (auto plugin : plugins) {
@@ -155,5 +196,40 @@ QQuickItem *ItemRegistry::createItemFromUrl(const QString &itemUrl)
         return Q_NULLPTR;
     }
     return qobject_cast<QQuickItem *>(itemComponent.create());
+}
+
+void ItemRegistry::createItemAsync(const QString &itemUrl)
+{
+    if (itemUrl.isEmpty()) {
+        qWarning() << "Invalid component url";
+        return;
+    }
+    PluginIncubator *incubator = new PluginIncubator(this);
+    connect(incubator, &PluginIncubator::objectReady, this, &ItemRegistry::asyncItemReady);
+    connect(incubator, &PluginIncubator::error, this, &ItemRegistry::handleIncubatorError);
+    incubator->setSourceUrl(qmlEngine(this), QUrl::fromLocalFile(itemUrl));
+    m_incubators << incubator;
+}
+
+void ItemRegistry::asyncItemReady()
+{
+    PluginIncubator *incubator = qobject_cast<PluginIncubator *>(sender());
+    if (incubator->status() == QQmlIncubator::Ready) {
+        QObject *itemObject = incubator->object();
+        QQuickItem *item = qobject_cast<QQuickItem *>(itemObject);
+        if (item) {
+            reparentItemToTarget(item);
+        } else {
+            qWarning() << "Failed casting plugin to qquickitem";
+            incubator->deleteLater();
+        }
+    } else {
+        incubator->deleteLater();
+    }
+}
+
+void ItemRegistry::handleIncubatorError()
+{
+
 }
 

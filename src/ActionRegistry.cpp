@@ -1,5 +1,6 @@
 #include "ActionRegistry.h"
 #include <QtQml>
+#include <QQmlError>
 #include <QQmlEngine>
 #include <QQmlComponent>
 #include "PluginRegistry.h"
@@ -41,37 +42,49 @@ void ActionRegistry::setLocation(QString location)
 
 void ActionRegistry::loadActions()
 {
-    qDebug() << "Loading actions for " << m_location;
+    qDebug() << "Loading actions for: " << m_location;
     if (!m_actions.isEmpty()) {
         qDeleteAll(m_actions);
         m_actions.clear();
     }
-    QList<QObject *> newActions;
     auto plugins = PluginRegistry::instance()->getByLocation(m_location);
     for (auto plugin : plugins) {
-        qDebug() << "Found UCAction plugin " << plugin->pluginId();
         if (auto dp = qobject_cast<DekkoPlugin *>(plugin)) {
-            auto engine = qmlEngine(this);
-            QQmlComponent actionComponent(engine, QUrl::fromLocalFile(dp->component()));
-            if (actionComponent.isError()) {
-                qDebug() << "Failed loading action plugin:";
-                for (auto error : actionComponent.errors()) {
-                    qDebug() << error.toString();
-                }
-                continue;
-            }
-            QObject *action = actionComponent.create();
-            QByteArray cname(action->metaObject()->className());
-            if (cname == QByteArrayLiteral("UCAction")) {
-                qDebug() << "UCAction created >> " << dp->component();
-                newActions << action;
-            } else {
-                qWarning() << "Plugin component not of type UCAction. Not going to use this";
-            }
+            PluginIncubator *incubator = new PluginIncubator(this);
+            connect(incubator, &PluginIncubator::objectReady, this, &ActionRegistry::finishLoading);
+            connect(incubator, &PluginIncubator::error, this, &ActionRegistry::handleError);
+            incubator->setSourceUrl(qmlEngine(this), QUrl::fromLocalFile(dp->component()));
+            m_incubators << incubator;
         }
     }
-    m_actions << m_defaults << newActions;
+    m_actions << m_defaults;
     emit actionsChanged(m_actions);
-    qDebug() << "Actions loaded for " << m_location;
+}
+
+void ActionRegistry::finishLoading()
+{
+    PluginIncubator *incubator = qobject_cast<PluginIncubator *>(sender());
+    if (incubator->status() == QQmlIncubator::Ready) {
+        QObject *action = incubator->object();
+        QByteArray cname(action->metaObject()->className());
+        if (cname == QByteArrayLiteral("UCAction")) {
+            qDebug() << "Finished incubating";
+            m_actions << action;
+            emit actionsChanged(m_actions);
+            qDebug() << "Action loaded for " << m_location;
+        } else {
+            qWarning() << "Plugin component not of type UCAction. Not going to use this";
+            action->deleteLater();
+            incubator->deleteLater();
+        }
+    }
+}
+
+void ActionRegistry::handleError()
+{
+    PluginIncubator *incubator = qobject_cast<PluginIncubator *>(sender());
+    for (auto error : incubator->errors()) {
+        qDebug() << "Incubator Error: " << error.toString();
+    }
 }
 
