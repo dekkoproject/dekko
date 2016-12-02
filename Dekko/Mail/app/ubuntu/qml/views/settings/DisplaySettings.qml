@@ -40,7 +40,7 @@ PageFlickable {
 
     LabeledSwitch {
         text: qsTr("Show favourite folders")
-        checked: PolicyManager.views.setFavouritesVisible
+        checked: false
         onCheckedChanged: {
             if (checked !== PolicyManager.views.setFavouritesVisible) {
                 PolicyManager.views.setFavouritesVisible = checked

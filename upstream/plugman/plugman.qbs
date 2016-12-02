@@ -162,8 +162,6 @@ Project {
         cpp.cxxLanguageVersion: "c++11";
         cpp.cxxStandardLibrary: "libstdc++";
 
-        cpp.cxxLanguageVersion: "c++11";
-        cpp.cxxStandardLibrary: "libstdc++";
         Group {
             name: "Sources"
             files: [

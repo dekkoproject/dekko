@@ -58,7 +58,7 @@ AppListener {
         onDispatched: {
             SettingsActions.saveCurrentGroup()
             SettingsStore.currentGroup = message.group
-            if (dekko.viewState.isSmallFF) {
+            if (dekko.isSmallFF) {
                 ViewActions.pushToStageArea(ViewKeys.settingsStack1, SettingsStore.currentGroup, {})
             } else {
                 ViewActions.replaceTopStageAreaItem(ViewKeys.settingsStack2, SettingsStore.currentGroup, {})

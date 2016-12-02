@@ -56,7 +56,7 @@ VisualItemModel {
             if (dekko.isSmallFF) {
                 ViewActions.pushToStageArea(ViewKeys.messageListStack, Qt.resolvedUrl("../settings/DisplaySettingsPage.qml"), {})
             } else {
-                PopupUtils.open("../settings/DisplaySettingsPopup.qml")
+                PopupUtils.open(Qt.resolvedUrl("../settings/DisplaySettingsPopup.qml"))
             }
         }
     }

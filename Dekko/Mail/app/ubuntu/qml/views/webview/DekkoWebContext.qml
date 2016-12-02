@@ -58,17 +58,17 @@ Oxide.WebContext {
     userScripts: [
         Oxide.UserScript {
             context: defaultContext
-            url: Paths.userscript(Paths.FontScript)
+            url: Qt.resolvedUrl("./userscripts/font_user_script.js")
             matchAllFrames: true
         },
         Oxide.UserScript {
             context: defaultContext
-            url: Paths.userscript(Paths.ViewportScript)
+            url: Qt.resolvedUrl("./userscripts/viewport_shim.js")
             matchAllFrames: true
         },
         Oxide.UserScript {
             context: defaultContext
-            url: Paths.userscript(Paths.ZoomScript)
+            url: Qt.resolvedUrl("./userscripts/zoom.js")
             matchAllFrames: true
         }
     ]
@@ -95,7 +95,7 @@ Oxide.WebContext {
             sendMessage({type: "REMOTE_ACCESS", value: block})
         }
 
-        source: Paths.userscript(Paths.CidQueryScript)
+        source: Qt.resolvedUrl("./userscripts/add_cid_query.js")
         onMessage: {
             switch (message.type) {
             case "DEBUG":

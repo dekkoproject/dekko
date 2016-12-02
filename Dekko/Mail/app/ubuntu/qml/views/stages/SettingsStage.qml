@@ -19,10 +19,10 @@ import QtQuick 2.4
 import QuickFlux 1.0
 import Ubuntu.Components 1.3
 import Dekko.Components 1.0
+import Dekko.Mail.API 1.0
 import "../components"
 import "../settings"
 import "../../constants"
-import "../../actions/views"
 
 BaseStage {
 
@@ -44,7 +44,7 @@ BaseStage {
                 id: navMenuStage
                 stageID: ViewKeys.settingsStack1
                 anchors.fill: parent
-                baseUrl: "qrc:/qml/views/settings/ManageAccountsPage.qml"
+                baseUrl: Qt.resolvedUrl("../settings/ManageAccountsPage.qml")
             }
         }
         // Take rest of space when visible

@@ -36,7 +36,7 @@ AccountsListPage {
 
     onAccountSelected: {
         SettingsActions.setSelectedAccount(account)
-        ViewActions.pushToStageArea(ViewKeys.settingsStack1, "qrc:/qml/views/settings/AccountSettingsList.qml", {})
+        ViewActions.pushToStageArea(ViewKeys.settingsStack1, Qt.resolvedUrl("./AccountSettingsList.qml"), {})
     }
 
     Action {

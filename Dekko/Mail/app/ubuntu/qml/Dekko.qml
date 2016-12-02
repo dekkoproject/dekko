@@ -73,6 +73,7 @@ ViewState {
         property Logger logger: Logger {
             devLoggingEnabled: devModeEnabled
         }
+        property SettingsWorker settings: SettingsWorker{}
     }
 
     KeyboardRectangle {

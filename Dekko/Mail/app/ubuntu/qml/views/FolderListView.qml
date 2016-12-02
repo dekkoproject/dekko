@@ -18,11 +18,10 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Dekko.Mail 1.0
+import Dekko.Mail.API 1.0
 import Dekko.Components 1.0
 import "./components"
 import "./delegates"
-import "../actions/views"
-import "../actions/messaging"
 
 DekkoPage {
 

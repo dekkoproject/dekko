@@ -57,7 +57,7 @@ DekkoPage {
                 title.text: qsTr("Details")
                 ProgressionSlot{}
             }
-            onClicked: SettingsActions.openSettingsGroup("qrc:/qml/views/settings/DetailsGroup.qml")
+            onClicked: SettingsActions.openSettingsGroup(Qt.resolvedUrl("./DetailsGroup.qml"))
         }
         ListItem {
             height: l2.height + divider.height
@@ -66,7 +66,7 @@ DekkoPage {
                 title.text: qsTr("Incoming Server")
                 ProgressionSlot{}
             }
-            onClicked: SettingsActions.openSettingsGroup("qrc:/qml/views/settings/IncomingServerGroup.qml")
+            onClicked: SettingsActions.openSettingsGroup(Qt.resolvedUrl("./IncomingServerGroup.qml"))
         }
         ListItem {
             height: l3.height + divider.height
@@ -75,7 +75,7 @@ DekkoPage {
                 title.text: qsTr("Outgoing Server")
                 ProgressionSlot{}
             }
-            onClicked: SettingsActions.openSettingsGroup("qrc:/qml/views/settings/OutgoingServerGroup.qml")
+            onClicked: SettingsActions.openSettingsGroup(Qt.resolvedUrl("./OutgoingServerGroup.qml"))
         }
         ListItem {
             height: l4.height + divider.height
@@ -84,7 +84,7 @@ DekkoPage {
                 title.text: qsTr("Copies and Folders")
                 ProgressionSlot{}
             }
-            onClicked: SettingsActions.openSettingsGroup("qrc:/qml/views/settings/CopyFoldersGroup.qml")
+            onClicked: SettingsActions.openSettingsGroup(Qt.resolvedUrl("./CopyFoldersGroup.qml"))
         }
     }
 }
