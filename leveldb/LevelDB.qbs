@@ -14,9 +14,24 @@ DynamicLibrary {
     cpp.optimization: qbs.buildVariant === "debug" ? "none" : "fast"
     cpp.debugInformation: qbs.buildVariant === "debug"
     cpp.includePaths: leveldb.includePaths
-    cpp.defines: [
-        "LEVELDB_PLATFORM_QT"
-    ]
+
+
+    Properties {
+        condition: project.useSnappy
+        cpp.defines: [
+            "LEVELDB_PLATFORM_QT",
+            "SNAPPY"
+        ]
+        cpp.dynamicLibraries: ["snappy"]
+    }
+
+    Properties {
+        condition: !project.useSnappy
+        cpp.defines: [
+            "LEVELDB_PLATFORM_QT"
+        ]
+    }
+
     cpp.cxxFlags: [
         "-fno-builtin-memcmp",
         "-pthread"
