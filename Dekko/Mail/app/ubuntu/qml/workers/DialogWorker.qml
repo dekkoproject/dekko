@@ -17,10 +17,10 @@
 */
 import QtQuick 2.4
 import QuickFlux 1.0
-import "../actions"
-import "../actions/popups"
+import Dekko.Mail.API 1.0
+import Dekko.Mail.Stores.Views 1.0
 import "../views/utils"
-import "../stores"
+
 
 AppListener {
     id: logListener
@@ -31,14 +31,14 @@ AppListener {
     Filter {
         type: PopupKeys.showError
         onDispatched: {
-            popupQueue.queue("qrc:/qml/views/popovers/NoticePopup.qml", dekko, {title: qsTr("Error"), text: message.error})
+            popupQueue.queue(Qt.resolvedUrl("../views/popovers/NoticePopup.qml"), dekko, {title: qsTr("Error"), text: message.error})
         }
     }
 
     Filter {
         type: PopupKeys.showNotice
         onDispatched: {
-            popupQueue.queue("qrc:/qml/views/popovers/NoticePopup.qml", dekko, {title: qsTr("Notice"), text: message.notice})
+            popupQueue.queue(Qt.resolvedUrl("../views/popovers/NoticePopup.qml"), dekko, {title: qsTr("Notice"), text: message.notice})
         }
     }
 
@@ -52,7 +52,7 @@ AppListener {
     Filter {
         type: PopupKeys.showConfirmationDialog
         onDispatched: {
-            popupQueue.queue("qrc:/qml/views/dialogs/ConfirmationDialog.qml", dekko, {id: message.id, title: message.title, text: message.text})
+            popupQueue.queue(Qt.resolvedUrl("../views/dialogs/ConfirmationDialog.qml"), dekko, {id: message.id, title: message.title, text: message.text})
         }
     }
 }

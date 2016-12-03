@@ -17,8 +17,8 @@
 */
 import QtQuick 2.4
 import QuickFlux 1.0
-import "../actions/views"
-import "../stores"
+import Dekko.Mail.API 1.0
+import Dekko.Mail.Stores.Views 1.0
 import "../views/toasts"
 
 AppListener {

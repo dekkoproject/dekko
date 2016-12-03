@@ -63,7 +63,7 @@ ScrollView {
             }
             ListItemLayout {
                 id: aLayout
-                title.text: attachment.displayName
+                title.text: attachment ? attachment.displayName : ""
                 subtitle.text: attachment.size
                 Connections {
                     target: model.qtObject

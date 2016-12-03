@@ -80,7 +80,7 @@ Project {
             name: "Asset Configs"
             files: ["assets/configuration/**"]
             qbs.install: true
-            qbs.installDir: "/usr/share/dekko"
+            qbs.installDir: "/usr/share/dekko/configuration"
             qbs.installSourceBase: "assets/configuration"
         }
 

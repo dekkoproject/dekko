@@ -47,6 +47,7 @@ void ActionRegistry::loadActions()
         qDeleteAll(m_actions);
         m_actions.clear();
     }
+    m_actions << m_defaults;
     auto plugins = PluginRegistry::instance()->getByLocation(m_location);
     for (auto plugin : plugins) {
         if (auto dp = qobject_cast<DekkoPlugin *>(plugin)) {
@@ -57,7 +58,6 @@ void ActionRegistry::loadActions()
             m_incubators << incubator;
         }
     }
-    m_actions << m_defaults;
     emit actionsChanged(m_actions);
 }
 

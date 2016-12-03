@@ -24,6 +24,7 @@ import Dekko.Mail.Stores.Mail 1.0
 import Dekko.Components 1.0
 import Dekko.Mail.Settings 1.0
 import QuickFlux 1.0
+import PlugMan 1.0
 import "./components"
 import "./delegates"
 import "./models"
@@ -33,11 +34,17 @@ import "./composer"
 DekkoPage {
     id: msgListPage
 
-    pageHeader.title: MailStore.folderTitle
-    pageHeader.enableSearching: true
-    pageHeader.composeButtonEnabled: !dekko.isLargeFF
-    pageHeader.backAction: !dekko.isLargeFF || MailStore.isInSelectionMode ? drawerAction : null
-    pageHeader.filterSections: isSearchMode ? MailStore.searchFilters : MailStore.defaultFilters
+    property alias mboxSearch: loader_mboxSearch.item
+
+    pageHeader {
+        title: MailStore.folderTitle
+        enableSearching: true
+        composeButtonEnabled: !dekko.isLargeFF
+        backAction: !dekko.isLargeFF || MailStore.isInSelectionMode ? drawerAction : null
+        filterSections: isSearchMode ? MailStore.searchFilters : MailStore.defaultFilters
+        multiSelectActionList: multiSelectRegistry.actions
+    }
+
     onSelectedIndexChanged: {
         if (isSearchMode) {
             if (selectedIndex === 0) {
@@ -74,13 +81,6 @@ DekkoPage {
         MessageActions.setMessageListFilter(filter)
     }
 
-    pageHeader.multiSelectActionList: [
-        MailStore.actions.selectAll,
-        MailStore.actions.flagSelected,
-        MailStore.actions.markSelectedReadUnread,
-        MailStore.actions.deleteSelected
-    ]
-
     onMultiSelectCanceled: MessageActions.endMultiSelection()
     onIsSearchModeChanged: MessageActions.resetMessageList()
     onSearchActivated: mboxSearch.search(searchString)
@@ -104,27 +104,73 @@ DekkoPage {
         enabled: !dekko.isLargeFF
     }
 
+    // Plugins can add bulk message actions by registering Action for this location
+    ActionRegistry {
+        id: multiSelectRegistry
+        location: MailStore.listenerId ? "Dekko::Mail::MultiSelectAction" : ""
+        defaultActions: [
+            Action {
+                iconSource: !MailStore.msgList.canSelectAll ? Paths.actionIconUrl(Paths.NoneSelectedIcon) :
+                                                              Paths.actionIconUrl(Paths.SelectIcon)
+                text: MailStore.msgList.canSelectAll ? qsTr("Unselect all") : qsTr("Select all")
+                onTriggered: {
+                    if (MailStore.msgList.canSelectAll) {
+                        MessageActions.selectAllMessages()
+                    } else {
+                        MessageActions.unselectAllMessages()
+                    }
+                }
+            },
+            Action {
+                iconSource: MailStore.msgList.canMarkSelectionImportant ? Paths.actionIconUrl(Paths.StarredIcon) :
+                                                                Paths.actionIconUrl(Paths.UnStarredIcon)
+                text: MailStore.msgList.canMarkSelectionImportant ? qsTr("Star") : qsTr("Remove star")
+                onTriggered: {
+                    MessageActions.markSelectedMessagesImportant()
+                }
+            },
+            Action {
+                text: MailStore.msgList.canMarkSelectionRead ? qsTr("Mark as un-read") : qsTr("Mark as read")
+                iconSource: !MailStore.msgList.canMarkSelectionRead ? Paths.actionIconUrl(Paths.MailUnreadIcon) :
+                                                            Paths.actionIconUrl(Paths.MailReadIcon)
+                onTriggered: MessageActions.markSelectedMessagesRead()
+            },
+            Action {
+                iconSource: Paths.actionIconUrl(Paths.DeleteIcon)
+                text: qsTr("Delete")
+                onTriggered: MessageActions.deleteSelectedMessages()
+            }
+        ]
+    }
+
     Action {
         id: drawerAction
         iconName: "navigation-menu"
         onTriggered: ViewActions.toggleNavDrawer()
     }
 
-    MailboxSearch {
-        id: mboxSearch
-        messageKey: MailStore.msgListKey
-        location: MailboxSearch.Local
-        limit: 50
-        sortBy: MailboxSearch.TimeStamp
-        sortOrder: Qt.DescendingOrder
-        onStatusChanged: {
-            if (status === SearchService.InProgress) {
-                pageHeader.searchInProgress = true
-            } else {
-                pageHeader.searchInProgress = false
+    Loader {
+        id: loader_mboxSearch
+        asynchronous: true
+        sourceComponent: Component {
+            id: component_mboxSearch
+            MailboxSearch {
+                messageKey: MailStore.msgListKey
+                location: MailboxSearch.Local
+                limit: 50
+                sortBy: MailboxSearch.TimeStamp
+                sortOrder: Qt.DescendingOrder
+                onStatusChanged: {
+                    if (status === SearchService.InProgress) {
+                        pageHeader.searchInProgress = true
+                    } else {
+                        pageHeader.searchInProgress = false
+                    }
+                }
             }
         }
     }
+
 
     PageContent {
         id: cont
@@ -183,19 +229,19 @@ DekkoPage {
                 anchors.fill: parent
                 clip: true
                 currentIndex: MailStore ? MailStore.currentSelectedIndex : -1
-//                onCurrentIndexChanged: {
-//                    console.log("CurrentIndexChanged: ", currentIndex)
-//                    if (currentIndex === -1) {
-//                        return;
-//                    }
-//                    var msgId = -1
-//                    if (isSearchMode) {
-//                        msgId = mboxSearch.results.get(currentIndex).messageId
-//                    } else {
-//                        msgId = MailStore.msgListModel.get(currentIndex).messageId
-//                    }
-//                    MessageActions.openMessage(msgId)
-//                }
+                //                onCurrentIndexChanged: {
+                //                    console.log("CurrentIndexChanged: ", currentIndex)
+                //                    if (currentIndex === -1) {
+                //                        return;
+                //                    }
+                //                    var msgId = -1
+                //                    if (isSearchMode) {
+                //                        msgId = mboxSearch.results.get(currentIndex).messageId
+                //                    } else {
+                //                        msgId = MailStore.msgListModel.get(currentIndex).messageId
+                //                    }
+                //                    MessageActions.openMessage(msgId)
+                //                }
 
                 add: DekkoAnimation.listViewAddTransition
                 addDisplaced: DekkoAnimation.listViewAddDisplacedTransition

@@ -121,6 +121,21 @@ BaseStage {
                 }
             }
         }
+
+        PanelContainer {
+            visible: dekko.isLargeFF && pluginStage.stackCount
+            minSize: units.gu(20)
+            maxSize: units.gu(40)
+            size: units.gu(30)
+            height: parent.height
+            activeEdge: Item.Left
+
+            StageArea {
+                id: pluginStage
+                stageID: "pluginStack"
+                anchors.fill: parent
+            }
+        }
     }
 
     Timer {

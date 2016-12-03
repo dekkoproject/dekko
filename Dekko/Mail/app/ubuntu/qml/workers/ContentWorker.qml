@@ -82,7 +82,7 @@ AppListener {
         type: ContentKeys.openFilePicker
         onDispatched: {
             if (isRunningOnMir) {
-                var chPicker = PopupUtils.open("qrc:/qml/views/dialogs/ContentPickerDialog.qml", dekko, {isExport: false})
+                var chPicker = PopupUtils.open(Qt.resolvedUrl("../views/dialogs/ContentPickerDialog.qml"), dekko, {isExport: false})
                 chPicker.filesImported.connect(function(files){
                     var imports = new Array()
                     for (var i in files) {
@@ -92,7 +92,7 @@ AppListener {
                     ContentActions.filesSelected(imports)
                 })
             } else {
-                var c = Qt.createComponent("qrc:/qml/views/dialogs/FilePickerDialog.qml")
+                var c = Qt.createComponent(Qt.resolvedUrl("../views/dialogs/FilePickerDialog.qml"))
                 var filePicker = c.createObject(dekko)
                 filePicker.accepted.connect(function(){
                     var files = new Array()

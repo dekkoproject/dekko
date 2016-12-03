@@ -193,6 +193,7 @@ void Dekko::loadPlugins()
                 << QStringLiteral("Dekko::Service")
                 << QStringLiteral("Dekko::Listener")
                 << QStringLiteral("Dekko::AddressBook::Provider")
+                << QStringLiteral("Dekko::Mail::MultiSelectAction")
                 );
 
    PluginRegistry::instance()->loadPlugins(

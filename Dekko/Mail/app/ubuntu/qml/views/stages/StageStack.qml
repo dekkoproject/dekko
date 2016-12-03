@@ -57,7 +57,7 @@ StackView {
             type: ViewKeys.openMessageComposer
             onDispatched: {
                 if (dekko.isLargeFF) {
-                    PopupUtils.open("qrc:/qml/views/composer/ComposePanelPopup.qml", dekkoContainer, {})
+                    PopupUtils.open(Qt.resolvedUrl("../composer/ComposePanelPopup.qml"), dekkoContainer, {})
                 }
             }
         }
@@ -65,7 +65,7 @@ StackView {
             type: ViewKeys.openAddressBook
             onDispatched: {
                 Log.logStatus("StageStack::openAddressBook", "Opening addressbook stage ")
-                ViewActions.pushStage("qrc:/qml/views/stages/AddressBookStage.qml", {})
+                ViewActions.pushStage("./AddressBookStage.qml", {})
             }
         }
     }

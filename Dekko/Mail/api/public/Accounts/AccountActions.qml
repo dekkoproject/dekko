@@ -35,6 +35,9 @@ ActionCreator {
      */
     signal deleteAccount(int accountId, bool confirmRemoval)
     signal confirmRemoveAccount()
+
+
+    //Private
     signal _confirmRemoval()
 
 }

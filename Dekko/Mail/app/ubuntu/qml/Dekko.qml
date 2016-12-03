@@ -25,6 +25,7 @@ import Dekko.Mail.Workers 1.0
 import "./views/components"
 import "./views/utils"
 import "./views/stages"
+import "./workers"
 
 ViewState {
     id: dekko
@@ -61,7 +62,18 @@ ViewState {
     Loader {
         id: workerLoader
         asynchronous: true
-        sourceComponent: Workers {}
+        sourceComponent: Workers {
+            defaultListeners: [
+                AccountsWorker {},
+                MailboxWorker {},
+                SettingsWorker {},
+                UriWorker {},
+                ErrorsWorker {},
+                ToastWorker {},
+                DialogWorker {},
+                ContentWorker {}
+            ]
+        }
     }
 
     // Workers we need straight away
