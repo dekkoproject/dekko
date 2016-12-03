@@ -1,0 +1,2 @@
+module Dekko.Mail.Stores.Settings
+singleton SettingsStore 1.0 SettingsStore.qml

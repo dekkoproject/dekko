@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<service id="email">
+  <type>e-mail</type>
+  <translations>/usr/share/translations/settings-accounts</translations>
+  <name>settings_accounts-email_service</name>
+  <icon>image://theme/graphic-service-generic-mail</icon>
+  <provider>email</provider>
+
+  <!-- default settings (account settings have precedence over these) -->
+  <template>
+    <setting name="sync_profile_templates" type="as">["syncemail"]</setting>
+    <setting name="type" type="i">0</setting>
+    <setting name="name">Email</setting>
+    <setting name="status" type="i">0</setting>
+    <setting name="signatureEnabled" type="b">true</setting>
+    <setting name="signature"></setting>
+    <setting name="emailaddress"></setting>
+    <setting name="fullName"></setting>
+    <setting name="enabled" type="b">false</setting>
+    <setting name="credentialsCheck" type="b">false</setting>
+    <setting name="canTransmit" type="b">true</setting>
+    <setting name="iconPath" type="s">image://theme/graphic-service-generic-mail</setting>
+    <group name="auth">
+            <setting name="method">password</setting>
+            <setting name="mechanism">password</setting>
+    </group>
+    <!-- Exclude default configuration
+    <pop3>
+      <setting name="server">pop3.example.com</setting>
+      <setting name="port" type="i">143</setting>
+      <setting name="encryption" type="b">false</setting>
+      <setting name="canDelete" type="b">false</setting>
+      <setting name="autoDownload" type="b">false</setting>
+      <setting name="maxSize" type="i">102400</setting>
+      <setting name="checkInterval" type="i">-1</setting>
+      <setting name="intervalCheckRoamingEnabled" type="b">false</setting>
+      <setting name="acceptUntrustedCertificates" type="b">false</setting>
+    </pop3>
+    <imap4>
+       <setting name="server">imap.example.com</setting>
+       <setting name="port" type="i">110</setting>
+       <setting name="encryption" type="b">false</setting>
+       <setting name="canDelete" type="b">false</setting>
+       <setting name="autoDownload" type="b">false</setting>
+       <setting name="maxSize" type="i">102400</setting>
+       <setting name="pushEnabled" type="b">false</setting>
+       <setting name="baseFolder"></setting>
+       <setting name="draftsFolder"></setting>
+       <setting name="trashFolder"></setting>
+       <setting name="junkFolder"></setting>
+       <setting name="checkInterval" type="i">-1</setting>
+       <setting name="intervalCheckRoamingEnabled" type="b">false</setting>
+       <setting name="acceptUntrustedCertificates" type="b">false</setting>
+    </imap4>
+    <smtp>
+       <setting name="address">email@example.com</setting>
+       <setting name="server">smtp.example.com</setting>
+       <setting name="port" type="i">25</setting>
+       <setting name="authentication" type="b">false</setting>
+       <setting name="encryption" type="b">false</setting>
+       <setting name="acceptUntrustedCertificates" type="b">false</setting>
+     </smtp>
+     -->
+  </template>
+</service>

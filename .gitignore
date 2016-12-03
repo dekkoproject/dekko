@@ -2,3 +2,4 @@ CMakeLists.txt.user
 build
 __build
 .build
+*.qbs.user

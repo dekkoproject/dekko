@@ -1,0 +1,5 @@
+{
+    "id": "myplugin",
+    "register" : "Composer::ToolbarAction",
+    "component" : "MyAction.qml"
+}

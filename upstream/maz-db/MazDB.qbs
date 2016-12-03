@@ -9,7 +9,8 @@ Project {
     name: "MazDB Project"
 
     property bool testsEnabled: true
-    property bool buildExamples: false
+    property bool buildExamples: true
+    property bool useSnappy: false
     property string binDir: "bin"
     property string libDir: "lib"
     property string qmlDir: libDir

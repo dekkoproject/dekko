@@ -24,6 +24,8 @@ Project {
         cpp.debugInformation: qbs.buildVariant === "debug"
         
         cpp.includePaths: ["./quickflux", "./quickflux/priv"]
+        cpp.cxxLanguageVersion: "c++11";
+        cpp.cxxStandardLibrary: "libstdc++";
 
         // Make it easy to depend on this product
         // consumers will just have to use
@@ -36,6 +38,8 @@ Project {
             Depends { name: "Qt.quick" }
             Depends { name: "Qt.qml" }
             cpp.includePaths: ["./quickflux", "./quickflux/priv"]
+            cpp.cxxLanguageVersion: "c++11";
+            cpp.cxxStandardLibrary: "libstdc++";
         }
 
         Group {
@@ -66,7 +70,6 @@ Project {
                 "qfappscriptrunnable.cpp",
                 "qfappscriptdispatcherwrapper.cpp",
                 "qflistener.cpp",
-                "qfqmltypes.cpp",
                 "qfapplistenergroup.cpp",
                 "qfappscriptgroup.cpp",
                 "qffilter.cpp",
