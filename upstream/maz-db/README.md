@@ -15,28 +15,21 @@ The main components to MazDB are:
 
 ## Build
 
-We use gitman for dependency management.
-
-` $ sudo pip3 install gitman `
-
 Then fetch maz-db source
 
 ```bash
 $ git clone http://code.dekkoproject.org/dekko-dev/maz-db.git
 $ cd maz-db
-$ gitman install
-$ mkdir build && cd build
-$ cmake -DENABLE_TESTS=On ..
-$ make -j3
+$ qbs <options>
 ```
 
 To run the example app
 
-`$ ./example/mazdb-example`
+`$ qbs run`
 
 To run the tests
 
-`$ ./tests/mazdb-tests`
+`$ qbs build -p autotest-runner`
 
 
 # Usage (Still TODO)
