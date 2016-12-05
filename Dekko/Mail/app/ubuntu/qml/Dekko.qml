@@ -22,6 +22,7 @@ import Dekko.Mail.API 1.0
 import Dekko.Mail.Stores.Views 1.0
 import Dekko.Mail.Stores.Composer 1.0
 import Dekko.Mail.Workers 1.0
+import PlugMan 1.0
 import "./views/components"
 import "./views/utils"
 import "./views/stages"
@@ -62,7 +63,7 @@ ViewState {
     Loader {
         id: workerLoader
         asynchronous: true
-        sourceComponent: Workers {
+        sourceComponent: ListenerRegistry {
             defaultListeners: [
                 AccountsWorker {},
                 MailboxWorker {},
@@ -81,7 +82,7 @@ ViewState {
         id: d
         property MailWorker mailWorker: MailWorker {}
         property ComposerWorker composeWorker: ComposerWorker {}
-//        property ContentWorker contentWorker: ContentWorker{}
+        property ContentWorker contentWorker: ContentWorker{}
         property Logger logger: Logger {
             devLoggingEnabled: devModeEnabled
         }
