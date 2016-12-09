@@ -1,4 +1,5 @@
 #include "ListenerRegistry.h"
+#include <QQmlEngine>
 #include "PluginRegistry.h"
 
 ListenerRegistry::ListenerRegistry(QObject *parent) : QObject(parent)
@@ -25,7 +26,7 @@ QQuickItem *ListenerRegistry::createListenerFromURl(const QString &url)
         }
         return Q_NULLPTR;
     }
-    return qobject_cast<QQuickItem *>(itemComponent.create());
+    return qobject_cast<QQuickItem *>(itemComponent.create(engine->contextForObject(this)));
 }
 
 void ListenerRegistry::componentComplete()

@@ -1,4 +1,5 @@
 #include "PluginIncubator.h"
+#include <QQmlContext>
 #include <QDebug>
 
 PluginIncubator::PluginIncubator(QObject *parent) : QObject(parent),
@@ -14,7 +15,10 @@ void PluginIncubator::setSourceUrl(QQmlEngine *engine, const QUrl &source)
         emit error();
         return;
     }
-    m_comp->create(*this);
+    QQmlContext *c = engine->contextForObject(parent());
+    if (c->isValid()) {
+        m_comp->create(*this, c);
+    }
 }
 
 void PluginIncubator::statusChanged(QQmlIncubator::Status status)
