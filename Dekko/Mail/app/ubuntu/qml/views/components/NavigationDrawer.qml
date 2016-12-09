@@ -21,12 +21,18 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.ListItems 1.0 as ListItem
 import Dekko.Mail.API 1.0
 import "../components" as Comps
+import "../"
 
 Panel {
     id: accountsDrawer
-
-    property alias panelModel: topListView.model
-    property alias topListViewHandle: topListView
+    anchors {
+        left: parent.left
+        top: parent.top
+        bottom: parent.bottom
+    }
+    animate: true
+    width: units.gu(25)
+    property bool enabled: false
 
     property Action action: Action {
         id: drawerAction
@@ -53,6 +59,15 @@ Panel {
                 }
             }
         }
+
+        Filter {
+            type: ViewKeys.closeNavDrawer
+            onDispatched: {
+                if (accountsDrawer.opened) {
+                    delayClose()
+                }
+            }
+        }
     }
 
     // Don't let the event propogate to the page below
@@ -72,41 +87,9 @@ Panel {
 
     visible: opened || animating
     align: Qt.AlignLeading
-    state: "fixed"
-    states: [
-        State {
-            name: "overlay"
-            PropertyChanges {
-                target: accountsDrawer
-                height: col.height < maxHeight ? col.height : maxHeight
-            }
-        },
-        // These two will come in to the equation when we hit tablet/desktop modes
-        // As this panel will most likely be always on the left side of
-        // the screen either collapsed or maxWidth. We don't actually use them yet
-        State {
-            name: "fixed-narrow"
-            PropertyChanges {
-                target: accountsDrawer
-                width: units.gu(10)
-                height: parent.height
-            }
-        },
-        State {
-            name: "fixed"
-            PropertyChanges {
-                target: accountsDrawer
-                width: units.gu(30)
-                height: parent.height
-            }
-        }
-    ]
-    Rectangle {
-        anchors.fill: parent
-        color: "#ffffff"
-    }
 
     InverseMouseArea {
+        visible: accountsDrawer.opened
         anchors.fill: parent
         acceptedButtons: Qt.LeftButton
         onPressed: accountsDrawer.close()
@@ -128,26 +111,8 @@ Panel {
         }
     }
 
-    ListView {
-        id: topListView
-        clip: true
-        anchors {
-            left: parent.left
-            top: parent.top
-            right: parent.right
-            bottom: tabBar.top
-        }
-        interactive: false
-        orientation: ListView.Horizontal
-        snapMode: ListView.SnapOneItem
-        currentIndex: tabBar.currentIndex
-        highlightMoveDuration: 275
-    }
-
-    Comps.TabBar {
-        id: tabBar
-        width: parent.width
-        anchors.bottom: parent.bottom
-        iconNameModel: ["email", "contact-group", "settings", "like"]
+    NavSideBar {
+        anchors.fill: parent
+        panelMode: true
     }
 }

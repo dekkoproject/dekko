@@ -1,0 +1,5 @@
+{
+    "id": "ubuntu-main-stage",
+    "register" : "Dekko::Stage::Main",
+    "component" : "MainStage.qml"
+}

@@ -188,7 +188,7 @@ void Accounts::init()
         int index = m_idList.indexOf(id);
         if (index == -1) {
             // Not here so create.
-            Account *account = new Account();
+            Account *account = new Account(this);
             account->setId(id.toULongLong());
             m_model->append(account);
             m_idList.append(id);

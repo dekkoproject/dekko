@@ -159,7 +159,8 @@ Rectangle {
             top: parent.top
             right: parent.right
         }
-
+        height: units.gu(5)
+        width: height
         iconName: "view-fullscreen"
         onClicked: detach()
     }
@@ -173,14 +174,14 @@ Rectangle {
                                                        "y" : (abspos.y + rootItem.y),
                                                    });
             devPanel.parent = d.subWindow.contentItem;
-            pc.visible = false
+//            pc.visible = false
         }
     }
 
     function attach () {
         if (d.subWindow !== null) {
             devPanel.parent = pc.container;
-            pc.visible = true
+//            pc.visible = true
             d.subWindow.destroy();
         }
     }

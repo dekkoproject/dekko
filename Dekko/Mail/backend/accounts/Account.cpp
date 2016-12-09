@@ -30,8 +30,8 @@ const QString Account::smtpServiceType = QStringLiteral("smtp");
 Account::Account(QObject *parent) : QObject(parent),
     m_account(new QMailAccount()),
     m_accountConfig(new QMailAccountConfiguration()),
-    m_incoming(0),
-    m_outgoing(0)
+    m_incoming(Q_NULLPTR),
+    m_outgoing(Q_NULLPTR)
 {
 //    connect(QMailStore::instance(), SIGNAL(accountsUpdated(QMailAccountIdList)), this, SLOT(reload(QMailAccountIdList)));
     m_account->setMessageType(QMailMessage::Email);

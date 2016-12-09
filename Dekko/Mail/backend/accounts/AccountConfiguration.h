@@ -58,6 +58,7 @@ class AccountConfiguration : public QObject
 public:
     explicit AccountConfiguration(QObject *parent = 0);
     AccountConfiguration(QObject *parent, QMailAccountConfiguration *config, const QString &serviceType);
+    ~AccountConfiguration();
 
     enum ServiceType {
         IMAP,

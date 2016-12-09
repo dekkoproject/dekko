@@ -50,13 +50,11 @@ ViewState {
             // Basically the same as anchorToKeyboard
             bottom: kbdRect.top
         }
-        StageStack {
-            id: rootPageStack
-            anchors.fill: parent
-
-            Component.onCompleted: {
-                ViewActions.stageStackReady()
-            }
+        ItemRegistry {
+            asynchronous: false
+            location: "Dekko::Stage::Main"
+            target: dekkoContainer
+            loadMode: ItemRegistry.LoadFirstEnabled
         }
     }
 
@@ -82,7 +80,6 @@ ViewState {
         id: d
         property MailWorker mailWorker: MailWorker {}
         property ComposerWorker composeWorker: ComposerWorker {}
-        property ContentWorker contentWorker: ContentWorker{}
         property Logger logger: Logger {
             devLoggingEnabled: devModeEnabled
         }

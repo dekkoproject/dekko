@@ -187,7 +187,7 @@ QQuickItem *ItemRegistry::createItemFromUrl(const QString &itemUrl)
         return Q_NULLPTR;
     }
     auto engine = qmlEngine(this);
-    QQmlComponent itemComponent(engine, QUrl::fromLocalFile(itemUrl));
+    QQmlComponent itemComponent(engine, QUrl::fromLocalFile(itemUrl), m_target);
     if (itemComponent.isError()) {
         for (auto error : itemComponent.errors()) {
             qDebug() << "Failed loading plugin with error:";
@@ -195,7 +195,7 @@ QQuickItem *ItemRegistry::createItemFromUrl(const QString &itemUrl)
         }
         return Q_NULLPTR;
     }
-    return qobject_cast<QQuickItem *>(itemComponent.create());
+    return qobject_cast<QQuickItem *>(itemComponent.create(engine->contextForObject(m_target)));
 }
 
 void ItemRegistry::createItemAsync(const QString &itemUrl)

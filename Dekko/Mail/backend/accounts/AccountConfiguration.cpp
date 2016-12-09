@@ -92,6 +92,11 @@ AccountConfiguration::AccountConfiguration(
     init(config, serviceType);
 }
 
+AccountConfiguration::~AccountConfiguration()
+{
+    delete m_service;
+}
+
 QString AccountConfiguration::name() const {
     return m_service->value(AccountKeys::name);
 }

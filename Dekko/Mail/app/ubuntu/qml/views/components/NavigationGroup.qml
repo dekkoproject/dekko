@@ -19,38 +19,45 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import "../../constants"
 
-ListItem {
-    id: group
-    property alias title: sLabel.text
-    height: titleLabel.height
-    divider.visible: false
-    expansion.height: titleLabel.height + content.height
+Item {
+    id: root
+    clip: true
+    width: parent.width
+    height: btn.height
+    property alias title: lbl.text
     property alias model: repeater.model
     property alias delegate: repeater.delegate
-    signal expandClicked()
-    ListItem {
-        id: titleLabel
+
+    property bool expanded: false
+
+    AbstractButton {
+        id: btn
+        height: lbl.height + units.gu(2)
         anchors {
             left: parent.left
+            top: parent.top
             right: parent.right
         }
-        visible: model.count
-        height: sLabel.height
+
+        onClicked: root.expanded = !root.expanded
+
+        Rectangle {
+            anchors.fill: parent
+            color: UbuntuColors.slate
+            visible: btn.pressed
+        }
+
         Label {
-            id: sLabel
+            id: lbl
             anchors {
                 left: parent.left
-                leftMargin: Style.defaultSpacing
+                leftMargin: units.gu(1)
                 right: parent.right
-                rightMargin: Style.defaultSpacing
+                verticalCenter: parent.verticalCenter
             }
-            text: group.title
-            height: units.gu(4)
-            fontSize: "medium"
-            font.weight: Font.DemiBold
-            verticalAlignment: Text.AlignVCenter
-
+            color: UbuntuColors.ash
         }
+
         Icon {
             height: units.gu(3)
             width: height
@@ -59,24 +66,43 @@ ListItem {
                 verticalCenter: parent.verticalCenter
                 rightMargin: units.gu(1.5)
             }
-            name: group.expansion.expanded ? "view-collapse" : "view-expand"
-        }
-        onClicked: {
-            group.expandClicked()
+            name: root.expanded ? "view-collapse" : "view-expand"
         }
     }
 
     Column {
-        id: content
+        id: col
         anchors {
             left: parent.left
-            top: titleLabel.bottom
             right: parent.right
+            top: btn.bottom
         }
 
         Repeater {
             id: repeater
         }
     }
-}
 
+    Behavior on height {
+        UbuntuNumberAnimation{}
+    }
+
+    states: [
+        State {
+            name: "collapsed"
+            when: !root.expanded
+            PropertyChanges {
+                target: root
+                height: btn.height
+            }
+        },
+        State {
+            name: "expanded"
+            when: root.expanded
+            PropertyChanges {
+                target: root
+                height: btn.height + col.height
+            }
+        }
+    ]
+}

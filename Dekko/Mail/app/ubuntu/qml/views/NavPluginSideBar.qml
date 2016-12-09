@@ -1,0 +1,199 @@
+import QtQuick 2.4
+import Ubuntu.Components 1.3
+import Dekko.Mail.API 1.0
+import Dekko.Components 1.0
+import PlugMan 1.0
+import MazDB 1.0
+import "./components"
+
+Rectangle {
+    id: bar
+    color: UbuntuColors.inkstone
+
+    property int currentIndex: 0
+
+
+    MazDBSettings {
+        category: "ui-property-cache"
+        property alias navSideBarIndex: bar.currentIndex
+    }
+
+
+    // Mail stage is special here as it's the only one kept on the stack
+    // all other stage plugins are destroyed on stage push's
+    // If you want your stage to maintain state then you should make
+    // use of the store/worker pattern and use MazDB or MazDBSettings for data persistence
+    ActionRegistry {
+        id: navRegistry
+        location: "Dekko::Stage::Action"
+        defaultActions: [
+            Action {
+                iconName: "mail-unread"
+                onTriggered: ViewActions.rewindStageStack()
+            },
+            Action {
+                iconName: "address-book-app-symbolic"
+                onTriggered: ViewActions.pushStage("./AddressBookStage.qml", {})
+            },
+            Action {
+                iconName: "calendar"
+                onTriggered: console.log("Action Clicked")
+            },
+            Action {
+                iconName: "stock_note"
+                onTriggered: console.log("Action Clicked")
+            },
+            Action {
+                iconName: "attachment"
+                onTriggered: console.log("Action Clicked")
+            }
+        ]
+    }
+
+    Line {
+        anchors {
+            right: parent.right
+            top: parent.top
+            bottom: parent.bottom
+        }
+        color: UbuntuColors.slate
+    }
+
+    StretchColumn {
+        anchors.fill: parent
+
+        AbstractButton {
+            id: drawerBtn
+            height: units.gu(6)
+            width: bar.width
+            implicitHeight: height
+            visible: !dekko.isLargeFF
+
+            onClicked: ViewActions.toggleNavDrawer()
+
+            Rectangle {
+                anchors.fill: parent
+                visible: drawerBtn.pressed
+                color: UbuntuColors.slate
+            }
+
+            Icon {
+                name: "navigation-menu"
+                color: UbuntuColors.silk
+                height: units.gu(3)
+                width: height
+                anchors.centerIn: parent
+            }
+
+        }
+
+        Line {
+            color: UbuntuColors.slate
+            visible: !dekko.isLargeFF
+            anchors {
+                left: parent.left
+                right: parent.right
+                leftMargin: units.gu(1)
+                rightMargin: units.gu(1)
+            }
+        }
+
+        Stretcher {
+            clip: true
+            Flickable {
+                anchors.fill: parent
+                contentHeight: col.height + units.gu(5)
+                Column {
+                    id: col
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                        top: parent.top
+                    }
+
+                    Repeater {
+                        model: navRegistry.actions
+
+                        delegate: AbstractButton {
+                            id: btn
+
+                            readonly property bool isSelected: bar.currentIndex === index
+
+                            action: modelData
+                            height: units.gu(7)
+                            width: bar.width
+                            implicitHeight: height
+                            visible: action.visible
+
+                            onClicked: bar.currentIndex = index
+
+                            Rectangle {
+                                anchors.fill: parent
+                                visible: btn.pressed
+                                color: UbuntuColors.slate
+                            }
+
+                            Rectangle {
+                                color: UbuntuColors.blue
+                                width: units.dp(2)
+                                anchors {
+                                    left: parent.left
+                                    top: parent.top
+                                    bottom: parent.bottom
+                                }
+                                visible: btn.isSelected
+                            }
+
+                            Icon {
+                                name: action.iconName
+                                color: btn.isSelected ? UbuntuColors.blue : UbuntuColors.silk
+                                height: units.gu(3.4)
+                                width: height
+                                anchors.centerIn: parent
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+
+        Line {
+            color: UbuntuColors.slate
+            anchors {
+                left: parent.left
+                right: parent.right
+                leftMargin: units.gu(1)
+                rightMargin: units.gu(1)
+            }
+        }
+
+        Item {
+            height: units.gu(7)
+            width: bar.width
+            implicitHeight: height
+
+            Icon {
+                name: "like"
+                color: UbuntuColors.green
+                height: units.gu(3.4)
+                width: height
+                anchors.centerIn: parent
+            }
+        }
+
+        Item {
+            height: units.gu(7)
+            width: bar.width
+            implicitHeight: height
+
+            Icon {
+                name: "settings"
+                color: UbuntuColors.silk
+                height: units.gu(3.4)
+                width: height
+                anchors.centerIn: parent
+            }
+        }
+    }
+}

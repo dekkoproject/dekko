@@ -31,6 +31,7 @@ ActionCreator {
     signal pushStage(var stage, var properties)
     signal popStage()
     signal clearStageStack()
+    signal rewindStageStack()
     signal runSetupWizard()
 
     // messagelistview

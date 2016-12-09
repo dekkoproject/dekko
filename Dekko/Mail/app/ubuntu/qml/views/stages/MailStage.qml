@@ -26,11 +26,10 @@ import Dekko.Mail.Stores.Views 1.0
 import QuickFlux 1.0
 import "../components"
 import "../../constants"
+import "../"
 
 BaseStage {
     id: ms
-
-    panelEnabled: devModeEnabled
     
     // We use a stretch row here rather than RowLayout
     // Just because we can use the implicit size hints to stretch the correct
@@ -40,13 +39,14 @@ BaseStage {
     StretchRow {
         spacing: 0
         anchors.fill: parent
+
         // Should only be visible on large FF
         // Access is done via the navigation drawer
         // for smaller FF's
         PanelContainer {
             visible: dekko.isLargeFF
             resizable: !dekko.isSmallFF
-            minSize: units.gu(30)
+            minSize: units.gu(20)
             maxSize: units.gu(50)
             height: parent.height
             activeEdge: Item.Right
@@ -54,7 +54,7 @@ BaseStage {
                 id: navMenuStage
                 stageID: ViewKeys.navigationStack
                 anchors.fill: parent
-                baseUrl: Qt.resolvedUrl("../NavMenuPage.qml")
+                baseUrl: Qt.resolvedUrl("../NavSideBar.qml")
             }
         }
 
@@ -75,6 +75,7 @@ BaseStage {
             size: units.gu(40)
             height: parent.height
             activeEdge: Item.Right
+            clip: true
 
             StageArea {
                 id: msgListStage
@@ -95,6 +96,32 @@ BaseStage {
                         MessageActions.stackRewound()
                     }
                 }
+
+            }
+
+//            Loader {
+//                id: loader
+//                anchors {
+//                    left: parent.left
+//                    top: parent.bottom
+//                    bottom: parent.bottom
+//                }
+//                active: !dekko.isLargeFF
+//                asynchronous: true
+//                source: Qt.resolvedUrl("../components/NavigationDrawer.qml")
+//            }
+
+            NavigationDrawer {
+                anchors {
+                    left: parent.left
+                    top: parent.top
+                    bottom: parent.bottom
+                }
+                enabled: !dekko.isLargeFF
+                visible: enabled
+                animate: true
+                width: Style.defaultPanelWidth
+                state: "fixed"
             }
         }
         // Take rest of space when visible
@@ -177,6 +204,7 @@ BaseStage {
         Filter {
             type: MessageKeys.openAccountFolder
             onDispatched: {
+                ViewActions.closeNavDrawer()
                 if (dekko.isLargeFF) {
                     ViewActions.pushToStageArea(ViewKeys.navigationStack,
                                                 Qt.resolvedUrl("../FolderListView.qml"),

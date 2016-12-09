@@ -97,8 +97,8 @@ VisualItemModel {
                                     id: smf
                                     title: qsTr("Smart folders")
                                     model: MailboxStore.smartFoldersModel
-                                    expansion.expanded: PolicyManager.views.smartFoldersExpanded
-                                    onExpandClicked: PolicyManager.views.smartFoldersExpanded = !PolicyManager.views.smartFoldersExpanded
+//                                    expansion.expanded: PolicyManager.views.smartFoldersExpanded
+//                                    onExpandClicked: PolicyManager.views.smartFoldersExpanded = !PolicyManager.views.smartFoldersExpanded
                                     delegate: NavMenuStandardFolderDelegate {
                                         id: smartFolderDelegate
                                         folder: qtObject
@@ -119,8 +119,8 @@ VisualItemModel {
                                     id: acg
                                     title: qsTr("Folders")
                                     model: AccountStore.receiveAccountsModel
-                                    expansion.expanded: PolicyManager.views.accountsExpanded
-                                    onExpandClicked: PolicyManager.views.accountsExpanded = !PolicyManager.views.accountsExpanded
+//                                    expansion.expanded: PolicyManager.views.accountsExpanded
+//                                    onExpandClicked: PolicyManager.views.accountsExpanded = !PolicyManager.views.accountsExpanded
                                     delegate: ListItem {
                                         height: dLayout.height
                                         divider.visible: false

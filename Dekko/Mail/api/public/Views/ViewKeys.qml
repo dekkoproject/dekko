@@ -29,6 +29,7 @@ KeyTable {
     property string pushStage
     property string popStage
     property string clearStageStack
+    property string rewindStageStack
     property string runSetupWizard
 
     // messagelistview

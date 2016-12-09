@@ -34,7 +34,6 @@ Item {
     default property alias content: mainContent.data
 
     property BottomEdgeConfiguration bottomEdgeConfig: null
-    property DrawerConfiguration drawerConfig: null
 
     signal searchActivated(string searchString)
     signal searchCanceled()
@@ -107,39 +106,5 @@ Item {
                 }
             }
         }
-    }
-
-    property alias navDrawer: loader.item
-
-    Component {
-        id: navDrawerCompo
-        NavigationDrawer {
-            id: navDrawer
-            parent: dekkoPage
-            animate: true
-            width: Style.defaultPanelWidth
-            state: "fixed"
-            // make sure this overlays the page contents
-            z: 10
-            anchors {
-                left: parent.left
-                top: h.bottom
-                bottom: parent.bottom
-            }
-            panelModel: NavMenuModel{}
-        }
-
-    }
-    Loader {
-        id: loader
-        anchors {
-            left: parent.left
-            top: h.bottom
-            bottom: parent.bottom
-        }
-        active: drawerConfig !== null && drawerConfig.enabled
-        z: 10
-        asynchronous: true
-        sourceComponent: drawerConfig && drawerConfig.hasSourceComponent ? drawerConfig.sourceComponent : navDrawerCompo
     }
 }

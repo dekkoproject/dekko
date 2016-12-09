@@ -36,7 +36,7 @@ QtObject {
     readonly property int largeIconSize: units.gu(3.5)
     readonly property int smallIconSize: units.gu(1.5)
 
-    readonly property int defaultPanelWidth: units.gu(35)
+    readonly property int defaultPanelWidth: units.gu(30)
 
     readonly property color devPanelBackground: "#212121"
 

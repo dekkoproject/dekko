@@ -26,11 +26,13 @@ AbstractButton {
     property bool showText: false
     property int verticalCenterOffset: 0
     property int iconSize: units.gu(2)
+    property alias highlightColor: h.color
     
     width: showText ? description.width : units.gu(5)
     height: width
     
     UbuntuShape {
+        id: h
         anchors {
             fill: parent
             topMargin: units.gu(1)

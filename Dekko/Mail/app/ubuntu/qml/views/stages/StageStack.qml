@@ -68,6 +68,16 @@ StackView {
                 ViewActions.pushStage("./AddressBookStage.qml", {})
             }
         }
+
+        Filter {
+            type: ViewKeys.rewindStageStack
+            onDispatched: {
+                Log.logStatus("StageStack::rewindStageStack", "Rewinding stage stack ")
+                while (stageStack.depth > 1) {
+                    stageStack.pop()
+                }
+            }
+        }
     }
 }
 

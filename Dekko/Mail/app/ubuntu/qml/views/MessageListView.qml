@@ -40,7 +40,7 @@ DekkoPage {
         title: MailStore.folderTitle
         enableSearching: true
         composeButtonEnabled: !dekko.isLargeFF
-        backAction: !dekko.isLargeFF || MailStore.isInSelectionMode ? drawerAction : null
+        backAction: dekko.isSmallFF || MailStore.isInSelectionMode ? drawerAction : null
         filterSections: isSearchMode ? MailStore.searchFilters : MailStore.defaultFilters
         multiSelectActionList: multiSelectRegistry.actions
     }
@@ -99,10 +99,10 @@ DekkoPage {
         listenerEnabled: enabled
     }
 
-    drawerConfig: DrawerConfiguration {
-        visible: true
-        enabled: !dekko.isLargeFF
-    }
+//    drawerConfig: DrawerConfiguration {
+//        visible: true
+//        enabled: !dekko.isLargeFF
+//    }
 
     // Plugins can add bulk message actions by registering Action for this location
     ActionRegistry {

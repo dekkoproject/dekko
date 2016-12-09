@@ -96,14 +96,16 @@ ListItem {
     ListItemLayout {
         id: layout
         title.text: folder ? folder.displayName : ""
+        title.font.weight: Font.DemiBold
+        title.color: UbuntuColors.silk
         height: units.gu(6)
 
         CachedImage {
             id: attachmentImg
-            height: units.gu(3)
+            height: units.gu(2.6)
             width: height
             name: folder ? getIconForFolderType(folder) : ""
-            color: UbuntuColors.ash
+            color: UbuntuColors.silk
             SlotsLayout.position: SlotsLayout.Leading
         }
 
@@ -112,7 +114,7 @@ ListItem {
             // TODO: We should probably display total count for To-Do smart folder
             visible: folder && folder.unreadCount > 0
             aspect: UbuntuShape.Flat
-            color: UbuntuColors.porcelain
+            color: UbuntuColors.slate
             height: units.gu(2.2)
             width: countLable.width < height ? height : countLable.width + units.gu(1)
             Label {
@@ -120,6 +122,7 @@ ListItem {
                 anchors.margins: units.gu(0.5)
                 anchors.centerIn: parent
                 fontSize: "small"
+                color: UbuntuColors.porcelain
                 text: folder ? folder.unreadCount : ""
             }
         }
@@ -132,7 +135,7 @@ ListItem {
                 anchors.left: parent.left
                 height: parent.height
                 width: units.dp(1)
-                color: UbuntuColors.lightGrey
+                color: UbuntuColors.slate
             }
             Icon {
                 height: Style.defaultSpacing
@@ -153,7 +156,7 @@ ListItem {
         id: col
         visible: folder && folder.hasDescendents
         anchors.left: parent.left
-        anchors.leftMargin: Style.defaultSpacing
+        anchors.leftMargin: units.gu(1.5)
         anchors.top: layout.bottom
         anchors.right: parent.right
         Repeater {
@@ -172,12 +175,13 @@ ListItem {
                     id: dlayout
                     height: units.gu(5)
                     title.text: qsTr("Inbox (%1)").arg(qtObject.displayName)
+                    title.color: UbuntuColors.silk
 
                     CachedImage {
-                        height: units.gu(2.6)
+                        height: units.gu(2.4)
                         width: height
                         name: Icons.InboxIcon
-                        color: UbuntuColors.ash
+                        color: UbuntuColors.silk
                         SlotsLayout.position: SlotsLayout.Leading
                     }
 
@@ -185,7 +189,7 @@ ListItem {
                         id: dshape
                         visible: qtObject.unreadCount > 0
                         aspect: UbuntuShape.Flat
-                        color: UbuntuColors.porcelain
+                        color: UbuntuColors.slate
                         height: units.gu(2.2)
                         width: dcountLable.width < height ? height : dcountLable.width + units.gu(1)
                         Label {
@@ -194,6 +198,7 @@ ListItem {
                             anchors.centerIn: parent
                             text: qtObject.unreadCount
                             fontSize: "small"
+                            color: UbuntuColors.porcelain
                         }
                     }
                 }

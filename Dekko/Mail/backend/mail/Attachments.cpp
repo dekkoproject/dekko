@@ -253,7 +253,7 @@ void Attachment::open(QObject *qmlObject)
         Q_ASSERT(engine);
         m_qnam = engine->networkAccessManagerFactory()->create(this);
         connect(m_qnam, SIGNAL(finished(QNetworkReply*)),
-                this, SLOT(handlePartFetched(QNetworkReply*)));
+                this, SLOT(handlePartFetched()));
         fetch();
     } else {
         handlePartFetched();
