@@ -23,6 +23,7 @@ PluginLoader::~PluginLoader()
 
 void PluginLoader::loadPlugins(QMultiMap<QString, PluginInfo *> &registry, const QString &pluginType)
 {
+    Q_UNUSED(pluginType);
     qDebug() << "Loading plugins....";
     QStringList dirs;
     dirs << qApp->applicationDirPath() % "/plugins";

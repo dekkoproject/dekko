@@ -195,7 +195,8 @@ QQuickItem *ItemRegistry::createItemFromUrl(const QString &itemUrl)
         }
         return Q_NULLPTR;
     }
-    return qobject_cast<QQuickItem *>(itemComponent.create(engine->contextForObject(m_target)));
+
+    return qobject_cast<QQuickItem *>(itemComponent.create(engine->contextForObject(this)));
 }
 
 void ItemRegistry::createItemAsync(const QString &itemUrl)
