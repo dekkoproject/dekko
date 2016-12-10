@@ -190,6 +190,7 @@ void Dekko::loadPlugins()
     PluginRegistry::instance()->setPluginLocations(
                 QStringList()
                 << QStringLiteral("Dekko::Mail")
+                << QStringLiteral("Dekko::Mail::Composer")
                 << QStringLiteral("Dekko::Stage::Main")
                 << QStringLiteral("Dekko::Stage::Action")
                 << QStringLiteral("Dekko::Mail::NavHeadAction")

@@ -25,6 +25,7 @@ import Dekko.Components 1.0
 import Dekko.Mail.Settings 1.0
 import QuickFlux 1.0
 import PlugMan 1.0
+import MazDB 1.0
 import "./components"
 import "./delegates"
 import "./models"
@@ -99,10 +100,10 @@ DekkoPage {
         listenerEnabled: enabled
     }
 
-//    drawerConfig: DrawerConfiguration {
-//        visible: true
-//        enabled: !dekko.isLargeFF
-//    }
+    MazDBSettings {
+        category: "ui-property-cache"
+        property alias msgListFilterIndex: msgListPage.selectedIndex
+    }
 
     // Plugins can add bulk message actions by registering Action for this location
     ActionRegistry {
@@ -125,9 +126,7 @@ DekkoPage {
                 iconSource: MailStore.msgList.canMarkSelectionImportant ? Paths.actionIconUrl(Paths.StarredIcon) :
                                                                 Paths.actionIconUrl(Paths.UnStarredIcon)
                 text: MailStore.msgList.canMarkSelectionImportant ? qsTr("Star") : qsTr("Remove star")
-                onTriggered: {
-                    MessageActions.markSelectedMessagesImportant()
-                }
+                onTriggered: MessageActions.markSelectedMessagesImportant()
             },
             Action {
                 text: MailStore.msgList.canMarkSelectionRead ? qsTr("Mark as un-read") : qsTr("Mark as read")

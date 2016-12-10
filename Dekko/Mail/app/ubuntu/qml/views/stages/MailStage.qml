@@ -24,12 +24,20 @@ import Dekko.Mail.Settings 1.0
 import Dekko.Mail.Stores.Views 1.0
 //import Dekko.Contacts 1.0
 import QuickFlux 1.0
+import MazDB 1.0
 import "../components"
 import "../../constants"
 import "../"
 
 BaseStage {
     id: ms
+
+    MazDBSettings {
+        category: "ui-property-cache"
+        property alias mailstagePanel1Size: p1.size
+        property alias mailstagePanel2Size: p2.size
+        property alias mailstagePanel3Size: p3.size
+    }
     
     // We use a stretch row here rather than RowLayout
     // Just because we can use the implicit size hints to stretch the correct
@@ -44,6 +52,7 @@ BaseStage {
         // Access is done via the navigation drawer
         // for smaller FF's
         PanelContainer {
+            id: p1
             visible: dekko.isLargeFF
             resizable: !dekko.isSmallFF
             minSize: units.gu(20)
@@ -59,6 +68,7 @@ BaseStage {
         }
 
         PanelContainer {
+            id: p2
             // This is where we could no longer
             // work with AdaptivePageLayout
             // Our center column is actually our main page
@@ -150,6 +160,7 @@ BaseStage {
         }
 
         PanelContainer {
+            id: p3
             visible: dekko.isLargeFF && pluginStage.stackCount
             minSize: units.gu(20)
             maxSize: units.gu(40)

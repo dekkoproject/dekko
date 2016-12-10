@@ -12,13 +12,6 @@ Rectangle {
 
     property int currentIndex: 0
 
-
-    MazDBSettings {
-        category: "ui-property-cache"
-        property alias navSideBarIndex: bar.currentIndex
-    }
-
-
     // Mail stage is special here as it's the only one kept on the stack
     // all other stage plugins are destroyed on stage push's
     // If you want your stage to maintain state then you should make
