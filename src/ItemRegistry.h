@@ -37,6 +37,8 @@ public:
     LoadMode loadMode() const;
     bool asynchronous() const;
 
+    Q_INVOKABLE QString findFirstEnabled(const QString &location);
+
 signals:
     void targetChanged(QQuickItem *target);
     void locationChanged(QString location);

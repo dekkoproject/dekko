@@ -31,6 +31,20 @@ bool ItemRegistry::asynchronous() const
     return m_asynchronous;
 }
 
+QString ItemRegistry::findFirstEnabled(const QString &location)
+{
+    if (location.isEmpty()) {
+        return QString();
+    }
+    auto plugins = PluginRegistry::instance()->getByLocation(m_location);
+    if (plugins.isEmpty()) {
+        return QString();
+    }
+    qDebug() << "Found first enabled plugin";
+    auto firstplugin = qobject_cast<DekkoPlugin *>(plugins.first());
+    return firstplugin->component();
+}
+
 void ItemRegistry::setTarget(QQuickItem *target)
 {
     if (m_target == target)
