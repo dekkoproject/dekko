@@ -43,6 +43,7 @@ StretchColumn {
         visible: false
         activeEdge: Item.Top
         Loader {
+            id: panelLoader
             anchors.fill: parent
             active: pc.visible
             asynchronous: true

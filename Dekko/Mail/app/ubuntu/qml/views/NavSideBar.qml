@@ -40,7 +40,7 @@ StyledItem {
         defaultActions: [
             Action {
                 iconName: "edit"
-                onTriggered: ViewActions.openMessageComposer()
+                onTriggered: ViewActions.openComposer()
             }
         ]
     }

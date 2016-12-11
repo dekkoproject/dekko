@@ -1,0 +1,5 @@
+{
+    "id": "ubuntu-mail-composer-ui",
+    "register" : "Dekko::Mail::Composer::UI",
+    "component" : "Composer.qml"
+}

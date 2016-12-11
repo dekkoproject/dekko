@@ -9,6 +9,8 @@ Window {
     visible: true
     minimumWidth: units.gu(30)
     minimumHeight: units.gu(30)
+    flags: Qt.Window
+    modality: Qt.NonModal
 
     title: qsTr("Dekko Mail")
 

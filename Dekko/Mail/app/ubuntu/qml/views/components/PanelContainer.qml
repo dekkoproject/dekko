@@ -44,7 +44,8 @@ Item {
     property bool stretchOnSmallFF: false
     readonly property bool expanded: !d.collapsed
     default property alias content: internal.data
-    property alias container: internal
+    property alias contentItem: internal
+    property alias container: container
 
     Item {
         id: container;

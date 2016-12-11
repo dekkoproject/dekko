@@ -36,7 +36,7 @@ QString ItemRegistry::findFirstEnabled(const QString &location)
     if (location.isEmpty()) {
         return QString();
     }
-    auto plugins = PluginRegistry::instance()->getByLocation(m_location);
+    auto plugins = PluginRegistry::instance()->getByLocation(location);
     if (plugins.isEmpty()) {
         return QString();
     }

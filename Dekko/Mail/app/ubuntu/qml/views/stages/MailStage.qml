@@ -32,6 +32,7 @@ import "../"
 BaseStage {
     id: ms
 
+    // FIXME: This bogs down app start
     MazDBSettings {
         category: "ui-property-cache"
         property alias mailstagePanel1Size: p1.size
