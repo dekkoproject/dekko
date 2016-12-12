@@ -1,14 +1,13 @@
 name: dekko
-version: 0.6.11
+version: 0.9.6
 summary: Dekko email client
 description: Fast IMAP e-mail client optimized for mobile
-confinement: strict
+confinement: devmode
 grade: devel
-architectures: [all]
 
 apps:
     dekko:
-        command: dekko-launch
+        command: desktop-launch $SNAP/bin/dekko-launch
         plugs:
             - browser-sandbox
             - gsettings
@@ -30,6 +29,19 @@ plugs:
         allow-sandbox: true
 
 parts:
+    launcher:
+        plugin: dump
+        source: .
+        organize:
+            dekko.launcher: bin/dekko-launch
+        stage:
+            - bin/dekko-launch
+            - ubuntu-app-platform
+        snap:
+            - bin/dekko-launch
+            - ubuntu-app-platform
+
+        after: [desktop-ubuntu-app-platform]
     dekko:
         plugin: qbs
         source: "."
@@ -49,13 +61,8 @@ parts:
             - libqt5svg5-dev
         stage-packages:
             - libsnappy1v5
-    platform:
-        plugin: dump
-        source: "."
-        after: [desktop-ubuntu-app-platform]
-        snap: [ubuntu-app-platform]
-    launcher:
-        plugin: dump
-        source: ".snap"
-        organize:
-            dekko.launcher: bin/dekko-launch
+            
+        snap:
+            - -usr/share/doc
+            - -usr/include
+

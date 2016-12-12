@@ -130,7 +130,7 @@ Project {
         filePath: "upstream/plugman/plugman.qbs"
         Properties {
             libDir: dekko.libDir
-            qmlDir: dekko.qmlDir + "/PlugMan/"
+            qmlDir: dekko.qmlDir
         }
     }
 
