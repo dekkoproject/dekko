@@ -1,5 +1,6 @@
 import os
 import snapcraft
+import subprocess
 from snapcraft import common
 
 class QbsPlugin(snapcraft.BasePlugin):
@@ -59,25 +60,35 @@ class QbsPlugin(snapcraft.BasePlugin):
         super().build()
 
         env = self._build_environment()
+        # TODO: is this already defined in snapcraft somewhere?
+        arch = subprocess.getoutput("dpkg-architecture -qDEB_HOST_MULTIARCH")
 
+        # a unique'ish name for snap builds. Hopefully this shouldn't clash with
+        # any other local profiles.
         buildProfile = 'snapcraft'+self.options.qt_version
         
+        # Setup the toolchains, there will only be gcc or clang by default
         self.run(['qbs', 'setup-toolchains', '--detect'], env=env)
         
+        # Setup a qt4 or qt5 profile. It will auto set gcc as it's build profile
         self.run(['qbs', 'setup-qt', '/usr/bin/qmake', buildProfile], env=env)
         
+        # Switch buildprofile to clang if required
         if self.options.profile == 'clang':
             self.run(['qbs', 'config', 
-                      'profile.'+ buildProfile + '.baseProfile', 
+                      'profiles.'+ buildProfile + '.baseProfile', 
                       self.options.profile], 
                       env=env)
-            
+        # Run the build.
         self.run(['qbs', 'build',
                   '-d', self.builddir,
                   '-f', self.sourcedir,
-                  '--show-progress',
                   self.options.build_variant,
                   'qbs.installRoot:' + self.installdir, 
+                  'project.binDir:/usr/bin',
+                  'project.libDir:/usr/lib/' + arch,
+                  'project.qmlDir:/usr/lib/' + arch + '/qt5/qml',
+                  'project.dataDir:/usr/share/dekko',
                   'profile:' + buildProfile] + self.options.options, 
                  env=env)
 
