@@ -21,10 +21,16 @@ import Dekko.Components 1.0
 
 AbstractButton {
     id: button
+
+    property alias iconColor: icon.color
+    property bool showLabel: true
+
+    readonly property int fullWidth: icon.width + label.width + units.gu(3)
+    readonly property int minWidth: icon.width + units.gu(2)
+
     implicitWidth: width
     implicitHeight: height
-    width: icon.width + label.width + units.gu(3)
-    property alias iconColor: icon.color
+    width: showLabel ? fullWidth : minWidth
 
     UbuntuShape {
         anchors {
@@ -32,8 +38,7 @@ AbstractButton {
             bottomMargin: units.gu(0.5)
             fill: parent
         }
-        aspect: UbuntuShape.DropShadow
-//        visible: button.pressed
+        aspect: showLabel ? UbuntuShape.DropShadow : UbuntuShape.Flat
         color: button.pressed ? UbuntuColors.silk : UbuntuColors.porcelain
     }
 
@@ -58,6 +63,7 @@ AbstractButton {
             verticalCenter: parent.verticalCenter
         }
         text: action.text
+        visible: showLabel
     }
 }
 

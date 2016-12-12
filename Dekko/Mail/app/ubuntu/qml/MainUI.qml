@@ -9,6 +9,8 @@ Window {
     visible: true
     minimumWidth: units.gu(30)
     minimumHeight: units.gu(30)
+    width: units.gu(120)
+    height: units.gu(80)
     flags: Qt.Window
     modality: Qt.NonModal
 

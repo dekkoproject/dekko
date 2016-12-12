@@ -24,8 +24,8 @@ import QuickFlux 1.0
 */
 ActionCreator {
     signal importFromContentHub(var transfer)
-    signal pickFile()
-    signal openFilePicker()
+    signal pickFile(var root)
+    signal openFilePicker(var root)
     signal pickerClosed()
     signal filesSelected(var files)
     signal exportFile(string file)

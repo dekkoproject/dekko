@@ -277,12 +277,13 @@ PixelPerfectItem {
                 width: units.gu(4)
                 implicitWidth: width
                 implicitHeight: height
-                visible: !dekko.isSmallFF && composeButtonEnabled
+                visible: composeButtonEnabled
                 action: Action {
-                    iconName: "list-add"
+                    iconName: "edit"
                     onTriggered: composeNewMessage()
                 }
             }
+
             HeaderButton {
                 id: inner2_button
                 anchors {
@@ -295,6 +296,7 @@ PixelPerfectItem {
                 visible: action ? action.visible : false
                 action: enableSearching ? searchAction : primaryAction
             }
+
             HeaderButton {
                 id: inner3_button
                 anchors {

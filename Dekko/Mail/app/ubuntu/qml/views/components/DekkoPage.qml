@@ -54,7 +54,7 @@ Item {
         onSearchActivated: dekkoPage.searchActivated(searchString)
         onSearchCanceled: dekkoPage.searchCanceled()
         onMultiSelectCanceled: dekkoPage.multiSelectCanceled()
-        onComposeNewMessage: ViewActions.openMessageComposer()
+        onComposeNewMessage: ViewActions.openComposer()
     }
 
     Item {

@@ -43,5 +43,5 @@ ActionCreator {
     signal confirmationDialogCancelled(string id)
     signal clearDialogQueue()// TODO
     signal cancelCurrentDialog()// TODO
-
+    signal showDiscardDialog(string id, string title, string text)
 }

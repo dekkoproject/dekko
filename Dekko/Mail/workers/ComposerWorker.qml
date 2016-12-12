@@ -116,7 +116,7 @@ AppListener {
         runWhen: ComposerKeys.discardMessage
         script: {
             if (ComposerStore.builder.hasDraft) {
-                PopupActions.showConfirmationDialog(dlgId, qsTr("Discard message"), qsTr("Are you sure you want to discard this message?"))
+                PopupActions.showDiscardDialog(dlgId, qsTr("Discard message"), qsTr("Are you sure you want to discard this message?"))
             } else {
                 ComposerActions.discardMessageConfirmed()
                 exit.bind(this,0)
@@ -173,7 +173,7 @@ AppListener {
         type: ComposerKeys.respondToMessage
         onDispatched: {
             Log.logInfo("ComposerWorker::replyToMessage", "Constructing reply message for msg: " + message.msgId)
-            ViewActions.openMessageComposer()
+            ViewActions.openComposer()
             ComposerStore.submission.respondToMessage(message.type, message.msgId)
         }
     }
@@ -182,7 +182,7 @@ AppListener {
         type: ComposerKeys.forwardMessage
         onDispatched: {
             Log.logInfo("ComposerWorker::forwardMessage", "Constructing message to forward")
-            ViewActions.openMessageComposer()
+            ViewActions.openComposer()
             ComposerStore.submission.forwardMessage(message.type, message.msgId)
         }
     }
@@ -242,7 +242,7 @@ AppListener {
         type: ComposerKeys.openDraft
         onDispatched: {
             Log.logInfo("ComposerWorker::openDraft", "Constinuing draft message")
-            ViewActions.openMessageComposer()
+            ViewActions.openComposer()
             ComposerStore.submission.reloadDraft(message.draftId)
         }
     }
@@ -253,7 +253,7 @@ AppListener {
             ComposerStore.builder.composeMailTo(message.mailto)
             // we need to delay this now as we may have actually only just been opened
             // and the various stores are still getting initialized as the UI is constructed
-            ViewActions.delayCall(ViewKeys.openMessageComposer)
+            ViewActions.delayCall(ViewKeys.openComposer)
         }
     }
 }

@@ -25,6 +25,7 @@ import "../../constants"
 
 FocusScope {
     anchors.fill: parent
+    property alias textFieldFocused: messageField.activeFocus
 
     ScrollView {
         id: sv

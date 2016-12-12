@@ -62,7 +62,7 @@ AppListener {
             // First open the file picker for the platform
             // This will either be the ContentHub picker
             // or Qt's own FileDialog for non unity8 platforms
-            ContentActions.openFilePicker()
+            ContentActions.openFilePicker(message.root)
             // Listen on selected files and add them to the composer
             once(ContentKeys.filesSelected, function(message) {
                 console.log("FILES: ", message.files)
@@ -82,7 +82,7 @@ AppListener {
         type: ContentKeys.openFilePicker
         onDispatched: {
             if (isRunningOnMir) {
-                var chPicker = PopupUtils.open(Qt.resolvedUrl("../views/dialogs/ContentPickerDialog.qml"), dekko, {isExport: false})
+                var chPicker = PopupUtils.open(Qt.resolvedUrl("../views/dialogs/ContentPickerDialog.qml"), message.root, {isExport: false})
                 chPicker.filesImported.connect(function(files){
                     var imports = new Array()
                     for (var i in files) {
@@ -93,7 +93,7 @@ AppListener {
                 })
             } else {
                 var c = Qt.createComponent(Qt.resolvedUrl("../views/dialogs/FilePickerDialog.qml"))
-                var filePicker = c.createObject(dekko)
+                var filePicker = c.createObject(message.root)
                 filePicker.accepted.connect(function(){
                     var files = new Array()
                     for (var i in filePicker.fileUrls) {

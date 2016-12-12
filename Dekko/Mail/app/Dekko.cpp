@@ -182,7 +182,10 @@ void Dekko::trimCache()
 // TODO: show popup in mainview about server vanishing and Dekko will now close.
 void Dekko::serverProcessError(QProcess::ProcessError error)
 {
-    Q_UNUSED(error)
+    qWarning() << "[ERROR] Message server stopped, trying to restart";
+    delete m_server;
+    m_server = 0;
+    startServer();
 }
 
 void Dekko::loadPlugins()

@@ -10,6 +10,7 @@ import "../components"
 import "../../constants"
 
 Item {
+    id: composer
     anchors.fill: parent
 
     StretchColumn {
@@ -25,25 +26,35 @@ Item {
             implicitHeight: height
             color: UbuntuColors.porcelain
             StretchRow {
+                id: row
                 anchors.fill: parent
                 anchors.leftMargin: units.gu(1)
                 anchors.rightMargin: units.gu(1)
                 spacing: units.gu(1)
+                readonly property bool textVisible: composer.width > units.gu(60)
                 TitledHeaderButton {
                     height: units.gu(5)
                     anchors.verticalCenter: parent.verticalCenter
                     action: ComposerStore.actions.discardMessageAction
+                    showLabel: row.textVisible
                 }
                 TitledHeaderButton {
                     height: units.gu(5)
                     anchors.verticalCenter: parent.verticalCenter
                     action: ComposerStore.actions.saveDraftAction
+                    showLabel: row.textVisible
                 }
 
                 TitledHeaderButton {
                     height: units.gu(5)
                     anchors.verticalCenter: parent.verticalCenter
-                    action: ComposerStore.actions.attachmentsAction
+                    action: Action {
+                        text: qsTr("Attach")
+                        iconName: Icons.AttachmentIcon
+                        iconSource: Paths.actionIconUrl(Icons.AttachmentIcon)
+                        onTriggered: ContentActions.pickFile(composer)
+                    }
+                    showLabel: row.textVisible
                 }
 
                 Stretcher {}
@@ -52,6 +63,7 @@ Item {
                     height: units.gu(5)
                     anchors.verticalCenter: parent.verticalCenter
                     action: ComposerStore.actions.sendAction
+                    showLabel: row.textVisible
                 }
             }
 
@@ -63,6 +75,25 @@ Item {
                 }
             }
         }
+//        Rectangle {
+//            id: toolbar
+//            anchors {
+//                left: parent.left
+//                right: parent.right
+//            }
+//            height: composePanel.textFieldFocused ? units.gu(5) : 0
+//            implicitHeight: height
+//            color: UbuntuColors.porcelain
+//            Line {
+//                anchors {
+//                    bottom: parent.bottom
+//                    right: parent.right
+//                    left: parent.left
+//                }
+//            }
+//            Behavior on height { UbuntuNumberAnimation {} }
+//        }
+
         Stretcher {
             id: content
 
@@ -73,6 +104,7 @@ Item {
                 Stretcher {
                     implicitHeight: parent.height
                     MessageComposer {
+                        id: composePanel
                         anchors.fill: parent
                     }
                 }

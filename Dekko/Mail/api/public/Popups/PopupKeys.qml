@@ -32,4 +32,5 @@ KeyTable {
     property string confirmationDialogCancelled
     property string clearDialogQueue //TODO
     property string cancelCurrentDialog // TODO
+    property string showDiscardDialog
 }

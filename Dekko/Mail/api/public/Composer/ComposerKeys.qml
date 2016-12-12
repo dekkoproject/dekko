@@ -54,4 +54,6 @@ KeyTable {
     property string setIdentity
     property string composeMailtoUri
 
+    property string showConfirmationDialog
+
 }
