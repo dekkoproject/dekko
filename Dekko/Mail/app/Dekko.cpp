@@ -112,17 +112,15 @@ bool Dekko::setup()
     qDebug() << "DEKKO_PLUGINS:" << qgetenv("DEKKO_PLUGINS");
     qDebug() << "QMF_PLUGINS: " << qgetenv("QMF_PLUGINS");
 #endif
-#ifdef SNAP_MODE
+
     QByteArray snapCommon = qgetenv("SNAP_USER_COMMON");
     if (snapCommon.isEmpty()) {
+        // Fall back to standard xdg cache location
         qputenv("QMF_DATA", QStandardPaths::writableLocation(QStandardPaths::CacheLocation).toUtf8());
     } else {
         qputenv("QMF_DATA", snapCommon.append("/.cache"));
     }
-    qDebug() << "QMF_DATA: " << qgetenv("QMF_DATA");
-#else
-    qputenv("QMF_DATA", QStandardPaths::writableLocation(QStandardPaths::CacheLocation).toUtf8());
-#endif
+
     if (!isServerRunning()) {
         qDebug() << "[Dekko]" << "Message server not running attempting to start";
         if (!startServer()) {

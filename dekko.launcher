@@ -15,11 +15,8 @@ export OXIDE_NO_SANDBOX=1
 # Explicitly set APP_ID.
 export APP_ID=dekko
 
-# plugins - plugins in these dirs are loaded on demand at runtime
+# App specific plugin locations
 export QMF_PLUGINS=$SNAP/usr/lib/$ARCH/qmf/plugins5
 export DEKKO_PLUGINS=$SNAP/usr/lib/$ARCH/Dekko/plugins
-
-echo "LD_LIBRARY_PATH: $LD_LIBRARY_PATH"
-echo "QML2_IMPORT_PATH: $QML2_IMPORT_PATH"
 
 exec $SNAP/usr/bin/dekko --desktop_file_hint=unity8 "$@"
