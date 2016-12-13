@@ -1,4 +1,6 @@
 #include "ItemRegistry.h"
+#include <QMetaObject>
+#include <QQuickWindow>
 #include "PluginRegistry.h"
 
 ItemRegistry::ItemRegistry(QObject *parent) : QObject(parent),
@@ -231,12 +233,19 @@ void ItemRegistry::asyncItemReady()
     PluginIncubator *incubator = qobject_cast<PluginIncubator *>(sender());
     if (incubator->status() == QQmlIncubator::Ready) {
         QObject *itemObject = incubator->object();
-        QQuickItem *item = qobject_cast<QQuickItem *>(itemObject);
-        if (item) {
-            reparentItemToTarget(item);
+        // We also support loading a QQUickWindow and showing it straight away
+        // if the base component is a Window{} component.
+        if (itemObject->metaObject()->className() == QByteArrayLiteral("QQuickWindowQmlImpl")) {
+            QQuickWindow *window = qobject_cast<QQuickWindow *>(itemObject);
+            window->show();
         } else {
-            qWarning() << "Failed casting plugin to qquickitem";
-            incubator->deleteLater();
+            QQuickItem *item = qobject_cast<QQuickItem *>(itemObject);
+            if (item) {
+                reparentItemToTarget(item);
+            } else {
+                qWarning() << "Failed casting plugin to qquickitem";
+                incubator->deleteLater();
+            }
         }
     } else {
         incubator->deleteLater();

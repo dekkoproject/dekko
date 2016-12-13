@@ -90,6 +90,7 @@ QList<PluginInfo *> PluginRegistry::getByLocation(const QString &key, const bool
             m_regConf.endGroup();
             if (enabled) {
                 qDebug() << "Plugin enabled: " << plugin->pluginId();
+                enablePlugin(plugin->pluginId());
                 plugins << plugin;
             }
         }
