@@ -115,23 +115,9 @@ bool Dekko::setup()
     qDebug() << "QMF_PLUGINS: " << qgetenv("QMF_PLUGINS");
 #endif
 
-    qDebug() << "DataLocation: " << QStandardPaths::writableLocation(QStandardPaths::DataLocation);
-    qDebug() << "CacheLocation: " << QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
-    qDebug() << "GenericDataLocation: " << QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
-    qDebug() << "GenericCacheLocation: " << QStandardPaths::writableLocation(QStandardPaths::GenericCacheLocation);
-    qDebug() << "GenericConfigLocation: " << QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation);
-    qDebug() << "ConfigLocation: " << QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
-    qDebug() << "RuntimeLocation: " << QStandardPaths::writableLocation(QStandardPaths::RuntimeLocation);
-    qDebug() << "AppConfigLocation: " << QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
-    qDebug() << "AppDataLocation: " << QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
-    qDebug() << "AppLocalDataLocation: " << QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
-
-    QByteArray snapCommon = qgetenv("SNAP_USER_COMMON");
-    if (snapCommon.isEmpty()) {
+    if (qgetenv("QMF_DATA").isEmpty()) {
         // Fall back to standard xdg cache location
         qputenv("QMF_DATA", QStandardPaths::writableLocation(QStandardPaths::CacheLocation).toUtf8());
-    } else {
-        qputenv("QMF_DATA", snapCommon.append("/.cache"));
     }
 
     if (!isServerRunning()) {
