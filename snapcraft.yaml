@@ -31,17 +31,10 @@ plugs:
 parts:
     launcher:
         plugin: dump
-        source: .
+        source: snap/
         organize:
             dekko.launcher: bin/dekko-launch
-        stage:
-            - bin/dekko-launch
-            - ubuntu-app-platform
-        snap:
-            - bin/dekko-launch
-            - ubuntu-app-platform
 
-        after: [desktop-ubuntu-app-platform]
     dekko:
         plugin: qbs
         source: "."
@@ -65,4 +58,5 @@ parts:
         snap:
             - -usr/share/doc
             - -usr/include
+        after: [desktop-ubuntu-app-platform]
 

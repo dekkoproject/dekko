@@ -30,6 +30,8 @@
 #include <QDir>
 #include <QStandardPaths>
 #include <PluginRegistry.h>
+#include <QMetaObject>
+#include <QMetaEnum>
 
 #define SMALL_FF_WIDTH 350
 #define MEDIUM_FF_WDTH 800
@@ -112,6 +114,17 @@ bool Dekko::setup()
     qDebug() << "DEKKO_PLUGINS:" << qgetenv("DEKKO_PLUGINS");
     qDebug() << "QMF_PLUGINS: " << qgetenv("QMF_PLUGINS");
 #endif
+
+    qDebug() << "DataLocation: " << QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+    qDebug() << "CacheLocation: " << QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
+    qDebug() << "GenericDataLocation: " << QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
+    qDebug() << "GenericCacheLocation: " << QStandardPaths::writableLocation(QStandardPaths::GenericCacheLocation);
+    qDebug() << "GenericConfigLocation: " << QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation);
+    qDebug() << "ConfigLocation: " << QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
+    qDebug() << "RuntimeLocation: " << QStandardPaths::writableLocation(QStandardPaths::RuntimeLocation);
+    qDebug() << "AppConfigLocation: " << QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
+    qDebug() << "AppDataLocation: " << QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+    qDebug() << "AppLocalDataLocation: " << QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
 
     QByteArray snapCommon = qgetenv("SNAP_USER_COMMON");
     if (snapCommon.isEmpty()) {
