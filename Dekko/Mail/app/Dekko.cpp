@@ -30,8 +30,6 @@
 #include <QDir>
 #include <QStandardPaths>
 #include <PluginRegistry.h>
-#include <QMetaObject>
-#include <QMetaEnum>
 
 #define SMALL_FF_WIDTH 350
 #define MEDIUM_FF_WDTH 800
