@@ -58,6 +58,8 @@ AppListener {
     /** type:bool A provider configuration was found during the AutoDiscover process */
     readonly property alias hasProvider: d.hasProvider
 
+    property bool wizardRunning: false
+
     // New account object
     // This is a subclass of Account that allows editing of
     // an invalid account before comitting to the QMailStore
