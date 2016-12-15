@@ -159,5 +159,8 @@ Item {
             rootPageStack.pop()
         }
     }
+
+    Component.onCompleted: AccountSetup.wizardRunning = true
+    Component.onDestruction: AccountSetup.wizardRunning = false
 }
 
