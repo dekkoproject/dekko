@@ -64,6 +64,9 @@ ActionCreator {
     signal setComposePanelSource(var source, var properties)
     signal closeComposer()
 
+    signal openSettings()
+    signal closeSettings()
+
     signal orderSimpleToast(string message)
     signal orderSubtitledToast(string title, string subtitle)
     signal orderComplexToast(string title, string subtitle, string image)

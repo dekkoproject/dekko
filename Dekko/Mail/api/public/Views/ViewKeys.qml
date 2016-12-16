@@ -63,6 +63,9 @@ KeyTable {
     property string setComposePanelSource
     property string closeComposer
 
+    property string openSettings
+    property string closeSettings
+
     property string orderSimpleToast
     property string orderSubtitledToast
     property string orderComplexToast

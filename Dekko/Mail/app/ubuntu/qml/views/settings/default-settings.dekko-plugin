@@ -1,0 +1,5 @@
+{
+    "id": "ubuntu-mail-settings",
+    "register" : "Dekko::Mail::Settings",
+    "component" : "SettingsWindow.qml"
+}
