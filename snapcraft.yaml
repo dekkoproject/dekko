@@ -52,8 +52,6 @@ parts:
             - qtdeclarative5-private-dev
             - qml-module-qtquick-privatewidgets
             - libqt5svg5-dev
-        stage-packages:
-            - libsnappy1v5
             
         snap:
             - -usr/share/doc
