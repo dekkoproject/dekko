@@ -69,7 +69,16 @@ Dekko::Dekko(int &argc, char **argv) :
     parser.addOption({"medium", "Open in medium form factor state"});
     parser.addOption({"large", "Open in large form factor state"});
     parser.addOption({"contacts", "Open the addressbook"});
-    parser.process(*this);
+
+    QStringList cArgs = this->arguments();
+
+    for (const QString &s : cArgs) {
+        if (s.startsWith("--desktop_file_hint=")) {
+            cArgs.removeAll(s);
+        }
+    }
+
+    parser.process(cArgs);
 }
 
 bool Dekko::setup()
@@ -103,7 +112,12 @@ bool Dekko::setup()
     qDebug() << "DEKKO_PLUGINS:" << qgetenv("DEKKO_PLUGINS");
     qDebug() << "QMF_PLUGINS: " << qgetenv("QMF_PLUGINS");
 #endif
-    qputenv("QMF_DATA", QStandardPaths::writableLocation(QStandardPaths::CacheLocation).toUtf8());
+
+    if (qgetenv("QMF_DATA").isEmpty()) {
+        // Fall back to standard xdg cache location
+        qputenv("QMF_DATA", QStandardPaths::writableLocation(QStandardPaths::CacheLocation).toUtf8());
+    }
+
     if (!isServerRunning()) {
         qDebug() << "[Dekko]" << "Message server not running attempting to start";
         if (!startServer()) {

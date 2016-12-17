@@ -100,6 +100,7 @@ Project {
             name: "Maz DB"
             testsEnabled: false
             buildExamples: false
+            useSnappy: true
             binDir: dekko.binDir
             libDir: dekko.libDir
             qmlDir: dekko.qmlDir
@@ -129,7 +130,7 @@ Project {
         filePath: "upstream/plugman/plugman.qbs"
         Properties {
             libDir: dekko.libDir
-            qmlDir: dekko.qmlDir + "/PlugMan"
+            qmlDir: dekko.qmlDir
         }
     }
 

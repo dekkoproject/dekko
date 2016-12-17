@@ -8,7 +8,7 @@ Project {
 
     property bool buildExample: false
     property string libDir: "lib"
-    property string qmlDir: "lib/PlugMan"
+    property string qmlDir: "lib"
 
     DynamicLibrary {
         name: "PlugMan"
@@ -104,12 +104,12 @@ Project {
             ]
             fileTags: ["quickplugman-resources"]
             qbs.install: true
-            qbs.installDir: plugman.qmlDir
+            qbs.installDir: plugman.qmlDir + "/PlugMan"
         }
 
         Group {
             qbs.install: true
-            qbs.installDir: plugman.qmlDir
+            qbs.installDir: plugman.qmlDir + "/PlugMan"
             fileTagsFilter: product.type
         }
     }

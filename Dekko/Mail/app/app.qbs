@@ -8,7 +8,7 @@ Project {
 
     QtGuiApplication {
         name: "Dekko Mail"
-        targetName: "dekko-mail"
+        targetName: "dekko"
 
         Depends { name : "cpp" }
         Depends {

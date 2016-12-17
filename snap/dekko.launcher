@@ -1,0 +1,25 @@
+#!/bin/bash
+
+if [ "$SNAP_ARCH" == "amd64" ]; then
+	ARCH="x86_64-linux-gnu"
+elif [ "$SNAP_ARCH" == "armhf" ]; then
+	ARCH="arm-linux-gnueabihf"
+else
+	ARCH="$SNAP_ARCH-linux-gnu"
+fi
+
+# Disable the chromium sandbox to work around https://launchpad.net/bugs/1599234.
+# Rely on snapd’s security policy instead.
+export OXIDE_NO_SANDBOX=1
+
+# Explicitly set APP_ID.
+export APP_ID=dekko
+
+# App specific plugin locations
+export QMF_PLUGINS=$SNAP/usr/lib/$ARCH/qmf/plugins5
+export DEKKO_PLUGINS=$SNAP/usr/lib/$ARCH/Dekko/plugins
+
+# Location qmf will store the mailstore cache
+export QMF_DATA=$SNAP_USER_COMMON/.cache
+
+exec $SNAP/usr/bin/dekko --desktop_file_hint=unity8 "$@"
