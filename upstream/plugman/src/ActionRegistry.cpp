@@ -13,7 +13,6 @@ ActionRegistry::ActionRegistry(QObject *parent) : QObject(parent)
 ActionRegistry::~ActionRegistry()
 {
     qDeleteAll(m_actions);
-    qDeleteAll(m_defaults);
 }
 
 QList<QObject *> ActionRegistry::actions() const

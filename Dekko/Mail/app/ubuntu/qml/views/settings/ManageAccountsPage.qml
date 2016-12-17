@@ -27,7 +27,7 @@ AccountsListPage {
     pageHeader.backAction: Action {
         iconName: "back"
         onTriggered: {
-            ViewActions.popStage()
+            ViewActions.popStageArea(ViewKeys.settingsStack1)
         }
     }
     pageHeader.primaryAction: addNewAccount
@@ -42,6 +42,9 @@ AccountsListPage {
     Action {
         id: addNewAccount
         iconName: "add"
-        onTriggered: ViewActions.runSetupWizard()
+        onTriggered: {
+            ViewActions.runSetupWizard()
+            ViewActions.closeSettings()
+        }
     }
 }

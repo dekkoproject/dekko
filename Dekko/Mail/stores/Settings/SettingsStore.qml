@@ -27,4 +27,5 @@ AppListener {
     property var selectedAccountId
     property string currentGroup: ""
     property bool settingsChanged: false
+    property var viewState: undefined
 }

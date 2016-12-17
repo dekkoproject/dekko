@@ -20,11 +20,21 @@ import QuickFlux 1.0
 import Ubuntu.Components 1.3
 import Dekko.Components 1.0
 import Dekko.Mail.API 1.0
+import Dekko.Mail.Stores.Settings 1.0
 import "../components"
 import "../settings"
 import "../../constants"
+import "../utils"
 
 BaseStage {
+    id: settingsStage
+    property alias viewState: vs
+
+    ViewState {
+        id: vs
+        anchors.fill: parent
+        Component.onCompleted: SettingsStore.viewState = vs
+    }
 
     StretchRow {
         spacing: 0
@@ -34,9 +44,10 @@ BaseStage {
         // for smaller FF's
         PanelContainer {
             stretchOnSmallFF: true
-            resizable: !dekko.isSmallFF
-            minSize: units.gu(40)
-            maxSize: units.gu(60)
+            viewState: vs
+            resizable: !vs.isSmallFF
+            minSize: units.gu(30)
+            maxSize: units.gu(50)
             size: units.gu(40)
             height: parent.height
             activeEdge: Item.Right
@@ -44,12 +55,12 @@ BaseStage {
                 id: navMenuStage
                 stageID: ViewKeys.settingsStack1
                 anchors.fill: parent
-                baseUrl: Qt.resolvedUrl("../settings/ManageAccountsPage.qml")
+                baseUrl: Qt.resolvedUrl("../settings/Settings.qml")
             }
         }
         // Take rest of space when visible
         Stretcher {
-            visible: !dekko.isSmallFF
+            visible: !vs.isSmallFF
             anchors {
                 top: parent.top
                 bottom: parent.bottom
@@ -70,6 +81,5 @@ BaseStage {
             }
         }
     }
-
 }
 

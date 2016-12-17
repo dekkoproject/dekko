@@ -23,7 +23,7 @@ import QuickFlux 1.0
 import "../models"
 import "../../constants"
 
-Item {
+StyledItem {
     id: dekkoPage
 
     property alias pageHeader: h
@@ -64,47 +64,47 @@ Item {
             top: h.bottom
             right: parent.right
             bottom: parent.bottom
-            bottomMargin: bel.active && bel.item.hint.visible ? bel.item.hint.height : 0
+//            bottomMargin: bel.active && bel.item.hint.visible ? bel.item.hint.height : 0
         }
         // MAIN CONTENT HERE
     }
 
-    Loader {
-        id: bel
-        anchors.fill: parent
-        active: bottomEdgeConfig !== null && bottomEdgeConfig.enabled
-        asynchronous: true
-        sourceComponent: Component {
-            BottomEdge {
-                id: bottomEdge
-                height: dekkoPage.height
-                hint.visible: bottomEdgeConfig.hintVisible
-                hint.text: bottomEdgeConfig.hintText
-                visible: bottomEdgeConfig.enabled
-                hint.iconSource: bottomEdgeConfig.iconSource
-//                hint.flickable: bottomEdgeConfig.enabled ? bottomEdgeConfig.flickable : null
-                contentComponent: bottomEdgeConfig !== null ? bottomEdgeConfig.sourceComponent : null
-                Component.onCompleted: QuickUtils.mouseAttached = true
+//    Loader {
+//        id: bel
+//        anchors.fill: parent
+//        active: bottomEdgeConfig !== null && bottomEdgeConfig.enabled
+//        asynchronous: true
+//        sourceComponent: Component {
+//            BottomEdge {
+//                id: bottomEdge
+//                height: dekkoPage.height
+//                hint.visible: bottomEdgeConfig.hintVisible
+//                hint.text: bottomEdgeConfig.hintText
+//                visible: bottomEdgeConfig.enabled
+//                hint.iconSource: bottomEdgeConfig.iconSource
+////                hint.flickable: bottomEdgeConfig.enabled ? bottomEdgeConfig.flickable : null
+//                contentComponent: bottomEdgeConfig !== null ? bottomEdgeConfig.sourceComponent : null
+//                Component.onCompleted: QuickUtils.mouseAttached = true
 
-                AppListener {
-                    Filter {
-                        type: ViewKeys.openMessageComposer
-                        onDispatched: {
-                            if (bottomEdgeConfig.canActionTrigger) {
-                                bottomEdge.commit()
-                            }
-                        }
-                    }
-                    Filter {
-                        type: ViewKeys.replyToOpenMessage
-                        onDispatched: {
-                            if (bottomEdgeConfig.canActionTrigger) {
-                                bottomEdge.commit()
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+//                AppListener {
+//                    Filter {
+//                        type: ViewKeys.openMessageComposer
+//                        onDispatched: {
+//                            if (bottomEdgeConfig.canActionTrigger) {
+//                                bottomEdge.commit()
+//                            }
+//                        }
+//                    }
+//                    Filter {
+//                        type: ViewKeys.replyToOpenMessage
+//                        onDispatched: {
+//                            if (bottomEdgeConfig.canActionTrigger) {
+//                                bottomEdge.commit()
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
 }

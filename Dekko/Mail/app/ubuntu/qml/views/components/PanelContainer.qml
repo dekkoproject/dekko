@@ -42,6 +42,7 @@ Item {
     // You only really want to set this to true if this panel is the main page container
     // for mobile / small form factor devices.
     property bool stretchOnSmallFF: false
+    property var viewState: dekko ? dekko : undefined
     readonly property bool expanded: !d.collapsed
     default property alias content: internal.data
     property alias contentItem: internal
@@ -149,7 +150,7 @@ Item {
     QtObject {
         id: d
         property bool collapsed: false
-        readonly property bool shouldStretch: dekko.isSmallFF && stretchOnSmallFF
+        readonly property bool shouldStretch: viewState.isSmallFF && stretchOnSmallFF
         readonly property bool dockedLeft: activeEdge === Item.Right
         readonly property bool dockedRight: activeEdge === Item.Left
         readonly property bool dockedBottom: activeEdge === Item.Top

@@ -161,7 +161,7 @@ Rectangle {
             }
         }
 
-        Item {
+        AbstractButton {
             height: units.gu(7)
             width: bar.width
             implicitHeight: height
@@ -175,10 +175,19 @@ Rectangle {
             }
         }
 
-        Item {
+        AbstractButton {
+            id: settingsBtn
             height: units.gu(7)
             width: bar.width
             implicitHeight: height
+
+            onClicked: ViewActions.openSettings()
+
+            Rectangle {
+                anchors.fill: parent
+                visible: settingsBtn.pressed
+                color: UbuntuColors.slate
+            }
 
             Icon {
                 name: "settings"

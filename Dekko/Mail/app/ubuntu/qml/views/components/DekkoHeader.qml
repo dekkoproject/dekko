@@ -24,6 +24,7 @@ import "../../constants"
 PixelPerfectItem {
     id: dekkoHeader
     property string title
+    property color titleColor: theme.palette.normal.foregroundText
     property Action backAction
     property Action primaryAction
     // List of actions to be used. If more than 1 action, the actions will be placed
@@ -54,6 +55,7 @@ PixelPerfectItem {
     property Item pageFlickable: null
     property bool composeButtonEnabled: false
     property alias backgroundVisible: backgroundColor.visible
+    property alias backgroundColor: backgroundColor.color
     // Useful readonly properties
     readonly property bool isDefault: state === "default"
     readonly property bool isSearchMode: state === "search"
@@ -119,7 +121,6 @@ PixelPerfectItem {
             right: parent.right
         }
         height: units.gu(6)
-        color: "#ffffff"
     }
 
     Component {
@@ -262,6 +263,7 @@ PixelPerfectItem {
                     fontSize: "large"
                     elide: Text.ElideRight
                     clip: true
+                    color: dekkoHeader.titleColor
                     textFormat: Qt.RichText
                     Layout.fillWidth: true
                 }
@@ -339,6 +341,7 @@ PixelPerfectItem {
             top: filterColumn.bottom
             topMargin: extend ? extendHeight : 0
         }
+        height: visible ? Style.lineSize : 0
         visible: showDivider
     }
 

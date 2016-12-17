@@ -19,6 +19,7 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Dekko.Mail.API 1.0
 import Dekko.Mail.Stores.Settings 1.0
+import PlugMan 1.0
 import "../components"
 
 DekkoPage {
@@ -47,44 +48,45 @@ DekkoPage {
 
     }
 
+    ActionRegistry {
+        id: registry
+        location: "Dekko::Settings::AccountAction"
+        defaultActions: [
+            Action {
+                text: qsTr("Details")
+                onTriggered: SettingsActions.openSettingsGroup(Qt.resolvedUrl("./DetailsGroup.qml"))
+            },
+            Action {
+                text: qsTr("Incoming Server")
+                onTriggered: SettingsActions.openSettingsGroup(Qt.resolvedUrl("./IncomingServerGroup.qml"))
+            },
+            Action {
+                text: qsTr("Outgoing Server")
+                onTriggered: SettingsActions.openSettingsGroup(Qt.resolvedUrl("./OutgoingServerGroup.qml"))
+            },
+            Action {
+                text: qsTr("Copies and Folders")
+                onTriggered: SettingsActions.openSettingsGroup(Qt.resolvedUrl("./CopyFoldersGroup.qml"))
+            }
+        ]
+    }
+
     PageFlickable {
         margins: 0
         spacing: 0
-        ListItem {
-            height: l1.height + divider.height
-            ListItemLayout {
-                id: l1
-                title.text: qsTr("Details")
-                ProgressionSlot{}
+
+        Repeater {
+            model: registry.actions
+            delegate: ListItem {
+                id: d
+                action: modelData
+                height: l1.height + divider.height
+                ListItemLayout {
+                    id: l1
+                    title.text: d.action.text
+                    ProgressionSlot{}
+                }
             }
-            onClicked: SettingsActions.openSettingsGroup(Qt.resolvedUrl("./DetailsGroup.qml"))
-        }
-        ListItem {
-            height: l2.height + divider.height
-            ListItemLayout {
-                id: l2
-                title.text: qsTr("Incoming Server")
-                ProgressionSlot{}
-            }
-            onClicked: SettingsActions.openSettingsGroup(Qt.resolvedUrl("./IncomingServerGroup.qml"))
-        }
-        ListItem {
-            height: l3.height + divider.height
-            ListItemLayout {
-                id: l3
-                title.text: qsTr("Outgoing Server")
-                ProgressionSlot{}
-            }
-            onClicked: SettingsActions.openSettingsGroup(Qt.resolvedUrl("./OutgoingServerGroup.qml"))
-        }
-        ListItem {
-            height: l4.height + divider.height
-            ListItemLayout {
-                id: l4
-                title.text: qsTr("Copies and Folders")
-                ProgressionSlot{}
-            }
-            onClicked: SettingsActions.openSettingsGroup(Qt.resolvedUrl("./CopyFoldersGroup.qml"))
         }
     }
 }

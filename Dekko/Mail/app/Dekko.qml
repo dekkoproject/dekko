@@ -13,14 +13,10 @@ Item {
         Filter {
             type: ViewKeys.openComposer
             onDispatched: {
+
                 if (d.composeWindow === null) {
-                    var src = registry.findFirstEnabled("Dekko::Mail::Composer")
-                    if (src) {
-                        var comp = Qt.createComponent(Qt.resolvedUrl("file:///" + src))
-                        if (comp.status === Component.Error) {
-                            console.log("Failed to open composer: ", comp.errorString())
-                            return
-                        }
+                    var comp = d.getComponent("Dekko::Mail::Composer")
+                    if (comp !== null) {
                         d.composeWindow = comp.createObject(root)
                     }
                 } else {
@@ -40,6 +36,30 @@ Item {
                 }
             }
         }
+
+        Filter {
+            type: ViewKeys.openSettings
+            onDispatched: {
+                console.log("Open Settings")
+                if (d.settingsWindow === null) {
+                    var comp = d.getComponent("Dekko::Mail::Settings")
+                    if (comp !== null) {
+                        d.settingsWindow = comp.createObject(root)
+                    }
+                } else {
+                    d.settingsWindow.raise()
+                }
+            }
+        }
+
+        Filter {
+            type: ViewKeys.closeSettings
+            onDispatched: {
+                if (d.settingsWindow !== null) {
+                    d.settingsWindow.destroy()
+                }
+            }
+        }
     }
 
     ItemRegistry {
@@ -54,25 +74,37 @@ Item {
         id: d
         property Window settingsWindow: null
         property Window composeWindow: null
+
+        function getComponent(location) {
+            var src = registry.findFirstEnabled(location)
+            if (src) {
+                var comp = Qt.createComponent(Qt.resolvedUrl("file:///" + src))
+                if (comp.status === Component.Error) {
+                    console.log("Failed to create component: ", comp.errorString())
+                    return null
+                }
+                return comp
+            }
+        }
     }
 
 
-//    function detach () {
-//        if (d.subWindow === null) {
-//            var rootItem = Introspector.window (devPanel);
-//            var abspos = rootItem.contentItem.mapFromItem(devPanel, 0 , 0);
-//            d.subWindow = compoWindow.createObject(Introspector.window(devPanel), {
-//                                                       "x" : (abspos.x + rootItem.x),
-//                                                       "y" : (abspos.y + rootItem.y),
-//                                                   });
-//            devPanel.parent = d.subWindow.contentItem;
-////            pc.visible = false
-//        }
-//    }
+    //    function detach () {
+    //        if (d.subWindow === null) {
+    //            var rootItem = Introspector.window (devPanel);
+    //            var abspos = rootItem.contentItem.mapFromItem(devPanel, 0 , 0);
+    //            d.subWindow = compoWindow.createObject(Introspector.window(devPanel), {
+    //                                                       "x" : (abspos.x + rootItem.x),
+    //                                                       "y" : (abspos.y + rootItem.y),
+    //                                                   });
+    //            devPanel.parent = d.subWindow.contentItem;
+    ////            pc.visible = false
+    //        }
+    //    }
 
-//    Component {
-//        id: compoWindow;
-//        DevWindow {}
-//    }
+    //    Component {
+    //        id: compoWindow;
+    //        DevWindow {}
+    //    }
 
 }
