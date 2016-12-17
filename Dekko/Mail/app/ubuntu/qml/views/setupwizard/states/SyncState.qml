@@ -30,7 +30,7 @@ DSM.State {
     onEntered: {
         Log.logStatus("SyncState::onEntered", "Loading sync overlay");
         d.overlay = PopupUtils.open(Qt.resolvedUrl("../components/ProcessingOverlay.qml"),
-                                    dekko,
+                                    wizard,
                                     {
                                         text: qsTr("Synchronizing account.")
                                     })

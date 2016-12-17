@@ -7,6 +7,8 @@ import Dekko.Mail.Stores.Composer 1.0
 import MazDB 1.0
 import PlugMan 1.0
 import QuickFlux 1.0
+import Dekko.Controls 1.0
+import "../../constants"
 import "../components"
 
 Window {
@@ -33,25 +35,31 @@ Window {
         property alias windowY: window.y
     }
 
+
+
     Item {
         anchors.fill: parent
-
-        Item {
-            id: container
-
+        StackView {
+            id: rootPageStack
             anchors {
                 left: parent.left
                 top: parent.top
                 right: parent.right
                 bottom: kbdRect.top
             }
-
-            ItemRegistry {
-                target: container
-                location: "Dekko::Mail::Settings::UI"
-                loadMode: ItemRegistry.LoadFirstEnabled
+            delegate: DekkoAnimation.customStackViewDelegate2
+            initialItem: Item {
+                id: container
+                width: parent.width
+                height: parent.height
+                ItemRegistry {
+                    target: container
+                    location: "Dekko::Stage::Settings"
+                    loadMode: ItemRegistry.LoadFirstEnabled
+                }
             }
         }
+
         KeyboardRectangle {
             id: kbdRect
             anchors {

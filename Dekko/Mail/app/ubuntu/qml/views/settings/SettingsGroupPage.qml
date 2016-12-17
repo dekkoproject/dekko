@@ -26,7 +26,7 @@ import "../components"
 
 DekkoPage {
 
-    pageHeader.backAction: dekko.isSmallFF ? bk : null
+    pageHeader.backAction: settingsStage.viewState.isSmallFF ? bk : null
     Action {
         id: bk
         iconName: "back"
@@ -39,11 +39,11 @@ DekkoPage {
     property Account account: SettingsStore.selectedAccount
 
     Connections {
-        target: ViewStore
-        onFormFactorChanged: {
-            if ((ViewStore.formFactor !== "small") && (stageArea.stageID === ViewKeys.settingsStack1)) {
+        target: settingsStage.viewState
+        onStateChanged: {
+            if ((!settingsStage.viewState.isSmallFF) && (stageArea.stageID === ViewKeys.settingsStack1)) {
                 SettingsActions.switchSettingsGroupLocation(ViewKeys.settingsStack1)
-            } else if ((ViewStore.formFactor === "small") && (stageArea.stageID === ViewKeys.settingsStack2)) {
+            } else if ((settingsStage.viewState.isSmallFF) && (stageArea.stageID === ViewKeys.settingsStack2)) {
                 SettingsActions.switchSettingsGroupLocation(ViewKeys.settingsStack2)
             }
         }

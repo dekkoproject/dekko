@@ -41,6 +41,16 @@ StyledItem {
             Action {
                 iconName: "edit"
                 onTriggered: ViewActions.openComposer()
+                visible: dekko.isLargeFF
+            },
+            Action {
+                iconName: "like"
+                visible: dekko.isSmallFF
+            },
+            Action {
+                iconName: "settings"
+                visible: dekko.isSmallFF
+                onTriggered: ViewActions.openSettings()
             }
         ]
     }
@@ -54,13 +64,27 @@ StyledItem {
             width: parent.width
             height: units.gu(5)
             implicitHeight: height
-            visible: dekko.isLargeFF
+            visible: !dekko.isMediumFF
 
             StretchRow {
                 anchors {
                     leftMargin: units.gu(1)
                     fill: parent
                     rightMargin: units.gu(1)
+                }
+
+                HeaderButton {
+                    height: units.gu(5.5)
+                    width: units.gu(5)
+                    implicitWidth: width
+                    iconColor: UbuntuColors.silk
+                    iconSize: units.gu(2.5)
+                    highlightColor: UbuntuColors.slate
+                    action: Action {
+                        visible: dekko.isSmallFF
+                        iconName: "navigation-menu"
+                        onTriggered: ViewActions.toggleNavDrawer()
+                    }
                 }
 
                 Stretcher {}

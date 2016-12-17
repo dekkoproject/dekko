@@ -31,7 +31,7 @@ DSM.State {
     onEntered: {
         Log.logStatus("ValidationState::onEntered", "Loading validation overlay");
         d.overlay = PopupUtils.open(Qt.resolvedUrl("../components/ProcessingOverlay.qml"),
-                                    dekko,
+                                    wizard,
                                     {
                                         text: qsTr("Validating credentials.")
                                     })

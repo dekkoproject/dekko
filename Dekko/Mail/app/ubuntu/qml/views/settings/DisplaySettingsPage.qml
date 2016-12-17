@@ -16,19 +16,8 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 import QtQuick 2.4
-import Ubuntu.Components 1.3
-import Dekko.Mail.API 1.0
-import "../components"
 
-DekkoPage {
-
+SettingsGroupPage {
     pageHeader.title: qsTr("Display Settings")
-    pageHeader.backAction: Action {
-        iconName: "back"
-        onTriggered: ViewActions.popStageArea(ViewKeys.messageListStack)
-    }
-
-    DisplaySettings {
-
-    }
+    DisplaySettings {}
 }
