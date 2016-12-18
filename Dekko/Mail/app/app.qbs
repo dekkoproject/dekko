@@ -1,4 +1,5 @@
 import qbs
+import qbs.Process
 import "ubuntu/ubuntu-ui.qbs" as UbuntuUI
 import "qqc2/qqc2-ui.qbs" as QQC2UI
 
@@ -9,6 +10,21 @@ Project {
     QtGuiApplication {
         name: "Dekko Mail"
         targetName: "dekko"
+
+        Probe {
+            id: revprobe
+            property string revision
+            // --git-dir needs to be pointed at the toplevel .git directory to work
+            property string sourceDir: project.sourceDirectory + "/.git"
+
+            configure: {
+                revision = "no-git";
+                var p = new Process();
+                p.setWorkingDirectory(sourceDir)
+                if (p.exec("/usr/bin/git", ["--git-dir=" + sourceDir, "describe", "--dirty", "--long", "--always"], true) === 0)
+                    revision = p.readStdOut().trim();
+            }
+        }
 
         Depends { name : "cpp" }
         Depends {
@@ -34,7 +50,7 @@ Project {
 
         cpp.defines: [
             "SNAP_MODE",
-            "DEKKO_VERSION=\"" + project.version + "\""
+            "DEKKO_VERSION=\"" + project.version + "-" + revprobe.revision + "\""
         ]
 
 

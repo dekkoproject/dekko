@@ -1,0 +1,1328 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Dan Chapman.
+# This file is distributed under the same license as the dekko.dekkoproject package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: dekko.dekkoproject\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-18 12:29+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: /home/dan/dev/projects/dekko/Dekko/plugins/default/addressbook/DefaultPlugin.qml:11
+msgid "Internal"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/plugins/default/addressbook/DefaultPlugin.qml:106
+msgid "Default"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Contacts/addressbook-TODO/src/qml/CollectionListModel.qml:73
+msgid "Unknown"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Contacts/addressbook-TODO/src/qml/plugin/AddressBookPlugin.qml:12
+msgid "Example Addressbook"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:593
+msgid "Destroying Service handler"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:645
+msgid "Service became unavailable, couldn't dispatch"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:826
+msgid "Account updated by other process"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:833
+#: /home/dan/dev/projects/dekko/Dekko/Mail/workers/AccountsWorker.qml:85
+msgid "Account removed"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:1234
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:1283
+msgid "Request is not progressing"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:1320
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:1322
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:1370
+msgid "Cancelled by user"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:1379
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:1415
+msgid "Unable to enqueue messages for transmission"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:1463
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:1574
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:1612
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:1650
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:1686
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:1722
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:1763
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:1803
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:1842
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:1882
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:1918
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:1951
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:1988
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:2056
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:2111
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:2188
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:2397
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:2517
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:2553
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:2584
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:2680
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:2949
+msgid "Unable to locate source for account"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:1500
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:1536
+msgid "Unable to locate sink for account"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:1547
+msgid "Unable to retrieve folder list for unconfigured account"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:1585
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:1623
+msgid "Unable to retrieve message list for unconfigured account"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:1661
+msgid "Unable to retrieve new messages for unconfigured account"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:1697
+msgid "Unable to retrieve standard folders for unconfigured account"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:1733
+msgid "Unable to retrieve messages for unconfigured account"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:1777
+msgid "Unable to retrieve message part for unconfigured account"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:1815
+msgid "Unable to retrieve message range for unconfigured account"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:1854
+msgid "Unable to retrieve message part range for unconfigured account"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:1893
+msgid "Unable to retrieve all messages for unconfigured account"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:1929
+msgid "Unable to export updates for unconfigured account"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:1962
+msgid "Unable to synchronize unconfigured account"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:2006
+msgid "Unable to delete messages for unconfigured account"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:2008
+msgid "Deleting messages"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:2026
+msgid "Unable to discard messages"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:2075
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:2096
+msgid "Unable to copy messages to unconfigured account"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:2077
+msgid "Unable to copy messages to multiple destination accounts!"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:2144
+msgid "Unable to copy messages for account"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:2162
+msgid "Unable to move messages for unconfigured account"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:2203
+msgid "Unable to flag messages for unconfigured account"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:2216
+msgid "Unable to async add messages"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:2218
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:2305
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:2365
+msgid "Unable to async update messages"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:2275
+msgid "Unable to async add messages, inconsistent contentscheme"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:2327
+msgid "Unable to async update messages, inconsistent contentscheme"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:2412
+msgid "Could not delete messages"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:2493
+msgid "Unable to create folder for invalid account"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:2530
+msgid "Unable to rename invalid folder"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:2566
+msgid "Unable to delete invalid folder"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:2612
+msgid "Unable to search messages for unconfigured account"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:2926
+msgid "Unable to forward protocol-specific request for unconfigured account"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:3174
+msgid "Failed to perform requested action!"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/workers/MailboxWorker.qml:129
+msgid "Message moved"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/workers/AccountsWorker.qml:35
+#: /home/dan/dev/projects/dekko/Dekko/Mail/workers/AccountsWorker.qml:88
+msgid "Account removal failed"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/workers/AccountsWorker.qml:53
+msgid "Remove account"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/workers/AccountsWorker.qml:53
+msgid "Are you sure you wish to remove this account?"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/workers/ComposerWorker.qml:119
+msgid "Discard message"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/workers/ComposerWorker.qml:119
+msgid "Are you sure you want to discard this message?"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/workers/SettingsWorker.qml:103
+msgid "Account saved"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/workers/ErrorsWorker.qml:78
+msgid "No connection"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/workers/ErrorsWorker.qml:86
+msgid "Connection unavailable"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/workers/ErrorsWorker.qml:102
+msgid "Action timed out"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/accounts/AccountConfiguration.cpp:445
+msgid "Sent using Dekko from my Ubuntu device"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/network/ForbiddenReply.cpp:24
+msgid "Remote Content Is Banned"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/MessageFilterCollection.cpp:79
+msgid "All inboxes"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/MessageFilterCollection.cpp:89
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/Folder.cpp:89
+msgid "Drafts"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/MessageFilterCollection.cpp:99
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/Folder.cpp:93
+msgid "Spam"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/MessageFilterCollection.cpp:109
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/Folder.cpp:95
+msgid "Outbox"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/MessageFilterCollection.cpp:119
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/Folder.cpp:97
+msgid "Sent"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/MessageFilterCollection.cpp:128
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/Folder.cpp:99
+msgid "Trash"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/MessageFilterCollection.cpp:140
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/MessageSet.cpp:272
+#, qt-format
+msgid "Today, %1"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/MessageFilterCollection.cpp:149
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml:73
+msgid "To-do"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/MessageFilterCollection.cpp:158
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml:89
+msgid "Done"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/MessageBuilder.cpp:262
+#, qt-format
+msgid "On %1, %2 wrote:\n"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/MessageBuilder.cpp:315
+msgid "Forwarded Message"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/MessageBuilder.cpp:316
+msgid "Date: "
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/MessageBuilder.cpp:317
+msgid "From: "
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/MessageBuilder.cpp:318
+msgid "To: "
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/MessageBuilder.cpp:319
+msgid "Subject: "
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/ClientServiceAction.cpp:140
+#, qt-format
+msgid "Syncing changes for %1 account"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/ClientServiceAction.cpp:162
+msgid "important"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/ClientServiceAction.cpp:165
+msgid "not important"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/ClientServiceAction.cpp:174
+msgid "read"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/ClientServiceAction.cpp:177
+msgid "unread"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/ClientServiceAction.cpp:186
+msgid "as todo"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/ClientServiceAction.cpp:189
+msgid "no loger todo"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/ClientServiceAction.cpp:194
+#, qt-format
+msgid "Marking %1 messages %2"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/Folder.cpp:91
+msgid "Inbox"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/ClientService.cpp:76
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/ClientService.cpp:80
+msgid "messages"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/ClientService.cpp:76
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/ClientService.cpp:80
+msgid "message"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/Attachments.cpp:338
+#, c-format, qt-plural-format
+msgid "%n byte(s)"
+msgid_plural ""
+msgstr[0] ""
+msgstr[1] ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/Attachments.cpp:340
+#, qt-format
+msgid "%1 KB"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/Attachments.cpp:342
+#, qt-format
+msgid "%1 MB"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/Attachments.cpp:344
+#, qt-format
+msgid "%1 GB"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/Message.cpp:110
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/Message.cpp:123
+msgid "hh:mm"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/Message.cpp:114
+msgid "ddd hh:mm"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/Message.cpp:116
+msgid "dd MMM"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/Message.cpp:123
+msgid "dddd dd"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/Message.cpp:225
+msgid "you"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/Message.cpp:227
+#, qt-format
+msgid "to %1"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/workers/DialogWorker.qml:34
+msgid "Error"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/workers/DialogWorker.qml:41
+msgid "Notice"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/constants/MailUtils.qml:27
+msgid "To"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/constants/MailUtils.qml:29
+msgid "Cc"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/constants/MailUtils.qml:31
+msgid "Bcc"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/messageview/RecipientInfo.qml:41
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml:71
+msgid "Back"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/messageview/RecipientInfo.qml:93
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/RecipientPopover.qml:81
+msgid "Copy to clipboard"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/messageview/RecipientInfo.qml:107
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/RecipientPopover.qml:94
+msgid "Add to addressbook"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/messageview/RecipientInfo.qml:122
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/ContactFilterView.qml:123
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/RecipientPopover.qml:110
+msgid "Send message"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/messageview/MessageHeader.qml:47
+msgid "Hide details"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/messageview/MessageHeader.qml:47
+msgid "View details"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/messageview/DetailList.qml:47
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/AccountSettingsList.qml:56
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/DetailsGroup.qml:27
+msgid "Details"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/messageview/DetailList.qml:52
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/messageview/DefaultMessagePage.qml:242
+msgid "To:"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/messageview/DetailList.qml:58
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/messageview/DefaultMessagePage.qml:247
+msgid "Cc:"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/messageview/DefaultMessagePage.qml:189
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/composer/SenderIdentityField.qml:53
+msgid "From:"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/models/NavMenuContactsModel.qml:27
+msgid "Addressbook"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/models/NavMenuContactsModel.qml:43
+msgid "Recent contacts"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/models/NavMenuContactsModel.qml:58
+msgid "Import contacts"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/models/NavMenuDekkoVisualModel.qml:27
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/dialogs/VersionDialog.qml:25
+msgid "Version"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/models/NavMenuDekkoVisualModel.qml:45
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/LicensesPage.qml:25
+msgid "Licenses"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/models/NavMenuDekkoVisualModel.qml:63
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/ContributorsPage.qml:25
+msgid "Contributors"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/models/NavMenuAccountSettingsModel.qml:29
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/ManageAccountsPage.qml:26
+msgid "Manage accounts"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/models/NavMenuAccountSettingsModel.qml:45
+msgid "Display settings"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/models/NavMenuAccountSettingsModel.qml:67
+msgid "Privacy settings"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/models/NavMenuModel.qml:98
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/NavSideBar.qml:155
+msgid "Smart folders"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/models/NavMenuModel.qml:120
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/NavSideBar.qml:169
+msgid "Folders"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/NothingSelectedPage.qml:60
+msgid "No message selected"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/AccountSettingsList.qml:26
+msgid "Account Settings"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/AccountSettingsList.qml:60
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml:27
+msgid "Incoming Server"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/AccountSettingsList.qml:64
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/OutgoingServerGroup.qml:27
+msgid "Outgoing Server"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/AccountSettingsList.qml:68
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml:30
+msgid "Copies and Folders"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/DisplaySettingsPage.qml:21
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/DisplaySettingsPopup.qml:21
+msgid "Display Settings"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/PrivacySettingsPage.qml:21
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/PrivacySettingsPopup.qml:21
+msgid "Privacy Settings"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/OutgoingServerGroup.qml:74
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml:104
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ServerDetails.qml:68
+msgid "Hostname"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/OutgoingServerGroup.qml:82
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml:113
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ServerDetails.qml:77
+msgid "Port"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/OutgoingServerGroup.qml:91
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml:122
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ServerDetails.qml:99
+msgid "Username"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/OutgoingServerGroup.qml:99
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/OutgoingServerGroup.qml:102
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml:131
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml:134
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ServerDetails.qml:108
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ServerDetails.qml:111
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml:59
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml:62
+msgid "Password"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/OutgoingServerGroup.qml:109
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml:141
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ServerDetails.qml:118
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml:68
+msgid "Show password"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/OutgoingServerGroup.qml:115
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml:147
+msgid "Security settings"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/OutgoingServerGroup.qml:148
+msgid "Authenticate from server capabilities"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/OutgoingServerGroup.qml:154
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml:182
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ServerDetails.qml:139
+msgid "Allow untrusted certificates"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/Settings.qml:11
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/NavMenuPage.qml:70
+msgid "Settings"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/Settings.qml:24
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/NavMenuPage.qml:30
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/NavMenuPage.qml:64
+msgid "Mail"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/Settings.qml:33
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/NavMenuPage.qml:67
+msgid "Contacts"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/Settings.qml:38
+#: /home/dan/dev/projects/dekko/Dekko/Mail/stores/Mail/MailStore.qml:38
+msgid "Calendar"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/Settings.qml:43
+msgid "Notes"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/MailSettings.qml:11
+msgid "Mail Settings"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/MailSettings.qml:24
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/NoAccountsUI.qml:30
+msgid "Accounts"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/MailSettings.qml:33
+msgid "Display"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/MailSettings.qml:40
+msgid "Privacy"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml:124
+msgid "Standard folders"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml:136
+msgid "Detect standard folders"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml:152
+msgid "Detect"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml:173
+msgid "Base folder"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml:175
+msgid "Leave empty if you are unsure"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml:190
+msgid "Inbox folder"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml:205
+msgid "Drafts folder"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml:220
+msgid "Spam folder"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml:235
+msgid "Sent folder"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml:250
+msgid "Outbox folder"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml:265
+msgid "Trash folder"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml:274
+msgid "Sending messages"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml:187
+msgid "Server settings"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml:192
+msgid "Check for new mail on start"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml:198
+msgid "Enable IMAP IDLE"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml:205
+msgid "Check interval (minutes)"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml:212
+msgid "Check when roaming"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml:218
+msgid "Maximum mail size (MB)"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml:224
+msgid "No maximum mail size"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml:232
+msgid "Automatically download attachments"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml:238
+msgid "Allowed to delete mail"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/DetailsGroup.qml:62
+msgid "Account name"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/DetailsGroup.qml:68
+msgid "Default Identity"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/DetailsGroup.qml:73
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml:35
+msgid "Name"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/DetailsGroup.qml:79
+msgid "Email Address"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/DetailsGroup.qml:85
+msgid "Reply-To"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/DisplaySettings.qml:28
+msgid "Navigation menu"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/DisplaySettings.qml:32
+msgid "Show smart folders"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/DisplaySettings.qml:42
+msgid "Show favourite folders"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/DisplaySettings.qml:53
+msgid "Messages"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/DisplaySettings.qml:57
+msgid "Show avatars"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/DisplaySettings.qml:67
+msgid "Prefer plain text"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/SettingsWindow.qml:24
+msgid "Dekko Settings"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/PrivacySettings.qml:28
+msgid "Message content"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/PrivacySettings.qml:32
+msgid "Allow remote content"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/PrivacySettings.qml:42
+msgid "Auto load images"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/ContactFilterView.qml:112
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/composer/RecipientInputContextMenu.qml:80
+msgid "Add contact"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/composer/Composer.qml:52
+#: /home/dan/dev/projects/dekko/Dekko/Mail/stores/Composer/ComposerStoreActions.qml:47
+msgid "Attach"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/composer/RecipientInputContextMenu.qml:55
+msgid "Add CC"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/composer/RecipientInputContextMenu.qml:68
+msgid "Add BCC"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/composer/ComposeWindow.qml:22
+msgid "Dekko Composer"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/composer/SubjectField.qml:56
+msgid "Subject:"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/composer/MessageComposer.qml:97
+msgid "Enter message"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/composer/RecipientField.qml:97
+msgid "Enter an address"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/composer/BottomEdgeComposer.qml:65
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/components/AttachmentPanel.qml:80
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/components/ExpandablePanel.qml:62
+#: /home/dan/dev/projects/dekko/Dekko/Mail/stores/Mail/MailStore.qml:38
+msgid "Attachments"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/delegates/MessageListDelegate.qml:41
+msgid "Un-mark flagged"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/delegates/MessageListDelegate.qml:41
+msgid "Mark flagged"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/delegates/MessageListDelegate.qml:50
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/MessageListView.qml:132
+#: /home/dan/dev/projects/dekko/Dekko/Mail/stores/Mail/MailStoreActions.qml:62
+msgid "Mark as un-read"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/delegates/MessageListDelegate.qml:50
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/MessageListView.qml:132
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml:44
+#: /home/dan/dev/projects/dekko/Dekko/Mail/stores/Mail/MailStoreActions.qml:62
+msgid "Mark as read"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/delegates/MessageListDelegate.qml:57
+msgid "Move message"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/delegates/MessageListDelegate.qml:62
+msgid "Context menu"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/delegates/NavMenuStandardFolderDelegate.qml:178
+#, qt-format
+msgid "Inbox (%1)"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/delegates/FolderListDelegate.qml:52
+msgid "Un-favourite"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/delegates/FolderListDelegate.qml:52
+msgid "Favourite"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/webview/ContentBlockedNotice.qml:41
+msgid "Remote content blocked"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/webview/ContentBlockedNotice.qml:54
+msgid "Allow"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/webview/DekkoWebView.qml:142
+msgid "Open in browser?"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/webview/DekkoWebView.qml:143
+#, qt-format
+msgid "Confirm to open %1 in web browser"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/NavMenuPage.qml:73
+msgid "About"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/dialogs/VersionDialog.qml:29
+msgid "Close"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/dialogs/FilePickerDialog.qml:23
+msgid "Add Attachment"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/dialogs/ConfirmationDialog.qml:50
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml:78
+msgid "Cancel"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/dialogs/ConfirmationDialog.qml:63
+msgid "Confirm"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/states/SyncState.qml:35
+msgid "Synchronizing account."
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/states/AutoConfigState.qml:35
+msgid "Searching for configuration."
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/states/AutoConfigState.qml:76
+msgid "IMAP server found"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/states/AutoConfigState.qml:77
+msgid ""
+"A IMAP server configuration was found for you domain.\n"
+"\n"
+"Would you like to use this instead?"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/states/ValidationState.qml:36
+msgid "Validating credentials."
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml:28
+msgid "Server configuration"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml:33
+msgid "IMAP Server:"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml:46
+msgid "POP3 Server:"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml:59
+msgid "SMTP Server:"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml:75
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml:82
+msgid "Next"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml:135
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml:124
+msgid "Password empty"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml:135
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml:124
+msgid "Would you like to continue?"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/AddAnotherUI.qml:30
+msgid "Success"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/AddAnotherUI.qml:89
+msgid "New account created."
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/AddAnotherUI.qml:98
+msgid "Continue"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/AddAnotherUI.qml:110
+msgid "Add another"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/NoAccountsUI.qml:92
+msgid "No email account is setup."
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/NoAccountsUI.qml:101
+msgid "Add now"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/NewAccountsUI.qml:32
+msgid "New account"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml:36
+msgid "Full name"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml:43
+msgid "Description"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml:44
+msgid "E.g Home, Work..."
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml:51
+msgid "Email address"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml:53
+msgid "email@example.org"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/contacts/AddressBookList.qml:12
+msgid "Addressbooks"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/contacts/AddressBookList.qml:65
+msgid "Add Collection"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/contacts/ContactListPage.qml:11
+msgid "Address book"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/contacts/ContactView.qml:11
+msgid "Contact"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/contacts/ContactView.qml:61
+msgid "Email"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/contacts/ContactView.qml:78
+msgid "Phone"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/contacts/ContactView.qml:92
+msgid "Address"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/contacts/ContactView.qml:96
+msgid "Street"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/contacts/ContactView.qml:102
+msgid "City"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/contacts/ContactView.qml:108
+msgid "Zip"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/contacts/ContactView.qml:114
+msgid "Country"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/contacts/ContactsListView.qml:36
+msgid "Search"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/MailboxPickerPage.qml:33
+msgid "Select folder"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/MessageListView.qml:116
+#: /home/dan/dev/projects/dekko/Dekko/Mail/stores/Mail/MailStoreActions.qml:36
+msgid "Unselect all"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/MessageListView.qml:116
+#: /home/dan/dev/projects/dekko/Dekko/Mail/stores/Mail/MailStoreActions.qml:36
+msgid "Select all"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/MessageListView.qml:128
+#: /home/dan/dev/projects/dekko/Dekko/Mail/stores/Mail/MailStoreActions.qml:49
+msgid "Star"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/MessageListView.qml:128
+#: /home/dan/dev/projects/dekko/Dekko/Mail/stores/Mail/MailStoreActions.qml:49
+msgid "Remove star"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/MessageListView.qml:139
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml:152
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/AttachmentPopover.qml:46
+#: /home/dan/dev/projects/dekko/Dekko/Mail/stores/Mail/MailStoreActions.qml:57
+msgid "Delete"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/MessageListView.qml:323
+msgid "Load more messages ..."
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/MessageViewContextMenu.qml:46
+msgid "Open in browser"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/MessageViewContextMenu.qml:54
+msgid "Copy link"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/MessageViewContextMenu.qml:63
+msgid "Share link"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/MessageViewContextMenu.qml:77
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml:103
+msgid "Reply"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/MessageViewContextMenu.qml:86
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/MessageActionPopover.qml:44
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml:111
+msgid "Reply all"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/MessageViewContextMenu.qml:94
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/MessageActionPopover.qml:52
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml:119
+msgid "Forward"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/MessageViewContextMenu.qml:106
+msgid "View source"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/MessageActionPopover.qml:65
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml:133
+msgid "Move"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/NavViewContextMenu.qml:44
+msgid "Sync folder"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/NavViewContextMenu.qml:53
+msgid "Send pending"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/NavViewContextMenu.qml:70
+msgid "Mark folder read"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/NavViewContextMenu.qml:79
+msgid "Mark all done"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/NavViewContextMenu.qml:101
+msgid "Empty trash"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/NavViewContextMenu.qml:110
+msgid "Folder properties"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml:44
+msgid "Mark as unread"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml:52
+msgid "Mark as not important"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml:52
+msgid "Mark as important"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml:60
+msgid "Mark as spam"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml:143
+#, qt-format
+msgid "Restore to %1"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/RecipientPopover.qml:126
+msgid "Remove"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/components/EncryptionSelector.qml:46
+msgid "Encryption"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/components/EncryptionSelector.qml:61
+msgid "No encryption"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/components/EncryptionSelector.qml:62
+msgid "Use encryption (STARTTLS)"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/components/EncryptionSelector.qml:63
+msgid "Force encryption (SSL/TLS)"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/components/AuthenticationSelector.qml:45
+msgid "Authentication"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/components/AuthenticationSelector.qml:60
+msgid "PLAIN"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/components/AuthenticationSelector.qml:61
+msgid "LOGIN"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/components/AuthenticationSelector.qml:62
+msgid "CRAM-MD5"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/components/TitledTextField.qml:62
+msgid " (Required)"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/components/DekkoHeader.qml:204
+msgid "Enter search..."
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/MainUI.qml:17
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/qqc2/qml/MainUI.qml:11
+msgid "Dekko Mail"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/stores/Views/ViewStore.qml:70
+msgid "Messages sent"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/stores/Views/ViewStore.qml:72
+msgid "Message sent"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/stores/Views/ViewStore.qml:75
+msgid "Message sending failed"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/stores/Composer/ComposerStore.qml:93
+msgid "Message queued."
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/stores/Composer/ComposerStore.qml:97
+msgid "Draft saved."
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/stores/Composer/ComposerStoreActions.qml:26
+msgid "Send"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/stores/Composer/ComposerStoreActions.qml:33
+msgid "Save draft"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/stores/Composer/ComposerStoreActions.qml:40
+msgid "Discard"
+msgstr ""
+
+#. : DO NOT CHANGE THESE WITHOUT UPDATING THE FILTER SWITCH IN MESSAGELISTVIEW !!!!
+#. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#: /home/dan/dev/projects/dekko/Dekko/Mail/stores/Mail/MailStore.qml:38
+msgid "All"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/stores/Mail/MailStore.qml:38
+msgid "Unread"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/stores/Mail/MailStore.qml:38
+msgid "Starred"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/stores/Mail/MailStore.qml:38
+msgid "Replied"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/stores/Mail/MailStore.qml:38
+msgid "Forwarded"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/stores/Mail/MailStore.qml:39
+msgid "Local"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/stores/Accounts/AccountSetup.qml:217
+msgid "Invalid email address"
+msgstr ""

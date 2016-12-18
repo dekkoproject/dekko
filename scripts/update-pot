@@ -1,0 +1,17 @@
+#! /bin/bash
+
+set -e
+
+SRC_DIR=${PWD}/Dekko
+
+echo "Finding srcs"
+I18N_SRCS=`(find $SRC_DIR -iname "*.qml" -o -iname "*.cpp" -o -iname "*.js")`
+
+echo "Running xgettext"
+xgettext -o $PWD/po/dekko.dekkoproject.pot -D $PWD/Dekko --from-code=UTF-8 \
+	 --c++ --qt --add-comments=TRANSLATORS: --add-comments=: --keyword=tr \
+	 --keyword=tr:1,2 --keyword=qsTr --keyword=qsTr:1,2 \
+	 --package-name='dekko.dekkoproject' --copyright-holder='Dan Chapman.' \
+	 $I18N_SRCS
+
+echo "All Done"

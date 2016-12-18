@@ -7,7 +7,7 @@ Project {
 
     property string appName: "Dekko"
     property string pkgName: "dekko.dekkoproject"
-    property string version: "0.9.5"
+    property string version: "0.9.6"
 
 
     DekkoComponents {
