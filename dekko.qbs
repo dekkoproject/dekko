@@ -165,4 +165,26 @@ Project {
         filePath: "Dekko/Dekko.qbs"
         inheritProperties: true
     }
+
+    DynamicLibrary {
+        name: "i18n"
+        type: "dynamiclibrary"
+
+        Depends { name: "cpp" }
+        Depends { name: "Qt.core" }
+
+        Group {
+            name: "ts files"
+            prefix: "i18n/"
+            files: [
+                "*.ts"
+            ]
+        }
+
+        Group {
+            qbs.install: true
+            qbs.installDir: dekko.binDir + "/i18n"
+            fileTagsFilter: ["qm"]
+        }
+    }
 }
