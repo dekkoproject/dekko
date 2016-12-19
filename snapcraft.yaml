@@ -26,7 +26,6 @@ plugs:
         default-provider: ubuntu-app-platform
     browser-sandbox:
         interface: browser-support
-        allow-sandbox: true
 
 parts:
     launcher:
