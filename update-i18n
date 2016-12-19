@@ -1,0 +1,46 @@
+#!/usr/bin/env python
+
+import os
+import glob
+import shutil
+import subprocess
+from bzrlib.plugin import load_plugins
+load_plugins()
+from bzrlib.branch import Branch
+from os.path import basename
+TR_BRANCH = "lp:~dpniel/dekko/translations"
+BRANCH = '../../dekko-tr/'
+BRANCH_PO = '../../dekko-tr/po/'
+OUTPUT_PATH = "./i18n/"
+PO_PATH = "./po/"
+SOURCE_DIR = os.path.dirname(os.path.abspath(__file__))
+if os.path.exists(OUTPUT_PATH):
+    shutil.rmtree(OUTPUT_PATH)
+if os.path.exists(BRANCH):
+    shutil.rmtree(BRANCH)
+    
+if not os.path.exists(PO_PATH):
+    os.mkdir(PO_PATH)
+    
+remote = Branch.open(TR_BRANCH)
+local = remote.bzrdir.sprout(BRANCH).open_branch()
+os.mkdir(OUTPUT_PATH)
+# iterate over each po and do the conversions
+for i in os.listdir(BRANCH_PO):
+    if i.endswith(".po"):
+        po_file = os.path.abspath(os.path.join(BRANCH_PO, i))
+        base = os.path.splitext(basename(po_file))[0]
+        ts_file = '{0}{1}.ts'.format(OUTPUT_PATH, base)
+        qm_file = '{0}{1}.qm'.format(OUTPUT_PATH, base)
+        try:
+            print 'Converting {0} to {1}'.format(po_file, ts_file)
+            lconvert = subprocess.check_call(['lconvert', '-i', po_file, '-o', ts_file])
+            print 'lupdate'
+            lupdate = subprocess.check_call(['lupdate', SOURCE_DIR, '-noobsolete', '-ts', ts_file])
+        except subprocess.CalledProcessError:
+            print "FAILED"
+            print po_file
+            print "Base: " + base
+            print "TS: " + ts_file
+            print "QM: " + qm_file
+print "Were done"
