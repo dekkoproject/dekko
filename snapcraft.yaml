@@ -1,5 +1,5 @@
 name: dekko
-version: 0.9.6
+version: 0.9.7
 summary: Dekko email client
 description: Fast IMAP e-mail client optimized for mobile
 confinement: devmode
