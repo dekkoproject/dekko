@@ -137,7 +137,9 @@ AppListener {
         onDispatched: {
             Log.logInfo("AccountSetup::removeNewAccount", "Attempting account removal")
             // We don't need to confirm removal here
-            AccountActions.deleteAccount(account.id, false)
+            if (account.isValid) {
+                AccountActions.deleteAccount(account.id, false)
+            }
             WizardActions.wizardResetAccount()
         }
     }
