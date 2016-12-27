@@ -36,6 +36,7 @@ KeyTable {
 
     property string saveCurrentGroup
     property string saveCurrentGroupNow
+    property string saveIdentity
     property string determineIfSettingsChanged
     property string settingsChanged
     property string noChange

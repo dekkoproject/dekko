@@ -37,6 +37,10 @@ ActionCreator {
     signal confirmRemoveAccount()
 
 
+    signal addIdentity(var identity)
+    signal updateIdentity(var identity)
+    signal removeIdentity(int id)
+
     //Private
     signal _confirmRemoval()
 

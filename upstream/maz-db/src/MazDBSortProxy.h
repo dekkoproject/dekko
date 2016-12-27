@@ -40,6 +40,7 @@ protected:
     virtual bool lessThan(const QModelIndex &source_left, const QModelIndex &source_right) const override;
 
 private:
+    void reload();
     int roleFromName(const QString &role) const;
     QString m_sortBy;
     Qt::SortOrder m_sortOrder;
