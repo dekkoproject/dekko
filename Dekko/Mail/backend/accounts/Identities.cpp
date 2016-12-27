@@ -9,7 +9,7 @@ namespace {
 }
 
 Identities::Identities(QObject *parent) : QObject(parent),
-    m_db(Q_NULLPTR)
+    m_db(Q_NULLPTR), m_defaultIdentity(0)
 {
     m_sourcePath = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + QStringLiteral("/mazdb/identities.db");
     emit sourcePathChanged(m_sourcePath);
@@ -34,6 +34,8 @@ bool Identities::add(const QVariantMap &map)
     if (!m_db->get(metaKey).isValid()) {
         // this is a new account identity
         metaInfo["count"] = count;
+        metaInfo["default"] = count;
+        emit defaultIdentityChanged(count);
     } else {
         metaInfo = m_db->get(metaKey).toMap();
         count = metaInfo.value("count").toInt();
@@ -97,6 +99,19 @@ QVariantMap Identities::get(const int &id)
         return QVariantMap();
     }
     return m_db->get(k).toMap();
+}
+
+int Identities::defaultIdentity() const
+{
+    return m_db->get(metaKey, 0).toMap().value("default").toInt();
+}
+
+void Identities::setDefaultIdentity(int defaultIdentity)
+{
+    QVariantMap meta = m_db->get(metaKey).toMap();
+    meta["default"] = defaultIdentity;
+    m_db->putSync(metaKey, meta);
+    emit defaultIdentityChanged(defaultIdentity);
 }
 
 QString Identities::key(const QString &k)

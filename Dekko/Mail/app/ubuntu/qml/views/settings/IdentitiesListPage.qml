@@ -102,7 +102,8 @@ DekkoPage {
 
                     ListItemLayout {
                         id: layout
-                        title.text: model.name
+                        readonly property bool isDefault: AccountStore.identities.defaultIdentity === model.id
+                        title.text: isDefault ? model.name + qsTr(" (Default)") : model.name
                         subtitle.text: model.email
                         summary.text: model.signature
                         summary.maximumLineCount: 1

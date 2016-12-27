@@ -49,6 +49,20 @@ PageFlickable {
         return map
     }
 
+    LabeledSwitch {
+        readonly property bool isDefault: SettingsStore.tempIdentity.id === AccountStore.identities.defaultIdentity
+        text: qsTr("Default identity")
+        visible: !input.newIdentity
+        checked: isDefault
+        onCheckedChanged: {
+            if (checked) {
+                AccountStore.identities.defaultIdentity = SettingsStore.tempIdentity.id
+            } else if (isDefault) {
+                AccountStore.identities.defaultIdentity = -1
+            }
+        }
+    }
+
     Label {
         text: qsTr("Account")
         color: UbuntuColors.inkstone
