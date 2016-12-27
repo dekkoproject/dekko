@@ -48,15 +48,24 @@ DekkoPage {
             ListView {
                 anchors.fill: parent
                 section.property: "accountName"
-                section.delegate: Item {
-                    height: units.gu(4)
+                section.delegate: Rectangle {
+                    height: units.gu(3)
+                    width: parent.width
+                    color: UbuntuColors.porcelain
                     Label {
                         anchors {
                             left: parent.left
-                            leftMargin: units.gu(1)
+                            leftMargin: units.gu(1.5)
                             verticalCenter: parent.verticalCenter
                         }
                         text: section
+                    }
+                    Line {
+                        anchors {
+                            left: parent.left
+                            right: parent.right
+                            bottom: parent.bottom
+                        }
                     }
                 }
 
@@ -97,6 +106,7 @@ DekkoPage {
                         subtitle.text: model.email
                         summary.text: model.signature
                         summary.maximumLineCount: 1
+                        ProgressionSlot {}
                     }
                 }
             }

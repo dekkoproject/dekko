@@ -24,6 +24,7 @@ public:
     Q_INVOKABLE bool update(const QVariantMap &map);
     Q_INVOKABLE bool remove(const int &id);
     Q_INVOKABLE bool remove(const QVariantMap &map);
+    Q_INVOKABLE bool removeAccount(const int &id);
     Q_INVOKABLE QVariantMap get(const int &id);
 
 signals:

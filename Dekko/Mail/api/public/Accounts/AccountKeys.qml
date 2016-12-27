@@ -35,6 +35,7 @@ KeyTable {
     property string addIdentity
     property string updateIdentity
     property string removeIdentity
+    property string removeIdentitiesForAccount
 
     // PRIVATE
     property string _confirmRemoval

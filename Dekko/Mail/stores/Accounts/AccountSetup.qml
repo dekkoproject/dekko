@@ -89,6 +89,7 @@ AppListener {
             Log.logInfo("AccountSetup::validationSuccess", "Account validation succeeded")
             Log.logInfo("AccountSetup::validationSuccess", "Setting default settings policies")
             PolicyManager.setDefaultPolicies(account.id)
+            WizardActions.setDefaultIdentity()
             WizardActions.wizardStepForward()
         }
         onValidationFailed: {
@@ -514,6 +515,20 @@ AppListener {
             d.shouldValidate = false
             d.providerFailedValidation = false
             account = newAccount.createObject(accountSetup)
+        }
+    }
+
+    Filter {
+        type: WizardKeys.setDefaultIdentity
+        onDispatched: {
+            Log.logStatus("AccountSetup::setDefaultIdentity", "Setting default identity")
+            var identity = {}
+            identity["parentId"] = account.id
+            identity["name"] = account.outgoing.name
+            identity["email"] = account.outgoing.email
+            identity["replyTo"] = ""
+            identity["signature"] = qsTr("Sent using Dekko from my Ubuntu device")
+            AccountActions.addIdentity(identity)
         }
     }
 

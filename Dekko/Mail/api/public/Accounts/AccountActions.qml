@@ -40,6 +40,7 @@ ActionCreator {
     signal addIdentity(var identity)
     signal updateIdentity(var identity)
     signal removeIdentity(int id)
+    signal removeIdentitiesForAccount(int accountId)
 
     //Private
     signal _confirmRemoval()

@@ -1,5 +1,6 @@
 #include "Identities.h"
 #include <QStandardPaths>
+#include <QVariant>
 #include <MazDBBatch.h>
 
 namespace {
@@ -73,6 +74,20 @@ bool Identities::remove(const int &id)
 bool Identities::remove(const QVariantMap &map)
 {
     return remove(map["id"].toInt());
+}
+
+bool Identities::removeAccount(const int &id)
+{
+    auto batch = m_db->batch();
+    MazCallBack func = [=](QString key, QVariant val) {
+        QVariantMap identity = val.toMap();
+        if (identity["parentId"].toInt() == id) {
+            batch->del(key);
+        }
+        return true;
+    };
+    m_db->readStream(func, prefix);
+    return batch->write();
 }
 
 QVariantMap Identities::get(const int &id)

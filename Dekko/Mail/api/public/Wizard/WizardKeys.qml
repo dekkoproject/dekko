@@ -74,4 +74,5 @@ KeyTable {
     property string addAnotherAccount
     property string endSetup
     property string removeNewAccount
+    property string setDefaultIdentity
 }

@@ -81,6 +81,7 @@ AppListener {
         onDispatched: {
             Log.logInfo("AccountWorker::_confirmRemoval", "Let's delete it \o/")
             if (AccountStore.enabledAccounts.hasAccount(d.__accountAboutToRemove)) {
+                AccountActions.removeIdentitiesForAccount(d.__accountAboutToRemove)
                 AccountStore.enabledAccounts.deleteAccount(d.__accountAboutToRemove)
                 ViewActions.orderSimpleToast(qsTr("Account removed"));
             } else {
@@ -135,6 +136,14 @@ AppListener {
             } else {
                 Log.logError("AccountWorker::removeIdentity", "Identity removal failed")
             }
+        }
+    }
+
+    Filter {
+        type: AccountKeys.removeIdentitiesForAccount
+        onDispatched: {
+            Log.logInfo("AccountWorker::removeIdentitiesForAccount", "Removing identities for account")
+            AccountStore.identities.removeAccount(message.accountId)
         }
     }
 
