@@ -32,16 +32,21 @@
 <context>
     <name>AccountSetup</name>
     <message>
-        <location filename="../Dekko/Mail/stores/Accounts/AccountSetup.qml" line="217"/>
+        <location filename="../Dekko/Mail/stores/Accounts/AccountSetup.qml" line="220"/>
         <source>Invalid email address</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Dekko/Mail/stores/Accounts/AccountSetup.qml" line="532"/>
+        <source>Sent using Dekko from my Ubuntu device</source>
+        <translation type="unfinished">Inviato dal mio dispositivo Ubuntu usando Dekko</translation>
     </message>
 </context>
 <context>
     <name>AccountsWorker</name>
     <message>
         <location filename="../Dekko/Mail/workers/AccountsWorker.qml" line="35"/>
-        <location filename="../Dekko/Mail/workers/AccountsWorker.qml" line="88"/>
+        <location filename="../Dekko/Mail/workers/AccountsWorker.qml" line="89"/>
         <source>Account removal failed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -56,7 +61,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/workers/AccountsWorker.qml" line="85"/>
+        <location filename="../Dekko/Mail/workers/AccountsWorker.qml" line="86"/>
         <source>Account removed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -214,12 +219,12 @@ Would you like to use this instead?</source>
 <context>
     <name>ComposerStore</name>
     <message>
-        <location filename="../Dekko/Mail/stores/Composer/ComposerStore.qml" line="93"/>
+        <location filename="../Dekko/Mail/stores/Composer/ComposerStore.qml" line="94"/>
         <source>Message queued.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/stores/Composer/ComposerStore.qml" line="97"/>
+        <location filename="../Dekko/Mail/stores/Composer/ComposerStore.qml" line="98"/>
         <source>Draft saved.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -516,26 +521,6 @@ Would you like to use this instead?</source>
         <source>Account name</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/DetailsGroup.qml" line="68"/>
-        <source>Default Identity</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/DetailsGroup.qml" line="73"/>
-        <source>Name</source>
-        <translation type="unfinished">Nome</translation>
-    </message>
-    <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/DetailsGroup.qml" line="79"/>
-        <source>Email Address</source>
-        <translation type="unfinished">Indirizzo Email</translation>
-    </message>
-    <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/DetailsGroup.qml" line="85"/>
-        <source>Reply-To</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>DialogWorker</name>
@@ -754,6 +739,63 @@ Would you like to use this instead?</source>
         <location filename="../Dekko/Mail/backend/network/ForbiddenReply.cpp" line="24"/>
         <source>Remote Content Is Banned</source>
         <translation type="unfinished">Il contenuto remoto è vietato</translation>
+    </message>
+</context>
+<context>
+    <name>IdentitiesListPage</name>
+    <message>
+        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IdentitiesListPage.qml" line="14"/>
+        <source>Identities</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IdentitiesListPage.qml" line="106"/>
+        <source> (Default)</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>IdentityInput</name>
+    <message>
+        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml" line="54"/>
+        <source>Default identity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml" line="67"/>
+        <source>Account</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml" line="105"/>
+        <source>Name</source>
+        <translation type="unfinished">Nome</translation>
+    </message>
+    <message>
+        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml" line="110"/>
+        <source>Email Address</source>
+        <translation type="unfinished">Indirizzo Email</translation>
+    </message>
+    <message>
+        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml" line="115"/>
+        <source>Reply-To</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml" line="119"/>
+        <source>Signature</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml" line="137"/>
+        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml" line="145"/>
+        <source>New identity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml" line="169"/>
+        <source>Edit identity</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1286,12 +1328,17 @@ Would you like to use this instead?</source>
         <translation type="unfinished">Account</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/MailSettings.qml" line="33"/>
+        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/MailSettings.qml" line="34"/>
+        <source>Identities</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/MailSettings.qml" line="44"/>
         <source>Display</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/MailSettings.qml" line="40"/>
+        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/MailSettings.qml" line="51"/>
         <source>Privacy</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1505,34 +1552,34 @@ Would you like to use this instead?</source>
 <context>
     <name>MessageBuilder</name>
     <message>
-        <location filename="../Dekko/Mail/backend/mail/MessageBuilder.cpp" line="262"/>
+        <location filename="../Dekko/Mail/backend/mail/MessageBuilder.cpp" line="268"/>
         <source>On %1, %2 wrote:
 </source>
         <translation type="unfinished">Il giorno %1, %2 ha scritto:
 </translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/backend/mail/MessageBuilder.cpp" line="315"/>
+        <location filename="../Dekko/Mail/backend/mail/MessageBuilder.cpp" line="321"/>
         <source>Forwarded Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/backend/mail/MessageBuilder.cpp" line="316"/>
+        <location filename="../Dekko/Mail/backend/mail/MessageBuilder.cpp" line="322"/>
         <source>Date: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/backend/mail/MessageBuilder.cpp" line="317"/>
+        <location filename="../Dekko/Mail/backend/mail/MessageBuilder.cpp" line="323"/>
         <source>From: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/backend/mail/MessageBuilder.cpp" line="318"/>
+        <location filename="../Dekko/Mail/backend/mail/MessageBuilder.cpp" line="324"/>
         <source>To: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/backend/mail/MessageBuilder.cpp" line="319"/>
+        <location filename="../Dekko/Mail/backend/mail/MessageBuilder.cpp" line="325"/>
         <source>Subject: </source>
         <translation type="unfinished"></translation>
     </message>
