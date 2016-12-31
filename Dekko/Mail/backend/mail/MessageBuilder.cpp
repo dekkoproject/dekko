@@ -68,6 +68,10 @@ QMailMessage MessageBuilder::message()
     mail.setParentAccountId(sender->accountId());
     mail.setDate(QMailTimeStamp::currentDateTime());
     mail.setFrom(identity->fromAddress());
+    // If there is a replyTo for the identity add that now
+    if (!identity->get_replyTo().isEmpty()) {
+        mail.setReplyTo(QMailAddress(identity->get_name(), identity->get_replyTo()));
+    }
 
     auto createAddressList = [](const QQmlObjectListModel<MailAddress> *model) -> QList<QMailAddress> {
         QList<QMailAddress> addrList;
