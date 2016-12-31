@@ -62,10 +62,12 @@ QMailMessage MessageBuilder::message()
         mail.setId(m_lastDraftId);
     }
 
-    Account *sender = static_cast<Account *>(m_identities->selectedAccount());
+    IdentityWrapper *w = static_cast<IdentityWrapper *>(m_identities->selectedAccount());
+    Account *sender = static_cast<Account *>(w->get_account());
+    Identity *identity = static_cast<Identity *>(w->get_identity());
     mail.setParentAccountId(sender->accountId());
     mail.setDate(QMailTimeStamp::currentDateTime());
-    mail.setFrom(sender->qMailAccount()->fromAddress());
+    mail.setFrom(identity->fromAddress());
 
     auto createAddressList = [](const QQmlObjectListModel<MailAddress> *model) -> QList<QMailAddress> {
         QList<QMailAddress> addrList;
@@ -104,8 +106,7 @@ QMailMessage MessageBuilder::message()
     }
     mail.setSubject(m_internalSubject->toPlainText());
     QString plainTextBody = m_internalBody->toPlainText();
-    SmtpAccountConfiguration *outgoing = static_cast<SmtpAccountConfiguration *>(sender->outgoing());
-    plainTextBody.append(QStringLiteral("\n\n%1").arg(outgoing->signature()));
+    plainTextBody.append(QStringLiteral("\n\n-- \n%1").arg(identity->get_signature()));
     QMailMessageContentType type(QByteArrayLiteral("text/plain; charset=UTF-8"));
     // TODO: Do we want to always encode as QuotedPrintable it's efficient for ASCII text but becomes inefficient
     // for non-ascii chars i.e QChar::unicode() > 127. SHould we iterate over all chars and decide based on that as QString
@@ -215,7 +216,8 @@ void MessageBuilder::buildResponse(const MessageBuilder::ReplyType &type, const 
         return;
     }
     // next select the identity to use
-    m_identities->setSelectedIndexFromAccountId(src.parentAccountId().toULongLong());
+    int identityIdx = m_identities->determinePreferredIdentity(src);
+    m_identities->setSelectedIndex(identityIdx);
     // next build recipient lists
     buildRecipientsLists(type, src);
     // subject
@@ -428,7 +430,7 @@ void MessageBuilder::composeMailTo(const QString &mailtoUri)
 void MessageBuilder::reloadLastDraftId()
 {
     QMailMessage src(m_lastDraftId);
-    m_identities->setSelectedIndexFromAccountId(src.parentAccountId().toULongLong());
+    m_identities->setSelectedIndex(m_identities->determinePreferredIdentity(src));
     if (src.responseType() == QMailMessage::Reply || src.responseType() == QMailMessage::ReplyToAll) {
         m_srcMessageId = src.inResponseTo();
         m_mode = Mode::Rply;
@@ -637,6 +639,7 @@ void MessageBuilder::reset()
         disconnect(m_body->textDocument(), SIGNAL(contentsChange(int,int,int)), this, SLOT(bodyChanged(int,int,int)));
         m_body->textDocument()->clear();
     }
+    m_identities->reset();
     m_body = Q_NULLPTR;
     m_internalBody->clear();
     m_mode = Mode::New;

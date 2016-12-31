@@ -31,7 +31,7 @@ AppListener {
     readonly property bool sendInProgress: d.sendInProgress
     readonly property bool hasValidIdentity: d.identitiesValid
     readonly property bool sidePanelOpen: builder.attachments.count || d.openContacts
-    readonly property string currentSignature: identities.selectedAccount.outgoing.signature
+    readonly property string currentSignature: hasValidIdentity ? identities.selectedAccount.identity.signature : ""
     readonly property QtObject identity: priv_identity
     readonly property QtObject recipients: priv_recipients
     readonly property QtObject attachments: builder.attachments
@@ -52,7 +52,7 @@ AppListener {
     // identities //
     ////////////////
     property alias identities: identities
-    property alias identitiesModel: identities.accountsModel
+    property alias identitiesModel: identities.model
     property alias identityIndex: identities.selectedIndex
     ////////////////
     // Submission //
@@ -62,6 +62,7 @@ AppListener {
     SenderIdentities {
         id: identities
         accountsModel: AccountStore.sendAccountsModel
+        accountIdentities: AccountStore.identities
     }
 
     MessageBuilder {
@@ -100,9 +101,9 @@ AppListener {
 
     QtObject {
         id: priv_identity
-        readonly property string name: hasValidIdentity ? identities.selectedAccount.outgoing.name : ""
-        readonly property string initials: hasValidIdentity ? identities.selectedAccount.outgoing.initials : ""
-        readonly property string email: hasValidIdentity ? identities.selectedAccount.outgoing.email : ""
+        readonly property string name: hasValidIdentity ? identities.selectedAccount.identity.name : ""
+        readonly property string initials: hasValidIdentity ? identities.selectedAccount.identity.initials : ""
+        readonly property string email: hasValidIdentity ? identities.selectedAccount.identity.email : ""
     }
 
     QtObject {

@@ -9,7 +9,10 @@ SettingsGroupPage {
     pageHeader.title: title
     pageHeader.primaryAction: Action {
         iconName: "save"
-        onTriggered: SettingsActions.saveIdentity()
+        onTriggered: {
+            SettingsActions.saveIdentity()
+            ViewActions.popStageArea(stageArea.stageID)
+        }
     }
 
     IdentityInput {

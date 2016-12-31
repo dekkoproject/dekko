@@ -101,9 +101,50 @@ QVariantMap Identities::get(const int &id)
     return m_db->get(k).toMap();
 }
 
+IdentityList Identities::getAllForAccount(const int &id)
+{
+    QList<QVariantMap> identities;
+    MazValueCallBack func = [this, &identities, &id](QVariant val) {
+        const QVariantMap identity = val.toMap();
+        if (identity["parentId"].toInt() == id) {
+            identities.append(identity);
+        }
+        return true;
+    };
+    m_db->valueStream(func, prefix);
+    return identities;
+}
+
 int Identities::defaultIdentity() const
 {
     return m_db->get(metaKey, 0).toMap().value("default").toInt();
+}
+
+int Identities::determineBestIdentityFromMessage(const QMailMessage &message)
+{
+
+    auto identities = getAllForAccount(message.parentAccountId().toULongLong());
+
+    auto identityInRecipients = [=](QMailAddressList list, const QString &match) -> bool {
+        for (const auto &address : list) {
+            if (address.address() == match) {
+                return true;
+            }
+        }
+        return false;
+    };
+
+    for (const auto &i : identities) {
+        const QString email = i["email"].toString();
+        if (message.from().address() == email || // we also check "from" here because it could be a draft message
+                identityInRecipients(message.to(), email) ||
+                identityInRecipients(message.cc(), email) ||
+                identityInRecipients(message.bcc(), email)) {
+            return i["id"].toInt();
+        }
+    }
+
+    return -1;
 }
 
 void Identities::setDefaultIdentity(int defaultIdentity)
@@ -117,7 +158,6 @@ void Identities::setDefaultIdentity(int defaultIdentity)
 QString Identities::key(const QString &k)
 {
     QString result(prefix);
-
     if (k.startsWith('/')) {
         result.append(k.mid(1));
     } else {

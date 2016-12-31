@@ -139,7 +139,7 @@ FocusScope {
                         rightMargin: Style.defaultSpacing
                     }
                     color: UbuntuColors.ash
-                    text: ComposerStore.currentSignature
+                    text: ComposerStore.currentSignature ? "-- \n%1".arg(ComposerStore.currentSignature) : ""
                 }
             }
         }

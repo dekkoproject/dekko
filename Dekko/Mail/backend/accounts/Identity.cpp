@@ -45,6 +45,36 @@ Identity *Identity::fromMap(QObject *p, const QVariantMap &map)
     return identity;
 }
 
+QString Identity::initials()
+{
+    QString name = this->get_name();
+    if (name.isEmpty() || !name.at(0).isLetter()) {
+        // Name is empty so return first character of address. :-/
+        return QString(this->get_email().at(0).toUpper());
+    }
+    // Intitials string
+    QString initials;
+    // Now break up the name, we have to set the encoding here as QT_NO_CAST_FROM/TO_ASCII is set
+    QStringList parts = name.split(QStringLiteral(" "));
+    if (parts.first().at(0).isLetter()) {
+        initials += parts.first().at(0).toUpper();
+    }
+    if (parts.size() > 1) {
+        if (parts.last().at(0).isLetter()) {
+            initials += parts.last().at(0).toUpper();
+        }
+    }
+    return initials;
+}
+
+QMailAddress Identity::fromAddress()
+{
+    if (m_name.isEmpty()) {
+        return QMailAddress(m_email);
+    }
+    return QMailAddress(m_name, m_email);
+}
+
 QVariantMap Identity::toMap()
 {
     QVariantMap map;

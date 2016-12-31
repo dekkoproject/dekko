@@ -4,7 +4,10 @@
 #include <QObject>
 #include <MazDB.h>
 #include <Helpers.h>
+#include <qmailmessage.h>
 #include "Identity.h"
+
+typedef QList<QVariantMap> IdentityList;
 
 class Identities : public QObject
 {
@@ -27,8 +30,11 @@ public:
     Q_INVOKABLE bool remove(const QVariantMap &map);
     Q_INVOKABLE bool removeAccount(const int &id);
     Q_INVOKABLE QVariantMap get(const int &id);
+    IdentityList getAllForAccount(const int &id);
 
     int defaultIdentity() const;
+
+    int determineBestIdentityFromMessage(const QMailMessage &message);
 
 public slots:
     void setDefaultIdentity(int defaultIdentity);
