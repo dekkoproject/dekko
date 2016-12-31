@@ -236,4 +236,5 @@ ActionCreator {
     signal addAnotherAccount()
     signal endSetup()
     signal removeNewAccount()
+    signal setDefaultIdentity()
 }

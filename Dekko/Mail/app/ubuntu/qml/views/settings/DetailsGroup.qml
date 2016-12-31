@@ -62,28 +62,5 @@ SettingsGroupPage {
             title: qsTr("Account name")
             text: account.name
         }
-
-        SectionHeader {
-            textMargin: 0
-            text: qsTr("Default Identity")
-        }
-
-        TitledTextField {
-            id: name
-            title: qsTr("Name")
-            text: account.outgoing.name
-        }
-
-        TitledTextField {
-            id: email
-            title: qsTr("Email Address")
-            text: account.outgoing.email
-        }
-
-        TitledTextField {
-            id: replyTo
-            title: qsTr("Reply-To")
-            text: ""
-        }
     }
 }

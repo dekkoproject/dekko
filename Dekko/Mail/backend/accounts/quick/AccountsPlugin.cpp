@@ -21,6 +21,7 @@
 #include <Accounts.h>
 #include <AccountConfiguration.h>
 #include <AccountValidator.h>
+#include <Identities.h>
 #include "PresetProviderModel.h"
 
 class AccountConfiguration;
@@ -37,6 +38,8 @@ void AccountsPlugin::registerTypes(const char *uri)
     qmlRegisterType<PopAccountConfiguration>(uri, 1, 0, "PopAccountConfig");
     qmlRegisterType<Accounts>(uri, 1, 0, "Accounts");
     qmlRegisterType<PresetProviderModel>(uri, 1, 0, "PresetProviderModel");
+    qmlRegisterType<Identities>(uri, 1, 0, "Identities");
+    qmlRegisterUncreatableType<Identity>(uri, 1, 0, "Identity", "Cannot be created in QML. Instances created via PresetProviderModel");
     qmlRegisterUncreatableType<Provider>(uri, 1, 0, "Provider", "Cannot be created in QML. Instances created via PresetProviderModel");
 }
 

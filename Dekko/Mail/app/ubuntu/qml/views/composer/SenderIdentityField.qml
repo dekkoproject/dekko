@@ -126,7 +126,7 @@ FocusScope {
             model: ComposerStore.identitiesModel
             delegate: ListItem {
                 id: d
-                property var config: model.qtObject.outgoing
+                property var wrapper: model.qtObject
                 height: layout.height
                 anchors {
                     left: parent.left
@@ -140,15 +140,15 @@ FocusScope {
                 ListItemLayout {
                     id: layout
                     height: units.gu(5.5)
-                    title.text: d.config.name
-                    subtitle.text: d.config.email
+                    title.text: d.wrapper ? d.wrapper.identity.name : ""
+                    subtitle.text: d.wrapper ? d.wrapper.identity.email : ""
 
                     Avatar {
                         height: units.gu(4.5)
                         width: height
-                        name: d.config.name
-                        initials: d.config.initials
-                        email: d.config.email
+                        name: d.wrapper ? d.wrapper.identity.name : ""
+                        initials: d.wrapper ? d.wrapper.identity.initials : ""
+                        email: d.wrapper ? d.wrapper.identity.email: ""
                         fontSize: "medium"
                         validContact: true
                         SlotsLayout.position: SlotsLayout.Leading

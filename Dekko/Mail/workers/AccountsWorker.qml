@@ -81,6 +81,7 @@ AppListener {
         onDispatched: {
             Log.logInfo("AccountWorker::_confirmRemoval", "Let's delete it \o/")
             if (AccountStore.enabledAccounts.hasAccount(d.__accountAboutToRemove)) {
+                AccountActions.removeIdentitiesForAccount(d.__accountAboutToRemove)
                 AccountStore.enabledAccounts.deleteAccount(d.__accountAboutToRemove)
                 ViewActions.orderSimpleToast(qsTr("Account removed"));
             } else {
@@ -88,6 +89,61 @@ AppListener {
                 ViewActions.orderSimpleToast(qsTr("Account removal failed"));
             }
             d.__accountAboutToRemove = -1
+        }
+    }
+
+    Filter {
+        type: AccountKeys.addIdentity
+        onDispatched: {
+            Log.logInfo("AccountWorker::addIdentity", "Adding new identity")
+            var identity = message.identity
+            if (identity.id) {
+                Log.logInfo("AccountWorker::addIdentity", "Identity has valid id. Updating instead")
+                AccountActions.updateIdentity(identity)
+            } else {
+                if (AccountStore.identities.add(identity)) {
+                    Log.logInfo("AccountWorker::addIdentity", "Identity created")
+                } else {
+                    Log.logError("AccountWorker::addIdentity", "Failed creating identity")
+                }
+            }
+        }
+    }
+
+    Filter {
+        type: AccountKeys.updateIdentity
+        onDispatched: {
+            Log.logInfo("AccountWorker::updateIdentity", "Adding new identity")
+            var identity = message.identity
+            if (!identity.id) {
+                Log.logInfo("AccountWorker::updateIdentity", "Identity has no valid id. Adding new identity instead")
+                AccountActions.addIdentity(identity)
+            } else {
+                if (AccountStore.identities.update(identity)) {
+                    Log.logInfo("AccountWorker::updateIdentity", "Identity updated")
+                } else {
+                    Log.logError("AccountWorker::updateIdentity", "Identity update failed")
+                }
+            }
+        }
+    }
+
+    Filter {
+        type: AccountKeys.removeIdentity
+        onDispatched: {
+            if (AccountStore.identities.remove(message.id)) {
+                Log.logInfo("AccountWorker::removeIdentity", "Identity removed")
+            } else {
+                Log.logError("AccountWorker::removeIdentity", "Identity removal failed")
+            }
+        }
+    }
+
+    Filter {
+        type: AccountKeys.removeIdentitiesForAccount
+        onDispatched: {
+            Log.logInfo("AccountWorker::removeIdentitiesForAccount", "Removing identities for account")
+            AccountStore.identities.removeAccount(message.accountId)
         }
     }
 

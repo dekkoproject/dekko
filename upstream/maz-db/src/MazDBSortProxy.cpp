@@ -7,6 +7,7 @@ MazDBSortProxy::MazDBSortProxy(QObject *parent) : QSortFilterProxyModel(parent),
     m_sortOrder(Qt::AscendingOrder)
 {
     setDynamicSortFilter(true);
+    sort(0, m_sortOrder);
 }
 
 QHash<int, QByteArray> MazDBSortProxy::roleNames() const
@@ -30,9 +31,7 @@ void MazDBSortProxy::setModel(QAbstractItemModel *model)
         return;
 
     setSourceModel(model);
-    invalidate();
-    setSortRole(roleFromName(m_sortBy));
-    sort(0, m_sortOrder);
+    reload();
     emit modelChanged();
 }
 
@@ -44,6 +43,7 @@ void MazDBSortProxy::setSortBy(QString sortBy)
     m_sortBy = sortBy;
     setSortRole(roleFromName(m_sortBy));
     emit sortByChanged(sortBy);
+    reload();
 }
 
 void MazDBSortProxy::setSortOrder(Qt::SortOrder order)
@@ -53,11 +53,13 @@ void MazDBSortProxy::setSortOrder(Qt::SortOrder order)
         sort(0, m_sortOrder);
         emit sortOrderChanged();
     }
+    reload();
 }
 
 void MazDBSortProxy::setSortCallBack(QJSValue sortCallBack)
 {
     m_sortCallBack = sortCallBack;
+    reload();
     emit sortCallBackChanged(sortCallBack);
 }
 
@@ -76,6 +78,13 @@ bool MazDBSortProxy::lessThan(const QModelIndex &source_left, const QModelIndex 
     } else {
         return QSortFilterProxyModel::lessThan(source_left, source_right);
     }
+}
+
+void MazDBSortProxy::reload()
+{
+    invalidate();
+    setSortRole(roleFromName(m_sortBy));
+    sort(0, m_sortOrder);
 }
 
 int MazDBSortProxy::roleFromName(const QString &role) const

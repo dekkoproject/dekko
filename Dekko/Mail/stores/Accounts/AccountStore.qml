@@ -36,6 +36,8 @@ AppListener {
     property alias sendAccounts: sendAccounts
     /** type:QAbstractListModel sending accounts model */
     property alias sendAccountsModel: sendAccounts.model
+    /** type:Identities account identities interface */
+    property alias identities: identities
 
     // List of all enabled accounts. (IMAP/POP/SMTP)
     Accounts {
@@ -53,6 +55,13 @@ AppListener {
     Accounts {
         id: sendAccounts
         filter: Accounts.CanSend
+    }
+
+    Identities {
+        id: identities
+        onError: {
+            Log.logError("AccountsStore::Identities", errorString)
+        }
     }
 
     Filter {

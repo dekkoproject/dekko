@@ -36,6 +36,7 @@ ActionCreator {
 
     signal saveCurrentGroup()
     signal saveCurrentGroupNow()
+    signal saveIdentity()
     signal determineIfSettingsChanged()
     signal settingsChanged()
     signal noChange()

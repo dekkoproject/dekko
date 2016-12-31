@@ -8,6 +8,7 @@ DynamicLibrary {
     Depends { name: "QmfClient" }
     Depends { name: "QmfServer" }
     Depends { name: "Shared Utils" }
+    Depends { name: "MazDB" }
 
     cpp.optimization: qbs.buildVariant === "debug" ? "none" : "fast"
     cpp.debugInformation: qbs.buildVariant === "debug"
@@ -20,6 +21,7 @@ DynamicLibrary {
         Depends { name: "QmfClient" }
         Depends { name: "QmfServer" }
         Depends { name: "Shared Utils" }
+        Depends { name: "MazDB" }
         cpp.includePaths: [ path ]
     }
 

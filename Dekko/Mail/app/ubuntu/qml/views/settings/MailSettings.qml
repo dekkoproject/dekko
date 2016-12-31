@@ -28,6 +28,17 @@ DekkoPage {
                                  {}
                              )
             },
+
+            Action {
+                iconName: "contact-group"
+                text: qsTr("Identities")
+                onTriggered: ViewActions.pushToStageArea(
+                                 ViewKeys.settingsStack1,
+                                 Qt.resolvedUrl("./IdentitiesListPage.qml"),
+                                 {}
+                             )
+            },
+
             Action {
                 iconName: "video-display-symbolic"
                 text: qsTr("Display")

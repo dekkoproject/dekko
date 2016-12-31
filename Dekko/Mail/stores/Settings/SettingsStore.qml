@@ -22,10 +22,12 @@ import Dekko.Mail.Accounts 1.0
 import Dekko.Mail.Settings 1.0
 
 AppListener {
-
     property Account selectedAccount: null
     property var selectedAccountId
     property string currentGroup: ""
     property bool settingsChanged: false
     property var viewState: undefined
+    property var tempIdentity: undefined
+    property bool tempIsNew: false
+    property bool saveGroupDisabled: false
 }
