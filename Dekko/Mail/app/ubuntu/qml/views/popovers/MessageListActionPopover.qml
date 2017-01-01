@@ -133,7 +133,6 @@ Popover {
                     description: qsTr("Move")
                     actionIcon: Icons.InboxIcon
                     onTriggered: {
-//                        PopupActions.showNotice("not implemented yet. Fix it before release!!!!")
                         MailboxActions.moveMessage(msg.parentAccountId, msg.messageId)
                         PopupUtils.close(actionPopover)
                     }

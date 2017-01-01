@@ -64,7 +64,9 @@ ViewState {
         sourceComponent: ListenerRegistry {
             defaultListeners: [
                 AccountsWorker {},
-                MailboxWorker {},
+                MailboxWorker {
+                    mailboxPickerUrl: Qt.resolvedUrl("./views/MailboxPickerPage.qml")
+                },
                 SettingsWorker {},
                 UriWorker {},
                 ErrorsWorker {},
