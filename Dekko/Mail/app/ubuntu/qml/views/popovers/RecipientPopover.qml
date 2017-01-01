@@ -20,6 +20,7 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import Dekko.Mail 1.0
 import Dekko.Mail.API 1.0
+import Dekko.Components 1.0
 import "../components"
 
 Popover {
@@ -73,64 +74,45 @@ Popover {
             }
         }
 
-        ListItem {
-            height: clipboard.implicitHeight
-            color: UbuntuColors.porcelain
-            ListItemLayout {
-                id: clipboard
-                title.text: qsTr("Copy to clipboard")
-                title.elide: Text.ElideRight
-                title.wrapMode: Text.NoWrap
-            }
-            onClicked: {
-                PopupActions.showNotice("Not implemented yet. Fix it before release!!!!")
-                PopupUtils.close(info)
-            }
-        }
-        ListItem {
-            height: addContactLayout.implicitHeight
-            ListItemLayout {
-                id: addContactLayout
-                title.text: qsTr("Add to addressbook")
-                title.elide: Text.ElideRight
-                title.wrapMode: Text.NoWrap
-            }
-            color: UbuntuColors.porcelain
-            onClicked: {
-                PopupActions.showNotice("Not implemented yet. Fix it before release!!!!")
-                PopupUtils.close(info)
-            }
-        }
-        ListItem {
-            visible: !composeMode
-            height: send.implicitHeight
-            color: UbuntuColors.porcelain
-            ListItemLayout {
-                id: send
-                title.text: qsTr("Send message")
-                title.elide: Text.ElideRight
-                title.wrapMode: Text.NoWrap
-            }
-            onClicked: {
-                // Just dispatch a mailto: uri to be opened.
-                ViewActions.openUri(address.toRfc6068Mailto())
-                PopupUtils.close(info)
-            }
-        }
-        ListItem {
-            visible: composeMode
-            height: remove.implicitHeight
-            color: UbuntuColors.porcelain
-            ListItemLayout {
-                id: remove
-                title.text: qsTr("Remove")
-                title.elide: Text.ElideRight
-                title.wrapMode: Text.NoWrap
-            }
-            onClicked: {
-                ComposerActions.removeRecipient(type, index)
-                PopupUtils.close(info)
-            }
+        ContextGroup {
+            contextActions: [
+                ContextAction {
+                    description: qsTr("Copy to clipboard")
+                    actionIcon: Icons.CopyIcon
+                    onTriggered: {
+                        Log.logInfo("RecipientPopover::copyToClipBoard", "Copying \"%1\" to clipboard".arg(address.completeAddress))
+                        Clipboard.push(["text/plain", address.completeAddress])
+                        PopupUtils.close(info)
+                    }
+                },
+                ContextAction {
+                    description: qsTr("Add to addressbook")
+                    actionIcon: Icons.NewContactIcon
+                    onTriggered: {
+                        PopupActions.showNotice("Not implemented yet. Fix it before release!!!!")
+                        PopupUtils.close(info)
+                    }
+                },
+                ContextAction {
+                    visible: !composeMode
+                    description: qsTr("Send message")
+                    actionIcon: Icons.SendIcon
+                    onTriggered: {
+                        // Just dispatch a mailto: uri to be opened.
+                        ViewActions.openUri(address.toRfc6068Mailto())
+                        PopupUtils.close(info)
+                    }
+                },
+                ContextAction {
+                    visible: composeMode
+                    description: qsTr("Remove")
+                    actionIcon: Icons.DeleteIcon
+                    onTriggered: {
+                        ComposerActions.removeRecipient(type, index)
+                        PopupUtils.close(info)
+                    }
+                }
+            ]
         }
     }
 }
