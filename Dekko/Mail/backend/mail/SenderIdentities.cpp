@@ -173,6 +173,7 @@ void SenderIdentities::setIdentities(Identities *accountIdentities)
         return;
 
     m_accountIdentities = accountIdentities;
+    connect(m_accountIdentities, &Identities::identitiesChanged, this , &SenderIdentities::reset);
     emit modelsChanged();
     reset();
 }

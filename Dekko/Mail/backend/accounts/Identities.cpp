@@ -46,7 +46,10 @@ bool Identities::add(const QVariantMap &map)
     identity["id"] = count;
 
     batch->put(key(QString::number(count)), identity);
-    return batch->write();
+    bool result = batch->write();
+    if (result)
+        emit identitiesChanged();
+    return result;
 }
 
 bool Identities::update(const QVariantMap &map)
@@ -61,7 +64,10 @@ bool Identities::update(const QVariantMap &map)
         m_errorString = "Missing identity id";
         return false;
     }
-    return m_db->put(key(QString::number(map["id"].toInt())), map);
+    bool result = m_db->put(key(QString::number(map["id"].toInt())), map);
+    if (result)
+        emit identitiesChanged();
+    return result;
 }
 
 bool Identities::remove(const int &id)
@@ -70,7 +76,10 @@ bool Identities::remove(const int &id)
     if (!m_db->get(k).isValid()) {
         return false;
     }
-    return m_db->del(k);
+    bool result = m_db->del(k);
+    if (result)
+        emit identitiesChanged();
+    return result;
 }
 
 bool Identities::remove(const QVariantMap &map)
@@ -89,7 +98,10 @@ bool Identities::removeAccount(const int &id)
         return true;
     };
     m_db->readStream(func, prefix);
-    return batch->write();
+    bool result = batch->write();
+    if (result)
+        emit identitiesChanged();
+    return result;
 }
 
 QVariantMap Identities::get(const int &id)

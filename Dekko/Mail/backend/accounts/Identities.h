@@ -41,7 +41,7 @@ public slots:
 
 signals:
     void error(Error error);
-
+    void identitiesChanged();
     void defaultIdentityChanged(int defaultIdentity);
 
 private:
