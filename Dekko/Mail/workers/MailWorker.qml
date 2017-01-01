@@ -189,4 +189,12 @@ AppListener {
         type: MessageKeys.restoreMessage
         onDispatched: Client.restoreMessage(message.msgId)
     }
+
+    Filter {
+        type: MessageKeys.sendPendingMessages
+        onDispatched: {
+            Log.logStatus("MailWorker::sendPendingMessages", "Enqueuing any pending messages")
+            Client.sendPendingMessages()
+        }
+    }
 }

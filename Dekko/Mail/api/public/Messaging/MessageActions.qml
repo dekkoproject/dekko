@@ -130,4 +130,6 @@ ActionCreator {
     signal resetFolderLists()
 
     signal stackRewound()
+
+    signal sendPendingMessages()
 }

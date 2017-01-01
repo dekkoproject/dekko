@@ -116,6 +116,7 @@ public:
 
     // C++ Submission api
     void sendMessage(const QMailMessage &msg);
+    Q_INVOKABLE void sendPendingMessages();
 
 signals:
     void serviceChanged();

@@ -258,6 +258,11 @@ void Client::sendMessage(const QMailMessage &msg)
     m_service->sendMessage(msg);
 }
 
+void Client::sendPendingMessages()
+{
+    m_service->sendAnyQueuedMail();
+}
+
 void Client::handleFailure(const quint64 &id, const QMailServiceAction::Status &status)
 {
     Error error;
