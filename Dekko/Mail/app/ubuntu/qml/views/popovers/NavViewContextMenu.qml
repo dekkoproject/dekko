@@ -53,7 +53,7 @@ Popover {
                     description: qsTr("Send pending")
                     actionIcon: Icons.SendIcon
                     onTriggered: {
-                        PopupActions.showNotice("Not implemented yet. Sorry :-(")
+                        MessageActions.sendPendingMessages()
                         PopupUtils.close(actionPopover)
                     }
                 },

@@ -91,6 +91,7 @@ signals:
 
 public slots:
     void undoActions();
+    void sendAnyQueuedMail();
 
 private slots:
     void processNextAction();
@@ -103,7 +104,6 @@ private slots:
 
     void undoableCountChanged();
     void rollBackMailStoreUpdates(const QMailAccountIdList &accounts);
-    void sendAnyQueuedMail();
 
 private:
     void connectServiceAction(QMailServiceAction* action);
