@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dekko.dekkoproject\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-18 12:29+0000\n"
+"POT-Creation-Date: 2017-01-01 12:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,7 +47,7 @@ msgid "Account updated by other process"
 msgstr ""
 
 #: /home/dan/dev/projects/dekko/Dekko/Mail/server/servicehandler.cpp:833
-#: /home/dan/dev/projects/dekko/Dekko/Mail/workers/AccountsWorker.qml:85
+#: /home/dan/dev/projects/dekko/Dekko/Mail/workers/AccountsWorker.qml:86
 msgid "Account removed"
 msgstr ""
 
@@ -226,7 +226,7 @@ msgid "Message moved"
 msgstr ""
 
 #: /home/dan/dev/projects/dekko/Dekko/Mail/workers/AccountsWorker.qml:35
-#: /home/dan/dev/projects/dekko/Dekko/Mail/workers/AccountsWorker.qml:88
+#: /home/dan/dev/projects/dekko/Dekko/Mail/workers/AccountsWorker.qml:89
 msgid "Account removal failed"
 msgstr ""
 
@@ -263,6 +263,7 @@ msgid "Action timed out"
 msgstr ""
 
 #: /home/dan/dev/projects/dekko/Dekko/Mail/backend/accounts/AccountConfiguration.cpp:445
+#: /home/dan/dev/projects/dekko/Dekko/Mail/stores/Accounts/AccountSetup.qml:532
 msgid "Sent using Dekko from my Ubuntu device"
 msgstr ""
 
@@ -315,28 +316,28 @@ msgstr ""
 msgid "Done"
 msgstr ""
 
-#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/MessageBuilder.cpp:262
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/MessageBuilder.cpp:268
 #, qt-format
 msgid "On %1, %2 wrote:\n"
 msgstr ""
 
-#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/MessageBuilder.cpp:315
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/MessageBuilder.cpp:321
 msgid "Forwarded Message"
 msgstr ""
 
-#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/MessageBuilder.cpp:316
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/MessageBuilder.cpp:322
 msgid "Date: "
 msgstr ""
 
-#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/MessageBuilder.cpp:317
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/MessageBuilder.cpp:323
 msgid "From: "
 msgstr ""
 
-#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/MessageBuilder.cpp:318
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/MessageBuilder.cpp:324
 msgid "To: "
 msgstr ""
 
-#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/MessageBuilder.cpp:319
+#: /home/dan/dev/projects/dekko/Dekko/Mail/backend/mail/MessageBuilder.cpp:325
 msgid "Subject: "
 msgstr ""
 
@@ -462,18 +463,18 @@ msgid "Back"
 msgstr ""
 
 #: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/messageview/RecipientInfo.qml:93
-#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/RecipientPopover.qml:81
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/RecipientPopover.qml:80
 msgid "Copy to clipboard"
 msgstr ""
 
 #: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/messageview/RecipientInfo.qml:107
-#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/RecipientPopover.qml:94
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/RecipientPopover.qml:89
 msgid "Add to addressbook"
 msgstr ""
 
 #: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/messageview/RecipientInfo.qml:122
 #: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/ContactFilterView.qml:123
-#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/RecipientPopover.qml:110
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/RecipientPopover.qml:98
 msgid "Send message"
 msgstr ""
 
@@ -674,12 +675,51 @@ msgstr ""
 msgid "Accounts"
 msgstr ""
 
-#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/MailSettings.qml:33
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/MailSettings.qml:34
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/IdentitiesListPage.qml:14
+msgid "Identities"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/MailSettings.qml:44
 msgid "Display"
 msgstr ""
 
-#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/MailSettings.qml:40
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/MailSettings.qml:51
 msgid "Privacy"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml:54
+msgid "Default identity"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml:67
+msgid "Account"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml:105
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml:35
+msgid "Name"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml:110
+msgid "Email Address"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml:115
+msgid "Reply-To"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml:119
+msgid "Signature"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml:137
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml:145
+msgid "New identity"
+msgstr ""
+
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml:169
+msgid "Edit identity"
 msgstr ""
 
 #: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml:124
@@ -766,25 +806,12 @@ msgstr ""
 msgid "Allowed to delete mail"
 msgstr ""
 
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/IdentitiesListPage.qml:106
+msgid " (Default)"
+msgstr ""
+
 #: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/DetailsGroup.qml:62
 msgid "Account name"
-msgstr ""
-
-#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/DetailsGroup.qml:68
-msgid "Default Identity"
-msgstr ""
-
-#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/DetailsGroup.qml:73
-#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml:35
-msgid "Name"
-msgstr ""
-
-#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/DetailsGroup.qml:79
-msgid "Email Address"
-msgstr ""
-
-#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/DetailsGroup.qml:85
-msgid "Reply-To"
 msgstr ""
 
 #: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/settings/DisplaySettings.qml:28
@@ -1123,7 +1150,7 @@ msgid "Remove star"
 msgstr ""
 
 #: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/MessageListView.qml:139
-#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml:152
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml:151
 #: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/AttachmentPopover.qml:46
 #: /home/dan/dev/projects/dekko/Dekko/Mail/stores/Mail/MailStoreActions.qml:57
 msgid "Delete"
@@ -1211,12 +1238,12 @@ msgstr ""
 msgid "Mark as spam"
 msgstr ""
 
-#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml:143
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml:142
 #, qt-format
 msgid "Restore to %1"
 msgstr ""
 
-#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/RecipientPopover.qml:126
+#: /home/dan/dev/projects/dekko/Dekko/Mail/app/ubuntu/qml/views/popovers/RecipientPopover.qml:108
 msgid "Remove"
 msgstr ""
 
@@ -1277,11 +1304,11 @@ msgstr ""
 msgid "Message sending failed"
 msgstr ""
 
-#: /home/dan/dev/projects/dekko/Dekko/Mail/stores/Composer/ComposerStore.qml:93
+#: /home/dan/dev/projects/dekko/Dekko/Mail/stores/Composer/ComposerStore.qml:94
 msgid "Message queued."
 msgstr ""
 
-#: /home/dan/dev/projects/dekko/Dekko/Mail/stores/Composer/ComposerStore.qml:97
+#: /home/dan/dev/projects/dekko/Dekko/Mail/stores/Composer/ComposerStore.qml:98
 msgid "Draft saved."
 msgstr ""
 
@@ -1323,6 +1350,6 @@ msgstr ""
 msgid "Local"
 msgstr ""
 
-#: /home/dan/dev/projects/dekko/Dekko/Mail/stores/Accounts/AccountSetup.qml:217
+#: /home/dan/dev/projects/dekko/Dekko/Mail/stores/Accounts/AccountSetup.qml:220
 msgid "Invalid email address"
 msgstr ""
