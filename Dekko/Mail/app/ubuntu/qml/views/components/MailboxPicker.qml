@@ -31,6 +31,9 @@ Item {
     signal folderTypeClicked(int folderType, int folderId)
     signal folderPicked(var folder)
 
+    width: parent.width
+    height: parent.height
+
     FolderList {
         id: folderList
     }
