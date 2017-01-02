@@ -1711,12 +1711,12 @@ Would you like to use this instead?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="143"/>
+        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="142"/>
         <source>Restore to %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="152"/>
+        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="151"/>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2818,22 +2818,22 @@ Would you like to use this instead?</source>
 <context>
     <name>RecipientPopover</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/RecipientPopover.qml" line="81"/>
+        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/RecipientPopover.qml" line="80"/>
         <source>Copy to clipboard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/RecipientPopover.qml" line="94"/>
+        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/RecipientPopover.qml" line="89"/>
         <source>Add to addressbook</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/RecipientPopover.qml" line="110"/>
+        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/RecipientPopover.qml" line="98"/>
         <source>Send message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/RecipientPopover.qml" line="126"/>
+        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/RecipientPopover.qml" line="108"/>
         <source>Remove</source>
         <translation type="unfinished"></translation>
     </message>

@@ -784,18 +784,18 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml" line="119"/>
         <source>Signature</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Firma</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml" line="137"/>
         <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml" line="145"/>
         <source>New identity</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nuova identità</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml" line="169"/>
         <source>Edit identity</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Modifica identità</translation>
     </message>
 </context>
 <context>
@@ -1711,12 +1711,12 @@ Would you like to use this instead?</source>
         <translation type="unfinished">Sposta</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="143"/>
+        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="142"/>
         <source>Restore to %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="152"/>
+        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="151"/>
         <source>Delete</source>
         <translation type="unfinished">Elimina</translation>
     </message>
@@ -2818,22 +2818,22 @@ Would you like to use this instead?</source>
 <context>
     <name>RecipientPopover</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/RecipientPopover.qml" line="81"/>
+        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/RecipientPopover.qml" line="80"/>
         <source>Copy to clipboard</source>
         <translation type="unfinished">Copia negli appunti</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/RecipientPopover.qml" line="94"/>
+        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/RecipientPopover.qml" line="89"/>
         <source>Add to addressbook</source>
         <translation type="unfinished">Aggiungi alla rubrica</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/RecipientPopover.qml" line="110"/>
+        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/RecipientPopover.qml" line="98"/>
         <source>Send message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/RecipientPopover.qml" line="126"/>
+        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/RecipientPopover.qml" line="108"/>
         <source>Remove</source>
         <translation type="unfinished">Rimuovi</translation>
     </message>
@@ -3226,7 +3226,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/smtp/smtpsettings.cpp" line="79"/>
         <source>Signature</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Firma</translation>
     </message>
 </context>
 <context>
@@ -3371,7 +3371,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/smtp/smtpsettings.ui" line="308"/>
         <source>Signature</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Firma</translation>
     </message>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/smtp/smtpsettings.ui" line="324"/>
