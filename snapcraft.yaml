@@ -57,3 +57,9 @@ parts:
             - -usr/include
         after: [desktop-ubuntu-app-platform]
 
+    pyotherside:
+        plugin: qmake
+        source: https://github.com/thp/pyotherside.git
+        qt-version: qt5
+        after: [dekko]
+
