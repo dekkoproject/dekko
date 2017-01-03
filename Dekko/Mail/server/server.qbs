@@ -1,8 +1,7 @@
 import qbs
 
 Project {
-    name: "Messaging Server"
-
+    name: "Server"
 
     QtGuiApplication {
         name: "Server"
@@ -38,6 +37,7 @@ Project {
             if (project.uoaEnabled) {
                 defs.concat("USE_ACCOUNTS_QT")
             }
+            return defs
         }
 
         Group {

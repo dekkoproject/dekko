@@ -85,6 +85,8 @@ Project {
 
     property bool buildAll: true
 
+    property bool outputTarPackage: false
+
     /* MazDB library - LevelDB based database.
 
        Available as a library and qml plugin
@@ -185,6 +187,52 @@ Project {
             qbs.install: true
             qbs.installDir: dekko.binDir + "/i18n"
             fileTagsFilter: ["qm"]
+        }
+    }
+
+    // If required output a tar.gz package
+    InstallPackage {
+        archiver.type: "tar"
+        targetName: "dekko_" + qbs.architecture + "_qt"+ Qt.core.version
+        name: "tar-package"
+        builtByDefault: project.outputTarPackage
+
+        Depends { name: "MazDB"; }
+        Depends { name: "LevelDB"; }
+        Depends { name: "MazDBQuick"; }
+        Depends { name: "i18n"; }
+        Depends { name: "Components"; }
+        Depends { name: "Controls"; }
+        Depends { name: "Shared Utils"; }
+        Depends { name: "API"; }
+        Depends { name: "Stores"; }
+        Depends { name: "Workers"; }
+        Depends { name: "Dekko Mail" }
+        Depends { name: "Server" }
+        Depends { name: "Accounts Plugin" }
+        Depends { name: "AccountsLib" }
+        Depends { name: "AutoConfig Plugin" }
+        Depends { name: "Mail Lib" }
+        Depends { name: "Mail Plugin" }
+        Depends { name: "Network Lib" }
+        Depends { name: "Settings Lib" }
+        Depends { name: "Settings Plugin" }
+        Depends { name : "Ubuntu UI Plugin" }
+        Depends { name: "Imap Service"; }
+        Depends { name: "Pop Service"; }
+        Depends { name: "Smtp Service"; }
+        Depends { name: "QmfClient"; }
+        Depends { name: "QmfServer"; }
+        Depends { name: "Settings Service"; }
+        Depends { name: "Storage Manager"; }
+        Depends { name: "Notify Plugin"; }
+        Depends { name: "PlugMan"; }
+        Depends { name: "QuickPlugMan"; }
+        Depends { name: "QuickFlux"; }
+
+        Group {
+            qbs.install: true
+            fileTagsFilter: product.type
         }
     }
 }
