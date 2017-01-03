@@ -61,5 +61,7 @@ parts:
         plugin: qmake
         source: https://github.com/thp/pyotherside.git
         qt-version: qt5
+        build-packages:
+            - python3-dev
         after: [dekko]
 
