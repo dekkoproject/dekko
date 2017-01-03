@@ -52,7 +52,7 @@ DynamicLibrary {
     }
 
     Group {
-        name: "Other Files"
+        name: "QML directory"
         prefix: path + "/"
         files: [
             "qmldir"

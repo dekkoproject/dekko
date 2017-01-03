@@ -73,4 +73,9 @@ Project {
         filePath: "app/app.qbs"
         inheritProperties: true
     }
+
+    SubProject {
+        filePath: "plugins/plugins.qbs"
+        inheritProperties: true
+    }
 }
