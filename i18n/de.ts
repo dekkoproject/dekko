@@ -4,27 +4,27 @@
 <context>
     <name>AccountSettingsList</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/AccountSettingsList.qml" line="26"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/AccountSettingsList.qml" line="26"/>
         <source>Account Settings</source>
         <translation type="unfinished">Kontoeinstellungen</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/AccountSettingsList.qml" line="56"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/AccountSettingsList.qml" line="56"/>
         <source>Details</source>
         <translation type="unfinished">Details</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/AccountSettingsList.qml" line="60"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/AccountSettingsList.qml" line="60"/>
         <source>Incoming Server</source>
         <translation type="unfinished">Posteingangsserver</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/AccountSettingsList.qml" line="64"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/AccountSettingsList.qml" line="64"/>
         <source>Outgoing Server</source>
         <translation type="unfinished">Postausgangsserver</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/AccountSettingsList.qml" line="68"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/AccountSettingsList.qml" line="68"/>
         <source>Copies and Folders</source>
         <translation type="unfinished"></translation>
     </message>
@@ -69,22 +69,22 @@
 <context>
     <name>AddAnotherUI</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/AddAnotherUI.qml" line="30"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/AddAnotherUI.qml" line="30"/>
         <source>Success</source>
         <translation type="unfinished">Erfolgreich abgeschlossen</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/AddAnotherUI.qml" line="89"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/AddAnotherUI.qml" line="89"/>
         <source>New account created.</source>
         <translation type="unfinished">Neues Benutzerkonto erstellt.</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/AddAnotherUI.qml" line="98"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/AddAnotherUI.qml" line="98"/>
         <source>Continue</source>
         <translation type="unfinished">Fortsetzen</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/AddAnotherUI.qml" line="110"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/AddAnotherUI.qml" line="110"/>
         <source>Add another</source>
         <translation type="unfinished">Weiteres hinzufügen</translation>
     </message>
@@ -92,12 +92,12 @@
 <context>
     <name>AddressBookList</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/contacts/AddressBookList.qml" line="12"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/contacts/AddressBookList.qml" line="12"/>
         <source>Addressbooks</source>
         <translation type="unfinished">Adressbücher</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/contacts/AddressBookList.qml" line="65"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/contacts/AddressBookList.qml" line="65"/>
         <source>Add Collection</source>
         <translation type="unfinished">Auswahl hinzufügen</translation>
     </message>
@@ -113,7 +113,7 @@
 <context>
     <name>AttachmentPanel</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/components/AttachmentPanel.qml" line="80"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/components/AttachmentPanel.qml" line="80"/>
         <source>Attachments</source>
         <translation type="unfinished">Anhänge</translation>
     </message>
@@ -121,7 +121,7 @@
 <context>
     <name>AttachmentPopover</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/AttachmentPopover.qml" line="46"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/AttachmentPopover.qml" line="46"/>
         <source>Delete</source>
         <translation type="unfinished">Löschen</translation>
     </message>
@@ -129,22 +129,22 @@
 <context>
     <name>AuthenticationSelector</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/components/AuthenticationSelector.qml" line="45"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/components/AuthenticationSelector.qml" line="45"/>
         <source>Authentication</source>
         <translation type="unfinished">Authentifizierung</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/components/AuthenticationSelector.qml" line="60"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/components/AuthenticationSelector.qml" line="60"/>
         <source>PLAIN</source>
         <translation type="unfinished">KLARTEXT</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/components/AuthenticationSelector.qml" line="61"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/components/AuthenticationSelector.qml" line="61"/>
         <source>LOGIN</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/components/AuthenticationSelector.qml" line="62"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/components/AuthenticationSelector.qml" line="62"/>
         <source>CRAM-MD5</source>
         <translation type="unfinished">CRAM-MD5</translation>
     </message>
@@ -152,17 +152,17 @@
 <context>
     <name>AutoConfigState</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/states/AutoConfigState.qml" line="35"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/states/AutoConfigState.qml" line="35"/>
         <source>Searching for configuration.</source>
         <translation type="unfinished">Konfiguration wird gesucht.</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/states/AutoConfigState.qml" line="76"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/states/AutoConfigState.qml" line="76"/>
         <source>IMAP server found</source>
         <translation type="unfinished">IMAP-Server wurde gefunden</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/states/AutoConfigState.qml" line="77"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/states/AutoConfigState.qml" line="77"/>
         <source>A IMAP server configuration was found for you domain.
 
 Would you like to use this instead?</source>
@@ -172,7 +172,7 @@ Would you like to use this instead?</source>
 <context>
     <name>BottomEdgeComposer</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/composer/BottomEdgeComposer.qml" line="65"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/composer/BottomEdgeComposer.qml" line="65"/>
         <source>Attachments</source>
         <translation type="unfinished">Anhänge</translation>
     </message>
@@ -203,7 +203,7 @@ Would you like to use this instead?</source>
 <context>
     <name>ComposeWindow</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/composer/ComposeWindow.qml" line="22"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/composer/ComposeWindow.qml" line="22"/>
         <source>Dekko Composer</source>
         <translation type="unfinished"></translation>
     </message>
@@ -211,7 +211,7 @@ Would you like to use this instead?</source>
 <context>
     <name>Composer</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/composer/Composer.qml" line="52"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/composer/Composer.qml" line="52"/>
         <source>Attach</source>
         <translation type="unfinished">Anhängen</translation>
     </message>
@@ -268,12 +268,12 @@ Would you like to use this instead?</source>
 <context>
     <name>ConfirmationDialog</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/dialogs/ConfirmationDialog.qml" line="50"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/dialogs/ConfirmationDialog.qml" line="50"/>
         <source>Cancel</source>
         <translation type="unfinished">Abbrechen</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/dialogs/ConfirmationDialog.qml" line="63"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/dialogs/ConfirmationDialog.qml" line="63"/>
         <source>Confirm</source>
         <translation type="unfinished">Bestätigen</translation>
     </message>
@@ -281,12 +281,12 @@ Would you like to use this instead?</source>
 <context>
     <name>ContactFilterView</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/ContactFilterView.qml" line="112"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/ContactFilterView.qml" line="112"/>
         <source>Add contact</source>
         <translation type="unfinished">Kontakt hinzufügen</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/ContactFilterView.qml" line="123"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/ContactFilterView.qml" line="123"/>
         <source>Send message</source>
         <translation type="unfinished">Nachricht senden</translation>
     </message>
@@ -294,7 +294,7 @@ Would you like to use this instead?</source>
 <context>
     <name>ContactListPage</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/contacts/ContactListPage.qml" line="11"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/contacts/ContactListPage.qml" line="11"/>
         <source>Address book</source>
         <translation type="unfinished">Adressbuch</translation>
     </message>
@@ -302,42 +302,42 @@ Would you like to use this instead?</source>
 <context>
     <name>ContactView</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/contacts/ContactView.qml" line="11"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/contacts/ContactView.qml" line="11"/>
         <source>Contact</source>
         <translation type="unfinished">Kontakt</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/contacts/ContactView.qml" line="61"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/contacts/ContactView.qml" line="61"/>
         <source>Email</source>
         <translation type="unfinished">E-Mail</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/contacts/ContactView.qml" line="78"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/contacts/ContactView.qml" line="78"/>
         <source>Phone</source>
         <translation type="unfinished">Telefon</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/contacts/ContactView.qml" line="92"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/contacts/ContactView.qml" line="92"/>
         <source>Address</source>
         <translation type="unfinished">Anschrift</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/contacts/ContactView.qml" line="96"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/contacts/ContactView.qml" line="96"/>
         <source>Street</source>
         <translation type="unfinished">Straße</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/contacts/ContactView.qml" line="102"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/contacts/ContactView.qml" line="102"/>
         <source>City</source>
         <translation type="unfinished">Ort</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/contacts/ContactView.qml" line="108"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/contacts/ContactView.qml" line="108"/>
         <source>Zip</source>
         <translation type="unfinished">Postleitzahl</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/contacts/ContactView.qml" line="114"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/contacts/ContactView.qml" line="114"/>
         <source>Country</source>
         <translation type="unfinished">Land</translation>
     </message>
@@ -345,7 +345,7 @@ Would you like to use this instead?</source>
 <context>
     <name>ContactsListView</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/contacts/ContactsListView.qml" line="36"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/contacts/ContactsListView.qml" line="36"/>
         <source>Search</source>
         <translation type="unfinished">Suchen</translation>
     </message>
@@ -353,12 +353,12 @@ Would you like to use this instead?</source>
 <context>
     <name>ContentBlockedNotice</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/webview/ContentBlockedNotice.qml" line="41"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/webview/ContentBlockedNotice.qml" line="41"/>
         <source>Remote content blocked</source>
         <translation type="unfinished">Entfernte Inhalte blockiert</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/webview/ContentBlockedNotice.qml" line="54"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/webview/ContentBlockedNotice.qml" line="54"/>
         <source>Allow</source>
         <translation type="unfinished">Erlauben</translation>
     </message>
@@ -366,7 +366,7 @@ Would you like to use this instead?</source>
 <context>
     <name>ContributorsPage</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/ContributorsPage.qml" line="25"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/ContributorsPage.qml" line="25"/>
         <source>Contributors</source>
         <translation type="unfinished">Mitwirkende</translation>
     </message>
@@ -374,67 +374,67 @@ Would you like to use this instead?</source>
 <context>
     <name>CopyFoldersGroup</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="30"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="30"/>
         <source>Copies and Folders</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="124"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="124"/>
         <source>Standard folders</source>
         <translation type="unfinished">Standardverzeichnisse</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="136"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="136"/>
         <source>Detect standard folders</source>
         <translation type="unfinished">Standardverzeichnisse erkennen</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="152"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="152"/>
         <source>Detect</source>
         <translation type="unfinished">Finden</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="173"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="173"/>
         <source>Base folder</source>
         <translation type="unfinished">Basisverzeichnis</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="175"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="175"/>
         <source>Leave empty if you are unsure</source>
         <translation type="unfinished">Leerlassen, wenn Sie sich unsicher sind</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="190"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="190"/>
         <source>Inbox folder</source>
         <translation type="unfinished">Posteingang</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="205"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="205"/>
         <source>Drafts folder</source>
         <translation type="unfinished">Entwürfe</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="220"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="220"/>
         <source>Spam folder</source>
         <translation type="unfinished">Spam Ordner</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="235"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="235"/>
         <source>Sent folder</source>
         <translation type="unfinished">Gesendet</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="250"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="250"/>
         <source>Outbox folder</source>
         <translation type="unfinished">Postausgang</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="265"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="265"/>
         <source>Trash folder</source>
         <translation type="unfinished">Papierkorb</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="274"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="274"/>
         <source>Sending messages</source>
         <translation type="unfinished">Nachrichten werden versendet</translation>
     </message>
@@ -442,17 +442,17 @@ Would you like to use this instead?</source>
 <context>
     <name>DefaultMessagePage</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/messageview/DefaultMessagePage.qml" line="189"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/messageview/DefaultMessagePage.qml" line="189"/>
         <source>From:</source>
         <translation type="unfinished">Von:</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/messageview/DefaultMessagePage.qml" line="242"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/messageview/DefaultMessagePage.qml" line="242"/>
         <source>To:</source>
         <translation type="unfinished">An:</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/messageview/DefaultMessagePage.qml" line="247"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/messageview/DefaultMessagePage.qml" line="247"/>
         <source>Cc:</source>
         <translation type="unfinished">Kopie:</translation>
     </message>
@@ -473,7 +473,7 @@ Would you like to use this instead?</source>
 <context>
     <name>DekkoHeader</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/components/DekkoHeader.qml" line="204"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/components/DekkoHeader.qml" line="204"/>
         <source>Enter search...</source>
         <translation type="unfinished">Suchbegriff eingeben …</translation>
     </message>
@@ -481,12 +481,12 @@ Would you like to use this instead?</source>
 <context>
     <name>DekkoWebView</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/webview/DekkoWebView.qml" line="142"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/webview/DekkoWebView.qml" line="142"/>
         <source>Open in browser?</source>
         <translation type="unfinished">Im Browser öffnen?</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/webview/DekkoWebView.qml" line="143"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/webview/DekkoWebView.qml" line="143"/>
         <source>Confirm to open %1 in web browser</source>
         <translation type="unfinished">Bestätigen Sie, %1 im Internet-Browser zu öffnen</translation>
     </message>
@@ -494,17 +494,17 @@ Would you like to use this instead?</source>
 <context>
     <name>DetailList</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/messageview/DetailList.qml" line="47"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/messageview/DetailList.qml" line="47"/>
         <source>Details</source>
         <translation type="unfinished">Details</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/messageview/DetailList.qml" line="52"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/messageview/DetailList.qml" line="52"/>
         <source>To:</source>
         <translation type="unfinished">An:</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/messageview/DetailList.qml" line="58"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/messageview/DetailList.qml" line="58"/>
         <source>Cc:</source>
         <translation type="unfinished">Kopie:</translation>
     </message>
@@ -512,12 +512,12 @@ Would you like to use this instead?</source>
 <context>
     <name>DetailsGroup</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/DetailsGroup.qml" line="27"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/DetailsGroup.qml" line="27"/>
         <source>Details</source>
         <translation type="unfinished">Details</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/DetailsGroup.qml" line="62"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/DetailsGroup.qml" line="62"/>
         <source>Account name</source>
         <translation type="unfinished">Accountbezeichnung</translation>
     </message>
@@ -525,12 +525,12 @@ Would you like to use this instead?</source>
 <context>
     <name>DialogWorker</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/workers/DialogWorker.qml" line="34"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/workers/DialogWorker.qml" line="34"/>
         <source>Error</source>
         <translation type="unfinished">Fehler</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/workers/DialogWorker.qml" line="41"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/workers/DialogWorker.qml" line="41"/>
         <source>Notice</source>
         <translation type="unfinished">Hinweis</translation>
     </message>
@@ -538,32 +538,32 @@ Would you like to use this instead?</source>
 <context>
     <name>DisplaySettings</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/DisplaySettings.qml" line="28"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/DisplaySettings.qml" line="28"/>
         <source>Navigation menu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/DisplaySettings.qml" line="32"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/DisplaySettings.qml" line="32"/>
         <source>Show smart folders</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/DisplaySettings.qml" line="42"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/DisplaySettings.qml" line="42"/>
         <source>Show favourite folders</source>
         <translation type="unfinished">Favourisierte Verzeichnisse anzeigen</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/DisplaySettings.qml" line="53"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/DisplaySettings.qml" line="53"/>
         <source>Messages</source>
         <translation type="unfinished">Nachrichten</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/DisplaySettings.qml" line="57"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/DisplaySettings.qml" line="57"/>
         <source>Show avatars</source>
         <translation type="unfinished">Benutzerbilder anzeigen</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/DisplaySettings.qml" line="67"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/DisplaySettings.qml" line="67"/>
         <source>Prefer plain text</source>
         <translation type="unfinished">Klartext bevorzugen</translation>
     </message>
@@ -571,7 +571,7 @@ Would you like to use this instead?</source>
 <context>
     <name>DisplaySettingsPage</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/DisplaySettingsPage.qml" line="21"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/DisplaySettingsPage.qml" line="21"/>
         <source>Display Settings</source>
         <translation type="unfinished">Anzeige-Einstellungen</translation>
     </message>
@@ -579,7 +579,7 @@ Would you like to use this instead?</source>
 <context>
     <name>DisplaySettingsPopup</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/DisplaySettingsPopup.qml" line="21"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/DisplaySettingsPopup.qml" line="21"/>
         <source>Display Settings</source>
         <translation type="unfinished">Anzeige-Einstellungen</translation>
     </message>
@@ -587,22 +587,22 @@ Would you like to use this instead?</source>
 <context>
     <name>EncryptionSelector</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/components/EncryptionSelector.qml" line="46"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/components/EncryptionSelector.qml" line="46"/>
         <source>Encryption</source>
         <translation type="unfinished">Verschlüsselung</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/components/EncryptionSelector.qml" line="61"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/components/EncryptionSelector.qml" line="61"/>
         <source>No encryption</source>
         <translation type="unfinished">Keine Verschlüsselung</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/components/EncryptionSelector.qml" line="62"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/components/EncryptionSelector.qml" line="62"/>
         <source>Use encryption (STARTTLS)</source>
         <translation type="unfinished">Verschlüsselung verwenden (STARTTLS)</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/components/EncryptionSelector.qml" line="63"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/components/EncryptionSelector.qml" line="63"/>
         <source>Force encryption (SSL/TLS)</source>
         <translation type="unfinished">Verschlüsselung erzwingen (SSL/TLS)</translation>
     </message>
@@ -628,7 +628,7 @@ Would you like to use this instead?</source>
 <context>
     <name>ExpandablePanel</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/components/ExpandablePanel.qml" line="62"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/components/ExpandablePanel.qml" line="62"/>
         <source>Attachments</source>
         <translation type="unfinished">Anhänge</translation>
     </message>
@@ -644,7 +644,7 @@ Would you like to use this instead?</source>
 <context>
     <name>FilePickerDialog</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/dialogs/FilePickerDialog.qml" line="23"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/dialogs/FilePickerDialog.qml" line="23"/>
         <source>Add Attachment</source>
         <translation type="unfinished">Anhang hinzufügen</translation>
     </message>
@@ -723,12 +723,12 @@ Would you like to use this instead?</source>
 <context>
     <name>FolderListDelegate</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/delegates/FolderListDelegate.qml" line="52"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/delegates/FolderListDelegate.qml" line="52"/>
         <source>Un-favourite</source>
         <translation type="unfinished">Aus Favouriten entfernen</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/delegates/FolderListDelegate.qml" line="52"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/delegates/FolderListDelegate.qml" line="52"/>
         <source>Favourite</source>
         <translation type="unfinished">Zu Favouriten hinzufügen</translation>
     </message>
@@ -744,12 +744,12 @@ Would you like to use this instead?</source>
 <context>
     <name>IdentitiesListPage</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IdentitiesListPage.qml" line="14"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IdentitiesListPage.qml" line="14"/>
         <source>Identities</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IdentitiesListPage.qml" line="106"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IdentitiesListPage.qml" line="106"/>
         <source> (Default)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -757,43 +757,43 @@ Would you like to use this instead?</source>
 <context>
     <name>IdentityInput</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml" line="54"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IdentityInput.qml" line="54"/>
         <source>Default identity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml" line="67"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IdentityInput.qml" line="67"/>
         <source>Account</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml" line="105"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IdentityInput.qml" line="105"/>
         <source>Name</source>
         <translation type="unfinished">Name</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml" line="110"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IdentityInput.qml" line="110"/>
         <source>Email Address</source>
         <translation type="unfinished">E-Mail-Addresse</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml" line="115"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IdentityInput.qml" line="115"/>
         <source>Reply-To</source>
         <translation type="unfinished">Antwortadresse</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml" line="119"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IdentityInput.qml" line="119"/>
         <source>Signature</source>
         <translation type="unfinished">Signatur</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml" line="137"/>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml" line="145"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IdentityInput.qml" line="137"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IdentityInput.qml" line="145"/>
         <source>New identity</source>
         <translation type="unfinished">Neue Kennung</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml" line="169"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IdentityInput.qml" line="169"/>
         <source>Edit identity</source>
         <translation type="unfinished">Kennung bearbeiten</translation>
     </message>
@@ -1221,88 +1221,88 @@ Would you like to use this instead?</source>
 <context>
     <name>IncomingServerGroup</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="27"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="27"/>
         <source>Incoming Server</source>
         <translation type="unfinished">Posteingangsserver</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="104"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="104"/>
         <source>Hostname</source>
         <translation type="unfinished">Servername</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="113"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="113"/>
         <source>Port</source>
         <translation type="unfinished">Port</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="122"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="122"/>
         <source>Username</source>
         <translation type="unfinished">Benutzername</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="131"/>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="134"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="131"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="134"/>
         <source>Password</source>
         <translation type="unfinished">Passwort</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="141"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="141"/>
         <source>Show password</source>
         <translation type="unfinished">Passwort anzeigen</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="147"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="147"/>
         <source>Security settings</source>
         <translation type="unfinished">Sicherheitseinstellungen</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="182"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="182"/>
         <source>Allow untrusted certificates</source>
         <translation type="unfinished">Nichtvertrauenswürdige Zertifikate erlauben</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="187"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="187"/>
         <source>Server settings</source>
         <translation type="unfinished">Server-Einstellungen</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="192"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="192"/>
         <source>Check for new mail on start</source>
         <translation type="unfinished">Beim Start nach ungelesen Nachrichten suchen</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="198"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="198"/>
         <source>Enable IMAP IDLE</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="205"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="205"/>
         <source>Check interval (minutes)</source>
         <translation type="unfinished">Abrufintervall</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="212"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="212"/>
         <source>Check when roaming</source>
         <translation type="unfinished">Bei Datenroaming abrufen</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="218"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="218"/>
         <source>Maximum mail size (MB)</source>
         <translation type="unfinished">Maximale Nachrichtengröße (MB)</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="224"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="224"/>
         <source>No maximum mail size</source>
         <translation type="unfinished">Keine Begrenzung der Nachrichtengröße</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="232"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="232"/>
         <source>Automatically download attachments</source>
         <translation type="unfinished">Anhänge automatisch herunterladen</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="238"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="238"/>
         <source>Allowed to delete mail</source>
         <translation type="unfinished">Löschen von Nachrichten erlaubt</translation>
     </message>
@@ -1310,7 +1310,7 @@ Would you like to use this instead?</source>
 <context>
     <name>LicensesPage</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/LicensesPage.qml" line="25"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/LicensesPage.qml" line="25"/>
         <source>Licenses</source>
         <translation type="unfinished">Lizenzen</translation>
     </message>
@@ -1318,27 +1318,27 @@ Would you like to use this instead?</source>
 <context>
     <name>MailSettings</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/MailSettings.qml" line="11"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/MailSettings.qml" line="11"/>
         <source>Mail Settings</source>
         <translation type="unfinished">E-Mail-Einstellungen</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/MailSettings.qml" line="24"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/MailSettings.qml" line="24"/>
         <source>Accounts</source>
         <translation type="unfinished">Konten</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/MailSettings.qml" line="34"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/MailSettings.qml" line="34"/>
         <source>Identities</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/MailSettings.qml" line="44"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/MailSettings.qml" line="44"/>
         <source>Display</source>
         <translation type="unfinished">Anzeige</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/MailSettings.qml" line="51"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/MailSettings.qml" line="51"/>
         <source>Privacy</source>
         <translation type="unfinished">Privatsphäre</translation>
     </message>
@@ -1427,17 +1427,17 @@ Would you like to use this instead?</source>
 <context>
     <name>MailUtils</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/constants/MailUtils.qml" line="27"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/constants/MailUtils.qml" line="27"/>
         <source>To</source>
         <translation type="unfinished">An</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/constants/MailUtils.qml" line="29"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/constants/MailUtils.qml" line="29"/>
         <source>Cc</source>
         <translation type="unfinished">Kopie</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/constants/MailUtils.qml" line="31"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/constants/MailUtils.qml" line="31"/>
         <source>Bcc</source>
         <translation type="unfinished">Blindkopie</translation>
     </message>
@@ -1445,7 +1445,7 @@ Would you like to use this instead?</source>
 <context>
     <name>MailboxPickerPage</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/MailboxPickerPage.qml" line="33"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/MailboxPickerPage.qml" line="33"/>
         <source>Select folder</source>
         <translation type="unfinished">Ordner wählen</translation>
     </message>
@@ -1461,8 +1461,8 @@ Would you like to use this instead?</source>
 <context>
     <name>MainUI</name>
     <message>
-        <location filename="../Dekko/Mail/app/qqc2/qml/MainUI.qml" line="11"/>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/MainUI.qml" line="17"/>
+        <location filename="../Dekko/Mail/plugins/qqc2/qml/MainUI.qml" line="11"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/MainUI.qml" line="17"/>
         <source>Dekko Mail</source>
         <translation type="unfinished">Dekko Mail</translation>
     </message>
@@ -1470,7 +1470,7 @@ Would you like to use this instead?</source>
 <context>
     <name>ManageAccountsPage</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/ManageAccountsPage.qml" line="26"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/ManageAccountsPage.qml" line="26"/>
         <source>Manage accounts</source>
         <translation type="unfinished">Benutzerkonten verwalten</translation>
     </message>
@@ -1478,42 +1478,42 @@ Would you like to use this instead?</source>
 <context>
     <name>ManualInputUI</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="28"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="28"/>
         <source>Server configuration</source>
         <translation type="unfinished">Serverkonfiguration</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="33"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="33"/>
         <source>IMAP Server:</source>
         <translation type="unfinished">IMAP-Server:</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="46"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="46"/>
         <source>POP3 Server:</source>
         <translation type="unfinished">POP3-Server</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="59"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="59"/>
         <source>SMTP Server:</source>
         <translation type="unfinished">SMTP-Server:</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="71"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="71"/>
         <source>Back</source>
         <translation type="unfinished">Zurück</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="75"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="75"/>
         <source>Next</source>
         <translation type="unfinished">Weiter</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="135"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="135"/>
         <source>Password empty</source>
         <translation type="unfinished">Passwortfeld leer.</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="135"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="135"/>
         <source>Would you like to continue?</source>
         <translation type="unfinished">Möchten Sie fortfahren?</translation>
     </message>
@@ -1534,17 +1534,17 @@ Would you like to use this instead?</source>
 <context>
     <name>MessageActionPopover</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageActionPopover.qml" line="44"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageActionPopover.qml" line="44"/>
         <source>Reply all</source>
         <translation type="unfinished">Allen antworten</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageActionPopover.qml" line="52"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageActionPopover.qml" line="52"/>
         <source>Forward</source>
         <translation type="unfinished">Weiterleiten</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageActionPopover.qml" line="65"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageActionPopover.qml" line="65"/>
         <source>Move</source>
         <translation type="unfinished">Verschieben</translation>
     </message>
@@ -1587,7 +1587,7 @@ Would you like to use this instead?</source>
 <context>
     <name>MessageComposer</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/composer/MessageComposer.qml" line="97"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/composer/MessageComposer.qml" line="97"/>
         <source>Enter message</source>
         <translation type="unfinished">Nachricht eingeben</translation>
     </message>
@@ -1643,12 +1643,12 @@ Would you like to use this instead?</source>
 <context>
     <name>MessageHeader</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/messageview/MessageHeader.qml" line="47"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/messageview/MessageHeader.qml" line="47"/>
         <source>Hide details</source>
         <translation type="unfinished">Details ausblenden</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/messageview/MessageHeader.qml" line="47"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/messageview/MessageHeader.qml" line="47"/>
         <source>View details</source>
         <translation type="unfinished">Details anzeigen</translation>
     </message>
@@ -1656,67 +1656,67 @@ Would you like to use this instead?</source>
 <context>
     <name>MessageListActionPopover</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="44"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="44"/>
         <source>Mark as unread</source>
         <translation type="unfinished">Als ungelesen markieren</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="44"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="44"/>
         <source>Mark as read</source>
         <translation type="unfinished">Als gelesen markieren</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="52"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="52"/>
         <source>Mark as not important</source>
         <translation type="unfinished">Als unwichtig markieren</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="52"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="52"/>
         <source>Mark as important</source>
         <translation type="unfinished">Als wichtig markieren</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="60"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="60"/>
         <source>Mark as spam</source>
         <translation type="unfinished">Spam markieren</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="73"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="73"/>
         <source>To-do</source>
         <translation type="unfinished">Zu Erledigen</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="89"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="89"/>
         <source>Done</source>
         <translation type="unfinished">Erledigt</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="103"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="103"/>
         <source>Reply</source>
         <translation type="unfinished">Antworten</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="111"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="111"/>
         <source>Reply all</source>
         <translation type="unfinished">Allen antworten</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="119"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="119"/>
         <source>Forward</source>
         <translation type="unfinished">Weiterleiten</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="133"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="133"/>
         <source>Move</source>
         <translation type="unfinished">Verschieben</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="142"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="142"/>
         <source>Restore to %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="151"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="151"/>
         <source>Delete</source>
         <translation type="unfinished">Löschen</translation>
     </message>
@@ -1724,32 +1724,32 @@ Would you like to use this instead?</source>
 <context>
     <name>MessageListDelegate</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/delegates/MessageListDelegate.qml" line="41"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/delegates/MessageListDelegate.qml" line="41"/>
         <source>Un-mark flagged</source>
         <translation type="unfinished">Gekennzeichnete abwählen</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/delegates/MessageListDelegate.qml" line="41"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/delegates/MessageListDelegate.qml" line="41"/>
         <source>Mark flagged</source>
         <translation type="unfinished">Gekennzeichnete auswählen</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/delegates/MessageListDelegate.qml" line="50"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/delegates/MessageListDelegate.qml" line="50"/>
         <source>Mark as un-read</source>
         <translation type="unfinished">Nicht gelesen markieren</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/delegates/MessageListDelegate.qml" line="50"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/delegates/MessageListDelegate.qml" line="50"/>
         <source>Mark as read</source>
         <translation type="unfinished">Als gelesen markieren</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/delegates/MessageListDelegate.qml" line="57"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/delegates/MessageListDelegate.qml" line="57"/>
         <source>Move message</source>
         <translation type="unfinished">Nachricht verschieben</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/delegates/MessageListDelegate.qml" line="62"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/delegates/MessageListDelegate.qml" line="62"/>
         <source>Context menu</source>
         <translation type="unfinished">Kontextmenü</translation>
     </message>
@@ -1757,42 +1757,42 @@ Would you like to use this instead?</source>
 <context>
     <name>MessageListView</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/MessageListView.qml" line="116"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/MessageListView.qml" line="116"/>
         <source>Unselect all</source>
         <translation type="unfinished">Auswahl aufheben</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/MessageListView.qml" line="116"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/MessageListView.qml" line="116"/>
         <source>Select all</source>
         <translation type="unfinished">Alle auswählen</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/MessageListView.qml" line="128"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/MessageListView.qml" line="128"/>
         <source>Star</source>
         <translation type="unfinished">Stern</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/MessageListView.qml" line="128"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/MessageListView.qml" line="128"/>
         <source>Remove star</source>
         <translation type="unfinished">Stern entfernen</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/MessageListView.qml" line="132"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/MessageListView.qml" line="132"/>
         <source>Mark as un-read</source>
         <translation type="unfinished">Nicht gelesen markieren</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/MessageListView.qml" line="132"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/MessageListView.qml" line="132"/>
         <source>Mark as read</source>
         <translation type="unfinished">Als gelesen markieren</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/MessageListView.qml" line="139"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/MessageListView.qml" line="139"/>
         <source>Delete</source>
         <translation type="unfinished">Löschen</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/MessageListView.qml" line="323"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/MessageListView.qml" line="323"/>
         <source>Load more messages ...</source>
         <translation type="unfinished">Weitere Nachrichten laden ...</translation>
     </message>
@@ -1800,37 +1800,37 @@ Would you like to use this instead?</source>
 <context>
     <name>MessageViewContextMenu</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageViewContextMenu.qml" line="46"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageViewContextMenu.qml" line="46"/>
         <source>Open in browser</source>
         <translation type="unfinished">Im Browser öffnen</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageViewContextMenu.qml" line="54"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageViewContextMenu.qml" line="54"/>
         <source>Copy link</source>
         <translation type="unfinished">Verweisadresse kopieren</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageViewContextMenu.qml" line="63"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageViewContextMenu.qml" line="63"/>
         <source>Share link</source>
         <translation type="unfinished">Verweisadresse teilen</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageViewContextMenu.qml" line="77"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageViewContextMenu.qml" line="77"/>
         <source>Reply</source>
         <translation type="unfinished">Antworten</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageViewContextMenu.qml" line="86"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageViewContextMenu.qml" line="86"/>
         <source>Reply all</source>
         <translation type="unfinished">Allen antworten</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageViewContextMenu.qml" line="94"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageViewContextMenu.qml" line="94"/>
         <source>Forward</source>
         <translation type="unfinished">Weiterleiten</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageViewContextMenu.qml" line="106"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageViewContextMenu.qml" line="106"/>
         <source>View source</source>
         <translation type="unfinished">Quelle anzeigen</translation>
     </message>
@@ -1862,17 +1862,17 @@ Would you like to use this instead?</source>
 <context>
     <name>NavMenuAccountSettingsModel</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/models/NavMenuAccountSettingsModel.qml" line="29"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/models/NavMenuAccountSettingsModel.qml" line="29"/>
         <source>Manage accounts</source>
         <translation type="unfinished">Benutzerkonten verwalten</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/models/NavMenuAccountSettingsModel.qml" line="45"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/models/NavMenuAccountSettingsModel.qml" line="45"/>
         <source>Display settings</source>
         <translation type="unfinished">Bildschirmeinstellungen</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/models/NavMenuAccountSettingsModel.qml" line="67"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/models/NavMenuAccountSettingsModel.qml" line="67"/>
         <source>Privacy settings</source>
         <translation type="unfinished">Privatsphäreeinstellungen</translation>
     </message>
@@ -1880,17 +1880,17 @@ Would you like to use this instead?</source>
 <context>
     <name>NavMenuContactsModel</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/models/NavMenuContactsModel.qml" line="27"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/models/NavMenuContactsModel.qml" line="27"/>
         <source>Addressbook</source>
         <translation type="unfinished">Adressbuch</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/models/NavMenuContactsModel.qml" line="43"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/models/NavMenuContactsModel.qml" line="43"/>
         <source>Recent contacts</source>
         <translation type="unfinished">Kürzlich verwendete Kontakte</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/models/NavMenuContactsModel.qml" line="58"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/models/NavMenuContactsModel.qml" line="58"/>
         <source>Import contacts</source>
         <translation type="unfinished">Kontakte importieren</translation>
     </message>
@@ -1898,17 +1898,17 @@ Would you like to use this instead?</source>
 <context>
     <name>NavMenuDekkoVisualModel</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/models/NavMenuDekkoVisualModel.qml" line="27"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/models/NavMenuDekkoVisualModel.qml" line="27"/>
         <source>Version</source>
         <translation type="unfinished">Version</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/models/NavMenuDekkoVisualModel.qml" line="45"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/models/NavMenuDekkoVisualModel.qml" line="45"/>
         <source>Licenses</source>
         <translation type="unfinished">Lizenzen</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/models/NavMenuDekkoVisualModel.qml" line="63"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/models/NavMenuDekkoVisualModel.qml" line="63"/>
         <source>Contributors</source>
         <translation type="unfinished">Mitwirkende</translation>
     </message>
@@ -1916,12 +1916,12 @@ Would you like to use this instead?</source>
 <context>
     <name>NavMenuModel</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/models/NavMenuModel.qml" line="98"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/models/NavMenuModel.qml" line="98"/>
         <source>Smart folders</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/models/NavMenuModel.qml" line="120"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/models/NavMenuModel.qml" line="120"/>
         <source>Folders</source>
         <translation type="unfinished">Verzeichnisse</translation>
     </message>
@@ -1929,23 +1929,23 @@ Would you like to use this instead?</source>
 <context>
     <name>NavMenuPage</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/NavMenuPage.qml" line="30"/>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/NavMenuPage.qml" line="64"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/NavMenuPage.qml" line="30"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/NavMenuPage.qml" line="64"/>
         <source>Mail</source>
         <translation type="unfinished">E-Mail</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/NavMenuPage.qml" line="67"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/NavMenuPage.qml" line="67"/>
         <source>Contacts</source>
         <translation type="unfinished">Kontakte</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/NavMenuPage.qml" line="70"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/NavMenuPage.qml" line="70"/>
         <source>Settings</source>
         <translation type="unfinished">Einstellungen</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/NavMenuPage.qml" line="73"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/NavMenuPage.qml" line="73"/>
         <source>About</source>
         <translation type="unfinished">Über</translation>
     </message>
@@ -1953,7 +1953,7 @@ Would you like to use this instead?</source>
 <context>
     <name>NavMenuStandardFolderDelegate</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/delegates/NavMenuStandardFolderDelegate.qml" line="178"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/delegates/NavMenuStandardFolderDelegate.qml" line="178"/>
         <source>Inbox (%1)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1961,12 +1961,12 @@ Would you like to use this instead?</source>
 <context>
     <name>NavSideBar</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/NavSideBar.qml" line="155"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/NavSideBar.qml" line="155"/>
         <source>Smart folders</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/NavSideBar.qml" line="169"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/NavSideBar.qml" line="169"/>
         <source>Folders</source>
         <translation type="unfinished">Verzeichnisse</translation>
     </message>
@@ -1974,32 +1974,32 @@ Would you like to use this instead?</source>
 <context>
     <name>NavViewContextMenu</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/NavViewContextMenu.qml" line="44"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/NavViewContextMenu.qml" line="44"/>
         <source>Sync folder</source>
         <translation type="unfinished">Verzeichnis synchronisieren</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/NavViewContextMenu.qml" line="53"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/NavViewContextMenu.qml" line="53"/>
         <source>Send pending</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/NavViewContextMenu.qml" line="70"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/NavViewContextMenu.qml" line="70"/>
         <source>Mark folder read</source>
         <translation type="unfinished">Verzeichnis als gelesen markieren</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/NavViewContextMenu.qml" line="79"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/NavViewContextMenu.qml" line="79"/>
         <source>Mark all done</source>
         <translation type="unfinished">Alle als erledigt markieren</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/NavViewContextMenu.qml" line="101"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/NavViewContextMenu.qml" line="101"/>
         <source>Empty trash</source>
         <translation type="unfinished">Papierkorb leeren</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/NavViewContextMenu.qml" line="110"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/NavViewContextMenu.qml" line="110"/>
         <source>Folder properties</source>
         <translation type="unfinished">Ordnereigenschaften</translation>
     </message>
@@ -2007,7 +2007,7 @@ Would you like to use this instead?</source>
 <context>
     <name>NewAccountsUI</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/NewAccountsUI.qml" line="32"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/NewAccountsUI.qml" line="32"/>
         <source>New account</source>
         <translation type="unfinished">Neues Konto</translation>
     </message>
@@ -2015,17 +2015,17 @@ Would you like to use this instead?</source>
 <context>
     <name>NoAccountsUI</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/NoAccountsUI.qml" line="30"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/NoAccountsUI.qml" line="30"/>
         <source>Accounts</source>
         <translation type="unfinished">Konten</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/NoAccountsUI.qml" line="92"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/NoAccountsUI.qml" line="92"/>
         <source>No email account is setup.</source>
         <translation type="unfinished">Kein E-Mail-Konto eingerichtet</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/NoAccountsUI.qml" line="101"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/NoAccountsUI.qml" line="101"/>
         <source>Add now</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2033,7 +2033,7 @@ Would you like to use this instead?</source>
 <context>
     <name>NothingSelectedPage</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/NothingSelectedPage.qml" line="60"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/NothingSelectedPage.qml" line="60"/>
         <source>No message selected</source>
         <translation type="unfinished">Keine Nachricht ausgewählt</translation>
     </message>
@@ -2041,48 +2041,48 @@ Would you like to use this instead?</source>
 <context>
     <name>OutgoingServerGroup</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="27"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="27"/>
         <source>Outgoing Server</source>
         <translation type="unfinished">Postausgangsserver</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="74"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="74"/>
         <source>Hostname</source>
         <translation type="unfinished">Servername</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="82"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="82"/>
         <source>Port</source>
         <translation type="unfinished">Port</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="91"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="91"/>
         <source>Username</source>
         <translation type="unfinished">Benutzername</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="99"/>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="102"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="99"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="102"/>
         <source>Password</source>
         <translation type="unfinished">Passwort</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="109"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="109"/>
         <source>Show password</source>
         <translation type="unfinished">Passwort anzeigen</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="115"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="115"/>
         <source>Security settings</source>
         <translation type="unfinished">Sicherheitseinstellungen</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="148"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="148"/>
         <source>Authenticate from server capabilities</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="154"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="154"/>
         <source>Allow untrusted certificates</source>
         <translation type="unfinished">Nichtvertrauenswürdige Zertifikate erlauben</translation>
     </message>
@@ -2253,17 +2253,17 @@ Would you like to use this instead?</source>
 <context>
     <name>PrivacySettings</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/PrivacySettings.qml" line="28"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/PrivacySettings.qml" line="28"/>
         <source>Message content</source>
         <translation type="unfinished">Nachrichteninhalt</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/PrivacySettings.qml" line="32"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/PrivacySettings.qml" line="32"/>
         <source>Allow remote content</source>
         <translation type="unfinished">Entfernten Inhalt erlauben</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/PrivacySettings.qml" line="42"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/PrivacySettings.qml" line="42"/>
         <source>Auto load images</source>
         <translation type="unfinished">Bilder automatisch laden</translation>
     </message>
@@ -2271,7 +2271,7 @@ Would you like to use this instead?</source>
 <context>
     <name>PrivacySettingsPage</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/PrivacySettingsPage.qml" line="21"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/PrivacySettingsPage.qml" line="21"/>
         <source>Privacy Settings</source>
         <translation type="unfinished">Einstellungen zur Privatsphäre</translation>
     </message>
@@ -2279,7 +2279,7 @@ Would you like to use this instead?</source>
 <context>
     <name>PrivacySettingsPopup</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/PrivacySettingsPopup.qml" line="21"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/PrivacySettingsPopup.qml" line="21"/>
         <source>Privacy Settings</source>
         <translation type="unfinished">Einstellungen zur Privatsphäre</translation>
     </message>
@@ -2769,7 +2769,7 @@ Would you like to use this instead?</source>
 <context>
     <name>RecipientField</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/composer/RecipientField.qml" line="97"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/composer/RecipientField.qml" line="97"/>
         <source>Enter an address</source>
         <translation type="unfinished">Adresse eingeben</translation>
     </message>
@@ -2777,22 +2777,22 @@ Would you like to use this instead?</source>
 <context>
     <name>RecipientInfo</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/messageview/RecipientInfo.qml" line="41"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/messageview/RecipientInfo.qml" line="41"/>
         <source>Back</source>
         <translation type="unfinished">Zurück</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/messageview/RecipientInfo.qml" line="93"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/messageview/RecipientInfo.qml" line="93"/>
         <source>Copy to clipboard</source>
         <translation type="unfinished">In Zwischenablage kopieren</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/messageview/RecipientInfo.qml" line="107"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/messageview/RecipientInfo.qml" line="107"/>
         <source>Add to addressbook</source>
         <translation type="unfinished">Zum Adressbuch hinzufügen</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/messageview/RecipientInfo.qml" line="122"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/messageview/RecipientInfo.qml" line="122"/>
         <source>Send message</source>
         <translation type="unfinished">Nachricht senden</translation>
     </message>
@@ -2800,17 +2800,17 @@ Would you like to use this instead?</source>
 <context>
     <name>RecipientInputContextMenu</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/composer/RecipientInputContextMenu.qml" line="55"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/composer/RecipientInputContextMenu.qml" line="55"/>
         <source>Add CC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/composer/RecipientInputContextMenu.qml" line="68"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/composer/RecipientInputContextMenu.qml" line="68"/>
         <source>Add BCC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/composer/RecipientInputContextMenu.qml" line="80"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/composer/RecipientInputContextMenu.qml" line="80"/>
         <source>Add contact</source>
         <translation type="unfinished">Kontakt hinzufügen</translation>
     </message>
@@ -2818,22 +2818,22 @@ Would you like to use this instead?</source>
 <context>
     <name>RecipientPopover</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/RecipientPopover.qml" line="80"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/RecipientPopover.qml" line="80"/>
         <source>Copy to clipboard</source>
         <translation type="unfinished">In Zwischenablage kopieren</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/RecipientPopover.qml" line="89"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/RecipientPopover.qml" line="89"/>
         <source>Add to addressbook</source>
         <translation type="unfinished">Zum Adressbuch hinzufügen</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/RecipientPopover.qml" line="98"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/RecipientPopover.qml" line="98"/>
         <source>Send message</source>
         <translation type="unfinished">Nachricht senden</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/RecipientPopover.qml" line="108"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/RecipientPopover.qml" line="108"/>
         <source>Remove</source>
         <translation type="unfinished">Entfernen</translation>
     </message>
@@ -2841,7 +2841,7 @@ Would you like to use this instead?</source>
 <context>
     <name>SenderIdentityField</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/composer/SenderIdentityField.qml" line="53"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/composer/SenderIdentityField.qml" line="53"/>
         <source>From:</source>
         <translation type="unfinished">Von:</translation>
     </message>
@@ -2849,33 +2849,33 @@ Would you like to use this instead?</source>
 <context>
     <name>ServerDetails</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ServerDetails.qml" line="68"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ServerDetails.qml" line="68"/>
         <source>Hostname</source>
         <translation type="unfinished">Servername</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ServerDetails.qml" line="77"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ServerDetails.qml" line="77"/>
         <source>Port</source>
         <translation type="unfinished">Port</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ServerDetails.qml" line="99"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ServerDetails.qml" line="99"/>
         <source>Username</source>
         <translation type="unfinished">Benutzername</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ServerDetails.qml" line="108"/>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ServerDetails.qml" line="111"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ServerDetails.qml" line="108"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ServerDetails.qml" line="111"/>
         <source>Password</source>
         <translation type="unfinished">Passwort</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ServerDetails.qml" line="118"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ServerDetails.qml" line="118"/>
         <source>Show password</source>
         <translation type="unfinished">Passwort anzeigen</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ServerDetails.qml" line="139"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ServerDetails.qml" line="139"/>
         <source>Allow untrusted certificates</source>
         <translation type="unfinished">Nichtvertrauenswürdige Zertifikate erlauben</translation>
     </message>
@@ -3180,27 +3180,27 @@ Would you like to use this instead?</source>
 <context>
     <name>Settings</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/Settings.qml" line="11"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/Settings.qml" line="11"/>
         <source>Settings</source>
         <translation type="unfinished">Einstellungen</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/Settings.qml" line="24"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/Settings.qml" line="24"/>
         <source>Mail</source>
         <translation type="unfinished">E-Mail</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/Settings.qml" line="33"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/Settings.qml" line="33"/>
         <source>Contacts</source>
         <translation type="unfinished">Kontakte</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/Settings.qml" line="38"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/Settings.qml" line="38"/>
         <source>Calendar</source>
         <translation type="unfinished">Kalender</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/Settings.qml" line="43"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/Settings.qml" line="43"/>
         <source>Notes</source>
         <translation type="unfinished">Notizen</translation>
     </message>
@@ -3208,7 +3208,7 @@ Would you like to use this instead?</source>
 <context>
     <name>SettingsWindow</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/SettingsWindow.qml" line="24"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/SettingsWindow.qml" line="24"/>
         <source>Dekko Settings</source>
         <translation type="unfinished">Dekko-Einstellungen</translation>
     </message>
@@ -3387,7 +3387,7 @@ Would you like to use this instead?</source>
 <context>
     <name>SubjectField</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/composer/SubjectField.qml" line="56"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/composer/SubjectField.qml" line="56"/>
         <source>Subject:</source>
         <translation type="unfinished">Betreff:</translation>
     </message>
@@ -3395,7 +3395,7 @@ Would you like to use this instead?</source>
 <context>
     <name>SyncState</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/states/SyncState.qml" line="35"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/states/SyncState.qml" line="35"/>
         <source>Synchronizing account.</source>
         <translation type="unfinished">Benutzerkonto wird synchronisiert.</translation>
     </message>
@@ -3403,7 +3403,7 @@ Would you like to use this instead?</source>
 <context>
     <name>TitledTextField</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/components/TitledTextField.qml" line="62"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/components/TitledTextField.qml" line="62"/>
         <source> (Required)</source>
         <translation type="unfinished"> (Pflichtfeld)</translation>
     </message>
@@ -3411,63 +3411,63 @@ Would you like to use this instead?</source>
 <context>
     <name>UserInputUI</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="35"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="35"/>
         <source>Name</source>
         <translation type="unfinished">Name</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="36"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="36"/>
         <source>Full name</source>
         <translation type="unfinished">Vollständiger Name</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="43"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="43"/>
         <source>Description</source>
         <translation type="unfinished">Beschreibung</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="44"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="44"/>
         <source>E.g Home, Work...</source>
         <translation type="unfinished">Z. B. Zu Hause, Arbeit, ...</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="51"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="51"/>
         <source>Email address</source>
         <translation type="unfinished">E-Mail-Addresse</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="53"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="53"/>
         <source>email@example.org</source>
         <translation type="unfinished">email@beispiel.org</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="59"/>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="62"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="59"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="62"/>
         <source>Password</source>
         <translation type="unfinished">Passwort</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="68"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="68"/>
         <source>Show password</source>
         <translation type="unfinished">Passwort anzeigen</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="78"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="78"/>
         <source>Cancel</source>
         <translation type="unfinished">Abbrechen</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="82"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="82"/>
         <source>Next</source>
         <translation type="unfinished">Weiter</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="124"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="124"/>
         <source>Password empty</source>
         <translation type="unfinished">Passwortfeld leer.</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="124"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="124"/>
         <source>Would you like to continue?</source>
         <translation type="unfinished">Möchten Sie fortfahren?</translation>
     </message>
@@ -3475,7 +3475,7 @@ Would you like to use this instead?</source>
 <context>
     <name>ValidationState</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/states/ValidationState.qml" line="36"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/states/ValidationState.qml" line="36"/>
         <source>Validating credentials.</source>
         <translation type="unfinished">Logindaten werden validiert.</translation>
     </message>
@@ -3483,12 +3483,12 @@ Would you like to use this instead?</source>
 <context>
     <name>VersionDialog</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/dialogs/VersionDialog.qml" line="25"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/dialogs/VersionDialog.qml" line="25"/>
         <source>Version</source>
         <translation type="unfinished">Version</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/dialogs/VersionDialog.qml" line="29"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/dialogs/VersionDialog.qml" line="29"/>
         <source>Close</source>
         <translation type="unfinished">Schließen</translation>
     </message>

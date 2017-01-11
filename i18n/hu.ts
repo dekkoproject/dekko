@@ -4,29 +4,29 @@
 <context>
     <name>AccountSettingsList</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/AccountSettingsList.qml" line="26"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/AccountSettingsList.qml" line="26"/>
         <source>Account Settings</source>
         <translation type="unfinished">Fiókbeállítások</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/AccountSettingsList.qml" line="56"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/AccountSettingsList.qml" line="56"/>
         <source>Details</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Részletek</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/AccountSettingsList.qml" line="60"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/AccountSettingsList.qml" line="60"/>
         <source>Incoming Server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bejövő kiszolgáló</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/AccountSettingsList.qml" line="64"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/AccountSettingsList.qml" line="64"/>
         <source>Outgoing Server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kimenő kiszolgáló</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/AccountSettingsList.qml" line="68"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/AccountSettingsList.qml" line="68"/>
         <source>Copies and Folders</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Másolatok és mappák</translation>
     </message>
 </context>
 <context>
@@ -34,7 +34,7 @@
     <message>
         <location filename="../Dekko/Mail/stores/Accounts/AccountSetup.qml" line="220"/>
         <source>Invalid email address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Érvénytelen e-mail cím</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/stores/Accounts/AccountSetup.qml" line="532"/>
@@ -53,51 +53,51 @@
     <message>
         <location filename="../Dekko/Mail/workers/AccountsWorker.qml" line="53"/>
         <source>Remove account</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fiók eltávolítása</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/workers/AccountsWorker.qml" line="53"/>
         <source>Are you sure you wish to remove this account?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Biztos benne, hogy el szeretné ezt a fiókot távolítani?</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/workers/AccountsWorker.qml" line="86"/>
         <source>Account removed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fiók eltávolítva</translation>
     </message>
 </context>
 <context>
     <name>AddAnotherUI</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/AddAnotherUI.qml" line="30"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/AddAnotherUI.qml" line="30"/>
         <source>Success</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Siker</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/AddAnotherUI.qml" line="89"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/AddAnotherUI.qml" line="89"/>
         <source>New account created.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Új fiók létrehozva.</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/AddAnotherUI.qml" line="98"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/AddAnotherUI.qml" line="98"/>
         <source>Continue</source>
         <translation type="unfinished">Folytatás</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/AddAnotherUI.qml" line="110"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/AddAnotherUI.qml" line="110"/>
         <source>Add another</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">További hozzáadása</translation>
     </message>
 </context>
 <context>
     <name>AddressBookList</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/contacts/AddressBookList.qml" line="12"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/contacts/AddressBookList.qml" line="12"/>
         <source>Addressbooks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Címjegyzékek</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/contacts/AddressBookList.qml" line="65"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/contacts/AddressBookList.qml" line="65"/>
         <source>Add Collection</source>
         <translation type="unfinished"></translation>
     </message>
@@ -107,13 +107,13 @@
     <message>
         <location filename="../Dekko/Contacts/addressbook-TODO/src/qml/plugin/AddressBookPlugin.qml" line="12"/>
         <source>Example Addressbook</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Példa címjegyzék</translation>
     </message>
 </context>
 <context>
     <name>AttachmentPanel</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/components/AttachmentPanel.qml" line="80"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/components/AttachmentPanel.qml" line="80"/>
         <source>Attachments</source>
         <translation type="unfinished">Mellékletek</translation>
     </message>
@@ -121,7 +121,7 @@
 <context>
     <name>AttachmentPopover</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/AttachmentPopover.qml" line="46"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/AttachmentPopover.qml" line="46"/>
         <source>Delete</source>
         <translation type="unfinished">Törlés</translation>
     </message>
@@ -129,22 +129,22 @@
 <context>
     <name>AuthenticationSelector</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/components/AuthenticationSelector.qml" line="45"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/components/AuthenticationSelector.qml" line="45"/>
         <source>Authentication</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Hitelesítés</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/components/AuthenticationSelector.qml" line="60"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/components/AuthenticationSelector.qml" line="60"/>
         <source>PLAIN</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/components/AuthenticationSelector.qml" line="61"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/components/AuthenticationSelector.qml" line="61"/>
         <source>LOGIN</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/components/AuthenticationSelector.qml" line="62"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/components/AuthenticationSelector.qml" line="62"/>
         <source>CRAM-MD5</source>
         <translation type="unfinished"></translation>
     </message>
@@ -152,17 +152,17 @@
 <context>
     <name>AutoConfigState</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/states/AutoConfigState.qml" line="35"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/states/AutoConfigState.qml" line="35"/>
         <source>Searching for configuration.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Beállítások megkeresése.</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/states/AutoConfigState.qml" line="76"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/states/AutoConfigState.qml" line="76"/>
         <source>IMAP server found</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">IMAP kiszolgáló megtalálva</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/states/AutoConfigState.qml" line="77"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/states/AutoConfigState.qml" line="77"/>
         <source>A IMAP server configuration was found for you domain.
 
 Would you like to use this instead?</source>
@@ -172,7 +172,7 @@ Would you like to use this instead?</source>
 <context>
     <name>BottomEdgeComposer</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/composer/BottomEdgeComposer.qml" line="65"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/composer/BottomEdgeComposer.qml" line="65"/>
         <source>Attachments</source>
         <translation type="unfinished">Mellékletek</translation>
     </message>
@@ -183,13 +183,13 @@ Would you like to use this instead?</source>
         <location filename="../Dekko/Mail/backend/mail/ClientService.cpp" line="76"/>
         <location filename="../Dekko/Mail/backend/mail/ClientService.cpp" line="80"/>
         <source>messages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">üzenetek</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/ClientService.cpp" line="76"/>
         <location filename="../Dekko/Mail/backend/mail/ClientService.cpp" line="80"/>
         <source>message</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">üzenet</translation>
     </message>
 </context>
 <context>
@@ -197,13 +197,13 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Contacts/addressbook-TODO/src/qml/CollectionListModel.qml" line="73"/>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ismeretlen</translation>
     </message>
 </context>
 <context>
     <name>ComposeWindow</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/composer/ComposeWindow.qml" line="22"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/composer/ComposeWindow.qml" line="22"/>
         <source>Dekko Composer</source>
         <translation type="unfinished"></translation>
     </message>
@@ -211,9 +211,9 @@ Would you like to use this instead?</source>
 <context>
     <name>Composer</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/composer/Composer.qml" line="52"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/composer/Composer.qml" line="52"/>
         <source>Attach</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Melléklet</translation>
     </message>
 </context>
 <context>
@@ -239,17 +239,17 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/stores/Composer/ComposerStoreActions.qml" line="33"/>
         <source>Save draft</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Piszkozat mentése</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/stores/Composer/ComposerStoreActions.qml" line="40"/>
         <source>Discard</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Elvetés</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/stores/Composer/ComposerStoreActions.qml" line="47"/>
         <source>Attach</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Melléklet</translation>
     </message>
 </context>
 <context>
@@ -262,18 +262,18 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/workers/ComposerWorker.qml" line="119"/>
         <source>Are you sure you want to discard this message?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Biztos benne, hogy el szeretné vetni ezt az üzenetet?</translation>
     </message>
 </context>
 <context>
     <name>ConfirmationDialog</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/dialogs/ConfirmationDialog.qml" line="50"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/dialogs/ConfirmationDialog.qml" line="50"/>
         <source>Cancel</source>
         <translation type="unfinished">Mégse</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/dialogs/ConfirmationDialog.qml" line="63"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/dialogs/ConfirmationDialog.qml" line="63"/>
         <source>Confirm</source>
         <translation type="unfinished">Megerősítés</translation>
     </message>
@@ -281,178 +281,178 @@ Would you like to use this instead?</source>
 <context>
     <name>ContactFilterView</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/ContactFilterView.qml" line="112"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/ContactFilterView.qml" line="112"/>
         <source>Add contact</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Névjegy hozzáadása</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/ContactFilterView.qml" line="123"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/ContactFilterView.qml" line="123"/>
         <source>Send message</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Üzenet küldése</translation>
     </message>
 </context>
 <context>
     <name>ContactListPage</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/contacts/ContactListPage.qml" line="11"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/contacts/ContactListPage.qml" line="11"/>
         <source>Address book</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Címjegyzék</translation>
     </message>
 </context>
 <context>
     <name>ContactView</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/contacts/ContactView.qml" line="11"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/contacts/ContactView.qml" line="11"/>
         <source>Contact</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Névjegy</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/contacts/ContactView.qml" line="61"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/contacts/ContactView.qml" line="61"/>
         <source>Email</source>
         <translation type="unfinished">E-mail cím</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/contacts/ContactView.qml" line="78"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/contacts/ContactView.qml" line="78"/>
         <source>Phone</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Telefon</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/contacts/ContactView.qml" line="92"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/contacts/ContactView.qml" line="92"/>
         <source>Address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cím</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/contacts/ContactView.qml" line="96"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/contacts/ContactView.qml" line="96"/>
         <source>Street</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Utca</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/contacts/ContactView.qml" line="102"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/contacts/ContactView.qml" line="102"/>
         <source>City</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Város</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/contacts/ContactView.qml" line="108"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/contacts/ContactView.qml" line="108"/>
         <source>Zip</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Irányítószám</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/contacts/ContactView.qml" line="114"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/contacts/ContactView.qml" line="114"/>
         <source>Country</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ország</translation>
     </message>
 </context>
 <context>
     <name>ContactsListView</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/contacts/ContactsListView.qml" line="36"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/contacts/ContactsListView.qml" line="36"/>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Keresés</translation>
     </message>
 </context>
 <context>
     <name>ContentBlockedNotice</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/webview/ContentBlockedNotice.qml" line="41"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/webview/ContentBlockedNotice.qml" line="41"/>
         <source>Remote content blocked</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Távoli tartalom blokkolva</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/webview/ContentBlockedNotice.qml" line="54"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/webview/ContentBlockedNotice.qml" line="54"/>
         <source>Allow</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Engedélyezés</translation>
     </message>
 </context>
 <context>
     <name>ContributorsPage</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/ContributorsPage.qml" line="25"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/ContributorsPage.qml" line="25"/>
         <source>Contributors</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Közreműködők</translation>
     </message>
 </context>
 <context>
     <name>CopyFoldersGroup</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="30"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="30"/>
         <source>Copies and Folders</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Másolatok és mappák</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="124"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="124"/>
         <source>Standard folders</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="136"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="136"/>
         <source>Detect standard folders</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="152"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="152"/>
         <source>Detect</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Felismerés</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="173"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="173"/>
         <source>Base folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="175"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="175"/>
         <source>Leave empty if you are unsure</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Hagyja üresen, ha nem biztos benne</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="190"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="190"/>
         <source>Inbox folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Beérkező mappa</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="205"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="205"/>
         <source>Drafts folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Piszkozat mappa</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="220"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="220"/>
         <source>Spam folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Levélszemét mappa</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="235"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="235"/>
         <source>Sent folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Elküldött mappa</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="250"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="250"/>
         <source>Outbox folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kimenő mappa</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="265"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="265"/>
         <source>Trash folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kuka mappa</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="274"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="274"/>
         <source>Sending messages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Üzenetek küldése</translation>
     </message>
 </context>
 <context>
     <name>DefaultMessagePage</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/messageview/DefaultMessagePage.qml" line="189"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/messageview/DefaultMessagePage.qml" line="189"/>
         <source>From:</source>
         <translation type="unfinished">Feladó:</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/messageview/DefaultMessagePage.qml" line="242"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/messageview/DefaultMessagePage.qml" line="242"/>
         <source>To:</source>
         <translation type="unfinished">Címzett:</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/messageview/DefaultMessagePage.qml" line="247"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/messageview/DefaultMessagePage.qml" line="247"/>
         <source>Cc:</source>
         <translation type="unfinished">Másolat:</translation>
     </message>
@@ -462,18 +462,18 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/plugins/default/addressbook/DefaultPlugin.qml" line="11"/>
         <source>Internal</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Belső</translation>
     </message>
     <message>
         <location filename="../Dekko/plugins/default/addressbook/DefaultPlugin.qml" line="106"/>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alapértelmezett</translation>
     </message>
 </context>
 <context>
     <name>DekkoHeader</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/components/DekkoHeader.qml" line="204"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/components/DekkoHeader.qml" line="204"/>
         <source>Enter search...</source>
         <translation type="unfinished">keresés…</translation>
     </message>
@@ -481,12 +481,12 @@ Would you like to use this instead?</source>
 <context>
     <name>DekkoWebView</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/webview/DekkoWebView.qml" line="142"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/webview/DekkoWebView.qml" line="142"/>
         <source>Open in browser?</source>
         <translation type="unfinished">Megnyitás böngészőben?</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/webview/DekkoWebView.qml" line="143"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/webview/DekkoWebView.qml" line="143"/>
         <source>Confirm to open %1 in web browser</source>
         <translation type="unfinished">%1 böngészőben történő megnyitásának jóváhagyása</translation>
     </message>
@@ -494,17 +494,17 @@ Would you like to use this instead?</source>
 <context>
     <name>DetailList</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/messageview/DetailList.qml" line="47"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/messageview/DetailList.qml" line="47"/>
         <source>Details</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Részletek</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/messageview/DetailList.qml" line="52"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/messageview/DetailList.qml" line="52"/>
         <source>To:</source>
         <translation type="unfinished">Címzett:</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/messageview/DetailList.qml" line="58"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/messageview/DetailList.qml" line="58"/>
         <source>Cc:</source>
         <translation type="unfinished">Másolat:</translation>
     </message>
@@ -512,97 +512,97 @@ Would you like to use this instead?</source>
 <context>
     <name>DetailsGroup</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/DetailsGroup.qml" line="27"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/DetailsGroup.qml" line="27"/>
         <source>Details</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Részletek</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/DetailsGroup.qml" line="62"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/DetailsGroup.qml" line="62"/>
         <source>Account name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fióknév</translation>
     </message>
 </context>
 <context>
     <name>DialogWorker</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/workers/DialogWorker.qml" line="34"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/workers/DialogWorker.qml" line="34"/>
         <source>Error</source>
         <translation type="unfinished">Hiba</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/workers/DialogWorker.qml" line="41"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/workers/DialogWorker.qml" line="41"/>
         <source>Notice</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mejegyzés</translation>
     </message>
 </context>
 <context>
     <name>DisplaySettings</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/DisplaySettings.qml" line="28"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/DisplaySettings.qml" line="28"/>
         <source>Navigation menu</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Navigációs menü</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/DisplaySettings.qml" line="32"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/DisplaySettings.qml" line="32"/>
         <source>Show smart folders</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Okos mappák megjelenítése</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/DisplaySettings.qml" line="42"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/DisplaySettings.qml" line="42"/>
         <source>Show favourite folders</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kedvenc mappák megjelenítése</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/DisplaySettings.qml" line="53"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/DisplaySettings.qml" line="53"/>
         <source>Messages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Üzenetek</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/DisplaySettings.qml" line="57"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/DisplaySettings.qml" line="57"/>
         <source>Show avatars</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Profilképek megjelenítése</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/DisplaySettings.qml" line="67"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/DisplaySettings.qml" line="67"/>
         <source>Prefer plain text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sima szöveges üzenet előnyberészesítése</translation>
     </message>
 </context>
 <context>
     <name>DisplaySettingsPage</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/DisplaySettingsPage.qml" line="21"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/DisplaySettingsPage.qml" line="21"/>
         <source>Display Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Megjelenítési beállítások</translation>
     </message>
 </context>
 <context>
     <name>DisplaySettingsPopup</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/DisplaySettingsPopup.qml" line="21"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/DisplaySettingsPopup.qml" line="21"/>
         <source>Display Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Megjelenítési beállítások</translation>
     </message>
 </context>
 <context>
     <name>EncryptionSelector</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/components/EncryptionSelector.qml" line="46"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/components/EncryptionSelector.qml" line="46"/>
         <source>Encryption</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Titkosítás</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/components/EncryptionSelector.qml" line="61"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/components/EncryptionSelector.qml" line="61"/>
         <source>No encryption</source>
         <translation type="unfinished">Nincs titkosítás</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/components/EncryptionSelector.qml" line="62"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/components/EncryptionSelector.qml" line="62"/>
         <source>Use encryption (STARTTLS)</source>
         <translation type="unfinished">Titkosítás használata (STARTTLS)</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/components/EncryptionSelector.qml" line="63"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/components/EncryptionSelector.qml" line="63"/>
         <source>Force encryption (SSL/TLS)</source>
         <translation type="unfinished">Titkosítás kikényszerítése (SSL/TLS)</translation>
     </message>
@@ -612,12 +612,12 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/workers/ErrorsWorker.qml" line="78"/>
         <source>No connection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nincs kapcsolat</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/workers/ErrorsWorker.qml" line="86"/>
         <source>Connection unavailable</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kapcsolat nem elérhető</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/workers/ErrorsWorker.qml" line="102"/>
@@ -628,7 +628,7 @@ Would you like to use this instead?</source>
 <context>
     <name>ExpandablePanel</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/components/ExpandablePanel.qml" line="62"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/components/ExpandablePanel.qml" line="62"/>
         <source>Attachments</source>
         <translation type="unfinished">Mellékletek</translation>
     </message>
@@ -644,7 +644,7 @@ Would you like to use this instead?</source>
 <context>
     <name>FilePickerDialog</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/dialogs/FilePickerDialog.qml" line="23"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/dialogs/FilePickerDialog.qml" line="23"/>
         <source>Add Attachment</source>
         <translation type="unfinished">Melléklet hozzáadása</translation>
     </message>
@@ -654,27 +654,27 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/backend/mail/ClientServiceAction.cpp" line="162"/>
         <source>important</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">fontos</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/ClientServiceAction.cpp" line="165"/>
         <source>not important</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">nem fontos</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/ClientServiceAction.cpp" line="174"/>
         <source>read</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">olvasott</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/ClientServiceAction.cpp" line="177"/>
         <source>unread</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">olvasatlan</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/ClientServiceAction.cpp" line="186"/>
         <source>as todo</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">teendő</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/ClientServiceAction.cpp" line="189"/>
@@ -697,17 +697,17 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/backend/mail/Folder.cpp" line="91"/>
         <source>Inbox</source>
-        <translation type="unfinished">Beérkező levelek</translation>
+        <translation type="unfinished">Beérkező</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/Folder.cpp" line="93"/>
         <source>Spam</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Levélszemét</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/Folder.cpp" line="95"/>
         <source>Outbox</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Elküldött</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/Folder.cpp" line="97"/>
@@ -717,18 +717,18 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/backend/mail/Folder.cpp" line="99"/>
         <source>Trash</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kuka</translation>
     </message>
 </context>
 <context>
     <name>FolderListDelegate</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/delegates/FolderListDelegate.qml" line="52"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/delegates/FolderListDelegate.qml" line="52"/>
         <source>Un-favourite</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/delegates/FolderListDelegate.qml" line="52"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/delegates/FolderListDelegate.qml" line="52"/>
         <source>Favourite</source>
         <translation type="unfinished"></translation>
     </message>
@@ -744,56 +744,56 @@ Would you like to use this instead?</source>
 <context>
     <name>IdentitiesListPage</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IdentitiesListPage.qml" line="14"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IdentitiesListPage.qml" line="14"/>
         <source>Identities</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Identitások</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IdentitiesListPage.qml" line="106"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IdentitiesListPage.qml" line="106"/>
         <source> (Default)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> (Alapértelmezett)</translation>
     </message>
 </context>
 <context>
     <name>IdentityInput</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml" line="54"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IdentityInput.qml" line="54"/>
         <source>Default identity</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alapértelmezett identitás</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml" line="67"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IdentityInput.qml" line="67"/>
         <source>Account</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fiók</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml" line="105"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IdentityInput.qml" line="105"/>
         <source>Name</source>
         <translation type="unfinished">Név</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml" line="110"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IdentityInput.qml" line="110"/>
         <source>Email Address</source>
         <translation type="unfinished">E-mail cím</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml" line="115"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IdentityInput.qml" line="115"/>
         <source>Reply-To</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Válaszcím</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml" line="119"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IdentityInput.qml" line="119"/>
         <source>Signature</source>
         <translation type="unfinished">Aláírás</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml" line="137"/>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml" line="145"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IdentityInput.qml" line="137"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IdentityInput.qml" line="145"/>
         <source>New identity</source>
         <translation type="unfinished">Új identitás</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IdentityInput.qml" line="169"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IdentityInput.qml" line="169"/>
         <source>Edit identity</source>
         <translation type="unfinished">Identitás szerkesztése</translation>
     </message>
@@ -1041,7 +1041,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/imap/imapservice.cpp" line="1091"/>
         <source>Trash</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kuka</translation>
     </message>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/imap/imapservice.cpp" line="1128"/>
@@ -1104,7 +1104,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/imap/imapsettings.ui" line="166"/>
         <source>Encryption</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Titkosítás</translation>
     </message>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/imap/imapsettings.ui" line="183"/>
@@ -1125,7 +1125,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/imap/imapsettings.ui" line="207"/>
         <source>Authentication</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Hitelesítés</translation>
     </message>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/imap/imapsettings.ui" line="229"/>
@@ -1195,17 +1195,17 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/imap/imapsettings.ui" line="460"/>
         <source>Drafts folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Piszkozat mappa</translation>
     </message>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/imap/imapsettings.ui" line="528"/>
         <source>Sent folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Elküldött mappa</translation>
     </message>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/imap/imapsettings.ui" line="596"/>
         <source>Trash folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kuka mappa</translation>
     </message>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/imap/imapsettings.ui" line="664"/>
@@ -1221,126 +1221,126 @@ Would you like to use this instead?</source>
 <context>
     <name>IncomingServerGroup</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="27"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="27"/>
         <source>Incoming Server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bejövő kiszolgáló</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="104"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="104"/>
         <source>Hostname</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Gépnév</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="113"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="113"/>
         <source>Port</source>
         <translation type="unfinished">Port</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="122"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="122"/>
         <source>Username</source>
         <translation type="unfinished">Felhasználónév</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="131"/>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="134"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="131"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="134"/>
         <source>Password</source>
         <translation type="unfinished">Jelszó</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="141"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="141"/>
         <source>Show password</source>
         <translation type="unfinished">Jelszó megjelenítése</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="147"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="147"/>
         <source>Security settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Biztonsági beállítások</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="182"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="182"/>
         <source>Allow untrusted certificates</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nem megbízható tanúsítványok engedélyezése</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="187"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="187"/>
         <source>Server settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kiszolgálóbeállítások</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="192"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="192"/>
         <source>Check for new mail on start</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Új levelek ellenőrzése induláskor</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="198"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="198"/>
         <source>Enable IMAP IDLE</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="205"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="205"/>
         <source>Check interval (minutes)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="212"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="212"/>
         <source>Check when roaming</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="218"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="218"/>
         <source>Maximum mail size (MB)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Maximális levélméret (MB)</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="224"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="224"/>
         <source>No maximum mail size</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nincs maximális levélméret</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="232"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="232"/>
         <source>Automatically download attachments</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mellékletek automatikus letöltése</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="238"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="238"/>
         <source>Allowed to delete mail</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Levelek törlésének engedélyezése</translation>
     </message>
 </context>
 <context>
     <name>LicensesPage</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/LicensesPage.qml" line="25"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/LicensesPage.qml" line="25"/>
         <source>Licenses</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Licencek</translation>
     </message>
 </context>
 <context>
     <name>MailSettings</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/MailSettings.qml" line="11"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/MailSettings.qml" line="11"/>
         <source>Mail Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Levelezési beállítások</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/MailSettings.qml" line="24"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/MailSettings.qml" line="24"/>
         <source>Accounts</source>
         <translation type="unfinished">Fiókok</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/MailSettings.qml" line="34"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/MailSettings.qml" line="34"/>
         <source>Identities</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Identitások</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/MailSettings.qml" line="44"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/MailSettings.qml" line="44"/>
         <source>Display</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Megjelenés</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/MailSettings.qml" line="51"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/MailSettings.qml" line="51"/>
         <source>Privacy</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Adatvédelem</translation>
     </message>
 </context>
 <context>
@@ -1363,12 +1363,12 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/stores/Mail/MailStore.qml" line="38"/>
         <source>Replied</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Megválaszolt</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/stores/Mail/MailStore.qml" line="38"/>
         <source>Forwarded</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Továbbított</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/stores/Mail/MailStore.qml" line="38"/>
@@ -1378,12 +1378,12 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/stores/Mail/MailStore.qml" line="38"/>
         <source>Calendar</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Naptár</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/stores/Mail/MailStore.qml" line="39"/>
         <source>Local</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Helyi</translation>
     </message>
 </context>
 <context>
@@ -1427,17 +1427,17 @@ Would you like to use this instead?</source>
 <context>
     <name>MailUtils</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/constants/MailUtils.qml" line="27"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/constants/MailUtils.qml" line="27"/>
         <source>To</source>
         <translation type="unfinished">Címzett</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/constants/MailUtils.qml" line="29"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/constants/MailUtils.qml" line="29"/>
         <source>Cc</source>
         <translation type="unfinished">Másolat</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/constants/MailUtils.qml" line="31"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/constants/MailUtils.qml" line="31"/>
         <source>Bcc</source>
         <translation type="unfinished">Titkos másolat</translation>
     </message>
@@ -1445,9 +1445,9 @@ Would you like to use this instead?</source>
 <context>
     <name>MailboxPickerPage</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/MailboxPickerPage.qml" line="33"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/MailboxPickerPage.qml" line="33"/>
         <source>Select folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Válasszon mappát</translation>
     </message>
 </context>
 <context>
@@ -1461,8 +1461,8 @@ Would you like to use this instead?</source>
 <context>
     <name>MainUI</name>
     <message>
-        <location filename="../Dekko/Mail/app/qqc2/qml/MainUI.qml" line="11"/>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/MainUI.qml" line="17"/>
+        <location filename="../Dekko/Mail/plugins/qqc2/qml/MainUI.qml" line="11"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/MainUI.qml" line="17"/>
         <source>Dekko Mail</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1470,52 +1470,52 @@ Would you like to use this instead?</source>
 <context>
     <name>ManageAccountsPage</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/ManageAccountsPage.qml" line="26"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/ManageAccountsPage.qml" line="26"/>
         <source>Manage accounts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fiókok kezelése</translation>
     </message>
 </context>
 <context>
     <name>ManualInputUI</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="28"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="28"/>
         <source>Server configuration</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kiszolgáló beállítása</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="33"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="33"/>
         <source>IMAP Server:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">IMAP kiszolgáló:</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="46"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="46"/>
         <source>POP3 Server:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">POP3 kiszolgáló:</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="59"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="59"/>
         <source>SMTP Server:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">SMTP kiszolgáló:</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="71"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="71"/>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vissza</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="75"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="75"/>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Következő</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="135"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="135"/>
         <source>Password empty</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Üres jelszó</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="135"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="135"/>
         <source>Would you like to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mégis folytatja?</translation>
     </message>
 </context>
 <context>
@@ -1534,17 +1534,17 @@ Would you like to use this instead?</source>
 <context>
     <name>MessageActionPopover</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageActionPopover.qml" line="44"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageActionPopover.qml" line="44"/>
         <source>Reply all</source>
         <translation type="unfinished">Válasz mindenkinek</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageActionPopover.qml" line="52"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageActionPopover.qml" line="52"/>
         <source>Forward</source>
         <translation type="unfinished">Továbbítás</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageActionPopover.qml" line="65"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageActionPopover.qml" line="65"/>
         <source>Move</source>
         <translation type="unfinished">Áthelyezés</translation>
     </message>
@@ -1561,35 +1561,35 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/backend/mail/MessageBuilder.cpp" line="321"/>
         <source>Forwarded Message</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Továbbított üzenet</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/MessageBuilder.cpp" line="322"/>
         <source>Date: </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dátum: </translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/MessageBuilder.cpp" line="323"/>
         <source>From: </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Feladó: </translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/MessageBuilder.cpp" line="324"/>
         <source>To: </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Címzett: </translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/MessageBuilder.cpp" line="325"/>
         <source>Subject: </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tárgy: </translation>
     </message>
 </context>
 <context>
     <name>MessageComposer</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/composer/MessageComposer.qml" line="97"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/composer/MessageComposer.qml" line="97"/>
         <source>Enter message</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Üzenet megadása</translation>
     </message>
 </context>
 <context>
@@ -1597,7 +1597,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/backend/mail/MessageFilterCollection.cpp" line="79"/>
         <source>All inboxes</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Összes beérkező</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/MessageFilterCollection.cpp" line="89"/>
@@ -1607,12 +1607,12 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/backend/mail/MessageFilterCollection.cpp" line="99"/>
         <source>Spam</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Levélszemét</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/MessageFilterCollection.cpp" line="109"/>
         <source>Outbox</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Elküldött</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/MessageFilterCollection.cpp" line="119"/>
@@ -1622,33 +1622,33 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/backend/mail/MessageFilterCollection.cpp" line="128"/>
         <source>Trash</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kuka</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/MessageFilterCollection.cpp" line="140"/>
         <source>Today, %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ma, %1</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/MessageFilterCollection.cpp" line="149"/>
         <source>To-do</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Teendők</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/MessageFilterCollection.cpp" line="158"/>
         <source>Done</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kész</translation>
     </message>
 </context>
 <context>
     <name>MessageHeader</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/messageview/MessageHeader.qml" line="47"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/messageview/MessageHeader.qml" line="47"/>
         <source>Hide details</source>
         <translation type="unfinished">Részletek elrejtése</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/messageview/MessageHeader.qml" line="47"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/messageview/MessageHeader.qml" line="47"/>
         <source>View details</source>
         <translation type="unfinished">Részletek megjelenítése</translation>
     </message>
@@ -1656,67 +1656,67 @@ Would you like to use this instead?</source>
 <context>
     <name>MessageListActionPopover</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="44"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="44"/>
         <source>Mark as unread</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Megjelölés olvasatlanként</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="44"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="44"/>
         <source>Mark as read</source>
         <translation type="unfinished">Olvasottnak jelölés</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="52"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="52"/>
         <source>Mark as not important</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="52"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="52"/>
         <source>Mark as important</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="60"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="60"/>
         <source>Mark as spam</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="73"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="73"/>
         <source>To-do</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Teendők</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="89"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="89"/>
         <source>Done</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kész</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="103"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="103"/>
         <source>Reply</source>
         <translation type="unfinished">Válasz</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="111"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="111"/>
         <source>Reply all</source>
         <translation type="unfinished">Válasz mindenkinek</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="119"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="119"/>
         <source>Forward</source>
         <translation type="unfinished">Továbbítás</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="133"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="133"/>
         <source>Move</source>
         <translation type="unfinished">Áthelyezés</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="142"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="142"/>
         <source>Restore to %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="151"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="151"/>
         <source>Delete</source>
         <translation type="unfinished">Törlés</translation>
     </message>
@@ -1724,32 +1724,32 @@ Would you like to use this instead?</source>
 <context>
     <name>MessageListDelegate</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/delegates/MessageListDelegate.qml" line="41"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/delegates/MessageListDelegate.qml" line="41"/>
         <source>Un-mark flagged</source>
         <translation type="unfinished">Megjelölés eltávolítása</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/delegates/MessageListDelegate.qml" line="41"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/delegates/MessageListDelegate.qml" line="41"/>
         <source>Mark flagged</source>
         <translation type="unfinished">Megjelölés</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/delegates/MessageListDelegate.qml" line="50"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/delegates/MessageListDelegate.qml" line="50"/>
         <source>Mark as un-read</source>
         <translation type="unfinished">Olvasatlannak jelölés</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/delegates/MessageListDelegate.qml" line="50"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/delegates/MessageListDelegate.qml" line="50"/>
         <source>Mark as read</source>
         <translation type="unfinished">Olvasottnak jelölés</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/delegates/MessageListDelegate.qml" line="57"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/delegates/MessageListDelegate.qml" line="57"/>
         <source>Move message</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Üzenet áthelyezése</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/delegates/MessageListDelegate.qml" line="62"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/delegates/MessageListDelegate.qml" line="62"/>
         <source>Context menu</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1757,80 +1757,80 @@ Would you like to use this instead?</source>
 <context>
     <name>MessageListView</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/MessageListView.qml" line="116"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/MessageListView.qml" line="116"/>
         <source>Unselect all</source>
         <translation type="unfinished">Egyik sem</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/MessageListView.qml" line="116"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/MessageListView.qml" line="116"/>
         <source>Select all</source>
         <translation type="unfinished">Összes</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/MessageListView.qml" line="128"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/MessageListView.qml" line="128"/>
         <source>Star</source>
         <translation type="unfinished">Csillag</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/MessageListView.qml" line="128"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/MessageListView.qml" line="128"/>
         <source>Remove star</source>
         <translation type="unfinished">Csillag eltávolítása</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/MessageListView.qml" line="132"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/MessageListView.qml" line="132"/>
         <source>Mark as un-read</source>
         <translation type="unfinished">Olvasatlannak jelölés</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/MessageListView.qml" line="132"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/MessageListView.qml" line="132"/>
         <source>Mark as read</source>
         <translation type="unfinished">Olvasottnak jelölés</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/MessageListView.qml" line="139"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/MessageListView.qml" line="139"/>
         <source>Delete</source>
         <translation type="unfinished">Törlés</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/MessageListView.qml" line="323"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/MessageListView.qml" line="323"/>
         <source>Load more messages ...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">További üzenetek betöltése…</translation>
     </message>
 </context>
 <context>
     <name>MessageViewContextMenu</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageViewContextMenu.qml" line="46"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageViewContextMenu.qml" line="46"/>
         <source>Open in browser</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Megnyitás böngészőben</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageViewContextMenu.qml" line="54"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageViewContextMenu.qml" line="54"/>
         <source>Copy link</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Hivatkozás másolása</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageViewContextMenu.qml" line="63"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageViewContextMenu.qml" line="63"/>
         <source>Share link</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Hivatkozás megosztása</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageViewContextMenu.qml" line="77"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageViewContextMenu.qml" line="77"/>
         <source>Reply</source>
         <translation type="unfinished">Válasz</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageViewContextMenu.qml" line="86"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageViewContextMenu.qml" line="86"/>
         <source>Reply all</source>
         <translation type="unfinished">Válasz mindenkinek</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageViewContextMenu.qml" line="94"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageViewContextMenu.qml" line="94"/>
         <source>Forward</source>
         <translation type="unfinished">Továbbítás</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/MessageViewContextMenu.qml" line="106"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageViewContextMenu.qml" line="106"/>
         <source>View source</source>
         <translation type="unfinished">Forráskód megtekintése</translation>
     </message>
@@ -1862,90 +1862,90 @@ Would you like to use this instead?</source>
 <context>
     <name>NavMenuAccountSettingsModel</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/models/NavMenuAccountSettingsModel.qml" line="29"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/models/NavMenuAccountSettingsModel.qml" line="29"/>
         <source>Manage accounts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fiókok kezelése</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/models/NavMenuAccountSettingsModel.qml" line="45"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/models/NavMenuAccountSettingsModel.qml" line="45"/>
         <source>Display settings</source>
         <translation type="unfinished">Megjelenítési beállítások</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/models/NavMenuAccountSettingsModel.qml" line="67"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/models/NavMenuAccountSettingsModel.qml" line="67"/>
         <source>Privacy settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Adatvédelmi beállítások</translation>
     </message>
 </context>
 <context>
     <name>NavMenuContactsModel</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/models/NavMenuContactsModel.qml" line="27"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/models/NavMenuContactsModel.qml" line="27"/>
         <source>Addressbook</source>
         <translation type="unfinished">Címjegyzék</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/models/NavMenuContactsModel.qml" line="43"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/models/NavMenuContactsModel.qml" line="43"/>
         <source>Recent contacts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Korábbi névjegyek</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/models/NavMenuContactsModel.qml" line="58"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/models/NavMenuContactsModel.qml" line="58"/>
         <source>Import contacts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Névjegyek importálása</translation>
     </message>
 </context>
 <context>
     <name>NavMenuDekkoVisualModel</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/models/NavMenuDekkoVisualModel.qml" line="27"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/models/NavMenuDekkoVisualModel.qml" line="27"/>
         <source>Version</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Verzió</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/models/NavMenuDekkoVisualModel.qml" line="45"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/models/NavMenuDekkoVisualModel.qml" line="45"/>
         <source>Licenses</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Licencek</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/models/NavMenuDekkoVisualModel.qml" line="63"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/models/NavMenuDekkoVisualModel.qml" line="63"/>
         <source>Contributors</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Közreműködők</translation>
     </message>
 </context>
 <context>
     <name>NavMenuModel</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/models/NavMenuModel.qml" line="98"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/models/NavMenuModel.qml" line="98"/>
         <source>Smart folders</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Okos mappák</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/models/NavMenuModel.qml" line="120"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/models/NavMenuModel.qml" line="120"/>
         <source>Folders</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mappák</translation>
     </message>
 </context>
 <context>
     <name>NavMenuPage</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/NavMenuPage.qml" line="30"/>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/NavMenuPage.qml" line="64"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/NavMenuPage.qml" line="30"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/NavMenuPage.qml" line="64"/>
         <source>Mail</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Levelek</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/NavMenuPage.qml" line="67"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/NavMenuPage.qml" line="67"/>
         <source>Contacts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Névjegyek</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/NavMenuPage.qml" line="70"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/NavMenuPage.qml" line="70"/>
         <source>Settings</source>
         <translation type="unfinished">Beállítások</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/NavMenuPage.qml" line="73"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/NavMenuPage.qml" line="73"/>
         <source>About</source>
         <translation type="unfinished">Névjegy</translation>
     </message>
@@ -1953,7 +1953,7 @@ Would you like to use this instead?</source>
 <context>
     <name>NavMenuStandardFolderDelegate</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/delegates/NavMenuStandardFolderDelegate.qml" line="178"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/delegates/NavMenuStandardFolderDelegate.qml" line="178"/>
         <source>Inbox (%1)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1961,53 +1961,53 @@ Would you like to use this instead?</source>
 <context>
     <name>NavSideBar</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/NavSideBar.qml" line="155"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/NavSideBar.qml" line="155"/>
         <source>Smart folders</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Okos mappák</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/NavSideBar.qml" line="169"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/NavSideBar.qml" line="169"/>
         <source>Folders</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mappák</translation>
     </message>
 </context>
 <context>
     <name>NavViewContextMenu</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/NavViewContextMenu.qml" line="44"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/NavViewContextMenu.qml" line="44"/>
         <source>Sync folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mappa szinkronizálása</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/NavViewContextMenu.qml" line="53"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/NavViewContextMenu.qml" line="53"/>
         <source>Send pending</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/NavViewContextMenu.qml" line="70"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/NavViewContextMenu.qml" line="70"/>
         <source>Mark folder read</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/NavViewContextMenu.qml" line="79"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/NavViewContextMenu.qml" line="79"/>
         <source>Mark all done</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/NavViewContextMenu.qml" line="101"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/NavViewContextMenu.qml" line="101"/>
         <source>Empty trash</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kuka ürítése</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/NavViewContextMenu.qml" line="110"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/NavViewContextMenu.qml" line="110"/>
         <source>Folder properties</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mappa tulajdonságai</translation>
     </message>
 </context>
 <context>
     <name>NewAccountsUI</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/NewAccountsUI.qml" line="32"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/NewAccountsUI.qml" line="32"/>
         <source>New account</source>
         <translation type="unfinished">Új fiók</translation>
     </message>
@@ -2015,76 +2015,76 @@ Would you like to use this instead?</source>
 <context>
     <name>NoAccountsUI</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/NoAccountsUI.qml" line="30"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/NoAccountsUI.qml" line="30"/>
         <source>Accounts</source>
         <translation type="unfinished">Fiókok</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/NoAccountsUI.qml" line="92"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/NoAccountsUI.qml" line="92"/>
         <source>No email account is setup.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nincs beállított e-mail fiók.</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/NoAccountsUI.qml" line="101"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/NoAccountsUI.qml" line="101"/>
         <source>Add now</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Hozzáadás</translation>
     </message>
 </context>
 <context>
     <name>NothingSelectedPage</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/NothingSelectedPage.qml" line="60"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/NothingSelectedPage.qml" line="60"/>
         <source>No message selected</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nincs kiválasztva üzenet</translation>
     </message>
 </context>
 <context>
     <name>OutgoingServerGroup</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="27"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="27"/>
         <source>Outgoing Server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kimenő kiszolgáló</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="74"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="74"/>
         <source>Hostname</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Gépnév</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="82"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="82"/>
         <source>Port</source>
         <translation type="unfinished">Port</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="91"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="91"/>
         <source>Username</source>
         <translation type="unfinished">Felhasználónév</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="99"/>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="102"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="99"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="102"/>
         <source>Password</source>
         <translation type="unfinished">Jelszó</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="109"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="109"/>
         <source>Show password</source>
         <translation type="unfinished">Jelszó megjelenítése</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="115"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="115"/>
         <source>Security settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Biztonsági beállítások</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="148"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="148"/>
         <source>Authenticate from server capabilities</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="154"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="154"/>
         <source>Allow untrusted certificates</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nem megbízható tanúsítványok engedélyezése</translation>
     </message>
 </context>
 <context>
@@ -2098,7 +2098,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/pop/popclient.cpp" line="345"/>
         <source>Inbox</source>
-        <translation type="unfinished">Beérkező levelek</translation>
+        <translation type="unfinished">Beérkező</translation>
     </message>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/pop/popclient.cpp" line="409"/>
@@ -2201,7 +2201,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/pop/popsettings.ui" line="163"/>
         <source>Encryption</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Titkosítás</translation>
     </message>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/pop/popsettings.ui" line="180"/>
@@ -2253,17 +2253,17 @@ Would you like to use this instead?</source>
 <context>
     <name>PrivacySettings</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/PrivacySettings.qml" line="28"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/PrivacySettings.qml" line="28"/>
         <source>Message content</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/PrivacySettings.qml" line="32"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/PrivacySettings.qml" line="32"/>
         <source>Allow remote content</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Távoli tartalom engedélyezése</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/PrivacySettings.qml" line="42"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/PrivacySettings.qml" line="42"/>
         <source>Auto load images</source>
         <translation type="unfinished">Képek automatikus betöltése</translation>
     </message>
@@ -2271,17 +2271,17 @@ Would you like to use this instead?</source>
 <context>
     <name>PrivacySettingsPage</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/PrivacySettingsPage.qml" line="21"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/PrivacySettingsPage.qml" line="21"/>
         <source>Privacy Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Adatvédelmi beállítások</translation>
     </message>
 </context>
 <context>
     <name>PrivacySettingsPopup</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/PrivacySettingsPopup.qml" line="21"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/PrivacySettingsPopup.qml" line="21"/>
         <source>Privacy Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Adatvédelmi beállítások</translation>
     </message>
 </context>
 <context>
@@ -2323,17 +2323,17 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../upstream/qmf/libraries/qmfclient/qmailmessagemodelbase.cpp" line="83"/>
         <source>%1 KB</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 KB</translation>
     </message>
     <message>
         <location filename="../upstream/qmf/libraries/qmfclient/qmailmessagemodelbase.cpp" line="85"/>
         <source>%1 MB</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 MB</translation>
     </message>
     <message>
         <location filename="../upstream/qmf/libraries/qmfclient/qmailmessagemodelbase.cpp" line="87"/>
         <source>%1 GB</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 GB</translation>
     </message>
     <message>
         <location filename="../upstream/qmf/libraries/qmfclient/qmailmessagemodelbase.cpp" line="264"/>
@@ -2357,7 +2357,7 @@ Would you like to use this instead?</source>
         <location filename="../upstream/qmf/libraries/qmfmessageserver/qmailmessageservice.h" line="300"/>
         <location filename="../upstream/qmf/libraries/qmfmessageserver/qmailmessageservice.h" line="301"/>
         <source>Cancelled by user</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Megszakítva a felhasználó által</translation>
     </message>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/imap/imapservice.cpp" line="2235"/>
@@ -2609,17 +2609,17 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/backend/mail/Attachments.cpp" line="340"/>
         <source>%1 KB</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 KB</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/Attachments.cpp" line="342"/>
         <source>%1 MB</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 MB</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/Attachments.cpp" line="344"/>
         <source>%1 GB</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 GB</translation>
     </message>
     <message>
         <location filename="../upstream/maz-db/leveldb/util/env_qt.cc" line="122"/>
@@ -2769,71 +2769,71 @@ Would you like to use this instead?</source>
 <context>
     <name>RecipientField</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/composer/RecipientField.qml" line="97"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/composer/RecipientField.qml" line="97"/>
         <source>Enter an address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cím megadása</translation>
     </message>
 </context>
 <context>
     <name>RecipientInfo</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/messageview/RecipientInfo.qml" line="41"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/messageview/RecipientInfo.qml" line="41"/>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vissza</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/messageview/RecipientInfo.qml" line="93"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/messageview/RecipientInfo.qml" line="93"/>
         <source>Copy to clipboard</source>
         <translation type="unfinished">Másolás a vágólapra</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/messageview/RecipientInfo.qml" line="107"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/messageview/RecipientInfo.qml" line="107"/>
         <source>Add to addressbook</source>
         <translation type="unfinished">Hozzáadás a címjegyzékhez</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/messageview/RecipientInfo.qml" line="122"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/messageview/RecipientInfo.qml" line="122"/>
         <source>Send message</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Üzenet küldése</translation>
     </message>
 </context>
 <context>
     <name>RecipientInputContextMenu</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/composer/RecipientInputContextMenu.qml" line="55"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/composer/RecipientInputContextMenu.qml" line="55"/>
         <source>Add CC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/composer/RecipientInputContextMenu.qml" line="68"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/composer/RecipientInputContextMenu.qml" line="68"/>
         <source>Add BCC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/composer/RecipientInputContextMenu.qml" line="80"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/composer/RecipientInputContextMenu.qml" line="80"/>
         <source>Add contact</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Névjegy hozzáadása</translation>
     </message>
 </context>
 <context>
     <name>RecipientPopover</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/RecipientPopover.qml" line="80"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/RecipientPopover.qml" line="80"/>
         <source>Copy to clipboard</source>
         <translation type="unfinished">Másolás a vágólapra</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/RecipientPopover.qml" line="89"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/RecipientPopover.qml" line="89"/>
         <source>Add to addressbook</source>
         <translation type="unfinished">Hozzáadás a címjegyzékhez</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/RecipientPopover.qml" line="98"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/RecipientPopover.qml" line="98"/>
         <source>Send message</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Üzenet küldése</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/popovers/RecipientPopover.qml" line="108"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/RecipientPopover.qml" line="108"/>
         <source>Remove</source>
         <translation type="unfinished">Eltávolítás</translation>
     </message>
@@ -2841,7 +2841,7 @@ Would you like to use this instead?</source>
 <context>
     <name>SenderIdentityField</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/composer/SenderIdentityField.qml" line="53"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/composer/SenderIdentityField.qml" line="53"/>
         <source>From:</source>
         <translation type="unfinished">Feladó:</translation>
     </message>
@@ -2849,35 +2849,35 @@ Would you like to use this instead?</source>
 <context>
     <name>ServerDetails</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ServerDetails.qml" line="68"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ServerDetails.qml" line="68"/>
         <source>Hostname</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Gépnév</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ServerDetails.qml" line="77"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ServerDetails.qml" line="77"/>
         <source>Port</source>
         <translation type="unfinished">Port</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ServerDetails.qml" line="99"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ServerDetails.qml" line="99"/>
         <source>Username</source>
         <translation type="unfinished">Felhasználónév</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ServerDetails.qml" line="108"/>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ServerDetails.qml" line="111"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ServerDetails.qml" line="108"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ServerDetails.qml" line="111"/>
         <source>Password</source>
         <translation type="unfinished">Jelszó</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ServerDetails.qml" line="118"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ServerDetails.qml" line="118"/>
         <source>Show password</source>
         <translation type="unfinished">Jelszó megjelenítése</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/ServerDetails.qml" line="139"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ServerDetails.qml" line="139"/>
         <source>Allow untrusted certificates</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nem megbízható tanúsítványok engedélyezése</translation>
     </message>
 </context>
 <context>
@@ -2904,7 +2904,7 @@ Would you like to use this instead?</source>
         <location filename="../Dekko/Mail/server/servicehandler.cpp" line="833"/>
         <location filename="../upstream/qmf/tools/messageserver/servicehandler.cpp" line="829"/>
         <source>Account removed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fiók eltávolítva</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/server/servicehandler.cpp" line="1234"/>
@@ -2922,7 +2922,7 @@ Would you like to use this instead?</source>
         <location filename="../upstream/qmf/tools/messageserver/servicehandler.cpp" line="1318"/>
         <location filename="../upstream/qmf/tools/messageserver/servicehandler.cpp" line="1366"/>
         <source>Cancelled by user</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Megszakítva a felhasználó által</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/server/servicehandler.cpp" line="1379"/>
@@ -3180,37 +3180,37 @@ Would you like to use this instead?</source>
 <context>
     <name>Settings</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/Settings.qml" line="11"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/Settings.qml" line="11"/>
         <source>Settings</source>
         <translation type="unfinished">Beállítások</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/Settings.qml" line="24"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/Settings.qml" line="24"/>
         <source>Mail</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Levelek</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/Settings.qml" line="33"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/Settings.qml" line="33"/>
         <source>Contacts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Névjegyek</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/Settings.qml" line="38"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/Settings.qml" line="38"/>
         <source>Calendar</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Naptár</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/Settings.qml" line="43"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/Settings.qml" line="43"/>
         <source>Notes</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Jegyzetek</translation>
     </message>
 </context>
 <context>
     <name>SettingsWindow</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/settings/SettingsWindow.qml" line="24"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/SettingsWindow.qml" line="24"/>
         <source>Dekko Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dekko beállítások</translation>
     </message>
 </context>
 <context>
@@ -3218,7 +3218,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/workers/SettingsWorker.qml" line="103"/>
         <source>Account saved</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fiók elmentve</translation>
     </message>
 </context>
 <context>
@@ -3234,7 +3234,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/backend/mail/MessageSet.cpp" line="272"/>
         <source>Today, %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ma, %1</translation>
     </message>
 </context>
 <context>
@@ -3320,7 +3320,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/smtp/smtpsettings.ui" line="160"/>
         <source>Encryption</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Titkosítás</translation>
     </message>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/smtp/smtpsettings.ui" line="177"/>
@@ -3341,7 +3341,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/smtp/smtpsettings.ui" line="201"/>
         <source>Authentication</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Hitelesítés</translation>
     </message>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/smtp/smtpsettings.ui" line="223"/>
@@ -3387,23 +3387,23 @@ Would you like to use this instead?</source>
 <context>
     <name>SubjectField</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/composer/SubjectField.qml" line="56"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/composer/SubjectField.qml" line="56"/>
         <source>Subject:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tárgy:</translation>
     </message>
 </context>
 <context>
     <name>SyncState</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/states/SyncState.qml" line="35"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/states/SyncState.qml" line="35"/>
         <source>Synchronizing account.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fiók szinkronizálása.</translation>
     </message>
 </context>
 <context>
     <name>TitledTextField</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/components/TitledTextField.qml" line="62"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/components/TitledTextField.qml" line="62"/>
         <source> (Required)</source>
         <translation type="unfinished"> (Szükséges)</translation>
     </message>
@@ -3411,84 +3411,84 @@ Would you like to use this instead?</source>
 <context>
     <name>UserInputUI</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="35"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="35"/>
         <source>Name</source>
         <translation type="unfinished">Név</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="36"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="36"/>
         <source>Full name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Teljes név</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="43"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="43"/>
         <source>Description</source>
         <translation type="unfinished">Leírás</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="44"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="44"/>
         <source>E.g Home, Work...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pl.: Otthoni, munkahelyi…</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="51"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="51"/>
         <source>Email address</source>
         <translation type="unfinished">E-mail cím</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="53"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="53"/>
         <source>email@example.org</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">email@pelda.hu</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="59"/>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="62"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="59"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="62"/>
         <source>Password</source>
         <translation type="unfinished">Jelszó</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="68"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="68"/>
         <source>Show password</source>
         <translation type="unfinished">Jelszó megjelenítése</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="78"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="78"/>
         <source>Cancel</source>
         <translation type="unfinished">Mégse</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="82"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="82"/>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Következő</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="124"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="124"/>
         <source>Password empty</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Üres jelszó</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="124"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="124"/>
         <source>Would you like to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mégis folytatja?</translation>
     </message>
 </context>
 <context>
     <name>ValidationState</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/setupwizard/states/ValidationState.qml" line="36"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/states/ValidationState.qml" line="36"/>
         <source>Validating credentials.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Adatok hitelesítése</translation>
     </message>
 </context>
 <context>
     <name>VersionDialog</name>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/dialogs/VersionDialog.qml" line="25"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/dialogs/VersionDialog.qml" line="25"/>
         <source>Version</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Verzió</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/app/ubuntu/qml/views/dialogs/VersionDialog.qml" line="29"/>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/dialogs/VersionDialog.qml" line="29"/>
         <source>Close</source>
         <translation type="unfinished">Bezárás</translation>
     </message>
