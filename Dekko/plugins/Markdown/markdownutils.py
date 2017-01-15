@@ -20,6 +20,10 @@ TEMPLATE = """<!DOCTYPE html>
 </html>
 """
 
+PLAIN_TEXT_TEMPLATE="""
+{{ content }}
+{{ signature }}
+"""
 def render_markdown(text):
     return markdown.markdown(text)
 
@@ -51,6 +55,26 @@ def inline_css(html):
     p = pynliner.Pynliner()
     p.from_string(html).with_cssString(MARKDOWN_CSS).with_cssString(PYGMENTS_CSS)
     return p.run()
+
+def build_message_part_map(body, signature, opts):
+    html_body = render_markdown_with_opts(body, opts)
+    html_sig = render_markdown(signature)
+    html_part = render_template(html_body, html_sig)
+
+    ptext_body = html_to_plaintext(html_body)
+    plain_sig = html2text.html2text(html_sig)
+    plain_part = jinja2.Template(PLAIN_TEXT_TEMPLATE).render(content=ptext_body, signature=plain_sig)
+
+    md_part = jinja2.Template(PLAIN_TEXT_TEMPLATE).render(content=body, signature=signature)
+
+    pretty_html = inline_css(html_part)
+
+    parts = {
+        "plain": plain_part,
+        "markdown": md_part,
+        "html": pretty_html
+    }
+    return parts
 
 def _get_extensions(opts):
     extensions = []
