@@ -15,7 +15,7 @@ Project {
 
         Group {
             files: [
-                "MarkdownRenderer.qml",
+                "*.qml",
             ]
             name: "QML components"
             fileTags: ["md-plugin"]
