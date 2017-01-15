@@ -1,2 +1,6 @@
 module Dekko.Markdown
 MarkdownRenderer 1.0 MarkdownRenderer.qml
+MarkdownOptions 1.0 MarkdownOptions.qml
+Html2Text 1.0 Html2Text.qml
+Jinja2 1.0 Jinja2.qml
+PyLiner 1.0 PyLiner.qml
