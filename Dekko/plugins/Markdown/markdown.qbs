@@ -3,9 +3,26 @@ import qbs
 Project {
     name: "Markdown"
 
-    Product {
+    DynamicLibrary {
         name: "Markdown Plugin"
-        type: "markdown-plugin"
+        targetName: "markdownplugin"
+
+        Depends { name: "cpp" }
+        Depends { name: "SuperMacros" }
+        Depends {
+            name: "Qt"
+            submodules: [
+                "core",
+                "quick",
+                "qml"
+            ]
+        }
+
+        cpp.optimization: qbs.buildVariant === "debug" ? "none" : "fast"
+        cpp.debugInformation: qbs.buildVariant === "debug"
+        cpp.cxxLanguageVersion: "c++11";
+        cpp.cxxStandardLibrary: "libstdc++";
+        cpp.includePaths: [ path ]
 
         Group {
             name: "Python Modules"
@@ -14,10 +31,10 @@ Project {
         }
 
         Group {
+            name: "QML components"
             files: [
                 "*.qml",
             ]
-            name: "QML components"
             fileTags: ["md-plugin"]
         }
 
@@ -31,7 +48,22 @@ Project {
             fileTagsFilter: "md-plugin"
             qbs.install: true
             qbs.installDir: project.qmlDir + "/Dekko/" + project.name
-            qbs.installSourceBase: path
+        }
+
+        Group {
+            name: "C++ Headers"
+            files: "*.h"
+        }
+
+        Group {
+            name: "C++ Sources"
+            files: "*.cpp"
+        }
+
+        Group {
+            fileTagsFilter: product.type
+            qbs.install: true
+            qbs.installDir: project.qmlDir + "/Dekko/" + project.name
         }
     }
 }
