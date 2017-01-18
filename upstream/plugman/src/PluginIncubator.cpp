@@ -11,7 +11,7 @@ void PluginIncubator::setSourceUrl(QQmlEngine *engine, const QUrl &source)
 {
     m_comp = new QQmlComponent(engine, source, this);
     if (m_comp->isError()) {
-        qDebug() << "Comp failed";
+        qDebug() << "Comp failed: " << m_comp->errorString();
         emit error();
         return;
     }
