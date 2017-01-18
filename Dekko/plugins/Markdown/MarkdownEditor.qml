@@ -54,7 +54,7 @@ ScrollView {
             selectByMouse: true
             selectionColor: Qt.rgba(UbuntuColors.blue.r, UbuntuColors.blue.g, UbuntuColors.blue.b, 0.2)
             selectedTextColor: UbuntuColors.jet
-            Keys.forwardTo: [inputOverlay]
+            Keys.forwardTo: [mdDoc, inputOverlay]
             Mouse.forwardTo: [inputOverlay]
             InputOverlay {
                 id: inputOverlay
@@ -64,7 +64,21 @@ ScrollView {
                 flickable: flicker
             }
             MarkdownDocument {
-                document: te.textDocument
+                id: mdDoc
+                textDocument: te.textDocument
+                autoMatchEnabled: true
+                cursorPosition: te.cursorPosition
+                onCursorPositionChanged: {
+                    if (te.cursorPosition !== cursorPosition) {
+                        te.cursorPosition = cursorPosition
+                    }
+                }
+
+                hasSelection: te.selectedText
+                selectionStart: te.selectionStart
+                selectionEnd: te.selectionEnd
+                spacesForTabs: true
+                tabWidth: 4
             }
         }
     }
