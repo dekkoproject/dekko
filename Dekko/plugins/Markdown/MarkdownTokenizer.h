@@ -55,6 +55,15 @@ public:
     void clear();
 
 private:
+    void tokenizeMatches(
+        MarkdownToken::TokenType tokenType,
+        QString& text,
+        QRegExp& regex,
+        const int markupStartCount = 0,
+        const int markupEndCount = 0,
+        const bool replaceMarkupChars = false,
+        const bool replaceAllChars = false
+    );
     void addToken(const MarkdownToken &token);
     void setState(TokenState state);
     void setStartEarlier(const bool startEarlier);

@@ -14,7 +14,9 @@ MarkdownDocument::MarkdownDocument(QQuickItem *parent) : QQuickItem(parent),
     m_paperMargins(0),
     m_hasSelection(false),
     m_selectionStart(0),
-    m_selectionEnd(0)
+    m_selectionEnd(0),
+    m_highlighter(Q_NULLPTR),
+    m_cursorPosition(0)
 {
     setEnabled(true);
     setVisible(true);
@@ -152,6 +154,7 @@ void MarkdownDocument::onDocumentChanged()
     if (document() != Q_NULLPTR) {
         connect(document(), &QTextDocument::contentsChange, this, &MarkdownDocument::onContentsChange);
         m_cursor = textCursor();
+        m_highlighter = new MarkdownHighlighter(document());
     }
 }
 

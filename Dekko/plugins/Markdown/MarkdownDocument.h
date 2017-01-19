@@ -9,6 +9,7 @@
 #include <QQuickItem>
 #include <QQuickTextDocument>
 #include <QQmlAutoPropertyHelpers.h>
+#include "MarkdownHighlighter.h"
 
 class MarkdownDocument : public QQuickItem
 {
@@ -30,6 +31,12 @@ class MarkdownDocument : public QQuickItem
     Q_ENUMS(NumberedListMarkerType)
 public:
     explicit MarkdownDocument(QQuickItem *parent = 0);
+    ~MarkdownDocument() {
+        if (m_highlighter != Q_NULLPTR) {
+            delete m_highlighter;
+            m_highlighter = 0;
+        }
+    }
 
     enum BulletListMarkerType {
         Asterisk,
@@ -72,6 +79,8 @@ private slots:
     void onContentsChange(const int &pos, const int &rm, const int &add);
 private:
     QTextCursor textCursor();
+
+    MarkdownHighlighter *m_highlighter;
     bool insertPair(const QChar &c);
     bool endPairHandled(const QChar &c);
     QHash<QChar, QChar> m_pairs;
