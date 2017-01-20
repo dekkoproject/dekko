@@ -30,4 +30,6 @@ KeyTable {
     property string pickerClosed
     property string filesSelected
     property string exportFile
+
+    property string displayHtmlContent
 }

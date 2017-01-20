@@ -29,4 +29,5 @@ ActionCreator {
     signal pickerClosed()
     signal filesSelected(var files)
     signal exportFile(string file)
+    signal displayHtmlContent(var caller, string content)
 }

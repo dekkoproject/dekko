@@ -3,7 +3,7 @@ import Dekko.Python 1.0
 import Dekko.Mail.API 1.0
 
 Item {
-
+    visible: false
     signal error(string error)
     signal partsReady(var parts)
 
@@ -32,6 +32,7 @@ Item {
         }
 
         onReady: {
+            importModule("markdownutils", function(){})
             setHandler('log', function (msg) {
                 Log.logInfo("MarkdownRenderer::pyLog", msg)
             })

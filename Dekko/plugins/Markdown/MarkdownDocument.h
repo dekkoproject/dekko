@@ -52,19 +52,9 @@ public:
     int cursorPosition() const;
 
 signals:
-
     void cursorPositionChanged(int cursorPosition);
 
 public slots:
-//    void bold();
-//    void italic();
-//    void strikeThrough();
-//    void insertComment();
-//    void createBulletList(BulletListMarkerType markerType);
-//    void createNumberedList(NumberedListMarkerType markerType);
-//    void createTaskList();
-//    void createBlockQuote();
-//    void removeBlockQuote();
     void indentText();
     void unindentText();
     void setCursorPosition(int cursorPosition);
@@ -72,7 +62,10 @@ public slots:
 protected:
     QTextDocument *document() const;
     void keyPressEvent(QKeyEvent *event);
-    void handleCLRF();
+    void handleCRLF();
+    bool handleBackspace();
+    QString getBlockStart(QRegExp &regexp);
+    QString getPreviousIndentation();
 
 private slots:
     void onDocumentChanged();

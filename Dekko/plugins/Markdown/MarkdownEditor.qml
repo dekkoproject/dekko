@@ -5,12 +5,18 @@ import Dekko.Markdown 1.0
 ScrollView {
     id: editor
     property int frameSpacing: 0
+    property bool plainTextOnly: false
     property alias headerHeight: col.height
+    property alias text: te.text
+    property alias textDocument: te.textDocument
 
     property alias header: h.data
     property alias toolbar: t.data
 
+    signal showPreview()
+
     anchors.fill: parent
+
     Flickable {
         id: flicker
         anchors.fill: parent
@@ -35,6 +41,33 @@ ScrollView {
                 height: childrenRect.height
                 width: parent.width
             }
+            Item {
+                width: parent.width
+                height: btn.height
+                visible: te.text && !editor.plainTextOnly
+                AbstractButton {
+                    id: btn
+                    anchors {
+                        right: parent.right
+                        top: parent.top
+                        bottom: parent.bottom
+                    }
+                    width: units.gu(10)
+                    height: l.height + units.gu(1)
+
+                    Label {
+                        id: l
+                        anchors {
+                            right: parent.right
+                            rightMargin: units.gu(3)
+                            verticalCenter: parent.verticalCenter
+                        }
+                        text: qsTr("Preview")
+                        color: UbuntuColors.blue
+                    }
+                    onClicked: showPreview()
+                }
+            }
         }
 
         TextEdit {
@@ -43,7 +76,9 @@ ScrollView {
                 left: parent.left
                 top: col.bottom
                 right: parent.right
-                margins: editor.frameSpacing
+                leftMargin: editor.frameSpacing
+                topMargin: text && !editor.plainTextOnly ? 0 : editor.frameSpacing
+                rightMargin: editor.frameSpacing
             }
             height: Math.max(editor.height - col.height, contentHeight)
             font.family: "Ubuntu"
@@ -54,8 +89,9 @@ ScrollView {
             selectByMouse: true
             selectionColor: Qt.rgba(UbuntuColors.blue.r, UbuntuColors.blue.g, UbuntuColors.blue.b, 0.2)
             selectedTextColor: UbuntuColors.jet
-            Keys.forwardTo: [mdDoc, inputOverlay]
+            Keys.forwardTo: editor.plainTextOnly ? [inputOverlay] : [mdDoc, inputOverlay]
             Mouse.forwardTo: [inputOverlay]
+
             InputOverlay {
                 id: inputOverlay
                 anchors.fill: parent
@@ -63,9 +99,16 @@ ScrollView {
                 textEdit: te
                 flickable: flicker
             }
+
+            Binding {
+                target: mdDoc
+                property: "textDocument"
+                value: te.textDocument
+                when: !editor.plainTextOnly
+            }
+
             MarkdownDocument {
                 id: mdDoc
-                textDocument: te.textDocument
                 autoMatchEnabled: true
                 cursorPosition: te.cursorPosition
                 onCursorPositionChanged: {
@@ -73,7 +116,6 @@ ScrollView {
                         te.cursorPosition = cursorPosition
                     }
                 }
-
                 hasSelection: te.selectedText
                 selectionStart: te.selectionStart
                 selectionEnd: te.selectionEnd

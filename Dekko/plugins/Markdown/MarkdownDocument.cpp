@@ -163,7 +163,7 @@ void MarkdownDocument::onContentsChange(const int &pos, const int &rm, const int
     Q_UNUSED(pos);
     Q_UNUSED(rm);
     Q_UNUSED(add);
-//    qDebug() << "CONTENTS CHANGED";
+    //    qDebug() << "CONTENTS CHANGED";
 }
 
 QTextCursor MarkdownDocument::textCursor()
@@ -231,7 +231,7 @@ bool MarkdownDocument::endPairHandled(const QChar &c)
 
 void MarkdownDocument::keyPressEvent(QKeyEvent *event)
 {
-//    qDebug() << "KEY PRESS EVENT: " << event;
+    //    qDebug() << "KEY PRESS EVENT: " << event;
     int key = event->key();
     bool accepted = false;
     switch (key) {
@@ -244,7 +244,7 @@ void MarkdownDocument::keyPressEvent(QKeyEvent *event)
             if (event->modifiers() & Qt::ControlModifier) {
                 m_cursor.insertText("\n");
             } else {
-                handleCLRF();
+                handleCRLF();
             }
             accepted = true;
         }
@@ -256,6 +256,9 @@ void MarkdownDocument::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Backtab:
         unindentText();
         accepted = true;
+        break;
+    case Qt::Key_Backspace:
+        accepted = handleBackspace();
         break;
     default:
         if (event->text().size() == 1) {
@@ -271,13 +274,195 @@ void MarkdownDocument::keyPressEvent(QKeyEvent *event)
     event->setAccepted(accepted);
 }
 
-void MarkdownDocument::handleCLRF()
+void MarkdownDocument::handleCRLF()
 {
     QString autoInsertText = "";
     bool endList = false;
     if (m_cursor.positionInBlock() < (m_cursor.block().length() - 1)) {
+        autoInsertText = getPreviousIndentation();
+        if (m_cursor.positionInBlock() < autoInsertText.length()) {
+            autoInsertText.truncate(m_cursor.positionInBlock());
+        }
+    } else {
+        switch (m_cursor.block().userState()) {
+        case MarkdownTokenizer::TokenState::NumList:
+        {
+            autoInsertText = getBlockStart(m_numList);
+            QStringList c = m_numList.capturedTexts();
+            if (!autoInsertText.isEmpty() && c.size() == 2) {
+                if (m_cursor.block().text().length() == autoInsertText.length()) {
+                    endList = true;
+                } else {
+                    QRegExp num("\\d+");
+                    int liNum = c.at(1).toInt();
+                    liNum++;
+                    autoInsertText = autoInsertText.replace(num, QString("%1").arg(liNum));
+                }
+            } else {
+                autoInsertText = getPreviousIndentation();
+            }
+            break;
+        }
+        case MarkdownTokenizer::TokenState::BulletList:
+        {
+            autoInsertText = getBlockStart(m_taskList);
+            if (autoInsertText.isEmpty()) {
+                autoInsertText = getBlockStart(m_bulletList);
+                if (autoInsertText.isEmpty()) {
+                    autoInsertText = getPreviousIndentation();
+                } else if (m_cursor.block().text().length() == autoInsertText.length()) {
+                    endList = true;
+                }
+            } else {
+                if (m_cursor.block().text().length() == autoInsertText.length()) {
+                    endList = true;
+                } else {
+                    autoInsertText = autoInsertText.replace('x', ' ');
+                }
+            }
+            break;
+        }
+        case MarkdownTokenizer::TokenState::Blockquote:
+        {
+            autoInsertText = getBlockStart(m_blockQuote);
+            break;
+        }
+        default:
+            autoInsertText = getPreviousIndentation();
+            break;
+        }
+    }
 
+    if (endList)
+    {
+        autoInsertText = getPreviousIndentation();
+        m_cursor.movePosition(QTextCursor::StartOfBlock);
+        m_cursor.movePosition(QTextCursor::EndOfBlock, QTextCursor::KeepAnchor);
+        setCursorPosition(m_cursor.position());
+        m_cursor.insertText(autoInsertText);
+        autoInsertText = "";
     }
 
     m_cursor.insertText(QStringLiteral("\n") + autoInsertText);
+}
+
+bool MarkdownDocument::handleBackspace()
+{
+    if (m_hasSelection) {
+        return false;
+    }
+
+    int backtrackIndex = -1;
+
+    switch (m_cursor.block().userState())
+    {
+    case MarkdownTokenizer::TokenState::NumList:
+    {
+        if (m_numList.exactMatch(m_cursor.block().text()))
+        {
+            backtrackIndex = m_cursor.block().text().indexOf(QRegExp("\\d"));
+        }
+        break;
+    }
+    case MarkdownTokenizer::TokenState::BulletList:
+    {
+        if( m_bulletList.exactMatch(m_cursor.block().text())
+            || m_taskList.exactMatch(m_cursor.block().text())) {
+
+            backtrackIndex = m_cursor.block().text().indexOf(QRegExp("[+*-]"));
+        }
+        break;
+    }
+    case MarkdownTokenizer::TokenState::Blockquote:
+    {
+        if (m_blockQuote.exactMatch(m_cursor.block().text()))
+        {
+            backtrackIndex = m_cursor.block().text().lastIndexOf('>');
+        }
+        break;
+    }
+    default:
+        // If the first character in an automatched set is being
+        // deleted, then delete the second matching one along with it.
+        //
+        if (m_autoMatchEnabled && (m_cursor.positionInBlock() > 0))
+        {
+            QString blockText = m_cursor.block().text();
+
+            if (m_cursor.positionInBlock() < blockText.length())
+            {
+                QChar currentChar = blockText[m_cursor.positionInBlock()];
+                QChar previousChar = blockText[m_cursor.positionInBlock() - 1];
+
+                if (m_pairs.value(previousChar) == currentChar)
+                {
+                    m_cursor.movePosition(QTextCursor::Left);
+                    m_cursor.movePosition
+                            (
+                                QTextCursor::Right,
+                                QTextCursor::KeepAnchor,
+                                2
+                                );
+                    setCursorPosition(m_cursor.position());
+                    m_cursor.removeSelectedText();
+                    return true;
+                }
+            }
+        }
+        break;
+    }
+
+    if (backtrackIndex >= 0)
+    {
+        m_cursor.movePosition(QTextCursor::StartOfBlock);
+        m_cursor.movePosition
+                (
+                    QTextCursor::Right,
+                    QTextCursor::MoveAnchor,
+                    backtrackIndex
+                    );
+
+        m_cursor.movePosition(QTextCursor::EndOfBlock, QTextCursor::KeepAnchor);
+        setCursorPosition(m_cursor.position());
+        m_cursor.removeSelectedText();
+        return true;
+    }
+
+    return false;
+}
+
+QString MarkdownDocument::getBlockStart(QRegExp &regexp)
+{
+    QTextBlock block = m_cursor.block();
+
+    QString text = block.text();
+
+    if (regexp.indexIn(text, 0) >= 0)
+    {
+        return text.left(regexp.matchedLength());
+    }
+
+    return QString("");
+}
+
+QString MarkdownDocument::getPreviousIndentation()
+{
+    QString indent = "";
+    QTextBlock block = m_cursor.block();
+
+    QString text = block.text();
+
+    for (int i = 0; i < text.length(); i++)
+    {
+        if (text[i].isSpace())
+        {
+            indent += text[i];
+        }
+        else
+        {
+            return indent;
+        }
+    }
+
+    return indent;
 }
