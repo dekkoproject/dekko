@@ -24,7 +24,6 @@ import Dekko.Mail.API 1.0
 import Dekko.Mail.Stores.Views 1.0
 import Dekko.Mail.Stores.Composer 1.0
 import "../views/dialogs"
-import "../views/components"
 
 /*!
 *
@@ -153,37 +152,6 @@ AppListener {
         type: ContentKeys.exportFile
         onDispatched: {
             PopupUtils.open("qrc:/qml/views/dialogs/ContentPickerDialog.qml", dekko, {fileUrl: message.file})
-        }
-    }
-
-    Component {
-        id: htmlWin
-        Window {
-            id: htmlWindow
-            width: units.gu(70)
-            height: units.gu(70)
-            property string html: ""
-            HtmlViewer {
-                html: htmlWindow.html
-                anchors.fill: htmlWindow.contentItem
-            }
-        }
-    }
-
-    QtObject {
-        id: d
-        property Window htmlViewerWindow: null
-    }
-
-    Filter {
-        type: ContentKeys.displayHtmlContent
-        onDispatched: {
-            if (d.htmlViewerWindow !== null) {
-                d.htmlViewerWindow.destroy()
-            }
-            var w = htmlWin.createObject(message.caller, {html: message.content})
-            w.show()
-            d.htmlViewerWindow = w
         }
     }
 }
