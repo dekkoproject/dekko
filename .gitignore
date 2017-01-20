@@ -4,3 +4,4 @@ __build
 .build
 *.qbs.user
 pylibs
+parts/plugins/__pycache__
