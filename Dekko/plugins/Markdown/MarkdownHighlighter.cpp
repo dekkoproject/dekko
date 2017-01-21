@@ -12,7 +12,7 @@ MarkdownHighlighter::MarkdownHighlighter(QTextDocument *document, FormattingOpti
     font.setFamily(m_options->get_fontFamily());
     font.setWeight(m_options->get_fontWeight());
     font.setItalic(false);
-    font.setPointSize(m_options->get_fontSize());
+    font.setPointSizeF(12.0);
     font.setStyleStrategy(QFont::PreferAntialias);
     defaultFormat.setFont(font);
     defaultFormat.setForeground(QBrush(m_options->get_textColor()));

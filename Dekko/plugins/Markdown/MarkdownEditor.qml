@@ -82,8 +82,6 @@ ScrollView {
                 rightMargin: editor.frameSpacing
             }
             height: Math.max(editor.height - col.height, contentHeight)
-            font.family: "Ubuntu"
-            font.pixelSize: FontUtils.sizeToPixels("medium")
             wrapMode: TextEdit.WrapAtWordBoundaryOrAnywhere
             mouseSelectionMode: TextEdit.SelectWords
             persistentSelection: true
@@ -111,6 +109,8 @@ ScrollView {
             MarkdownDocument {
                 id: mdDoc
                 options: FormattingOptions {
+                    fontSize: FontUtils.sizeToPixels("medium")
+                    enableLargeHeadingSizes: true
                     autoMatchEnabled: true
                     cycleBulletMarker: true
                     spacesForTabs: true
