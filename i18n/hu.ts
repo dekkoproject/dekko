@@ -742,6 +742,14 @@ Would you like to use this instead?</source>
     </message>
 </context>
 <context>
+    <name>HtmlViewer</name>
+    <message>
+        <location filename="../Dekko/plugins/default/html-viewer/HtmlViewer.qml" line="11"/>
+        <source>HTML Viewer</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>IdentitiesListPage</name>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IdentitiesListPage.qml" line="14"/>
@@ -1519,6 +1527,14 @@ Would you like to use this instead?</source>
     </message>
 </context>
 <context>
+    <name>MarkdownEditor</name>
+    <message>
+        <location filename="../Dekko/plugins/Markdown/MarkdownEditor.qml" line="66"/>
+        <source>Preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Message</name>
     <message>
         <location filename="../Dekko/Mail/backend/mail/Message.cpp" line="225"/>
@@ -1582,14 +1598,6 @@ Would you like to use this instead?</source>
         <location filename="../Dekko/Mail/backend/mail/MessageBuilder.cpp" line="325"/>
         <source>Subject: </source>
         <translation type="unfinished">Tárgy: </translation>
-    </message>
-</context>
-<context>
-    <name>MessageComposer</name>
-    <message>
-        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/composer/MessageComposer.qml" line="97"/>
-        <source>Enter message</source>
-        <translation type="unfinished">Üzenet megadása</translation>
     </message>
 </context>
 <context>
