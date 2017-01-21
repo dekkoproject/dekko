@@ -52,6 +52,8 @@ parts:
             - qml-module-qtquick-privatewidgets
             - libqt5svg5-dev
             - python3-pip
+            - python3-dev
+            - python3-setuptools
         stage-packages:
             - libnotify-bin
         snap:
