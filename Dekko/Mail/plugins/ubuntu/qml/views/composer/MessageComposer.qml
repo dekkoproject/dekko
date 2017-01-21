@@ -43,7 +43,7 @@ FocusScope {
         id: me
         anchors.fill: parent
         frameSpacing: units.gu(2)
-        plainTextOnly: false
+        plainTextOnly: true
 
         onShowPreview: {
             var sig = ComposerStore.currentSignature ? "--  \n%1".arg(ComposerStore.currentSignature) : ""
