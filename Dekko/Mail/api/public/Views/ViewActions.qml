@@ -80,4 +80,6 @@ ActionCreator {
 
     signal reloadAccountBasedModels()
 
+    signal displayHtmlContent()
+
 }

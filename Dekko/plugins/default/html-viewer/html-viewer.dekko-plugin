@@ -1,0 +1,5 @@
+{
+    "id": "html-viewer-plugin",
+    "register" : "Dekko::Listener",
+    "component" : "Listener.qml"
+}
