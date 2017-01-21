@@ -3,9 +3,6 @@ import QtQuick.Window 2.1
 import Ubuntu.Components 1.3
 import MazDB 1.0
 import "./views/components"
-import Dekko.Markdown 1.0
-import QuickFlux 1.0
-import Dekko.Mail.API 1.0
 
 Window {
     id: window

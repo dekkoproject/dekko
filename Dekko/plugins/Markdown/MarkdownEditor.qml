@@ -7,6 +7,7 @@ ScrollView {
     property int frameSpacing: 0
     property bool plainTextOnly: false
     property alias headerHeight: col.height
+    property alias options: mdDoc.options
     property alias text: te.text
     property alias textDocument: te.textDocument
 
@@ -109,7 +110,17 @@ ScrollView {
 
             MarkdownDocument {
                 id: mdDoc
-                autoMatchEnabled: true
+                options: FormattingOptions {
+                    autoMatchEnabled: true
+                    cycleBulletMarker: true
+                    spacesForTabs: true
+                    tabWidth: 4
+                    textColor: UbuntuColors.slate
+                    backgroundColor: "white"
+                    linkColor: UbuntuColors.blue
+                    markupColor: UbuntuColors.graphite
+                }
+
                 cursorPosition: te.cursorPosition
                 onCursorPositionChanged: {
                     if (te.cursorPosition !== cursorPosition) {
@@ -119,8 +130,6 @@ ScrollView {
                 hasSelection: te.selectedText
                 selectionStart: te.selectionStart
                 selectionEnd: te.selectionEnd
-                spacesForTabs: true
-                tabWidth: 4
             }
         }
     }

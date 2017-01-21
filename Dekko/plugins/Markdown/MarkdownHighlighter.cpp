@@ -1,25 +1,21 @@
 #include "MarkdownHighlighter.h"
 #include <QFont>
 
-MarkdownHighlighter::MarkdownHighlighter(QTextDocument *document) : QSyntaxHighlighter(document),
+MarkdownHighlighter::MarkdownHighlighter(QTextDocument *document, FormattingOptions *options) : QSyntaxHighlighter(document),
     m_tokenizer(new MarkdownTokenizer),
-    m_underlineForEmp(false),
     m_inBlockquote(false),
-    m_textColor(Qt::darkGray),
-    m_background(Qt::white),
-    m_markup(Qt::lightGray),
-    m_link(Qt::blue)
+    m_options(options)
 {
     connect(this, &MarkdownHighlighter::highlightBlockAtPosition, this, &MarkdownHighlighter::onHighlightBlockAtPosition);
 
     QFont font;
-    font.setFamily("Ubuntu");
-    font.setWeight(QFont::Light);
+    font.setFamily(m_options->get_fontFamily());
+    font.setWeight(m_options->get_fontWeight());
     font.setItalic(false);
-    font.setPointSizeF(12.0);
+    font.setPointSize(m_options->get_fontSize());
     font.setStyleStrategy(QFont::PreferAntialias);
     defaultFormat.setFont(font);
-    defaultFormat.setForeground(QBrush(m_textColor));
+    defaultFormat.setForeground(QBrush(m_options->get_textColor()));
 
     setupTokenColors();
 
@@ -64,7 +60,7 @@ MarkdownHighlighter::MarkdownHighlighter(QTextDocument *document) : QSyntaxHighl
     strongToken[MarkdownToken::TableHeader] = true;
     strikethroughToken[MarkdownToken::Strikethrough] = true;
 
-    setupHeadingFontSize(true);
+    setupHeadingFontSize(m_options->get_enableLargeHeadingSizes());
 
     strongMarkup[MarkdownToken::NumberedList] = true;
     strongMarkup[MarkdownToken::Blockquote] = true;
@@ -120,24 +116,6 @@ void MarkdownHighlighter::highlightBlock(const QString &text)
             emit highlightBlockAtPosition(previous.position());
         }
     }
-
-//    if (spellCheckEnabled)
-//    {
-//        spellCheck(text);
-//    }
-
-//    // If the block has transitioned from previously being a heading to now
-//    // being a non-heading, signal that the position in the document no longer
-//    // contains a heading.
-//    //
-//    if
-//    (
-//        isHeadingBlockState(lastState)
-//        && !isHeadingBlockState(currentBlockState())
-//    )
-//    {
-//        emit headingRemoved(currentBlock().position());
-//    }
 }
 
 void MarkdownHighlighter::onHighlightBlockAtPosition(int pos)
@@ -150,25 +128,25 @@ void MarkdownHighlighter::setupTokenColors()
 {
     for (int i = 0; i < MarkdownToken::Last; i++)
     {
-        colorForToken[i] = m_textColor;
+        colorForToken[i] = m_options->get_textColor();
     }
 
-    colorForToken[MarkdownToken::HtmlTag] = m_markup;
-    colorForToken[MarkdownToken::HtmlEntity] = m_markup;
-    colorForToken[MarkdownToken::AutomaticLink] = m_link;
-    colorForToken[MarkdownToken::InlineLink] = m_link;
-    colorForToken[MarkdownToken::ReferenceLink] = m_link;
-    colorForToken[MarkdownToken::ReferenceDefinition] = m_link;
-    colorForToken[MarkdownToken::Image] = m_link;
-    colorForToken[MarkdownToken::Mention] = m_link;
-    colorForToken[MarkdownToken::HtmlComment] = m_markup;
-    colorForToken[MarkdownToken::HorizontalRule] = m_markup;
-    colorForToken[MarkdownToken::GFMCodeFence] = m_markup;
-    colorForToken[MarkdownToken::CodeFenceEnd] = m_markup;
-    colorForToken[MarkdownToken::SetextHead1Line2] = m_markup;
-    colorForToken[MarkdownToken::SetextHead2Line2] = m_markup;
-    colorForToken[MarkdownToken::TableDiv] = m_markup;
-    colorForToken[MarkdownToken::TablePipe] = m_markup;
+    colorForToken[MarkdownToken::HtmlTag] = m_options->get_markupColor();
+    colorForToken[MarkdownToken::HtmlEntity] = m_options->get_markupColor();
+    colorForToken[MarkdownToken::AutomaticLink] = m_options->get_linkColor();
+    colorForToken[MarkdownToken::InlineLink] = m_options->get_linkColor();
+    colorForToken[MarkdownToken::ReferenceLink] = m_options->get_linkColor();
+    colorForToken[MarkdownToken::ReferenceDefinition] = m_options->get_linkColor();
+    colorForToken[MarkdownToken::Image] = m_options->get_linkColor();
+    colorForToken[MarkdownToken::Mention] = m_options->get_linkColor();
+    colorForToken[MarkdownToken::HtmlComment] = m_options->get_markupColor();
+    colorForToken[MarkdownToken::HorizontalRule] = m_options->get_markupColor();
+    colorForToken[MarkdownToken::GFMCodeFence] = m_options->get_markupColor();
+    colorForToken[MarkdownToken::CodeFenceEnd] = m_options->get_markupColor();
+    colorForToken[MarkdownToken::SetextHead1Line2] = m_options->get_markupColor();
+    colorForToken[MarkdownToken::SetextHead2Line2] = m_options->get_markupColor();
+    colorForToken[MarkdownToken::TableDiv] = m_options->get_markupColor();
+    colorForToken[MarkdownToken::TablePipe] = m_options->get_markupColor();
 }
 
 void MarkdownHighlighter::setupHeadingFontSize(bool useLargeHeadings)
@@ -235,7 +213,7 @@ void MarkdownHighlighter::applyFormattingForToken(const MarkdownToken &token)
 
         if (emphasizeToken[tokenType])
         {
-            if (m_underlineForEmp && (tokenType != MarkdownToken::Blockquote))
+            if (m_options->get_useUnderlineForEmp() && (tokenType != MarkdownToken::Blockquote))
             {
                 fmt.setFontUnderline(true);
             }
@@ -258,7 +236,7 @@ void MarkdownHighlighter::applyFormattingForToken(const MarkdownToken &token)
         if
         (
             applyStyleToMarkup[tokenType] &&
-            (!emphasizeToken[tokenType] || !m_underlineForEmp)
+            (!emphasizeToken[tokenType] || !m_options->get_useUnderlineForEmp())
         )
         {
             markupFormat = fmt;
@@ -268,18 +246,7 @@ void MarkdownHighlighter::applyFormattingForToken(const MarkdownToken &token)
             markupFormat = this->format(token.position());
         }
 
-        QColor adjustedMarkupColor = m_markup;
-
-//        if (m_inBlockquote && tokenType != MarkdownToken::Blockquote)
-//        {
-//            adjustedMarkupColor =
-//                ColorHelper::applyAlpha
-//                (
-//                    adjustedMarkupColor,
-//                    backgroundColor,
-//                    GW_FADE_ALPHA
-//                );
-//        }
+        QColor adjustedMarkupColor = m_options->get_markupColor().lighter();
 
         markupFormat.setForeground(QBrush(adjustedMarkupColor));
 
@@ -295,7 +262,7 @@ void MarkdownHighlighter::applyFormattingForToken(const MarkdownToken &token)
                 (MarkdownToken::Blockquote == tokenType)
             )
             {
-                markupFormat.setBackground(QBrush(adjustedMarkupColor));
+                markupFormat.setBackground(QBrush(adjustedMarkupColor.lighter()));
                 QString text = currentBlock().text();
 
                 for (int i = token.position(); i < token.openingLength(); i++)

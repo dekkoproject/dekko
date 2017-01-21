@@ -8,12 +8,13 @@
 #include <QColor>
 #include <QTextCharFormat>
 #include "MarkdownTokenizer.h"
+#include "FormattingOptions.h"
 
 class MarkdownHighlighter : public QSyntaxHighlighter
 {
     Q_OBJECT
 public:
-    MarkdownHighlighter(QTextDocument *document);
+    MarkdownHighlighter(QTextDocument *document, FormattingOptions *options);
 
 signals:
     void highlightBlockAtPosition(int position);
@@ -31,12 +32,7 @@ private:
     void applyFormattingForToken(const MarkdownToken &token);
 
     QScopedPointer<MarkdownTokenizer> m_tokenizer;
-    bool m_underlineForEmp;
     bool m_inBlockquote;
-    QColor m_textColor;
-    QColor m_background;
-    QColor m_markup;
-    QColor m_link;
     QTextCharFormat defaultFormat;
     bool applyStyleToMarkup[MarkdownToken::Last];
     QColor colorForToken[MarkdownToken::Last];
@@ -46,6 +42,7 @@ private:
     bool strikethroughToken[MarkdownToken::Last];
     int fontSizeIncrease[MarkdownToken::Last];
     int defaultFontSize;
+    FormattingOptions *m_options;
 };
 
 #endif // MARKDOWNHIGHLIGHTER_H

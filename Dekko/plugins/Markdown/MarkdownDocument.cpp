@@ -3,15 +3,9 @@
 #include <QTextFrame>
 
 MarkdownDocument::MarkdownDocument(QQuickItem *parent) : QQuickItem(parent),
+    m_options(Q_NULLPTR),
     m_textDocument(Q_NULLPTR),
     m_enabled(false),
-    m_autoMatchEnabled(false),
-    m_cycleBulletMarker(true),
-    m_enableLargeHeadingSizes(false),
-    m_useUnderlineForEmp(false),
-    m_spacesForTabs(false),
-    m_tabWidth(0),
-    m_paperMargins(0),
     m_hasSelection(false),
     m_selectionStart(0),
     m_selectionEnd(0),
@@ -21,7 +15,7 @@ MarkdownDocument::MarkdownDocument(QQuickItem *parent) : QQuickItem(parent),
     setEnabled(true);
     setVisible(true);
     connect(this, &MarkdownDocument::textDocumentChanged, this, &MarkdownDocument::onDocumentChanged);
-
+    connect(this, &MarkdownDocument::optionsChanged, this, &MarkdownDocument::onDocumentChanged);
     m_blockQuote.setPattern("^ {0,3}(>\\s*)+");
     m_numList.setPattern("^\\s*([0-9]+)[.)]\\s+");
     m_bulletList.setPattern("^\\s*[+*-]\\s+");
@@ -55,6 +49,8 @@ int MarkdownDocument::cursorPosition() const
 
 void MarkdownDocument::indentText()
 {
+
+    const int tabWidth = m_options->get_tabWidth();
     if (m_hasSelection) {
         QTextBlock start = document()->findBlock(m_selectionStart);
         QTextBlock end = document()->findBlock(m_selectionEnd).next();
@@ -62,9 +58,9 @@ void MarkdownDocument::indentText()
 
         while (start != end) {
             setCursorPosition(start.position());
-            if (m_spacesForTabs) {
+            if (m_options->get_spacesForTabs()) {
                 QString indentText = "";
-                for (int i = 0; i < m_tabWidth; ++i) {
+                for (int i = 0; i < tabWidth; ++i) {
                     indentText += QStringLiteral(" ");
                 }
                 m_cursor.insertText(indentText);
@@ -75,18 +71,18 @@ void MarkdownDocument::indentText()
         }
         m_cursor.endEditBlock();
     } else {
-        int indent = m_tabWidth;
+        int indent = tabWidth;
         QString indentText = "";
         m_cursor.beginEditBlock();
 
         switch (m_cursor.block().userState()) {
         // TODO:
         default:
-            indent = m_tabWidth - (m_cursor.positionInBlock() % m_tabWidth);
+            indent = tabWidth - (m_cursor.positionInBlock() % tabWidth);
             break;
         }
 
-        if (m_spacesForTabs) {
+        if (m_options->get_spacesForTabs()) {
             for (int i = 0; i < indent; ++i) {
                 indentText += QStringLiteral(" ");
             }
@@ -120,7 +116,7 @@ void MarkdownDocument::unindentText()
             m_cursor.deleteChar();
         } else {
             int p = 0;
-            while (document()->characterAt(m_cursor.position()) == QChar(' ') && p < m_tabWidth) {
+            while (document()->characterAt(m_cursor.position()) == QChar(' ') && p < m_options->get_tabWidth()) {
                 ++p;
                 m_cursor.deleteChar();
             }
@@ -151,10 +147,10 @@ QTextDocument *MarkdownDocument::document() const
 
 void MarkdownDocument::onDocumentChanged()
 {
-    if (document() != Q_NULLPTR) {
+    if (document() != Q_NULLPTR && m_options != Q_NULLPTR) {
         connect(document(), &QTextDocument::contentsChange, this, &MarkdownDocument::onContentsChange);
         m_cursor = textCursor();
-        m_highlighter = new MarkdownHighlighter(document());
+        m_highlighter = new MarkdownHighlighter(document(), m_options);
     }
 }
 
@@ -193,7 +189,7 @@ bool MarkdownDocument::insertPair(const QChar &c)
                 m_cursor.endEditBlock();
                 return true;
             }
-        } else if (m_autoMatchEnabled && m_matches.value(c)) {
+        } else if (m_options->get_autoMatchEnabled() && m_matches.value(c)) {
             m_cursor.insertText(c);
             m_cursor.insertText(p);
             m_cursor.movePosition(QTextCursor::PreviousCharacter);
@@ -207,7 +203,7 @@ bool MarkdownDocument::insertPair(const QChar &c)
 bool MarkdownDocument::endPairHandled(const QChar &c)
 {
     bool lookAhead = false;
-    if (m_autoMatchEnabled && !m_cursor.hasSelection()) {
+    if (m_options->get_autoMatchEnabled() && !m_cursor.hasSelection()) {
         if (m_pairs.values().contains(c)) {
             auto key = m_pairs.key(c);
             if (m_matches.value(key)) {
@@ -385,7 +381,7 @@ bool MarkdownDocument::handleBackspace()
         // If the first character in an automatched set is being
         // deleted, then delete the second matching one along with it.
         //
-        if (m_autoMatchEnabled && (m_cursor.positionInBlock() > 0))
+        if (m_options->get_autoMatchEnabled() && (m_cursor.positionInBlock() > 0))
         {
             QString blockText = m_cursor.block().text();
 

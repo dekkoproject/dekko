@@ -14,15 +14,9 @@
 class MarkdownDocument : public QQuickItem
 {
     Q_OBJECT
+    QML_WRITABLE_AUTO_PROPERTY(FormattingOptions*, options)
     QML_WRITABLE_AUTO_PROPERTY(QQuickTextDocument*, textDocument)
     QML_WRITABLE_AUTO_PROPERTY(bool, enabled)
-    QML_WRITABLE_AUTO_PROPERTY(bool, autoMatchEnabled)
-    QML_WRITABLE_AUTO_PROPERTY(bool, cycleBulletMarker)
-    QML_WRITABLE_AUTO_PROPERTY(bool, enableLargeHeadingSizes)
-    QML_WRITABLE_AUTO_PROPERTY(bool, useUnderlineForEmp)
-    QML_WRITABLE_AUTO_PROPERTY(bool, spacesForTabs)
-    QML_WRITABLE_AUTO_PROPERTY(int, tabWidth)
-    QML_WRITABLE_AUTO_PROPERTY(int, paperMargins)
     QML_WRITABLE_AUTO_PROPERTY(bool, hasSelection)
     QML_WRITABLE_AUTO_PROPERTY(int, selectionStart)
     QML_WRITABLE_AUTO_PROPERTY(int, selectionEnd)
