@@ -1,0 +1,11 @@
+module Dekko.Markdown
+
+MarkdownEditor 1.0 MarkdownEditor.qml
+MarkdownRenderer 1.0 MarkdownRenderer.qml
+MarkdownPartBuilder 1.0 MarkdownPartBuilder.qml
+MarkdownOptions 1.0 MarkdownOptions.qml
+Html2Text 1.0 Html2Text.qml
+Jinja2 1.0 Jinja2.qml
+PyLiner 1.0 PyLiner.qml
+
+plugin markdownplugin

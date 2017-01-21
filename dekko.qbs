@@ -217,7 +217,7 @@ Project {
         Depends { name: "Network Lib" }
         Depends { name: "Settings Lib" }
         Depends { name: "Settings Plugin" }
-        Depends { name : "Ubuntu UI Plugin" }
+        Depends { name: "Ubuntu UI Plugin" }
         Depends { name: "Imap Service"; }
         Depends { name: "Pop Service"; }
         Depends { name: "Smtp Service"; }
@@ -229,6 +229,7 @@ Project {
         Depends { name: "PlugMan"; }
         Depends { name: "QuickPlugMan"; }
         Depends { name: "QuickFlux"; }
+        Depends { name: "Markdown Plugin"; }
 
         Group {
             qbs.install: true
