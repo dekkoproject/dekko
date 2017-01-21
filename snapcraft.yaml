@@ -1,7 +1,7 @@
 name: dekko
 version: 0.9.7
 summary: Dekko email client
-description: Fast IMAP e-mail client optimized for mobile
+description: Fast e-mail client for Ubuntu devices
 confinement: devmode
 grade: devel
 
@@ -51,6 +51,8 @@ parts:
             - qtdeclarative5-private-dev
             - qml-module-qtquick-privatewidgets
             - libqt5svg5-dev
+        stage-packages:
+            - libnotify-bin
         snap:
             - -usr/share/doc
             - -usr/include
