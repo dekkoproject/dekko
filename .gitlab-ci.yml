@@ -4,6 +4,8 @@ image: registry.dekkoproject.org/docker/snapcraft:overlay
 
 build:
   stage: build
+  tags:
+    - docker
   script:
     - snapcraft stage
     - snapcraft prime
