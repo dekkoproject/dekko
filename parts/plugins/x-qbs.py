@@ -83,6 +83,7 @@ class QbsPlugin(snapcraft.BasePlugin):
         self.run(['qbs', 'build',
                   '-d', self.builddir,
                   '-f', self.sourcedir,
+                  '--jobs=4',
                   self.options.build_variant,
                   'qbs.installRoot:' + self.installdir, 
                   'project.binDir:/usr/bin',
