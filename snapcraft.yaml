@@ -67,5 +67,6 @@ parts:
         qt-version: qt5
         build-packages:
             - python3-dev
+            - g++
         after: [dekko]
 
