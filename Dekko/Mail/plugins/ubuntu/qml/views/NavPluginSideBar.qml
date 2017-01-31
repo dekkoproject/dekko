@@ -30,15 +30,15 @@ Rectangle {
             },
             Action {
                 iconName: "calendar"
-                onTriggered: console.log("Action Clicked")
+                onTriggered: ViewActions.pushStage("./CalendarStage.qml", {})
             },
             Action {
                 iconName: "stock_note"
-                onTriggered: console.log("Action Clicked")
+                onTriggered: ViewActions.pushStage("./NotesStage.qml", {})
             },
             Action {
                 iconName: "attachment"
-                onTriggered: console.log("Action Clicked")
+                onTriggered: ViewActions.pushStage("./AttachmentsStage.qml", {})
             }
         ]
     }
@@ -144,7 +144,6 @@ Rectangle {
                                 width: height
                                 anchors.centerIn: parent
                             }
-
                         }
                     }
                 }

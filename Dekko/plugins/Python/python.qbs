@@ -22,19 +22,22 @@ Project {
 
             configure: {
                 if (!requirementsFile.length) {
-                    console.info("No python packages to install")
                     return
                 }
                 // we use the Process service to run pip3
                 var p = new Process();
-                p.setWorkingDirectory(path)
-                // override pip's idea of --user location
-                p.setEnv("PYTHONUSERBASE", sourceDir)
-                // Finally run pip
-                if (p.exec("/usr/bin/pip3", ["install", "-r", requirementsFile, "--user"] , true) === 0) {
-                    installed = true
-                } else {
-                   throw "Pip Not working"
+                try {
+                    p.setWorkingDirectory(path)
+                    // override pip's idea of --user location
+                    p.setEnv("PYTHONUSERBASE", sourceDir)
+                    // Finally run pip
+                    if (p.exec("/usr/bin/pip3", ["install", "-r", requirementsFile, "--user"] , true) === 0) {
+                        installed = true
+                    } else {
+                        throw "Pip Not working"
+                    }
+                } finally {
+                    p.close()
                 }
             }
         }

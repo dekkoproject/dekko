@@ -236,4 +236,13 @@ Project {
             fileTagsFilter: product.type
         }
     }
+
+    Product {
+        name: "Some Other Stuff"
+        type: "packaging"
+        Group {
+            name: "Snapcraft"
+            files: "*.yaml"
+        }
+    }
 }

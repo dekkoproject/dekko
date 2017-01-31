@@ -1,0 +1,7 @@
+#!/bin/sh
+
+UID="${USERID:-$(id -u)}"
+
+docker run -u ${UID} -t -i --rm -v $(pwd):/build \
+    --privileged=true \
+    registry.dekkoproject.org/docker/snapcraft:overlay-cli $@

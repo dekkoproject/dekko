@@ -36,6 +36,7 @@ for i in os.listdir(BRANCH_PO):
             print 'Converting {0} to {1}'.format(po_file, ts_file)
             lconvert = subprocess.check_call(['lconvert', '-i', po_file, '-o', ts_file])
             print 'lupdate'
+            
             lupdate = subprocess.check_call(['lupdate', SOURCE_DIR, '-noobsolete', '-ts', ts_file])
         except subprocess.CalledProcessError:
             print "FAILED"

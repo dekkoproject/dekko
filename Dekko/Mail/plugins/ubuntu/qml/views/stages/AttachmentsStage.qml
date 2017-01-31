@@ -19,10 +19,10 @@ import QtQuick 2.4
 import PlugMan 1.0
 
 BaseStage {
-    id: contactsStage
+    id: attachmentsStage
 
     ItemRegistry {
-        target: contactsStage
+        target: attachmentsStage
         location: "Dekko::Stage::Notes"
         loadMode: ItemRegistry.LoadFirstEnabled
         asynchronous: true
