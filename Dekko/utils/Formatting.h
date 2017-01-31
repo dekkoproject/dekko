@@ -32,6 +32,8 @@ public:
     struct Regex {
         static const QString email, hyperlink, bold, italic, underline;
         static const QString signatureSeperator, quotePlain, quoteFlowed;
+
+        static QRegExp sigSeperator();
     };
 
     static QString singleLinePlainTextToHtml(QString line);
