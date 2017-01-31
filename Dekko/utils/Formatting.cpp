@@ -424,19 +424,19 @@ QString Formatting::singleLinePlainTextToHtml(QString line)
     line = line.toHtmlEscaped();
 
     auto htmlifyLink = [](QString &line, const QString &link) {
-//        qDebug() << "Link: " << link;
+        //        qDebug() << "Link: " << link;
         QString urlreplace(QStringLiteral("<a href=%1>%1</a>").arg(link));
         line.replace(link, urlreplace);
     };
 
     auto htmlifyEmail = [](QString &line, const QString &mail) {
-//        qDebug() << "Mailto: " << mail;
+        //        qDebug() << "Mailto: " << mail;
         QString urlreplace(QStringLiteral("<a href=\"mailto:%1\">%1</a>").arg(mail));
         line.replace(mail, urlreplace);
     };
 
     auto htmlifySpecials = [](QString &line, const QString &value, const QString &tag) {
-//        qDebug() << "Specials: " << value << tag;
+        //        qDebug() << "Specials: " << value << tag;
         QString urlreplace(QStringLiteral("<%1>%2</%1>").arg(tag, value));
         line.replace(value, urlreplace);
     };
@@ -480,130 +480,128 @@ QString Formatting::plainTextToHtml(const QString &text)
 QString Formatting::markupPlainTextToHtml(const QString &text)
 {
     static const QString defaultStyle = QString::fromUtf8(
-            "pre{word-wrap: break-word; white-space: pre-wrap;}"
-            // The following line, sadly, produces a warning "QFont::setPixelSize: Pixel size <= 0 (0)".
-            // However, if it is not in place or if the font size is set higher, even to 0.1px, WebKit reserves space for the
-            // quotation characters and therefore a weird white area appears. Even width: 0px doesn't help, so it looks like
-            // we will have to live with this warning for the time being.
-            ".quotemarks{color:transparent;font-size:0px;}"
+                "pre{word-wrap: break-word; white-space: pre-wrap;}"
+                // The following line, sadly, produces a warning "QFont::setPixelSize: Pixel size <= 0 (0)".
+                // However, if it is not in place or if the font size is set higher, even to 0.1px, WebKit reserves space for the
+                // quotation characters and therefore a weird white area appears. Even width: 0px doesn't help, so it looks like
+                // we will have to live with this warning for the time being.
+                ".quotemarks{color:transparent;font-size:0px;}"
 
-            // Cannot really use the :dir(rtl) selector for putting the quote indicator to the "correct" side.
-            // It's CSS4 and it isn't supported yet.
-            "blockquote{margin: 0 0 0 .8ex; border-left: 1px #ccc solid; unicode-bidi: -webkit-plaintext; padding-left:1ex}"
+                // Cannot really use the :dir(rtl) selector for putting the quote indicator to the "correct" side.
+                // It's CSS4 and it isn't supported yet.
+                "blockquote{margin: 0 0 0 .8ex; border-left: 1px #ccc solid; unicode-bidi: -webkit-plaintext; padding-left:1ex}"
 
-            // Stop the font size from getting smaller after reaching two levels of quotes
-            // (ie. starting on the third level, don't make the size any smaller than what it already is)
-            "blockquote blockquote blockquote {}"
-            ".signature{opacity: 0.6;}"
+                // Stop the font size from getting smaller after reaching two levels of quotes
+                // (ie. starting on the third level, don't make the size any smaller than what it already is)
+                "blockquote blockquote blockquote {}"
+                ".signature{opacity: 0.6;}"
 
-            // Dynamic quote collapsing via pure CSS, yay
-            "input {display: none}"
-            "input ~ span.full {display: block}"
-            "input ~ span.short {display: none}"
-            "input:checked ~ span.full {display: block}"
-            "input:checked ~ span.short {display: none}"
-            "label {display: none; border: 1px solid %2; border-radius: 5px; padding: 0px 4px 0px 4px; white-space: nowrap}"
-            // BLACK UP-POINTING SMALL TRIANGLE (U+25B4)
-            // BLACK DOWN-POINTING SMALL TRIANGLE (U+25BE)
-            "span.full > blockquote > label:before {content: \"\u25b4\"}"
-            "span.short > blockquote > label:after {content: \" \u25be\"}"
-            "span.shortquote > blockquote > label {display: none}"
-        );
+                // Dynamic quote collapsing via pure CSS, yay
+                "input {display: none}"
+                "input ~ span.full {display: block}"
+                "input ~ span.short {display: none}"
+                "input:checked ~ span.full {display: block}"
+                "input:checked ~ span.short {display: none}"
+                "label {display: none; border: 1px solid %2; border-radius: 5px; padding: 0px 4px 0px 4px; white-space: nowrap}"
+                // BLACK UP-POINTING SMALL TRIANGLE (U+25B4)
+                // BLACK DOWN-POINTING SMALL TRIANGLE (U+25BE)
+                "span.full > blockquote > label:before {content: \"\u25b4\"}"
+                "span.short > blockquote > label:after {content: \" \u25be\"}"
+                "span.shortquote > blockquote > label {display: none}"
+                );
 
 
-        QPalette palette = QGuiApplication::palette();
-        QString textColors = QString::fromUtf8("body { color: #5D5D5D; font-family: Ubuntu !important; font-size: 1.1rem; weight: light }"
-                                               "a:link { color: #19b6ee } a:visited { color: #19b6ee } a:hover { color: #19b6ee }");
-        // looks like there's no special color for hovered links in Qt
+    QPalette palette = QGuiApplication::palette();
+    QString textColors = QString::fromUtf8("body { color: #5D5D5D; font-family: Ubuntu !important; font-size: 1.1rem; weight: light }"
+                                           "a:link { color: #19b6ee } a:visited { color: #19b6ee } a:hover { color: #19b6ee }");
+    // looks like there's no special color for hovered links in Qt
 
-        // build stylesheet and html header
-        QColor tintForQuoteIndicator = palette.base().color();
-        tintForQuoteIndicator.setAlpha(0x66);
-        static QString stylesheet = defaultStyle + textColors;
-        static QFile file(Paths::configLocationForFile(QStringLiteral("message.css")));
-        static QDateTime lastVersion;
-        QDateTime lastTouched(file.exists() ? QFileInfo(file).lastModified() : QDateTime());
-        if (lastVersion < lastTouched) {
-            stylesheet = defaultStyle;
-            if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-                const QString userSheet = QString::fromLocal8Bit(file.readAll().data());
-                lastVersion = lastTouched;
-                stylesheet += "\n" + userSheet;
-                file.close();
-            }
+    // build stylesheet and html header
+    QColor tintForQuoteIndicator = palette.base().color();
+    tintForQuoteIndicator.setAlpha(0x66);
+    static QString stylesheet = defaultStyle + textColors;
+    static QFile file(Paths::configLocationForFile(QStringLiteral("message.css")));
+    static QDateTime lastVersion;
+    QDateTime lastTouched(file.exists() ? QFileInfo(file).lastModified() : QDateTime());
+    if (lastVersion < lastTouched) {
+        stylesheet = defaultStyle;
+        if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            const QString userSheet = QString::fromLocal8Bit(file.readAll().data());
+            lastVersion = lastTouched;
+            stylesheet += "\n" + userSheet;
+            file.close();
         }
+    }
 
-        // The dir="auto" is required for WebKit to treat all paragraphs as entities with possibly different text direction.
-        // The individual paragraphs unfortunately share the same text alignment, though, as per
-        // https://bugs.webkit.org/show_bug.cgi?id=71194 (fixed in Blink already).
-        QString htmlHeader("<!DOCTYPE html><html><head><meta name=\"description\" content=\"plaintext\"><style type=\"text/css\"><!--" /*+ textColors + fontSpecification*/ + stylesheet +
-                           "--></style></head><body><pre dir=\"auto\">");
-        static QString htmlFooter(QStringLiteral("\n</pre></body></html>"));
+    // The dir="auto" is required for WebKit to treat all paragraphs as entities with possibly different text direction.
+    // The individual paragraphs unfortunately share the same text alignment, though, as per
+    // https://bugs.webkit.org/show_bug.cgi?id=71194 (fixed in Blink already).
+    QString htmlHeader("<!DOCTYPE html><html><head><meta name=\"description\" content=\"plaintext\"><style type=\"text/css\"><!--" /*+ textColors + fontSpecification*/ + stylesheet +
+                       "--></style></head><body><pre dir=\"auto\">");
+    static QString htmlFooter(QStringLiteral("\n</pre></body></html>"));
 
-        QString markup = Formatting::plainTextToHtml(text);
-        // and finally set the marked up page.
-        return htmlHeader + markup + htmlFooter;
+    QString markup = Formatting::plainTextToHtml(text);
+    // and finally set the marked up page.
+    return htmlHeader + markup + htmlFooter;
 }
 
 // pinched from trojita/Composer/PlainTextFormatter.cpp and modified to use QRegularExpression
 QStringList Formatting::quoteBody(QStringList bodyLines)
 {
-    QStringList quoted;
-    static QRegularExpression sig(Formatting::Regex::signatureSeperator);
-    //sig.match(line, 0).hasMatch()
+    QStringList quote;
     for (QStringList::iterator line = bodyLines.begin(); line != bodyLines.end(); ++line) {
-        if (sig.match(*line, 0).hasMatch()) {
+        if (Formatting::Regex::sigSeperator().exactMatch(*line)) {
             // we've hit the top level signature. In Dekko we don't include this
             // but other clients do... but they will be nested in > quote blocks so that's fine and we
             // will just work with that.
             break;
         }
-        if (line->length() < 79 - 2) {
-            if (line->isEmpty() || line->at(0) == QChar('>')) {
-                line->prepend(QStringLiteral(">"));
-            } else {
-                line->prepend(QStringLiteral("> "));
-            }
-            quoted << *line;
+        // rewrap - we need to keep the quotes at < 79 chars, yet the grow with every level
+        if (line->length() < 79-2) {
+            // this line is short enough, prepend quote mark and continue
+            if (line->isEmpty() || line->at(0) == '>')
+                line->prepend(">");
+            else
+                line->prepend("> ");
+            quote << *line;
             continue;
         }
-
+        // long line -> needs to be wrapped
+        // 1st, detect the quote depth and eventually stript the quotes from the line
         int quoteLevel = 0;
         int contentStart = 0;
-        if (line->at(0) == QChar('>')) {
+        if (line->at(0) == '>') {
             quoteLevel = 1;
-            while (quoteLevel < line->length() && line->at(0) == QChar('>')) {
+            while (quoteLevel < line->length() && line->at(quoteLevel) == '>')
                 ++quoteLevel;
-            }
             contentStart = quoteLevel;
-            if (quoteLevel < line->length() && line->at(quoteLevel) == QChar(' ')) {
+            if (quoteLevel < line->length() && line->at(quoteLevel) == ' ')
                 ++contentStart;
-            }
         }
 
-        QString qm;
-        for (int i = 0; i < quoteLevel; ++i) {
-            qm += QStringLiteral(">");
-        }
-        qm += QStringLiteral("> ");
+        // 2nd, build a quote string
+        QString quotemarks;
+        for (int i = 0; i < quoteLevel; ++i)
+            quotemarks += QLatin1String(">");
+        quotemarks += QLatin1String("> ");
 
+        // 3rd, wrap the line, prepend the quotemarks to each line and add it to the quote text
         int space(contentStart), lastSpace(contentStart), pos(contentStart), length(0);
         while (pos < line->length()) {
-            if (line->at(pos) == QChar(' ')) {
-                space = pos + 1;
-            }
+            if (line->at(pos) == ' ')
+                space = pos+1;
             ++length;
-            if (length > ( 65 - qm.length()) && space != lastSpace) {
+            if (length > 65-quotemarks.length() && space != lastSpace) {
                 // wrap
-                quoted << qm + line->mid(lastSpace, space - lastSpace);
+                quote << quotemarks + line->mid(lastSpace, space - lastSpace);
                 lastSpace = space;
                 length = pos - space;
             }
             ++pos;
         }
-        quoted << qm + line->mid(lastSpace);
+        quote << quotemarks + line->mid(lastSpace);
     }
-    return quoted;
+    return quote;
 }
 
 QString Formatting::mangleReplySubject(const QString &subject)
@@ -653,3 +651,10 @@ QString Formatting::mangleForwardSubject(const QString &subject)
     return forwardPrefix + subject;
 }
 
+
+QRegExp Formatting::Regex::sigSeperator()
+{
+    // "-- " is the standards-compliant signature separator.
+    // "Line of underscores" is non-standard garbage which Mailman happily generates. Yes, it's nasty and ugly.
+    return QRegExp(QLatin1String("(-- |_{45,})(\\r)?"));
+}
