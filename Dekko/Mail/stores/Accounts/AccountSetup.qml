@@ -294,6 +294,7 @@ AppListener {
                 account.outgoing.port = config.port
                 account.outgoing.encryption = config.encryption
                 account.outgoing.saslMechanism = config.authentication
+                account.outgoing.acceptUntrustedCertificates = config.allowUntrusted
             } else {
                 account.incoming.name = config.username
                 account.incoming.email = config.username
@@ -302,6 +303,7 @@ AppListener {
                 account.incoming.port = config.port
                 account.incoming.encryption = config.encryption
                 account.incoming.saslMechanism = config.authentication
+                account.incoming.acceptUntrustedCertificates = config.allowUntrusted
             }
             account.save()
         }
@@ -336,10 +338,12 @@ AppListener {
             account.incoming.port = cfg.imapPort
             account.incoming.encryption = d.getPresetEncryptionMethod(cfg.imapStartTLS, cfg.imapUseSSL)
             account.incoming.saslMechanism = AccountConfig.LOGIN
+            account.incoming.acceptUntrustedCertificates = false
             account.outgoing.server = cfg.smtpHost
             account.outgoing.port = cfg.smtpPort
             account.outgoing.encryption = d.getPresetEncryptionMethod(cfg.smtpStartTLS, cfg.smtpUseSSL)
             account.outgoing.saslMechanism = AccountConfig.LOGIN
+            account.outgoing.acceptUntrustedCertificates = false
             d.isPresetAccount = true
         }
     }
