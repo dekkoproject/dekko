@@ -11,22 +11,22 @@
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/AccountSettingsList.qml" line="56"/>
         <source>Details</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tiedot</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/AccountSettingsList.qml" line="60"/>
         <source>Incoming Server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Saapuvan sähköpostin palvelin</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/AccountSettingsList.qml" line="64"/>
         <source>Outgoing Server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lähtevän sähköpostin palvelin</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/AccountSettingsList.qml" line="68"/>
         <source>Copies and Folders</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kopiot ja kansiot</translation>
     </message>
 </context>
 <context>
@@ -37,7 +37,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/stores/Accounts/AccountSetup.qml" line="532"/>
+        <location filename="../Dekko/Mail/stores/Accounts/AccountSetup.qml" line="536"/>
         <source>Sent using Dekko from my Ubuntu device</source>
         <translation type="unfinished">Lähetetty Dekko-sovelluksella Ubuntu-laitteella</translation>
     </message>
@@ -48,22 +48,22 @@
         <location filename="../Dekko/Mail/workers/AccountsWorker.qml" line="35"/>
         <location filename="../Dekko/Mail/workers/AccountsWorker.qml" line="89"/>
         <source>Account removal failed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tilin poisto epäonnistui</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/workers/AccountsWorker.qml" line="53"/>
         <source>Remove account</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Poista tili</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/workers/AccountsWorker.qml" line="53"/>
         <source>Are you sure you wish to remove this account?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Oletko varma että haluat poistaa tämän tilin</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/workers/AccountsWorker.qml" line="86"/>
         <source>Account removed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tili poistettu</translation>
     </message>
 </context>
 <context>
@@ -71,12 +71,12 @@
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/AddAnotherUI.qml" line="30"/>
         <source>Success</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Onnistui</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/AddAnotherUI.qml" line="89"/>
         <source>New account created.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Uusi tili luotu</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/AddAnotherUI.qml" line="98"/>
@@ -86,7 +86,7 @@
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/AddAnotherUI.qml" line="110"/>
         <source>Add another</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lisää toinen</translation>
     </message>
 </context>
 <context>
@@ -94,12 +94,12 @@
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/contacts/AddressBookList.qml" line="12"/>
         <source>Addressbooks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Osoitekirjat</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/contacts/AddressBookList.qml" line="65"/>
         <source>Add Collection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lisää kokoelma</translation>
     </message>
 </context>
 <context>
@@ -107,6 +107,14 @@
     <message>
         <location filename="../Dekko/Contacts/addressbook-TODO/src/qml/plugin/AddressBookPlugin.qml" line="12"/>
         <source>Example Addressbook</source>
+        <translation type="unfinished">Osoitekirjan esimerkki</translation>
+    </message>
+</context>
+<context>
+    <name>AddressBookStage</name>
+    <message>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/stages/AddressBookStage.qml" line="34"/>
+        <source>Coming soon</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -127,11 +135,19 @@
     </message>
 </context>
 <context>
+    <name>AttachmentsStage</name>
+    <message>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/stages/AttachmentsStage.qml" line="34"/>
+        <source>Coming soon</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AuthenticationSelector</name>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/components/AuthenticationSelector.qml" line="45"/>
         <source>Authentication</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Todennus</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/components/AuthenticationSelector.qml" line="60"/>
@@ -159,7 +175,7 @@
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/states/AutoConfigState.qml" line="76"/>
         <source>IMAP server found</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">IMAP-palvelin löydetty</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/states/AutoConfigState.qml" line="77"/>
@@ -178,18 +194,26 @@ Would you like to use this instead?</source>
     </message>
 </context>
 <context>
+    <name>CalendarStage</name>
+    <message>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/stages/CalendarStage.qml" line="34"/>
+        <source>Coming soon</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ClientService</name>
     <message>
         <location filename="../Dekko/Mail/backend/mail/ClientService.cpp" line="76"/>
         <location filename="../Dekko/Mail/backend/mail/ClientService.cpp" line="80"/>
         <source>messages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">viestiä</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/ClientService.cpp" line="76"/>
         <location filename="../Dekko/Mail/backend/mail/ClientService.cpp" line="80"/>
         <source>message</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">viesti</translation>
     </message>
 </context>
 <context>
@@ -197,7 +221,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Contacts/addressbook-TODO/src/qml/CollectionListModel.qml" line="73"/>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tuntematon</translation>
     </message>
 </context>
 <context>
@@ -213,7 +237,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/composer/Composer.qml" line="52"/>
         <source>Attach</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Liitä</translation>
     </message>
 </context>
 <context>
@@ -221,7 +245,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/stores/Composer/ComposerStore.qml" line="94"/>
         <source>Message queued.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Viesti lisätty jonoon.</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/stores/Composer/ComposerStore.qml" line="98"/>
@@ -249,7 +273,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/stores/Composer/ComposerStoreActions.qml" line="47"/>
         <source>Attach</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Liitä</translation>
     </message>
 </context>
 <context>
@@ -262,7 +286,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/workers/ComposerWorker.qml" line="119"/>
         <source>Are you sure you want to discard this message?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Oletko varma että haluat hylätä tämän viestin</translation>
     </message>
 </context>
 <context>
@@ -283,12 +307,12 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/ContactFilterView.qml" line="112"/>
         <source>Add contact</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lisää yhteystieto</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/ContactFilterView.qml" line="123"/>
         <source>Send message</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lähetä viesti</translation>
     </message>
 </context>
 <context>
@@ -296,7 +320,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/contacts/ContactListPage.qml" line="11"/>
         <source>Address book</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Osoitekirja</translation>
     </message>
 </context>
 <context>
@@ -304,7 +328,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/contacts/ContactView.qml" line="11"/>
         <source>Contact</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Yhteystieto</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/contacts/ContactView.qml" line="61"/>
@@ -314,32 +338,32 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/contacts/ContactView.qml" line="78"/>
         <source>Phone</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Puhelin</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/contacts/ContactView.qml" line="92"/>
         <source>Address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Osoite</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/contacts/ContactView.qml" line="96"/>
         <source>Street</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Katu</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/contacts/ContactView.qml" line="102"/>
         <source>City</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kaupunki</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/contacts/ContactView.qml" line="108"/>
         <source>Zip</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Postinumero</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/contacts/ContactView.qml" line="114"/>
         <source>Country</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Maa</translation>
     </message>
 </context>
 <context>
@@ -347,7 +371,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/contacts/ContactsListView.qml" line="36"/>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Etsi</translation>
     </message>
 </context>
 <context>
@@ -355,12 +379,12 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/webview/ContentBlockedNotice.qml" line="41"/>
         <source>Remote content blocked</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Etäsisältö estetty</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/webview/ContentBlockedNotice.qml" line="54"/>
         <source>Allow</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Salli</translation>
     </message>
 </context>
 <context>
@@ -368,7 +392,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/ContributorsPage.qml" line="25"/>
         <source>Contributors</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Avustavat kehittäjät</translation>
     </message>
 </context>
 <context>
@@ -376,12 +400,12 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="30"/>
         <source>Copies and Folders</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kopiot ja kansiot</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="124"/>
         <source>Standard folders</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Normaalit kansiot</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="136"/>
@@ -401,42 +425,42 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="175"/>
         <source>Leave empty if you are unsure</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Jätä tyhjäksi jos en ole varma</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="190"/>
         <source>Inbox folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Saapuneet</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="205"/>
         <source>Drafts folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Luonnokset</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="220"/>
         <source>Spam folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Roskaposti</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="235"/>
         <source>Sent folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lähetetyt</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="250"/>
         <source>Outbox folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lähtevät</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="265"/>
         <source>Trash folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Roskakori</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/CopyFoldersGroup.qml" line="274"/>
         <source>Sending messages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lähettää viestejä</translation>
     </message>
 </context>
 <context>
@@ -462,12 +486,12 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/plugins/default/addressbook/DefaultPlugin.qml" line="11"/>
         <source>Internal</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sisäinen</translation>
     </message>
     <message>
         <location filename="../Dekko/plugins/default/addressbook/DefaultPlugin.qml" line="106"/>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Oletus</translation>
     </message>
 </context>
 <context>
@@ -496,7 +520,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/messageview/DetailList.qml" line="47"/>
         <source>Details</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tiedot</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/messageview/DetailList.qml" line="52"/>
@@ -514,12 +538,12 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/DetailsGroup.qml" line="27"/>
         <source>Details</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tiedot</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/DetailsGroup.qml" line="62"/>
         <source>Account name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tilin nimi</translation>
     </message>
 </context>
 <context>
@@ -532,7 +556,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/workers/DialogWorker.qml" line="41"/>
         <source>Notice</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ilmoitus</translation>
     </message>
 </context>
 <context>
@@ -545,22 +569,22 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/DisplaySettings.qml" line="32"/>
         <source>Show smart folders</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Näytä älykkäät kansiot</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/DisplaySettings.qml" line="42"/>
         <source>Show favourite folders</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Näytä suosikkikansiot</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/DisplaySettings.qml" line="53"/>
         <source>Messages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Viestit</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/DisplaySettings.qml" line="57"/>
         <source>Show avatars</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Näytä avataarit</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/DisplaySettings.qml" line="67"/>
@@ -573,7 +597,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/DisplaySettingsPage.qml" line="21"/>
         <source>Display Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lukuasetukset</translation>
     </message>
 </context>
 <context>
@@ -581,7 +605,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/DisplaySettingsPopup.qml" line="21"/>
         <source>Display Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lukuasetukset</translation>
     </message>
 </context>
 <context>
@@ -589,7 +613,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/components/EncryptionSelector.qml" line="46"/>
         <source>Encryption</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Salaus</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/components/EncryptionSelector.qml" line="61"/>
@@ -612,17 +636,17 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/workers/ErrorsWorker.qml" line="78"/>
         <source>No connection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ei yhteyttä</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/workers/ErrorsWorker.qml" line="86"/>
         <source>Connection unavailable</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Yhteyttä ei voitu muodostaa</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/workers/ErrorsWorker.qml" line="102"/>
         <source>Action timed out</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Toiminto aikakatkaistiin</translation>
     </message>
 </context>
 <context>
@@ -638,7 +662,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/backend/mail/ClientServiceAction.cpp" line="140"/>
         <source>Syncing changes for %1 account</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Synkronoidaan tiliä %1</translation>
     </message>
 </context>
 <context>
@@ -654,22 +678,22 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/backend/mail/ClientServiceAction.cpp" line="162"/>
         <source>important</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">tärkeä</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/ClientServiceAction.cpp" line="165"/>
         <source>not important</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ei tärkeä</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/ClientServiceAction.cpp" line="174"/>
         <source>read</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">luettu</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/ClientServiceAction.cpp" line="177"/>
         <source>unread</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">lukematta</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/ClientServiceAction.cpp" line="186"/>
@@ -684,7 +708,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/backend/mail/ClientServiceAction.cpp" line="194"/>
         <source>Marking %1 messages %2</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 viestiä merkitty %2</translation>
     </message>
 </context>
 <context>
@@ -702,12 +726,12 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/backend/mail/Folder.cpp" line="93"/>
         <source>Spam</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Roskaposti</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/Folder.cpp" line="95"/>
         <source>Outbox</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lähetetyt</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/Folder.cpp" line="97"/>
@@ -717,7 +741,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/backend/mail/Folder.cpp" line="99"/>
         <source>Trash</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Roskakori</translation>
     </message>
 </context>
 <context>
@@ -725,12 +749,12 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/delegates/FolderListDelegate.qml" line="52"/>
         <source>Un-favourite</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Poista suosikeista</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/delegates/FolderListDelegate.qml" line="52"/>
         <source>Favourite</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Merkitse suosikiksi</translation>
     </message>
 </context>
 <context>
@@ -754,12 +778,12 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IdentitiesListPage.qml" line="14"/>
         <source>Identities</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Identiteetit</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IdentitiesListPage.qml" line="106"/>
         <source> (Default)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> (Oletus)</translation>
     </message>
 </context>
 <context>
@@ -767,12 +791,12 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IdentityInput.qml" line="54"/>
         <source>Default identity</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Oletus identiteetti</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IdentityInput.qml" line="67"/>
         <source>Account</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tili</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IdentityInput.qml" line="105"/>
@@ -787,7 +811,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IdentityInput.qml" line="115"/>
         <source>Reply-To</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vastaa</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IdentityInput.qml" line="119"/>
@@ -998,7 +1022,7 @@ Would you like to use this instead?</source>
         <location filename="../upstream/qmf/plugins/messageservices/imap/imapservice.cpp" line="660"/>
         <location filename="../upstream/qmf/plugins/messageservices/imap/imapservice.cpp" line="689"/>
         <source>Could not delete messages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Viestien poisto epäonnistui</translation>
     </message>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/imap/imapservice.cpp" line="737"/>
@@ -1049,7 +1073,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/imap/imapservice.cpp" line="1091"/>
         <source>Trash</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Roskakori</translation>
     </message>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/imap/imapservice.cpp" line="1128"/>
@@ -1112,7 +1136,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/imap/imapsettings.ui" line="166"/>
         <source>Encryption</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Salaus</translation>
     </message>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/imap/imapsettings.ui" line="183"/>
@@ -1133,7 +1157,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/imap/imapsettings.ui" line="207"/>
         <source>Authentication</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Todennus</translation>
     </message>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/imap/imapsettings.ui" line="229"/>
@@ -1203,17 +1227,17 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/imap/imapsettings.ui" line="460"/>
         <source>Drafts folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Luonnokset</translation>
     </message>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/imap/imapsettings.ui" line="528"/>
         <source>Sent folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lähetetyt</translation>
     </message>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/imap/imapsettings.ui" line="596"/>
         <source>Trash folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Roskakori</translation>
     </message>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/imap/imapsettings.ui" line="664"/>
@@ -1231,12 +1255,12 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="27"/>
         <source>Incoming Server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Saapuvan sähköpostin palvelin</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="104"/>
         <source>Hostname</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Palvelinnimi</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="113"/>
@@ -1262,22 +1286,22 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="147"/>
         <source>Security settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tietoturva-asetukset</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="182"/>
         <source>Allow untrusted certificates</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Salli epäluotettavien sertifikaattien käyttö</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="187"/>
         <source>Server settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Palvelin asetukset</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="192"/>
         <source>Check for new mail on start</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tarkista uudet viestit ohjelman käynnistyessä</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="198"/>
@@ -1287,7 +1311,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="205"/>
         <source>Check interval (minutes)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tarkistusväli (minuutteja)</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="212"/>
@@ -1297,17 +1321,17 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="218"/>
         <source>Maximum mail size (MB)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sähköpostin maksimikoko (MB)</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="224"/>
         <source>No maximum mail size</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ei sähköpostin maksimikokoa</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="232"/>
         <source>Automatically download attachments</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lataa liitteet automaattisesti</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IncomingServerGroup.qml" line="238"/>
@@ -1320,7 +1344,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/LicensesPage.qml" line="25"/>
         <source>Licenses</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lisenssit</translation>
     </message>
 </context>
 <context>
@@ -1328,7 +1352,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/MailSettings.qml" line="11"/>
         <source>Mail Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sähköpostiasetukset</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/MailSettings.qml" line="24"/>
@@ -1338,17 +1362,17 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/MailSettings.qml" line="34"/>
         <source>Identities</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Identiteetit</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/MailSettings.qml" line="44"/>
         <source>Display</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ulkoasu</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/MailSettings.qml" line="51"/>
         <source>Privacy</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Yksityisyys</translation>
     </message>
 </context>
 <context>
@@ -1386,7 +1410,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/stores/Mail/MailStore.qml" line="38"/>
         <source>Calendar</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kalenteri</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/stores/Mail/MailStore.qml" line="39"/>
@@ -1455,7 +1479,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/MailboxPickerPage.qml" line="33"/>
         <source>Select folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Valitse kansio</translation>
     </message>
 </context>
 <context>
@@ -1463,7 +1487,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/workers/MailboxWorker.qml" line="129"/>
         <source>Message moved</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Viesti siirretty</translation>
     </message>
 </context>
 <context>
@@ -1472,7 +1496,7 @@ Would you like to use this instead?</source>
         <location filename="../Dekko/Mail/plugins/qqc2/qml/MainUI.qml" line="11"/>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/MainUI.qml" line="17"/>
         <source>Dekko Mail</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dekko sähköposti</translation>
     </message>
 </context>
 <context>
@@ -1480,7 +1504,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/ManageAccountsPage.qml" line="26"/>
         <source>Manage accounts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Hallitse tunnuksia</translation>
     </message>
 </context>
 <context>
@@ -1488,42 +1512,42 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="28"/>
         <source>Server configuration</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Palvelinasetukset</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="33"/>
         <source>IMAP Server:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">IMAP-palvelin:</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="46"/>
         <source>POP3 Server:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">POP3-palvelin:</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="59"/>
         <source>SMTP Server:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">SMTP-palvelin:</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="71"/>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Takaisin</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="75"/>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Seuraava</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="135"/>
         <source>Password empty</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ei salasanaa</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ManualInputUI.qml" line="135"/>
         <source>Would you like to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Haluatko jatkaa?</translation>
     </message>
 </context>
 <context>
@@ -1577,27 +1601,27 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/backend/mail/MessageBuilder.cpp" line="321"/>
         <source>Forwarded Message</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Välitetty viesti</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/MessageBuilder.cpp" line="322"/>
         <source>Date: </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Päivämäärä: </translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/MessageBuilder.cpp" line="323"/>
         <source>From: </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lähettäjä: </translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/MessageBuilder.cpp" line="324"/>
         <source>To: </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vastaanottaja: </translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/MessageBuilder.cpp" line="325"/>
         <source>Subject: </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aihe: </translation>
     </message>
 </context>
 <context>
@@ -1605,7 +1629,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/backend/mail/MessageFilterCollection.cpp" line="79"/>
         <source>All inboxes</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kaikki saapuneet</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/MessageFilterCollection.cpp" line="89"/>
@@ -1615,12 +1639,12 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/backend/mail/MessageFilterCollection.cpp" line="99"/>
         <source>Spam</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Roskaposti</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/MessageFilterCollection.cpp" line="109"/>
         <source>Outbox</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lähetetyt</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/MessageFilterCollection.cpp" line="119"/>
@@ -1630,22 +1654,22 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/backend/mail/MessageFilterCollection.cpp" line="128"/>
         <source>Trash</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Roskakori</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/MessageFilterCollection.cpp" line="140"/>
         <source>Today, %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tänään, %1</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/MessageFilterCollection.cpp" line="149"/>
         <source>To-do</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tehtävät</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/MessageFilterCollection.cpp" line="158"/>
         <source>Done</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Valmis</translation>
     </message>
 </context>
 <context>
@@ -1666,7 +1690,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="44"/>
         <source>Mark as unread</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Merkitse lukemattomaksi</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="44"/>
@@ -1681,22 +1705,22 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="52"/>
         <source>Mark as important</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Merkitse tärkeäksi</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="60"/>
         <source>Mark as spam</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Merkitse roskapostiksi</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="73"/>
         <source>To-do</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tehtävät</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="89"/>
         <source>Done</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Valmis</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="103"/>
@@ -1721,7 +1745,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="142"/>
         <source>Restore to %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Palauta %1:iin</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageListActionPopover.qml" line="151"/>
@@ -1754,12 +1778,12 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/delegates/MessageListDelegate.qml" line="57"/>
         <source>Move message</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Siirrä viesti</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/delegates/MessageListDelegate.qml" line="62"/>
         <source>Context menu</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kontekstivalikko</translation>
     </message>
 </context>
 <context>
@@ -1802,7 +1826,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/MessageListView.qml" line="323"/>
         <source>Load more messages ...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lataa lisää viestejä ...</translation>
     </message>
 </context>
 <context>
@@ -1810,17 +1834,17 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageViewContextMenu.qml" line="46"/>
         <source>Open in browser</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Avaa selaimessa</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageViewContextMenu.qml" line="54"/>
         <source>Copy link</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kopioi linkki</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageViewContextMenu.qml" line="63"/>
         <source>Share link</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Jaa linkki</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/MessageViewContextMenu.qml" line="77"/>
@@ -1872,7 +1896,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/models/NavMenuAccountSettingsModel.qml" line="29"/>
         <source>Manage accounts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Hallitse tunnuksia</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/models/NavMenuAccountSettingsModel.qml" line="45"/>
@@ -1882,7 +1906,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/models/NavMenuAccountSettingsModel.qml" line="67"/>
         <source>Privacy settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Yksityisyysasetukset</translation>
     </message>
 </context>
 <context>
@@ -1895,12 +1919,12 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/models/NavMenuContactsModel.qml" line="43"/>
         <source>Recent contacts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Viimeaikaiset yhteystiedot</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/models/NavMenuContactsModel.qml" line="58"/>
         <source>Import contacts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tuo yhteystiedot</translation>
     </message>
 </context>
 <context>
@@ -1908,17 +1932,17 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/models/NavMenuDekkoVisualModel.qml" line="27"/>
         <source>Version</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Versio</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/models/NavMenuDekkoVisualModel.qml" line="45"/>
         <source>Licenses</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lisenssit</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/models/NavMenuDekkoVisualModel.qml" line="63"/>
         <source>Contributors</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Avustavat kehittäjät</translation>
     </message>
 </context>
 <context>
@@ -1931,7 +1955,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/models/NavMenuModel.qml" line="120"/>
         <source>Folders</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kansiot</translation>
     </message>
 </context>
 <context>
@@ -1940,12 +1964,12 @@ Would you like to use this instead?</source>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/NavMenuPage.qml" line="30"/>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/NavMenuPage.qml" line="64"/>
         <source>Mail</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sähköposti</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/NavMenuPage.qml" line="67"/>
         <source>Contacts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Yhteystiedot</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/NavMenuPage.qml" line="70"/>
@@ -1963,7 +1987,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/delegates/NavMenuStandardFolderDelegate.qml" line="178"/>
         <source>Inbox (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Saapuneet (%1)</translation>
     </message>
 </context>
 <context>
@@ -1976,7 +2000,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/NavSideBar.qml" line="169"/>
         <source>Folders</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kansiot</translation>
     </message>
 </context>
 <context>
@@ -1984,7 +2008,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/NavViewContextMenu.qml" line="44"/>
         <source>Sync folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Synkronoi kansio</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/NavViewContextMenu.qml" line="53"/>
@@ -1994,7 +2018,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/NavViewContextMenu.qml" line="70"/>
         <source>Mark folder read</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Merkitsi kansio luetuksi</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/NavViewContextMenu.qml" line="79"/>
@@ -2004,12 +2028,12 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/NavViewContextMenu.qml" line="101"/>
         <source>Empty trash</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tyhjennä roskakori</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/NavViewContextMenu.qml" line="110"/>
         <source>Folder properties</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kansion ominaisuudet</translation>
     </message>
 </context>
 <context>
@@ -2030,11 +2054,19 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/NoAccountsUI.qml" line="92"/>
         <source>No email account is setup.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tiliä ei luotu</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/NoAccountsUI.qml" line="101"/>
         <source>Add now</source>
+        <translation type="unfinished">Lisää nyt</translation>
+    </message>
+</context>
+<context>
+    <name>NotesStage</name>
+    <message>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/stages/NotesStage.qml" line="34"/>
+        <source>Coming soon</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2043,7 +2075,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/NothingSelectedPage.qml" line="60"/>
         <source>No message selected</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Viestiä ei valittuna</translation>
     </message>
 </context>
 <context>
@@ -2051,12 +2083,12 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="27"/>
         <source>Outgoing Server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lähtevän sähköpostin palvelin</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="74"/>
         <source>Hostname</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Palvelinnimi</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="82"/>
@@ -2082,7 +2114,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="115"/>
         <source>Security settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tietoturva-asetukset</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="148"/>
@@ -2092,7 +2124,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/OutgoingServerGroup.qml" line="154"/>
         <source>Allow untrusted certificates</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Salli epäluotettavien sertifikaattien käyttö</translation>
     </message>
 </context>
 <context>
@@ -2209,7 +2241,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/pop/popsettings.ui" line="163"/>
         <source>Encryption</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Salaus</translation>
     </message>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/pop/popsettings.ui" line="180"/>
@@ -2263,12 +2295,12 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/PrivacySettings.qml" line="28"/>
         <source>Message content</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Viestin sisältö</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/PrivacySettings.qml" line="32"/>
         <source>Allow remote content</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Salli etäsisältö</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/PrivacySettings.qml" line="42"/>
@@ -2281,7 +2313,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/PrivacySettingsPage.qml" line="21"/>
         <source>Privacy Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Yksityisyysasetukset</translation>
     </message>
 </context>
 <context>
@@ -2289,7 +2321,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/PrivacySettingsPopup.qml" line="21"/>
         <source>Privacy Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Yksityisyysasetukset</translation>
     </message>
 </context>
 <context>
@@ -2331,17 +2363,17 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../upstream/qmf/libraries/qmfclient/qmailmessagemodelbase.cpp" line="83"/>
         <source>%1 KB</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 kB</translation>
     </message>
     <message>
         <location filename="../upstream/qmf/libraries/qmfclient/qmailmessagemodelbase.cpp" line="85"/>
         <source>%1 MB</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 MB</translation>
     </message>
     <message>
         <location filename="../upstream/qmf/libraries/qmfclient/qmailmessagemodelbase.cpp" line="87"/>
         <source>%1 GB</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 GB</translation>
     </message>
     <message>
         <location filename="../upstream/qmf/libraries/qmfclient/qmailmessagemodelbase.cpp" line="264"/>
@@ -2365,7 +2397,7 @@ Would you like to use this instead?</source>
         <location filename="../upstream/qmf/libraries/qmfmessageserver/qmailmessageservice.h" line="300"/>
         <location filename="../upstream/qmf/libraries/qmfmessageserver/qmailmessageservice.h" line="301"/>
         <source>Cancelled by user</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Käyttäjä peruutti toimenpiteen</translation>
     </message>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/imap/imapservice.cpp" line="2235"/>
@@ -2403,7 +2435,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../upstream/qmf/libraries/qmfmessageserver/qmailmessageservice.cpp" line="1138"/>
         <source>Unable to copy messages for account</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Viestejä ei voitu kopioida tälle tilille</translation>
     </message>
     <message>
         <location filename="../upstream/qmf/libraries/qmfmessageserver/qmailmessageservice.cpp" line="1172"/>
@@ -2617,17 +2649,17 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/backend/mail/Attachments.cpp" line="340"/>
         <source>%1 KB</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 kB</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/Attachments.cpp" line="342"/>
         <source>%1 MB</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 MB</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/Attachments.cpp" line="344"/>
         <source>%1 GB</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 GB</translation>
     </message>
     <message>
         <location filename="../upstream/maz-db/leveldb/util/env_qt.cc" line="122"/>
@@ -2779,7 +2811,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/composer/RecipientField.qml" line="97"/>
         <source>Enter an address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Anna osoite</translation>
     </message>
 </context>
 <context>
@@ -2787,7 +2819,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/messageview/RecipientInfo.qml" line="41"/>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Takaisin</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/messageview/RecipientInfo.qml" line="93"/>
@@ -2802,7 +2834,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/messageview/RecipientInfo.qml" line="122"/>
         <source>Send message</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lähetä viesti</translation>
     </message>
 </context>
 <context>
@@ -2810,7 +2842,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/composer/RecipientInputContextMenu.qml" line="55"/>
         <source>Add CC</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lisää allekirjoitus</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/composer/RecipientInputContextMenu.qml" line="68"/>
@@ -2820,7 +2852,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/composer/RecipientInputContextMenu.qml" line="80"/>
         <source>Add contact</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lisää yhteystieto</translation>
     </message>
 </context>
 <context>
@@ -2838,7 +2870,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/RecipientPopover.qml" line="98"/>
         <source>Send message</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lähetä viesti</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/RecipientPopover.qml" line="108"/>
@@ -2859,7 +2891,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ServerDetails.qml" line="68"/>
         <source>Hostname</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Palvelinnimi</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ServerDetails.qml" line="77"/>
@@ -2885,7 +2917,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/ServerDetails.qml" line="139"/>
         <source>Allow untrusted certificates</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Salli epäluotettavien sertifikaattien käyttö</translation>
     </message>
 </context>
 <context>
@@ -2900,7 +2932,7 @@ Would you like to use this instead?</source>
         <location filename="../Dekko/Mail/server/servicehandler.cpp" line="645"/>
         <location filename="../upstream/qmf/tools/messageserver/servicehandler.cpp" line="641"/>
         <source>Service became unavailable, couldn&apos;t dispatch</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ei lähetetty, palvelua ei tavoitettu</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/server/servicehandler.cpp" line="826"/>
@@ -2912,7 +2944,7 @@ Would you like to use this instead?</source>
         <location filename="../Dekko/Mail/server/servicehandler.cpp" line="833"/>
         <location filename="../upstream/qmf/tools/messageserver/servicehandler.cpp" line="829"/>
         <source>Account removed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tili poistettu</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/server/servicehandler.cpp" line="1234"/>
@@ -2920,7 +2952,7 @@ Would you like to use this instead?</source>
         <location filename="../upstream/qmf/tools/messageserver/servicehandler.cpp" line="1230"/>
         <location filename="../upstream/qmf/tools/messageserver/servicehandler.cpp" line="1279"/>
         <source>Request is not progressing</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pyyntö ei edisty</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/server/servicehandler.cpp" line="1320"/>
@@ -2930,7 +2962,7 @@ Would you like to use this instead?</source>
         <location filename="../upstream/qmf/tools/messageserver/servicehandler.cpp" line="1318"/>
         <location filename="../upstream/qmf/tools/messageserver/servicehandler.cpp" line="1366"/>
         <source>Cancelled by user</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Käyttäjä peruutti toimenpiteen</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/server/servicehandler.cpp" line="1379"/>
@@ -2938,7 +2970,7 @@ Would you like to use this instead?</source>
         <location filename="../upstream/qmf/tools/messageserver/servicehandler.cpp" line="1375"/>
         <location filename="../upstream/qmf/tools/messageserver/servicehandler.cpp" line="1411"/>
         <source>Unable to enqueue messages for transmission</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Viestijonoa ei voitu rakentaa lähetystä varten</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/server/servicehandler.cpp" line="1463"/>
@@ -3000,7 +3032,7 @@ Would you like to use this instead?</source>
         <location filename="../Dekko/Mail/server/servicehandler.cpp" line="1547"/>
         <location filename="../upstream/qmf/tools/messageserver/servicehandler.cpp" line="1543"/>
         <source>Unable to retrieve folder list for unconfigured account</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Viimeistelemättömän tilin kansiolistausta ei voitu hakea</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/server/servicehandler.cpp" line="1585"/>
@@ -3008,31 +3040,31 @@ Would you like to use this instead?</source>
         <location filename="../upstream/qmf/tools/messageserver/servicehandler.cpp" line="1581"/>
         <location filename="../upstream/qmf/tools/messageserver/servicehandler.cpp" line="1619"/>
         <source>Unable to retrieve message list for unconfigured account</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Viimeistelemättömän tilin viestejä ei voitu hakea</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/server/servicehandler.cpp" line="1661"/>
         <location filename="../upstream/qmf/tools/messageserver/servicehandler.cpp" line="1657"/>
         <source>Unable to retrieve new messages for unconfigured account</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Viimeistelemättömän tilin uusia viestejä ei voitu hakea</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/server/servicehandler.cpp" line="1697"/>
         <location filename="../upstream/qmf/tools/messageserver/servicehandler.cpp" line="1693"/>
         <source>Unable to retrieve standard folders for unconfigured account</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Viimeistelemättömän tilin oletuskansiota ei voitu hakea</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/server/servicehandler.cpp" line="1733"/>
         <location filename="../upstream/qmf/tools/messageserver/servicehandler.cpp" line="1729"/>
         <source>Unable to retrieve messages for unconfigured account</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Viimeistelemättömän tilin viestejä ei voitu hakea</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/server/servicehandler.cpp" line="1777"/>
         <location filename="../upstream/qmf/tools/messageserver/servicehandler.cpp" line="1773"/>
         <source>Unable to retrieve message part for unconfigured account</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Viimeistelemättömän tilin viestiosia ei voitu hakea</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/server/servicehandler.cpp" line="1815"/>
@@ -3050,7 +3082,7 @@ Would you like to use this instead?</source>
         <location filename="../Dekko/Mail/server/servicehandler.cpp" line="1893"/>
         <location filename="../upstream/qmf/tools/messageserver/servicehandler.cpp" line="1889"/>
         <source>Unable to retrieve all messages for unconfigured account</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Viimeistelemättömän tilin kaikkia viestejä ei voitu hakea</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/server/servicehandler.cpp" line="1929"/>
@@ -3062,25 +3094,25 @@ Would you like to use this instead?</source>
         <location filename="../Dekko/Mail/server/servicehandler.cpp" line="1962"/>
         <location filename="../upstream/qmf/tools/messageserver/servicehandler.cpp" line="1958"/>
         <source>Unable to synchronize unconfigured account</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Viimeistelemätöntä tiliä ei voida synkronoida</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/server/servicehandler.cpp" line="2006"/>
         <location filename="../upstream/qmf/tools/messageserver/servicehandler.cpp" line="2002"/>
         <source>Unable to delete messages for unconfigured account</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Viimeistelemättömän tilin viestejä ei voida poistaa</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/server/servicehandler.cpp" line="2008"/>
         <location filename="../upstream/qmf/tools/messageserver/servicehandler.cpp" line="2004"/>
         <source>Deleting messages</source>
-        <translation type="unfinished">Viestin poistaminen</translation>
+        <translation type="unfinished">Poistetaan viestejä</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/server/servicehandler.cpp" line="2026"/>
         <location filename="../upstream/qmf/tools/messageserver/servicehandler.cpp" line="2022"/>
         <source>Unable to discard messages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Viestien hylkäys epäonnistui</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/server/servicehandler.cpp" line="2075"/>
@@ -3100,7 +3132,7 @@ Would you like to use this instead?</source>
         <location filename="../Dekko/Mail/server/servicehandler.cpp" line="2144"/>
         <location filename="../upstream/qmf/tools/messageserver/servicehandler.cpp" line="2140"/>
         <source>Unable to copy messages for account</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Viestejä ei voitu kopioida tälle tilille</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/server/servicehandler.cpp" line="2162"/>
@@ -3118,7 +3150,7 @@ Would you like to use this instead?</source>
         <location filename="../Dekko/Mail/server/servicehandler.cpp" line="2216"/>
         <location filename="../upstream/qmf/tools/messageserver/servicehandler.cpp" line="2212"/>
         <source>Unable to async add messages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Viestien asynkronoitu lisäys epäonnistui</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/server/servicehandler.cpp" line="2218"/>
@@ -3128,13 +3160,13 @@ Would you like to use this instead?</source>
         <location filename="../upstream/qmf/tools/messageserver/servicehandler.cpp" line="2301"/>
         <location filename="../upstream/qmf/tools/messageserver/servicehandler.cpp" line="2361"/>
         <source>Unable to async update messages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Viestien asynkronoitu päivitys epäonnistui</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/server/servicehandler.cpp" line="2275"/>
         <location filename="../upstream/qmf/tools/messageserver/servicehandler.cpp" line="2271"/>
         <source>Unable to async add messages, inconsistent contentscheme</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Unable to async add messages, inconsistent contentscheme</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/server/servicehandler.cpp" line="2327"/>
@@ -3146,7 +3178,7 @@ Would you like to use this instead?</source>
         <location filename="../Dekko/Mail/server/servicehandler.cpp" line="2412"/>
         <location filename="../upstream/qmf/tools/messageserver/servicehandler.cpp" line="2408"/>
         <source>Could not delete messages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Viestien poisto epäonnistui</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/server/servicehandler.cpp" line="2493"/>
@@ -3182,7 +3214,7 @@ Would you like to use this instead?</source>
         <location filename="../Dekko/Mail/server/servicehandler.cpp" line="3174"/>
         <location filename="../upstream/qmf/tools/messageserver/servicehandler.cpp" line="3170"/>
         <source>Failed to perform requested action!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Haluttu toiminto epäonnistui</translation>
     </message>
 </context>
 <context>
@@ -3195,22 +3227,22 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/Settings.qml" line="24"/>
         <source>Mail</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sähköposti</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/Settings.qml" line="33"/>
         <source>Contacts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Yhteystiedot</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/Settings.qml" line="38"/>
         <source>Calendar</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kalenteri</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/Settings.qml" line="43"/>
         <source>Notes</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Muistiinpanot</translation>
     </message>
 </context>
 <context>
@@ -3218,7 +3250,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/SettingsWindow.qml" line="24"/>
         <source>Dekko Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dekkon asetukset</translation>
     </message>
 </context>
 <context>
@@ -3226,7 +3258,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/workers/SettingsWorker.qml" line="103"/>
         <source>Account saved</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tili päivitetty</translation>
     </message>
 </context>
 <context>
@@ -3242,7 +3274,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/backend/mail/MessageSet.cpp" line="272"/>
         <source>Today, %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tänään, %1</translation>
     </message>
 </context>
 <context>
@@ -3328,7 +3360,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/smtp/smtpsettings.ui" line="160"/>
         <source>Encryption</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Salaus</translation>
     </message>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/smtp/smtpsettings.ui" line="177"/>
@@ -3349,7 +3381,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/smtp/smtpsettings.ui" line="201"/>
         <source>Authentication</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Todennus</translation>
     </message>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/smtp/smtpsettings.ui" line="223"/>
@@ -3397,7 +3429,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/composer/SubjectField.qml" line="56"/>
         <source>Subject:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aihe:</translation>
     </message>
 </context>
 <context>
@@ -3405,7 +3437,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/states/SyncState.qml" line="35"/>
         <source>Synchronizing account.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tiliä synkronoidaan.</translation>
     </message>
 </context>
 <context>
@@ -3426,7 +3458,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="36"/>
         <source>Full name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nimi</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="43"/>
@@ -3436,7 +3468,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="44"/>
         <source>E.g Home, Work...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Esim. Koti, Työ...</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="51"/>
@@ -3446,7 +3478,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="53"/>
         <source>email@example.org</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">sähköposti@esimerkki.org</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="59"/>
@@ -3467,17 +3499,17 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="82"/>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Seuraava</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="124"/>
         <source>Password empty</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ei salasanaa</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/UserInputUI.qml" line="124"/>
         <source>Would you like to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Haluatko jatkaa?</translation>
     </message>
 </context>
 <context>
@@ -3485,7 +3517,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/states/ValidationState.qml" line="36"/>
         <source>Validating credentials.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tarkistetaan käyttäjätietoja.</translation>
     </message>
 </context>
 <context>
@@ -3493,7 +3525,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/dialogs/VersionDialog.qml" line="25"/>
         <source>Version</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Versio</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/dialogs/VersionDialog.qml" line="29"/>
@@ -3506,7 +3538,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/stores/Views/ViewStore.qml" line="70"/>
         <source>Messages sent</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Viestit lähetetty</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/stores/Views/ViewStore.qml" line="72"/>
@@ -3516,7 +3548,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/stores/Views/ViewStore.qml" line="75"/>
         <source>Message sending failed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Viestien lähetys epäonnistui</translation>
     </message>
 </context>
 </TS>

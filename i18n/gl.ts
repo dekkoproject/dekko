@@ -37,7 +37,7 @@
         <translation type="unfinished">O enderezo de correo electrónico non é correcto</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/stores/Accounts/AccountSetup.qml" line="532"/>
+        <location filename="../Dekko/Mail/stores/Accounts/AccountSetup.qml" line="536"/>
         <source>Sent using Dekko from my Ubuntu device</source>
         <translation type="unfinished">Enviado con Dekko desde un dispositivo Ubuntu</translation>
     </message>
@@ -111,6 +111,14 @@
     </message>
 </context>
 <context>
+    <name>AddressBookStage</name>
+    <message>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/stages/AddressBookStage.qml" line="34"/>
+        <source>Coming soon</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AttachmentPanel</name>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/components/AttachmentPanel.qml" line="80"/>
@@ -124,6 +132,14 @@
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/AttachmentPopover.qml" line="46"/>
         <source>Delete</source>
         <translation type="unfinished">Eliminar</translation>
+    </message>
+</context>
+<context>
+    <name>AttachmentsStage</name>
+    <message>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/stages/AttachmentsStage.qml" line="34"/>
+        <source>Coming soon</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -177,6 +193,14 @@ Desexa usala?</translation>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/composer/BottomEdgeComposer.qml" line="65"/>
         <source>Attachments</source>
         <translation type="unfinished">Anexos</translation>
+    </message>
+</context>
+<context>
+    <name>CalendarStage</name>
+    <message>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/stages/CalendarStage.qml" line="34"/>
+        <source>Coming soon</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2038,6 +2062,14 @@ Desexa usala?</translation>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/NoAccountsUI.qml" line="101"/>
         <source>Add now</source>
         <translation type="unfinished">Engadir agora</translation>
+    </message>
+</context>
+<context>
+    <name>NotesStage</name>
+    <message>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/stages/NotesStage.qml" line="34"/>
+        <source>Coming soon</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

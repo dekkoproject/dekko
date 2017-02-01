@@ -37,7 +37,7 @@
         <translation type="unfinished">Ungültige E-Mail-Adresse</translation>
     </message>
     <message>
-        <location filename="../Dekko/Mail/stores/Accounts/AccountSetup.qml" line="532"/>
+        <location filename="../Dekko/Mail/stores/Accounts/AccountSetup.qml" line="536"/>
         <source>Sent using Dekko from my Ubuntu device</source>
         <translation type="unfinished">Mit Dekko von meinem Ubuntu-Gerät gesendet</translation>
     </message>
@@ -111,6 +111,14 @@
     </message>
 </context>
 <context>
+    <name>AddressBookStage</name>
+    <message>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/stages/AddressBookStage.qml" line="34"/>
+        <source>Coming soon</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AttachmentPanel</name>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/components/AttachmentPanel.qml" line="80"/>
@@ -124,6 +132,14 @@
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/popovers/AttachmentPopover.qml" line="46"/>
         <source>Delete</source>
         <translation type="unfinished">Löschen</translation>
+    </message>
+</context>
+<context>
+    <name>AttachmentsStage</name>
+    <message>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/stages/AttachmentsStage.qml" line="34"/>
+        <source>Coming soon</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -141,7 +157,7 @@
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/components/AuthenticationSelector.qml" line="61"/>
         <source>LOGIN</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Anmelden</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/components/AuthenticationSelector.qml" line="62"/>
@@ -175,6 +191,14 @@ Would you like to use this instead?</source>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/composer/BottomEdgeComposer.qml" line="65"/>
         <source>Attachments</source>
         <translation type="unfinished">Anhänge</translation>
+    </message>
+</context>
+<context>
+    <name>CalendarStage</name>
+    <message>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/stages/CalendarStage.qml" line="34"/>
+        <source>Coming soon</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -638,7 +662,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/backend/mail/ClientServiceAction.cpp" line="140"/>
         <source>Syncing changes for %1 account</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Änderungen für %1 Konto werden synchronisiert</translation>
     </message>
 </context>
 <context>
@@ -759,7 +783,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/IdentitiesListPage.qml" line="106"/>
         <source> (Default)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> (Standard)</translation>
     </message>
 </context>
 <context>
@@ -998,7 +1022,7 @@ Would you like to use this instead?</source>
         <location filename="../upstream/qmf/plugins/messageservices/imap/imapservice.cpp" line="660"/>
         <location filename="../upstream/qmf/plugins/messageservices/imap/imapservice.cpp" line="689"/>
         <source>Could not delete messages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nachrichten konnten nicht gelöscht werden</translation>
     </message>
     <message>
         <location filename="../upstream/qmf/plugins/messageservices/imap/imapservice.cpp" line="737"/>
@@ -1963,7 +1987,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/delegates/NavMenuStandardFolderDelegate.qml" line="178"/>
         <source>Inbox (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Posteingang (%1)</translation>
     </message>
 </context>
 <context>
@@ -2035,6 +2059,14 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/setupwizard/components/NoAccountsUI.qml" line="101"/>
         <source>Add now</source>
+        <translation type="unfinished">Jetzt hinzufügen</translation>
+    </message>
+</context>
+<context>
+    <name>NotesStage</name>
+    <message>
+        <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/stages/NotesStage.qml" line="34"/>
+        <source>Coming soon</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2331,17 +2363,17 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../upstream/qmf/libraries/qmfclient/qmailmessagemodelbase.cpp" line="83"/>
         <source>%1 KB</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 KB</translation>
     </message>
     <message>
         <location filename="../upstream/qmf/libraries/qmfclient/qmailmessagemodelbase.cpp" line="85"/>
         <source>%1 MB</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 MB</translation>
     </message>
     <message>
         <location filename="../upstream/qmf/libraries/qmfclient/qmailmessagemodelbase.cpp" line="87"/>
         <source>%1 GB</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 GB</translation>
     </message>
     <message>
         <location filename="../upstream/qmf/libraries/qmfclient/qmailmessagemodelbase.cpp" line="264"/>
@@ -2617,17 +2649,17 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/backend/mail/Attachments.cpp" line="340"/>
         <source>%1 KB</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 KB</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/Attachments.cpp" line="342"/>
         <source>%1 MB</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 MB</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/backend/mail/Attachments.cpp" line="344"/>
         <source>%1 GB</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 GB</translation>
     </message>
     <message>
         <location filename="../upstream/maz-db/leveldb/util/env_qt.cc" line="122"/>
@@ -2920,7 +2952,7 @@ Would you like to use this instead?</source>
         <location filename="../upstream/qmf/tools/messageserver/servicehandler.cpp" line="1230"/>
         <location filename="../upstream/qmf/tools/messageserver/servicehandler.cpp" line="1279"/>
         <source>Request is not progressing</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Anforderung wird nicht bearbeitet</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/server/servicehandler.cpp" line="1320"/>
@@ -3112,7 +3144,7 @@ Would you like to use this instead?</source>
         <location filename="../Dekko/Mail/server/servicehandler.cpp" line="2203"/>
         <location filename="../upstream/qmf/tools/messageserver/servicehandler.cpp" line="2199"/>
         <source>Unable to flag messages for unconfigured account</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nachrichten des unkonfigurierten Kontos können nicht gekennzeichnet werden.</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/server/servicehandler.cpp" line="2216"/>
@@ -3146,7 +3178,7 @@ Would you like to use this instead?</source>
         <location filename="../Dekko/Mail/server/servicehandler.cpp" line="2412"/>
         <location filename="../upstream/qmf/tools/messageserver/servicehandler.cpp" line="2408"/>
         <source>Could not delete messages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nachrichten konnten nicht gelöscht werden</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/server/servicehandler.cpp" line="2493"/>
