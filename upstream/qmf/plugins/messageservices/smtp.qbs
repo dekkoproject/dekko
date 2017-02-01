@@ -49,16 +49,14 @@ DynamicLibrary {
         "plugins/messageservices/smtp/"
     ]
 
-    cpp.defines: {
-        var defs = ["PLUGIN_INTERNAL", "QMF_NO_MESSAGE_SERVICE_EDITOR"]
-        if (project.enableLogging) {
-            defs.concat("QMF_ENABLE_LOGGING")
-        }
+    Properties {
+        condition: project.enableLogging
+        cpp.defines: ["PLUGIN_INTERNAL", "QMF_NO_MESSAGE_SERVICE_EDITOR", "QMF_ENABLE_LOGGING"]
+    }
 
-        if (project.uoaEnabled) {
-            defs.concat("UOA_ENABLED")
-        }
-        return defs
+    Properties {
+        condition: !project.enableLogging
+        cpp.defines: ["PLUGIN_INTERNAL", "QMF_NO_MESSAGE_SERVICE_EDITOR"]
     }
 
     Group {
