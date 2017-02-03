@@ -56,9 +56,10 @@ parts:
             - python3-setuptools
         stage-packages:
             - libnotify-bin
-        snap:
+        prime:
             - -usr/share/doc
             - -usr/include
+        build-attributes: ["no-system-libraries"]
         after: [desktop-ubuntu-app-platform]
 
     pyotherside:
@@ -68,5 +69,11 @@ parts:
         build-packages:
             - python3-dev
             - g++
+        stage-packages:
+            - libpython3.5
+        build-attributes: ["no-system-libraries"]
+        prime:
+            - usr/lib/*/qt5/qml
+            - usr/lib/*/libpython*
         after: [dekko]
 
