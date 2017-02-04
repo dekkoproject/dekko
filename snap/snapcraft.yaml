@@ -2,7 +2,7 @@ name: dekko
 version: 0.9.7
 summary: Dekko email client
 description: Fast e-mail client for Ubuntu devices
-confinement: devmode
+confinement: strict
 grade: devel
 
 apps:
@@ -17,6 +17,9 @@ apps:
             - platform
             - unity7
             - unity8
+            - network-observe
+            - network-control
+            - network-bind
 
 plugs:
     platform:
@@ -33,6 +36,9 @@ parts:
         source: snap/
         organize:
             dekko.launcher: bin/dekko-launch
+        prime:
+            - -plugins
+    
 
     dekko:
         plugin: qbs

@@ -87,6 +87,10 @@ Project {
 
     property bool outputTarPackage: false
 
+
+    qbsSearchPaths: [ path ]
+
+
     /* MazDB library - LevelDB based database.
 
        Available as a library and qml plugin
@@ -238,11 +242,11 @@ Project {
     }
 
     Product {
-        name: "Some Other Stuff"
+        name: "Snapcraft"
         type: "packaging"
         Group {
             name: "Snapcraft"
-            files: "*.yaml"
+            files: "snap/**"
         }
     }
 }
