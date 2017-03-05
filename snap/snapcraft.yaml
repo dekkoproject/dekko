@@ -16,7 +16,7 @@ apps:
             - opengl
             - platform
             - unity7
-            - unity8
+            - mir
             - network-observe
             - network-control
             - network-bind
