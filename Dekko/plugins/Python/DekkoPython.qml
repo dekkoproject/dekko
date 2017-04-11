@@ -1,5 +1,5 @@
 import QtQuick 2.4
-import io.thp.pyotherside 1.5
+import io.thp.pyotherside 1.4
 
 Python {
     id: python

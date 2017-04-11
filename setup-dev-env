@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 
 set -e
 
@@ -34,7 +34,17 @@ sudo apt-get install -y \
     libsasl2-dev \
     signon-plugin-sasl-dev \
     signon-plugin-oauth2-dev \
+    qbs \
+    libsnappy-dev \
+    pyotherside \
+    clang \
     --no-install-recommends
 
+qbs setup-toolchains --detect
+
+export QT_SELECT=qt5
+
+qbs setup-qt /usr/bin/qmake dekkoqt5
+qbs config profiles.dekkoqt5.baseProfile clang
 
 
