@@ -137,6 +137,8 @@ class SmartFolderSet : public MessageSet
 {
     Q_OBJECT
     Q_PROPERTY(SmartFolderType type READ type WRITE setType NOTIFY typeChanged)
+    Q_PROPERTY(int smartCount READ smartCount NOTIFY countChanged)
+
     Q_ENUMS(SmartFolderType)
 
 public:
@@ -152,10 +154,12 @@ public:
     virtual void init(const QString &displayName, const QMailMessageKey &messageKey);
     virtual QVariant descendentsKey() { return QVariant(); } // We don't do descendents yet
     SmartFolderType type() const;
+    int smartCount();
 public slots:
     void setType(SmartFolderType type);
 signals:
     void typeChanged(SmartFolderType type);
+    void countChanged();
 
 private slots:
     void updateDescription();

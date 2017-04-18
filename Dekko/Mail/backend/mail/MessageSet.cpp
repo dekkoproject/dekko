@@ -272,3 +272,12 @@ void SmartFolderSet::updateDescription()
     m_name = tr("Today, %1").arg(QDateTime::currentDateTime().toString("ddd d"));
     emit displayNameChanged();
 }
+
+int SmartFolderSet::smartCount()
+{
+    if (m_type == SmartFolderSet::SmartTodoFolder) {
+        return totalCount();
+    } else {
+        return unreadCount();
+    }
+}

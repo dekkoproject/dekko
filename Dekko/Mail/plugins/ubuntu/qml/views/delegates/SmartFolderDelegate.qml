@@ -39,40 +39,17 @@ ListItem {
     divider.visible: false
 
     function getIconForFolderType(f) {
-        if (smartFolder) {
-            switch (f.type) {
-            case SmartFolderSet.SmartTodayFolder:
-                return Icons.CalendarTodayIcon;
-            case SmartFolderSet.SmartTodoFolder:
-                return Icons.ViewListSymbolic;
-            case SmartFolderSet.SmartDoneFolder:
-                return Icons.SelectIcon;
-            case SmartFolderSet.SmartCustomFolder:
-                return Icons.FilterIcon;
-            default:
-                return Icons.FilterIcon;
-            }
-        } else {
-            switch (f.folderType) {
-            case StandardFolderSet.StandardFolder:
-                return Icons.FolderIcon
-            case StandardFolderSet.SpecialUseInboxFolder:
-                if (f.hasDescendents) {
-                    return Icons.CombineInboxIcon
-                } else {
-                    return Icons.InboxIcon
-                }
-            case StandardFolderSet.SpecialUseOutboxFolder:
-                return Icons.InboxIcon
-            case StandardFolderSet.SpecialUseDraftsFolder:
-                return Icons.DraftIcon
-            case StandardFolderSet.SpecialUseSentFolder:
-                return Icons.SendIcon;
-            case StandardFolderSet.SpecialUseTrashFolder:
-                return Icons.DeleteIcon
-            case StandardFolderSet.SpecialUseJunkFolder:
-                return Icons.JunkIcon
-            }
+        switch (f.type) {
+        case SmartFolderSet.SmartTodayFolder:
+            return Icons.CalendarTodayIcon;
+        case SmartFolderSet.SmartTodoFolder:
+            return Icons.ViewListSymbolic;
+        case SmartFolderSet.SmartDoneFolder:
+            return Icons.SelectIcon;
+        case SmartFolderSet.SmartCustomFolder:
+            return Icons.FilterIcon;
+        default:
+            return Icons.FilterIcon;
         }
     }
 
@@ -113,7 +90,7 @@ ListItem {
         UbuntuShape {
             id: shape
             // TODO: We should probably display total count for To-Do smart folder
-            //visible: folder && folder.unreadCount > 0
+            visible: folder && folder.smartCount > 0
             aspect: UbuntuShape.Flat
             color: UbuntuColors.slate
             height: units.gu(2.2)
@@ -124,7 +101,7 @@ ListItem {
                 anchors.centerIn: parent
                 fontSize: "small"
                 color: UbuntuColors.porcelain
-                text: folder ? folder.totalCount : ""
+                text: folder ? folder.smartCount : ""
             }
         }
 
@@ -188,7 +165,7 @@ ListItem {
 
                     UbuntuShape {
                         id: dshape
-                        visible: qtObject.unreadCount > 0
+                        visible: qtObject.smartCount > 0
                         aspect: UbuntuShape.Flat
                         color: UbuntuColors.slate
                         height: units.gu(2.2)
@@ -197,7 +174,7 @@ ListItem {
                             id: dcountLable
                             anchors.margins: units.gu(0.5)
                             anchors.centerIn: parent
-                            text: qtObject.unreadCount
+                            text: qtObject.smartCount
                             fontSize: "small"
                             color: UbuntuColors.porcelain
                         }

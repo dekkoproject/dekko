@@ -156,7 +156,7 @@ StyledItem {
                             model: MailboxStore.smartFoldersModel
 //                            expansion.expanded: PolicyManager.views.smartFoldersExpanded
 //                            onExpandClicked: PolicyManager.views.smartFoldersExpanded = !PolicyManager.views.smartFoldersExpanded
-                            delegate: NavMenuStandardFolderDelegate {
+                            delegate: SmartFolderDelegate {
                                 id: smartFolderDelegate
                                 folder: qtObject
                                 smartFolder: true
