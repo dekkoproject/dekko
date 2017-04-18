@@ -2,7 +2,7 @@
 
 set -e
 
-qbs build -d ../__dekko_build -f . debug profile:dekkoqt5
+qbs build -d ../__dekko_build -f . --clean-install-root debug profile:dekkoqt5
 
 export LD_LIBRARY_PATH=$PWD/../__dekko_build/dekkoqt5-debug/install-root/lib
 export QML2_IMPORT_PATH=$LD_LIBRARY_PATH
