@@ -113,7 +113,7 @@ ListItem {
         UbuntuShape {
             id: shape
             // TODO: We should probably display total count for To-Do smart folder
-            //visible: folder && folder.unreadCount > 0
+            visible: folder && folder.unreadCount > 0
             aspect: UbuntuShape.Flat
             color: UbuntuColors.slate
             height: units.gu(2.2)
@@ -124,7 +124,7 @@ ListItem {
                 anchors.centerIn: parent
                 fontSize: "small"
                 color: UbuntuColors.porcelain
-                text: folder ? folder.totalCount : ""
+                text: folder ? folder.unreadCount : ""
             }
         }
 
