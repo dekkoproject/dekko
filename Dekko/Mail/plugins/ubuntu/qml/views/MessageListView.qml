@@ -221,6 +221,26 @@ DekkoPage {
                 bottom: parent.bottom
             }
 
+            Keys.onUpPressed: {
+                if(listView.currentIndex > 0){
+                    listView.currentIndex--;
+                    if(listView.currentItem){
+                        MessageActions.openMessage(listView.currentItem.msg.messageId)
+                    }
+                }
+            }
+
+            Keys.onDownPressed: {
+                listView.currentIndex++;
+                if(listView.currentItem){
+                    MessageActions.openMessage(listView.currentItem.msg.messageId)
+                }
+                else if(MailStore.canLoadMore){
+                    listView.currentIndex--;
+                    MessageActions.showMoreMessages()
+                }
+            }
+
             ListView {
                 id: listView
                 property int selectionIndex: 0
@@ -241,6 +261,7 @@ DekkoPage {
                 //                    }
                 //                    MessageActions.openMessage(msgId)
                 //                }
+
 
                 add: DekkoAnimation.listViewAddTransition
                 addDisplaced: DekkoAnimation.listViewAddDisplacedTransition
