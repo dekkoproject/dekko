@@ -137,7 +137,7 @@ class SmartFolderSet : public MessageSet
 {
     Q_OBJECT
     Q_PROPERTY(SmartFolderType type READ type WRITE setType NOTIFY typeChanged)
-    Q_PROPERTY(int smartCount READ smartCount NOTIFY countChanged)
+    Q_PROPERTY(int smartCount READ smartCount NOTIFY smartCountChanged)
 
     Q_ENUMS(SmartFolderType)
 
@@ -159,7 +159,7 @@ public slots:
     void setType(SmartFolderType type);
 signals:
     void typeChanged(SmartFolderType type);
-    void countChanged();
+    void smartCountChanged();
 
 private slots:
     void updateDescription();

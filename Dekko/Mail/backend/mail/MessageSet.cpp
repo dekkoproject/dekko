@@ -234,6 +234,7 @@ QVariant StandardFolderSet::descendentsKey()
 SmartFolderSet::SmartFolderSet(QObject *parent) : MessageSet(parent),
     m_type(SmartTodoFolder), m_timer(0)
 {
+    connect(this, &SmartFolderSet::countChanged, this, &SmartFolderSet::smartCountChanged);
 }
 
 void SmartFolderSet::init(const QString &displayName, const QMailMessageKey &messageKey)
