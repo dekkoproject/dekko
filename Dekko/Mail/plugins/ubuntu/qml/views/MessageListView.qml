@@ -214,12 +214,15 @@ DekkoPage {
         }
 
         ScrollView {
+
             anchors {
                 left: parent.left
                 top: undoNotification.bottom
                 right: parent.right
                 bottom: parent.bottom
             }
+
+            Keys.forwardTo: [listView]
 
             ListView {
                 id: listView
@@ -241,6 +244,17 @@ DekkoPage {
                 //                    }
                 //                    MessageActions.openMessage(msgId)
                 //                }
+
+                onCurrentIndexChanged: {
+                   console.log("CurrentIndexChanged: ", currentIndex)
+                    if (currentIndex === -1) {
+                        return;
+                    }
+                    MessageActions.openMessage(listView.currentItem.msg.messageId)
+                    if (currentIndex == MailStore.msgListModel.count - 1) {
+                        MessageActions.showMoreMessages()
+                    }
+                }
 
                 add: DekkoAnimation.listViewAddTransition
                 addDisplaced: DekkoAnimation.listViewAddDisplacedTransition
@@ -293,8 +307,7 @@ DekkoPage {
                             return;
                         }
 
-                        MessageActions.openMessage(msg.messageId)
-                        MailStore.currentSelectedIndex = model.index
+                        listView.currentIndex = model.index
                     }
                     onItemPressAndHold: {
                         // TODO: get multiselect working on search results.
