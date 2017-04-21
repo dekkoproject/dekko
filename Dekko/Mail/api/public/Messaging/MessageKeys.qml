@@ -25,6 +25,7 @@ import QuickFlux 1.0
 KeyTable {
     // Message API
     property string openMessage
+    property string setCurrentMessage
     property string openFolder
     property string openAccountFolder
     property string changeMessageListSortOrder

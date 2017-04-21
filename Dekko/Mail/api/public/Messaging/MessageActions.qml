@@ -32,6 +32,8 @@ ActionCreator {
     */
     signal openMessage(int msgId)
 
+    signal setCurrentMessage(int msgId)
+
     /* Opens the folder in the messagelist
 
        folderName: Readable description of the folder which will be used as the page title

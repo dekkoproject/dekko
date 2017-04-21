@@ -96,7 +96,7 @@ AppListener {
             interval: 50
             repeat: false
             onTriggered: {
-                MailStore.currentMessageId = -1
+                MessageActions.setCurrentMessage(-1)
                 MessageActions.openMessage(switchFilter.msgId)
             }
         }

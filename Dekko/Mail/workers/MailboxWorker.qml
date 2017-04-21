@@ -80,6 +80,15 @@ AppListener {
             Client.syncFolder(message.accountId, message.folderId)
         }
     }
+
+    Filter {
+        type: MailboxKeys.setCurrentMessage
+        onDispatched: {
+            Log.logInfo("MailboxWorker::setCurrentMessage", "Settings current msg to: %1".arg(message.msgId))
+            MailStore.currentMessageId = message.msgId
+        }
+    }
+
     AppScript {
         property string pickerId: "move-msg-picker"
         runWhen: MailboxKeys.moveMessage

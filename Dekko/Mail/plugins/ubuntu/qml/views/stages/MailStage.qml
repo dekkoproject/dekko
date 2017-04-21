@@ -194,7 +194,7 @@ BaseStage {
                     return
                 }
 
-                MailStore.currentMessageId = message.msgId
+                MessageActions.setCurrentMessage(message.msgId)
 
                 var style = Qt.resolvedUrl("../messageview/DefaultMessagePage.qml")
                 if (dekko.isSmallFF) {
