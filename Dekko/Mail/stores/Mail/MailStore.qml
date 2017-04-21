@@ -45,6 +45,7 @@ BaseMessagingStore {
     property alias msgListKey: msgList.messageKey
     property alias msgListModel: msgList.model
     property alias currentSelectedIndex: msgList.currentSelectedIndex
+    property int currentMessageId: -1
 
     property alias folderTitle: d.currentFolderName
 

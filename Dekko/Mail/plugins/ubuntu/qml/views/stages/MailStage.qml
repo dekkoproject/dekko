@@ -22,6 +22,7 @@ import Dekko.Mail.API 1.0
 import Dekko.Components 1.0
 import Dekko.Mail.Settings 1.0
 import Dekko.Mail.Stores.Views 1.0
+import Dekko.Mail.Stores.Mail 1.0
 //import Dekko.Contacts 1.0
 import QuickFlux 1.0
 import MazDB 1.0
@@ -185,9 +186,16 @@ BaseStage {
     }
 
     AppListener {
+
         Filter {
             type: MessageKeys.openMessage
             onDispatched: {
+                if (MailStore.currentMessageId === message.msgId) {
+                    return
+                }
+
+                MailStore.currentMessageId = message.msgId
+
                 var style = Qt.resolvedUrl("../messageview/DefaultMessagePage.qml")
                 if (dekko.isSmallFF) {
                     // leftStage push msgview
@@ -235,19 +243,4 @@ BaseStage {
             }
         }
     }
-
-//    AppListener {
-//        Filter {
-//            type: ContactKeys.openAddressBook
-//            onDispatched: {
-//                ViewActions.pushToStageArea(ViewKeys.messageListStack,
-//                                            ab,
-//                                            {
-//                                                pageTitle: message.accountName,
-//                                                accountId: message.accountId
-//                                            })
-//            }
-//        }
-//    }
 }
-
