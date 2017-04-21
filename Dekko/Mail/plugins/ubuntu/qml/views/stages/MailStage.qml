@@ -191,6 +191,7 @@ BaseStage {
             type: MessageKeys.openMessage
             onDispatched: {
                 if (MailStore.currentMessageId === message.msgId) {
+                    Log.logInfo("MailStage::openMessage", "Message %1 already open".arg(message.msgId))
                     return
                 }
 
