@@ -82,7 +82,7 @@ AppListener {
     }
 
     Filter {
-        type: MailboxKeys.setCurrentMessage
+        type: MessageKeys.setCurrentMessage
         onDispatched: {
             Log.logInfo("MailboxWorker::setCurrentMessage", "Settings current msg to: %1".arg(message.msgId))
             MailStore.currentMessageId = message.msgId
