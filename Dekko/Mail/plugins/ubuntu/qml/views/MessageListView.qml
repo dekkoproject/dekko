@@ -231,26 +231,12 @@ DekkoPage {
                 anchors.fill: parent
                 clip: true
                 currentIndex: MailStore ? MailStore.currentSelectedIndex : -1
-                //                onCurrentIndexChanged: {
-                //                    console.log("CurrentIndexChanged: ", currentIndex)
-                //                    if (currentIndex === -1) {
-                //                        return;
-                //                    }
-                //                    var msgId = -1
-                //                    if (isSearchMode) {
-                //                        msgId = mboxSearch.results.get(currentIndex).messageId
-                //                    } else {
-                //                        msgId = MailStore.msgListModel.get(currentIndex).messageId
-                //                    }
-                //                    MessageActions.openMessage(msgId)
-                //                }
 
-                onCurrentIndexChanged: {
-                   console.log("CurrentIndexChanged: ", currentIndex)
-                    if (currentIndex === -1) {
-                        return;
+                onCurrentItemChanged: {
+                    if (!currentItem || currentIndex === -1) {
+                        return
                     }
-                    MessageActions.openMessage(listView.currentItem.msg.messageId)
+                    MessageActions.openMessage(currentItem.msg.messageId)
                     if (currentIndex == MailStore.msgListModel.count - 1) {
                         MessageActions.showMoreMessages()
                     }
@@ -350,6 +336,7 @@ DekkoPage {
     }
 
     AppListener {
+
         Filter {
             type: MessageKeys.resetMessageList
             onDispatched: {

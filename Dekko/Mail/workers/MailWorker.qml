@@ -53,6 +53,7 @@ AppListener {
             // Wait for the MailStage to inform us the stack has been rewound
             once(MessageKeys.stackRewound, function() {
                 MessageActions.resetMessageList()
+                MailStore.currentMessageId = -1
                 // nice! we still have the message value captured from script execution
                 // so we don't need to store the values in tmp properties
                 MailStore.folderTitle = message.folderName
