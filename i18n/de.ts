@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1">
+<TS version="2.1" language="de">
 <context>
     <name>AccountSettingsList</name>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/AccountSettingsList.qml" line="26"/>
         <source>Account Settings</source>
-        <translation type="unfinished">Kontoeinstellungen</translation>
+        <translation>Kontoeinstellungen</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/AccountSettingsList.qml" line="56"/>
         <source>Details</source>
-        <translation type="unfinished">Details</translation>
+        <translation>Details</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/AccountSettingsList.qml" line="60"/>
         <source>Incoming Server</source>
-        <translation type="unfinished">Posteingangsserver</translation>
+        <translation>Posteingangsserver</translation>
     </message>
     <message>
         <location filename="../Dekko/Mail/plugins/ubuntu/qml/views/settings/AccountSettingsList.qml" line="64"/>
@@ -2931,7 +2931,7 @@ Would you like to use this instead?</source>
     <message>
         <location filename="../Dekko/Mail/server/servicehandler.cpp" line="645"/>
         <location filename="../upstream/qmf/tools/messageserver/servicehandler.cpp" line="641"/>
-        <source>Service became unavailable, couldn&apos;t dispatch</source>
+        <source>Service became unavailable, couldn't dispatch</source>
         <translation type="unfinished">Dienst nicht mehr verfügbar, keine Verarbeitung möglich</translation>
     </message>
     <message>
