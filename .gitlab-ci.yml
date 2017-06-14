@@ -8,5 +8,4 @@ click_armhf:
     - click
   script:
     - ls
-    - sudo -i
-    - click chroot -a armhf -f ubuntu-sdk-15.04 -n click maint /opt/dekko/bin/qbs config --list
+    - sudo click chroot -a armhf -f ubuntu-sdk-15.04 -n click maint /opt/dekko/bin/qbs config --list
