@@ -1,0 +1,12 @@
+
+stages:
+  - clickbuild
+  
+click_armhf:
+  stage: clickbuild
+  tags:
+    - dekko
+    - click
+  script:
+    - ls
+    - click chroot -a armhf -f ubuntu-sk-15.04 -n click main /opt/dekko/bin/qbs config --list
