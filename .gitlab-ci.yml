@@ -9,3 +9,4 @@ click_armhf:
   script:
     - ls
     - sudo click chroot -a armhf -f ubuntu-sdk-15.04 -n click maint /opt/dekko/bin/qbs config --list
+    - sudo click chroot -a armhf -f ubuntu-sdk-15.04 -n click maint /opt/dekko/bin/qbs build debug profile:qt-5-4-1
