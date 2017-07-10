@@ -168,6 +168,11 @@ Project {
     }
 
     SubProject {
+        filePath: "upstream/ubuntu-plugin/ubuntu-ui.qbs"
+        inheritProperties: true
+    }
+
+    SubProject {
         filePath: "Dekko/Dekko.qbs"
         inheritProperties: true
     }
