@@ -2,7 +2,6 @@ import QtQuick 2.4
 import QtQuick.Window 2.1
 import Ubuntu.Components 1.3
 import MazDB 1.0
-import "./views/components"
 
 Window {
     id: window

@@ -23,7 +23,7 @@ import Ubuntu.Content 1.1
 import Dekko.Mail.API 1.0
 import Dekko.Mail.Stores.Views 1.0
 import Dekko.Mail.Stores.Composer 1.0
-import "../views/dialogs"
+import Dekko.Ubuntu.Dialogs 1.0
 
 /*!
 *

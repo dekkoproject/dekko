@@ -1,0 +1,8 @@
+module Dekko.Ubuntu.Helpers
+
+DevPanel 1.0 DevPanel.qml
+DevWindow 1.0 DevWindow.qml
+PopupQueue 1.0 PopupQueue.qml
+ViewState 1.0 ViewState.qml
+QtCoreAPI 1.0 QtCoreAPI.js
+UiUtils 1.0 UiUtils.js

@@ -80,7 +80,7 @@ Project {
     PropertyOptions {
         name: "ui"
         description: "Which UI should the app be built with"
-        allowedValues: ["ubuntu", "qqc2"]
+        allowedValues: ["none", "ubuntu", "qqc2"]
     }
 
     property bool buildAll: true
@@ -90,91 +90,70 @@ Project {
 
     qbsSearchPaths: [ path ]
 
+    references: [
+        "Dekko/components/components.qbs",
+        "Dekko/utils/utils.qbs",
+        "upstream/third-party.qbs",
+        "Dekko/backend/backend.qbs",
+        "Dekko/server/server.qbs",
+        "Dekko/app/app.qbs"
+    ]
 
-    /* MazDB library - LevelDB based database.
+    property string appName: "Dekko"
+    property string pkgName: "dekko.dekkoproject"
+    property string version: "0.9.6"
 
-       Available as a library and qml plugin
-       either use:
+    DynamicLibrary {
+        name: "API"
+        Group {
+            name: "Public API"
+            files: ["Dekko/api/public/**"]
+            fileTags: ["public-qml-api"]
+            qbs.install: true
+            qbs.installDir: project.qmlDir + "/Dekko/Mail/API"
+            qbs.installSourceBase: "Dekko/api/public"
+        }
 
-       Depend { name: "MazDB" }
-       or
-       import MazDB 1.0
-    */
-    SubProject {
-        filePath: "upstream/maz-db/MazDB.qbs"
-        Properties {
-            name: "Maz DB"
-            testsEnabled: false
-            buildExamples: false
-            useSnappy: true
-            binDir: dekko.binDir
-            libDir: dekko.libDir
-            qmlDir: dekko.qmlDir
+        readonly property stringList qmlImportPaths: [ qbs.installRoot + "/" + project.qmlDir ]
+
+
+        Group {
+            name: "Private API"
+            files: ["Dekko/api/private/**"]
+            fileTags: ["private-qml-api"]
+            qbs.install: true
+            qbs.installDir: project.qmlDir + "/Dekko/Mail/API/Private"
+            qbs.installSourceBase: "Dekko/api/private"
         }
     }
 
-    /* Quick Flux event framework
+    DynamicLibrary {
+        name: "Stores"
 
-       Available as a QML plugin
-       import QuickFlux 1.0
-
-       docs: https://quickflux.dekkoproject.org
-       upstream: https://github.com/benlau/quickflux
-       fork: code.dekkoproject.org/dekko-dev/quick-flux
-    */
-    SubProject {
-        filePath: "upstream/quick-flux/quickflux.qbs"
-        Properties {
-            name: "Quick Flux"
-            staticLib: false
-            installDir: dekko.qmlDir + "/QuickFlux"
+        Group {
+            name: "Mail Stores"
+            files: ["Dekko/stores/**"]
+            fileTags: ["mail-stores"]
+            qbs.install: true
+            qbs.installDir: project.qmlDir + "/Dekko/Mail/Stores"
+            qbs.installSourceBase: "Dekko/stores"
         }
+        readonly property stringList qmlImportPaths: [
+            qbs.installRoot + "/" + project.qmlDir + "/"
+        ]
     }
 
+    DynamicLibrary {
+        name: "Workers"
 
-    SubProject {
-        filePath: "upstream/plugman/plugman.qbs"
-        Properties {
-            libDir: dekko.libDir
-            qmlDir: dekko.qmlDir
+        Group {
+            name: "Mail Workers"
+            files: ["Dekko/workers/**"]
+            fileTags: ["mail-workers"]
+            qbs.install: true
+            qbs.installDir: project.qmlDir + "/Dekko/Mail/Workers"
+            qbs.installSourceBase: "Dekko/workers"
         }
-    }
-
-    SubProject {
-        filePath: "upstream/controls/controls.qbs"
-        Properties {
-            installDir: dekko.qmlDir
-        }
-    }
-
-    SubProject {
-        filePath: "upstream/notify/notify.qbs"
-        Properties {
-            qmlDir: dekko.qmlDir
-        }
-    }
-
-    SubProject {
-        filePath: "upstream/super-macros/super-macros.qbs"
-    }
-
-    SubProject {
-        filePath: "upstream/qmf/qmf.qbs"
-        Properties {
-            libDir: dekko.libDir
-            qmfInstallRoot: dekko.libDir + "/qmf"
-            enableLogging: dekko.enableLogging
-        }
-    }
-
-    SubProject {
-        filePath: "upstream/ubuntu-plugin/ubuntu-ui.qbs"
-        inheritProperties: true
-    }
-
-    SubProject {
-        filePath: "Dekko/Dekko.qbs"
-        inheritProperties: true
     }
 
     DynamicLibrary {
@@ -200,51 +179,51 @@ Project {
     }
 
     // If required output a tar.gz package
-    InstallPackage {
-        archiver.type: "tar"
-        targetName: "dekko_" + qbs.architecture + "_qt"+ Qt.core.version
-        name: "tar-package"
-        builtByDefault: project.outputTarPackage
+//    InstallPackage {
+//        archiver.type: "tar"
+//        targetName: "dekko_" + qbs.architecture + "_qt"+ Qt.core.version
+//        name: "tar-package"
+//        builtByDefault: project.outputTarPackage
 
-        Depends { name: "MazDB"; }
-        Depends { name: "LevelDB"; }
-        Depends { name: "MazDBQuick"; }
-        Depends { name: "i18n"; }
-        Depends { name: "Components"; }
-        Depends { name: "Controls"; }
-        Depends { name: "Shared Utils"; }
-        Depends { name: "API"; }
-        Depends { name: "Stores"; }
-        Depends { name: "Workers"; }
-        Depends { name: "Dekko Mail" }
-        Depends { name: "Server" }
-        Depends { name: "Accounts Plugin" }
-        Depends { name: "AccountsLib" }
-        Depends { name: "AutoConfig Plugin" }
-        Depends { name: "Mail Lib" }
-        Depends { name: "Mail Plugin" }
-        Depends { name: "Network Lib" }
-        Depends { name: "Settings Lib" }
-        Depends { name: "Settings Plugin" }
-        Depends { name: "Ubuntu UI Plugin" }
-        Depends { name: "Imap Service"; }
-        Depends { name: "Pop Service"; }
-        Depends { name: "Smtp Service"; }
-        Depends { name: "QmfClient"; }
-        Depends { name: "QmfServer"; }
-        Depends { name: "Settings Service"; }
-        Depends { name: "Storage Manager"; }
-        Depends { name: "Notify Plugin"; }
-        Depends { name: "PlugMan"; }
-        Depends { name: "QuickPlugMan"; }
-        Depends { name: "QuickFlux"; }
-        Depends { name: "Markdown Plugin"; }
+//        Depends { name: "MazDB"; }
+//        Depends { name: "LevelDB"; }
+//        Depends { name: "MazDBQuick"; }
+//        Depends { name: "i18n"; }
+//        Depends { name: "Components"; }
+//        Depends { name: "Controls"; }
+//        Depends { name: "Shared Utils"; }
+//        Depends { name: "API"; }
+//        Depends { name: "Stores"; }
+//        Depends { name: "Workers"; }
+//        Depends { name: "Dekko Mail" }
+//        Depends { name: "Server" }
+//        Depends { name: "Accounts Plugin" }
+//        Depends { name: "AccountsLib" }
+//        Depends { name: "AutoConfig Plugin" }
+//        Depends { name: "Mail Lib" }
+//        Depends { name: "Mail Plugin" }
+//        Depends { name: "Network Lib" }
+//        Depends { name: "Settings Lib" }
+//        Depends { name: "Settings Plugin" }
+//        Depends { name: "Ubuntu UI Plugin" }
+//        Depends { name: "Imap Service"; }
+//        Depends { name: "Pop Service"; }
+//        Depends { name: "Smtp Service"; }
+//        Depends { name: "QmfClient"; }
+//        Depends { name: "QmfServer"; }
+//        Depends { name: "Settings Service"; }
+//        Depends { name: "Storage Manager"; }
+//        Depends { name: "Notify Plugin"; }
+//        Depends { name: "PlugMan"; }
+//        Depends { name: "QuickPlugMan"; }
+//        Depends { name: "QuickFlux"; }
+//        Depends { name: "Markdown Plugin"; }
 
-        Group {
-            qbs.install: true
-            fileTagsFilter: product.type
-        }
-    }
+//        Group {
+//            qbs.install: true
+//            fileTagsFilter: product.type
+//        }
+//    }
 
     Product {
         name: "Snapcraft"

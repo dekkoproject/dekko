@@ -2,9 +2,20 @@ import qbs
 
 Project {
     name: "Ubuntu UI"
+    property bool enabled: false
+
+    references: [
+        "plugins/default-plugins.qbs",
+        "src/stages/stages.qbs",
+        "src/constants/constants.qbs",
+        "src/components/components.qbs",
+        "src/utils/helpers.qbs",
+        "src/dialogs/dialogs.qbs"
+    ]
 
     Product {
-        name: "Ubuntu UI Plugin"
+        name: "QML UI"
+        condition: project.enabled
 
         Depends { name: "cpp" }
         Depends { name: "Qt.core" }
@@ -21,14 +32,6 @@ Project {
             name: "JavaScript modules"
             files: [
                 "qml/**/*.js"
-            ]
-            fileTags: ["ui-plugin"]
-        }
-
-        Group {
-            name: "QML directory"
-            files: [
-                "qml/constants/qmldir"
             ]
             fileTags: ["ui-plugin"]
         }

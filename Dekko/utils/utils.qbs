@@ -2,7 +2,7 @@ import qbs
 
 DynamicLibrary {
 
-    name: "Utils"
+    name: "Shared Utils"
     targetName: "dekko-utils"
 
     Depends { name: "cpp" }

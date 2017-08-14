@@ -1,0 +1,8 @@
+module Dekko.Ubuntu.Dialogs
+
+ConfirmationDialog 1.0 ConfirmationDialog.qml
+ContentPickerDialog 1.0 ContentPickerDialog.qml
+DialogBase 1.0 DialogBase.qml
+FilePickerDialog 1.0 FilePickerDialog.qml
+VersionDialog 1.0 VersionDialog.qml
+NoticePopup 1.0 NoticePopup.qml

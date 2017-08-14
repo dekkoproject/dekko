@@ -23,9 +23,8 @@ import Dekko.Mail.Stores.Views 1.0
 import Dekko.Mail.Stores.Composer 1.0
 import Dekko.Mail.Workers 1.0
 import PlugMan 1.0
-import "./views/components"
-import "./views/utils"
-import "./views/stages"
+import Dekko.Ubuntu.Components 1.0
+import Dekko.Ubuntu.Helpers 1.0
 import "./workers"
 
 ViewState {

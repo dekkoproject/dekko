@@ -19,8 +19,8 @@ import QtQuick 2.4
 import QuickFlux 1.0
 import Dekko.Mail.API 1.0
 import Dekko.Mail.Stores.Views 1.0
-import "../views/utils"
-
+import Dekko.Ubuntu.Dialogs 1.0
+import Dekko.Ubuntu.Helpers 1.0
 
 AppListener {
     id: logListener
@@ -28,17 +28,23 @@ AppListener {
     waitFor: [ViewStore.listenerId]
     property PopupQueue popupQueue: PopupQueue {}
 
+    Component {
+        id: noticePopup
+        NoticePopup{}
+    }
+
     Filter {
         type: PopupKeys.showError
+
         onDispatched: {
-            popupQueue.queue(Qt.resolvedUrl("../views/popovers/NoticePopup.qml"), dekko, {title: qsTr("Error"), text: message.error})
+            popupQueue.queue(noticePopup, dekko, {title: qsTr("Error"), text: message.error})
         }
     }
 
     Filter {
         type: PopupKeys.showNotice
         onDispatched: {
-            popupQueue.queue(Qt.resolvedUrl("../views/popovers/NoticePopup.qml"), dekko, {title: qsTr("Notice"), text: message.notice})
+            popupQueue.queue(noticePopup, dekko, {title: qsTr("Notice"), text: message.notice})
         }
     }
 

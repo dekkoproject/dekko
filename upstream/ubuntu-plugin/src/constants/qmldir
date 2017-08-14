@@ -1,0 +1,6 @@
+module Dekko.Ubuntu.Constants
+singleton Style 1.0 Style.qml
+singleton DekkoAnimation 1.0 DekkoAnimation.qml
+singleton MailUtils 1.0 MailUtils.qml
+singleton Uris 1.0 Uris.qml
+singleton Content 1.0 ContentType.qml
