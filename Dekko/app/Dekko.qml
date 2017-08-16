@@ -64,8 +64,6 @@ Item {
         Filter {
             type: ViewKeys.runSetupWizard
             onDispatched: {
-//                ViewActions.pushStage("../setupwizard/SetupWizard.qml", {})
-
                 console.log("Open Mail Setup Wizard")
                 if (d.setupWizard === null) {
                     var comp = d.getComponent("Dekko::Mail::SetupWizard")
@@ -74,6 +72,16 @@ Item {
                     }
                 } else {
                     d.setupWizard.raise()
+                }
+            }
+        }
+
+        Filter {
+            type: ViewKeys.closeSetupWizard
+            onDispatched: {
+                console.log("Closing setup wizard")
+                if (d.setupWizard !== null) {
+                    d.setupWizard.destroy()
                 }
             }
         }
@@ -105,24 +113,4 @@ Item {
             }
         }
     }
-
-
-    //    function detach () {
-    //        if (d.subWindow === null) {
-    //            var rootItem = Introspector.window (devPanel);
-    //            var abspos = rootItem.contentItem.mapFromItem(devPanel, 0 , 0);
-    //            d.subWindow = compoWindow.createObject(Introspector.window(devPanel), {
-    //                                                       "x" : (abspos.x + rootItem.x),
-    //                                                       "y" : (abspos.y + rootItem.y),
-    //                                                   });
-    //            devPanel.parent = d.subWindow.contentItem;
-    ////            pc.visible = false
-    //        }
-    //    }
-
-    //    Component {
-    //        id: compoWindow;
-    //        DevWindow {}
-    //    }
-
 }

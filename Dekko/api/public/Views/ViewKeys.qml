@@ -31,6 +31,7 @@ KeyTable {
     property string clearStageStack
     property string rewindStageStack
     property string runSetupWizard
+    property string closeSetupWizard
 
     // messagelistview
     property string openNavDrawer

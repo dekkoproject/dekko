@@ -178,7 +178,7 @@ FocusScope {
             once(ComposerKeys.invalidAddress, function(message) {
                 Log.logInfo("RecipientField::invalidAddress", "Address invalid: %1".arg(message.address))
                 input.cursorPosition = input.length
-                PopupActions.showError("Invalid email address: %1".arg(message.address))
+                PopupActions.showError(PopupKeys.popupComposer, "Invalid email address: %1".arg(message.address))
             })
         }
     }

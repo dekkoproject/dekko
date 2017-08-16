@@ -22,7 +22,7 @@ import Dekko.Components 1.0
 import Dekko.Ubuntu.Components 1.0
 import Dekko.Mail.API 1.0
 import Dekko.Mail.Stores.Accounts 1.0
-import "../Dekko.Ubuntu.Constants 1.0"
+import Dekko.Ubuntu.Constants 1.0
 
 DekkoPage {
     id: noAccounts

@@ -35,7 +35,7 @@ VisualItemModel {
             ProgressionSlot{}
         }
         onClicked: {
-            PopupActions.queueDialog(Qt.resolvedUrl("../dialogs/VersionDialog.qml"), {})
+            PopupActions.queueDialog(PopupKeys.popupMainWindow, Qt.resolvedUrl("../dialogs/VersionDialog.qml"), {})
         }
     }
     ListItem {

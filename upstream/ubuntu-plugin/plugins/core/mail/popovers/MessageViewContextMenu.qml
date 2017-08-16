@@ -63,7 +63,7 @@ Popover {
                     description: qsTr("Share link")
                     actionIcon: Icons.ShareIcon
                     onTriggered: {
-                        PopupActions.showNotice("not implemented yet. Fix it before release!!!!")
+                        PopupActions.showNotice(PopupKeys.popupMainWindow, "not implemented yet. Fix it before release!!!!")
                         PopupUtils.close(actionPopover)
                     }
                 }
@@ -106,7 +106,7 @@ Popover {
                     description: qsTr("View source")
                     actionIcon: Icons.NoteIcon
                     onTriggered: {
-                        PopupActions.showNotice("not implemented yet. Fix it before release!!!!")
+                        PopupActions.showNotice(PopupKeys.popupMainWindow, "not implemented yet. Fix it before release!!!!")
                         PopupUtils.close(actionPopover)
                     }
                 }

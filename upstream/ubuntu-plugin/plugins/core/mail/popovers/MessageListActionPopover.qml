@@ -60,7 +60,7 @@ Popover {
                     description: qsTr("Mark as spam")
                     actionIcon: Icons.JunkIcon
                     onTriggered: {
-                        PopupActions.showNotice("Mark as spam not implemented yet. Fix it before release!!!!")
+                        PopupActions.showNotice(PopupKeys.popupMainWindow, "Mark as spam not implemented yet. Fix it before release!!!!")
                         PopupUtils.close(actionPopover)
                     }
                 }

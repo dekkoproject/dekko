@@ -50,7 +50,7 @@ AppListener {
         type: AccountKeys.confirmRemoveAccount
         onDispatched: {
             Log.logWarning("AccountWorker::confirmRemoveAccount", "Prompting to confirm account removal")
-            PopupActions.showConfirmationDialog(d.removeAccountDlgId, qsTr("Remove account"), qsTr("Are you sure you wish to remove this account?"))
+            PopupActions.showConfirmationDialog(PopupKeys.popupSettings, d.removeAccountDlgId, qsTr("Remove account"), qsTr("Are you sure you wish to remove this account?"))
         }
     }
 

@@ -17,14 +17,19 @@
 */
 import QtQuick 2.4
 import Ubuntu.Components 1.3
-import Dekko.Mail.Settings 1.0
+import Ubuntu.Components.Popups 1.3
+import PlugMan 1.0
+
 import Dekko.Mail.API 1.0
+import Dekko.Mail.Settings 1.0
 import Dekko.Mail.Stores.Views 1.0
 import Dekko.Mail.Stores.Composer 1.0
 import Dekko.Mail.Workers 1.0
-import PlugMan 1.0
+
 import Dekko.Ubuntu.Components 1.0
+import Dekko.Ubuntu.Dialogs 1.0
 import Dekko.Ubuntu.Helpers 1.0
+
 import "./workers"
 
 ViewState {
@@ -57,6 +62,17 @@ ViewState {
         }
     }
 
+    DialogWorker {
+        name: PopupKeys.popupMainWindow
+        dlgTarget: dekkoContainer
+        noticePopup: Component {
+            NoticePopup{}
+        }
+        confirmationPopup: Component {
+            ConfirmationDialog{}
+        }
+    }
+
     Loader {
         id: workerLoader
         asynchronous: true
@@ -70,7 +86,6 @@ ViewState {
                 UriWorker {},
                 ErrorsWorker {},
                 ToastWorker {},
-                DialogWorker {},
                 ContentWorker {}
             ]
         }

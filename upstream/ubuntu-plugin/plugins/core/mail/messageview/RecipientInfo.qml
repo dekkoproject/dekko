@@ -95,7 +95,7 @@ DetailItem {
                 title.wrapMode: Text.NoWrap
             }
             onClicked: {
-                PopupActions.showNotice("Not implemented yet. Fix it before release!!!!")
+                PopupActions.showNotice(PopupKeys.popupMainWindow, "Not implemented yet. Fix it before release!!!!")
                 PopupUtils.close(info)
             }
         }
@@ -109,7 +109,7 @@ DetailItem {
                 title.wrapMode: Text.NoWrap
             }
             onClicked: {
-                PopupActions.showNotice("Not implemented yet. Fix it before release!!!!")
+                PopupActions.showNotice(PopupKeys.popupMainWindow, "Not implemented yet. Fix it before release!!!!")
                 PopupUtils.close(info)
             }
         }
@@ -124,7 +124,7 @@ DetailItem {
                 title.wrapMode: Text.NoWrap
             }
             onClicked: {
-                PopupActions.showNotice("Not implemented yet. Fix it before release!!!!")
+                PopupActions.showNotice(PopupKeys.popupMainWindow, "Not implemented yet. Fix it before release!!!!")
                 PopupUtils.close(info)
             }
         }

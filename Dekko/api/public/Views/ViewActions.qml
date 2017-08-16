@@ -33,6 +33,7 @@ ActionCreator {
     signal clearStageStack()
     signal rewindStageStack()
     signal runSetupWizard()
+    signal closeSetupWizard()
 
     // messagelistview
     signal openNavDrawer()

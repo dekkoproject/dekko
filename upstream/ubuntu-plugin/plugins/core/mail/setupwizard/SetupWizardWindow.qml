@@ -1,7 +1,6 @@
 import QtQuick 2.4
 import QtQuick.Window 2.1
 import Ubuntu.Components 1.3
-import Ubuntu.Components.Popups 1.3
 import Dekko.Mail.API 1.0
 import MazDB 1.0
 import Dekko.Controls 1.0
@@ -21,15 +20,13 @@ Window {
     title: qsTr("Mail Setup Wizard")
 
     onClosing: {
-//        ViewActions.closeSettings()
+        ViewActions.closeSetupWizard()
     }
 
     MazDBSettings {
         category: "setupwizard-property-cache"
         property alias windowWidth: window.width
         property alias windowHeight: window.height
-//        property alias windowX: window.x
-//        property alias windowY: window.y
     }
 
     Item {

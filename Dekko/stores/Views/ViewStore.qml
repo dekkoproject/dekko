@@ -57,15 +57,9 @@ AppListener {
             Log.logStatus("ViewStore::stageStackReady", "Stack is ready")
             ViewActions.pushStage(registry.findFirstEnabled("Dekko::Stage::Mail"), {})
             if (!Client.hasConfiguredAccounts) {
-                ViewActions.runSetupWizard()
+                console.log("Opening setup wizard as none configured")
+                ViewActions.delayCall(ViewKeys.runSetupWizard)
             }
-        }
-    }
-
-    Filter {
-        type: ViewKeys.runSetupWizard
-        onDispatched: {
-            console.log("Opening setup wizard")
         }
     }
 

@@ -60,6 +60,10 @@ QtObject {
     }
 
     function __showNextPopup(popup, parent, properties) {
+        console.log("Showing next popup")
+        console.log(popup)
+        console.log(parent)
+        console.log(properties)
         var nextPopup = PopupUtils.open(popup, parent, properties)
         nextPopup.closing.connect(__popupOnScreenClosed)
         __popupOnScreen = true

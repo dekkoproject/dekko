@@ -69,7 +69,7 @@ ListItem {
             name: Icons.ContextMenuIcon
             AbstractButton {
                 anchors.fill: parent
-                onClicked: PopupActions.showNotice("Not implemented. Fix before release")
+                onClicked: PopupActions.showNotice(PopupKeys.popupMainWindow, "Not implemented. Fix before release")
             }
         }
     }

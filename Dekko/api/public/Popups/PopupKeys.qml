@@ -33,4 +33,8 @@ KeyTable {
     property string clearDialogQueue //TODO
     property string cancelCurrentDialog // TODO
     property string showDiscardDialog
+    property string popupMainWindow
+    property string popupComposer
+    property string popupSetupWizard
+    property string popupSettings
 }

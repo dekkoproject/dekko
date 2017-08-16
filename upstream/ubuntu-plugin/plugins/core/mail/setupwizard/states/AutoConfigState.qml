@@ -72,6 +72,7 @@ DSM.State {
                 PopupUtils.close(d.overlay)
             }
             PopupActions.showConfirmationDialog(
+                        PopupKeys.popupSetupWizard,
                         d.useImapId,
                         qsTr("IMAP server found"),
                         qsTr("A IMAP server configuration was found for you domain.\n\nWould you like to use this instead?"

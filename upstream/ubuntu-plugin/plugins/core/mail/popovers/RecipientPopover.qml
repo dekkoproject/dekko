@@ -89,7 +89,7 @@ Popover {
                     description: qsTr("Add to addressbook")
                     actionIcon: Icons.NewContactIcon
                     onTriggered: {
-                        PopupActions.showNotice("Not implemented yet. Fix it before release!!!!")
+                        PopupActions.showNotice(PopupKeys.popupMainWindow, "Not implemented yet. Fix it before release!!!!")
                         PopupUtils.close(info)
                     }
                 },

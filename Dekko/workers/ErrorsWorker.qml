@@ -38,37 +38,37 @@ Item {
             case Client.FrameworkFault:
                 Log.logError("ErrorManager::FrameworkFault", "We have a framework fault: " + errorString)
                 // shout loudly
-                PopupActions.showError(errorString)
+                PopupActions.showError(PopupKeys.popupMainWindow, errorString)
                 break
             case Client.SystemError:
                 Log.logError("ErrorManager::SystemError", "We have a system fault: " + errorString)
-                PopupActions.showError(errorString)
+                PopupActions.showError(PopupKeys.popupMainWindow, errorString)
                 break
             case Client.InternalServerError:
                 Log.logError("ErrorManager::InternalServerError", "Error in the remote server: " + errorString)
-                PopupActions.showError(errorString)
+                PopupActions.showError(PopupKeys.popupMainWindow, errorString)
                 break
             case Client.UnexpectedResponse:
                 Log.logError("ErrorManager::UnexpectedResponse", "Unexpected response received: " + errorString)
-                PopupActions.showError(errorString)
+                PopupActions.showError(PopupKeys.popupMainWindow, errorString)
                 break
             case Client.LoginFailed:
                 Log.logError("ErrorManager::LoginFailed", "Login failed, maybe check credentials??: " + errorString)
                 // TODO: show a special login failed dialog with some advice to check credentials.
-                PopupActions.showError(errorString)
+                PopupActions.showError(PopupKeys.popupMainWindow, errorString)
                 break
             case Client.CancelError:
                 Log.logError("ErrorManager::CancelError", "Cancelation error " + errorString)
-                PopupActions.showError(errorString)
+                PopupActions.showError(PopupKeys.popupMainWindow, errorString)
                 break
             case Client.FileSystemFull:
                 Log.logError("ErrorManager::FileSystemFull", "File system is full, time to free up some space me thinks: " + errorString)
                 // TODO: once we have the cache pruner should we offer to prune old messages to free up some space?
-                PopupActions.showError(errorString)
+                PopupActions.showError(PopupKeys.popupMainWindow, errorString)
                 break
             case Client.MessageNotExist:
                 Log.logError("ErrorManager::MessageNotExist", "Message doesn't exist, maybe it got removed/moved on the server and we didn't find out: " + errorString)
-                PopupActions.showError(errorString)
+                PopupActions.showError(PopupKeys.popupMainWindow, errorString)
                 break
             case Client.EnqueueFailed:
                 Log.logError("ErrorManager::EnqueueFailed", "Failed to enqueue: " + errorString)
@@ -87,15 +87,15 @@ Item {
                 break
             case Client.ConfigurationError:
                 Log.logError("ErrorManager::ConfigurationError", errorString)
-                PopupActions.showError(errorString)
+                PopupActions.showError(PopupKeys.popupMainWindow, errorString)
                 break
             case Client.InvalidAddress:
                 Log.logError("ErrorManager::InvalidAddress", errorString)
-                PopupActions.showError(errorString)
+                PopupActions.showError(PopupKeys.popupMainWindow, errorString)
                 break
             case Client.InvalidData:
                 Log.logError("ErrorManager::invalidData", errorString)
-                PopupActions.showError(errorString)
+                PopupActions.showError(PopupKeys.popupMainWindow, errorString)
                 break
             case Client.TimeoutError:
                 Log.logError("ErrorManager::TimoutError", errorString);
@@ -103,19 +103,19 @@ Item {
                 break
             case Client.InternalStateReset:
                 Log.logError("ErrorManager::InternalStateReset", errorString)
-                PopupActions.showError(errorString)
+                PopupActions.showError(PopupKeys.popupMainWindow, errorString)
                 break
             case Client.SslNotSupported:
                 Log.logError("ErrorManager::SslNotSupported", errorString)
-                PopupActions.showError(errorString)
+                PopupActions.showError(PopupKeys.popupMainWindow, errorString)
                 break
             case Client.UntrustedCertificate:
                 Log.logError("ErrorManager::UntrustedCertificate", errorString)
-                PopupActions.showError(errorString)
+                PopupActions.showError(PopupKeys.popupMainWindow, errorString)
                 break
             case Client.UnknownError:
                 Log.logError("ErrorManager::UnknownError", errorString)
-                PopupActions.showError(errorString)
+                PopupActions.showError(PopupKeys.popupMainWindow, errorString)
                 break
             }
         }

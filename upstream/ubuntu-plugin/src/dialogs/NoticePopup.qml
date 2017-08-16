@@ -27,4 +27,9 @@ DialogBase {
         color: UbuntuColors.green
         onClicked: PopupUtils.close(dlg)
     }
+
+    Component.onCompleted: {
+        console.log(dlg.parent)
+        console.log("Notice opened")
+    }
 }

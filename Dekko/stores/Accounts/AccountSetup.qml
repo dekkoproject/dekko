@@ -217,7 +217,7 @@ AppListener {
 
             if (!EmailValidator.validate(user.email)) {
                 if (valid && user.email) {
-                    PopupActions.showError(qsTr("Invalid email address"))
+                    PopupActions.showError(PopupKeys.popupMainWindow, qsTr("Invalid email address"))
                 }
                 valid = false
                 invalidField.push("email")

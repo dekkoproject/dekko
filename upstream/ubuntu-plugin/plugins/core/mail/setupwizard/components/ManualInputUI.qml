@@ -132,7 +132,7 @@ DekkoPage {
         runWhen: WizardKeys.noServerPasswordSet
         script: {
             Log.logWarning("ManualInputUI::noPasswordSet", "No password set, :-/ asking user if this is what they want")
-            PopupActions.showConfirmationDialog("serverinputpwd", qsTr("Password empty"), qsTr("Would you like to continue?"))
+            PopupActions.showConfirmationDialog(PopupKeys.popupSetupWizard, "serverinputpwd", qsTr("Password empty"), qsTr("Would you like to continue?"))
 
             once(PopupKeys.confirmationDialogConfirmed, function(message) {
                 if (message.id !== "serverinputpwd") {

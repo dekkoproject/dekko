@@ -79,7 +79,7 @@ Popover {
                     description: qsTr("Mark all done")
                     actionIcon: Icons.TickIcon
                     onTriggered: {
-                        PopupActions.showNotice("Not implemented yet. Sorry :-(")
+                        PopupActions.showNotice(PopupKeys.popupMainWindow, "Not implemented yet. Sorry :-(")
                         PopupUtils.close(actionPopover)
                     }
                 }
@@ -110,7 +110,7 @@ Popover {
                     description: qsTr("Folder properties")
                     actionIcon: Icons.FolderIcon
                     onTriggered: {
-                        PopupActions.showNotice("Not implemented yet. Sorry :-(")
+                        PopupActions.showNotice(PopupKeys.popupMainWindow, "Not implemented yet. Sorry :-(")
                         PopupUtils.close(actionPopover)
                     }
                 }

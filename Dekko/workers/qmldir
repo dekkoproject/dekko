@@ -8,3 +8,4 @@ MailWorker 1.0 MailWorker.qml
 Workers 1.0 Workers.qml
 SettingsWorker 1.0 SettingsWorker.qml
 UriWorker 1.0 UriWorker.qml
+DialogWorker 1.0 DialogWorker.qml

@@ -16,49 +16,56 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 import QtQuick 2.4
+import Ubuntu.Components 1.3
 import QuickFlux 1.0
 import Dekko.Mail.API 1.0
 import Dekko.Mail.Stores.Views 1.0
-import Dekko.Ubuntu.Dialogs 1.0
-import Dekko.Ubuntu.Helpers 1.0
 
 AppListener {
-    id: logListener
+    id: dialogListener
 
     waitFor: [ViewStore.listenerId]
+    property string name
+    property var dlgTarget
     property PopupQueue popupQueue: PopupQueue {}
-
-    Component {
-        id: noticePopup
-        NoticePopup{}
-    }
+    property Component noticePopup
+    property Component confirmationPopup
 
     Filter {
         type: PopupKeys.showError
 
         onDispatched: {
-            popupQueue.queue(noticePopup, dekko, {title: qsTr("Error"), text: message.error})
+            if (message.key === dialogListener.name) {
+                popupQueue.queue(noticePopup, dialogListener.dlgTarget, {title: qsTr("Error"), text: message.error})
+            }
         }
     }
 
     Filter {
         type: PopupKeys.showNotice
         onDispatched: {
-            popupQueue.queue(noticePopup, dekko, {title: qsTr("Notice"), text: message.notice})
+            if (message.key === dialogListener.name) {
+                popupQueue.queue(noticePopup, dialogListener.dlgTarget, {title: qsTr("Notice"), text: message.notice})
+            }
         }
     }
 
     Filter {
         type: PopupKeys.queueDialog
         onDispatched: {
-            popupQueue.queue(message.dlg, dekko, message.properties)
+            console.log(message.key)
+            if (message.key === dialogListener.name) {
+                popupQueue.queue(message.dlg, dialogListener.dlgTarget, message.properties)
+            }
         }
     }
 
     Filter {
         type: PopupKeys.showConfirmationDialog
         onDispatched: {
-            popupQueue.queue(Qt.resolvedUrl("../views/dialogs/ConfirmationDialog.qml"), dekko, {id: message.id, title: message.title, text: message.text})
+            if (message.key === dialogListener.name) {
+                popupQueue.queue(confirmationPopup, dialogListener.dlgTarget, {id: message.id, title: message.title, text: message.text})
+            }
         }
     }
 }
