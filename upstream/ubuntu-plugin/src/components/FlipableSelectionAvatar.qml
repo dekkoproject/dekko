@@ -27,6 +27,8 @@ Flipable {
     id: flipable
     property var msg
 
+    signal clicked()
+
     front: PixelPerfectItem {
         id: inner_avatar
         anchors.fill: parent
@@ -78,19 +80,7 @@ Flipable {
             hoverEnabled: true
             anchors.fill: parent
             visible: flipable.state === "front"
-            onClicked: {
-                if (flipable.state === "front") {
-                    ViewActions.pushToStageArea(ViewKeys.messageListStack, Qt.resolvedUrl("../ContactFilterView.qml"),
-                                                {
-                                                    sender: msg.from,
-                                                    title: msg.from.name,
-                                                    email: msg.from.address,
-                                                    initials: msg.from.initials,
-                                                    filterKey: msg.senderMsgKey
-                                                }
-                                                )
-                }
-            }
+            onClicked: flipable.clicked()
             // For some weird reason we can't just bind
             // avatarCircle to containsMouse. As during
             // pushing and popping another page to the stack

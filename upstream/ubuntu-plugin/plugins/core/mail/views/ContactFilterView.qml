@@ -21,7 +21,7 @@ import Dekko.Mail 1.0
 import Dekko.Mail.API 1.0
 import Dekko.Components 1.0
 import Dekko.Ubuntu.Components 1.0
-import "./delegates"
+import "../delegates"
 import Dekko.Ubuntu.Constants 1.0
 
 DekkoPage {

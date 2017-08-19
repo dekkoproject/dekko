@@ -111,6 +111,19 @@ ListItemWithActions {
             height: units.gu(6)
             width: height
             SlotsLayout.position: SlotsLayout.Leading
+            onClicked: {
+                if (inner_name.state === "front") {
+                    ViewActions.pushToStageArea(ViewKeys.messageListStack, Qt.resolvedUrl("../views/ContactFilterView.qml"),
+                                                {
+                                                    sender: msg.from,
+                                                    title: msg.from.name,
+                                                    email: msg.from.address,
+                                                    initials: msg.from.initials,
+                                                    filterKey: msg.senderMsgKey
+                                                }
+                                                )
+                }
+            }
         }
 
         Item {
