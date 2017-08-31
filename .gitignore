@@ -5,3 +5,4 @@ __build
 *.qbs.user
 pylibs
 snap/plugins/__pycache__
+/Qt

@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# first install lxd and phablet tools and run sudo lxd init then reboot
+
+set -e
+
+INSTALLER=qt-opensource-linux-x64-5.8.0.run
+INSTALL_DIR=$PWD/Qt
+QBS_BIN=$INSTALL_DIR/Tools/QtCreator/bin/qbs
+
+if [ ! -d "$INSTALL_DIR/Tools" ]; then
+    echo Fetching $INSTALLER
+    wget https://download.qt.io/archive/qt/5.8/5.8.0/$INSTALLER
+
+    echo Installing Qt
+    ./scripts/silent-install-qt $PWD/$INSTALLER $INSTALL_DIR
+    
+    rm $INSTALLER
+fi
+
+if ! type "clickable" > /dev/null; then
+    echo Installing clickable
+    wget https://open.uappexplorer.com/api/download/clickable/clickable_latest_amd64.snap
+    sudo snap install --force-dangerous --classic clickable_latest_amd64.snap
+    rm clickable_latest_amd64.snap
+    sudo apt install -y lxd phablet-tools
+fi
+
+echo Creating default armhf container
+clickable setup-lxd
+
+echo Installing build dependencies
+lxc exec clickable-armhf -- bash -c "apt install qtpim5-dev:armhf qttools5-dev-tools libconnectivity-qt1-dev:armhf libaccounts-qt5-dev:armhf qtdeclarative5-private-dev:armhf qtscript5-private-dev:armhf qml-module-qtquick-privatewidgets:armhf qtbase5-private-dev:armhf qtbase5-dev:armhf libqt5svg5-dev:armhf libsignon-qt5-dev:armhf libsasl2-dev:armhf signon-plugin-sasl-dev:armhf signon-plugin-oauth2-dev:armhf libsnappy-dev:armhf qemu-user-static -y"
+
+echo Configuring qbs toolchain
+lxc exec clickable-armhf -- bash -c "$QBS_BIN setup-toolchains /usr/bin/arm-linux-gnueabihf-gcc gcc-armhf"
+
+echo Configuring Qt
+lxc exec clickable-armhf -- bash -c "$QBS_BIN setup-qt /usr/lib/arm-linux-gnueabihf/qt5/bin/qmake dekkoqt5-armhf"
+
+echo Configuring base profile
+lxc exec clickable-armhf -- bash -c "$QBS_BIN config profiles.dekkoqt5-armhf.baseProfile gcc-armhf"
+
+echo Configuring cross-compiling
+lxc exec clickable-armhf -- bash -c "$QBS_BIN config profiles.dekkoqt5-armhf.Qt.core.binPath /usr/lib/x86_64-linux-gnu/qt5/bin"

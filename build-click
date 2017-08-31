@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -e
+
+INSTALL_DIR=$PWD/Qt
+QBS_BIN=$INSTALL_DIR/Tools/QtCreator/bin/qbs
+
+if [ ! -d "$INSTALL_DIR/Tools" ]; then
+    echo Cannot proceed without a recent qt release;
+    echo Have you run the setup-click-env script?;
+    exit 1;
+fi
+
+lxc exec clickable-armhf -- bash -c "cd $PWD && $QBS_BIN build -d ../__dekko_build_lxd -f . --clean-install-root release profile:dekkoqt5-armhf"
