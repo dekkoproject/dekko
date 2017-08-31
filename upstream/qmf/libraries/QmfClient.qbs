@@ -103,7 +103,7 @@ Product {
 
     Group {
         name: "C++ Sources"
-        prefix: "libraries/qmfclient/"
+        prefix: path + "/qmfclient/"
         files: [
             "longstream.cpp",
             "longstring.cpp",
@@ -151,7 +151,7 @@ Product {
 
     Group {
         name: "C++ Header"
-        prefix: "libraries/qmfclient/"
+        prefix: path + "/qmfclient/"
         files: [
             "*.h"
         ]
@@ -159,7 +159,7 @@ Product {
 
     Group {
         name: "Support Sources"
-        prefix: "libraries/qmfclient/support/"
+        prefix: path + "/qmfclient/support/"
         files: [
             "qmailnamespace.cpp",
             "qmaillog.cpp",
@@ -175,7 +175,7 @@ Product {
     }
     Group {
         name: "Support Headers"
-        prefix: "libraries/qmfclient/support/"
+        prefix: path + "/qmfclient/support/"
         files: [
             "*.h"
         ]
@@ -184,7 +184,7 @@ Product {
     Group {
         condition: project.uoaEnabled
         name: "UOA Support"
-        prefix: "libraries/qmfclient/uoa/"
+        prefix: path + "/qmfclient/uoa/"
         files: [
             "*.h",
             "*.cpp"
@@ -193,7 +193,7 @@ Product {
 
     Group {
         name: "Resources"
-        prefix: "libraries/qmfclient/"
+        prefix: path + "/qmfclient/"
         files: [
             "qmf.qrc",
             "qmf_qt.qrc"
@@ -203,7 +203,7 @@ Product {
 
     Group {
         name: "Translations"
-        prefix: "libraries/qmfclient/"
+        prefix: path + "/qmfclient/"
         files: [
             "*.ts"
         ]

@@ -13,7 +13,7 @@ Product {
     cpp.cxxLanguageVersion: "c++11";
     cpp.cxxStandardLibrary: "libstdc++";
     cpp.includePaths: [
-        "libraries/qmfmessageserver"
+        path + "/qmfmessageserver"
     ]
     property stringList defaultDefines: [
         "QMF_NO_MESSAGE_SERVICE_EDITOR",
@@ -33,13 +33,13 @@ Product {
         cpp.cxxLanguageVersion: "c++11";
         cpp.cxxStandardLibrary: "libstdc++";
         cpp.includePaths: [
-            "libraries/qmfmessageserver"
+            path + "/qmfmessageserver"
         ]
     }
 
     Group {
         name: "C++ Source"
-        prefix: "libraries/qmfmessageserver/"
+        prefix: path + "/qmfmessageserver/"
         files: [
             "qmailauthenticator.cpp",
             "qmailmessagebuffer.cpp",
@@ -55,7 +55,7 @@ Product {
 
     Group {
         name: "C++ Headers"
-        prefix: "libraries/qmfmessageserver/"
+        prefix: path + "/qmfmessageserver/"
         files: ["*.h"]
     }
 

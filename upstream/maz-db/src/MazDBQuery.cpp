@@ -3,7 +3,7 @@
 #include <QRect>
 #include <QRectF>
 #include <functional>
-#include <QQmlEngine>
+#include "QJsEngineShim.h"
 
 QueryBase::QueryBase(QObject *parent) : QObject(parent),
     m_matchRule(Equals)

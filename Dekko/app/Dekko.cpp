@@ -28,7 +28,7 @@
 #include <QQmlEngine>
 #include <QCommandLineOption>
 #include <QDir>
-#include <QStandardPaths>
+#include <SnapStandardPaths.h>
 #include <PluginRegistry.h>
 
 #define SMALL_FF_WIDTH 350
@@ -115,7 +115,7 @@ bool Dekko::setup()
 
     if (qgetenv("QMF_DATA").isEmpty()) {
         // Fall back to standard xdg cache location
-        qputenv("QMF_DATA", QStandardPaths::writableLocation(QStandardPaths::CacheLocation).toUtf8());
+        qputenv("QMF_DATA", SnapStandardPaths::writableLocation(SnapStandardPaths::AppCacheLocation).toUtf8());
     }
 
     if (!isServerRunning()) {
@@ -228,6 +228,6 @@ void Dekko::loadPlugins()
 
    PluginRegistry::instance()->loadPlugins(
                QStringList()
-               << QStringLiteral("%1/plugins").arg(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation))
+               << QStringLiteral("%1/plugins").arg(SnapStandardPaths::writableLocation(SnapStandardPaths::AppDataLocation))
                );
 }

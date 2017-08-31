@@ -19,7 +19,6 @@
 #define PATHS_H
 
 #include <QObject>
-#include <QStandardPaths>
 #include <QtQuick>
 #include <QQmlEngine>
 #include <QJSEngine>

@@ -26,7 +26,7 @@ DynamicLibrary {
 
     Group {
         name: "Plugin Headers"
-        prefix: basePath + "/"
+        prefix: path + "/"
         files: [
             "MazDBPlugin.h"
         ]
@@ -34,7 +34,7 @@ DynamicLibrary {
 
     Group {
         name: "Plugin Sources"
-        prefix: basePath + "/"
+        prefix: path + "/"
         files: [
             "MazDBPlugin.cpp"
         ]
@@ -42,7 +42,7 @@ DynamicLibrary {
 
     Group {
         name: "Other Files"
-        prefix: basePath + "/"
+        prefix: path + "/"
         files: [
             "qmldir"
         ]

@@ -5,8 +5,8 @@
 #include <QDir>
 #include <qqmlinfo.h>
 #include <QJsonDocument>
-#include <QQmlEngine>
 #include "MazDBBatch.h"
+#include "QJsEngineShim.h"
 
 static QHash<QString, QWeakPointer<leveldb::DB> > s_levelInstances;
 static QMultiHash<QString, MazDB*> s_mazInstances;

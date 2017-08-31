@@ -6,10 +6,10 @@ QtGuiApplication {
     name: "MazDB Tests"
     targetName: "mazdb-tests"
     files: [
-        "tests/mazdbtests.qrc",
-        "tests/runner.cpp",
-        "tests/Mace.cpp",
-        "tests/Mace.h"
+        path + "/mazdbtests.qrc",
+        path + "/runner.cpp",
+        path + "/Mace.cpp",
+        path + "/Mace.h"
     ]
 
     Depends { name: "cpp" }

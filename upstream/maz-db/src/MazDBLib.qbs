@@ -11,8 +11,11 @@ DynamicLibrary {
 
     Depends { name: "cpp" }
     Depends { name: "Qt.core" }
+    Depends { name: "Qt.core-private" }
     Depends { name: "Qt.quick" }
     Depends { name: "Qt.qml" }
+    Depends { name: "Qt.qml-private" }
+    Depends { name: "SnapStandardPaths" }
 
     cpp.optimization: qbs.buildVariant === "debug" ? "none" : "fast"
     cpp.debugInformation: qbs.buildVariant === "debug"
@@ -27,6 +30,8 @@ DynamicLibrary {
         cpp.includePaths: mazDBLib.includePaths
         Depends { name: "cpp"; }
         Depends { name: "Qt.core"; }
+        Depends { name: "Qt.quick" }
+        Depends { name: "Qt.qml" }
     }
 
     Depends {
@@ -35,31 +40,34 @@ DynamicLibrary {
 
     Group {
         name: "C++ Headers"
+        prefix: path + "/"
         files: [
-            basePath + "/MazDB.h",
-            basePath + "/MazDBBatch.h",
-            basePath + "/MazOptions.h",
-            basePath + "/MazUtils.h",
-            basePath + "/MazDBListModel.h",
-            basePath + "/MazDBQuery.h",
-            basePath + "/MazDBQueryEngine.h",
-            basePath + "/MazDBSettings.h",
-            basePath + "/MazDBSortProxy.h"
+            "MazDB.h",
+            "MazDBBatch.h",
+            "MazOptions.h",
+            "MazUtils.h",
+            "MazDBListModel.h",
+            "MazDBQuery.h",
+            "MazDBQueryEngine.h",
+            "MazDBSettings.h",
+            "MazDBSortProxy.h",
+            "QJsEngineShim.h"
         ]
     }
 
     Group {
         name: "C++ Sources"
+        prefix: path + "/"
         files: [
-            basePath + "/MazDB.cpp",
-            basePath + "/MazDBBatch.cpp",
-            basePath + "/MazOptions.cpp",
-            basePath + "/MazUtils.cpp",
-            basePath + "/MazDBListModel.cpp",
-            basePath + "/MazDBQuery.cpp",
-            basePath + "/MazDBQueryEngine.cpp",
-            basePath + "/MazDBSettings.cpp",
-            basePath + "/MazDBSortProxy.cpp"
+            "MazDB.cpp",
+            "MazDBBatch.cpp",
+            "MazOptions.cpp",
+            "MazUtils.cpp",
+            "MazDBListModel.cpp",
+            "MazDBQuery.cpp",
+            "MazDBQueryEngine.cpp",
+            "MazDBSettings.cpp",
+            "MazDBSortProxy.cpp"
         ]
     }
 }

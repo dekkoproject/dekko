@@ -67,12 +67,12 @@ AppListener {
         target: Client
         onMessagesSent: {
             if (ids.length > 1) {
-                ViewActions.orderSimpleToast(qsTr("Messages sent"))
+                ViewActions.orderSimpleToast(ViewKeys.toastMainWindow, qsTr("Messages sent"))
             } else {
-                ViewActions.orderSimpleToast(qsTr("Message sent"))
+                ViewActions.orderSimpleToast(ViewKeys.toastMainWindow, qsTr("Message sent"))
             }
         }
-        onMessageSendingFailed: ViewActions.orderSimpleToast(qsTr("Message sending failed"))
+        onMessageSendingFailed: ViewActions.orderSimpleToast(ViewKeys.toastMainWindow, qsTr("Message sending failed"))
     }
 
     Filter {

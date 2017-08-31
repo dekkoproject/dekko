@@ -18,6 +18,7 @@
 #include "Paths.h"
 #include <QCoreApplication>
 #include <QLockFile>
+#include <SnapStandardPaths.h>
 
 Paths::Paths(QObject *parent) : QObject(parent)
 {
@@ -251,34 +252,22 @@ QString Paths::configFileLocation(const QString &fileName)
 
 QString Paths::standardCacheLocation()
 {
-    QString path = QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
-    if (!path.contains(qApp->applicationName())) {
-        path.append(QStringLiteral("/%1").arg(qApp->applicationName()));
-    }
-    return path;
+    return SnapStandardPaths::writableLocation(SnapStandardPaths::AppCacheLocation);
 }
 
 QString Paths::standardConfigLocation()
 {
-    QString path = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
-    if (!path.contains(qApp->applicationName())) {
-        path.append(QStringLiteral("/%1").arg(qApp->applicationName()));
-    }
-    return path;
+    return SnapStandardPaths::writableLocation(SnapStandardPaths::AppConfigLocation);
 }
 
 QString Paths::standardDataLocation()
 {
-    QString path = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
-    if (!path.contains(qApp->applicationName())) {
-        path.append(QStringLiteral("/%1").arg(qApp->applicationName()));
-    }
-    return path;
+    return SnapStandardPaths::writableLocation(SnapStandardPaths::AppDataLocation);
 }
 
 QString Paths::homeLocation()
 {
-    return QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
+    return SnapStandardPaths::writableLocation(SnapStandardPaths::HomeLocation);
 }
 
 QString Paths::cacheLocationForFile(const QString &fileName)
@@ -335,16 +324,6 @@ QString Paths::findProviderFile()
     QString configFile;
     // TODO: make this configurable
     const QString filePath = QStringLiteral("configuration/serviceProviders.conf");
-    //    QStringList paths = QStandardPaths::standardLocations(QStandardPaths::DataLocation);
-    //    paths.prepend(QDir::currentPath());
-    //    paths.prepend(QCoreApplication::applicationDirPath());
-    //    Q_FOREACH (const QString &path, paths) {
-    //        QString myPath = path + QLatin1Char('/') + filePath;
-    //        if (QFile::exists(myPath)) {
-    //            configFile = myPath;
-    //            break;
-    //        }
-    //    }
     if (configFile.isEmpty()) {
         QString desktopFile = QDir(QCoreApplication::applicationDirPath()).absoluteFilePath(QStringLiteral("../../../dekko.desktop"));
         if (QFile::exists(desktopFile)) {

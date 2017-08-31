@@ -92,4 +92,8 @@ KeyTable {
     property string settingsStack1
     property string settingsStack2
     property string settingsStack3
+
+    property string toastMainWindow
+    property string toastSettingsWindow
+    property string toastComposerWindow
 }

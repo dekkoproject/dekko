@@ -3,6 +3,7 @@ import qbs
 Project {
     id: dekko
     name: "Dekko Project"
+//    minimumQbsVersion: "1.6"
 
     property string binDir: "bin"
     PropertyOptions {

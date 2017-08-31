@@ -6,11 +6,11 @@ Project {
 
     references: [
         "plugins/default-plugins.qbs",
-        "src/stages/stages.qbs",
-        "src/constants/constants.qbs",
-        "src/components/components.qbs",
-        "src/utils/helpers.qbs",
-        "src/dialogs/dialogs.qbs"
+        "imports/stages/stages.qbs",
+        "imports/constants/constants.qbs",
+        "imports/components/components.qbs",
+        "imports/utils/helpers.qbs",
+        "imports/dialogs/dialogs.qbs"
     ]
 
     Product {

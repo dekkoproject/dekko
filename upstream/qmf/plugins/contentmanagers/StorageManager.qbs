@@ -12,12 +12,12 @@ DynamicLibrary {
     cpp.cxxLanguageVersion: "c++11";
     cpp.cxxStandardLibrary: "libstdc++";
     cpp.includePaths: [
-        "plugins/contentmanagers/qmfstoragemanager/"
+        path + "/qmfstoragemanager/"
     ]
 
     Group {
         name: "C++ Sources"
-        prefix: "plugins/contentmanagers/qmfstoragemanager/"
+        prefix: path + "/qmfstoragemanager/"
         files: [
             "qmfstoragemanager.h",
             "qmfstoragemanager.cpp"

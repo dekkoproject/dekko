@@ -190,14 +190,23 @@ QStringList SnapStandardPaths::standardLocations(SnapStandardPaths::StandardLoca
         if (hasPath(SNAP_USER_DATA)) {
             dirs << getPath(SNAP_USER_DATA) + QStringLiteral("/.config/%1").arg(QCoreApplication::applicationName());
         } else {
+#if QT_VERSION >= 0x050500
             dirs << QStandardPaths::standardLocations(QStandardPaths::AppConfigLocation);
+#else
+            dirs <<  QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + QCoreApplication::applicationName();
+#endif
         }
         break;
     case CommonAppConfigLocation:
         if (hasPath(SNAP_USER_COMMON)) {
             dirs << getPath(SNAP_USER_COMMON) + QStringLiteral("/.config/%1").arg(QCoreApplication::applicationName());
         } else {
+#if QT_VERSION >= 0x050500
             dirs << QStandardPaths::standardLocations(QStandardPaths::AppConfigLocation);
+#else
+            dirs <<  QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/" + QCoreApplication::applicationName();
+#endif
+
         }
         break;
     }

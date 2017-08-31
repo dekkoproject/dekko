@@ -1,5 +1,5 @@
 #include "Identities.h"
-#include <QStandardPaths>
+#include <SnapStandardPaths.h>
 #include <QVariant>
 #include <MazDBBatch.h>
 
@@ -11,7 +11,7 @@ namespace {
 Identities::Identities(QObject *parent) : QObject(parent),
     m_db(Q_NULLPTR), m_defaultIdentity(0)
 {
-    m_sourcePath = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + QStringLiteral("/mazdb/identities.db");
+    m_sourcePath = SnapStandardPaths::writableLocation(SnapStandardPaths::AppConfigLocation) + QStringLiteral("/mazdb/identities.db");
     emit sourcePathChanged(m_sourcePath);
     m_db = new MazDB(m_sourcePath, this);
 }

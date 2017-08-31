@@ -3,8 +3,8 @@
 #include <QDebug>
 #include <QString>
 #include <QStringList>
-#include <QQmlEngine>
 #include <qqmlinfo.h>
+#include "QJsEngineShim.h"
 
 MazDBListModel::MazDBListModel(QObject *parent) : QAbstractListModel(parent),
     m_db(Q_NULLPTR), m_filterPolicy(Contains)

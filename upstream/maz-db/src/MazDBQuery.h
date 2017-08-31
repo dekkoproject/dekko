@@ -2,6 +2,8 @@
 #define MAZDBQUERY_H
 
 #include <QObject>
+#include <QQmlEngine>
+#include <QJSEngine>
 #include <QJSValue>
 #include <QQmlListProperty>
 #include "MazDB.h"

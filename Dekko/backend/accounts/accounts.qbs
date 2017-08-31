@@ -9,6 +9,7 @@ DynamicLibrary {
     Depends { name: "QmfServer" }
     Depends { name: "Shared Utils" }
     Depends { name: "MazDB" }
+    Depends { name: "SnapStandardPaths" }
 
     cpp.optimization: qbs.buildVariant === "debug" ? "none" : "fast"
     cpp.debugInformation: qbs.buildVariant === "debug"

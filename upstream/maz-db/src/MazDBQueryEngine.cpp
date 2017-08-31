@@ -1,6 +1,6 @@
 #include "MazDBQueryEngine.h"
-#include <QQmlEngine>
 #include <QDebug>
+#include "QJsEngineShim.h"
 
 MazDBQueryEngine::MazDBQueryEngine(QObject *parent) : QObject(parent),
     m_db(Q_NULLPTR), m_query(Q_NULLPTR)

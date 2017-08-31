@@ -68,7 +68,7 @@ ActionCreator {
     signal openSettings()
     signal closeSettings()
 
-    signal orderSimpleToast(string message)
+    signal orderSimpleToast(string target, string message)
     signal orderSubtitledToast(string title, string subtitle)
     signal orderComplexToast(string title, string subtitle, string image)
 

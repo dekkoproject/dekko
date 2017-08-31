@@ -18,6 +18,7 @@ Project {
         Depends { name: "Qt.core" }
         Depends { name: "Qt.quick" }
         Depends { name: "Qt.qml" }
+        Depends { name: "SnapStandardPaths" }
 
         cpp.optimization: qbs.buildVariant === "debug" ? "none" : "fast"
         cpp.debugInformation: qbs.buildVariant === "debug"

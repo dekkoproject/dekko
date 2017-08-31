@@ -13,7 +13,7 @@ DynamicLibrary {
     cpp.cxxLanguageVersion: "c++11";
     cpp.cxxStandardLibrary: "libstdc++";
     cpp.includePaths: [
-        "plugins/messageservices/pop/"
+        path + "/pop/"
     ]
 
     Properties {
@@ -28,7 +28,7 @@ DynamicLibrary {
 
     Group {
         name: "C++ Sources"
-        prefix: "plugins/messageservices/pop/"
+        prefix: path + "/pop/"
         files: [
             "popclient.cpp",
             "popconfiguration.cpp",
@@ -39,7 +39,7 @@ DynamicLibrary {
 
     Group {
         name: "C++ Headers"
-        prefix: "plugins/messageservices/pop/"
+        prefix: path + "/pop/"
         files: ["*.h"]
         excludeFiles: ["popsettings.h"]
     }

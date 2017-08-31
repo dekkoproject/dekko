@@ -925,7 +925,7 @@ QString QMail::lockDir()
 #if defined(IS_UNITY8)
     return QDir::homePath() + QStringLiteral("/.config/dekko.dekkoproject/lock/");
 #elif defined(SNAP)
-    return QDir::homePath() + QStringLiteral("/.dekko/lock/");
+    return QDir::homePath() + QStringLiteral("/.config/dekko/lock/");
 #else
     return QDir::tempPath() + '/';
 #endif
@@ -950,7 +950,7 @@ QString QMail::tempDir()
     }
     return path;
 #elif defined(SNAP)
-    static const QString path = QDir::homePath() + QStringLiteral("/.dekko/tmp/");
+    static const QString path = QDir::homePath() + QStringLiteral("/.config/dekko/tmp/");
     if (!QDir(path).exists()) {
         QDir().mkpath(path);
     }

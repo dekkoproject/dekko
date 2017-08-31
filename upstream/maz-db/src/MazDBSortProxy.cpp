@@ -1,7 +1,7 @@
 #include "MazDBSortProxy.h"
 #include <QDebug>
-#include <QQmlEngine>
 #include "MazDBListModel.h"
+#include "QJsEngineShim.h"
 
 MazDBSortProxy::MazDBSortProxy(QObject *parent) : QSortFilterProxyModel(parent),
     m_sortOrder(Qt::AscendingOrder)

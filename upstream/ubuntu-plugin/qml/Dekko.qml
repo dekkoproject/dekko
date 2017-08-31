@@ -73,6 +73,12 @@ ViewState {
         }
     }
 
+    ToastWorker {
+        name: ViewKeys.toastMainWindow
+        target: dekkoContainer
+        toastSource: Qt.resolvedUrl("./views/toasts/SimpleToast.qml")
+    }
+
     Loader {
         id: workerLoader
         asynchronous: true
@@ -85,7 +91,6 @@ ViewState {
                 SettingsWorker {},
                 UriWorker {},
                 ErrorsWorker {},
-                ToastWorker {},
                 ContentWorker {}
             ]
         }

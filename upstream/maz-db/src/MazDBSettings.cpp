@@ -1,5 +1,6 @@
 #include "MazDBSettings.h"
-#include <QStandardPaths>
+#include <SnapStandardPaths.h>
+#include <QCoreApplication>
 #include "MazDB.h"
 
 MazDBSettings::MazDBSettings(QObject *parent) : QObject(parent),
@@ -65,9 +66,9 @@ void MazDBSettings::componentComplete()
 {
     QString path;
     if (m_category.isEmpty()) {
-        path = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + QStringLiteral("/mazdb/settings.db");
+        path = SnapStandardPaths::writableLocation(SnapStandardPaths::AppConfigLocation) + QStringLiteral("/mazdb/settings.db");
     } else {
-        path = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + QStringLiteral("/mazdb/categories/%1.db").arg(m_category);
+        path = SnapStandardPaths::writableLocation(SnapStandardPaths::AppConfigLocation) + QStringLiteral("/mazdb/categories/%1.db").arg(m_category);
     }
     m_db->setFilename(path);
     init();

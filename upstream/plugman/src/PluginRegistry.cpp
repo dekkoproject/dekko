@@ -1,11 +1,11 @@
 #include "PluginRegistry.h"
 #include <QPointer>
 #include <QDebug>
-#include <QStandardPaths>
+#include <SnapStandardPaths.h>
 
 PluginRegistry::PluginRegistry(QObject *parent) : QObject(parent),
     m_loader(new PluginLoader),
-    m_regConf(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) +
+    m_regConf(SnapStandardPaths::writableLocation(SnapStandardPaths::AppConfigLocation) +
               QStringLiteral("/PluginRegistry.conf"), QSettings::IniFormat)
 {
     m_regConf.setValue("version", "0.1");

@@ -13,7 +13,7 @@ DynamicLibrary {
     cpp.cxxLanguageVersion: "c++11";
     cpp.cxxStandardLibrary: "libstdc++";
     cpp.includePaths: [
-        "plugins/messageservices/qmfsettings/"
+        path + "/qmfsettings/"
     ]
 
     cpp.defines: {
@@ -30,7 +30,7 @@ DynamicLibrary {
 
     Group {
         name: "C++ Sources"
-        prefix: "plugins/messageservices/qmfsettings/"
+        prefix: path + "/qmfsettings/"
         files: [
             "service.cpp"
         ]
@@ -38,7 +38,7 @@ DynamicLibrary {
 
     Group {
         name: "C++ Headers"
-        prefix: "plugins/messageservices/qmfsettings/"
+        prefix: path + "/qmfsettings/"
         files: ["service.h"]
     }
 

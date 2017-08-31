@@ -2,6 +2,8 @@
 #define MAZDBQUERYENGINE_H
 
 #include <QObject>
+#include <QQmlEngine>
+#include <QJSEngine>
 #include <QStringList>
 #include <QQmlParserStatus>
 #include <QJSValue>

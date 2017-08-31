@@ -14,6 +14,7 @@ DynamicLibrary {
             "gui"
         ]
     }
+    Depends { name: "SnapStandardPaths" }
 
     cpp.optimization: qbs.buildVariant === "debug" ? "none" : "fast"
     cpp.debugInformation: qbs.buildVariant === "debug"

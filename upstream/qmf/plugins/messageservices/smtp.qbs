@@ -46,7 +46,7 @@ DynamicLibrary {
     cpp.cxxLanguageVersion: "c++11";
     cpp.cxxStandardLibrary: "libstdc++";
     cpp.includePaths: [
-        "plugins/messageservices/smtp/"
+        path + "/smtp/"
     ]
 
     Properties {
@@ -61,7 +61,7 @@ DynamicLibrary {
 
     Group {
         name: "C++ Sources"
-        prefix: "plugins/messageservices/smtp/"
+        prefix: path + "/smtp/"
         files: [
             "smtpauthenticator.cpp",
             "smtpclient.cpp",
@@ -72,7 +72,7 @@ DynamicLibrary {
 
     Group {
         name: "C++ Headers"
-        prefix: "plugins/messageservices/smtp/"
+        prefix: path + "/smtp/"
         files: [
             "smtpauthenticator.h",
             "smtpclient.h",

@@ -16,30 +16,26 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 import QtQuick 2.4
-import "./views/components"
-import "./views/dialogs"
-import "./views/toasts"
-import "./workers"
+import QuickFlux 1.0
+import Dekko.Mail.API 1.0
+import Dekko.Mail.Stores.Views 1.0
 
-Dekko {
-    id: dekko
-    anchors.fill: parent
+AppListener {
+    id: tw
+    waitFor: [ViewStore.listenerId]
+    property string name
+    property var target
+    property url toastSource
 
-    Loader {
-        id: workerLoader
-        asynchronous: true
-        source: "qrc:/qml/workers/Workers.qml"
-    }
+    property ToastQueue toaster: ToastQueue{}
 
-
-    // Workers we need straight away
-    QtObject {
-        id: d
-        property MailWorker mailWorker: MailWorker {}
-        property ComposerWorker composeWorker: ComposerWorker {}
-        property ContentWorker contentWorker: ContentWorker{}
-        property Logger logger: Logger {
-            devLoggingEnabled: devModeEnabled
+    Filter {
+        type: ViewKeys.orderSimpleToast
+        onDispatched: {
+            if (message.target === tw.name) {
+                toaster.orderToast(target, toastSource, { text: message.message })
+            }
         }
     }
 }
+

@@ -51,7 +51,7 @@ DynamicLibrary {
 
     Group {
         name: "C++ Headers"
-        prefix: basePath + "/include/leveldb/"
+        prefix: path + "/include/leveldb/"
         files: [
             "c.h",
             "cache.h",
@@ -72,7 +72,7 @@ DynamicLibrary {
 
     Group {
         name: "C++ Sources"
-        prefix: basePath + "/"
+        prefix: path + "/"
         files: [
             "db/builder.cc",
             "db/c.cc",

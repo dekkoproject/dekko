@@ -32,7 +32,7 @@ Item {
             case Client.NoError:
                 Log.logError("ErrorManager::NoError", "Few! false alarm. Displaying a toast if there is an error string")
                 if (errorString != "") {
-                    ViewActions.orderSimpleToast(errorString)
+                    ViewActions.orderSimpleToast(ViewKeys.toastMainWindow, errorString)
                 }
                 break
             case Client.FrameworkFault:
@@ -75,15 +75,15 @@ Item {
                 break
             case Client.NoConnection:
                 Log.logError("ErrorManager::NoConnection", errorString)
-                ViewActions.orderSimpleToast(qsTr("No connection"))
+                ViewActions.orderSimpleToast(ViewKeys.toastMainWindow, qsTr("No connection"))
                 break
             case Client.ConnectionInUse:
                 Log.logError("ErrorManager::ConnectionInUse", errorString)
-//                ViewActions.orderSimpleToast(qsTr("No connection"))
+                ViewActions.orderSimpleToast(ViewKeys.toastMainWindow, qsTr("No connection"))
                 break
             case Client.ConnectionNotReady:
                 Log.logError("ErrorManager::ConnectionNotReady",  errorString)
-                ViewActions.orderSimpleToast(qsTr("Connection unavailable"))
+                ViewActions.orderSimpleToast(ViewKeys.toastMainWindow, qsTr("Connection unavailable"))
                 break
             case Client.ConfigurationError:
                 Log.logError("ErrorManager::ConfigurationError", errorString)
@@ -99,7 +99,7 @@ Item {
                 break
             case Client.TimeoutError:
                 Log.logError("ErrorManager::TimoutError", errorString);
-                ViewActions.orderSimpleToast(qsTr("Action timed out"))
+                ViewActions.orderSimpleToast(ViewKeys.toastMainWindow, qsTr("Action timed out"))
                 break
             case Client.InternalStateReset:
                 Log.logError("ErrorManager::InternalStateReset", errorString)

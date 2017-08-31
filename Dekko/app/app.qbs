@@ -39,6 +39,7 @@ Project {
         Depends { name: "QmfServer" }
         Depends { name: "PlugMan" }
         Depends { name: "Network Lib" }
+        Depends { name: "SnapStandardPaths" }
 
         cpp.optimization: qbs.buildVariant === "debug" ? "none" : "fast"
         cpp.debugInformation: qbs.buildVariant === "debug"
