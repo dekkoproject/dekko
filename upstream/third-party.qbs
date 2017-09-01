@@ -45,6 +45,12 @@ Project {
         }
     }
 
+    SubProject {
+        filePath: "pyotherside/pyotherside.qbs"
+        Properties {
+            pyothersideInstallDir: project.qmlDir + "/io/thp/pyotherside"
+        }
+    }
 
     SubProject {
         filePath: "plugman/plugman.qbs"
