@@ -13,3 +13,6 @@
 [submodule "upstream/plugman"]
 	path = upstream/plugman
 	url = https://gitlab.com/dekkoproject/plugman.git
+[submodule "upstream/pyotherside"]
+	path = upstream/pyotherside
+	url = https://gitlab.com/dekkoproject/pyotherside.git
