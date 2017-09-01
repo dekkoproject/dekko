@@ -34,6 +34,8 @@ Project {
         description: "Target platform is unity8"
     }
 
+    property bool click: false
+
     property bool serverAsThread: false
     PropertyOptions {
         name: "serverAsThread"

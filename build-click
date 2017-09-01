@@ -4,6 +4,11 @@ set -e
 
 INSTALL_DIR=$PWD/Qt
 QBS_BIN=$INSTALL_DIR/Tools/QtCreator/bin/qbs
+PY_LIBS=$PWD/pylibs
+
+function cleanup_pylibs {
+    lxc exec clickable-armhf -- bash -c "rm -rf $PY_LIBS"
+}
 
 if [ ! -d "$INSTALL_DIR/Tools" ]; then
     echo Cannot proceed without a recent qt release;
@@ -11,4 +16,8 @@ if [ ! -d "$INSTALL_DIR/Tools" ]; then
     exit 1;
 fi
 
-lxc exec clickable-armhf -- bash -c "cd $PWD && $QBS_BIN build -d ../__dekko_build_lxd -f . --clean-install-root release profile:dekkoqt5-armhf"
+cleanup_pylibs
+
+lxc exec clickable-armhf -- bash -c "cd $PWD && $QBS_BIN build -d ../__dekko_build_lxd -f . --clean-install-root --show-progress --force-probe-execution release project.click:true profile:dekkoqt5-armhf"
+
+cleanup_pylibs # remove again to ensure we don't mess with host builds
