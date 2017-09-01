@@ -16,3 +16,6 @@
 [submodule "upstream/pyotherside"]
 	path = upstream/pyotherside
 	url = https://gitlab.com/dekkoproject/pyotherside.git
+[submodule "upstream/quick-flux"]
+	path = upstream/quick-flux
+	url = https://gitlab.com/dekkoproject/quick-flux.git
