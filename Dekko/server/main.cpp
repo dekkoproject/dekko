@@ -49,6 +49,12 @@
 #include <QtGui>
 #endif
 
+#ifdef defined(CLICK)
+#define APP_NAME "dekko2.dekkoproject"
+#else
+#define APP_NAME "dekko"
+#endif
+
 #if !defined(NO_SHUTDOWN_SIGNAL_HANDLING) && defined(Q_OS_UNIX)
 
 static void shutdown(int n)
@@ -66,7 +72,7 @@ static void shutdown(int n)
 
 static void recreateLoggers(int n)
 {
-    qMailLoggersRecreate("dekko.dekkoproject", "dekkod", "Msgsrv");
+    qMailLoggersRecreate(APP_NAME, "dekkod", "Msgsrv");
     qMailLog(Messaging) << "Received signal" << n << ", logs recreated.";
 }
 #endif
@@ -81,9 +87,9 @@ Q_DECL_EXPORT int main(int argc, char** argv)
 #endif
 
     // This is ~/.config/dekko.dekkoproject/dekkod.conf
-    qMailLoggersRecreate("dekko.dekkoproject", "dekkod", "Msgsrv");
+    qMailLoggersRecreate(APP_NAME, "dekkod", "Msgsrv");
 
-    if(QMail::fileLock("messageserver-instance.lock") == -1)
+    if(QMail::fileLock("dekkod-instance.lock") == -1)
         qFatal("Could not get messageserver lock. Messageserver might already be running!");
 
     MessageServer server;

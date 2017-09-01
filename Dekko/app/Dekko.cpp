@@ -46,13 +46,8 @@ Dekko::Dekko(int &argc, char **argv) :
     devMode(false),
     m_verboseLogging(false)
 {
-#ifdef CLICK_MODE
-    QCoreApplication::setOrganizationName(QStringLiteral("dekko.dekkoproject"));
-    QCoreApplication::setApplicationName(QStringLiteral("dekko.dekkoproject"));
- #else
-    QCoreApplication::setOrganizationName(QStringLiteral("dekkoproject"));
-    QCoreApplication::setApplicationName(QStringLiteral("dekko"));
-#endif
+    QCoreApplication::setOrganizationName(APP_ORG);
+    QCoreApplication::setApplicationName(APP_NAME);
     QCoreApplication::setApplicationVersion(DEKKO_VERSION);
 
     // Uncomment to dump out the resource files
@@ -157,7 +152,7 @@ bool Dekko::setup()
 
 bool Dekko::isServerRunning()
 {
-    int lockid = QMail::fileLock(QStringLiteral("messageserver-instance.lock"));
+    int lockid = QMail::fileLock(QStringLiteral("dekkod-instance.lock"));
     if (lockid == -1)
         return true;
 
@@ -181,7 +176,7 @@ bool Dekko::startServer()
         m_server = 0;
     }
     m_server = new QProcess(this);
-    static const QString binary(QString("/messageserver5"));
+    static const QString binary(QString("/dekkod"));
     connect(m_server,SIGNAL(error(QProcess::ProcessError)),
             this,SLOT(serverProcessError(QProcess::ProcessError)));
     m_server->start(QMail::messageServerPath() + binary);

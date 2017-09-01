@@ -49,8 +49,20 @@ Project {
 
         cpp.defines: [
             "SNAP_MODE",
+            "APP_NAME=\"dekko\"",
+            "APP_ORG=\"dekkoproject\"",
             "DEKKO_VERSION=\"" + project.version + "-" + revprobe.revision + "\""
         ]
+
+        Properties {
+            condition: project.click
+            cpp.defines: [
+                "CLICK_MODE",
+                "APP_NAME=\"dekko2.dekkoproject\"",
+                "APP_ORG=\"dekko2.dekkoproject\"",
+                "DEKKO_VERSION=\"" + project.version + "-" + revprobe.revision + "\""
+            ]
+        }
 
         Group {
             name: "C++ Sources"

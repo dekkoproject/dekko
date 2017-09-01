@@ -5,7 +5,7 @@ Project {
 
     QtGuiApplication {
         name: "Server"
-        targetName: "messageserver5"
+        targetName: "dekkod"
 
         Depends { name: "cpp" }
         Depends {
@@ -30,6 +30,9 @@ Project {
                 defs.concat("IS_UNITY8")
             } else {
                 defs.concat("USE_HTML_PARSER")
+            }
+            if (project.click) {
+                defs.concat("CLICK")
             }
             if (project.enableLogging) {
                 defs.concat("QMF_ENABLE_LOGGING")
