@@ -22,3 +22,6 @@
 [submodule "upstream/snap-standard-paths"]
 	path = upstream/snap-standard-paths
 	url = https://gitlab.com/dekkoproject/snap-standard-paths.git
+[submodule "upstream/super-macros"]
+	path = upstream/super-macros
+	url = https://gitlab.com/dekkoproject/super-macros.git
