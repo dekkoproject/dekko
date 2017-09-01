@@ -1,5 +1,0 @@
-{
-    "id": "ubuntu-settings-stage",
-    "register" : "Dekko::Stage::Settings",
-    "component" : "SettingsStage.qml"
-}

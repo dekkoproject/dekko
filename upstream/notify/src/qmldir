@@ -1,8 +1,0 @@
-module Dekko.Notify
-
-Notify 1.0 Notify.qml
-NotifyConfiguration 1.0 NotifyConfiguration.qml
-NotificationBase 1.0 NotificationBase.qml
-
-internal Notification Notification.qml
-internal NotifyQueue NotifyQueue.qml

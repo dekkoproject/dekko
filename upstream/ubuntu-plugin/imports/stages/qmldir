@@ -1,4 +1,0 @@
-module Dekko.Ubuntu.Stage
-BaseStage 1.0 BaseStage.qml
-StageArea 1.0 StageArea.qml
-StageStack 1.0 StageStack.qml

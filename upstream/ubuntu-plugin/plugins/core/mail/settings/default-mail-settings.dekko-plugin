@@ -1,5 +1,0 @@
-{
-    "id": "default-mail-settings",
-    "register" : "Dekko::Settings::PluginAction",
-    "component" : "MailSettingsAction.qml"
-}

@@ -1,5 +1,0 @@
-add_subdirectory(contentmanagers)
-add_subdirectory(messageservices)
-if(USE_ONLINE_ACCOUNTS)
-    add_subdirectory(uoa)
-endif()

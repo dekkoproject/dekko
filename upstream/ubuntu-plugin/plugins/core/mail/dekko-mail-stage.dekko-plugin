@@ -1,5 +1,0 @@
-{
-    "id": "ubuntu-mail-stage",
-    "register" : "Dekko::Stage::Mail",
-    "component" : "MailStage.qml"
-}
