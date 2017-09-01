@@ -1,0 +1,3 @@
+[submodule "upstream/qmf"]
+	path = upstream/qmf
+	url = https://gitlab.com/dekkoproject/messagingframework.git
