@@ -7,3 +7,6 @@
 [submodule "upstream/maz-db"]
 	path = upstream/maz-db
 	url = https://gitlab.com/dekkoproject/maz-db.git
+[submodule "upstream/notify"]
+	path = upstream/notify
+	url = https://gitlab.com/dekkoproject/notify.git
