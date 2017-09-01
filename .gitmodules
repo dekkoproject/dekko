@@ -4,3 +4,6 @@
 [submodule "upstream/controls"]
 	path = upstream/controls
 	url = https://gitlab.com/dekkoproject/dekko-controls.git
+[submodule "upstream/maz-db"]
+	path = upstream/maz-db
+	url = https://gitlab.com/dekkoproject/maz-db.git
