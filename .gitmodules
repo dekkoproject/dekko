@@ -25,3 +25,6 @@
 [submodule "upstream/super-macros"]
 	path = upstream/super-macros
 	url = https://gitlab.com/dekkoproject/super-macros.git
+[submodule "upstream/ubuntu-plugin"]
+	path = upstream/ubuntu-plugin
+	url = https://gitlab.com/dekkoproject/ubuntu-ui-plugin.git
