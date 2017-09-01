@@ -10,3 +10,6 @@
 [submodule "upstream/notify"]
 	path = upstream/notify
 	url = https://gitlab.com/dekkoproject/notify.git
+[submodule "upstream/plugman"]
+	path = upstream/plugman
+	url = https://gitlab.com/dekkoproject/plugman.git
