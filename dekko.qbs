@@ -67,7 +67,7 @@ Project {
         description: "Enables IMAP service"
     }
 
-    property bool enablePOP: false
+    property bool enablePOP: true
     PropertyOptions {
         name: "enablePOP"
         description: "Enables POP3 service"

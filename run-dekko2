@@ -14,4 +14,12 @@ export DEKKO_PLUGINS=$LD_LIBRARY_PATH/Dekko/plugins
 export QMF_DATA=$HOME/.cache/dekko
 # for click export QMF_DATA=$HOME/.cache/dekko2.dekkoproject
 
-exec $PWD/../__dekko_build/dekkoqt5-debug/install-root/bin/dekko $@
+echo $0
+echo $1
+
+if [ "$1" == "daemon" ]; then
+    echo "Starting daemon"
+    exec $PWD/../__dekko_build/dekkoqt5-debug/install-root/bin/dekkod
+else
+    exec $PWD/../__dekko_build/dekkoqt5-debug/install-root/bin/dekko $@
+fi
