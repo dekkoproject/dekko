@@ -8,4 +8,12 @@ click_armhf:
     - armhf
   script:
     - ./setup-click-env
-    - ./build_click
+    - ./build-click
+  cache:
+    paths:
+      - Qt/
+  artifacts:
+    paths:
+      - *.click
+    when: on_success
+    expire_in: 1 week
