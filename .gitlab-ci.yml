@@ -1,6 +1,9 @@
 stages:
   - clickbuild
   
+variables:
+  GIT_SUBMODULE_STRATEGY: normal
+  
 click_armhf:
   stage: clickbuild
   tags:
