@@ -1,6 +1,6 @@
 {
     "name": "dekko2.dekkoproject",
-    "description": "Dekko email client for Ubports devices",
+    "description": "Experimental release of the next generation Dekko.",
     "framework": "ubuntu-sdk-15.04.3",
     "architecture": "armhf",
     "title": "Dekko 2",
@@ -15,6 +15,6 @@
             "apparmor": "dekkod.apparmor"
         }
     },
-    "version": "0.1.2",
+    "version": "0.1.1",
     "maintainer": "Dan Chapman <dpniel@ubuntu.com>"
 }
