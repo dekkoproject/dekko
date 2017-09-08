@@ -206,12 +206,20 @@ Project {
 //        }
 //    }
 
-    Product {
-        name: "Snapcraft"
-        type: "packaging"
-        Group {
+    Project {
+        name: "Packaging"
+
+        references: [
+            "click/click.qbs"
+        ]
+
+        Product {
             name: "Snapcraft"
-            files: "snap/**"
+            type: "packaging"
+            Group {
+                name: "Snapcraft"
+                files: "snap/**"
+            }
         }
     }
 }

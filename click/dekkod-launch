@@ -1,0 +1,8 @@
+#!/usr/lib/initramfs-tools/bin/busybox static-sh
+
+DEKKO_EXPORT_PATH=/opt/click.ubuntu.com/dekko2.dekkoproject/current/lib/${UBUNTU_APP_LAUNCH_ARCH}
+export DEKKO_PLUGINS=${DEKKO_EXPORT_PATH}/Dekko/plugins
+export QMF_PLUGINS=${DEKKO_EXPORT_PATH}/qmf/plugins5
+export QMF_DATA=$HOME/.cache/dekko2.dekkoproject
+
+dekkod

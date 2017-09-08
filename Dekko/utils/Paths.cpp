@@ -323,9 +323,9 @@ QString Paths::findProviderFile()
 {
     QString configFile;
     // TODO: make this configurable
-    const QString filePath = QStringLiteral("configuration/serviceProviders.conf");
+    const QString filePath = QStringLiteral("/usr/share/dekko/configuration/serviceProviders.conf");
     if (configFile.isEmpty()) {
-        QString desktopFile = QDir(QCoreApplication::applicationDirPath()).absoluteFilePath(QStringLiteral("../../../dekko.desktop"));
+        QString desktopFile = QDir(QCoreApplication::applicationDirPath()).absoluteFilePath(QStringLiteral("../../../dekko2.desktop"));
         if (QFile::exists(desktopFile)) {
             QDir clickRoot = QFileInfo(desktopFile).absoluteDir();
             QString myPath = clickRoot.absolutePath() + QLatin1Char('/') + filePath;

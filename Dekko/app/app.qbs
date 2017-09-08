@@ -99,6 +99,15 @@ Project {
         }
 
         Group {
+            name: "App Icon"
+            files: [
+                "assets/icons/dekko/dekko.png"
+            ]
+            qbs.install: project.click
+            qbs.installDir: "/"
+        }
+
+        Group {
             qbs.install: true
             qbs.installDir: project.binDir
             fileTagsFilter: product.type

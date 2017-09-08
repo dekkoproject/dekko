@@ -1,0 +1,9 @@
+{
+    "policy_groups": [
+        "networking",
+        "connectivity",
+        "accounts"
+    ],
+    "template": "unconfined",
+    "policy_version": 1.3
+}

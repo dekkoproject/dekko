@@ -1,0 +1,20 @@
+{
+    "name": "dekko2.dekkoproject",
+    "description": "Dekko email client for Ubports devices",
+    "framework": "ubuntu-sdk-15.04.3",
+    "architecture": "armhf",
+    "title": "Dekko 2",
+    "hooks": {
+        "dekko": {
+            "apparmor": "dekko2.apparmor",
+            "content-hub": "dekko2-content.json",
+            "desktop": "dekko2.desktop",
+            "urls": "dekko2.url-dispatcher"
+        },
+        "dekkod": {
+            "apparmor": "dekkod.apparmor"
+        }
+    },
+    "version": "0.1.2",
+    "maintainer": "Dan Chapman <dpniel@ubuntu.com>"
+}
