@@ -15,6 +15,6 @@
             "apparmor": "dekkod.apparmor"
         }
     },
-    "version": "0.1.1",
+    "version": "0.1.2",
     "maintainer": "Dan Chapman <dpniel@ubuntu.com>"
 }
