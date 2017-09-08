@@ -21,8 +21,10 @@ DynamicLibrary {
     cpp.cxxLanguageVersion: "c++11";
     cpp.cxxStandardLibrary: "libstdc++";
     cpp.includePaths: [ path ]
-    // POP3_ENLABED
-    cpp.defines: ["IMAP_ENABLED"]
+    cpp.defines: [
+        "IMAP_ENABLED",
+        "POP3_ENABLED"
+    ]
 
     Group {
         name: "C++ Sources"
