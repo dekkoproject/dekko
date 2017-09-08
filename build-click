@@ -9,6 +9,7 @@ DIR_PREFIX=/lib/arm-linux-gnueabihf
 BIN_DIR=$DIR_PREFIX/bin
 LIB_DIR=$DIR_PREFIX
 QML_DIR=$LIB_DIR
+BUILD_DIR=$PWD/.build
 
 function cleanup_pylibs {
     lxc exec clickable-armhf -- bash -c "rm -rf $PY_LIBS"
@@ -22,10 +23,10 @@ fi
 
 cleanup_pylibs
 
-lxc exec clickable-armhf -- bash -c "cd $PWD && $QBS_BIN build -d ../__dekko_build_lxd -f . --clean-install-root --show-progress --force-probe-execution release project.click:true project.binDir:$BIN_DIR project.libDir:$LIB_DIR project.qmlDir:$QML_DIR project.dataDir:/usr/share/dekko profile:dekkoqt5-armhf"
+lxc exec clickable-armhf -- bash -c "cd $PWD && $QBS_BIN build -d $BUILD_DIR -f . --clean-install-root --show-progress --force-probe-execution release project.click:true project.binDir:$BIN_DIR project.libDir:$LIB_DIR project.qmlDir:$QML_DIR project.dataDir:/usr/share/dekko profile:dekkoqt5-armhf"
 
-sudo chown $USER -R ../__dekko_build_lxd
-click build ../__dekko_build_lxd/release/install-root/
-# lxc exec clickable-armhf -- bash -c "cd $PWD && click build ../__dekko_build_lxd/release/install-root/"
+sudo chown $USER -R $BUILD_DIR
+click build $BUILD_DIR/release/install-root/
+# lxc exec clickable-armhf -- bash -c "cd $PWD && click build $BUILD_DIR/release/install-root/"
 
 cleanup_pylibs # remove again to ensure we don't mess with host builds
