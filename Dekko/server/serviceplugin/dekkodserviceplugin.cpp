@@ -41,13 +41,13 @@ void DekkodService::start()
 
 void DekkodService::stop()
 {
-    if (serviceRunning()) {
-        stopService();
-    }
+//    if (serviceRunning()) {
+//        stopService();
+//    }
 
-    if (serviceFileInstalled()) {
-        removeServiceFile();
-    }
+//    if (serviceFileInstalled()) {
+//        removeServiceFile();
+//    }
 }
 
 bool DekkodService::serviceFileInstalled() const
