@@ -28,3 +28,6 @@
 [submodule "upstream/ubuntu-plugin"]
 	path = upstream/ubuntu-plugin
 	url = https://gitlab.com/dekkoproject/ubuntu-ui-plugin.git
+[submodule "upstream/ubuntu-notification-plugin"]
+	path = upstream/ubuntu-notification-plugin
+	url = https://gitlab.com/dekkoproject/ubuntu-notification-plugin.git
