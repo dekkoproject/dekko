@@ -7,3 +7,4 @@ pylibs
 snap/plugins/__pycache__
 /Qt
 click/manifest.json
+*.click

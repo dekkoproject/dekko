@@ -28,6 +28,7 @@
 #include <MsgPartQNAMFactory.h>
 #include <QCommandLineParser>
 #include <QQmlApplicationEngine>
+#include <ServiceRegistry.h>
 
 #ifdef SERVER_AS_QTHREAD
 #include <messageserver.h>
@@ -68,6 +69,7 @@ private:
     bool m_verboseLogging;
     QCommandLineParser parser;
     QQmlApplicationEngine m_engine;
+    QPointer<ServiceRegistry> m_serviceRegistry;
 
 };
 

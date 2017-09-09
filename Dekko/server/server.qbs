@@ -3,6 +3,10 @@ import qbs
 Project {
     name: "Server"
 
+    references: [
+        "serviceplugin/dekkod-service.qbs"
+    ]
+
     QtGuiApplication {
         name: "Server"
         targetName: "dekkod"

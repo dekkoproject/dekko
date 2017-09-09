@@ -44,7 +44,8 @@ Dekko::Dekko(int &argc, char **argv) :
 #endif
     m_view(0),
     devMode(false),
-    m_verboseLogging(false)
+    m_verboseLogging(false),
+    m_serviceRegistry(Q_NULLPTR)
 {
     QCoreApplication::setOrganizationName(APP_ORG);
     QCoreApplication::setApplicationName(APP_NAME);
@@ -84,35 +85,20 @@ bool Dekko::setup()
     if (!QMail::mkLockDir()) {
         return false;
     }
-#ifdef IS_UNITY8
-    if (!QMail::mkLockDir()) {
-        return false;
-    }
-    QDir appPath(QCoreApplication::applicationDirPath());
-    addLibraryPath(appPath.absolutePath());
-    QDir plugins5(appPath);
-    if (plugins5.cd(QStringLiteral("../qmf/plugins5"))) {
-        qDebug() << "Putting QMF_PLUGINS ENV";
-        qputenv("QMF_PLUGINS", plugins5.absolutePath().toUtf8());
-    } else {
-        qDebug() << "QMF PLUGINS NOT SET";
-    }
-
-    if (appPath.cd(QStringLiteral("../Dekko/plugins"))) {
-        qDebug() << "Putting DEKKO_PLUGINS ENV";
-        qputenv("DEKKO_PLUGINS", appPath.absolutePath().toUtf8());
-    } else {
-        qDebug() << "DEKKO PLUGINS NOT SET";
-    }
-    qDebug() << "DEKKO_PLUGINS:" << qgetenv("DEKKO_PLUGINS");
-    qDebug() << "QMF_PLUGINS: " << qgetenv("QMF_PLUGINS");
-#endif
 
     if (qgetenv("QMF_DATA").isEmpty()) {
         // Fall back to standard xdg cache location
         qputenv("QMF_DATA", SnapStandardPaths::writableLocation(SnapStandardPaths::AppCacheLocation).toUtf8());
     }
 
+
+    loadPlugins();
+
+#if defined(CLICK_MODE)
+    m_serviceRegistry = new ServiceRegistry(this);
+    m_serviceRegistry->setServiceKey(QStringLiteral("Dekko::Service"));
+    m_serviceRegistry->startServices();
+#else
     if (!isServerRunning()) {
         qDebug() << "[Dekko]" << "Message server not running attempting to start";
         if (!startServer()) {
@@ -125,7 +111,7 @@ bool Dekko::setup()
         qDebug() << "[Dekko]" << "Message server already running, using that";
     }
 
-    loadPlugins();
+#endif
     m_engine.setNetworkAccessManagerFactory(&m_partqnam);
 
     devMode = parser.isSet("d");
