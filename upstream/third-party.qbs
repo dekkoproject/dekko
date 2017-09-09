@@ -100,4 +100,9 @@ Project {
             enabled: project.ui === "ubuntu"
         }
     }
+
+    SubProject {
+        filePath: "ubuntu-notification-plugin/notify-service.qbs"
+        inheritProperties: true
+    }
 }
