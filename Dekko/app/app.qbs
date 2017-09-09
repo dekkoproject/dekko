@@ -12,8 +12,10 @@ Project {
         Probe {
             id: revprobe
             property string revision
+            property string version: project.version
             // --git-dir needs to be pointed at the toplevel .git directory to work
             property string sourceDir: project.sourceDirectory + "/.git"
+            property string setVersionBin: project.sourceDirectory + "/click/set-version"
 
             configure: {
                 revision = "no-git";
@@ -21,6 +23,8 @@ Project {
                 p.setWorkingDirectory(sourceDir)
                 if (p.exec("/usr/bin/git", ["--git-dir=" + sourceDir, "describe", "--dirty", "--long", "--always"], true) === 0)
                     revision = p.readStdOut().trim();
+                    p.exec(setVersionBin, [version], true)
+                p.close()
             }
         }
 

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+DIR=$(dirname "${BASH_SOURCE[0]}")
+cat ${DIR}/dekko.json | sed "s/%VERSION%/${1}/" > ${DIR}/manifest.json

@@ -104,7 +104,7 @@ Project {
 
     property string appName: "Dekko"
     property string pkgName: "dekko.dekkoproject"
-    property string version: "0.9.6"
+    property string version: "0.1.2"
 
     DynamicLibrary {
         name: "API"
