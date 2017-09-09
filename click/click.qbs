@@ -57,6 +57,16 @@ Product {
     }
 
     Group {
+        name: "Push Helper"
+        files: [
+            "dekkohelper-aa.json",
+            "dekko-helper.json",
+            "dekko-helper"
+        ]
+        fileTags: ["clickroot"]
+    }
+
+    Group {
         condition: project.click
         fileTagsFilter: "clickroot"
         qbs.install: product.type
