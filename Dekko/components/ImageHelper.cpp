@@ -115,6 +115,12 @@ void ImageHelper::setGravatarUrl(const QUrl &gravurl)
     m_alreadySeen = true;
     // TODO: THis isn't really scalable but we only have a few atm. Once we have some more it probably makes
     // sense to move these to a qsettings file and query groups.
+    if (m_gravatarEmail.contains(QStringLiteral("ubports.com"))) {
+        if (m_property.isValid() && m_property.isWritable()) {
+            m_property.write(QUrl::fromLocalFile(QStringLiteral(":/provider/ubports-forum.jpg")));
+            return;
+        }
+    }
     if (m_gravatarEmail.contains(QStringLiteral("launchpad.net"))) {
         if (m_property.isValid() && m_property.isWritable()) {
             m_property.write(QUrl::fromLocalFile(QStringLiteral(":/provider/lp_logo.png")));

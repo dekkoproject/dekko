@@ -31,3 +31,6 @@
 [submodule "upstream/ubuntu-notification-plugin"]
 	path = upstream/ubuntu-notification-plugin
 	url = https://gitlab.com/dekkoproject/ubuntu-notification-plugin.git
+[submodule "upstream/ubuntu-push-client"]
+	path = upstream/ubuntu-push-client
+	url = https://gitlab.com/dekkoproject/ubuntu-push-client.git

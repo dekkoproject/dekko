@@ -102,6 +102,11 @@ Project {
     }
 
     SubProject {
+        filePath: "ubuntu-push-client/push-client.qbs"
+        inheritProperties: true
+    }
+
+    SubProject {
         filePath: "ubuntu-notification-plugin/notify-service.qbs"
         inheritProperties: true
     }
