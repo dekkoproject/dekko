@@ -121,6 +121,17 @@ bool Account::save()
     return result;
 }
 
+QString Account::customValue(const QString &ns, const QString &key)
+{
+    return m_account->customField(QString("%1.%2").arg(ns, key));
+}
+
+void Account::setCustomValue(const QString &ns, const QString &key, const QString &value)
+{
+    m_account->setCustomField(QString("%1.%2").arg(ns, key), value);
+    QMailStore::instance()->updateAccount(m_account);
+}
+
 void Account::initialize()
 {
     QStringList accountServices = m_accountConfig->services();

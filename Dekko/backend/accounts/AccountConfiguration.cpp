@@ -147,6 +147,18 @@ bool AccountConfiguration::acceptUntrustedCertificates() const
     return (m_service->value(AccountKeys::acceptUntrustedCert, "0").toInt() != 0);
 }
 
+QString AccountConfiguration::customValue(const QString &ns, const QString &key)
+{
+    return m_service->value(QString("%1.%2").arg(ns, key));
+}
+
+void AccountConfiguration::setCustomValue(const QString &ns, const QString &key, const QString &value)
+{
+    const QString nskey = QString("%1.%2").arg(ns, key);
+    m_service->setValue(nskey, value);
+    emit customValueChanged(nskey, value);
+}
+
 void AccountConfiguration::setName(const QString &name)
 {
     m_service->setValue(AccountKeys::name, name);

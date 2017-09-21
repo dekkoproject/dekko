@@ -88,6 +88,9 @@ public:
     ServiceType serviceType() const;
     bool acceptUntrustedCertificates() const;
 
+    Q_INVOKABLE QString customValue(const QString &ns, const QString &key);
+    Q_INVOKABLE void setCustomValue(const QString &ns, const QString &key, const QString &value);
+
 signals:
     void nameChanged(QString name);
     void emailChanged(QString email);
@@ -96,6 +99,7 @@ signals:
     void encryptionChanged();
     void passwordChanged();
     void acceptUntrustedCertChanged();
+    void customValueChanged(QString key, QString value);
 
 public slots:
     void setName(const QString &name);

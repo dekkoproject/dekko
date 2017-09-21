@@ -143,6 +143,8 @@ public slots:
      */
     bool save();
 
+    QString customValue(const QString &ns, const QString &key);
+    void setCustomValue(const QString &ns, const QString &key, const QString &value);
 protected:
     QMailAccount *m_account;
     QMailAccountConfiguration *m_accountConfig;
