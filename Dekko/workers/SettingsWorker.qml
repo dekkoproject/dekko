@@ -100,7 +100,7 @@ AppListener {
         type: SettingsKeys.saveSelectedAccount
         onDispatched: {
             SettingsStore.selectedAccount.save()
-            ViewActions.orderSimpleToast(qsTr("Account saved"))
+            ViewActions.orderSimpleToast(ViewKeys.toastSettingsWindow, qsTr("Account saved"))
         }
     }
 

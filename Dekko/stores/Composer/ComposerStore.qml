@@ -91,11 +91,11 @@ AppListener {
             ComposerActions.resetComposer()
             ViewActions.closeComposer()
             d.sendInProgress = false
-            ViewActions.orderSimpleToast(qsTr("Message queued."))
+            ViewActions.orderSimpleToast(ViewKeys.toastMainWindow, qsTr("Message queued."))
         }
         onDraftSaved: {
             Log.logInfo("ComposerStore::SubmissionManager::draftSaved", "Draft message was saved");
-            ViewActions.orderSimpleToast(qsTr("Draft saved."))
+            ViewActions.orderSimpleToast(ViewKeys.toastMainWindow, qsTr("Draft saved."))
         }
     }
 

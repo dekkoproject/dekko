@@ -60,8 +60,8 @@ QtObject {
     }
 
     function __serveToast(consumer, toast, condiments) {
-//        var c = Qt.createComponent(toast)
-        var t = toast.createObject(consumer, condiments)
+        var c = Qt.createComponent(toast)
+        var t = c.createObject(consumer, condiments)
         t.closed.connect(__toastCollected)
         __toastPoppedUp = true
     }

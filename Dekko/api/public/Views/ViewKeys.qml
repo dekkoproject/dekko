@@ -96,4 +96,6 @@ KeyTable {
     property string toastMainWindow
     property string toastSettingsWindow
     property string toastComposerWindow
+    property string toastSetupWizard
+    property string toastBroadcast // croadcast to all toast workers.
 }

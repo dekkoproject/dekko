@@ -135,7 +135,7 @@ AppListener {
                 } else {
                     Client.moveToFolder(d.moveConfig["id"], d.moveConfig["folder"])
                 }
-                ViewActions.orderSimpleToast(qsTr("Message moved"))
+                ViewActions.orderSimpleToast(ViewKeys.toastMainWindow, qsTr("Message moved"))
             }
         }
     }

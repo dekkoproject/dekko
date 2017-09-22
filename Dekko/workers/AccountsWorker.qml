@@ -32,7 +32,7 @@ AppListener {
             if (!AccountStore.enabledAccounts.hasAccount(d.__accountAboutToRemove)) {
                 Log.logError("AccountWorker::deleteAccount", "Invalid account id. Cancelling removal")
                 if (message.confirmRemoval) {
-                    ViewActions.orderSimpleToast(qsTr("Account removal failed"));
+                    ViewActions.orderSimpleToast(ViewKeys.toastSettingsWindow, qsTr("Account removal failed"));
                 }
             }
             // It doesn't matter which we use here
@@ -83,10 +83,10 @@ AppListener {
             if (AccountStore.enabledAccounts.hasAccount(d.__accountAboutToRemove)) {
                 AccountActions.removeIdentitiesForAccount(d.__accountAboutToRemove)
                 AccountStore.enabledAccounts.deleteAccount(d.__accountAboutToRemove)
-                ViewActions.orderSimpleToast(qsTr("Account removed"));
+                ViewActions.orderSimpleToast(ViewKeys.toastSettingsWindow, qsTr("Account removed"));
             } else {
                 Log.logError("AccountWorker::_confirmRemoval", "Invalid account id. Cancelling removal")
-                ViewActions.orderSimpleToast(qsTr("Account removal failed"));
+                ViewActions.orderSimpleToast(ViewKeys.toastSettingsWindow, qsTr("Account removal failed"));
             }
             d.__accountAboutToRemove = -1
         }
