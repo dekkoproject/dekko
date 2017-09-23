@@ -41,4 +41,5 @@ KeyTable {
     property string moveMessage
     property string moveMessageCancelled
     property string folderSelected
+    property string resetSelectedMsgIndex
 }

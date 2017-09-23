@@ -54,7 +54,6 @@ BaseMessagingStore {
     MessageList {
         id: msgList
         sortOrder: Qt.DescendingOrder
-        currentSelectedIndex: /*listView.currentIndex*/ -1
     }
 
     QtObject {

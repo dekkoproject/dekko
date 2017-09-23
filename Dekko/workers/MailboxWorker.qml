@@ -23,7 +23,9 @@ import Dekko.Mail.Stores.Mail 1.0
 
 AppListener {
 
-    waitFor: [MailboxStore.listenerId]
+    waitFor: [
+        MailboxStore.listenerId
+    ]
 
     property string mailboxPickerUrl: ""
 
@@ -78,6 +80,14 @@ AppListener {
         onDispatched: {
             Log.logInfo("MailboxWorker::syncFolder", "Syncing folder for account: %1".arg(message.accountId))
             Client.syncFolder(message.accountId, message.folderId)
+        }
+    }
+
+    Filter {
+        type: MailboxKeys.resetSelectedMsgIndex
+        onDispatched: {
+            MailStore.currentSelectedIndex = -1
+            MailStore.currentMessageId = -1
         }
     }
 

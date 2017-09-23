@@ -142,7 +142,7 @@ AppListener {
 
     Timer {
         id: delayCallTimer
-        interval: 500
+        interval: 350
         repeat: false
         onTriggered: {
             AppDispatcher.dispatch(d.pendingCalls.takeAt(0), {})
@@ -152,7 +152,7 @@ AppListener {
                 delayCallTimer.start()
             } else {
                 Log.logInfo("ViewStore::delayCallTimer", "No more pending calls")
-                interval = 500
+                interval = 350
                 delayCallTimer.stop()
             }
         }
@@ -175,7 +175,7 @@ AppListener {
 
     Timer {
         id: delayCallTimer2
-        interval: 300
+        interval: 400
         repeat: false
         onTriggered: {
             AppDispatcher.dispatch(d.pendingCalls2.takeAt(0), d.pendingArgs.takeAt(0))

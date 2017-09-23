@@ -41,4 +41,5 @@ ActionCreator {
     signal moveMessage(int accountId, int msgId)
     signal moveMessageCancelled(string pickerId)
     signal folderSelected(string pickerId, int folderType, int folderId)
+    signal resetSelectedMsgIndex()
 }

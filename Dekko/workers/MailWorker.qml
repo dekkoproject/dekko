@@ -20,10 +20,14 @@ import QuickFlux 1.0
 import Dekko.Mail 1.0
 import Dekko.Mail.API 1.0
 import Dekko.Mail.Stores.Mail 1.0
+import Dekko.Mail.Stores.Views 1.0
 
 AppListener {
 
-    waitFor: [MailStore.listenerId]
+    waitFor: [
+        MailStore.listenerId,
+        ViewStore.listenerId
+    ]
 
     Filter {
         type: MessageKeys.changeMessageListSortOrder
@@ -161,6 +165,9 @@ AppListener {
         type: MessageKeys.deleteMessage
         onDispatched: {
             Log.logInfo("MailWorker::deleteMessage", "Deleting message %1".arg(message.msgId))
+            if (ViewStore.formFactor === "small") {
+                MailboxActions.resetSelectedMsgIndex()
+            }
             Client.deleteMessage(message.msgId)
         }
     }
