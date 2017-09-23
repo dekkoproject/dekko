@@ -130,6 +130,9 @@ void EmailProvider::parseXmlData()
         QDomDocument doc;
         doc.setContent(m_data);
         QDomNodeList nodeList = doc.elementsByTagName(QStringLiteral("clientConfig"));
+        if (nodeList.isEmpty()) {
+            return;
+        }
         QDomNode node = nodeList.at(0);
         setXmlVersion(node);
         if (m_version == QStringLiteral(NO_VERSION)) {

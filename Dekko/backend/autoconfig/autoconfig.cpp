@@ -91,7 +91,12 @@ void AutoConfig::handleRequestResponse(QNetworkReply *reply)
     }
     bool successful = false;
     if (reply->error() == QNetworkReply::NoError) {
-        EmailProvider *provider = EmailProvider::fromXml(reply->readAll());
+        QByteArray data = reply->readAll();
+        if (data.isEmpty() || data.isNull()) {
+            emit failed();
+            return;
+        }
+        EmailProvider *provider = EmailProvider::fromXml(data);
         successful = provider->isValid();
         if (successful) {
             qDebug() << __func__ << "SUCCESS";
