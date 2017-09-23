@@ -243,7 +243,7 @@ QUrl Message::findInterestingBodyPart(const QMailMessageId &id, const bool prefe
     QString location;
     QUrl url;
 
-    if (msg.multipartType() == QMailMessage::MultipartNone) {
+    if (msg.multipartType() == QMailMessage::MultipartNone && !msg.body().data().isEmpty()) {
         isPlainText = (msg.body().contentType().content() == QByteArrayLiteral("text/plain"));
         url.setScheme(QStringLiteral("dekko-msg"));
     } else {
