@@ -1,0 +1,4 @@
+export LD_LIBRARY_PATH=$PWD/../__dekko_build/dekkoqt5-debug/install-root/lib
+export QML2_IMPORT_PATH=$LD_LIBRARY_PATH
+export QMF_PLUGINS=$LD_LIBRARY_PATH/qmf/plugins5
+export DEKKO_PLUGINS=$LD_LIBRARY_PATH/Dekko/plugins

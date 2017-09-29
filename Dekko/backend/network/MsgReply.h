@@ -31,6 +31,7 @@ class MsgReply : public QNetworkReply
 public:
     MsgReply(MsgPartQNAM *parent, QMailMessageId &msgId);
     MsgReply(MsgPartQNAM *parent, QMailMessageId &msgId, const bool requiresFormatting);
+    ~MsgReply();
 
     // QIODevice interface
 public:

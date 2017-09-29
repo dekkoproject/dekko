@@ -35,6 +35,14 @@ MsgReply::MsgReply(MsgPartQNAM *parent, QMailMessageId &msgId, const bool requir
     buffer.open(QBuffer::ReadOnly);
 }
 
+MsgReply::~MsgReply()
+{
+    qDebug() << "Deleteing MsgReply";
+    formattedBufferContent->clear();
+    delete formattedBufferContent;
+    formattedBufferContent = Q_NULLPTR;
+}
+
 void MsgReply::close()
 {
     if (formattedBufferContent) {

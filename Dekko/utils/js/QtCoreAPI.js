@@ -9,6 +9,7 @@ function addMethod (object, method) {
                            });
 }
 
+
 function at (idx) {
     return (this [idx]);
 }
@@ -210,3 +211,4 @@ function fromBase64 (str) {
     return Qt.btoa (str);
 }
 addMethod (String, fromBase64);
+

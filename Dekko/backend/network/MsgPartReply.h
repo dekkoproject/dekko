@@ -63,6 +63,8 @@ public:
     MsgPartReply(MsgPartQNAM *parent, const QMailMessageId &id, const QString &cidUrl);
     MsgPartReply(MsgPartQNAM *parent, const QMailMessageId &id, const QString &location,
                  const bool plaintext, const bool requiresFormatting);
+    ~MsgPartReply();
+
     // QIODevice interface
 public:
     virtual void close();

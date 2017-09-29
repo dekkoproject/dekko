@@ -51,6 +51,18 @@ MsgPartReply::MsgPartReply(MsgPartQNAM *parent, const QMailMessageId &id,
     buffer.open(QIODevice::ReadOnly);
 }
 
+MsgPartReply::~MsgPartReply() {
+    qDebug() << "Deleteing MsgPartReply";
+    formattedBufferContent->clear();
+    delete formattedBufferContent;
+    formattedBufferContent = Q_NULLPTR;
+    secondBuffer->clear();
+    delete secondBuffer;
+    secondBuffer = Q_NULLPTR;
+    delete m_part;
+    m_part = Q_NULLPTR;
+}
+
 void MsgPartReply::init()
 {
     QUrl url;
