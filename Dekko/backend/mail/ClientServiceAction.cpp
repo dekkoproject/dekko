@@ -35,7 +35,8 @@ void DeleteMessagesAction::process()
     qDebug() << "Moving to trash" << m_ids.at(0).toULongLong();
     QMailDisconnected::moveToStandardFolder(m_ids,QMailFolder::TrashFolder);
     qDebug() << "Mark message deleted";
-    QMailDisconnected::flagMessages(m_ids,QMailMessage::Trash,0,"Marking messages as deleted");
+    const quint64 applyMask = QMailMessage::Trash | QMailMessage::Read;
+    QMailDisconnected::flagMessages(m_ids, applyMask, 0, "Marking messages as deleted");
 }
 
 int DeleteMessagesAction::itemCount()
