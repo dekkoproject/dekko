@@ -33,7 +33,7 @@ MailAddress* MinimalMessage::from() const
 
 QString MinimalMessage::subject() const
 {
-    return QMailMessage(m_id).subject().simplified();
+    return QMailMessageMetaData(m_id).subject().simplified();
 }
 
 QString MinimalMessage::preview() const
@@ -63,12 +63,12 @@ bool MinimalMessage::isTodo() const
 
 bool MinimalMessage::canBeRestored() const
 {
-    return QMailMessage(m_id).restoreFolderId().isValid();
+    return QMailMessageMetaData(m_id).restoreFolderId().isValid();
 }
 
 bool MinimalMessage::isDone() const
 {
-    QString done = QMailMessage(m_id).customField("task-done");
+    QString done = QMailMessageMetaData(m_id).customField("task-done");
     if (done.isEmpty()) {
         return false;
     }
@@ -82,7 +82,7 @@ bool MinimalMessage::isJunk() const
 
 bool MinimalMessage::isListPost() const
 {
-    return !QMailMessage(m_id).listId().isEmpty();
+    return !QMailMessageMetaData(m_id).listId().isEmpty();
 }
 
 bool MinimalMessage::isDraft() const
@@ -146,7 +146,7 @@ void MinimalMessage::setMessageId(const QMailMessageId &id)
     if (!m_id.isValid()) {
         return;
     }
-    QMailMessage msg(m_id);
+    QMailMessageMetaData msg(m_id);
 //    qDebug() << "MSG ID: " << messageId();
     m_from = new MailAddress(this);
     m_from->setAddress(msg.from());

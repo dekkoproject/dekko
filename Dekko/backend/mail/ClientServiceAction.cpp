@@ -16,6 +16,7 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "ClientServiceAction.h"
+#include <QCoreApplication>
 #include <qmaildisconnected.h>
 #include <qmailmessage.h>
 #include <qmailaccount.h>
@@ -34,6 +35,7 @@ void DeleteMessagesAction::process()
 {
     qDebug() << "Moving to trash" << m_ids.at(0).toULongLong();
     QMailDisconnected::moveToStandardFolder(m_ids,QMailFolder::TrashFolder);
+    QCoreApplication::processEvents();
     qDebug() << "Mark message deleted";
     const quint64 applyMask = QMailMessage::Trash | QMailMessage::Read;
     QMailDisconnected::flagMessages(m_ids, applyMask, 0, "Marking messages as deleted");

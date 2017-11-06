@@ -89,11 +89,11 @@ public:
     }
 
     // Used by PriorityQueue
-    const bool operator < (const ClientServiceAction *r) const {
+    bool operator < (const ClientServiceAction *r) const {
         return m_actionType < r->actionType();
     }
 
-    const bool operator == (const ClientServiceAction *r) const {
+    bool operator == (const ClientServiceAction *r) const {
         return m_uid == r->uid();
     }
 

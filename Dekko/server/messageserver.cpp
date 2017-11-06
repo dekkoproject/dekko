@@ -75,7 +75,7 @@ MessageServer::MessageServer(QObject *parent)
       completionAttempted(false),
       m_started(QDateTime::currentDateTime())
 {
-    qMailLog(Messaging) << "MessageServer ctor begin";
+    qDebug() << "MessageServer ctor begin";
     new QCopServer(this);
 
 #if defined(Q_OS_UNIX)
@@ -260,7 +260,7 @@ MessageServer::MessageServer(QObject *parent)
     }
 
 #ifdef MESSAGESERVER_PLUGINS
-    qMailLog(Messaging) << "Initiating messageserver plugins.";
+    qDebug() << "Initiating messageserver plugins.";
     QStringList availablePlugins = QMailMessageServerPluginFactory::keys();
 
     for (int i = 0; i < availablePlugins.size(); i++) {
@@ -547,9 +547,11 @@ void MessageServer::handleSigHup()
     snHup->setEnabled(false);
     char tmp;
     ::read(sighupFd[1], &tmp, sizeof(tmp));
-
-    // This is ~/.config/QtProject/Messageserver.conf
-    qMailLoggersRecreate("QtProject", "Messageserver", "Msgsrv");
+#if defined(CLICK)
+    qMailLoggersRecreate("dekko2.dekkoproject", "dekkod", "Msgsrv");
+#else
+    qMailLoggersRecreate("dekko", "dekkod", "Msgsrv");
+#endif
 
     snHup->setEnabled(true);
 }

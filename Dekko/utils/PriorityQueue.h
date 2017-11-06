@@ -117,7 +117,7 @@ public:
     typedef T* value_type;
 
     inline bool empty() const { return d.empty(); }
-    inline const value_type top() { Q_ASSERT(!isEmpty()); return d.top(); }
+    inline value_type top() { Q_ASSERT(!isEmpty()); return d.top(); }
     inline void push(value_type x) { return d.push(x); }
     inline void pop() { Q_ASSERT(!isEmpty()); d.pop(); }
     inline QList<T*> toList() { return d.toList(); }

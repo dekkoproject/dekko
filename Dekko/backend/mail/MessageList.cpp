@@ -172,6 +172,7 @@ void MessageList::setKey(const QVariant &key)
         qDebug() << "Message key: " << key << " Not of type QMailMessageKey";
         m_msgKey = QMailMessageKey::nonMatchingKey();
     }
+    QCoreApplication::processEvents();
     reset();
 #ifdef EXPERIMENTAL_REMEMBER_SELECTED_MESSAGE
     QByteArray cacheKey;
@@ -555,9 +556,16 @@ void MessageList::init()
 
         int index = 0;
         QMailMessageIdList tmpList = QMailStore::instance()->queryMessages(messageListKey(), m_sortKey, m_limit);
+        int cnt = 0;
         Q_FOREACH(const auto &id, tmpList) {
             insertMessageAt(index, id);
             ++index;
+            if (cnt == 10) {
+                QCoreApplication::processEvents();
+                cnt = 0;
+            } else {
+                cnt++;
+            }
         }
         m_initialized = true;
         emit canPossiblyLoadMore();

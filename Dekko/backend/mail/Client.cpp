@@ -214,7 +214,7 @@ void Client::downloadMessage(const QMailMessageId &msgId)
 
 void Client::downloadMessages(const QMailMessageIdList &idList)
 {
-
+    Q_UNUSED(idList);
 }
 
 void Client::synchronizeAccount(const QMailAccountId &id)

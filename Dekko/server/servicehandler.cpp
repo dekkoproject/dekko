@@ -635,7 +635,7 @@ void ServiceHandler::removeServiceFromActions(QMailMessageService *removeService
 
     for (QMap<quint64, ActionData>::iterator it(mActiveActions.begin()) ; it != mActiveActions.end(); ++it) {
        if (it->services.remove(removeService)) {
-           qMailLog(Messaging) << "Removed service from action";
+           qDebug() << "Removed service from action";
        }
     }
 
@@ -657,7 +657,7 @@ void ServiceHandler::deregisterAccountServices(const QMailAccountIdList &ids, QM
         if (ids.contains(it.key().first)) {
             // Remove any services associated with this account
             if (QMailMessageService *service = it.value()) {
-                qMailLog(Messaging) << "Deregistering service:" << service->service() << "for account:" << it.key().first;
+                qDebug() << "Deregistering service:" << service->service() << "for account:" << it.key().first;
                 service->cancelOperation(code, text);
                 removeServiceFromActions(service);
                 delete service;
@@ -734,7 +734,7 @@ void ServiceHandler::reregisterAccountServices(QMailAccountIdList ids, QMailServ
                             Q_ASSERT(!service.isNull());
                             if (service->requiresReregistration()) {
                                 // Ok, we must remove it
-                                qMailLog(Messaging) << "Deregistering service:" << service->service() << "for account:" << it.key().first;
+                                qDebug() << "Deregistering service:" << service->service() << "for account:" << it.key().first;
                                 service->cancelOperation(code, text);
                                 removeServiceFromActions(service);
                                 delete service;
@@ -773,7 +773,7 @@ void ServiceHandler::deregisterAccountService(const QMailAccountId &id, const QS
         if (it.key().first == id && it.key().second == serviceName) {
             // Remove any services associated with this account
             service = it.value();
-            qMailLog(Messaging) << "Deregistering service:" << service->service() << "for account:" << it.key().first;
+            qDebug() << "Deregistering service:" << service->service() << "for account:" << it.key().first;
             service->cancelOperation(code, text);
             removeServiceFromActions(service);
 
@@ -948,7 +948,7 @@ void ServiceHandler::registerAccountService(const QMailAccountId &accountId, con
         // We need to create a new service for this account
         if (QMailMessageService *service = createService(svcCfg.service(), accountId)) {
             serviceMap.insert(qMakePair(accountId, svcCfg.service()), service);
-            qMailLog(Messaging) << "Registering service:" << svcCfg.service() << "for account:" << accountId;
+            qDebug() << "Registering service:" << svcCfg.service() << "for account:" << accountId;
 
             if (service->hasSource())
                 registerAccountSource(accountId, &service->source(), service);
@@ -1175,7 +1175,7 @@ void ServiceHandler::dispatchRequest()
         data.status = QMailServiceAction::Status(QMailServiceAction::Status::ErrNoError, QString(), QMailAccountId(), QMailFolderId(), QMailMessageId());
 
         mActiveActions.insert(request->action, data);
-        qMailLog(Messaging) << "Running action" << ::requestTypeNames[data.description] << request->action;
+        qDebug() << "Running action" << ::requestTypeNames[data.description] << request->action;
         emit actionStarted(QMailActionData(request->action, request->description, 0, 0, 
                                            data.status.errorCode, data.status.text, 
                                            data.status.accountId, data.status.folderId, data.status.messageId));
@@ -2758,7 +2758,7 @@ void ServiceHandler::progressChanged(uint p, uint t, quint64 a)
 
 void ServiceHandler::actionCompleted(bool success, quint64 action)
 {
-   qMailLog(Messaging) << "Action completed" << action << "result" << (success ? "success" : "failure");
+   qDebug() << "Action completed" << action << "result" << (success ? "success" : "failure");
    QMailMessageService *service = qobject_cast<QMailMessageService*>(sender());
    Q_ASSERT(service);
 
@@ -2767,7 +2767,7 @@ void ServiceHandler::actionCompleted(bool success, quint64 action)
 
 void ServiceHandler::actionCompleted(bool success, QMailMessageService *service, quint64 action)
 {
-    qMailLog(Messaging) << "Action completed" << action << "result" << (success ? "success" : "failure");
+    qDebug() << "Action completed" << action << "result" << (success ? "success" : "failure");
     QMap<quint64, ActionData>::iterator it = mActiveActions.find(action);
     if (it != mActiveActions.end()) {
         ActionData &data(it.value());

@@ -49,7 +49,7 @@
 #include <QtGui>
 #endif
 
-#ifdef defined(CLICK)
+#if defined(CLICK)
 #define APP_NAME "dekko2.dekkoproject"
 #else
 #define APP_NAME "dekko"
@@ -59,7 +59,7 @@
 
 static void shutdown(int n)
 {
-    qMailLog(Messaging) << "Received signal" << n << ", shutting down.";
+    qDebug() << "Received signal" << n << ", shutting down.";
 #ifdef USE_HTML_PARSER
     QGuiApplication::exit();
 #else
@@ -73,7 +73,7 @@ static void shutdown(int n)
 static void recreateLoggers(int n)
 {
     qMailLoggersRecreate(APP_NAME, "dekkod", "Msgsrv");
-    qMailLog(Messaging) << "Received signal" << n << ", logs recreated.";
+    qDebug() << "Received signal" << n << ", logs recreated.";
 }
 #endif
 

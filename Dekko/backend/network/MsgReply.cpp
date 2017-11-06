@@ -38,9 +38,6 @@ MsgReply::MsgReply(MsgPartQNAM *parent, QMailMessageId &msgId, const bool requir
 MsgReply::~MsgReply()
 {
     qDebug() << "Deleteing MsgReply";
-    formattedBufferContent->clear();
-    delete formattedBufferContent;
-    formattedBufferContent = Q_NULLPTR;
 }
 
 void MsgReply::close()

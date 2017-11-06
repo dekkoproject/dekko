@@ -29,7 +29,7 @@ Project {
         cpp.cxxStandardLibrary: "libstdc++";
         cpp.includePaths: [ path ]
         cpp.defines: {
-            var defs = ["SNAP", "QMF_NO_MESSAGE_SERVICE_EDITOR"]
+            var defs = ["SNAP", "QMF_NO_MESSAGE_SERVICE_EDITOR", "HAVE_LIBICU"]
             if (project.unity8) {
                 defs.concat("IS_UNITY8")
             } else {

@@ -30,7 +30,7 @@
 #define INCREMENT_VALUE 50
 // Remember the selected message for each key using QCache
 // it works but it's really bogging down qml. Bindings need optimizing.
-// #define EXPERIMENTAL_REMEMBER_SELECTED_MESSAGE
+//#define EXPERIMENTAL_REMEMBER_SELECTED_MESSAGE
 
 class MessageList : public QObject
 {
