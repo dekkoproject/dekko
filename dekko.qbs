@@ -30,12 +30,6 @@ Project {
 
     property string pluginDir: binDir + "/plugins"
 
-    property bool unity8: false // FIXME: we shouldn't need this anymore.
-    PropertyOptions {
-        name: "unity8"
-        description: "Target platform is unity8"
-    }
-
     property bool click: false
 
     property bool serverAsThread: false
@@ -73,11 +67,6 @@ Project {
     PropertyOptions {
         name: "enablePOP"
         description: "Enables POP3 service"
-    }
-
-    property bool useUbuntuConnectivity: unity8 ? true : false
-    PropertyOptions {
-        name: "useUbuntuConnectivity"
     }
 //    property bool outputTarBall: false
 

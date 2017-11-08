@@ -405,7 +405,7 @@ bool messageBodyContainsText(const QMailMessage &message, const QString& text)
 
 QString requestsFileName()
 {
-#if defined(IS_UNITY8) || defined(SNAP)
+#if defined(CLICK) || defined(SNAP)
     return QMail::tempDir() + QStringLiteral("qmf-messageserver-requests");
 #else
     return QDir::tempPath() + "/qmf-messageserver-requests";

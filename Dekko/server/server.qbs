@@ -28,23 +28,22 @@ Project {
         cpp.cxxLanguageVersion: "c++11";
         cpp.cxxStandardLibrary: "libstdc++";
         cpp.includePaths: [ path ]
-        cpp.defines: {
-            var defs = ["SNAP", "QMF_NO_MESSAGE_SERVICE_EDITOR", "HAVE_LIBICU"]
-            if (project.unity8) {
-                defs.concat("IS_UNITY8")
-            } else {
-                defs.concat("USE_HTML_PARSER")
-            }
-            if (project.click) {
-                defs.concat("CLICK")
-            }
-            if (project.enableLogging) {
-                defs.concat("QMF_ENABLE_LOGGING")
-            }
-            if (project.uoaEnabled) {
-                defs.concat("USE_ACCOUNTS_QT")
-            }
-            return defs
+        cpp.defines: [
+            "SNAP",
+            "QMF_NO_MESSAGE_SERVICE_EDITOR",
+            "HAVE_LIBICU",
+            "USE_HTML_PARSER",
+            "QMF_ENABLE_LOGGING"
+        ]
+
+        Properties {
+            condition: project.click
+            cpp.defines: [
+                "CLICK",
+                "QMF_NO_MESSAGE_SERVICE_EDITOR",
+                "HAVE_LIBICU",
+                "QMF_ENABLE_LOGGING"
+            ]
         }
 
         Group {

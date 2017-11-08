@@ -49,7 +49,7 @@ BaseMessagingStore {
 
     property alias folderTitle: d.currentFolderName
 
-    property MailStoreActions actions: MailStoreActions{}
+    property MailStoreActions actions: MailStoreActions {}
 
     MessageList {
         id: msgList
@@ -59,5 +59,14 @@ BaseMessagingStore {
     QtObject {
         id: d
         property string currentFolderName: "Inbox"
+    }
+
+    Connections {
+        target: Qt.application
+        onStateChanged: {
+            if (Qt.application.state === Qt.ApplicationActive) {
+                msgList.refresh()
+            }
+        }
     }
 }

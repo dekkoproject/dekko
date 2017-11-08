@@ -66,6 +66,10 @@ extern "C" {
 int MessageServer::sighupFd[2];
 #endif
 
+#ifdef CLICK
+#define NO_NOTIFY_SEND
+#endif
+
 MessageServer::MessageServer(QObject *parent)
     : QObject(parent),
       handler(0),
@@ -511,6 +515,9 @@ void MessageServer::cleanupTemporaryMessages()
 
 void MessageServer::notifyNewMessages(const QMailMessageIdList &ids)
 {
+#ifdef NO_NOTIFY_SEND
+    Q_UNUSED(ids);
+#else
     Q_FOREACH(const QMailMessageId &id, ids) {
         QMailMessageMetaData d(id);
         if ((d.status() & QMailMessage::NoNotification)) {
@@ -532,6 +539,7 @@ void MessageServer::notifyNewMessages(const QMailMessageIdList &ids)
             proc.waitForFinished(1000);
         }
     }
+#endif
 }
 
 #if defined(Q_OS_UNIX)

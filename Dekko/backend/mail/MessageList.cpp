@@ -122,6 +122,20 @@ void MessageList::loadMore()
     }
 }
 
+void MessageList::refresh()
+{
+    qDebug() << "Refreshing Message List";
+    QMailMessageIdList idsToAppend;
+    QMailMessageIdList newIdsList(QMailStore::instance()->queryMessages(messageListKey(), m_sortKey, m_limit));
+
+    foreach (const QMailMessageId &id, newIdsList) {
+        if (!m_idList.contains(id)) {
+            idsToAppend.append(id);
+        }
+    }
+    sortAndAppendNewMessages(idsToAppend, newIdsList);
+}
+
 int MessageList::currentSelectedIndex() const
 {
     return m_currentIndex;
@@ -144,15 +158,7 @@ void MessageList::setLimit(int limit)
         removeMessages(m_idList.mid(limit));
     } else {
         m_limit = limit;
-        QMailMessageIdList idsToAppend;
-        QMailMessageIdList newIdsList(QMailStore::instance()->queryMessages(messageListKey(), m_sortKey, m_limit));
-
-        foreach (const QMailMessageId &id, newIdsList) {
-            if (!m_idList.contains(id)) {
-                idsToAppend.append(id);
-            }
-        }
-        sortAndAppendNewMessages(idsToAppend, newIdsList);
+        refresh();
     }
     emit limitChanged(limit);
 }
@@ -478,6 +484,15 @@ void MessageList::sortAndAppendNewMessages(const QMailMessageIdList &idsToAppend
         newPositions.insert(id, index);
         ++index;
     }
+    int count = 0;
+    auto checkCount = [&]() {
+        if (count == 10) {
+            QCoreApplication::processEvents();
+            count = 0;
+        } else{
+            count++;
+        }
+    };
 
     QMap<int, QMailMessageId> indexId;
     foreach (const QMailMessageId &id, idsToAppend) {
@@ -495,7 +510,9 @@ void MessageList::sortAndAppendNewMessages(const QMailMessageIdList &idsToAppend
                 indexId.insert(newIndex, id);
             }
         }
+        checkCount();
     }
+    count = 0;
     std::sort(insertIndices.begin(), insertIndices.end());
     foreach (const int &index, insertIndices) {
         // Since the list is ordered, if index is bigger than the limit
@@ -504,6 +521,7 @@ void MessageList::sortAndAppendNewMessages(const QMailMessageIdList &idsToAppend
             break;
         }
         insertMessageAt(index, indexId[index]);
+        checkCount();
     }
 
     // Check if we passed the model limit, if so remove exceeding messages

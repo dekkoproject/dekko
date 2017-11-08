@@ -90,6 +90,7 @@ public:
     Q_INVOKABLE int indexOf(const quint64 &id);
     int indexOf(const QMailMessageId &id);
     Q_INVOKABLE void loadMore();
+    Q_INVOKABLE void refresh();
 
     int currentSelectedIndex() const;
 
