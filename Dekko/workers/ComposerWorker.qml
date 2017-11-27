@@ -101,15 +101,13 @@ AppListener {
         }
     }
     Filter {
-        type: PopupKeys.confirmationDialogConfirmed
+        type: ComposerKeys.discardMessageConfirmed
         onDispatched: {
-            if (message.id === discard.dlgId) {
-                Log.logInfo("ComposerWorker::discardMessage", "Discarding message")
-                ComposerActions.resetComposer()
-                ComposerStore.submission.discard()
-                // We can just call close now as we don't need to wait on anything with resetComposer
-                ViewActions.closeComposer()
-            }
+            Log.logInfo("ComposerWorker::discardMessage", "Discarding message")
+            ComposerActions.resetComposer()
+            ComposerStore.submission.discard()
+            // We can just call close now as we don't need to wait on anything with resetComposer
+            ViewActions.closeComposer()
         }
     }
 
