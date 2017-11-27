@@ -101,22 +101,25 @@ AppListener {
         }
     }
     Filter {
-        type: ComposerKeys.discardMessageConfirmed
+        type: PopupKeys.confirmationDialogConfirmed
         onDispatched: {
-            Log.logInfo("ComposerWorker::discardMessage", "Discarding message")
-            ComposerActions.resetComposer()
-            ComposerStore.submission.discard()
-            // We can just call close now as we don't need to wait on anything with resetComposer
-            ViewActions.closeComposer()
+            if (message.id === discard.dlgId) {
+                Log.logInfo("ComposerWorker::discardMessage", "Discarding message")
+                ComposerActions.resetComposer()
+                ComposerStore.submission.discard()
+                // We can just call close now as we don't need to wait on anything with resetComposer
+                ViewActions.closeComposer()
+            }
         }
     }
 
     AppScript {
+        id: discard
         readonly property string dlgId: "discard-confirmation-dialog"
         runWhen: ComposerKeys.discardMessage
         script: {
             if (ComposerStore.builder.hasDraft) {
-                PopupActions.showDiscardDialog(dlgId, qsTr("Discard message"), qsTr("Are you sure you want to discard this message?"))
+                PopupActions.showConfirmationDialog(PopupKeys.popupComposer, dlgId, qsTr("Discard message"), qsTr("Are you sure you want to discard this message?"))
             } else {
                 ComposerActions.discardMessageConfirmed()
                 exit.bind(this,0)
