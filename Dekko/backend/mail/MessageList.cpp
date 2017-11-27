@@ -423,6 +423,7 @@ void MessageList::handleUpdatedMessages(const QMailMessageIdList &updatedList)
 
     std::sort(updateIndices.begin(), updateIndices.end());
     foreach (const int &index, updateIndices) {
+        qDebug() << "Message Updated: " << m_model->at(index)->messageId();
         m_model->at(index)->emitMinMessageChanged();
     }
     emit canPossiblyLoadMore();
@@ -451,6 +452,7 @@ void MessageList::removeMessageAt(const int &index)
     QMailMessageId id(m_idList.at(index));
     m_indexMap.remove(id);
     m_idList.removeAt(index);
+    qDebug() << "Removing Message:" << m_model->at(index)->messageId();
     m_model->remove(index);
 
     // Adjust the indices for the items that have been moved
