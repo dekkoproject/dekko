@@ -3,6 +3,7 @@ import QtQuick.Window 2.1
 import QuickFlux 1.0
 import PlugMan 1.0
 import Dekko.Mail.API 1.0
+import Dekko.Mail.Stores.Mail 1.0
 
 Item {
     id: root
@@ -18,6 +19,7 @@ Item {
                     var comp = d.getComponent("Dekko::Mail::Composer")
                     if (comp !== null) {
                         d.composeWindow = comp.createObject(root)
+                        MailStore.disableMsgListUpdates = true;
                     }
                 } else {
                     d.composeWindow.raise()
@@ -34,6 +36,7 @@ Item {
                 if (d.composeWindow !== null) {
                     d.composeWindow.destroy()
                 }
+                MailStore.disableMsgListUpdates = false;
             }
         }
 

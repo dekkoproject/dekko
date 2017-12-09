@@ -121,18 +121,23 @@ void SubmissionManager::saveDraft(const bool userTriggered)
         qDebug() << "LOCAL ONLY";
         msg.setStatus(QMailMessage::LocalOnly, true);
         saved = Client::instance()->addMessage(&msg);
+        qDebug() << "Local message added";
     } else {
         qDebug() << "UPDATING DRAFT";
         QMailMessageId id = msg.id();
         msg.setId(QMailMessageId());
         msg.setStatus(QMailMessage::LocalOnly, true);
         msg.setServerUid(QString());
+        qDebug() << "Adding new draft";
         saved = Client::instance()->addMessage(&msg);
+        qDebug() << "Removing old draft";
         Client::instance()->removeMessage(id, QMailStore::CreateRemovalRecord);
+        qDebug() << "Draft updated";
     }
     // now queue an update at some point with the server. It doesn't
     // have to be immediate as we have it localy
     if (saved) {
+        qDebug() << "Draft saved. Moving to drafts folder";
         Client::instance()->moveToStandardFolder(QMailMessageIdList() << msg.id(), Folder::SpecialUseDraftsFolder, false);
         if (userTriggered) {
             emit draftSaved();

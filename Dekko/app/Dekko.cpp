@@ -41,6 +41,7 @@ Dekko::Dekko(int &argc, char **argv) :
     m_serverThread(0),
 #else
     m_server(0),
+    m_worker(0),
 #endif
     m_view(0),
     devMode(false),
@@ -110,8 +111,19 @@ bool Dekko::setup()
     } else {
         qDebug() << "[Dekko]" << "Message server already running, using that";
     }
-
 #endif
+
+    if (!isWorkerRunning()) {
+        qDebug() << "[Dekko]" << "Message worker not running attempting to start";
+        if (!startWorker()) {
+            qDebug() << "[Dekko]" << "Message worker failed to start";
+            return false;
+        } else {
+            qDebug() << "[Dekko]" << "Message worker started successfully \\o/";
+        }
+    } else {
+        qDebug() << "[Dekko]" << "Message worker already running, using that";
+    }
     m_engine.setNetworkAccessManagerFactory(&m_partqnam);
 
     devMode = parser.isSet("d");
@@ -168,6 +180,31 @@ bool Dekko::startServer()
     m_server->start(QMail::messageServerPath() + binary);
     return m_server->waitForStarted();
 #endif
+}
+
+bool Dekko::isWorkerRunning()
+{
+    int lockid = QMail::fileLock(QStringLiteral("dekko-worker.lock"));
+    if (lockid == -1)
+        return true;
+
+    QMail::fileUnlock(lockid);
+    return false;
+}
+
+bool Dekko::startWorker()
+{
+    if (m_worker) {
+        delete m_worker;
+        m_worker = 0;
+    }
+    m_worker = new QProcess(this);
+    static const QString binary(QString("/dekko-worker"));
+    connect(m_worker,SIGNAL(error(QProcess::ProcessError)),
+            this,SLOT(serverProcessError(QProcess::ProcessError)));
+    connect(m_worker, &QProcess::readyRead, [=](){ if (m_worker->canReadLine()) qDebug() << m_worker->readLine(); });
+    m_worker->start(QMail::messageServerPath() + binary);
+    return m_worker->waitForStarted();
 }
 
 void Dekko::trimCache()

@@ -1,0 +1,124 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+  <interface name="org.dekkoproject.MailService">
+    <property name="hasUndoableAction" type="b" access="read"/>
+    <property name="undoDescription" type="s" access="read"/>
+    <signal name="messageRestored">
+      <arg name="msgId" type="t" direction="out"/>
+    </signal>
+    <signal name="messagePartNowAvailable">
+      <arg name="msgId" type="t" direction="out"/>
+      <arg name="partLocation" type="s" direction="out"/>
+    </signal>
+    <signal name="messagePartFetchFailed">
+      <arg name="msgId" type="t" direction="out"/>
+      <arg name="partLocation" type="s" direction="out"/>
+    </signal>
+    <signal name="messagesNowAvailable">
+      <arg name="msgIds" type="(iiii)" direction="out"/>
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QList&lt;quint64>"/>
+    </signal>
+    <signal name="messageFetchFailed">
+      <arg name="msgIds" type="(iiii)" direction="out"/>
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QList&lt;quint64>"/>
+    </signal>
+    <signal name="messagesSent">
+      <arg name="msgIds" type="(iiii)" direction="out"/>
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QList&lt;quint64>"/>
+    </signal>
+    <signal name="messageSendingFailed">
+      <arg name="msgIds" type="(iiii)" direction="out"/>
+      <arg name="error" type="i" direction="out"/>
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QList&lt;quint64>"/>
+    </signal>
+    <signal name="accountSynced">
+      <arg name="id" type="t" direction="out"/>
+    </signal>
+    <signal name="syncAccountFailed">
+      <arg name="id" type="t" direction="out"/>
+    </signal>
+    <signal name="clientError">
+      <arg name="accountId" type="t" direction="out"/>
+      <arg name="error" type="i" direction="out"/>
+      <arg name="errorString" type="s" direction="out"/>
+    </signal>
+    <signal name="standardFoldersCreated">
+      <arg name="accountId" type="t" direction="out"/>
+      <arg name="created" type="b" direction="out"/>
+    </signal>
+    <method name="restoreMessage">
+      <arg name="id" type="t" direction="in"/>
+    </method>
+    <method name="deleteMessages">
+      <arg name="ids" type="(iiii)" direction="in" />
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QList&lt;quint64>"/>
+    </method>
+    <method name="markMessagesImportant">
+      <arg name="msgIds" type="(iiii)" direction="in" />
+      <arg name="important" type="b" direction="in" />
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QList&lt;quint64>"/>
+    </method>
+    <method name="markMessagesRead">
+      <arg name="msgIds" type="(iiii)" direction="in" />
+      <arg name="read" type="b" direction="in" />
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QList&lt;quint64>"/>
+    </method>
+    <method name="markMessagesTodo">
+      <arg name="msgIds" type="(iiii)" direction="in" />
+      <arg name="read" type="b" direction="in" />
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QList&lt;quint64>"/>
+    </method>
+    <method name="markMessagesDone">
+      <arg name="msgIds" type="(iiii)" direction="in" />
+      <arg name="done" type="b" direction="in" />
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QList&lt;quint64>"/>
+    </method>
+    <method name="markMessagesReplied">
+      <arg name="msgIds" type="(iiii)" direction="in" />
+      <arg name="all" type="b" direction="in" />
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QList&lt;quint64>"/>
+    </method>
+    <method name="markMessageForwarded">
+      <arg name="msgIds" type="(iiii)" direction="in" />
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QList&lt;quint64>"/>
+    </method>
+    <method name="syncFolders">
+      <arg name="accountId" type="t" direction="in" />
+      <arg name="folders" type="(iiii)" direction="in" />
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In1" value="QList&lt;quint64>"/>
+    </method>
+    <method name="createStandardFolders">
+      <arg name="accountId" type="t" direction="in"/>
+    </method>
+    <method name="moveToFolder">
+      <arg name="msgIds" type="(iiii)" direction="in" />
+      <arg name="folderId" type="t" direction="in" />
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QList&lt;quint64>"/>
+    </method>
+    <method name="moveToStandardFolder">
+      <arg name="msgIds" type="(iiii)" direction="in" />
+      <arg name="folderType" type="i" direction="in" />
+      <arg name="userTriggered" type="b" direction="in" />
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QList&lt;quint64>"/>
+    </method>
+    <method name="markFolderRead">
+      <arg name="folderId" type="t" direction="in"/>
+    </method>
+    <method name="downloadMessagePart">
+      <arg name="msgId" type="t" direction="in"/>
+      <arg name="partLocation" type="s" direction="in"/>
+    </method>
+    <method name="downloadMessages">
+      <arg name="msgIds" type="(iiii)" direction="in" />
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QList&lt;quint64>"/>
+    </method>
+    <method name="sendMessage">
+      <arg name="msgId" type="t" direction="in"/>
+    </method>
+    <method name="sendPendingMessages">
+    </method>
+    <method name="synchronizeAccount">
+      <arg name="accountId" type="t" direction="in"/>
+    </method>
+  </interface>
+</node>

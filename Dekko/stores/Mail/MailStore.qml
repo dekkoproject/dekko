@@ -49,10 +49,13 @@ BaseMessagingStore {
 
     property alias folderTitle: d.currentFolderName
 
+    property alias disableMsgListUpdates: msgList.disableUpdates
+
     property MailStoreActions actions: MailStoreActions {}
 
     MessageList {
         id: msgList
+        disableUpdates: false
         sortOrder: Qt.DescendingOrder
     }
 

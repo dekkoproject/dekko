@@ -64,7 +64,7 @@ public:
     void markMessagesReplied(const QMailMessageIdList &idList, const bool all);
     void markMessageForwarded(const QMailMessageIdList &idList);
     void markFolderRead(const QMailFolderId &id);
-    void downloadMessagePart(const QMailMessagePart *part);
+    void downloadMessagePart(const QMailMessageId &id, const QString &location);
     void downloadMessages(const QMailMessageIdList &msgIds);
     void sendMessage(const QMailMessage &msg);
     void createStandardFolders(const QMailAccountId &id);

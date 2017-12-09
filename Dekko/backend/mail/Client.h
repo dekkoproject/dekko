@@ -21,9 +21,12 @@
 #include <QObject>
 #include <QQmlEngine>
 #include <QJSEngine>
+#include <QDBusConnection>
 #include "ClientService.h"
 #include <qmailstore.h>
 #include "Folder.h"
+#include "MailServiceInterface.h"
+
 
 class Client : public QObject
 {
@@ -62,14 +65,14 @@ public:
     };
 
     QObject *service() const { return m_service; }
-    bool hasConfiguredAccounts();
+    bool hasConfiguredAccounts(); // account service
 
-    Q_INVOKABLE void deleteMessage(const int &msgId);
-    Q_INVOKABLE void restoreMessage(const int &msgId);
-    void deleteMessages(const QMailMessageIdList &idList);
+    Q_INVOKABLE void deleteMessage(const int &msgId); // done
+    Q_INVOKABLE void restoreMessage(const int &msgId); // done
+    void deleteMessages(const QMailMessageIdList &idList); // done
 
-    Q_INVOKABLE void synchronizeAccount(const int &id);
-    void synchronizeAccount(const QMailAccountId &id);
+    Q_INVOKABLE void synchronizeAccount(const int &id); // account service
+    void synchronizeAccount(const QMailAccountId &id); // account service
 
     Q_INVOKABLE void syncStandardFolder(const int &standardFolder); //Folder::FolderType
     Q_INVOKABLE void syncStandardFolder(const quint64 &accountId, const int &standardFolder);
@@ -89,6 +92,7 @@ public:
     void markMessagesDone(const QMailMessageIdList &idList, const bool done);
 
     Q_INVOKABLE void createStandardFolders(const quint64 &accountId);
+    void createStandardFolders(const QMailAccountId &accountId);
     Q_INVOKABLE void moveToStandardFolder(const int &msgId, const int &standardFolder); // standardFolder is a Folder::FolderType
     void moveToStandardFolder(const QMailMessageIdList &msgIds, const Folder::FolderType &folder, const bool userTriggered = true);
     Q_INVOKABLE void moveToFolder(const quint64 &msgId, const quint64 &folderId);
@@ -138,7 +142,14 @@ protected:
     QMailAccountIdList getEnabledAccountIds() const;
 
 private:
+
+    QList<quint64> toDBusMsgList(const QMailMessageIdList &ids);
+    QList<quint64> toDBusFolderList(const QMailFolderIdList &ids);
+    QList<quint64> toDBusAccountList(const QMailAccountIdList &ids);
+
     ClientService *m_service;
+    org::dekkoproject::MailService *m_mService;
+
 };
 
 #endif // CLIENT_H

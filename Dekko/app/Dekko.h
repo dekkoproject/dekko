@@ -45,6 +45,9 @@ public:
     bool isServerRunning();
     bool startServer();
 
+    bool isWorkerRunning();
+    bool startWorker();
+
     Q_INVOKABLE void trimCache();
 
 signals:
@@ -62,6 +65,7 @@ private:
     MessageServerThread *m_serverThread;
 #else
     QProcess *m_server;
+    QProcess *m_worker;
 #endif
     QQuickView *m_view;
     MsgPartQNAMFactory m_partqnam;

@@ -19,6 +19,11 @@
 #include <QDebug>
 #include <QPointer>
 #include <qmailstore.h>
+#include <QDBusConnection>
+#include "MailServiceWorker.h"
+
+#define SERVICE "org.dekkoproject.MailService"
+#define SERVICE_PATH "/mail"
 
 static QPointer<Client> s_client;
 Client *Client::instance()
@@ -37,8 +42,14 @@ QObject *Client::factory(QQmlEngine *engine, QJSEngine *scriptEngine)
 }
 
 Client::Client(QObject *parent) : QObject(parent),
-    m_service(0)
+    m_service(0),
+    m_mService(0)
 {
+
+    MailServiceWorker::registerTypes();
+
+    m_mService = new org::dekkoproject::MailService(SERVICE, SERVICE_PATH, QDBusConnection::sessionBus());
+
     m_service = new ClientService(this);
     emit serviceChanged();
     connect(m_service, &ClientService::messagePartFetched, this, &Client::messagePartNowAvailable);
@@ -66,12 +77,12 @@ void Client::deleteMessage(const int &msgId)
 
 void Client::deleteMessages(const QMailMessageIdList &idList)
 {
-    m_service->deleteMessages(idList);
+    m_mService->deleteMessages(toDBusMsgList(idList));
 }
 
 void Client::restoreMessage(const int &msgId)
 {
-    m_service->restoreMessage(QMailMessageId(msgId));
+    m_mService->restoreMessage(QMailMessageId(msgId).toULongLong());
 }
 
 void Client::markMessageImportant(const int &msgId, const bool important)
@@ -153,58 +164,66 @@ void Client::emptyTrash(const int &accountId)
 
 void Client::markMessagesImportant(const QMailMessageIdList &idList, const bool important)
 {
-    m_service->markMessagesImportant(idList, important);
+    m_mService->markMessagesImportant(toDBusMsgList(idList), important);
 }
 
 void Client::markMessagesRead(const QMailMessageIdList &idList, const bool read)
 {
-    m_service->markMessagesRead(idList, read);
+    m_mService->markMessagesRead(toDBusMsgList(idList), read);
 }
 
 void Client::markMessagesTodo(const QMailMessageIdList &idList, const bool todo)
 {
-    m_service->markMessagesTodo(idList, todo);
+    m_mService->markMessagesTodo(toDBusMsgList(idList), todo);
 }
 
 void Client::markMessagesDone(const QMailMessageIdList &idList, const bool done)
 {
-    m_service->markMessagesDone(idList, done);
+    m_mService->markMessagesDone(toDBusMsgList(idList), done);
 }
 
 void Client::createStandardFolders(const quint64 &accountId)
 {
-    m_service->createStandardFolders(QMailAccountId(accountId));
+    createStandardFolders(QMailAccountId(accountId));
+}
+
+void Client::createStandardFolders(const QMailAccountId &accountId)
+{
+    m_mService->createStandardFolders(accountId.toULongLong());
 }
 
 void Client::markMessagesReplied(const QMailMessageIdList &idList, const bool all)
 {
-    m_service->markMessagesReplied(idList, all);
+    m_mService->markMessagesReplied(toDBusMsgList(idList), all);
 }
 
 void Client::markMessageForwarded(const QMailMessageIdList &idList)
 {
-    m_service->markMessageForwarded(idList);
+    m_mService->markMessageForwarded(toDBusMsgList(idList));
 }
 
 void Client::markFolderRead(const QMailFolderId &id)
 {
-    m_service->markFolderRead(id);
+    m_mService->markFolderRead(id.toULongLong());
 }
 
 void Client::emptyTrash(const QMailAccountIdList &ids)
 {
-    m_service->emptyTrash(ids);
+//    m_mService->emptyTrash(toDBusAccountList(ids));
+    Q_UNUSED(ids);
 }
 
 void Client::syncFolders(const QMailAccountId &accountId, const QMailFolderIdList &folders)
 {
-    m_service->syncFolders(accountId, folders);
+    m_mService->syncFolders(accountId.toULongLong(), toDBusFolderList(folders));
 }
 
 void Client::downloadMessagePart(const QMailMessagePart *msgPart)
 {
     qDebug() << "[Client]" << "Downloading message part" << msgPart->location().toString(true);
-    m_service->downloadMessagePart(msgPart);
+    quint64 id = msgPart->location().containingMessageId().toULongLong();
+    QString location = msgPart->location().toString(true);
+    m_mService->downloadMessagePart(id, location);
 }
 
 void Client::downloadMessage(const QMailMessageId &msgId)
@@ -219,7 +238,7 @@ void Client::downloadMessages(const QMailMessageIdList &idList)
 
 void Client::synchronizeAccount(const QMailAccountId &id)
 {
-    m_service->synchronizeAccount(id);
+    m_mService->synchronizeAccount(id.toULongLong());
 }
 
 bool Client::addMessage(QMailMessage *msg)
@@ -234,7 +253,7 @@ bool Client::removeMessage(const QMailMessageId &id, const QMailStore::MessageRe
 
 void Client::moveToStandardFolder(const QMailMessageIdList &msgIds, const Folder::FolderType &folder, const bool userTriggered)
 {
-    m_service->moveToStandardFolder(msgIds, folder, userTriggered);
+    m_mService->moveToStandardFolder(toDBusMsgList(msgIds), static_cast<int>(folder), userTriggered);
 }
 
 void Client::moveToFolder(const quint64 &msgId, const quint64 &folderId)
@@ -250,17 +269,17 @@ void Client::moveToFolder(const quint64 &msgId, const quint64 &folderId)
 
 void Client::moveToFolder(const QMailMessageIdList &ids, const QMailFolderId &folderId)
 {
-    m_service->moveToFolder(ids, folderId);
+    m_mService->moveToFolder(toDBusMsgList(ids), folderId.toULongLong());
 }
 
 void Client::sendMessage(const QMailMessage &msg)
 {
-    m_service->sendMessage(msg);
+    m_mService->sendMessage(msg.id().toULongLong());
 }
 
 void Client::sendPendingMessages()
 {
-    m_service->sendAnyQueuedMail();
+    m_mService->sendPendingMessages();
 }
 
 void Client::handleFailure(const quint64 &id, const QMailServiceAction::Status &status)
@@ -341,4 +360,31 @@ QMailAccountIdList Client::getEnabledAccountIds() const
     return QMailStore::instance()->queryAccounts(QMailAccountKey::messageType(QMailMessage::Email)
                                                  & QMailAccountKey::status(QMailAccount::Enabled),
                                                  QMailAccountSortKey::name());
+}
+
+QList<quint64> Client::toDBusMsgList(const QMailMessageIdList &ids)
+{
+    QList<quint64> list;
+    foreach(const QMailMessageId &id, ids) {
+        list << id.toULongLong();
+    }
+    return list;
+}
+
+QList<quint64> Client::toDBusFolderList(const QMailFolderIdList &ids)
+{
+    QList<quint64> list;
+    foreach(const QMailFolderId &id, ids) {
+        list << id.toULongLong();
+    }
+    return list;
+}
+
+QList<quint64> Client::toDBusAccountList(const QMailAccountIdList &ids)
+{
+    QList<quint64> list;
+    foreach(const QMailAccountId &id, ids) {
+        list << id.toULongLong();
+    }
+    return list;
 }

@@ -58,6 +58,8 @@ class MessageList : public QObject
     Q_PROPERTY(bool canMarkSelectionRead READ canMarkSelectionAsRead NOTIFY selectionIndexesChanged)
     Q_PROPERTY(bool canMarkSelectionImportant READ canMarkSelectionImportant NOTIFY selectionIndexesChanged)
 
+    Q_PROPERTY(bool disableUpdates READ disableUpdates WRITE setDisableUpdates NOTIFY disableUpdatesChanged)
+
     Q_ENUMS(FilterKey)
 
 public:
@@ -96,6 +98,8 @@ public:
 
     FilterKey filterKey() const;
 
+    bool disableUpdates() const;
+
 signals:
     void totalCountChanged();
     void canPossiblyLoadMore();
@@ -111,6 +115,8 @@ signals:
     void currentSelectedIndexChanged();
 
     void filterKeyChanged(FilterKey filter);
+
+    void disableUpdatesChanged(bool disableUpdates);
 
 public slots:
     void setLimit(int limit);
@@ -137,6 +143,8 @@ public slots:
     void setCurrentSelectedIndex(int currentSelectedIndex);
 
     void setFilterKey(FilterKey filter);
+
+    void setDisableUpdates(bool disableUpdates);
 
 private slots:
     void handleNewMessages(const QMailMessageIdList &newList);
@@ -172,6 +180,9 @@ private: //members
 #ifdef EXPERIMENTAL_REMEMBER_SELECTED_MESSAGE
     QCache<QByteArray, QMailMessageId> m_cache;
 #endif
+    bool m_disableUpdates;
+    bool m_needsRefresh;
+    QMailMessageIdList m_refreshList;
 };
 
 #endif // MESSAGELIST_H

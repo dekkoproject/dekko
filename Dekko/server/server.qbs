@@ -4,7 +4,8 @@ Project {
     name: "Server"
 
     references: [
-        "serviceplugin/dekkod-service.qbs"
+        "serviceplugin/dekkod-service.qbs",
+        "serviceworker/serviceworker.qbs"
     ]
 
     QtGuiApplication {

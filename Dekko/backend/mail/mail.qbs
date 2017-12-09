@@ -7,6 +7,7 @@ DynamicLibrary {
     Depends { name: "cpp" }
     Depends { name: "AccountsLib" }
     Depends { name: "Settings Lib" }
+    Depends { name: "Qt.dbus" }
 
     cpp.optimization: qbs.buildVariant === "debug" ? "none" : "fast"
     cpp.debugInformation: qbs.buildVariant === "debug"
@@ -18,6 +19,7 @@ DynamicLibrary {
         Depends { name: "cpp" }
         Depends { name: "AccountsLib" }
         Depends { name: "Settings Lib" }
+        Depends { name: "Qt.dbus" }
 
         cpp.cxxLanguageVersion: "c++11";
         cpp.cxxStandardLibrary: "libstdc++";

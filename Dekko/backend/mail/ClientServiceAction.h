@@ -244,13 +244,12 @@ class FetchMessagePartAction : public ClientServiceAction
 {
     Q_OBJECT
 public:
-    FetchMessagePartAction(QObject *parent, const QMailMessagePart *part);
+    FetchMessagePartAction(QObject *parent, const QMailMessageId &id, const QString &location);
     void process();
 public slots:
     QString location() { return m_location; }
     quint64 messageId() { return m_id; }
 private:
-    const QMailMessagePart *m_part;
     quint64 m_id;
     QString m_location;
 };

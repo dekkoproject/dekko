@@ -18,12 +18,14 @@
 #include "MessageList.h"
 #include <algorithm>
 #include <QDebug>
+#include <QSet>
 #include <qmailstore.h>
 #include <qmaildisconnected.h>
 #include "Client.h"
 
 MessageList::MessageList(QObject *parent) : QObject(parent),
-    m_model(0), m_initialized(false), m_selectionMode(false), m_currentIndex(-1), m_filter(FilterKey::All)
+    m_model(0), m_initialized(false), m_selectionMode(false), m_currentIndex(-1), m_filter(FilterKey::All), m_disableUpdates(false),
+    m_needsRefresh(false)
 {
     m_model = new QQmlObjectListModel<MinimalMessage>(this);
     m_msgKey = QMailMessageKey::nonMatchingKey();
@@ -144,6 +146,11 @@ int MessageList::currentSelectedIndex() const
 MessageList::FilterKey MessageList::filterKey() const
 {
     return m_filter;
+}
+
+bool MessageList::disableUpdates() const
+{
+    return m_disableUpdates;
 }
 
 void MessageList::setLimit(int limit)
@@ -303,6 +310,21 @@ void MessageList::setFilterKey(MessageList::FilterKey filter)
     emit filterKeyChanged(filter);
 }
 
+void MessageList::setDisableUpdates(bool disableUpdates)
+{
+    if (m_disableUpdates == disableUpdates)
+        return;
+
+    m_disableUpdates = disableUpdates;
+    emit disableUpdatesChanged(disableUpdates);
+
+    if (!m_disableUpdates && m_needsRefresh) {
+        QSet<QMailMessageId> set = QSet<QMailMessageId>::fromList(m_refreshList);
+        handleUpdatedMessages(static_cast<QMailMessageIdList>(set.toList()));
+        m_needsRefresh = false;
+    }
+}
+
 void MessageList::handleNewMessages(const QMailMessageIdList &newList)
 {
     if (newList.isEmpty()) {
@@ -320,6 +342,7 @@ void MessageList::handleNewMessages(const QMailMessageIdList &newList)
 
 void MessageList::handleMessagesRemoved(const QMailMessageIdList &removedList)
 {
+
     if (removedList.isEmpty()) {
         return;
     }
@@ -331,10 +354,19 @@ void MessageList::handleMessagesRemoved(const QMailMessageIdList &removedList)
         init();
     }
     removeMessages(removedList);
+    refresh();
 }
 
 void MessageList::handleUpdatedMessages(const QMailMessageIdList &updatedList)
 {
+
+    if (m_disableUpdates) {
+        m_needsRefresh = true;
+        m_refreshList << updatedList;
+        return;
+    }
+
+    qDebug() << "Handling messages updated";
     QList<int> insertIndices;
     QList<int> removeIndices;
     QList<int> updateIndices;
@@ -350,6 +382,8 @@ void MessageList::handleUpdatedMessages(const QMailMessageIdList &updatedList)
         ++index;
     }
 
+//    qDebug() << "NewIds" << newIds;
+//    qDebug() << "NewPositions" << newPositions;
     QMap<int, QMailMessageId> indexId;
     foreach (const QMailMessageId &id, updatedList) {
         int newIndex = -1;
@@ -398,7 +432,7 @@ void MessageList::handleUpdatedMessages(const QMailMessageIdList &updatedList)
             }
         }
     }
-
+//    qDebug() << "Remove: " << removeIndices;
     // Sort the lists to yield ascending order
     std::sort(removeIndices.begin(), removeIndices.end());
     for (int i = removeIndices.count(); i > 0; --i) {
@@ -406,6 +440,7 @@ void MessageList::handleUpdatedMessages(const QMailMessageIdList &updatedList)
         removeMessageAt(index);
     }
 
+//    qDebug() << "Insert: " << insertIndices;
     std::sort(insertIndices.begin(), insertIndices.end());
     foreach (const int &index, insertIndices) {
         // Since the list is ordered, if index is bigger than the limit
@@ -421,6 +456,7 @@ void MessageList::handleUpdatedMessages(const QMailMessageIdList &updatedList)
         removeMessages(idsToRemove);
     }
 
+//    qDebug() << "Update: " << updateIndices;
     std::sort(updateIndices.begin(), updateIndices.end());
     foreach (const int &index, updateIndices) {
         qDebug() << "Message Updated: " << m_model->at(index)->messageId();

@@ -192,12 +192,13 @@ void ClientService::markFolderRead(const QMailFolderId &id)
     markMessagesRead(msgList, true);
 }
 
-void ClientService::downloadMessagePart(const QMailMessagePart *part)
+void ClientService::downloadMessagePart(const QMailMessageId &id, const QString &location)
 {
-    if (!part->location().isValid(true)) {
+    QMailMessagePart::Location part(location);
+    if (!part.isValid(true)) {
         return;
     }
-    enqueue(new FetchMessagePartAction(this, part));
+    enqueue(new FetchMessagePartAction(this, id, location));
 }
 
 void ClientService::downloadMessages(const QMailMessageIdList &msgIds)

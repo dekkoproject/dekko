@@ -99,6 +99,7 @@ MoveToStandardFolderAction::MoveToStandardFolderAction(QObject *parent, const QM
 void MoveToStandardFolderAction::process()
 {
     QMailDisconnected::moveToStandardFolder(m_ids, m_standard);
+    QCoreApplication::processEvents();
     switch (m_standard) {
     case QMailFolder::DraftsFolder:
         QMailDisconnected::flagMessages(m_ids, QMailMessage::Draft, 0, "Flagging messages as draft");
@@ -258,20 +259,19 @@ QMailAccountIdList FlagsAction::accountIds()
     return accounts;
 }
 
-FetchMessagePartAction::FetchMessagePartAction(QObject *parent, const QMailMessagePart *part):
-    ClientServiceAction(parent), m_part(part)
+FetchMessagePartAction::FetchMessagePartAction(QObject *parent, const QMailMessageId &id, const QString &location):
+    ClientServiceAction(parent), m_id(id.toULongLong()), m_location(location)
 {
     m_actionType = ActionType::Immediate;
     m_serviceActionType = ServiceAction::RetrievePartAction;
-    m_description = QStringLiteral("Fetching message part: %1").arg(part->location().toString(true));
+    m_description = QStringLiteral("Fetching message part: %1").arg(m_location);
 }
 
 void FetchMessagePartAction::process()
 {
 //    qDebug() << m_description;
-    m_id = m_part->location().containingMessageId().toULongLong();
-    m_location = m_part->location().toString(true);
-    createRetrievalAction()->retrieveMessagePart(m_part->location());
+    QMailMessagePart::Location part(m_location);
+    createRetrievalAction()->retrieveMessagePart(part);
 }
 
 FetchMessagesAction::FetchMessagesAction(QObject *parent, const QMailMessageIdList &list):
