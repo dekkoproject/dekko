@@ -16,7 +16,6 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "ClientService.h"
-#include <qmailstore.h>
 #include <qmaildisconnected.h>
 
 ClientService::ClientService(QObject *parent) : QObject(parent),
@@ -263,6 +262,11 @@ void ClientService::syncFolders(const QMailAccountId &accountId, const QMailFold
     if (accountId.isValid()) {
         enqueue(new FolderSyncAction(this, accountId, folders));
     }
+}
+
+void ClientService::removeMessage(const QMailMessageId &id, const QMailStore::MessageRemovalOption &option)
+{
+    QMailStore::instance()->removeMessage(id, option);
 }
 
 void ClientService::undoableCountChanged()

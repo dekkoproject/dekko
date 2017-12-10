@@ -33,6 +33,8 @@ class Client : public QObject
     Q_OBJECT
     Q_PROPERTY(QObject *service READ service NOTIFY serviceChanged)
     Q_PROPERTY(bool hasConfiguredAccounts READ hasConfiguredAccounts CONSTANT)
+    Q_PROPERTY(bool hasUndoableActions READ hasUndoableActions NOTIFY undoCountChanged)
+    Q_PROPERTY(QString undoableActionDescription READ undoDescription NOTIFY undoCountChanged)
     Q_ENUMS(Error)
 
 public:
@@ -63,6 +65,9 @@ public:
         UntrustedCertificate,
         UnknownError
     };
+
+    bool hasUndoableActions() const;
+    QString undoDescription() const;
 
     QObject *service() const { return m_service; }
     bool hasConfiguredAccounts(); // account service
@@ -122,7 +127,10 @@ public:
     void sendMessage(const QMailMessage &msg);
     Q_INVOKABLE void sendPendingMessages();
 
+    Q_INVOKABLE void undoActions();
+
 signals:
+    void undoCountChanged();
     void serviceChanged();
     void messagePartNowAvailable(const quint64 &msgId, const QString &partLocation);
     void messagePartFetchFailed(const quint64 &msgId, const QString &partLocation);
@@ -136,7 +144,13 @@ signals:
     void standardFoldersCreated(const quint64 &accountId, const bool &created);
 
 public slots:
-    void handleFailure(const quint64 &id, const QMailServiceAction::Status &status);
+    void handleFailure(const quint64 &id, const int &statusCode, const QString &statusText);
+
+private slots:
+    void handleMessagesNowAvailable(const QList<quint64> &msgIds);
+    void handleMessageFetchFailed(const QList<quint64> &msgIds);
+    void handleMessagesSent(const QList<quint64> &msgIds);
+    void handleMessageSendingFailed(const QList<quint64> &msgIds, const int &error);
 
 protected:
     QMailAccountIdList getEnabledAccountIds() const;
@@ -146,6 +160,7 @@ private:
     QList<quint64> toDBusMsgList(const QMailMessageIdList &ids);
     QList<quint64> toDBusFolderList(const QMailFolderIdList &ids);
     QList<quint64> toDBusAccountList(const QMailAccountIdList &ids);
+    QMailMessageIdList fromDBusMsgList(const QList<quint64> &ids);
 
     ClientService *m_service;
     org::dekkoproject::MailService *m_mService;

@@ -52,16 +52,28 @@ Client::Client(QObject *parent) : QObject(parent),
 
     m_service = new ClientService(this);
     emit serviceChanged();
-    connect(m_service, &ClientService::messagePartFetched, this, &Client::messagePartNowAvailable);
-    connect(m_service, &ClientService::messagePartFetchFailed, this, &Client::messagePartFetchFailed);
-    connect(m_service, &ClientService::messagesFetched, this, &Client::messagesNowAvailable);
-    connect(m_service, &ClientService::messageFetchFailed, this, &Client::messageFetchFailed);
-    connect(m_service, &ClientService::messagesSent, this, &Client::messagesSent);
-    connect(m_service, &ClientService::messageSendingFailed, this, &Client::messageSendingFailed);
-    connect(m_service, &ClientService::accountSynced, this, &Client::accountSynced);
-    connect(m_service, &ClientService::syncAccountFailed, this, &Client::syncAccountFailed);
-    connect(m_service, &ClientService::actionFailed, this, &Client::handleFailure);
-    connect(m_service, &ClientService::standardFoldersCreated, this, &Client::standardFoldersCreated);
+
+    connect(m_mService, &OrgDekkoprojectMailServiceInterface::messagePartNowAvailable, this, &Client::messagePartNowAvailable);
+    connect(m_mService, &OrgDekkoprojectMailServiceInterface::messagePartFetchFailed, this, &Client::messagePartFetchFailed);
+    connect(m_mService, &OrgDekkoprojectMailServiceInterface::messagesNowAvailable, this, &Client::handleMessagesNowAvailable);
+    connect(m_mService, &OrgDekkoprojectMailServiceInterface::messageFetchFailed, this, &Client::handleMessageFetchFailed);
+    connect(m_mService, &OrgDekkoprojectMailServiceInterface::messagesSent, this, &Client::handleMessagesSent);
+    connect(m_mService, &OrgDekkoprojectMailServiceInterface::messageSendingFailed, this, &Client::handleMessageSendingFailed);
+    connect(m_mService, &OrgDekkoprojectMailServiceInterface::accountSynced, this, &Client::accountSynced);
+    connect(m_mService, &OrgDekkoprojectMailServiceInterface::syncAccountFailed, this, &Client::syncAccountFailed);
+    connect(m_mService, &OrgDekkoprojectMailServiceInterface::standardFoldersCreated, this, &Client::standardFoldersCreated);
+    connect(m_mService, &OrgDekkoprojectMailServiceInterface::actionFailed, this, &Client::handleFailure);
+    connect(m_mService, &OrgDekkoprojectMailServiceInterface::undoCountChanged, this, &Client::undoCountChanged);
+}
+
+bool Client::hasUndoableActions() const
+{
+    return m_mService->hasUndoableAction();
+}
+
+QString Client::undoDescription() const
+{
+    return m_mService->undoDescription();
 }
 
 bool Client::hasConfiguredAccounts()
@@ -209,8 +221,7 @@ void Client::markFolderRead(const QMailFolderId &id)
 
 void Client::emptyTrash(const QMailAccountIdList &ids)
 {
-//    m_mService->emptyTrash(toDBusAccountList(ids));
-    Q_UNUSED(ids);
+    m_mService->emptyTrash(toDBusAccountList(ids));
 }
 
 void Client::syncFolders(const QMailAccountId &accountId, const QMailFolderIdList &folders)
@@ -248,7 +259,8 @@ bool Client::addMessage(QMailMessage *msg)
 
 bool Client::removeMessage(const QMailMessageId &id, const QMailStore::MessageRemovalOption &option)
 {
-    return QMailStore::instance()->removeMessage(id, option);
+    m_mService->removeMessage(id.toULongLong(), static_cast<int>(option));
+    return true;
 }
 
 void Client::moveToStandardFolder(const QMailMessageIdList &msgIds, const Folder::FolderType &folder, const bool userTriggered)
@@ -282,10 +294,16 @@ void Client::sendPendingMessages()
     m_mService->sendPendingMessages();
 }
 
-void Client::handleFailure(const quint64 &id, const QMailServiceAction::Status &status)
+void Client::undoActions()
 {
+    m_mService->undoActions();
+}
+
+void Client::handleFailure(const quint64 &id, const int &statusCode, const QString &statusText)
+{
+    QMailServiceAction::Status::ErrorCode s = static_cast<QMailServiceAction::Status::ErrorCode>(statusCode);
     Error error;
-    switch(status.errorCode) {
+    switch(s) {
     case QMailServiceAction::Status::ErrNoError:
         error = Error::NoError;
         break;
@@ -352,7 +370,32 @@ void Client::handleFailure(const quint64 &id, const QMailServiceAction::Status &
         error = Error::UnknownError;
         break;
     }
-    emit clientError(id, error, status.text);
+    emit clientError(id, error, statusText);
+}
+
+void Client::handleMessagesNowAvailable(const QList<quint64> &msgIds)
+{
+    QMailMessageIdList messages = fromDBusMsgList(msgIds);
+    emit messagesNowAvailable(messages);
+}
+
+void Client::handleMessageFetchFailed(const QList<quint64> &msgIds)
+{
+    QMailMessageIdList messages = fromDBusMsgList(msgIds);
+    emit messageFetchFailed(messages);
+}
+
+void Client::handleMessagesSent(const QList<quint64> &msgIds)
+{
+    QMailMessageIdList messages = fromDBusMsgList(msgIds);
+    emit messagesSent(messages);
+}
+
+void Client::handleMessageSendingFailed(const QList<quint64> &msgIds, const int &error)
+{
+    QMailMessageIdList messages = fromDBusMsgList(msgIds);
+    QMailServiceAction::Status::ErrorCode err = static_cast<QMailServiceAction::Status::ErrorCode>(error);
+    emit messageSendingFailed(messages, err);
 }
 
 QMailAccountIdList Client::getEnabledAccountIds() const
@@ -387,4 +430,14 @@ QList<quint64> Client::toDBusAccountList(const QMailAccountIdList &ids)
         list << id.toULongLong();
     }
     return list;
+}
+
+QMailMessageIdList Client::fromDBusMsgList(const QList<quint64> &ids)
+{
+    QMailMessageIdList messages;
+    foreach(const quint64 &id, ids) {
+        QMailMessageId msg(id);
+        messages << msg;
+    }
+    return messages;
 }

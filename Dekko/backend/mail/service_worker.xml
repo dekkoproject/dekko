@@ -3,6 +3,12 @@
   <interface name="org.dekkoproject.MailService">
     <property name="hasUndoableAction" type="b" access="read"/>
     <property name="undoDescription" type="s" access="read"/>
+    <signal name="undoCountChanged">
+    </signal>
+    <signal name="updatesRolledBack">
+    </signal>
+    <signal name="queueChanged">
+    </signal>
     <signal name="messageRestored">
       <arg name="msgId" type="t" direction="out"/>
     </signal>
@@ -45,6 +51,11 @@
     <signal name="standardFoldersCreated">
       <arg name="accountId" type="t" direction="out"/>
       <arg name="created" type="b" direction="out"/>
+    </signal>
+    <signal name="actionFailed">
+      <arg name="id" type="t" direction="out"/>
+      <arg name="statusCode" type="i" direction="out"/>
+      <arg name="statusText" type="s" direction="out"/>
     </signal>
     <method name="restoreMessage">
       <arg name="id" type="t" direction="in"/>
@@ -119,6 +130,18 @@
     </method>
     <method name="synchronizeAccount">
       <arg name="accountId" type="t" direction="in"/>
+    </method>
+    <method name="undoActions">
+    </method>
+    <method name="sendAnyQueuedMail">
+    </method>
+    <method name="emptyTrash">
+      <arg name="accountIds" type="(iiii)" direction="in" />
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QList&lt;quint64>"/>
+    </method>
+    <method name="removeMessage">
+      <arg name="msgId" type="t" direction="in"/>
+      <arg name="option" type="i" direction="in"/>
     </method>
   </interface>
 </node>

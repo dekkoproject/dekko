@@ -23,6 +23,7 @@
 #include <QPointer>
 #include <QmlObjectListModel.h>
 #include <PriorityQueue.h>
+#include <qmailstore.h>
 #include <qmailserviceaction.h>
 #include <qmailaccount.h>
 #include "ClientServiceAction.h"
@@ -73,6 +74,7 @@ public:
     void synchronizeAccount(const QMailAccountId &id);
     void emptyTrash(const QMailAccountIdList &ids);
     void syncFolders(const QMailAccountId &accountId, const QMailFolderIdList &folders);
+    void removeMessage(const QMailMessageId &id, const QMailStore::MessageRemovalOption &option);
 
 signals:
     void undoCountChanged();

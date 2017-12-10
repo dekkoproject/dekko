@@ -114,8 +114,11 @@ public slots:
      * @param folderId
      */
     void markFolderRead(const quint64 &folderId);
-
-    // TODO!!!
+    /**
+     * @brief downloadMessagePart
+     * @param msgId
+     * @param partLocation
+     */
     void downloadMessagePart(const quint64 &msgId, const QString &partLocation);
     /**
      * @brief downloadMessages
@@ -131,10 +134,27 @@ public slots:
      * @brief sendPendingMessages
      */
     void sendPendingMessages();
-
+    /**
+     * @brief synchronizeAccount
+     * @param accountId
+     */
     void synchronizeAccount(const quint64 &accountId);
-signals:
+    /**
+     * @brief undoActions
+     */
+    void undoActions();
+    /**
+     * @brief sendAnyQueuedMail
+     */
+    void sendAnyQueuedMail();
 
+    void emptyTrash(const QList<quint64> &accountIds);
+
+    void removeMessage(const quint64 &msgId, const int &option);
+signals:
+    void undoCountChanged();
+    void updatesRolledBack();
+    void queueChanged();
     void messageRestored(const quint64 &msgId);
     void messagePartNowAvailable(const quint64 &msgId, const QString &partLocation);
     void messagePartFetchFailed(const quint64 &msgId, const QString &partLocation);
@@ -146,10 +166,21 @@ signals:
     void syncAccountFailed(const quint64 &id);
     void clientError(const quint64 &accountId, const int &error, const QString &errorString);
     void standardFoldersCreated(const quint64 &accountId, const bool &created);
+    void actionFailed(const quint64 &id, const int &statusCode, const QString &statusText);
+
+
+private slots:
+    void handleMessagesFetched(const QMailMessageIdList &msgIds);
+    void handleMessageFetchFailed(const QMailMessageIdList &msgIds);
+    void handleMessagesSent(const QMailMessageIdList &msgIds);
+    void handleMessageSendingFailed(const QMailMessageIdList &ids, QMailServiceAction::Status::ErrorCode error);
+    void handleActionFailed(const quint64 &id, const QMailServiceAction::Status &status);
 
 private:
     QMailMessageIdList toMsgIdList(const QList<quint64> &ids);
     QMailFolderIdList toFolderIdList(const QList<quint64> &ids);
+    QMailAccountIdList toAccountIdList(const QList<quint64> &ids);
+    QList<quint64> toDBusMsgIdList(const QMailMessageIdList &msgIds);
 
     ClientService *m_service;
 

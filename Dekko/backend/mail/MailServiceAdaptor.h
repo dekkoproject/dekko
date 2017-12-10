@@ -34,6 +34,9 @@ class MailServiceAdaptor: public QDBusAbstractAdaptor
 "  <interface name=\"org.dekkoproject.MailService\">\n"
 "    <property access=\"read\" type=\"b\" name=\"hasUndoableAction\"/>\n"
 "    <property access=\"read\" type=\"s\" name=\"undoDescription\"/>\n"
+"    <signal name=\"undoCountChanged\"/>\n"
+"    <signal name=\"updatesRolledBack\"/>\n"
+"    <signal name=\"queueChanged\"/>\n"
 "    <signal name=\"messageRestored\">\n"
 "      <arg direction=\"out\" type=\"t\" name=\"msgId\"/>\n"
 "    </signal>\n"
@@ -76,6 +79,11 @@ class MailServiceAdaptor: public QDBusAbstractAdaptor
 "    <signal name=\"standardFoldersCreated\">\n"
 "      <arg direction=\"out\" type=\"t\" name=\"accountId\"/>\n"
 "      <arg direction=\"out\" type=\"b\" name=\"created\"/>\n"
+"    </signal>\n"
+"    <signal name=\"actionFailed\">\n"
+"      <arg direction=\"out\" type=\"t\" name=\"id\"/>\n"
+"      <arg direction=\"out\" type=\"i\" name=\"statusCode\"/>\n"
+"      <arg direction=\"out\" type=\"s\" name=\"statusText\"/>\n"
 "    </signal>\n"
 "    <method name=\"restoreMessage\">\n"
 "      <arg direction=\"in\" type=\"t\" name=\"id\"/>\n"
@@ -150,6 +158,16 @@ class MailServiceAdaptor: public QDBusAbstractAdaptor
 "    <method name=\"synchronizeAccount\">\n"
 "      <arg direction=\"in\" type=\"t\" name=\"accountId\"/>\n"
 "    </method>\n"
+"    <method name=\"undoActions\"/>\n"
+"    <method name=\"sendAnyQueuedMail\"/>\n"
+"    <method name=\"emptyTrash\">\n"
+"      <arg direction=\"in\" type=\"(iiii)\" name=\"accountIds\"/>\n"
+"      <annotation value=\"QList&lt;quint64&gt;\" name=\"org.qtproject.QtDBus.QtTypeName.In0\"/>\n"
+"    </method>\n"
+"    <method name=\"removeMessage\">\n"
+"      <arg direction=\"in\" type=\"t\" name=\"msgId\"/>\n"
+"      <arg direction=\"in\" type=\"i\" name=\"option\"/>\n"
+"    </method>\n"
 "  </interface>\n"
         "")
 public:
@@ -168,6 +186,7 @@ public Q_SLOTS: // METHODS
     void deleteMessages(const QList<quint64> &ids);
     void downloadMessagePart(qulonglong msgId, const QString &partLocation);
     void downloadMessages(const QList<quint64> &msgIds);
+    void emptyTrash(const QList<quint64> &accountIds);
     void markFolderRead(qulonglong folderId);
     void markMessageForwarded(const QList<quint64> &msgIds);
     void markMessagesDone(const QList<quint64> &msgIds, bool done);
@@ -177,13 +196,17 @@ public Q_SLOTS: // METHODS
     void markMessagesTodo(const QList<quint64> &msgIds, bool read);
     void moveToFolder(const QList<quint64> &msgIds, qulonglong folderId);
     void moveToStandardFolder(const QList<quint64> &msgIds, int folderType, bool userTriggered);
+    void removeMessage(qulonglong msgId, int option);
     void restoreMessage(qulonglong id);
+    void sendAnyQueuedMail();
     void sendMessage(qulonglong msgId);
     void sendPendingMessages();
     void syncFolders(qulonglong accountId, const QList<quint64> &folders);
     void synchronizeAccount(qulonglong accountId);
+    void undoActions();
 Q_SIGNALS: // SIGNALS
     void accountSynced(qulonglong id);
+    void actionFailed(qulonglong id, int statusCode, const QString &statusText);
     void clientError(qulonglong accountId, int error, const QString &errorString);
     void messageFetchFailed(const QList<quint64> &msgIds);
     void messagePartFetchFailed(qulonglong msgId, const QString &partLocation);
@@ -192,8 +215,11 @@ Q_SIGNALS: // SIGNALS
     void messageSendingFailed(const QList<quint64> &msgIds, int error);
     void messagesNowAvailable(const QList<quint64> &msgIds);
     void messagesSent(const QList<quint64> &msgIds);
+    void queueChanged();
     void standardFoldersCreated(qulonglong accountId, bool created);
     void syncAccountFailed(qulonglong id);
+    void undoCountChanged();
+    void updatesRolledBack();
 };
 
 #endif

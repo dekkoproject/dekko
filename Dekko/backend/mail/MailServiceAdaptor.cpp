@@ -69,6 +69,12 @@ void MailServiceAdaptor::downloadMessages(const QList<quint64> &msgIds)
     QMetaObject::invokeMethod(parent(), "downloadMessages", Q_ARG(QList<quint64>, msgIds));
 }
 
+void MailServiceAdaptor::emptyTrash(const QList<quint64> &accountIds)
+{
+    // handle method call org.dekkoproject.MailService.emptyTrash
+    QMetaObject::invokeMethod(parent(), "emptyTrash", Q_ARG(QList<quint64>, accountIds));
+}
+
 void MailServiceAdaptor::markFolderRead(qulonglong folderId)
 {
     // handle method call org.dekkoproject.MailService.markFolderRead
@@ -123,10 +129,22 @@ void MailServiceAdaptor::moveToStandardFolder(const QList<quint64> &msgIds, int 
     QMetaObject::invokeMethod(parent(), "moveToStandardFolder", Q_ARG(QList<quint64>, msgIds), Q_ARG(int, folderType), Q_ARG(bool, userTriggered));
 }
 
+void MailServiceAdaptor::removeMessage(qulonglong msgId, int option)
+{
+    // handle method call org.dekkoproject.MailService.removeMessage
+    QMetaObject::invokeMethod(parent(), "removeMessage", Q_ARG(qulonglong, msgId), Q_ARG(int, option));
+}
+
 void MailServiceAdaptor::restoreMessage(qulonglong id)
 {
     // handle method call org.dekkoproject.MailService.restoreMessage
     QMetaObject::invokeMethod(parent(), "restoreMessage", Q_ARG(qulonglong, id));
+}
+
+void MailServiceAdaptor::sendAnyQueuedMail()
+{
+    // handle method call org.dekkoproject.MailService.sendAnyQueuedMail
+    QMetaObject::invokeMethod(parent(), "sendAnyQueuedMail");
 }
 
 void MailServiceAdaptor::sendMessage(qulonglong msgId)
@@ -151,5 +169,11 @@ void MailServiceAdaptor::synchronizeAccount(qulonglong accountId)
 {
     // handle method call org.dekkoproject.MailService.synchronizeAccount
     QMetaObject::invokeMethod(parent(), "synchronizeAccount", Q_ARG(qulonglong, accountId));
+}
+
+void MailServiceAdaptor::undoActions()
+{
+    // handle method call org.dekkoproject.MailService.undoActions
+    QMetaObject::invokeMethod(parent(), "undoActions");
 }
 

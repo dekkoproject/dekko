@@ -30,7 +30,7 @@ import Dekko.Mail.API 1.0
 */
 AppListener {
     id: baseStore
-    property bool hasUndoableActions: Client.service.hasUndoableAction
-    property string undoableActionDescription: Client.service.undoableActionDescription
+    property bool hasUndoableActions: Client.hasUndoableActions
+    property string undoableActionDescription: Client.undoableActionDescription
 }
 

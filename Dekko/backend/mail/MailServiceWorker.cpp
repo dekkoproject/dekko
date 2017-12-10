@@ -1,10 +1,24 @@
 #include "MailServiceWorker.h"
+#include <qmailstore.h>
 
 
 MailServiceWorker::MailServiceWorker(QObject *parent) : QObject(parent),
     m_service(Q_NULLPTR)
 {
     m_service = new ClientService(this);
+
+    connect(m_service, &ClientService::undoCountChanged, this, &MailServiceWorker::undoCountChanged);
+    connect(m_service, &ClientService::updatesRolledBack, this, &MailServiceWorker::updatesRolledBack);
+    connect(m_service, &ClientService::messagePartFetched, this, &MailServiceWorker::messagePartNowAvailable);
+    connect(m_service, &ClientService::messagePartFetchFailed, this, &MailServiceWorker::messagePartFetchFailed);
+    connect(m_service, &ClientService::messagesFetched, this, &MailServiceWorker::handleMessagesFetched);
+    connect(m_service, &ClientService::messageFetchFailed, this, &MailServiceWorker::handleMessageFetchFailed);
+    connect(m_service, &ClientService::messagesSent, this, &MailServiceWorker::handleMessagesSent);
+    connect(m_service, &ClientService::messageSendingFailed, this, &MailServiceWorker::handleMessageSendingFailed);
+    connect(m_service, &ClientService::accountSynced, this, &MailServiceWorker::accountSynced);
+    connect(m_service, &ClientService::syncAccountFailed, this, &MailServiceWorker::syncAccountFailed);
+    connect(m_service, &ClientService::actionFailed, this, &MailServiceWorker::handleActionFailed);
+    connect(m_service, &ClientService::standardFoldersCreated, this, &MailServiceWorker::standardFoldersCreated);
 }
 
 void MailServiceWorker::registerTypes() {
@@ -134,6 +148,58 @@ void MailServiceWorker::synchronizeAccount(const quint64 &accountId)
     m_service->synchronizeAccount(id);
 }
 
+void MailServiceWorker::undoActions()
+{
+    m_service->undoActions();
+}
+
+void MailServiceWorker::sendAnyQueuedMail()
+{
+    m_service->sendAnyQueuedMail();
+}
+
+void MailServiceWorker::emptyTrash(const QList<quint64> &accountIds)
+{
+   QMailAccountIdList accounts = toAccountIdList(accountIds);
+   m_service->emptyTrash(accounts);
+}
+
+void MailServiceWorker::removeMessage(const quint64 &msgId, const int &option)
+{
+    QMailStore::MessageRemovalOption remOpt = static_cast<QMailStore::MessageRemovalOption>(option);
+    QMailMessageId id(msgId);
+    m_service->removeMessage(id, remOpt);
+}
+
+void MailServiceWorker::handleMessagesFetched(const QMailMessageIdList &msgIds)
+{
+    QList<quint64> messages = toDBusMsgIdList(msgIds);
+    emit messagesNowAvailable(messages);
+}
+
+void MailServiceWorker::handleMessageFetchFailed(const QMailMessageIdList &msgIds)
+{
+    QList<quint64> messages = toDBusMsgIdList(msgIds);
+    emit messageFetchFailed(messages);
+}
+
+void MailServiceWorker::handleMessagesSent(const QMailMessageIdList &msgIds)
+{
+    QList<quint64> messages = toDBusMsgIdList(msgIds);
+    emit messagesSent(messages);
+}
+
+void MailServiceWorker::handleMessageSendingFailed(const QMailMessageIdList &ids, QMailServiceAction::Status::ErrorCode error)
+{
+    QList<quint64> messages = toDBusMsgIdList(ids);
+    emit messageSendingFailed(messages, static_cast<int>(error));
+}
+
+void MailServiceWorker::handleActionFailed(const quint64 &id, const QMailServiceAction::Status &status)
+{
+    emit actionFailed(id, static_cast<int>(status.errorCode), status.text);
+}
+
 QMailMessageIdList MailServiceWorker::toMsgIdList(const QList<quint64> &ids)
 {
     QMailMessageIdList list;
@@ -148,6 +214,24 @@ QMailFolderIdList MailServiceWorker::toFolderIdList(const QList<quint64> &ids)
     QMailFolderIdList list;
     foreach(const quint64 &id, ids) {
         list << QMailFolderId(id);
+    }
+    return list;
+}
+
+QMailAccountIdList MailServiceWorker::toAccountIdList(const QList<quint64> &ids)
+{
+    QMailAccountIdList accounts;
+    foreach(const quint64 &id, ids) {
+        QMailAccountId account(id);
+        accounts << account;
+    }
+    return accounts;
+}
+
+QList<quint64> MailServiceWorker::toDBusMsgIdList(const QMailMessageIdList &msgIds) {
+    QList<quint64> list;
+    foreach(const QMailMessageId &id, msgIds) {
+        list << id.toULongLong();
     }
     return list;
 }

@@ -72,6 +72,13 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QStringLiteral("downloadMessages"), argumentList);
     }
 
+    inline QDBusPendingReply<> emptyTrash(const QList<quint64> &accountIds)
+    {
+        QList<QVariant> argumentList;
+        argumentList << QVariant::fromValue(accountIds);
+        return asyncCallWithArgumentList(QStringLiteral("emptyTrash"), argumentList);
+    }
+
     inline QDBusPendingReply<> markFolderRead(qulonglong folderId)
     {
         QList<QVariant> argumentList;
@@ -135,11 +142,24 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QStringLiteral("moveToStandardFolder"), argumentList);
     }
 
+    inline QDBusPendingReply<> removeMessage(qulonglong msgId, int option)
+    {
+        QList<QVariant> argumentList;
+        argumentList << QVariant::fromValue(msgId) << QVariant::fromValue(option);
+        return asyncCallWithArgumentList(QStringLiteral("removeMessage"), argumentList);
+    }
+
     inline QDBusPendingReply<> restoreMessage(qulonglong id)
     {
         QList<QVariant> argumentList;
         argumentList << QVariant::fromValue(id);
         return asyncCallWithArgumentList(QStringLiteral("restoreMessage"), argumentList);
+    }
+
+    inline QDBusPendingReply<> sendAnyQueuedMail()
+    {
+        QList<QVariant> argumentList;
+        return asyncCallWithArgumentList(QStringLiteral("sendAnyQueuedMail"), argumentList);
     }
 
     inline QDBusPendingReply<> sendMessage(qulonglong msgId)
@@ -169,8 +189,15 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QStringLiteral("synchronizeAccount"), argumentList);
     }
 
+    inline QDBusPendingReply<> undoActions()
+    {
+        QList<QVariant> argumentList;
+        return asyncCallWithArgumentList(QStringLiteral("undoActions"), argumentList);
+    }
+
 Q_SIGNALS: // SIGNALS
     void accountSynced(qulonglong id);
+    void actionFailed(qulonglong id, int statusCode, const QString &statusText);
     void clientError(qulonglong accountId, int error, const QString &errorString);
     void messageFetchFailed(const QList<quint64> &msgIds);
     void messagePartFetchFailed(qulonglong msgId, const QString &partLocation);
@@ -179,8 +206,11 @@ Q_SIGNALS: // SIGNALS
     void messageSendingFailed(const QList<quint64> &msgIds, int error);
     void messagesNowAvailable(const QList<quint64> &msgIds);
     void messagesSent(const QList<quint64> &msgIds);
+    void queueChanged();
     void standardFoldersCreated(qulonglong accountId, bool created);
     void syncAccountFailed(qulonglong id);
+    void undoCountChanged();
+    void updatesRolledBack();
 };
 
 namespace org {

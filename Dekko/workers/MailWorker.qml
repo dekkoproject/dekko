@@ -105,7 +105,7 @@ AppListener {
         onDispatched: {
             if (MailStore.hasUndoableActions) {
                 Log.logInfo("MailWorker::undoRecentActions", "Undoing actions from the last 5 seconds")
-                Client.service.undoActions()
+                Client.undoActions()
             }
         }
     }
