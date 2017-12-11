@@ -22,6 +22,7 @@
 #include <QMap>
 #include <QCache>
 #include <QmlObjectListModel.h>
+#include <QThread>
 #include <qmailmessage.h>
 #include <qmailmessagekey.h>
 #include <qmailmessagesortkey.h>
@@ -31,6 +32,33 @@
 // Remember the selected message for each key using QCache
 // it works but it's really bogging down qml. Bindings need optimizing.
 //#define EXPERIMENTAL_REMEMBER_SELECTED_MESSAGE
+
+class MessageListWorker : public QObject
+{
+    Q_OBJECT
+
+signals:
+    void insertMessageAt(const int &index, const QMailMessageId &id);
+    void removeMessageAt(const int &index);
+    void updateMessageAt(const int &index);
+    void removeMessages(const QMailMessageIdList &msgIds);
+    void canPossiblyLoadMore();
+public slots:
+
+    void updateMessages(
+            const QMailMessageIdList &idList,
+            const QMailMessageIdList &needsUpdate,
+            const QMailMessageIdList &newIds,
+            const QMap<QMailMessageId, int> &indexMap,
+            const int& limit);
+
+    void sortAndAppend(
+            const QMailMessageIdList &idList,
+            const QMailMessageIdList &idsToAppend,
+            const QMailMessageIdList &newIdsList,
+            const QMap<QMailMessageId, int> &indexMap,
+            const int& limit);
+};
 
 class MessageList : public QObject
 {
@@ -64,6 +92,7 @@ class MessageList : public QObject
 
 public:
     explicit MessageList(QObject *parent = 0);
+    ~MessageList();
 
     enum FilterKey {
         All,
@@ -118,6 +147,20 @@ signals:
 
     void disableUpdatesChanged(bool disableUpdates);
 
+    void sortAndAppendNewMessages(
+            const QMailMessageIdList &idList,
+            const QMailMessageIdList &idsToAppend,
+            const QMailMessageIdList &newIdsList,
+            const QMap<QMailMessageId, int> &indexMap,
+            const int& limit);
+
+    void updateMessages(
+            const QMailMessageIdList &idList,
+            const QMailMessageIdList &needsUpdate,
+            const QMailMessageIdList &newIds,
+            const QMap<QMailMessageId, int> &indexMap,
+            const int& limit);
+
 public slots:
     void setLimit(int limit);
     void setKey(const QVariant &key);
@@ -151,12 +194,12 @@ private slots:
     void handleMessagesRemoved(const QMailMessageIdList &removedList);
     void handleUpdatedMessages(const QMailMessageIdList &updatedList);
 
-private: // functions
     void insertMessageAt(const int &index, const QMailMessageId &id);
     void removeMessageAt(const int &index);
     void addNewMessages(const QMailMessageIdList &idList);
-    void sortAndAppendNewMessages(const QMailMessageIdList &idsToAppend, const QMailMessageIdList &newIdsList);
     void removeMessages(const QMailMessageIdList &idList);
+    void updateMessageAt(const int &index);
+private:
     QMailMessageIdList checkedIds();
     void init();
     void reset();
@@ -183,6 +226,7 @@ private: //members
     bool m_disableUpdates;
     bool m_needsRefresh;
     QMailMessageIdList m_refreshList;
+    QThread m_workerThread;
 };
 
 #endif // MESSAGELIST_H

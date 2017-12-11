@@ -21,12 +21,195 @@
 #include <QSet>
 #include <qmailstore.h>
 #include <qmaildisconnected.h>
+#include <QElapsedTimer>
 #include "Client.h"
+
+void MessageListWorker::updateMessages(const QMailMessageIdList &idList, const QMailMessageIdList &needsUpdate, const QMailMessageIdList &newIds, const QMap<QMailMessageId, int> &indexMap, const int &limit)
+{
+    QElapsedTimer timer;
+    qDebug() << "[MessageListWorker::updateMessages] >> Starting";
+    timer.start();
+
+    QList<int> insertIndices;
+    QList<int> removeIndices;
+    QList<int> updateIndices;
+    QMap<QMailMessageId, int> newPositions;
+
+    auto indexOf = [=](const QMailMessageId &id) -> int {
+        QMap<QMailMessageId, int>::const_iterator it = indexMap.find(id);
+        if (it != indexMap.end()) {
+            return it.value();
+        }
+        return -1;
+    };
+
+    int index = 0;
+    foreach (const QMailMessageId &id, newIds) {
+        newPositions.insert(id, index);
+        ++index;
+    }
+
+    QMap<int, QMailMessageId> indexId;
+    foreach (const QMailMessageId &id, needsUpdate) {
+        int newIndex = -1;
+        QMap<QMailMessageId, int>::const_iterator it = newPositions.find(id);
+        if (it != newPositions.end()) {
+            newIndex = it.value();
+        }
+
+        int oldIndex(indexOf(id));
+        if (oldIndex == -1) {
+            // This message was not previously in our set - add it
+            if (newIndex != -1) {
+                insertIndices.append(newIndex);
+                indexId.insert(newIndex, id);
+            }
+        } else {
+            // We already had this message
+            if (newIndex == -1) {
+                removeIndices.append(oldIndex);
+            } else {
+                bool reinsert(false);
+
+                // See if this item is still sorted correctly with respect to its neighbours
+                if (newIndex >= idList.count()) {
+                    qWarning() << "MessageListWorker::updateMessages index out of bounds" << newIndex << idList.count();
+                } else if (newIndex > 0) {
+                    if (newIds.indexOf(idList.at(newIndex - 1)) > newIndex) {
+                        reinsert = true;
+                    }
+                }
+
+                if (newIndex < idList.count() - 1) {
+                    if (newIds.indexOf(idList.at(newIndex + 1)) < newIndex) {
+                        reinsert = true;
+                    }
+                }
+
+                if (reinsert) {
+                    removeIndices.append(oldIndex);
+                    insertIndices.append(newIndex);
+                    indexId.insert(newIndex, id);
+                } else {
+                    // This message is updated but has not changed position
+                    updateIndices.append(newIndex);
+                }
+            }
+        }
+    }
+    //    qDebug() << "Remove: " << removeIndices;
+    // Sort the lists to yield ascending order
+    std::sort(removeIndices.begin(), removeIndices.end());
+    for (int i = removeIndices.count(); i > 0; --i) {
+        int index = removeIndices[i - 1];
+        emit removeMessageAt(index);
+    }
+
+    //    qDebug() << "Insert: " << insertIndices;
+    std::sort(insertIndices.begin(), insertIndices.end());
+    foreach (const int &index, insertIndices) {
+        // Since the list is ordered, if index is bigger than the limit
+        // we stop inserting
+        if(limit && index > limit) {
+            break;
+        }
+        emit insertMessageAt(index, indexId[index]);
+    }
+    // Check if we passed the model limit, if so remove exceeding messages
+    if (limit && idList.count() > limit) {
+        QMailMessageIdList idsToRemove = idList.mid(limit);
+        emit removeMessages(idsToRemove);
+    }
+
+    //    qDebug() << "Update: " << updateIndices;
+    std::sort(updateIndices.begin(), updateIndices.end());
+    foreach (const int &index, updateIndices) {
+//        qDebug() << "Message Updated: " << m_model->at(index)->messageId();
+//        m_model->at(index)->emitMinMessageChanged();
+        emit updateMessageAt(index);
+    }
+    emit canPossiblyLoadMore();
+    qDebug() << "[MessageListWorker::updateMessages] >> Finished in: " << timer.elapsed() << "milliseconds";
+}
+
+void MessageListWorker::sortAndAppend(const QMailMessageIdList &idList, const QMailMessageIdList &idsToAppend, const QMailMessageIdList &newIdsList, const QMap<QMailMessageId, int> &indexMap, const int &limit)
+{
+    QElapsedTimer timer;
+    qDebug() << "[MessageListWorker::sortAndAppend] >> Starting";
+    timer.start();
+    QList<int> insertIndices;
+    QMap<QMailMessageId, int> newPositions;
+
+    auto indexOf = [=](const QMailMessageId &id) -> int {
+        QMap<QMailMessageId, int>::const_iterator it = indexMap.find(id);
+        if (it != indexMap.end()) {
+            return it.value();
+        }
+        return -1;
+    };
+
+    int index = 0;
+    foreach (const QMailMessageId &id, newIdsList) {
+        newPositions.insert(id, index);
+        ++index;
+    }
+
+    QMap<int, QMailMessageId> indexId;
+    foreach (const QMailMessageId &id, idsToAppend) {
+        int newIndex = -1;
+        QMap<QMailMessageId, int>::const_iterator it = newPositions.find(id);
+        if (it != newPositions.end()) {
+            newIndex = it.value();
+        }
+
+        int oldIndex(indexOf(id));
+        if (oldIndex == -1) {
+            // This message was not previously in our set - add it
+            if (newIndex != -1) {
+                insertIndices.append(newIndex);
+                indexId.insert(newIndex, id);
+            }
+        }
+    }
+    std::sort(insertIndices.begin(), insertIndices.end());
+    foreach (const int &index, insertIndices) {
+        // Since the list is ordered, if index is bigger than the limit
+        // we stop inserting
+        if(limit && index > limit) {
+            break;
+        }
+        emit insertMessageAt(index, indexId[index]);
+    }
+
+    // Check if we passed the model limit, if so remove exceeding messages
+    if (limit && idList.count() > limit) {
+        QMailMessageIdList idsToRemove = idList.mid(limit);
+        emit removeMessages(idsToRemove);
+    }
+    emit canPossiblyLoadMore();
+    qDebug() << "[MessageListWorker::sortAndAppend] >> Finished in: " << timer.elapsed() << "milliseconds";
+
+}
 
 MessageList::MessageList(QObject *parent) : QObject(parent),
     m_model(0), m_initialized(false), m_selectionMode(false), m_currentIndex(-1), m_filter(FilterKey::All), m_disableUpdates(false),
     m_needsRefresh(false)
 {
+
+    qRegisterMetaType<QMap<QMailMessageId, int>>("QMap<QMailMessageId, int>");
+
+    MessageListWorker *worker = new MessageListWorker;
+    worker->moveToThread(&m_workerThread);
+    connect(&m_workerThread, &QThread::finished, worker, &QObject::deleteLater);
+    connect(this, &MessageList::sortAndAppendNewMessages, worker, &MessageListWorker::sortAndAppend);
+    connect(this, &MessageList::updateMessages, worker, &MessageListWorker::updateMessages);
+    connect(worker, &MessageListWorker::insertMessageAt, this, &MessageList::insertMessageAt);
+    connect(worker, &MessageListWorker::removeMessageAt, this, &MessageList::removeMessageAt);
+    connect(worker, &MessageListWorker::updateMessageAt, this, &MessageList::updateMessageAt);
+    connect(worker, &MessageListWorker::removeMessages, this, &MessageList::removeMessages);
+    connect(worker, &MessageListWorker::canPossiblyLoadMore, this, &MessageList::canPossiblyLoadMore);
+    m_workerThread.start();
+
     m_model = new QQmlObjectListModel<MinimalMessage>(this);
     m_msgKey = QMailMessageKey::nonMatchingKey();
     m_sortOrder = Qt::DescendingOrder;
@@ -34,6 +217,12 @@ MessageList::MessageList(QObject *parent) : QObject(parent),
     connect(QMailStore::instance(), SIGNAL(messagesAdded(QMailMessageIdList)), this, SLOT(handleNewMessages(QMailMessageIdList)));
     connect(QMailStore::instance(), SIGNAL(messagesRemoved(QMailMessageIdList)), this, SLOT(handleMessagesRemoved(QMailMessageIdList)));
     connect(QMailStore::instance(), SIGNAL(messagesUpdated(QMailMessageIdList)), this, SLOT(handleUpdatedMessages(QMailMessageIdList)));
+}
+
+MessageList::~MessageList()
+{
+    m_workerThread.quit();
+    m_workerThread.wait();
 }
 
 int MessageList::limit() const
@@ -135,7 +324,7 @@ void MessageList::refresh()
             idsToAppend.append(id);
         }
     }
-    sortAndAppendNewMessages(idsToAppend, newIdsList);
+    emit sortAndAppendNewMessages(m_idList, idsToAppend, newIdsList, m_indexMap, m_limit);
 }
 
 int MessageList::currentSelectedIndex() const
@@ -327,6 +516,9 @@ void MessageList::setDisableUpdates(bool disableUpdates)
 
 void MessageList::handleNewMessages(const QMailMessageIdList &newList)
 {
+    QElapsedTimer timer;
+    qDebug() << "[handleNewMessages] >> Starting";
+    timer.start();
     if (newList.isEmpty()) {
         return;
     }
@@ -338,11 +530,14 @@ void MessageList::handleNewMessages(const QMailMessageIdList &newList)
         init();
     }
     addNewMessages(newList);
+    qDebug() << "[handleNewMessages] >> Finished in: " << timer.elapsed() << "milliseconds";
 }
 
 void MessageList::handleMessagesRemoved(const QMailMessageIdList &removedList)
 {
-
+    QElapsedTimer timer;
+    qDebug() << "[handleMessagesRemoved] >> Starting";
+    timer.start();
     if (removedList.isEmpty()) {
         return;
     }
@@ -354,119 +549,44 @@ void MessageList::handleMessagesRemoved(const QMailMessageIdList &removedList)
         init();
     }
     removeMessages(removedList);
-    refresh();
+    qDebug() << "[handleMessagesRemoved] >> Finished in: " << timer.elapsed() << "milliseconds";
 }
 
 void MessageList::handleUpdatedMessages(const QMailMessageIdList &updatedList)
 {
+    QElapsedTimer timer;
+    qDebug() << "[handleUpdatedMessages] >> Starting";
+    timer.start();
+    //    if (m_disableUpdates) {
+    //        m_needsRefresh = true;
+    //        m_refreshList << updatedList;
+    //        return;
+    //    }
 
-    if (m_disableUpdates) {
-        m_needsRefresh = true;
-        m_refreshList << updatedList;
+    QMailMessageIdList needsUpdate;
+    foreach(const QMailMessageId &id, updatedList) {
+        if (m_idList.contains(id)) {
+            needsUpdate << id;
+        }
+    }
+
+    if (needsUpdate.isEmpty()) {
+        qDebug() << "[handleUpdatedMessages] >> No updates in this list. Finished in: " << timer.elapsed() << "milliseconds";
         return;
     }
 
-    qDebug() << "Handling messages updated";
-    QList<int> insertIndices;
-    QList<int> removeIndices;
-    QList<int> updateIndices;
-
     // Find the updated positions for our messages
-    QMailMessageKey idKey(QMailMessageKey::id((m_idList.toSet() + updatedList.toSet()).toList()));
+    QMailMessageKey idKey(QMailMessageKey::id((m_idList.toSet() + needsUpdate.toSet()).toList()));
     QMailMessageIdList newIds(QMailStore::instance()->queryMessages(messageListKey() & idKey, m_sortKey, m_limit));
-    QMap<QMailMessageId, int> newPositions;
-
-    int index = 0;
-    foreach (const QMailMessageId &id, newIds) {
-        newPositions.insert(id, index);
-        ++index;
-    }
-
-//    qDebug() << "NewIds" << newIds;
-//    qDebug() << "NewPositions" << newPositions;
-    QMap<int, QMailMessageId> indexId;
-    foreach (const QMailMessageId &id, updatedList) {
-        int newIndex = -1;
-        QMap<QMailMessageId, int>::const_iterator it = newPositions.find(id);
-        if (it != newPositions.end()) {
-            newIndex = it.value();
-        }
-
-        int oldIndex(indexOf(id));
-        if (oldIndex == -1) {
-            // This message was not previously in our set - add it
-            if (newIndex != -1) {
-                insertIndices.append(newIndex);
-                indexId.insert(newIndex, id);
-            }
-        } else {
-            // We already had this message
-            if (newIndex == -1) {
-                removeIndices.append(oldIndex);
-            } else {
-                bool reinsert(false);
-
-                // See if this item is still sorted correctly with respect to its neighbours
-                if (newIndex >= m_idList.count()) {
-                    qWarning() << "MessageList::handleUpdatedMessages index out of bounds" << newIndex << m_idList.count();
-                } else if (newIndex > 0) {
-                    if (newIds.indexOf(m_idList.at(newIndex - 1)) > newIndex) {
-                        reinsert = true;
-                    }
-                }
-
-                if (newIndex < m_idList.count() - 1) {
-                    if (newIds.indexOf(m_idList.at(newIndex + 1)) < newIndex) {
-                        reinsert = true;
-                    }
-                }
-
-                if (reinsert) {
-                    removeIndices.append(oldIndex);
-                    insertIndices.append(newIndex);
-                    indexId.insert(newIndex, id);
-                } else {
-                    // This message is updated but has not changed position
-                    updateIndices.append(newIndex);
-                }
-            }
-        }
-    }
-//    qDebug() << "Remove: " << removeIndices;
-    // Sort the lists to yield ascending order
-    std::sort(removeIndices.begin(), removeIndices.end());
-    for (int i = removeIndices.count(); i > 0; --i) {
-        int index = removeIndices[i - 1];
-        removeMessageAt(index);
-    }
-
-//    qDebug() << "Insert: " << insertIndices;
-    std::sort(insertIndices.begin(), insertIndices.end());
-    foreach (const int &index, insertIndices) {
-        // Since the list is ordered, if index is bigger than the limit
-        // we stop inserting
-        if(m_limit && index > m_limit) {
-            break;
-        }
-        insertMessageAt(index, indexId[index]);
-    }
-    // Check if we passed the model limit, if so remove exceeding messages
-    if (m_limit && m_idList.count() > m_limit) {
-        QMailMessageIdList idsToRemove = m_idList.mid(m_limit);
-        removeMessages(idsToRemove);
-    }
-
-//    qDebug() << "Update: " << updateIndices;
-    std::sort(updateIndices.begin(), updateIndices.end());
-    foreach (const int &index, updateIndices) {
-        qDebug() << "Message Updated: " << m_model->at(index)->messageId();
-        m_model->at(index)->emitMinMessageChanged();
-    }
-    emit canPossiblyLoadMore();
+    emit updateMessages(m_idList, needsUpdate, newIds, m_indexMap, m_limit);
+    qDebug() << "[handleUpdatedMessages] >> Finished in: " << timer.elapsed() << "milliseconds";
 }
 
 void MessageList::insertMessageAt(const int &index, const QMailMessageId &id)
 {
+    QElapsedTimer timer;
+    qDebug() << "[insertMessageAt] >> Starting";
+    timer.start();
     MinimalMessage *msg = new MinimalMessage();
     msg->setMessageId(id);
     connect(this, &MessageList::selectionStarted, msg, &MinimalMessage::selectionStarted);
@@ -481,10 +601,14 @@ void MessageList::insertMessageAt(const int &index, const QMailMessageId &id)
         m_indexMap[*it] += 1;
     }
     emit totalCountChanged();
+    qDebug() << "[insertMessageAt] >> Finished in: " << timer.elapsed() << "milliseconds";
 }
 
 void MessageList::removeMessageAt(const int &index)
 {
+    QElapsedTimer timer;
+    qDebug() << "[removeMessageAt] >> Starting";
+    timer.start();
     QMailMessageId id(m_idList.at(index));
     m_indexMap.remove(id);
     m_idList.removeAt(index);
@@ -497,77 +621,27 @@ void MessageList::removeMessageAt(const int &index)
         m_indexMap[*it] -= 1;
     }
     emit totalCountChanged();
+    qDebug() << "[removeMessageAt] >> Finished in: " << timer.elapsed() << "milliseconds";
 }
 
 void MessageList::addNewMessages(const QMailMessageIdList &idList)
 {
+    QElapsedTimer timer;
+    QElapsedTimer queryTimer;
+    qDebug() << "[addNewMessages] >> Starting";
+    timer.start();
     // Are any of these messages members of our display set?
     // Note - we must only consider messages in the set given by (those we currently know +
     // those we have now been informed of) because the database content may have changed between
     // when this event was recorded and when we're processing the signal.
 
     QMailMessageKey idKey(QMailMessageKey::id(m_idList + idList));
+    queryTimer.start();
     const QMailMessageIdList newIdsList(QMailStore::instance()->queryMessages(messageListKey() & idKey, m_sortKey, m_limit));
+    qDebug() << "[addNewMessages] >> Mailstore query too in: " << queryTimer.elapsed() << "milliseconds";
 
-    sortAndAppendNewMessages(idList, newIdsList);
-}
-
-void MessageList::sortAndAppendNewMessages(const QMailMessageIdList &idsToAppend, const QMailMessageIdList &newIdsList)
-{
-    QList<int> insertIndices;
-    QMap<QMailMessageId, int> newPositions;
-
-    int index = 0;
-    foreach (const QMailMessageId &id, newIdsList) {
-        newPositions.insert(id, index);
-        ++index;
-    }
-    int count = 0;
-    auto checkCount = [&]() {
-        if (count == 10) {
-            QCoreApplication::processEvents();
-            count = 0;
-        } else{
-            count++;
-        }
-    };
-
-    QMap<int, QMailMessageId> indexId;
-    foreach (const QMailMessageId &id, idsToAppend) {
-        int newIndex = -1;
-        QMap<QMailMessageId, int>::const_iterator it = newPositions.find(id);
-        if (it != newPositions.end()) {
-            newIndex = it.value();
-        }
-
-        int oldIndex(indexOf(id));
-        if (oldIndex == -1) {
-            // This message was not previously in our set - add it
-            if (newIndex != -1) {
-                insertIndices.append(newIndex);
-                indexId.insert(newIndex, id);
-            }
-        }
-        checkCount();
-    }
-    count = 0;
-    std::sort(insertIndices.begin(), insertIndices.end());
-    foreach (const int &index, insertIndices) {
-        // Since the list is ordered, if index is bigger than the limit
-        // we stop inserting
-        if(m_limit && index > m_limit) {
-            break;
-        }
-        insertMessageAt(index, indexId[index]);
-        checkCount();
-    }
-
-    // Check if we passed the model limit, if so remove exceeding messages
-    if (m_limit && m_idList.count() > m_limit) {
-        QMailMessageIdList idsToRemove = m_idList.mid(m_limit);
-        removeMessages(idsToRemove);
-    }
-    emit canPossiblyLoadMore();
+    emit sortAndAppendNewMessages(m_idList, idList, newIdsList, m_indexMap, m_limit);
+    qDebug() << "[addNewMessages] >> Finished in: " << timer.elapsed() << "milliseconds";
 }
 
 void MessageList::removeMessages(const QMailMessageIdList &idList)
@@ -587,6 +661,12 @@ void MessageList::removeMessages(const QMailMessageIdList &idList)
         int index = removeIndices.at(i - 1);
         removeMessageAt(index);
     }
+}
+
+void MessageList::updateMessageAt(const int &index)
+{
+    qDebug() << "Message Updated: " << m_model->at(index)->messageId();
+    m_model->at(index)->emitMinMessageChanged();
 }
 
 QMailMessageIdList MessageList::checkedIds()
@@ -668,4 +748,6 @@ QMailMessageKey MessageList::messageListKey()
     }
     return m_msgKey & key;
 }
+
+
 
