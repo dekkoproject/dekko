@@ -9,8 +9,6 @@
 #define SERVICE_PATH "/mail"
 
 
-//Q_DECLARE_METATYPE(QList<quint64>)
-
 Q_DECL_EXPORT int main(int argc, char** argv)
 {
 

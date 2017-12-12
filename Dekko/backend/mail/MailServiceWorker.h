@@ -22,6 +22,8 @@
 #include <QObject>
 #include <QtDBus>
 #include "ClientService.h"
+#include <qmailmessagekey.h>
+#include <qmailmessagesortkey.h>
 
 
 class MailServiceWorker : public QObject
@@ -151,6 +153,9 @@ public slots:
     void emptyTrash(const QList<quint64> &accountIds);
 
     void removeMessage(const quint64 &msgId, const int &option);
+
+    int totalCount(const QByteArray &msgKey);
+    QList<quint64> queryMessages(const QByteArray &msgKey, const QByteArray &sortKey, const int &limit);
 signals:
     void undoCountChanged();
     void updatesRolledBack();
@@ -177,6 +182,8 @@ private slots:
     void handleActionFailed(const quint64 &id, const QMailServiceAction::Status &status);
 
 private:
+    QMailMessageKey toMessageKey(const QByteArray &key);
+    QMailMessageSortKey toMessageSortKey(const QByteArray &key);
     QMailMessageIdList toMsgIdList(const QList<quint64> &ids);
     QMailFolderIdList toFolderIdList(const QList<quint64> &ids);
     QMailAccountIdList toAccountIdList(const QList<quint64> &ids);

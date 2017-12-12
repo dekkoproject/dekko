@@ -23,6 +23,7 @@
 #include <QCache>
 #include <QmlObjectListModel.h>
 #include <QThread>
+#include <QDBusPendingCallWatcher>
 #include <qmailmessage.h>
 #include <qmailmessagekey.h>
 #include <qmailmessagesortkey.h>
@@ -63,6 +64,7 @@ public slots:
 class MessageList : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(bool loading READ loading NOTIFY loadingChanged)
     /** @short model containing messages in this list */
     Q_PROPERTY(QObject *model READ model NOTIFY modelChanged)
     /** @short Number of messages to show in the list */
@@ -108,6 +110,7 @@ public:
 
     QObject *model() const { return m_model; }
 
+    bool loading() const { return m_loading; }
     int limit() const;
     QVariant key() const;
     Qt::SortOrder sortOrder() const;
@@ -130,6 +133,7 @@ public:
     bool disableUpdates() const;
 
 signals:
+    void loadingChanged();
     void totalCountChanged();
     void canPossiblyLoadMore();
     void modelChanged();
@@ -199,6 +203,9 @@ private slots:
     void addNewMessages(const QMailMessageIdList &idList);
     void removeMessages(const QMailMessageIdList &idList);
     void updateMessageAt(const int &index);
+
+    void refreshResponse(QDBusPendingCallWatcher *call);
+    void queryMessageResponse(QDBusPendingCallWatcher *call);
 private:
     QMailMessageIdList checkedIds();
     void init();
@@ -208,6 +215,9 @@ private: //members
     typedef QMap<QMailMessageId, int> MessageIndexMap;
 
     QMailMessageKey messageListKey();
+    QByteArray messageListKeyBytes();
+    QByteArray messageKeyToBytes(QMailMessageKey &key);
+    QByteArray sortKeyBytes();
 
     QQmlObjectListModel<MinimalMessage> *m_model;
     QMailMessageIdList m_idList; // List if id's in our model.
@@ -227,6 +237,7 @@ private: //members
     bool m_needsRefresh;
     QMailMessageIdList m_refreshList;
     QThread m_workerThread;
+    bool m_loading;
 };
 
 #endif // MESSAGELIST_H

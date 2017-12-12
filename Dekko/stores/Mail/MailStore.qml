@@ -44,6 +44,7 @@ BaseMessagingStore {
     property alias canLoadMore: msgList.canLoadMore
     property alias msgListKey: msgList.messageKey
     property alias msgListModel: msgList.model
+    property alias msgListLoading: msgList.loading
     property alias currentSelectedIndex: msgList.currentSelectedIndex
     property int currentMessageId: -1
 
@@ -62,14 +63,30 @@ BaseMessagingStore {
     QtObject {
         id: d
         property string currentFolderName: "Inbox"
+
+        property Timer enableUpdatesTimer: Timer {
+            interval: 500
+            repeat: false
+            onTriggered: {
+                msgList.disableUpdates = false;
+                msgList.refresh();
+            }
+        }
     }
 
     Connections {
         target: Qt.application
         onStateChanged: {
             if (Qt.application.state === Qt.ApplicationActive) {
-                msgList.refresh()
+                if (isRunningOnMir) {
+                    d.enableUpdatesTimer.start()
+                }
+            } else {
+                if (isRunningOnMir) {
+                    msgList.disableUpdates = true;
+                }
             }
         }
     }
+
 }

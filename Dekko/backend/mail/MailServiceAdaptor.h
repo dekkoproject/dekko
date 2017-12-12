@@ -168,6 +168,13 @@ class MailServiceAdaptor: public QDBusAbstractAdaptor
 "      <arg direction=\"in\" type=\"t\" name=\"msgId\"/>\n"
 "      <arg direction=\"in\" type=\"i\" name=\"option\"/>\n"
 "    </method>\n"
+"    <method name=\"queryMessages\">\n"
+"      <arg direction=\"in\" type=\"ay\" name=\"msgKey\"/>\n"
+"      <arg direction=\"in\" type=\"ay\" name=\"sortKey\"/>\n"
+"      <arg direction=\"in\" type=\"i\" name=\"limit\"/>\n"
+"      <arg direction=\"out\" type=\"(iiii)\" name=\"messages\"/>\n"
+"      <annotation value=\"QList&lt;quint64&gt;\" name=\"org.qtproject.QtDBus.QtTypeName.Out0\"/>\n"
+"    </method>\n"
 "  </interface>\n"
         "")
 public:
@@ -196,6 +203,7 @@ public Q_SLOTS: // METHODS
     void markMessagesTodo(const QList<quint64> &msgIds, bool read);
     void moveToFolder(const QList<quint64> &msgIds, qulonglong folderId);
     void moveToStandardFolder(const QList<quint64> &msgIds, int folderType, bool userTriggered);
+    QList<quint64> queryMessages(const QByteArray &msgKey, const QByteArray &sortKey, int limit);
     void removeMessage(qulonglong msgId, int option);
     void restoreMessage(qulonglong id);
     void sendAnyQueuedMail();

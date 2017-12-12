@@ -142,6 +142,13 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QStringLiteral("moveToStandardFolder"), argumentList);
     }
 
+    inline QDBusPendingReply<QList<quint64> > queryMessages(const QByteArray &msgKey, const QByteArray &sortKey, int limit)
+    {
+        QList<QVariant> argumentList;
+        argumentList << QVariant::fromValue(msgKey) << QVariant::fromValue(sortKey) << QVariant::fromValue(limit);
+        return asyncCallWithArgumentList(QStringLiteral("queryMessages"), argumentList);
+    }
+
     inline QDBusPendingReply<> removeMessage(qulonglong msgId, int option)
     {
         QList<QVariant> argumentList;

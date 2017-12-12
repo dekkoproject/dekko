@@ -1,4 +1,6 @@
 #include "MailServiceWorker.h"
+#include <QDataStream>
+#include <QByteArray>
 #include <qmailstore.h>
 
 
@@ -171,6 +173,17 @@ void MailServiceWorker::removeMessage(const quint64 &msgId, const int &option)
     m_service->removeMessage(id, remOpt);
 }
 
+int MailServiceWorker::totalCount(const QByteArray &msgKey)
+{
+    return QMailStore::instance()->countMessages(toMessageKey(msgKey));
+}
+
+QList<quint64> MailServiceWorker::queryMessages(const QByteArray &msgKey, const QByteArray &sortKey, const int &limit)
+{
+    QMailMessageIdList result = QMailStore::instance()->queryMessages(toMessageKey(msgKey), toMessageSortKey(sortKey), limit);
+    return toDBusMsgIdList(result);
+}
+
 void MailServiceWorker::handleMessagesFetched(const QMailMessageIdList &msgIds)
 {
     QList<quint64> messages = toDBusMsgIdList(msgIds);
@@ -198,6 +211,24 @@ void MailServiceWorker::handleMessageSendingFailed(const QMailMessageIdList &ids
 void MailServiceWorker::handleActionFailed(const quint64 &id, const QMailServiceAction::Status &status)
 {
     emit actionFailed(id, static_cast<int>(status.errorCode), status.text);
+}
+
+QMailMessageKey MailServiceWorker::toMessageKey(const QByteArray &key)
+{
+    QMailMessageKey mKey;
+    QByteArray m = key;
+    QDataStream keystream(&m, QIODevice::ReadWrite);
+    mKey.deserialize<QDataStream>(keystream);
+    return mKey;
+}
+
+QMailMessageSortKey MailServiceWorker::toMessageSortKey(const QByteArray &key)
+{
+    QMailMessageSortKey sKey;
+    QByteArray s = key;
+    QDataStream skeystream(&s, QIODevice::ReadWrite);
+    sKey.deserialize(skeystream);
+    return sKey;
 }
 
 QMailMessageIdList MailServiceWorker::toMsgIdList(const QList<quint64> &ids)

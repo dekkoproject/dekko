@@ -19,6 +19,8 @@
 #include <algorithm>
 #include <QDebug>
 #include <QSet>
+#include <QDBusPendingReply>
+#include <QDataStream>
 #include <qmailstore.h>
 #include <qmaildisconnected.h>
 #include <QElapsedTimer>
@@ -193,7 +195,7 @@ void MessageListWorker::sortAndAppend(const QMailMessageIdList &idList, const QM
 
 MessageList::MessageList(QObject *parent) : QObject(parent),
     m_model(0), m_initialized(false), m_selectionMode(false), m_currentIndex(-1), m_filter(FilterKey::All), m_disableUpdates(false),
-    m_needsRefresh(false)
+    m_needsRefresh(false), m_loading(false)
 {
 
     qRegisterMetaType<QMap<QMailMessageId, int>>("QMap<QMailMessageId, int>");
@@ -316,15 +318,13 @@ void MessageList::loadMore()
 void MessageList::refresh()
 {
     qDebug() << "Refreshing Message List";
-    QMailMessageIdList idsToAppend;
-    QMailMessageIdList newIdsList(QMailStore::instance()->queryMessages(messageListKey(), m_sortKey, m_limit));
+    m_loading = true;
+    emit loadingChanged();
+    QDBusPendingReply<QList<quint64> > reply = Client::instance()->bus()->queryMessages(messageListKeyBytes(), sortKeyBytes(), m_limit);
 
-    foreach (const QMailMessageId &id, newIdsList) {
-        if (!m_idList.contains(id)) {
-            idsToAppend.append(id);
-        }
-    }
-    emit sortAndAppendNewMessages(m_idList, idsToAppend, newIdsList, m_indexMap, m_limit);
+    QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(reply, this);
+
+    connect(watcher, &QDBusPendingCallWatcher::finished, this, &MessageList::refreshResponse);
 }
 
 int MessageList::currentSelectedIndex() const
@@ -374,7 +374,6 @@ void MessageList::setKey(const QVariant &key)
         qDebug() << "Message key: " << key << " Not of type QMailMessageKey";
         m_msgKey = QMailMessageKey::nonMatchingKey();
     }
-    QCoreApplication::processEvents();
     reset();
 #ifdef EXPERIMENTAL_REMEMBER_SELECTED_MESSAGE
     QByteArray cacheKey;
@@ -508,8 +507,9 @@ void MessageList::setDisableUpdates(bool disableUpdates)
     emit disableUpdatesChanged(disableUpdates);
 
     if (!m_disableUpdates && m_needsRefresh) {
-        QSet<QMailMessageId> set = QSet<QMailMessageId>::fromList(m_refreshList);
-        handleUpdatedMessages(static_cast<QMailMessageIdList>(set.toList()));
+//        QSet<QMailMessageId> set = QSet<QMailMessageId>::fromList(m_refreshList);
+//        handleUpdatedMessages(static_cast<QMailMessageIdList>(set.toList()));
+        refresh();
         m_needsRefresh = false;
     }
 }
@@ -518,6 +518,13 @@ void MessageList::handleNewMessages(const QMailMessageIdList &newList)
 {
     QElapsedTimer timer;
     qDebug() << "[handleNewMessages] >> Starting";
+
+    if (m_disableUpdates) {
+        m_needsRefresh = true;
+        //            m_refreshList << updatedList;
+        return;
+    }
+
     timer.start();
     if (newList.isEmpty()) {
         return;
@@ -537,6 +544,13 @@ void MessageList::handleMessagesRemoved(const QMailMessageIdList &removedList)
 {
     QElapsedTimer timer;
     qDebug() << "[handleMessagesRemoved] >> Starting";
+
+    if (m_disableUpdates) {
+        m_needsRefresh = true;
+        //            m_refreshList << updatedList;
+        return;
+    }
+
     timer.start();
     if (removedList.isEmpty()) {
         return;
@@ -556,12 +570,13 @@ void MessageList::handleUpdatedMessages(const QMailMessageIdList &updatedList)
 {
     QElapsedTimer timer;
     qDebug() << "[handleUpdatedMessages] >> Starting";
+
+    if (m_disableUpdates) {
+        m_needsRefresh = true;
+        //            m_refreshList << updatedList;
+        return;
+    }
     timer.start();
-    //    if (m_disableUpdates) {
-    //        m_needsRefresh = true;
-    //        m_refreshList << updatedList;
-    //        return;
-    //    }
 
     QMailMessageIdList needsUpdate;
     foreach(const QMailMessageId &id, updatedList) {
@@ -577,16 +592,27 @@ void MessageList::handleUpdatedMessages(const QMailMessageIdList &updatedList)
 
     // Find the updated positions for our messages
     QMailMessageKey idKey(QMailMessageKey::id((m_idList.toSet() + needsUpdate.toSet()).toList()));
-    QMailMessageIdList newIds(QMailStore::instance()->queryMessages(messageListKey() & idKey, m_sortKey, m_limit));
-    emit updateMessages(m_idList, needsUpdate, newIds, m_indexMap, m_limit);
+    QMailMessageKey msgKey = messageListKey() & idKey;
+    QDBusPendingReply<QList<quint64> > reply = Client::instance()->bus()->queryMessages(messageKeyToBytes(msgKey), sortKeyBytes(), m_limit);
+
+    QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(reply, this);
+
+    connect(watcher, &QDBusPendingCallWatcher::finished, [=](QDBusPendingCallWatcher *call){
+        QDBusPendingReply<QList<quint64> > reply = *call;
+        if (reply.isError()) {
+            qDebug() << "[handleUpdatedMessages] >> Reply error";
+            return;
+        }
+        QMailMessageIdList newIds = Client::instance()->fromDBusMsgList(reply.argumentAt<0>());
+
+        emit updateMessages(m_idList, needsUpdate, newIds, m_indexMap, m_limit);
+        call->deleteLater();
+    });
     qDebug() << "[handleUpdatedMessages] >> Finished in: " << timer.elapsed() << "milliseconds";
 }
 
 void MessageList::insertMessageAt(const int &index, const QMailMessageId &id)
 {
-    QElapsedTimer timer;
-    qDebug() << "[insertMessageAt] >> Starting";
-    timer.start();
     MinimalMessage *msg = new MinimalMessage();
     msg->setMessageId(id);
     connect(this, &MessageList::selectionStarted, msg, &MinimalMessage::selectionStarted);
@@ -601,7 +627,6 @@ void MessageList::insertMessageAt(const int &index, const QMailMessageId &id)
         m_indexMap[*it] += 1;
     }
     emit totalCountChanged();
-    qDebug() << "[insertMessageAt] >> Finished in: " << timer.elapsed() << "milliseconds";
 }
 
 void MessageList::removeMessageAt(const int &index)
@@ -627,7 +652,6 @@ void MessageList::removeMessageAt(const int &index)
 void MessageList::addNewMessages(const QMailMessageIdList &idList)
 {
     QElapsedTimer timer;
-    QElapsedTimer queryTimer;
     qDebug() << "[addNewMessages] >> Starting";
     timer.start();
     // Are any of these messages members of our display set?
@@ -636,11 +660,22 @@ void MessageList::addNewMessages(const QMailMessageIdList &idList)
     // when this event was recorded and when we're processing the signal.
 
     QMailMessageKey idKey(QMailMessageKey::id(m_idList + idList));
-    queryTimer.start();
-    const QMailMessageIdList newIdsList(QMailStore::instance()->queryMessages(messageListKey() & idKey, m_sortKey, m_limit));
-    qDebug() << "[addNewMessages] >> Mailstore query too in: " << queryTimer.elapsed() << "milliseconds";
+    QMailMessageKey mIdKey = messageListKey() & idKey;
 
-    emit sortAndAppendNewMessages(m_idList, idList, newIdsList, m_indexMap, m_limit);
+    QDBusPendingReply<QList<quint64> > reply = Client::instance()->bus()->queryMessages(messageKeyToBytes(mIdKey), sortKeyBytes(), m_limit);
+
+    QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(reply, this);
+
+    connect(watcher, &QDBusPendingCallWatcher::finished, [=](QDBusPendingCallWatcher *call){
+        QDBusPendingReply<QList<quint64> > reply = *call;
+        if (reply.isError()) {
+            qDebug() << "[addNewMessages] >> Reply error";
+            return;
+        }
+        QMailMessageIdList newIdsList = Client::instance()->fromDBusMsgList(reply.argumentAt<0>());
+        emit sortAndAppendNewMessages(m_idList, idList, newIdsList, m_indexMap, m_limit);
+        call->deleteLater();
+    });
     qDebug() << "[addNewMessages] >> Finished in: " << timer.elapsed() << "milliseconds";
 }
 
@@ -669,6 +704,40 @@ void MessageList::updateMessageAt(const int &index)
     m_model->at(index)->emitMinMessageChanged();
 }
 
+void MessageList::refreshResponse(QDBusPendingCallWatcher *call)
+{
+    qDebug() << "[MessageList::refreshResponse] >> Started";
+    QDBusPendingReply<QList<quint64> > reply = *call;
+    if (reply.isError()) {
+        qDebug() << "Reply error for refresh response";
+        return;
+    }
+    QList<quint64> ids = reply.argumentAt<0>();
+    QMailMessageIdList newIdsList = Client::instance()->fromDBusMsgList(ids);
+
+    QMailMessageIdList idsToAppend;
+    foreach (const QMailMessageId &id, newIdsList) {
+        if (!m_idList.contains(id)) {
+            idsToAppend.append(id);
+        }
+    }
+    emit sortAndAppendNewMessages(m_idList, idsToAppend, newIdsList, m_indexMap, m_limit);
+    call->deleteLater();
+
+    if (m_loading) {
+        m_loading = false;
+        emit loadingChanged();
+    }
+    qDebug() << "[MessageList::refreshResponse] >> Finished";
+}
+
+void MessageList::queryMessageResponse(QDBusPendingCallWatcher *call)
+{
+    qDebug() << "GOT DBUS QUERY RESPONSE";
+    // DO NOT REMOVE!!!
+    call->deleteLater();
+}
+
 QMailMessageIdList MessageList::checkedIds()
 {
     if (!m_selectionMode) {
@@ -690,21 +759,34 @@ void MessageList::init()
         m_idList.clear();
         m_indexMap.clear();
 
-        int index = 0;
-        QMailMessageIdList tmpList = QMailStore::instance()->queryMessages(messageListKey(), m_sortKey, m_limit);
-        int cnt = 0;
-        Q_FOREACH(const auto &id, tmpList) {
-            insertMessageAt(index, id);
-            ++index;
-            if (cnt == 10) {
-                QCoreApplication::processEvents();
-                cnt = 0;
-            } else {
-                cnt++;
+        m_loading = true;
+        emit loadingChanged();
+
+        QDBusPendingReply<QList<quint64> > reply = Client::instance()->bus()->queryMessages(messageListKeyBytes(), sortKeyBytes(), m_limit);
+
+        QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(reply, this);
+
+        connect(watcher, &QDBusPendingCallWatcher::finished, [=](QDBusPendingCallWatcher *call){
+            QDBusPendingReply<QList<quint64> > reply = *call;
+            if (reply.isError()) {
+                qDebug() << "Reply error for init";
+                return;
             }
-        }
-        m_initialized = true;
-        emit canPossiblyLoadMore();
+            QMailMessageIdList tmpList = Client::instance()->fromDBusMsgList(reply.argumentAt<0>());
+            int index = 0;
+            Q_FOREACH(const auto &id, tmpList) {
+                insertMessageAt(index, id);
+                ++index;
+            }
+            m_initialized = true;
+            emit canPossiblyLoadMore();
+            call->deleteLater();
+
+            if (m_loading) {
+                m_loading = false;
+                emit loadingChanged();
+            }
+        });
     }
 }
 
@@ -747,6 +829,31 @@ QMailMessageKey MessageList::messageListKey()
         break;
     }
     return m_msgKey & key;
+}
+
+QByteArray MessageList::messageListKeyBytes()
+{
+    QByteArray msgKey;
+    QDataStream keystream(&msgKey, QIODevice::WriteOnly);
+    messageListKey().serialize<QDataStream>(keystream);
+    return msgKey;
+}
+
+QByteArray MessageList::messageKeyToBytes(QMailMessageKey &key)
+{
+    QByteArray msgKey;
+    QDataStream keystream(&msgKey, QIODevice::WriteOnly);
+    key.serialize<QDataStream>(keystream);
+    return msgKey;
+}
+
+QByteArray MessageList::sortKeyBytes()
+{
+    QByteArray sortKey;
+    QMailMessageSortKey key = m_sortKey;
+    QDataStream keystream(&sortKey, QIODevice::WriteOnly);
+    key.serialize(keystream);
+    return sortKey;
 }
 
 
