@@ -10,12 +10,13 @@ DynamicLibrary {
     Depends { name: "Shared Utils" }
     Depends { name: "MazDB" }
     Depends { name: "SnapStandardPaths" }
+    Depends { name: "Qt.dbus" }
 
     cpp.optimization: qbs.buildVariant === "debug" ? "none" : "fast"
     cpp.debugInformation: qbs.buildVariant === "debug"
     cpp.cxxLanguageVersion: "c++11";
     cpp.cxxStandardLibrary: "libstdc++";
-    cpp.includePaths: [ path ]
+    cpp.includePaths: [ path, path + "/../utils/" ]
 
     Export {
         Depends { name: "cpp" }
@@ -23,19 +24,20 @@ DynamicLibrary {
         Depends { name: "QmfServer" }
         Depends { name: "Shared Utils" }
         Depends { name: "MazDB" }
-        cpp.includePaths: [ path ]
+        Depends { name: "Qt.dbus" }
+        cpp.includePaths: [ path, path + "/../utils/" ]
     }
 
     Group {
-        name: "C++ Headers"
+        name: "Accounts Library"
         prefix: path + "/"
-        files: ["*.h"]
+        files: ["*.h", "*.cpp"]
     }
 
     Group {
-        name: "C++ Sources"
-        prefix: path + "/"
-        files: ["*.cpp"]
+        name: "Accounts Service"
+        prefix: path + "/service/"
+        files: ["*.h", "*.cpp", "dbus/*.xml"]
     }
 
     Group {

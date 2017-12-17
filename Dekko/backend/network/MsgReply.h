@@ -22,7 +22,7 @@
 #include <QBuffer>
 #include <QNetworkReply>
 #include <qmailstore.h>
-#include <Client.h>
+#include <MailServiceClient.h>
 #include "MsgPartQNAM.h"
 
 class MsgReply : public QNetworkReply

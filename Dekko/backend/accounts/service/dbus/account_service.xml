@@ -1,0 +1,18 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+  <interface name="org.dekkoproject.AccountService">
+    <signal name="accountRemoved">
+      <arg name="id" type="t" direction="out"/>
+    </signal>
+    <method name="removeAccount">
+      <arg name="id" type="t" direction="in"/>
+    </method>
+    <method name="queryAccounts">
+      <arg name="accountKey" type="ay" direction="in"/>
+      <arg name="sortKey" type="ay" direction="in"/>
+      <arg name="limit" type="i" direction="in"/>
+      <arg name="accounts" type="(iiii)" direction="out"/>
+      <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QList&lt;quint64>"/>
+    </method>
+  </interface>
+</node>

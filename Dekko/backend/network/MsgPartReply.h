@@ -23,7 +23,7 @@
 #include <QNetworkReply>
 #include <qmailstore.h>
 #include <qmailmessage.h>
-#include <Client.h>
+#include <MailServiceClient.h>
 #include "MsgPartQNAM.h"
 
 struct PartFinder {

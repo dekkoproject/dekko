@@ -6,6 +6,7 @@ CppApplication {
 
     Depends { name: "Qt.core" }
     Depends { name: "Mail Lib" }
+    Depends { name: "AccountsLib" }
 
     cpp.optimization: qbs.buildVariant === "debug" ? "none" : "fast"
     cpp.debugInformation: qbs.buildVariant === "debug"

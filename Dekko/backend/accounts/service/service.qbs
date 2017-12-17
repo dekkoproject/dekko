@@ -1,41 +1,43 @@
 import qbs
 
 DynamicLibrary {
-    name: "Mail Lib"
-    targetName: "mail"
+    name: "Accounts Service"
+    targetName: "libaccountsservice"
 
     Depends { name: "cpp" }
-    Depends { name: "AccountsLib" }
-    Depends { name: "Settings Lib" }
     Depends { name: "Qt.dbus" }
 
     cpp.optimization: qbs.buildVariant === "debug" ? "none" : "fast"
     cpp.debugInformation: qbs.buildVariant === "debug"
     cpp.cxxLanguageVersion: "c++11";
     cpp.cxxStandardLibrary: "libstdc++";
-    cpp.includePaths: [ path,  path + "/service/", path + "/../utils/"]
+    cpp.includePaths: [ path ]
 
     Export {
         Depends { name: "cpp" }
-        Depends { name: "AccountsLib" }
-        Depends { name: "Settings Lib" }
         Depends { name: "Qt.dbus" }
 
         cpp.cxxLanguageVersion: "c++11";
         cpp.cxxStandardLibrary: "libstdc++";
-        cpp.includePaths: [ path,  path + "/service/", path + "/../utils/"]
+        cpp.includePaths: [ path ]
     }
 
     Group {
-        name: "Mail Library"
+        name: "XML Interfaces"
+        prefix: path + "/dbus/"
+        files: ["*.xml"]
+    }
+
+    Group {
+        name: "C++ Headers"
         prefix: path + "/"
-        files: ["*.h", "*.cpp"]
+        files: ["*.h"]
     }
 
     Group {
-        name: "Mail Service"
-        prefix: path + "/service/"
-        files: ["*.h", "*.cpp", "dbus/*.xml"]
+        name: "C++ Sources"
+        prefix: path + "/"
+        files: ["*.cpp"]
     }
 
     Group {

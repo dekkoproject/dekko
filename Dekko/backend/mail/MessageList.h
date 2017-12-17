@@ -215,9 +215,6 @@ private: //members
     typedef QMap<QMailMessageId, int> MessageIndexMap;
 
     QMailMessageKey messageListKey();
-    QByteArray messageListKeyBytes();
-    QByteArray messageKeyToBytes(QMailMessageKey &key);
-    QByteArray sortKeyBytes();
 
     QQmlObjectListModel<MinimalMessage> *m_model;
     QMailMessageIdList m_idList; // List if id's in our model.

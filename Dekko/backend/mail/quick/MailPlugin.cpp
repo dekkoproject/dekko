@@ -19,7 +19,7 @@
 
 #include <QtQml/QtQml>
 #include <QtQml/QQmlContext>
-#include <Client.h>
+#include <MailServiceClient.h>
 #include <FolderList.h>
 #include <Folder.h>
 #include <MessageFilterCollection.h>

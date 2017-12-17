@@ -2,6 +2,7 @@
 #include <QDataStream>
 #include <QByteArray>
 #include <qmailstore.h>
+#include "serviceutils.h"
 
 
 MailServiceWorker::MailServiceWorker(QObject *parent) : QObject(parent),
@@ -40,7 +41,7 @@ QString MailServiceWorker::undoDescription()
 
 void MailServiceWorker::deleteMessages(const QList<quint64> &ids)
 {
-    QMailMessageIdList mIds = toMsgIdList(ids);
+    QMailMessageIdList mIds = from_dbus_msglist(ids);
     m_service->deleteMessages(mIds);
 }
 
@@ -52,45 +53,45 @@ void MailServiceWorker::restoreMessage(const quint64 &id)
 
 void MailServiceWorker::markMessagesImportant(const QList<quint64> &msgIds, const bool important)
 {
-    QMailMessageIdList mIds = toMsgIdList(msgIds);
+    QMailMessageIdList mIds = from_dbus_msglist(msgIds);
     m_service->markMessagesImportant(mIds, important);
 }
 
 void MailServiceWorker::markMessagesRead(const QList<quint64> &msgIds, const bool read)
 {
     qDebug() << "Marking Message Read: " << msgIds;
-    QMailMessageIdList mIds = toMsgIdList(msgIds);
+    QMailMessageIdList mIds = from_dbus_msglist(msgIds);
     m_service->markMessagesRead(mIds, read);
 }
 
 void MailServiceWorker::markMessagesTodo(const QList<quint64> &msgIds, const bool todo)
 {
-    QMailMessageIdList mIds = toMsgIdList(msgIds);
+    QMailMessageIdList mIds = from_dbus_msglist(msgIds);
     m_service->markMessagesTodo(mIds, todo);
 }
 
 void MailServiceWorker::markMessagesDone(const QList<quint64> &msgIds, const bool done)
 {
-    QMailMessageIdList mIds = toMsgIdList(msgIds);
+    QMailMessageIdList mIds = from_dbus_msglist(msgIds);
     m_service->markMessagesDone(mIds, done);
 }
 
 void MailServiceWorker::markMessagesReplied(const QList<quint64> &msgIds, const bool all)
 {
-    QMailMessageIdList list = toMsgIdList(msgIds);
+    QMailMessageIdList list = from_dbus_msglist(msgIds);
     m_service->markMessagesReplied(list, all);
 }
 
 void MailServiceWorker::markMessageForwarded(const QList<quint64> &msgIds)
 {
-    QMailMessageIdList list = toMsgIdList(msgIds);
+    QMailMessageIdList list = from_dbus_msglist(msgIds);
     m_service->markMessageForwarded(list);
 }
 
 void MailServiceWorker::syncFolders(const quint64 &accountId, const QList<quint64> &folders)
 {
     QMailAccountId id(accountId);
-    QMailFolderIdList list = toFolderIdList(folders);
+    QMailFolderIdList list = from_dbus_folderlist(folders);
     m_service->syncFolders(id, list);
 }
 
@@ -102,14 +103,14 @@ void MailServiceWorker::createStandardFolders(const quint64 &accountId)
 
 void MailServiceWorker::moveToFolder(const QList<quint64> &msgIds, const quint64 &folderId)
 {
-    QMailMessageIdList list = toMsgIdList(msgIds);
+    QMailMessageIdList list = from_dbus_msglist(msgIds);
     QMailFolderId id(folderId);
     m_service->moveToFolder(list, id);
 }
 
 void MailServiceWorker::moveToStandardFolder(const QList<quint64> &msgIds, const int &folder, const bool userTriggered)
 {
-    QMailMessageIdList list = toMsgIdList(msgIds);
+    QMailMessageIdList list = from_dbus_msglist(msgIds);
     Folder::FolderType type = static_cast<Folder::FolderType>(folder);
     m_service->moveToStandardFolder(list, type, userTriggered);
 }
@@ -128,7 +129,7 @@ void MailServiceWorker::downloadMessagePart(const quint64 &msgId, const QString 
 
 void MailServiceWorker::downloadMessages(const QList<quint64> &msgIds)
 {
-    QMailMessageIdList list = toMsgIdList(msgIds);
+    QMailMessageIdList list = from_dbus_msglist(msgIds);
     m_service->downloadMessages(list);
 }
 
@@ -162,7 +163,7 @@ void MailServiceWorker::sendAnyQueuedMail()
 
 void MailServiceWorker::emptyTrash(const QList<quint64> &accountIds)
 {
-   QMailAccountIdList accounts = toAccountIdList(accountIds);
+   QMailAccountIdList accounts = from_dbus_accountlist(accountIds);
    m_service->emptyTrash(accounts);
 }
 
@@ -175,94 +176,49 @@ void MailServiceWorker::removeMessage(const quint64 &msgId, const int &option)
 
 int MailServiceWorker::totalCount(const QByteArray &msgKey)
 {
-    return QMailStore::instance()->countMessages(toMessageKey(msgKey));
+    return QMailStore::instance()->countMessages(to_msg_key(msgKey));
 }
 
 QList<quint64> MailServiceWorker::queryMessages(const QByteArray &msgKey, const QByteArray &sortKey, const int &limit)
 {
-    QMailMessageIdList result = QMailStore::instance()->queryMessages(toMessageKey(msgKey), toMessageSortKey(sortKey), limit);
-    return toDBusMsgIdList(result);
+    QMailMessageIdList result = QMailStore::instance()->queryMessages(to_msg_key(msgKey), to_msg_sort_key(sortKey), limit);
+    return to_dbus_msglist(result);
+}
+
+QList<quint64> MailServiceWorker::queryFolders(const QByteArray &folderKey, const QByteArray &sortKey, const int &limit)
+{
+    QMailFolderIdList result = QMailStore::instance()->queryFolders(
+                to_folder_key(folderKey),
+                to_folder_sort_key(sortKey),
+                limit, 0);
+    return to_dbus_folderlist(result);
 }
 
 void MailServiceWorker::handleMessagesFetched(const QMailMessageIdList &msgIds)
 {
-    QList<quint64> messages = toDBusMsgIdList(msgIds);
+    QList<quint64> messages = to_dbus_msglist(msgIds);
     emit messagesNowAvailable(messages);
 }
 
 void MailServiceWorker::handleMessageFetchFailed(const QMailMessageIdList &msgIds)
 {
-    QList<quint64> messages = toDBusMsgIdList(msgIds);
+    QList<quint64> messages = to_dbus_msglist(msgIds);
     emit messageFetchFailed(messages);
 }
 
 void MailServiceWorker::handleMessagesSent(const QMailMessageIdList &msgIds)
 {
-    QList<quint64> messages = toDBusMsgIdList(msgIds);
+    QList<quint64> messages = to_dbus_msglist(msgIds);
     emit messagesSent(messages);
 }
 
 void MailServiceWorker::handleMessageSendingFailed(const QMailMessageIdList &ids, QMailServiceAction::Status::ErrorCode error)
 {
-    QList<quint64> messages = toDBusMsgIdList(ids);
+    QList<quint64> messages = to_dbus_msglist(ids);
     emit messageSendingFailed(messages, static_cast<int>(error));
 }
 
 void MailServiceWorker::handleActionFailed(const quint64 &id, const QMailServiceAction::Status &status)
 {
     emit actionFailed(id, static_cast<int>(status.errorCode), status.text);
-}
-
-QMailMessageKey MailServiceWorker::toMessageKey(const QByteArray &key)
-{
-    QMailMessageKey mKey;
-    QByteArray m = key;
-    QDataStream keystream(&m, QIODevice::ReadWrite);
-    mKey.deserialize<QDataStream>(keystream);
-    return mKey;
-}
-
-QMailMessageSortKey MailServiceWorker::toMessageSortKey(const QByteArray &key)
-{
-    QMailMessageSortKey sKey;
-    QByteArray s = key;
-    QDataStream skeystream(&s, QIODevice::ReadWrite);
-    sKey.deserialize(skeystream);
-    return sKey;
-}
-
-QMailMessageIdList MailServiceWorker::toMsgIdList(const QList<quint64> &ids)
-{
-    QMailMessageIdList list;
-    foreach(const quint64 &id, ids) {
-        list << QMailMessageId(id);
-    }
-    return list;
-}
-
-QMailFolderIdList MailServiceWorker::toFolderIdList(const QList<quint64> &ids)
-{
-    QMailFolderIdList list;
-    foreach(const quint64 &id, ids) {
-        list << QMailFolderId(id);
-    }
-    return list;
-}
-
-QMailAccountIdList MailServiceWorker::toAccountIdList(const QList<quint64> &ids)
-{
-    QMailAccountIdList accounts;
-    foreach(const quint64 &id, ids) {
-        QMailAccountId account(id);
-        accounts << account;
-    }
-    return accounts;
-}
-
-QList<quint64> MailServiceWorker::toDBusMsgIdList(const QMailMessageIdList &msgIds) {
-    QList<quint64> list;
-    foreach(const QMailMessageId &id, msgIds) {
-        list << id.toULongLong();
-    }
-    return list;
 }

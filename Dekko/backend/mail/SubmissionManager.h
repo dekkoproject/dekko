@@ -22,7 +22,7 @@
 #include <QTimer>
 #include <qmailaccount.h>
 #include <qmailmessage.h>
-#include "Client.h"
+#include <MailServiceClient.h>
 #include "MessageBuilder.h"
 #include "SenderIdentities.h"
 

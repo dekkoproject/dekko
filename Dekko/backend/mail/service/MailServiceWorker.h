@@ -155,7 +155,9 @@ public slots:
     void removeMessage(const quint64 &msgId, const int &option);
 
     int totalCount(const QByteArray &msgKey);
+
     QList<quint64> queryMessages(const QByteArray &msgKey, const QByteArray &sortKey, const int &limit);
+    QList<quint64> queryFolders(const QByteArray &folderKey, const QByteArray &sortKey = QByteArray(), const int &limit = 0);
 signals:
     void undoCountChanged();
     void updatesRolledBack();
@@ -182,13 +184,6 @@ private slots:
     void handleActionFailed(const quint64 &id, const QMailServiceAction::Status &status);
 
 private:
-    QMailMessageKey toMessageKey(const QByteArray &key);
-    QMailMessageSortKey toMessageSortKey(const QByteArray &key);
-    QMailMessageIdList toMsgIdList(const QList<quint64> &ids);
-    QMailFolderIdList toFolderIdList(const QList<quint64> &ids);
-    QMailAccountIdList toAccountIdList(const QList<quint64> &ids);
-    QList<quint64> toDBusMsgIdList(const QMailMessageIdList &msgIds);
-
     ClientService *m_service;
 
 };

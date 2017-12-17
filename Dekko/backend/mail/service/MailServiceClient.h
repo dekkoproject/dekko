@@ -129,8 +129,7 @@ public:
 
     Q_INVOKABLE void undoActions();
 
-    org::dekkoproject::MailService *bus() { return m_mService; }
-    QMailMessageIdList fromDBusMsgList(const QList<quint64> &ids);
+    MailServiceInterface *bus() { return m_mService; }
 
 signals:
     void undoCountChanged();
@@ -160,12 +159,8 @@ protected:
 
 private:
 
-    QList<quint64> toDBusMsgList(const QMailMessageIdList &ids);
-    QList<quint64> toDBusFolderList(const QMailFolderIdList &ids);
-    QList<quint64> toDBusAccountList(const QMailAccountIdList &ids);
-
     ClientService *m_service;
-    org::dekkoproject::MailService *m_mService;
+    MailServiceInterface *m_mService;
 
 };
 

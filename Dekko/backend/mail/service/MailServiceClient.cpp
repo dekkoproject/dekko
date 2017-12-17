@@ -15,14 +15,15 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "Client.h"
+#include <MailServiceClient.h>
 #include <QDebug>
 #include <QPointer>
 #include <qmailstore.h>
 #include <QDBusConnection>
 #include "MailServiceWorker.h"
+#include "serviceutils.h"
 
-#define SERVICE "org.dekkoproject.MailService"
+#define SERVICE "org.dekkoproject.Service"
 #define SERVICE_PATH "/mail"
 
 static QPointer<Client> s_client;
@@ -48,22 +49,22 @@ Client::Client(QObject *parent) : QObject(parent),
 
     MailServiceWorker::registerTypes();
 
-    m_mService = new org::dekkoproject::MailService(SERVICE, SERVICE_PATH, QDBusConnection::sessionBus());
+    m_mService = new MailServiceInterface(SERVICE, SERVICE_PATH, QDBusConnection::sessionBus());
 
     m_service = new ClientService(this);
     emit serviceChanged();
 
-    connect(m_mService, &OrgDekkoprojectMailServiceInterface::messagePartNowAvailable, this, &Client::messagePartNowAvailable);
-    connect(m_mService, &OrgDekkoprojectMailServiceInterface::messagePartFetchFailed, this, &Client::messagePartFetchFailed);
-    connect(m_mService, &OrgDekkoprojectMailServiceInterface::messagesNowAvailable, this, &Client::handleMessagesNowAvailable);
-    connect(m_mService, &OrgDekkoprojectMailServiceInterface::messageFetchFailed, this, &Client::handleMessageFetchFailed);
-    connect(m_mService, &OrgDekkoprojectMailServiceInterface::messagesSent, this, &Client::handleMessagesSent);
-    connect(m_mService, &OrgDekkoprojectMailServiceInterface::messageSendingFailed, this, &Client::handleMessageSendingFailed);
-    connect(m_mService, &OrgDekkoprojectMailServiceInterface::accountSynced, this, &Client::accountSynced);
-    connect(m_mService, &OrgDekkoprojectMailServiceInterface::syncAccountFailed, this, &Client::syncAccountFailed);
-    connect(m_mService, &OrgDekkoprojectMailServiceInterface::standardFoldersCreated, this, &Client::standardFoldersCreated);
-    connect(m_mService, &OrgDekkoprojectMailServiceInterface::actionFailed, this, &Client::handleFailure);
-    connect(m_mService, &OrgDekkoprojectMailServiceInterface::undoCountChanged, this, &Client::undoCountChanged);
+    connect(m_mService, &MailServiceInterface::messagePartNowAvailable, this, &Client::messagePartNowAvailable);
+    connect(m_mService, &MailServiceInterface::messagePartFetchFailed, this, &Client::messagePartFetchFailed);
+    connect(m_mService, &MailServiceInterface::messagesNowAvailable, this, &Client::handleMessagesNowAvailable);
+    connect(m_mService, &MailServiceInterface::messageFetchFailed, this, &Client::handleMessageFetchFailed);
+    connect(m_mService, &MailServiceInterface::messagesSent, this, &Client::handleMessagesSent);
+    connect(m_mService, &MailServiceInterface::messageSendingFailed, this, &Client::handleMessageSendingFailed);
+    connect(m_mService, &MailServiceInterface::accountSynced, this, &Client::accountSynced);
+    connect(m_mService, &MailServiceInterface::syncAccountFailed, this, &Client::syncAccountFailed);
+    connect(m_mService, &MailServiceInterface::standardFoldersCreated, this, &Client::standardFoldersCreated);
+    connect(m_mService, &MailServiceInterface::actionFailed, this, &Client::handleFailure);
+    connect(m_mService, &MailServiceInterface::undoCountChanged, this, &Client::undoCountChanged);
 }
 
 bool Client::hasUndoableActions() const
@@ -89,7 +90,7 @@ void Client::deleteMessage(const int &msgId)
 
 void Client::deleteMessages(const QMailMessageIdList &idList)
 {
-    m_mService->deleteMessages(toDBusMsgList(idList));
+    m_mService->deleteMessages(to_dbus_msglist(idList));
 }
 
 void Client::restoreMessage(const int &msgId)
@@ -176,22 +177,22 @@ void Client::emptyTrash(const int &accountId)
 
 void Client::markMessagesImportant(const QMailMessageIdList &idList, const bool important)
 {
-    m_mService->markMessagesImportant(toDBusMsgList(idList), important);
+    m_mService->markMessagesImportant(to_dbus_msglist(idList), important);
 }
 
 void Client::markMessagesRead(const QMailMessageIdList &idList, const bool read)
 {
-    m_mService->markMessagesRead(toDBusMsgList(idList), read);
+    m_mService->markMessagesRead(to_dbus_msglist(idList), read);
 }
 
 void Client::markMessagesTodo(const QMailMessageIdList &idList, const bool todo)
 {
-    m_mService->markMessagesTodo(toDBusMsgList(idList), todo);
+    m_mService->markMessagesTodo(to_dbus_msglist(idList), todo);
 }
 
 void Client::markMessagesDone(const QMailMessageIdList &idList, const bool done)
 {
-    m_mService->markMessagesDone(toDBusMsgList(idList), done);
+    m_mService->markMessagesDone(to_dbus_msglist(idList), done);
 }
 
 void Client::createStandardFolders(const quint64 &accountId)
@@ -206,12 +207,12 @@ void Client::createStandardFolders(const QMailAccountId &accountId)
 
 void Client::markMessagesReplied(const QMailMessageIdList &idList, const bool all)
 {
-    m_mService->markMessagesReplied(toDBusMsgList(idList), all);
+    m_mService->markMessagesReplied(to_dbus_msglist(idList), all);
 }
 
 void Client::markMessageForwarded(const QMailMessageIdList &idList)
 {
-    m_mService->markMessageForwarded(toDBusMsgList(idList));
+    m_mService->markMessageForwarded(to_dbus_msglist(idList));
 }
 
 void Client::markFolderRead(const QMailFolderId &id)
@@ -221,12 +222,12 @@ void Client::markFolderRead(const QMailFolderId &id)
 
 void Client::emptyTrash(const QMailAccountIdList &ids)
 {
-    m_mService->emptyTrash(toDBusAccountList(ids));
+    m_mService->emptyTrash(to_dbus_accountlist(ids));
 }
 
 void Client::syncFolders(const QMailAccountId &accountId, const QMailFolderIdList &folders)
 {
-    m_mService->syncFolders(accountId.toULongLong(), toDBusFolderList(folders));
+    m_mService->syncFolders(accountId.toULongLong(), to_dbus_folderlist(folders));
 }
 
 void Client::downloadMessagePart(const QMailMessagePart *msgPart)
@@ -265,7 +266,7 @@ bool Client::removeMessage(const QMailMessageId &id, const QMailStore::MessageRe
 
 void Client::moveToStandardFolder(const QMailMessageIdList &msgIds, const Folder::FolderType &folder, const bool userTriggered)
 {
-    m_mService->moveToStandardFolder(toDBusMsgList(msgIds), static_cast<int>(folder), userTriggered);
+    m_mService->moveToStandardFolder(to_dbus_msglist(msgIds), static_cast<int>(folder), userTriggered);
 }
 
 void Client::moveToFolder(const quint64 &msgId, const quint64 &folderId)
@@ -281,7 +282,7 @@ void Client::moveToFolder(const quint64 &msgId, const quint64 &folderId)
 
 void Client::moveToFolder(const QMailMessageIdList &ids, const QMailFolderId &folderId)
 {
-    m_mService->moveToFolder(toDBusMsgList(ids), folderId.toULongLong());
+    m_mService->moveToFolder(to_dbus_msglist(ids), folderId.toULongLong());
 }
 
 void Client::sendMessage(const QMailMessage &msg)
@@ -375,25 +376,25 @@ void Client::handleFailure(const quint64 &id, const int &statusCode, const QStri
 
 void Client::handleMessagesNowAvailable(const QList<quint64> &msgIds)
 {
-    QMailMessageIdList messages = fromDBusMsgList(msgIds);
+    QMailMessageIdList messages = from_dbus_msglist(msgIds);
     emit messagesNowAvailable(messages);
 }
 
 void Client::handleMessageFetchFailed(const QList<quint64> &msgIds)
 {
-    QMailMessageIdList messages = fromDBusMsgList(msgIds);
+    QMailMessageIdList messages = from_dbus_msglist(msgIds);
     emit messageFetchFailed(messages);
 }
 
 void Client::handleMessagesSent(const QList<quint64> &msgIds)
 {
-    QMailMessageIdList messages = fromDBusMsgList(msgIds);
+    QMailMessageIdList messages = from_dbus_msglist(msgIds);
     emit messagesSent(messages);
 }
 
 void Client::handleMessageSendingFailed(const QList<quint64> &msgIds, const int &error)
 {
-    QMailMessageIdList messages = fromDBusMsgList(msgIds);
+    QMailMessageIdList messages = from_dbus_msglist(msgIds);
     QMailServiceAction::Status::ErrorCode err = static_cast<QMailServiceAction::Status::ErrorCode>(error);
     emit messageSendingFailed(messages, err);
 }
@@ -405,39 +406,3 @@ QMailAccountIdList Client::getEnabledAccountIds() const
                                                  QMailAccountSortKey::name());
 }
 
-QList<quint64> Client::toDBusMsgList(const QMailMessageIdList &ids)
-{
-    QList<quint64> list;
-    foreach(const QMailMessageId &id, ids) {
-        list << id.toULongLong();
-    }
-    return list;
-}
-
-QList<quint64> Client::toDBusFolderList(const QMailFolderIdList &ids)
-{
-    QList<quint64> list;
-    foreach(const QMailFolderId &id, ids) {
-        list << id.toULongLong();
-    }
-    return list;
-}
-
-QList<quint64> Client::toDBusAccountList(const QMailAccountIdList &ids)
-{
-    QList<quint64> list;
-    foreach(const QMailAccountId &id, ids) {
-        list << id.toULongLong();
-    }
-    return list;
-}
-
-QMailMessageIdList Client::fromDBusMsgList(const QList<quint64> &ids)
-{
-    QMailMessageIdList messages;
-    foreach(const quint64 &id, ids) {
-        QMailMessageId msg(id);
-        messages << msg;
-    }
-    return messages;
-}

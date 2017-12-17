@@ -76,6 +76,8 @@ public:
     void syncFolders(const QMailAccountId &accountId, const QMailFolderIdList &folders);
     void removeMessage(const QMailMessageId &id, const QMailStore::MessageRemovalOption &option);
 
+    int countMessages(const QMailMessageKey &key);
+
 signals:
     void undoCountChanged();
     void updatesRolledBack();

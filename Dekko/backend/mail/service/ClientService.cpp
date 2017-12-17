@@ -269,6 +269,11 @@ void ClientService::removeMessage(const QMailMessageId &id, const QMailStore::Me
     QMailStore::instance()->removeMessage(id, option);
 }
 
+int ClientService::countMessages(const QMailMessageKey &key)
+{
+    return QMailStore::instance()->countMessages(key);
+}
+
 void ClientService::undoableCountChanged()
 {
     emit undoCountChanged();

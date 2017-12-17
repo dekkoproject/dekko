@@ -24,7 +24,8 @@
 #include <qmailstore.h>
 #include <qmaildisconnected.h>
 #include <QElapsedTimer>
-#include "Client.h"
+#include <MailServiceClient.h>
+#include "serviceutils.h"
 
 void MessageListWorker::updateMessages(const QMailMessageIdList &idList, const QMailMessageIdList &needsUpdate, const QMailMessageIdList &newIds, const QMap<QMailMessageId, int> &indexMap, const int &limit)
 {
@@ -126,10 +127,9 @@ void MessageListWorker::updateMessages(const QMailMessageIdList &idList, const Q
     //    qDebug() << "Update: " << updateIndices;
     std::sort(updateIndices.begin(), updateIndices.end());
     foreach (const int &index, updateIndices) {
-//        qDebug() << "Message Updated: " << m_model->at(index)->messageId();
-//        m_model->at(index)->emitMinMessageChanged();
         emit updateMessageAt(index);
     }
+
     emit canPossiblyLoadMore();
     qDebug() << "[MessageListWorker::updateMessages] >> Finished in: " << timer.elapsed() << "milliseconds";
 }
@@ -320,7 +320,10 @@ void MessageList::refresh()
     qDebug() << "Refreshing Message List";
     m_loading = true;
     emit loadingChanged();
-    QDBusPendingReply<QList<quint64> > reply = Client::instance()->bus()->queryMessages(messageListKeyBytes(), sortKeyBytes(), m_limit);
+    QDBusPendingReply<QList<quint64> > reply = Client::instance()->bus()->queryMessages(
+                msg_key_bytes(messageListKey()),
+                msg_sort_key_bytes(m_sortKey),
+                m_limit);
 
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(reply, this);
 
@@ -521,7 +524,6 @@ void MessageList::handleNewMessages(const QMailMessageIdList &newList)
 
     if (m_disableUpdates) {
         m_needsRefresh = true;
-        //            m_refreshList << updatedList;
         return;
     }
 
@@ -593,7 +595,7 @@ void MessageList::handleUpdatedMessages(const QMailMessageIdList &updatedList)
     // Find the updated positions for our messages
     QMailMessageKey idKey(QMailMessageKey::id((m_idList.toSet() + needsUpdate.toSet()).toList()));
     QMailMessageKey msgKey = messageListKey() & idKey;
-    QDBusPendingReply<QList<quint64> > reply = Client::instance()->bus()->queryMessages(messageKeyToBytes(msgKey), sortKeyBytes(), m_limit);
+    QDBusPendingReply<QList<quint64> > reply = Client::instance()->bus()->queryMessages(msg_key_bytes(msgKey), msg_sort_key_bytes(m_sortKey), m_limit);
 
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(reply, this);
 
@@ -603,7 +605,7 @@ void MessageList::handleUpdatedMessages(const QMailMessageIdList &updatedList)
             qDebug() << "[handleUpdatedMessages] >> Reply error";
             return;
         }
-        QMailMessageIdList newIds = Client::instance()->fromDBusMsgList(reply.argumentAt<0>());
+        QMailMessageIdList newIds = from_dbus_msglist(reply.argumentAt<0>());
 
         emit updateMessages(m_idList, needsUpdate, newIds, m_indexMap, m_limit);
         call->deleteLater();
@@ -662,7 +664,8 @@ void MessageList::addNewMessages(const QMailMessageIdList &idList)
     QMailMessageKey idKey(QMailMessageKey::id(m_idList + idList));
     QMailMessageKey mIdKey = messageListKey() & idKey;
 
-    QDBusPendingReply<QList<quint64> > reply = Client::instance()->bus()->queryMessages(messageKeyToBytes(mIdKey), sortKeyBytes(), m_limit);
+    QDBusPendingReply<QList<quint64> > reply = Client::instance()->bus()->queryMessages(
+                msg_key_bytes(mIdKey), msg_sort_key_bytes(m_sortKey), m_limit);
 
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(reply, this);
 
@@ -672,7 +675,7 @@ void MessageList::addNewMessages(const QMailMessageIdList &idList)
             qDebug() << "[addNewMessages] >> Reply error";
             return;
         }
-        QMailMessageIdList newIdsList = Client::instance()->fromDBusMsgList(reply.argumentAt<0>());
+        QMailMessageIdList newIdsList = from_dbus_msglist(reply.argumentAt<0>());
         emit sortAndAppendNewMessages(m_idList, idList, newIdsList, m_indexMap, m_limit);
         call->deleteLater();
     });
@@ -713,7 +716,7 @@ void MessageList::refreshResponse(QDBusPendingCallWatcher *call)
         return;
     }
     QList<quint64> ids = reply.argumentAt<0>();
-    QMailMessageIdList newIdsList = Client::instance()->fromDBusMsgList(ids);
+    QMailMessageIdList newIdsList = from_dbus_msglist(ids);
 
     QMailMessageIdList idsToAppend;
     foreach (const QMailMessageId &id, newIdsList) {
@@ -762,7 +765,8 @@ void MessageList::init()
         m_loading = true;
         emit loadingChanged();
 
-        QDBusPendingReply<QList<quint64> > reply = Client::instance()->bus()->queryMessages(messageListKeyBytes(), sortKeyBytes(), m_limit);
+        QDBusPendingReply<QList<quint64> > reply = Client::instance()->bus()->queryMessages(
+                    msg_key_bytes(messageListKey()), msg_sort_key_bytes(m_sortKey), m_limit);
 
         QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(reply, this);
 
@@ -772,7 +776,7 @@ void MessageList::init()
                 qDebug() << "Reply error for init";
                 return;
             }
-            QMailMessageIdList tmpList = Client::instance()->fromDBusMsgList(reply.argumentAt<0>());
+            QMailMessageIdList tmpList = from_dbus_msglist(reply.argumentAt<0>());
             int index = 0;
             Q_FOREACH(const auto &id, tmpList) {
                 insertMessageAt(index, id);
@@ -829,31 +833,6 @@ QMailMessageKey MessageList::messageListKey()
         break;
     }
     return m_msgKey & key;
-}
-
-QByteArray MessageList::messageListKeyBytes()
-{
-    QByteArray msgKey;
-    QDataStream keystream(&msgKey, QIODevice::WriteOnly);
-    messageListKey().serialize<QDataStream>(keystream);
-    return msgKey;
-}
-
-QByteArray MessageList::messageKeyToBytes(QMailMessageKey &key)
-{
-    QByteArray msgKey;
-    QDataStream keystream(&msgKey, QIODevice::WriteOnly);
-    key.serialize<QDataStream>(keystream);
-    return msgKey;
-}
-
-QByteArray MessageList::sortKeyBytes()
-{
-    QByteArray sortKey;
-    QMailMessageSortKey key = m_sortKey;
-    QDataStream keystream(&sortKey, QIODevice::WriteOnly);
-    key.serialize(keystream);
-    return sortKey;
 }
 
 

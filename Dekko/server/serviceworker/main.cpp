@@ -2,11 +2,15 @@
 #include <QDBusConnection>
 #include <MailServiceWorker.h>
 #include <MailServiceAdaptor.h>
+#include <service/AccountServiceWorker.h>
+#include <service/AccountServiceAdaptor.h>
 #include <qmailnamespace.h>
 
 
-#define SERVICE "org.dekkoproject.MailService"
+#define SERVICE "org.dekkoproject.Service"
 #define SERVICE_PATH "/mail"
+#define ACCOUNTS_SERVICE "org.dekkoproject.AccountService"
+#define ACCOUNTS_PATH "/accounts"
 
 
 Q_DECL_EXPORT int main(int argc, char** argv)
@@ -21,12 +25,16 @@ Q_DECL_EXPORT int main(int argc, char** argv)
 
     MailServiceWorker *worker = Q_NULLPTR;
     MailServiceAdaptor *adaptor = Q_NULLPTR;
+    AccountServiceWorker *accountsWorker = Q_NULLPTR;
+    AccountServiceAdaptor *accountsAdaptor = Q_NULLPTR;
 
     QDBusConnection connection = QDBusConnection::sessionBus();
 
     if (!connection.interface()->isServiceRegistered(SERVICE)) {
         worker = new MailServiceWorker(&app);
         adaptor = new MailServiceAdaptor(worker);
+        accountsWorker = new AccountServiceWorker(&app);
+        accountsAdaptor = new AccountServiceAdaptor(accountsWorker);
 
         if (!connection.registerService(SERVICE)) {
             qFatal("Could not register service");
@@ -34,6 +42,10 @@ Q_DECL_EXPORT int main(int argc, char** argv)
 
         if (!connection.registerObject(SERVICE_PATH, worker)) {
             qFatal("Could not register MailServiceWorker object");
+        }
+
+        if (!connection.registerObject(ACCOUNTS_PATH, accountsWorker)) {
+            qFatal("Could not register AccountServiceWorker object");
         }
 
     }

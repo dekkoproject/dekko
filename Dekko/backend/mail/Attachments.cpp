@@ -26,7 +26,7 @@
 #include <QMimeDatabase>
 #include <qmailaccount.h>
 #include <qmailnamespace.h>
-#include "Client.h"
+#include <MailServiceClient.h>
 #include <Paths.h>
 
 Attachments::Attachments(QObject *parent) : QObject(parent),

@@ -19,6 +19,7 @@
 #define FOLDER_H
 
 #include <QObject>
+#include <QDBusPendingCallWatcher>
 #include <qmailfolder.h>
 #include <qmailmessagekey.h>
 
@@ -30,7 +31,7 @@ class Folder : public QObject
     Q_PROPERTY(FolderType type READ type NOTIFY folderChanged)
     Q_PROPERTY(QString name READ name NOTIFY folderChanged)
     Q_PROPERTY(QString path READ path NOTIFY folderChanged)
-    Q_PROPERTY(int unreadCount READ unreadCount NOTIFY countChanged)
+    Q_PROPERTY(int unreadCount READ unreadCount NOTIFY unreadCountChanged)
     Q_PROPERTY(int totalCount READ totalCount NOTIFY countChanged)
     Q_PROPERTY(bool synchronizationEnabled READ syncEnabled NOTIFY folderChanged)
     Q_PROPERTY(bool isSynchronized READ synced NOTIFY folderChanged)
@@ -95,18 +96,22 @@ public:
 signals:
     void folderChanged();
     void countChanged();
+    void unreadCountChanged();
 
 public slots:
     void setFolderId(const int &id);
     void setIsFavourite(const bool &favourite);
     void handleContentsModified(const QMailFolderIdList &idList);
 
+private slots:
+    void updateUnreadCount();
+    void handleUnreadCount(QDBusPendingCallWatcher *call);
+
 private:
     QMailAccountId m_account;
     QMailFolder m_folder;
     QMailMessageKey m_key;
     FolderType m_type;
-
-    int getUnreadCount();
+    int m_unreadCount;
 };
 #endif // FOLDER_H
