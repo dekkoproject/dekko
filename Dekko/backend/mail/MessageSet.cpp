@@ -17,9 +17,13 @@
 */
 #include "MessageSet.h"
 #include <QDebug>
+#include <QDBusPendingReply>
 #include <qmailstore.h>
+#include "MailServiceClient.h"
+#include "serviceutils.h"
 
-MessageSet::MessageSet(QObject *parent) : QObject(parent), m_children(0)
+MessageSet::MessageSet(QObject *parent) : QObject(parent), m_children(0),
+    m_unreadCount(0), m_totalCount(0)
 {
     m_children = new QQmlObjectListModel<MessageSet>(this);
     connect(m_children, &QQmlObjectListModel<MessageSet>::countChanged,
@@ -28,31 +32,17 @@ MessageSet::MessageSet(QObject *parent) : QObject(parent), m_children(0)
             SIGNAL(folderContentsModified(const QMailFolderIdList&)),
             this,
             SIGNAL(countChanged()));
+    connect(this, &MessageSet::countChanged, this, &MessageSet::updateCounts);
 }
 
 int MessageSet::unreadCount()
 {
-
-    if (hasDecendents()) {
-        return QMailStore::instance()->countMessages(
-                descendentsKey().value<QMailMessageKey>() &
-                QMailMessageKey::status(QMailMessage::Read, QMailDataComparator::Excludes)
-                );
-    } else {
-        return QMailStore::instance()->countMessages(
-                m_key &
-                QMailMessageKey::status(QMailMessage::Read, QMailDataComparator::Excludes)
-                );
-    }
+    return m_unreadCount;
 }
 
 int MessageSet::totalCount()
 {
-    if (hasDecendents()) {
-        return QMailStore::instance()->countMessages(descendentsKey().value<QMailMessageKey>());
-    } else {
-        return QMailStore::instance()->countMessages(m_key);
-    }
+    return m_totalCount;
 }
 
 void MessageSet::setMessageKey(const QMailMessageKey &key)
@@ -61,6 +51,7 @@ void MessageSet::setMessageKey(const QMailMessageKey &key)
         return;
     m_key = key;
     emit messageKeyChanged();
+    updateCounts();
 }
 
 void MessageSet::setDisplayName(const QString &displayName)
@@ -69,6 +60,61 @@ void MessageSet::setDisplayName(const QString &displayName)
         return;
     m_name = displayName;
     emit displayNameChanged();
+}
+
+void MessageSet::updateCounts()
+{
+    //unread
+    QMailMessageKey unreadKey;
+    if (hasDecendents()) {
+        unreadKey = descendentsKey().value<QMailMessageKey>() & QMailMessageKey::status(QMailMessage::Read, QMailDataComparator::Excludes);
+    } else {
+        unreadKey = m_key & QMailMessageKey::status(QMailMessage::Read, QMailDataComparator::Excludes);
+    }
+
+    QDBusPendingReply<int> unreadReply = Client::instance()->bus()->totalCount(msg_key_bytes(unreadKey));
+
+    QDBusPendingCallWatcher *unreadWatcher = new QDBusPendingCallWatcher(unreadReply, this);
+    connect(unreadWatcher, &QDBusPendingCallWatcher::finished, this, &MessageSet::updateUnreadCount);
+
+    //total
+    QMailMessageKey totalKey;
+    if (hasDecendents()) {
+        totalKey = descendentsKey().value<QMailMessageKey>();
+    } else {
+        totalKey = m_key;
+    }
+
+    QDBusPendingReply<int> totalReply = Client::instance()->bus()->totalCount(msg_key_bytes(totalKey));
+
+    QDBusPendingCallWatcher *totalWatcher = new QDBusPendingCallWatcher(totalReply, this);
+    connect(totalWatcher, &QDBusPendingCallWatcher::finished, this, &MessageSet::updateTotalCount);
+}
+
+void MessageSet::updateUnreadCount(QDBusPendingCallWatcher *call)
+{
+    QDBusPendingReply<int> reply = *call;
+    if (reply.isError()) {
+        qDebug() << "[MessageSet::updateUnreadCount] >> Reply error";
+        call->deleteLater();
+        return;
+    }
+    m_unreadCount = reply.value();
+    emit unreadCountChanged();
+    call->deleteLater();
+}
+
+void MessageSet::updateTotalCount(QDBusPendingCallWatcher *call)
+{
+    QDBusPendingReply<int> reply = *call;
+    if (reply.isError()) {
+        qDebug() << "[MessageSet::updateUnreadCount] >> Reply error";
+        call->deleteLater();
+        return;
+    }
+    m_totalCount = reply.value();
+    emit totalCountChanged();
+    call->deleteLater();
 }
 
 
@@ -157,6 +203,7 @@ void StandardFolderSet::appendInboxDescendents()
         m_children->append(set);
         m_inboxList.append(id);
     }
+    updateCounts();
 }
 
 QMailMessageKey StandardFolderSet::createAccountDescendentKey(const QMailAccountId &id, const QMailFolder::StandardFolder &folderType)
@@ -202,6 +249,7 @@ void StandardFolderSet::init(const QString &displayName, const QMailMessageKey &
     case SpecialUseTrashFolder:
         break;
     }
+    updateCounts();
 }
 
 void StandardFolderSet::initNoDecendents(const QString &displayName, const QMailMessageKey &messageKey)
@@ -234,7 +282,6 @@ QVariant StandardFolderSet::descendentsKey()
 SmartFolderSet::SmartFolderSet(QObject *parent) : MessageSet(parent),
     m_type(SmartTodoFolder), m_timer(0)
 {
-    connect(this, &SmartFolderSet::countChanged, this, &SmartFolderSet::smartCountChanged);
 }
 
 void SmartFolderSet::init(const QString &displayName, const QMailMessageKey &messageKey)
@@ -252,6 +299,13 @@ void SmartFolderSet::init(const QString &displayName, const QMailMessageKey &mes
             m_timer->start();
         }
     }
+
+    if (m_type == SmartFolderSet::SmartTodoFolder) {
+        connect(this, &SmartFolderSet::totalCountChanged, this, &SmartFolderSet::smartCountChanged);
+    } else {
+        connect(this, &SmartFolderSet::unreadCountChanged, this, &SmartFolderSet::smartCountChanged);
+    }
+    updateCounts();
 }
 
 SmartFolderSet::SmartFolderType SmartFolderSet::type() const

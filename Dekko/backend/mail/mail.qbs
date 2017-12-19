@@ -15,6 +15,13 @@ DynamicLibrary {
     cpp.cxxStandardLibrary: "libstdc++";
     cpp.includePaths: [ path,  path + "/service/", path + "/../utils/"]
 
+    Properties {
+        condition: project.click
+        cpp.defines: [
+            "NO_TEMPLATE_STREAM"
+        ]
+    }
+
     Export {
         Depends { name: "cpp" }
         Depends { name: "AccountsLib" }

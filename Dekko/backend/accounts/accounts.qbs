@@ -10,6 +10,7 @@ DynamicLibrary {
     Depends { name: "Shared Utils" }
     Depends { name: "MazDB" }
     Depends { name: "SnapStandardPaths" }
+    Depends { name: "Qt.core" }
     Depends { name: "Qt.dbus" }
 
     cpp.optimization: qbs.buildVariant === "debug" ? "none" : "fast"
@@ -18,12 +19,20 @@ DynamicLibrary {
     cpp.cxxStandardLibrary: "libstdc++";
     cpp.includePaths: [ path, path + "/../utils/" ]
 
+    Properties {
+        condition: project.click
+        cpp.defines: [
+            "NO_TEMPLATE_STREAM"
+        ]
+    }
+
     Export {
         Depends { name: "cpp" }
         Depends { name: "QmfClient" }
         Depends { name: "QmfServer" }
         Depends { name: "Shared Utils" }
         Depends { name: "MazDB" }
+        Depends { name: "Qt.core" }
         Depends { name: "Qt.dbus" }
         cpp.includePaths: [ path, path + "/../utils/" ]
     }

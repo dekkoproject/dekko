@@ -150,6 +150,13 @@
       <arg name="messages" type="(iiii)" direction="out"/>
       <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QList&lt;quint64>"/>
     </method>
+    <method name="queryFolders">
+      <arg name="folderKey" type="ay" direction="in"/>
+      <arg name="sortKey" type="ay" direction="in"/>
+      <arg name="limit" type="i" direction="in"/>
+      <arg name="folders" type="(iiii)" direction="out"/>
+      <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QList&lt;quint64>"/>
+    </method>
     <method name="totalCount">
       <arg name="msgKey" type="ay" direction="in"/>
       <arg name="count" type="i" direction="out"/>

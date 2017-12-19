@@ -19,6 +19,7 @@
 #define MESSAGESET_H
 
 #include <QObject>
+#include <QDBusPendingCallWatcher>
 #include <QFlags>
 #include <QmlObjectListModel.h>
 #include <qmailmessagekey.h>
@@ -33,8 +34,8 @@ class MessageSet : public QObject
     Q_PROPERTY(QObject *descendents READ children CONSTANT)
     Q_PROPERTY(QVariant messageKey READ messageKey NOTIFY messageKeyChanged)
     Q_PROPERTY(QVariant descendentsKey READ descendentsKey NOTIFY descendentsCountChanged)
-    Q_PROPERTY(int unreadCount READ unreadCount NOTIFY countChanged)
-    Q_PROPERTY(int totalCount READ totalCount NOTIFY countChanged)
+    Q_PROPERTY(int unreadCount READ unreadCount NOTIFY unreadCountChanged)
+    Q_PROPERTY(int totalCount READ totalCount NOTIFY totalCountChanged)
     Q_PROPERTY(SupportedActions supportedActions READ supportedActions CONSTANT)
 public:
     explicit MessageSet(QObject *parent = 0);
@@ -72,16 +73,25 @@ signals:
     void descendentsCountChanged();
     void displayNameChanged();
     void countChanged();
+    void unreadCountChanged();
+    void totalCountChanged();
 
 public slots:
     void setMessageKey(const QMailMessageKey &key);
     void setDisplayName(const QString &displayName);
+    void updateCounts();
+
+private slots:
+    void updateUnreadCount(QDBusPendingCallWatcher *call);
+    void updateTotalCount(QDBusPendingCallWatcher *call);
 
 protected:
     QString m_name;
     QQmlObjectListModel<MessageSet> *m_children;
     QMailMessageKey m_key;
     SupportedActions m_actions;
+    int m_unreadCount;
+    int m_totalCount;
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(MessageSet::SupportedActions)

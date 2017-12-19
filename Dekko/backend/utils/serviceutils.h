@@ -14,14 +14,15 @@ inline QMailMessageKey to_msg_key(const QByteArray &key) {
     QMailMessageKey mKey;
     QByteArray m = key;
     QDataStream keystream(&m, QIODevice::ReadWrite);
-    mKey.deserialize<QDataStream>(keystream);
+    mKey.deserialize(keystream);
     return mKey;
 }
 
 inline QByteArray msg_key_bytes(const QMailMessageKey &key) {
     QByteArray msgKey;
     QDataStream keystream(&msgKey, QIODevice::WriteOnly);
-    key.serialize<QDataStream>(keystream);
+
+    key.serialize(keystream);
     return msgKey;
 }
 
@@ -36,7 +37,9 @@ inline QMailMessageSortKey to_msg_sort_key(const QByteArray &key) {
 inline QByteArray msg_sort_key_bytes(const QMailMessageSortKey &key) {
     QByteArray sortKey;
     QDataStream keystream(&sortKey, QIODevice::WriteOnly);
+
     key.serialize(keystream);
+
     return sortKey;
 }
 
@@ -61,14 +64,14 @@ inline QMailFolderKey to_folder_key(const QByteArray &key) {
     QMailFolderKey mKey;
     QByteArray m = key;
     QDataStream keystream(&m, QIODevice::ReadWrite);
-    mKey.deserialize<QDataStream>(keystream);
+    mKey.deserialize(keystream);
     return mKey;
 }
 
 inline QByteArray folder_key_bytes(const QMailFolderKey &key) {
     QByteArray msgKey;
     QDataStream keystream(&msgKey, QIODevice::WriteOnly);
-    key.serialize<QDataStream>(keystream);
+    key.serialize(keystream);
     return msgKey;
 }
 
@@ -108,14 +111,14 @@ inline QMailAccountKey to_account_key(const QByteArray &key) {
     QMailAccountKey mKey;
     QByteArray m = key;
     QDataStream keystream(&m, QIODevice::ReadWrite);
-    mKey.deserialize<QDataStream>(keystream);
+    mKey.deserialize(keystream);
     return mKey;
 }
 
 inline QByteArray account_key_bytes(const QMailAccountKey &key) {
     QByteArray accountKey;
     QDataStream keystream(&accountKey, QIODevice::WriteOnly);
-    key.serialize<QDataStream>(keystream);
+    key.serialize(keystream);
     return accountKey;
 }
 

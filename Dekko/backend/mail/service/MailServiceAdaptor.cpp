@@ -129,6 +129,14 @@ void MailServiceAdaptor::moveToStandardFolder(const QList<quint64> &msgIds, int 
     QMetaObject::invokeMethod(parent(), "moveToStandardFolder", Q_ARG(QList<quint64>, msgIds), Q_ARG(int, folderType), Q_ARG(bool, userTriggered));
 }
 
+QList<quint64> MailServiceAdaptor::queryFolders(const QByteArray &folderKey, const QByteArray &sortKey, int limit)
+{
+    // handle method call org.dekkoproject.MailService.queryFolders
+    QList<quint64> folders;
+    QMetaObject::invokeMethod(parent(), "queryFolders", Q_RETURN_ARG(QList<quint64>, folders), Q_ARG(QByteArray, folderKey), Q_ARG(QByteArray, sortKey), Q_ARG(int, limit));
+    return folders;
+}
+
 QList<quint64> MailServiceAdaptor::queryMessages(const QByteArray &msgKey, const QByteArray &sortKey, int limit)
 {
     // handle method call org.dekkoproject.MailService.queryMessages
