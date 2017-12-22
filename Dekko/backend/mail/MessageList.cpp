@@ -345,6 +345,11 @@ bool MessageList::disableUpdates() const
     return m_disableUpdates;
 }
 
+bool MessageList::disableRemovals() const
+{
+    return m_disableRemovals;
+}
+
 void MessageList::setLimit(int limit)
 {
     if (m_limit == limit)
@@ -517,6 +522,15 @@ void MessageList::setDisableUpdates(bool disableUpdates)
     }
 }
 
+void MessageList::setDisableRemovals(bool disableRemovals)
+{
+    if (m_disableRemovals == disableRemovals)
+        return;
+
+    m_disableRemovals = disableRemovals;
+    emit disableRemovalsChanged(disableRemovals);
+}
+
 void MessageList::handleNewMessages(const QMailMessageIdList &newList)
 {
     QElapsedTimer timer;
@@ -550,6 +564,10 @@ void MessageList::handleMessagesRemoved(const QMailMessageIdList &removedList)
     if (m_disableUpdates) {
         m_needsRefresh = true;
         //            m_refreshList << updatedList;
+        return;
+    }
+
+    if (m_disableRemovals) {
         return;
     }
 
@@ -633,6 +651,9 @@ void MessageList::insertMessageAt(const int &index, const QMailMessageId &id)
 
 void MessageList::removeMessageAt(const int &index)
 {
+    if (m_disableRemovals) {
+        return;
+    }
     QElapsedTimer timer;
     qDebug() << "[removeMessageAt] >> Starting";
     timer.start();

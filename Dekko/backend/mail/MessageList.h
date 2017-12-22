@@ -89,6 +89,7 @@ class MessageList : public QObject
     Q_PROPERTY(bool canMarkSelectionImportant READ canMarkSelectionImportant NOTIFY selectionIndexesChanged)
 
     Q_PROPERTY(bool disableUpdates READ disableUpdates WRITE setDisableUpdates NOTIFY disableUpdatesChanged)
+    Q_PROPERTY(bool disableRemovals READ disableRemovals WRITE setDisableRemovals NOTIFY disableRemovalsChanged)
 
     Q_ENUMS(FilterKey)
 
@@ -132,6 +133,8 @@ public:
 
     bool disableUpdates() const;
 
+    bool disableRemovals() const;
+
 signals:
     void loadingChanged();
     void totalCountChanged();
@@ -165,6 +168,8 @@ signals:
             const QMap<QMailMessageId, int> &indexMap,
             const int& limit);
 
+    void disableRemovalsChanged(bool disableRemovals);
+
 public slots:
     void setLimit(int limit);
     void setKey(const QVariant &key);
@@ -192,6 +197,8 @@ public slots:
     void setFilterKey(FilterKey filter);
 
     void setDisableUpdates(bool disableUpdates);
+
+    void setDisableRemovals(bool disableRemovals);
 
 private slots:
     void handleNewMessages(const QMailMessageIdList &newList);
@@ -235,6 +242,7 @@ private: //members
     QMailMessageIdList m_refreshList;
     QThread m_workerThread;
     bool m_loading;
+    bool m_disableRemovals;
 };
 
 #endif // MESSAGELIST_H

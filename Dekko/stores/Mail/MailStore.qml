@@ -57,6 +57,7 @@ BaseMessagingStore {
     MessageList {
         id: msgList
         disableUpdates: false
+        disableRemovals: filter === MessageList.Unread
         sortOrder: Qt.DescendingOrder
     }
 
