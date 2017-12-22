@@ -68,6 +68,9 @@ public slots:
 private slots:
     void handleAccountActivity(QMailServiceAction::Activity activity);
 
+    void createStandardFolders();
+    void testTransmission();
+
 private:
     QPointer<Account> m_account; // store it locally
     QPointer<QMailRetrievalAction> m_retrievelAction;

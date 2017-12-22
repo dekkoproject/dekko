@@ -131,6 +131,8 @@ public:
 
     MailServiceInterface *bus() { return m_mService; }
 
+    void pruneCache(const QMailMessageIdList &msgIds);
+
 signals:
     void undoCountChanged();
     void serviceChanged();

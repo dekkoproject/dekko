@@ -158,6 +158,8 @@ public slots:
 
     QList<quint64> queryMessages(const QByteArray &msgKey, const QByteArray &sortKey, const int &limit);
     QList<quint64> queryFolders(const QByteArray &folderKey, const QByteArray &sortKey = QByteArray(), const int &limit = 0);
+
+    void pruneCache(const QList<quint64> &msgIds);
 signals:
     void undoCountChanged();
     void updatesRolledBack();

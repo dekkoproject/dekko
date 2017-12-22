@@ -186,6 +186,10 @@ class MailServiceAdaptor: public QDBusAbstractAdaptor
 "      <arg direction=\"in\" type=\"ay\" name=\"msgKey\"/>\n"
 "      <arg direction=\"out\" type=\"i\" name=\"count\"/>\n"
 "    </method>\n"
+"    <method name=\"pruneCache\">\n"
+"      <arg direction=\"in\" type=\"(iiii)\" name=\"msgIds\"/>\n"
+"      <annotation value=\"QList&lt;quint64&gt;\" name=\"org.qtproject.QtDBus.QtTypeName.In0\"/>\n"
+"    </method>\n"
 "  </interface>\n"
         "")
 public:
@@ -214,6 +218,7 @@ public Q_SLOTS: // METHODS
     void markMessagesTodo(const QList<quint64> &msgIds, bool read);
     void moveToFolder(const QList<quint64> &msgIds, qulonglong folderId);
     void moveToStandardFolder(const QList<quint64> &msgIds, int folderType, bool userTriggered);
+    void pruneCache(const QList<quint64> &msgIds);
     QList<quint64> queryFolders(const QByteArray &folderKey, const QByteArray &sortKey, int limit);
     QList<quint64> queryMessages(const QByteArray &msgKey, const QByteArray &sortKey, int limit);
     void removeMessage(qulonglong msgId, int option);

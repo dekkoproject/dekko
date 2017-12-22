@@ -300,6 +300,14 @@ void Client::undoActions()
     m_mService->undoActions();
 }
 
+void Client::pruneCache(const QMailMessageIdList &msgIds)
+{
+    if (msgIds.isEmpty()) {
+        qDebug() << "[Client::pruneCache] >> No Messages to prune";
+    }
+    m_mService->pruneCache(to_dbus_msglist(msgIds));
+}
+
 void Client::handleFailure(const quint64 &id, const int &statusCode, const QString &statusText)
 {
     QMailServiceAction::Status::ErrorCode s = static_cast<QMailServiceAction::Status::ErrorCode>(statusCode);

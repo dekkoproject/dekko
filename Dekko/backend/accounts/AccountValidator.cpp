@@ -16,6 +16,7 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "AccountValidator.h"
+#include <QTimer>
 
 AccountValidator::AccountValidator(QObject *parent) : QObject(parent),
     m_inProgress(false), m_state(None), m_timer(new QTimer(this))
@@ -50,14 +51,14 @@ void AccountValidator::handleAccountActivity(QMailServiceAction::Activity activi
             {
                 // Success retrieving folders so create the standard folders
                 m_state = CreateStandardFolders;
-                m_retrievelAction->createStandardFolders(m_account->accountId());
+                QTimer::singleShot(1000, this, &AccountValidator::createStandardFolders);
                 break;
             }
             case CreateStandardFolders:
             {
                 // Incomings good
                 m_state = TransmitMessage;
-                m_transmitAction->transmitMessages(m_account->accountId());
+                QTimer::singleShot(1000, this, &AccountValidator::testTransmission);
                 break;
             }
             case TransmitMessage:
@@ -87,6 +88,16 @@ void AccountValidator::handleAccountActivity(QMailServiceAction::Activity activi
             testFailed(outgoing->serviceType(), m_retrievelAction->status());
         }
     }
+}
+
+void AccountValidator::createStandardFolders()
+{
+    m_retrievelAction->createStandardFolders(m_account->accountId());
+}
+
+void AccountValidator::testTransmission()
+{
+    m_transmitAction->transmitMessages(m_account->accountId());
 }
 
 void AccountValidator::testFailed(AccountConfiguration::ServiceType serviceType, QMailServiceAction::Status status)

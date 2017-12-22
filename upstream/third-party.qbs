@@ -110,4 +110,9 @@ Project {
         filePath: "ubuntu-notification-plugin/notify-service.qbs"
         inheritProperties: true
     }
+
+    SubProject {
+        filePath: "cache-manager-plugin/cache-manager-plugin.qbs"
+        inheritProperties: true
+    }
 }

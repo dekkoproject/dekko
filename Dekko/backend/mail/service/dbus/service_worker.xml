@@ -161,5 +161,9 @@
       <arg name="msgKey" type="ay" direction="in"/>
       <arg name="count" type="i" direction="out"/>
     </method>
+    <method name="pruneCache">
+      <arg name="msgIds" type="(iiii)" direction="in" />
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In0" value="QList&lt;quint64>"/>
+    </method>
   </interface>
 </node>

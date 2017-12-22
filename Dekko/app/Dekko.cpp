@@ -94,10 +94,10 @@ bool Dekko::setup()
 
 
     loadPlugins();
-
-#if defined(CLICK_MODE)
     m_serviceRegistry = new ServiceRegistry(this);
     m_serviceRegistry->setServiceKey(QStringLiteral("Dekko::Service"));
+
+#if defined(CLICK_MODE)
     m_serviceRegistry->startServices();
 #else
     if (!isServerRunning()) {
@@ -111,6 +111,7 @@ bool Dekko::setup()
     } else {
         qDebug() << "[Dekko]" << "Message server already running, using that";
     }
+    m_serviceRegistry->startServices();
 #endif
 
     if (!isWorkerRunning()) {
@@ -129,6 +130,7 @@ bool Dekko::setup()
     devMode = parser.isSet("d");
 
     m_engine.rootContext()->setContextProperty("dekkoapp", this);
+    m_engine.rootContext()->setContextProperty("service", m_serviceRegistry.data());
     m_engine.rootContext()->setContextProperty("ctxt_window", m_view);
     m_engine.rootContext()->setContextProperty("devModeEnabled", QVariant(devMode));
     m_verboseLogging = (parser.isSet("d") || parser.isSet("v") || QFile::exists(QStringLiteral("/tmp/dekko-debug")));

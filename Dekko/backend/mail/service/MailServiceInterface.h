@@ -142,6 +142,13 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QStringLiteral("moveToStandardFolder"), argumentList);
     }
 
+    inline QDBusPendingReply<> pruneCache(const QList<quint64> &msgIds)
+    {
+        QList<QVariant> argumentList;
+        argumentList << QVariant::fromValue(msgIds);
+        return asyncCallWithArgumentList(QStringLiteral("pruneCache"), argumentList);
+    }
+
     inline QDBusPendingReply<QList<quint64> > queryFolders(const QByteArray &folderKey, const QByteArray &sortKey, int limit)
     {
         QList<QVariant> argumentList;

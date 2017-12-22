@@ -194,6 +194,14 @@ QList<quint64> MailServiceWorker::queryFolders(const QByteArray &folderKey, cons
     return to_dbus_folderlist(result);
 }
 
+void MailServiceWorker::pruneCache(const QList<quint64> &msgIds)
+{
+    QMailMessageIdList msgs = from_dbus_msglist(msgIds);
+    if (!msgs.isEmpty()) {
+        QMailStore::instance()->removeMessages(QMailMessageKey::id(msgs), QMailStore::MessageRemovalOption::NoRemovalRecord);
+    }
+}
+
 void MailServiceWorker::handleMessagesFetched(const QMailMessageIdList &msgIds)
 {
     QList<quint64> messages = to_dbus_msglist(msgIds);
