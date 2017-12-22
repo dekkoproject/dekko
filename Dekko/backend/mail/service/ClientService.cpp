@@ -40,6 +40,7 @@ ClientService::ClientService(QObject *parent) : QObject(parent),
     connect(m_serviceWatcher, &ClientServiceWatcher::accountSynced, this, &ClientService::accountSynced);
     connect(m_serviceWatcher, &ClientServiceWatcher::syncAccountFailed, this, &ClientService::syncAccountFailed);
     connect(m_serviceWatcher, &ClientServiceWatcher::standardFoldersCreated, this, &ClientService::standardFoldersCreated);
+    connect(this, &ClientService::messagesSent, this, &ClientService::markSentRead);
     emit queueChanged();
 }
 
@@ -298,6 +299,11 @@ void ClientService::rollBackMailStoreUpdates(const QMailAccountIdList &accounts)
         }
         emit updatesRolledBack();
     }
+}
+
+void ClientService::markSentRead(const QMailMessageIdList &ids)
+{
+    markMessagesRead(ids, true);
 }
 
 void ClientService::sendAnyQueuedMail()

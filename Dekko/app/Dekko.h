@@ -56,6 +56,7 @@ public slots:
 
 private slots:
     void serverProcessError(QProcess::ProcessError error);
+    void workerProcessError(QProcess::ProcessError error);
 
 protected:
     void loadPlugins();

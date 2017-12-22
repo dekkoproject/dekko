@@ -203,7 +203,7 @@ bool Dekko::startWorker()
     m_worker = new QProcess(this);
     static const QString binary(QString("/dekko-worker"));
     connect(m_worker,SIGNAL(error(QProcess::ProcessError)),
-            this,SLOT(serverProcessError(QProcess::ProcessError)));
+            this,SLOT(workerProcessError(QProcess::ProcessError)));
     connect(m_worker, &QProcess::readyRead, [=](){ if (m_worker->canReadLine()) qDebug() << m_worker->readLine(); });
     m_worker->start(QMail::messageServerPath() + binary);
     return m_worker->waitForStarted();
@@ -220,6 +220,14 @@ void Dekko::serverProcessError(QProcess::ProcessError error)
     delete m_server;
     m_server = 0;
     startServer();
+}
+
+void Dekko::workerProcessError(QProcess::ProcessError error)
+{
+    qWarning() << "[ERROR] Message worker stopped, trying to restart";
+    delete m_worker;
+    m_worker = 0;
+    startWorker();
 }
 
 void Dekko::loadPlugins()

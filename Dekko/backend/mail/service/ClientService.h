@@ -108,6 +108,7 @@ private slots:
 
     void undoableCountChanged();
     void rollBackMailStoreUpdates(const QMailAccountIdList &accounts);
+    void markSentRead(const QMailMessageIdList &ids);
 
 private:
     void connectServiceAction(QMailServiceAction* action);
