@@ -18,13 +18,14 @@
 #ifndef ACCOUNTCONFIGURATION_H
 #define ACCOUNTCONFIGURATION_H
 
+#include <QLoggingCategory>
 #include <QObject>
 #include <qmailaccountconfiguration.h>
 #include <qmailserviceconfiguration.h>
 #include <qmailtransport.h>
 #include <qmailnamespace.h>
 
-
+Q_DECLARE_LOGGING_CATEGORY(D_ACCOUNT_CONF)
 /** @ingroup group_accounts */
 struct AccountKeys {
     // Base properties

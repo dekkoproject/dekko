@@ -18,11 +18,14 @@
 #ifndef ACCOUNT_H
 #define ACCOUNT_H
 
+#include <QLoggingCategory>
 #include <QObject>
 #include <QPointer>
 #include <qmailaccount.h>
 #include <qmailaccountconfiguration.h>
 #include "AccountConfiguration.h"
+
+Q_DECLARE_LOGGING_CATEGORY(D_ACCOUNT)
 
 /** @ingroup group_accounts */
 class Account : public QObject

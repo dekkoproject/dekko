@@ -18,6 +18,8 @@
 #include "AccountConfiguration.h"
 #include <QStringList>
 
+Q_LOGGING_CATEGORY(D_ACCOUNT_CONF, "dekko.accounts.config")
+
 //TODO: Move to seperate file??
 const QString AccountKeys::name = QStringLiteral("username");
 const QString AccountKeys::email = QStringLiteral("address");
@@ -303,7 +305,7 @@ int ImapAccountConfiguration::timeTillLogout() const
     bool ok;
     int val(t.toInt(&ok));
     if (!ok) {
-        qWarning() << "Could not parse timeTillLogout";
+        qCWarning(D_ACCOUNT_CONF) << "Could not parse timeTillLogout";
         return tenSeconds;
     } else {
         return val;
@@ -317,7 +319,7 @@ int ImapAccountConfiguration::searchLimit() const
     bool ok;
     int val(t.toInt(&ok));
     if (!ok) {
-        qWarning() << "Could not parse searchLimit";
+        qCWarning(D_ACCOUNT_CONF) << "Could not parse searchLimit";
         return 0;
     } else {
         return val;

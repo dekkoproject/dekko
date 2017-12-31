@@ -33,8 +33,10 @@ Q_DECL_EXPORT int main(int argc, char** argv)
     if (!connection.interface()->isServiceRegistered(SERVICE)) {
         worker = new MailServiceWorker(&app);
         adaptor = new MailServiceAdaptor(worker);
+        Q_UNUSED(adaptor);
         accountsWorker = new AccountServiceWorker(&app);
         accountsAdaptor = new AccountServiceAdaptor(accountsWorker);
+        Q_UNUSED(accountsAdaptor);
 
         if (!connection.registerService(SERVICE)) {
             qFatal("Could not register service");

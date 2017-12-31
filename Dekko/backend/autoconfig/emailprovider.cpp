@@ -30,6 +30,7 @@ EmailProvider *EmailProvider::fromJson(const QByteArray &jsonData)
 {
     EmailProvider *provider = new EmailProvider();
     if (jsonData.isEmpty()) {
+        provider->deleteLater();
         return Q_NULLPTR;
     }
     provider->setData(Json, jsonData);

@@ -19,6 +19,7 @@
 #define DEKKO_H
 
 #include <QObject>
+#include <QLoggingCategory>
 //#include <QGuiApplication>
 #include <QApplication>
 #include <QPointer>
@@ -34,12 +35,14 @@
 #include <messageserver.h>
 #endif
 
+Q_DECLARE_LOGGING_CATEGORY(DEKKO_MAIN)
+
 class Dekko : public QApplication
 {
     Q_OBJECT
 public:
     Dekko(int &argc, char **argv);
-    virtual ~Dekko(){}
+    ~Dekko();
     /** @short should be run before call to exec() */
     bool setup();
     bool isServerRunning();
@@ -62,19 +65,18 @@ protected:
     void loadPlugins();
 
 private:
+    ServiceRegistry *m_serviceRegistry;
 #ifdef SERVER_AS_QTHREAD
     MessageServerThread *m_serverThread;
 #else
     QProcess *m_server;
     QProcess *m_worker;
 #endif
-    QQuickView *m_view;
     MsgPartQNAMFactory m_partqnam;
     bool devMode;
     bool m_verboseLogging;
     QCommandLineParser parser;
     QQmlApplicationEngine m_engine;
-    QPointer<ServiceRegistry> m_serviceRegistry;
 
 };
 

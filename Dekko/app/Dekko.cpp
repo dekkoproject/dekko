@@ -35,18 +35,19 @@
 #define MEDIUM_FF_WDTH 800
 #define LARGE_FF_WIDTH 1100
 
+Q_LOGGING_CATEGORY(DEKKO_MAIN, "dekko.main")
+
 Dekko::Dekko(int &argc, char **argv) :
     QApplication(argc, argv),
+    m_serviceRegistry(0),
 #ifdef SERVER_AS_QTHREAD
     m_serverThread(0),
 #else
     m_server(0),
     m_worker(0),
 #endif
-    m_view(0),
     devMode(false),
-    m_verboseLogging(false),
-    m_serviceRegistry(Q_NULLPTR)
+    m_verboseLogging(false)
 {
     QCoreApplication::setOrganizationName(APP_ORG);
     QCoreApplication::setApplicationName(APP_NAME);
@@ -56,7 +57,7 @@ Dekko::Dekko(int &argc, char **argv) :
     // Useful to be able to check a resource has been included
 //    QDirIterator it(":", QDirIterator::Subdirectories);
 //    while (it.hasNext()) {
-//        qDebug() << it.next();
+//        qCDebug(DEKKO_MAIN) << it.next();
 //    }
     parser.setApplicationDescription("Dekko email client");
     parser.addHelpOption();
@@ -76,6 +77,23 @@ Dekko::Dekko(int &argc, char **argv) :
     }
 
     parser.process(cArgs);
+
+    m_verboseLogging = (parser.isSet("d") || parser.isSet("v") || QFile::exists(QStringLiteral("/tmp/dekko-debug")));
+
+    if(!m_verboseLogging)
+            qputenv("QT_LOGGING_RULES", "dekko.*=false");
+        else
+            qputenv("QT_LOGGING_RULES", "dekko.*=true");
+
+}
+
+Dekko::~Dekko(){
+#ifndef SERVER_AS_QTHREAD
+    delete m_server;
+    m_server = 0;
+    delete m_worker;
+    m_worker = 0;
+#endif
 }
 
 bool Dekko::setup()
@@ -101,39 +119,37 @@ bool Dekko::setup()
     m_serviceRegistry->startServices();
 #else
     if (!isServerRunning()) {
-        qDebug() << "[Dekko]" << "Message server not running attempting to start";
+        qCDebug(DEKKO_MAIN) << "[Dekko]" << "Message server not running attempting to start";
         if (!startServer()) {
-            qDebug() << "[Dekko]" << "Message server failed to start";
+            qCDebug(DEKKO_MAIN) << "[Dekko]" << "Message server failed to start";
             return false;
         } else {
-            qDebug() << "[Dekko]" << "Message server started successfully \\o/";
+            qCDebug(DEKKO_MAIN) << "[Dekko]" << "Message server started successfully \\o/";
         }
     } else {
-        qDebug() << "[Dekko]" << "Message server already running, using that";
+        qCDebug(DEKKO_MAIN) << "[Dekko]" << "Message server already running, using that";
     }
     m_serviceRegistry->startServices();
 #endif
 
     if (!isWorkerRunning()) {
-        qDebug() << "[Dekko]" << "Message worker not running attempting to start";
+        qCDebug(DEKKO_MAIN) << "[Dekko]" << "Message worker not running attempting to start";
         if (!startWorker()) {
-            qDebug() << "[Dekko]" << "Message worker failed to start";
+            qCDebug(DEKKO_MAIN) << "[Dekko]" << "Message worker failed to start";
             return false;
         } else {
-            qDebug() << "[Dekko]" << "Message worker started successfully \\o/";
+            qCDebug(DEKKO_MAIN) << "[Dekko]" << "Message worker started successfully \\o/";
         }
     } else {
-        qDebug() << "[Dekko]" << "Message worker already running, using that";
+        qCDebug(DEKKO_MAIN) << "[Dekko]" << "Message worker already running, using that";
     }
     m_engine.setNetworkAccessManagerFactory(&m_partqnam);
 
     devMode = parser.isSet("d");
 
     m_engine.rootContext()->setContextProperty("dekkoapp", this);
-    m_engine.rootContext()->setContextProperty("service", m_serviceRegistry.data());
-    m_engine.rootContext()->setContextProperty("ctxt_window", m_view);
+    m_engine.rootContext()->setContextProperty("service", m_serviceRegistry);
     m_engine.rootContext()->setContextProperty("devModeEnabled", QVariant(devMode));
-    m_verboseLogging = (parser.isSet("d") || parser.isSet("v") || QFile::exists(QStringLiteral("/tmp/dekko-debug")));
     m_engine.rootContext()->setContextProperty("verboseLogging", QVariant(m_verboseLogging));
     // Context property to figure out if we are on unity8/mir or not
     m_engine.rootContext()->setContextProperty(QStringLiteral("isRunningOnMir"), QVariant(qgetenv("QT_QPA_PLATFORM") == "ubuntumirclient"));
@@ -204,14 +220,14 @@ bool Dekko::startWorker()
     static const QString binary(QString("/dekko-worker"));
     connect(m_worker,SIGNAL(error(QProcess::ProcessError)),
             this,SLOT(workerProcessError(QProcess::ProcessError)));
-    connect(m_worker, &QProcess::readyRead, [=](){ if (m_worker->canReadLine()) qDebug() << m_worker->readLine(); });
+    connect(m_worker, &QProcess::readyRead, [=](){ if (m_worker->canReadLine()) qCDebug(DEKKO_MAIN) << m_worker->readLine(); });
     m_worker->start(QMail::messageServerPath() + binary);
     return m_worker->waitForStarted();
 }
 
 void Dekko::trimCache()
 {
-    m_view->engine()->trimComponentCache();
+    m_engine.trimComponentCache();
 }
 // TODO: show popup in mainview about server vanishing and Dekko will now close.
 void Dekko::serverProcessError(QProcess::ProcessError error)

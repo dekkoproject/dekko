@@ -22,6 +22,8 @@
 #include <qmailserviceconfiguration.h>
 #include <qmailstore.h>
 
+Q_LOGGING_CATEGORY(D_ACCOUNT, "dekko.accounts.account")
+
 const QString Account::imapServiceType = QStringLiteral("imap4");
 const QString Account::popServiceType = QStringLiteral("pop3");
 const QString Account::qmfStorage = QStringLiteral("qmfstoragemanager");
@@ -44,7 +46,7 @@ void Account::setSpecialUseFolder(Account::SpecialUseFolder folder, const quint6
     if (fId.isValid()) {
         m_account->setStandardFolder((QMailFolder::StandardFolder)folder, fId);
     } else {
-        qDebug() << "[Account]" << __func__ << "Invalid folder id";
+        qCDebug(D_ACCOUNT) << __func__ << "Invalid folder id";
         emit error(Error::InvalidFolderId, id());
     }
 }
@@ -79,8 +81,8 @@ void Account::setId(const int &id)
         initialize(); // TODO: is this needed?
         emit accountChanged(aId.toULongLong());
     } else {
-        qDebug() << "[Account]" << __func__ << "Account id: '" << aId.toULongLong() << "' is not valid";
-        emit error(Error::InvalidAccountId, m_account->id().toULongLong());
+        qCDebug(D_ACCOUNT)  << __func__ << "Account id: '" << aId.toULongLong() << "' is not valid";
+        emit error(Error::InvalidAccountId, id);
     }
 }
 
@@ -89,7 +91,7 @@ void Account::setName(const QString &name)
     if (!name.isEmpty()) {
         m_account->setName(name);
     } else {
-        qDebug() << "[Account]" << __func__ << "Empty name";
+        qCDebug(D_ACCOUNT)  << __func__ << "Empty name";
         emit error(Error::EmptyName, id());
     }
 }
@@ -107,16 +109,16 @@ bool Account::save()
     m_account->setStatus(QMailAccount::CanCreateFolders, false);
     m_account->setFromAddress(QMailAddress(m_outgoing->name(), m_outgoing->email()));
     if (m_account->id().isValid()) {
-        qDebug() << "[Account]" << __func__ << "Updating account settings for: " << m_account->id();
+        qCDebug(D_ACCOUNT)  << __func__ << "Updating account settings for: " << m_account->id();
         result = QMailStore::instance()->updateAccount(m_account, m_accountConfig);
     } else {
-        qDebug() << "[Account]" << __func__ << "Creating new account";
+        qCDebug(D_ACCOUNT)  << __func__ << "Creating new account";
         result = QMailStore::instance()->addAccount(m_account, m_accountConfig);
     }
     if (result) {
-        qDebug() << "[Account]" << __func__ << "Success";
+        qCDebug(D_ACCOUNT)  << __func__ << "Success";
     } else {
-        qDebug() << "[Account]" << __func__ << "Oops that didn't work,' something bad happened";
+        qCDebug(D_ACCOUNT)  << __func__ << "Oops that didn't work,' something bad happened";
     }
     return result;
 }
@@ -137,7 +139,7 @@ void Account::initialize()
     QStringList accountServices = m_accountConfig->services();
     // Need to check the qmfstoragemanager is an available service
     if (!accountServices.contains(qmfStorage)) {
-//        qDebug() << "[Account]" << __func__ << "qmfstoragemanager not in services, adding it now";
+//        qCDebug(D_ACCOUNT)  << __func__ << "qmfstoragemanager not in services, adding it now";
         m_accountConfig->addServiceConfiguration(qmfStorage);
         QMailServiceConfiguration qmfStorageConfig(m_accountConfig, qmfStorage);
         qmfStorageConfig.setType(QMailServiceConfiguration::Storage);
@@ -145,7 +147,7 @@ void Account::initialize()
         qmfStorageConfig.setValue(QStringLiteral("basePath"), QStringLiteral(""));
     }
     if (!accountServices.contains(QStringLiteral("smtp"))) {
-//        qDebug() << "[Account]" << __func__ << "smtp not in services, adding now";
+//        qCDebug(D_ACCOUNT)  << __func__ << "smtp not in services, adding now";
         m_accountConfig->addServiceConfiguration(smtpServiceType);
     }
     QString recvType;
@@ -172,7 +174,7 @@ void Account::reload(const QMailAccountIdList &ids)
     if (!ids.contains(m_account->id())) {
         return;
     }
-    qDebug() << "[Account]" << __func__ << "Reloading account";
+    qCDebug(D_ACCOUNT)  << __func__ << "Reloading account";
     delete m_incoming;
     m_incoming = 0;
     delete m_outgoing;
@@ -210,22 +212,22 @@ void NewAccount::setSourceType(const int &srcType)
         qmfStorageConfig.setValue(QStringLiteral("basePath"), QStringLiteral(""));
     }
     if (m_type == AccountConfiguration::IMAP) {
-        qDebug() << "Create new imap configuration";
+        qCDebug(D_ACCOUNT) << "Create new imap configuration";
         if (!accountServices.contains(imapServiceType)) {
-            qDebug() << "Adding IMAP service configuration";
+            qCDebug(D_ACCOUNT) << "Adding IMAP service configuration";
             m_accountConfig->addServiceConfiguration(imapServiceType);
         }
         m_incoming = new ImapAccountConfiguration(this, m_accountConfig, imapServiceType);
     } else if (m_type == AccountConfiguration::POP3) {
-        qDebug() << "Create new pop configuration";
+        qCDebug(D_ACCOUNT) << "Create new pop configuration";
         if (!accountServices.contains(popServiceType)) {
-            qDebug() << "Adding pop service configuration";
+            qCDebug(D_ACCOUNT) << "Adding pop service configuration";
             m_accountConfig->addServiceConfiguration(popServiceType);
         }
         m_incoming = new PopAccountConfiguration(this, m_accountConfig, popServiceType);
     }
     if (!accountServices.contains(QStringLiteral("smtp"))) {
-        qDebug() << "[Account]" << __func__ << "smtp not in services, adding now";
+        qCDebug(D_ACCOUNT)  << __func__ << "smtp not in services, adding now";
         m_accountConfig->addServiceConfiguration(smtpServiceType);
     }
     m_outgoing = new SmtpAccountConfiguration(this, m_accountConfig, smtpServiceType);

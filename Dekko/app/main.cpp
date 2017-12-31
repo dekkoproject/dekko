@@ -22,6 +22,9 @@
 
 int main(int argc, char** argv)
 {
+    // set pattern for loggin messages adding date to message text
+    qSetMessagePattern("[%{time yyyyMMdd h:mm:ss.zzz t} %{if-category}[%{category}] >> %{endif}%{message}");
+
     Dekko dekko(argc, argv);
 
     if (!dekko.setup()) {

@@ -19,6 +19,8 @@
 #include <QDebug>
 #include "qmailstore.h"
 
+Q_LOGGING_CATEGORY(D_ACCOUNTS_LIST, "dekko.accounts.list")
+
 Accounts::Accounts(QObject *parent) : QObject(parent),
     m_filter(Enabled), m_model(0)
 {
@@ -98,6 +100,7 @@ void Accounts::setFilter(Accounts::Filters filter)
 
 void Accounts::accountsAdded(const QMailAccountIdList &ids)
 {
+    qCDebug(D_ACCOUNTS_LIST) << "Adding accounts " << ids << "to list";
     QMailAccountKey passKey;
     if (filter() != Enabled)
         // We need to ensure we only show enabled accounts
@@ -119,7 +122,7 @@ void Accounts::accountsAdded(const QMailAccountIdList &ids)
             m_model->append(account);
             m_idList.append(id);
         } else {
-            qDebug() << "[Accounts]" << __func__ << "Account with same id already in model";
+            qCDebug(D_ACCOUNTS_LIST) << __func__ << "Account with same id already in model";
         }
     }
 }
@@ -162,6 +165,7 @@ void Accounts::accountsUpdated(const QMailAccountIdList &ids)
 
 void Accounts::accountsRemoved(const QMailAccountIdList &ids)
 {
+    qCDebug(D_ACCOUNTS_LIST) << "Removing accounts" << ids << "from list";
     Q_FOREACH(const QMailAccountId &id, ids) {
         int index = m_idList.indexOf(id);
         if (index == -1) {
@@ -176,6 +180,7 @@ void Accounts::accountsRemoved(const QMailAccountIdList &ids)
 
 void Accounts::reset()
 {
+    qCDebug(D_ACCOUNTS_LIST) << "Resetting accounts list";
     m_model->clear();
     m_idList.clear();
     init();
@@ -183,6 +188,7 @@ void Accounts::reset()
 
 void Accounts::init()
 {
+    qCDebug(D_ACCOUNTS_LIST) << "Initialising accounts list";
     auto idList = QMailStore::instance()->queryAccounts(QMailAccountKey::status(maskForFilter(filter())) ,QMailAccountSortKey::name());
     Q_FOREACH(const QMailAccountId &id, idList) {
         int index = m_idList.indexOf(id);

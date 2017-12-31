@@ -18,6 +18,7 @@
 #ifndef MESSAGELIST_H
 #define MESSAGELIST_H
 
+#include <QLoggingCategory>
 #include <QObject>
 #include <QMap>
 #include <QCache>
@@ -33,6 +34,8 @@
 // Remember the selected message for each key using QCache
 // it works but it's really bogging down qml. Bindings need optimizing.
 //#define EXPERIMENTAL_REMEMBER_SELECTED_MESSAGE
+
+Q_DECLARE_LOGGING_CATEGORY(D_MSG_LIST)
 
 class MessageListWorker : public QObject
 {

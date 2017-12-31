@@ -18,11 +18,14 @@
 #ifndef ACCOUNTVALIDATOR_H
 #define ACCOUNTVALIDATOR_H
 
+#include <QLoggingCategory>
 #include <QObject>
 #include <QPointer>
 #include <QTimer>
 #include <qmailserviceaction.h>
 #include "Account.h"
+
+Q_DECLARE_LOGGING_CATEGORY(D_ACCOUNTS_VALIDATOR)
 
 /** @ingroup group_accounts */
 class AccountValidator: public QObject

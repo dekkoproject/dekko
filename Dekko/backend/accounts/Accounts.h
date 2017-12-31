@@ -18,12 +18,16 @@
 #ifndef ACCOUNTS_H
 #define ACCOUNTS_H
 
+#include <QDebug>
+#include <QLoggingCategory>
 #include <QObject>
 #include <qmailaccount.h>
 #include <qmailaccountkey.h>
 #include <QmlObjectListModel.h>
 
 #include "Account.h"
+
+Q_DECLARE_LOGGING_CATEGORY(D_ACCOUNTS_LIST)
 
 /** @short Accounts class is the main interface for accessing all account related activities.
  *

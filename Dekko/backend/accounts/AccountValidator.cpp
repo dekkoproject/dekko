@@ -18,6 +18,8 @@
 #include "AccountValidator.h"
 #include <QTimer>
 
+Q_LOGGING_CATEGORY(D_ACCOUNTS_VALIDATOR, "dekko.accounts.validator")
+
 AccountValidator::AccountValidator(QObject *parent) : QObject(parent),
     m_inProgress(false), m_state(None), m_timer(new QTimer(this))
 {
@@ -26,6 +28,7 @@ AccountValidator::AccountValidator(QObject *parent) : QObject(parent),
 void AccountValidator::validateAccount(Account *account)
 {
     if (m_inProgress) {
+        qCWarning(D_ACCOUNTS_VALIDATOR) << "Validation already in progress";
         emit failed(AccountConfiguration::IMAP, ValidationAlreadyInProgress);
         return;
     }
@@ -34,9 +37,11 @@ void AccountValidator::validateAccount(Account *account)
     init();
     if (m_account->accountId().isValid()) {
         m_timer->start(60 * 1000);
+        qCDebug(D_ACCOUNTS_VALIDATOR) << "Retrieving folder list for account" << m_account->id();
         m_retrievelAction->retrieveFolderList(m_account->accountId(), QMailFolderId(), true);
         m_state = RetrieveFolderList;
     } else {
+        qCWarning(D_ACCOUNTS_VALIDATOR) << "Validation failed for account" << m_account->id();
         emit validationFailed();
         emit failed(static_cast<AccountConfiguration *>(m_account->incoming())->serviceType(), AccountInvalid);
     }
@@ -51,7 +56,8 @@ void AccountValidator::handleAccountActivity(QMailServiceAction::Activity activi
             {
                 // Success retrieving folders so create the standard folders
                 m_state = CreateStandardFolders;
-                QTimer::singleShot(1000, this, &AccountValidator::createStandardFolders);
+                QTimer::singleShot(2000, this, &AccountValidator::createStandardFolders);
+                qCDebug(D_ACCOUNTS_VALIDATOR) << "Folder list retrieved";
                 break;
             }
             case CreateStandardFolders:
@@ -59,6 +65,7 @@ void AccountValidator::handleAccountActivity(QMailServiceAction::Activity activi
                 // Incomings good
                 m_state = TransmitMessage;
                 QTimer::singleShot(1000, this, &AccountValidator::testTransmission);
+                qCDebug(D_ACCOUNTS_VALIDATOR) << "Standard Folders created";
                 break;
             }
             case TransmitMessage:
@@ -69,7 +76,7 @@ void AccountValidator::handleAccountActivity(QMailServiceAction::Activity activi
                 break;
             }
         } else if (activity == QMailServiceAction::Failed) {
-            qDebug() << __func__ << "FAILED";
+            qCDebug(D_ACCOUNTS_VALIDATOR) << __func__ << "FAILED";
             AccountConfiguration *incoming = static_cast<AccountConfiguration *>(m_account->incoming());
             testFailed(incoming->serviceType(), m_retrievelAction->status());
         }
@@ -79,11 +86,13 @@ void AccountValidator::handleAccountActivity(QMailServiceAction::Activity activi
                 // Yay!!!
                 m_timer->stop();
                 emit success();
+                qCDebug(D_ACCOUNTS_VALIDATOR) << "Transmission completed";
                 setInProgress(false);
                 cleanUp();
                 return;
             }
         } else if (activity == QMailServiceAction::Failed) {
+            qCWarning(D_ACCOUNTS_VALIDATOR) << "Transmission failed:" << m_retrievelAction->status().text;
             AccountConfiguration *outgoing = static_cast<AccountConfiguration *>(m_account->outgoing());
             testFailed(outgoing->serviceType(), m_retrievelAction->status());
         }
@@ -92,17 +101,20 @@ void AccountValidator::handleAccountActivity(QMailServiceAction::Activity activi
 
 void AccountValidator::createStandardFolders()
 {
+    qCDebug(D_ACCOUNTS_VALIDATOR) << "Creating standard folders for account: " << m_account->id();
     m_retrievelAction->createStandardFolders(m_account->accountId());
 }
 
 void AccountValidator::testTransmission()
 {
+    qCDebug(D_ACCOUNTS_VALIDATOR) << "Tesing transmission for account: " << m_account->id();
     m_transmitAction->transmitMessages(m_account->accountId());
 }
 
 void AccountValidator::testFailed(AccountConfiguration::ServiceType serviceType, QMailServiceAction::Status status)
 {
 
+    qCDebug(D_ACCOUNTS_VALIDATOR) << "Test failed :-(";
     if (!m_inProgress) {
         return;
     }
@@ -115,6 +127,7 @@ void AccountValidator::testFailed(AccountConfiguration::ServiceType serviceType,
 
 void AccountValidator::init()
 {
+    qCDebug(D_ACCOUNTS_VALIDATOR) << "Initialising validator";
     m_retrievelAction = new QMailRetrievalAction(this);
     connect(m_retrievelAction, &QMailRetrievalAction::activityChanged, this, &AccountValidator::handleAccountActivity);
     m_transmitAction = new QMailTransmitAction(this);
@@ -141,6 +154,7 @@ void AccountValidator::init()
 
 void AccountValidator::cleanUp()
 {
+    qCDebug(D_ACCOUNTS_VALIDATOR) << "Cleaning up...";
     m_retrievelAction->deleteLater();
     m_transmitAction->deleteLater();
 }
