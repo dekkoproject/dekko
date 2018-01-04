@@ -37,6 +37,7 @@ class MessageSet : public QObject
     Q_PROPERTY(int unreadCount READ unreadCount NOTIFY unreadCountChanged)
     Q_PROPERTY(int totalCount READ totalCount NOTIFY totalCountChanged)
     Q_PROPERTY(SupportedActions supportedActions READ supportedActions CONSTANT)
+
 public:
     explicit MessageSet(QObject *parent = 0);
 

@@ -34,3 +34,6 @@
 [submodule "upstream/ubuntu-push-client"]
 	path = upstream/ubuntu-push-client
 	url = https://gitlab.com/dekkoproject/ubuntu-push-client.git
+[submodule "upstream/cache-manager-plugin"]
+        path = upstream/cache-manager-plugin
+        url = https://gitlab.com/dekkoproject/cache-manager-plugin.git
