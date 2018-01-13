@@ -10,7 +10,7 @@ click_armhf:
     - click
     - armhf
   script:
-    - ./setup-click-env
+    # - ./setup-click-env
     - ./build-click
   cache:
     paths:
