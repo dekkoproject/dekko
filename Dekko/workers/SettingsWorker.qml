@@ -109,7 +109,11 @@ AppListener {
         onDispatched: {
             SettingsActions.saveCurrentGroup()
             SettingsActions.saveSelectedAccount()
-            Client.createStandardFolders(SettingsStore.selectedAccount.id)
+            if (Client.detectStandardFolders(SettingsStore.selectedAccount.id)) {
+                console.log("Standard Folders detected")
+            } else {
+                console.warn("Standard folders no detected")
+            }
         }
     }
     Filter {

@@ -22,6 +22,7 @@
 #include <QDBusConnection>
 #include "MailServiceWorker.h"
 #include "serviceutils.h"
+#include "qmailnamespace.h"
 
 #define SERVICE "org.dekkoproject.Service"
 #define SERVICE_PATH "/mail"
@@ -283,6 +284,14 @@ void Client::moveToFolder(const quint64 &msgId, const quint64 &folderId)
 void Client::moveToFolder(const QMailMessageIdList &ids, const QMailFolderId &folderId)
 {
     m_mService->moveToFolder(to_dbus_msglist(ids), folderId.toULongLong());
+}
+
+bool Client::detectStandardFolders(const quint64 &id)
+{
+    auto aId = QMailAccountId(id);
+    if (!aId.isValid())
+        return false;
+    return QMail::detectStandardFolders(aId);
 }
 
 void Client::sendMessage(const QMailMessage &msg)

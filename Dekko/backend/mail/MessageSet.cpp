@@ -19,6 +19,7 @@
 #include <QDebug>
 #include <QDBusPendingReply>
 #include <qmailstore.h>
+#include <qmailnamespace.h>
 #include "MailServiceClient.h"
 #include "serviceutils.h"
 
@@ -185,6 +186,9 @@ void StandardFolderSet::accountsChanged(const QMailAccountIdList &idList)
     Q_FOREACH(auto &enabledId, enabledIds) {
         int index = m_inboxList.indexOf(enabledId);
         if (index == -1) {
+            // FIXME: We shouldn't need to do this here or in appendInboxDescendents
+            // but it works around bug
+            QMail::detectStandardFolders(enabledId);
             auto set = new StandardFolderSet();
             set->setType(SpecialUseInboxFolder);
             set->initNoDecendents(QMailAccount(enabledId).name(), createAccountDescendentKey(enabledId, QMailFolder::InboxFolder));
@@ -197,6 +201,7 @@ void StandardFolderSet::accountsChanged(const QMailAccountIdList &idList)
 void StandardFolderSet::appendInboxDescendents()
 {
     Q_FOREACH(const QMailAccountId &id, queryEnabledAccounts()) {
+        QMail::detectStandardFolders(id);
         auto set = new StandardFolderSet();
         set->setType(SpecialUseInboxFolder);
         set->initNoDecendents(QMailAccount(id).name(), createAccountDescendentKey(id, QMailFolder::InboxFolder));

@@ -102,6 +102,7 @@ public:
     void moveToStandardFolder(const QMailMessageIdList &msgIds, const Folder::FolderType &folder, const bool userTriggered = true);
     Q_INVOKABLE void moveToFolder(const quint64 &msgId, const quint64 &folderId);
     void moveToFolder(const QMailMessageIdList &ids, const QMailFolderId &folderId);
+    Q_INVOKABLE bool detectStandardFolders(const quint64 &id);
 
     Q_INVOKABLE void emptyTrash();
     Q_INVOKABLE void emptyTrash(const int &accountId);

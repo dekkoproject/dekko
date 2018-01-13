@@ -39,6 +39,8 @@ AppListener {
 
     property string formFactor
     readonly property string selectedNavFolder: d.currentNavFolder
+    property int selectedNavIndex: 0
+
 
 
     waitFor: [
