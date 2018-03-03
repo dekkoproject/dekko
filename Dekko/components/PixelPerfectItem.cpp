@@ -18,7 +18,7 @@
 #include "PixelPerfectItem.h"
 
 PixelPerfectItem::PixelPerfectItem(QQuickItem *parent): QQuickItem(parent),
-    m_timer(this), m_content(0)
+    m_content(Q_NULLPTR), m_timer(this)
 {
     m_timer.setInterval(50);
     m_timer.setSingleShot(true);

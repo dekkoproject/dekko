@@ -72,7 +72,7 @@ private slots:
     void accountsChanged(void);
 
 private:
-    int findIndexOf(const int &id);
+    int findIndexOf(const quint64 &id);
     IdentityWrapper *createIdentityFromAccount(Account *account);
     IdentityWrapper *createIdentity(Account *account, const QVariantMap &identity);
     int m_selectedIndex;

@@ -183,7 +183,7 @@ void SenderIdentities::accountsChanged()
     reset();
 }
 
-int SenderIdentities::findIndexOf(const int &id)
+int SenderIdentities::findIndexOf(const quint64 &id)
 {
     foreach(IdentityWrapper *identity, m_model->toList()) {
         if (identity->get_identity()->get_accountId() == id) {

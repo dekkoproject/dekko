@@ -50,6 +50,7 @@ Project {
         Properties {
             usePreBuilt: project.click
             pyothersideInstallDir: project.qmlDir + "/io/thp/pyotherside"
+            condition: project.pyotherside
         }
     }
 
@@ -113,6 +114,11 @@ Project {
 
     SubProject {
         filePath: "cache-manager-plugin/cache-manager-plugin.qbs"
+        inheritProperties: true
+    }
+
+    SubProject {
+        filePath: "richtext-editor/editor.qbs"
         inheritProperties: true
     }
 }

@@ -113,7 +113,7 @@ void AccountValidator::testTransmission()
 
 void AccountValidator::testFailed(AccountConfiguration::ServiceType serviceType, QMailServiceAction::Status status)
 {
-
+    Q_UNUSED(serviceType);
     qCDebug(D_ACCOUNTS_VALIDATOR) << "Test failed :-(";
     if (!m_inProgress) {
         return;

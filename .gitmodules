@@ -37,3 +37,6 @@
 [submodule "upstream/cache-manager-plugin"]
         path = upstream/cache-manager-plugin
         url = https://gitlab.com/dekkoproject/cache-manager-plugin.git
+[submodule "upstream/richtext-editor"]
+	path = upstream/richtext-editor
+	url = https://gitlab.com/dekkoproject/qml-richtext-editor.git

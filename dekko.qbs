@@ -77,6 +77,8 @@ Project {
         allowedValues: ["none", "ubuntu", "qqc2"]
     }
 
+    property bool pyotherside: true
+
     property bool buildAll: true
 
     property bool outputTarPackage: false

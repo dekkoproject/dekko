@@ -3,30 +3,61 @@
 set -e
 
 INSTALL_DIR=$PWD/Qt
-QBS_BIN=$INSTALL_DIR/Tools/QtCreator/bin/qbs
-PY_LIBS=$PWD/pylibs
+QBS_BIN=qbs
 DIR_PREFIX=/lib/arm-linux-gnueabihf
 BIN_DIR=$DIR_PREFIX/bin
 LIB_DIR=$DIR_PREFIX
+DATA_DIR=/usr/share/dekko
 QML_DIR=$LIB_DIR
-BUILD_DIR=$PWD/.build
+PROJECT=/home/ubuntu/Projects/dekko
+BUILD_DIR=$PROJECT/.build-armhf
+PY_LIBS=$PROJECT/pylibs
 
-function cleanup_pylibs {
-    lxc exec clickable-armhf -- bash -c "rm -rf $PY_LIBS"
+function run_cmd {
+    lxc exec ubports-cross -- sudo --login --user ubuntu bash -c "$1"
 }
 
-if [ ! -d "$INSTALL_DIR/Tools" ]; then
-    echo Cannot proceed without a recent qt release;
-    echo Have you run the setup-click-env script?;
-    exit 1;
-fi
+function cleanup_pylibs {
+    run_cmd "rm -rf $PY_LIBS"
+}
+
+function build_xenial {
+    run_cmd "cd $PROJECT && \
+        $QBS_BIN build \
+        -d $BUILD_DIR \
+        -f . \
+        --clean-install-root \
+        --show-progress release \
+        project.click:true \
+        project.pyotherside:false \
+        project.binDir:$BIN_DIR \
+        project.libDir:$LIB_DIR \
+        project.qmlDir:$QML_DIR \
+        project.dataDir:$DATA_DIR \
+        profile:dekkoqt5-armhf"
+}
+
+function build_vivid {
+    run_cmd "cd $PROJECT && \
+        $QBS_BIN build \
+        -d $BUILD_DIR-xenial \
+        -f . \
+        --clean-install-root \
+        --show-progress release \
+        project.click:true \
+        project.pyotherside:true \
+        project.binDir:$BIN_DIR \
+        project.libDir:$LIB_DIR \
+        project.qmlDir:$QML_DIR \
+        project.dataDir:$DATA_DIR \
+        profile:dekkoqt5-armhf"
+}
+
 
 cleanup_pylibs
 
-lxc exec clickable-armhf -- bash -c "cd $PWD && $QBS_BIN build -d $BUILD_DIR -f . --clean-install-root --show-progress --force-probe-execution release project.click:true project.binDir:$BIN_DIR project.libDir:$LIB_DIR project.qmlDir:$QML_DIR project.dataDir:/usr/share/dekko profile:dekkoqt5-armhf"
+build_xenial
 
-sudo chown $USER -R $BUILD_DIR
-click build $BUILD_DIR/release/install-root/
-# lxc exec clickable-armhf -- bash -c "cd $PWD && click build $BUILD_DIR/release/install-root/"
+run_cmd "click build $BUILD_DIR/**/install-root/"
 
 cleanup_pylibs # remove again to ensure we don't mess with host builds
